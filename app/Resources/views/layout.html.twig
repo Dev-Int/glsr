@@ -1,0 +1,48 @@
+{# app\Resources\views\layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <title>{% block title %}{% endblock %}</title>
+        
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+        {% endblock %}
+    </head>
+    
+    <body>
+        <div class="container">
+            <div id="header" class="hero-unit">
+                {% block header %}{% endblock %}
+                <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel OpenClassroom.</p>
+                <p><a class="btn btn-primary btn-large" href="http://fr.openclassrooms.com/informatique/cours/developpez-votre-site-web-avec-le-framework-symfony2">
+                        Lire le tutoriel &raquo; 
+                </a></p>
+            </div>
+                
+            <div class="row">
+                <div id="menu" class="span3">
+                    {% block menu_bundle %}{% endblock %}
+                </div>
+                <div id="content" class="span9">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <hr />
+        
+            <footer>
+                <p>The sky's the limit &copy 2012 and beyond.</p>
+            </footer>
+        </div>
+        
+        {% block javascripts %}
+            {# Ajoutez ces lignes Javascript si vous comptez vous servir des fonctionnalités du bootsrtap Twitter #}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ asset('js/boostrap.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>
