@@ -1,4 +1,5 @@
 /src/Sdz/
 /web/bundles/sdzblog/
 /app/cache/
+/nbproject/
 *log
