@@ -1,5 +1,8 @@
-/src/Sdz/
-/web/bundles/sdzblog/
-/app/cache/
-/nbproject/
-*log
+*/Sdz/*
+*/sdz*
+app/cache/
+app/config/parameters.yml
+nbproject/
+*/logs
+*~
+composer.phar
