@@ -1,9 +1,6 @@
 imports:
     - { resource: config.yml }
 
-#framework:
-#    validation:
-#        cache: apc
 
 #doctrine:
 #    orm:
@@ -19,5 +16,5 @@ monolog:
             handler:      nested
         nested:
             type:  stream
-            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            path:  %kernel.logs_dir%/%kernel.environment%.log
             level: debug

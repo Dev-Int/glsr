@@ -1,3 +1,7 @@
+SdzBlogBundle_traduction:
+    pattern:  /{_locale}/traduction/{name}
+    defaults: { _controller: SdzBlogBundle:Blog:traduction }
+
 _wdt:
     resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
     prefix:   /_wdt
@@ -10,6 +14,8 @@ _configurator:
     resource: "@SensioDistributionBundle/Resources/config/routing/webconfigurator.xml"
     prefix:   /_configurator
 
+console:
+    resource: "@CoreSphereConsoleBundle/Resources/config/routing.yml"
+
 _main:
     resource: routing.yml
-
