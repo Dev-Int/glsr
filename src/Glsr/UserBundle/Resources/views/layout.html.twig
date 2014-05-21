@@ -1,0 +1,53 @@
+{# src\Glsr\UserBundle\Resources\views\layout.html.twig #}
+
+{# On étend notre layout #}
+{% extends "::layout.html.twig" %}
+
+{% block header %}
+    <h1>Glsr<p>Gestion Libre des Stocks d'un Restaurant...</p></h1>
+{% endblock %}
+
+{% block menu_bundle %}
+    <ul class="nav nav-pills">
+        <li><a href="{{ path('glstock_home') }}">Accueil</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                Article <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
+                <li><a href="{{ path('glstock_art_edit') }}">Article edit</a></li>
+                <li><a href="{{ path('glstock_art_del') }}">Article delete</a></li>
+                {% endif %}
+            </ul>
+
+        </li>
+        <span class="pull-right">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                connecté en tant que {{ app.user.username }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            {% else %}
+                <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">Connexion</a>
+            {% endif %}
+        </span>
+    </ul>
+
+    {#{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }#}
+
+{% endblock %}
+
+
+{% block body %}
+    {# On affiche les messages flash #}
+    {% for key, message in app.session.flashbag.all() %}
+        <div class="alert alert-{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endfor %}
+
+    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+{% endblock %}
