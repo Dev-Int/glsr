@@ -11,4 +11,4 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: fr
-    secret: b428b98839ba648063ce40a313fb81df7252ecef
+    secret: your_scret
