@@ -1,0 +1,57 @@
+{# src\Glsr\GestockBundle\Resources\views\layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+{% block title %}
+    Gestock - GLSR
+{% endblock %}
+
+{% block header %}
+    <div class="page-header">
+        <h1>
+            <span class="glyphicon glyphicon-cutlery"></span> 
+            Glsr <small>Gestion Libre des Stocks d'un Restaurant...</small>
+        </h1>
+    </div>
+{% endblock %}
+    
+    
+{% block menu_bundle %}
+    <ul class="nav nav-pills">
+        <li><a href="{{ path('glstock_home') }}">Accueil</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                Article <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
+                {% endif %}
+            </ul>
+
+        </li>
+        <span class="pull-right">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                connecté en tant que {{ app.user.username }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            {% else %}
+                <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">Connexion</a>
+            {% endif %}
+        </span>
+    </ul>
+
+    {#{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }#}
+
+{% endblock %}
+
+{% block body %}
+    {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+    <h1>Gestock</h1>
+    
+    <hr />
+    {% for message in app.session.flashbag.get('info') %}
+    <p class="well badge-success">{{ message }}</p>
+    {% endfor %}
+    {# On définit un nouveau block, que les vues du bundle pourront remplir #}
+    {% block glstock_body %}
+    {% endblock %}
+{% endblock %}

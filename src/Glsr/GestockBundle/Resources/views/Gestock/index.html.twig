@@ -1,0 +1,61 @@
+{# src/Glsr/GestockBundle/Resources/views/Gestock/index.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Accueil - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    <h2>Bienvenue sur la page d'accueil Gestock</h2>
+    <section class="col-md-3">
+        <div class="panel panel-default">
+            <header class="panel-heading">Configuration</header>
+            <div class="panel-body">
+                <ul>
+                    <li><a href="{{ path('glstock_config_appli') }}">Application</a></li>
+                    <li><a href="{{ path('glstock_config_society') }}">Société</a></li>
+                    <li><a href="{{ path('glstock_config_divers') }}">Divers</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        {{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }}
+        
+    </section>
+    <div class="col-md-1"></div>
+    <section class="col-md-4 well">
+        <div class="panel panel-default">
+            <header class="panel-heading">Article</header>
+            <section class="panel-body">
+                <ul>
+                    <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
+                    {% endif %}
+                </ul>
+            </section>
+        </div>
+        <div class="panel panel-default">
+            <header class="panel-heading">Fournisseur</header>
+            <section class="panel-body">
+                <ul>
+                    <li><a href="{{ path('glstock_suppli_show') }}">Supplier list</a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('glstock_suppli_add') }}">Supplier add</a></li>
+                    {% endif %}
+                </ul>
+            </section>
+        </div>
+    </section>
+    <div class="col-md-1"></div>
+    <section class="col-md-3 well panel panel-default">
+        <header class="panel-heading">Gestion</header>
+        <ul class="panel-body">
+            <li><a href="">Inventaires</a></li>
+            <li><a href="">Suivi des Commandes</a></li>
+            <li><a href="">Suivi des Livraisons</a></li>
+        </ul>
+    </section>
+    
+{% endblock %}

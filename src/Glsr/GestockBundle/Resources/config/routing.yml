@@ -1,0 +1,57 @@
+# src/Glsr/GestockBundle/Resources/config/routing.yml
+
+glstock_home:
+    pattern:  /
+    defaults: { _controller: GlsrGestockBundle:Gestock:index }
+
+# Routes Config
+glstock_config_appli:
+    pattern:  /config/application
+    defaults: { _controller: GlsrGestockBundle:Config:application }
+
+glstock_config_society:
+    pattern:  /config/society
+    defaults: { _controller: GlsrGestockBundle:Config:society }
+
+glstock_config_divers:
+    pattern:  /config/divers
+    defaults: { _controller: GlsrGestockBundle:Config:divers }
+
+# Routes des Articles
+glstock_art_show:
+    pattern:  /article
+    defaults: { _controller: GlsrGestockBundle:Article:index }
+    
+glstock_art_add:
+    pattern:  /article/add
+    defaults: { _controller: GlsrGestockBundle:Article:add }
+    
+glstock_art_edit:
+    pattern:  /article/edit/{article}
+    defaults: { _controller: GlsrGestockBundle:Article:edit }
+    
+glstock_art_del:
+    pattern:  /article/delete
+    defaults: { _controller: GlsrGestockBundle:Article:delete }
+
+# Routes des Suppliers
+glstock_suppli_show:
+    pattern:  /supplier
+    defaults: { _controller: GlsrGestockBundle:Supplier:index }
+    
+glstock_suppli_add:
+    pattern:  /supplier/add
+    defaults: { _controller: GlsrGestockBundle:Supplier:add }
+    
+glstock_suppli_edit:
+    pattern:  /supplier/edit
+    defaults: { _controller: GlsrGestockBundle:Supplier:edit }
+    
+glstock_suppli_del:
+    pattern:  /supplier/delete
+    defaults: { _controller: GlsrGestockBundle:Supplier:delete }
+
+# route des alertes
+glstock_show:
+    pattern:  /
+    defaults: { _controller: GlsrGestockBundle:Gestock:index }

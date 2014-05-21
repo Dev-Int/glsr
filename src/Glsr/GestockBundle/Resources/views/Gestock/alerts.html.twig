@@ -1,0 +1,18 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\menu.html.twig #}
+<section class="panel panel-danger">
+    <header class="panel-heading">Alertes</header>
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            {% for alert in list_alerts %}
+                <li>
+
+                    <a class="left" href="{{ path('glstock_show') }}">{# , {'id': alert.id} #}
+                        <i class="glyphicon glyphicon-eye-open pull-right"></i>
+                        {{ alert.titre }}:
+                        {{ alert.num }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>

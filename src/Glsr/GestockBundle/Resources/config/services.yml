@@ -1,0 +1,11 @@
+parameters:
+#    glsr_gestock.example.class: Glsr\GestockBundle\Example
+#    glsr_gestock.antispam.class: Glsr\GestockBundle\Antispam\SdzAntispam
+
+services:
+#    glsr_gestock.example:
+#        class: %glsr_gestock.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+#    sdzblog.antispam:
+#        class: %glsr_gestock.antispam.class%
+#        arguments: [@mailer, %locale%, 3]
