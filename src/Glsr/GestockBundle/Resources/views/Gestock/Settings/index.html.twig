@@ -203,5 +203,40 @@
                 </p>
             </div>
         </div>
+
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="tva"></a>Tva</header>
+            <div class="panel-body">
+                <p>Gestion des paramètres des taxes.</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-6">Taux de Tva</th>
+                            <th class="col-md-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for taxe in tva %}
+                        <tr>
+                            <td class="col-md-6">{{ taxe.name }}</td>
+                            <td class="col-md-3">
+                                <a href="{{ path('glstock_setdiv_tva_edit', {'id': taxe.id}) }}" class="btn btn-default" title="{{ 'Modifier Tva'|trans }}">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_setdiv_tva_add') }}" class="btn btn-default">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Ajouter Tva'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
     </section>    
 {% endblock %}

@@ -63,6 +63,15 @@ glstock_setdiv_unitstorage_edit:
     requirements:
         id: \d+
 
+glstock_setdiv_tva_add:
+    pattern:  /tva/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addTva }
+glstock_setdiv_tva_edit:
+    pattern:  /tva/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editTva }
+    requirements:
+        id: \d+
+
 
 # Routes des Articles
 glstock_art_show:
