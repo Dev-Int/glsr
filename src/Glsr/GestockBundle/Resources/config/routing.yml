@@ -4,18 +4,65 @@ glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
 
-# Routes Config
-glstock_config_appli:
-    pattern:  /config/application
-    defaults: { _controller: GlsrGestockBundle:Config:application }
+# Routes Settings
+glstock_settings:
+    pattern:  /settings
+    defaults: { _controller: GlsrGestockBundle:Settings:index }
 
-glstock_config_society:
-    pattern:  /config/society
-    defaults: { _controller: GlsrGestockBundle:Config:society }
+glstock_settings_add:
+    pattern:  /settings/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addSettings }
+glstock_settings_edit:
+    pattern:  /settings/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editSettings }
+    requirements:
+        id: \d+
 
-glstock_config_divers:
-    pattern:  /config/divers
-    defaults: { _controller: GlsrGestockBundle:Config:divers }
+glstock_company_add:
+    pattern:  /company/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addCompany }
+glstock_company_edit:
+    pattern:  /company/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editCompany }
+    requirements:
+        id: \d+
+
+glstock_setdiv_famlog_add:
+    pattern:  /familylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addFamilyLog }
+glstock_setdiv_famlog_edit:
+    pattern:  /familylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editFamilyLog }
+    requirements:
+        id: \d+
+
+glstock_setdiv_subfamlog_add:
+    pattern:  /subfamilylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addSubFamilyLog }
+glstock_setdiv_subfamlog_edit:
+    pattern:  /subfamilylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editSubFamilyLog }
+    requirements:
+        id: \d+
+
+glstock_setdiv_zonestorage_add:
+    pattern:  /zonestorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addZoneStorage }
+glstock_setdiv_zonestorage_edit:
+    pattern:  /zonestorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editZoneStorage }
+    requirements:
+        id: \d+
+
+glstock_setdiv_unitstorage_add:
+    pattern:  /unitstorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addUnitStorage }
+glstock_setdiv_unitstorage_edit:
+    pattern:  /unitstorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editUnitStorage }
+    requirements:
+        id: \d+
+
 
 # Routes des Articles
 glstock_art_show:
