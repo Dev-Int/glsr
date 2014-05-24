@@ -16,8 +16,8 @@
     
     
 {% block menu_bundle %}
-    <ul class="nav nav-pills">
-        <li><a href="{{ path('glstock_home') }}">Accueil</a></li>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{{ path('glstock_home') }}">Accueil</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                 Article <span class="caret"></span>
@@ -27,6 +27,17 @@
                 {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
                 {% endif %}
+            </ul>
+
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                Settings <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('glstock_settings') }}#company">Company</a></li>
+                <li><a href="{{ path('glstock_settings') }}#application">Application</a></li>
+                <li><a href="{{ path('glstock_settings') }}#divers">Divers</a></li>
             </ul>
 
         </li>
