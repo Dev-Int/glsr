@@ -36,12 +36,6 @@ class SettingsController extends Controller
         
         $repoCompany = $etm->getRepository('GlsrGestockBundle:Company');
         $company = $repoCompany->findAll();
-        if (empty($company)) {
-            // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Il faut renseigner les informations de la société');
-            // On redirige vers la page d'ajout d'information de la société
-            return $this->redirect($this->generateUrl('glstock_company_add'));
-        }
         
         $repoSubFamilyLog = $etm->getRepository('GlsrGestockBundle:SubFamilyLog');
         $subFamilyLog = $repoSubFamilyLog->findAll();
