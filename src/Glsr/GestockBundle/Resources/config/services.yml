@@ -1,11 +1,10 @@
 parameters:
-#    glsr_gestock.example.class: Glsr\GestockBundle\Example
-#    glsr_gestock.antispam.class: Glsr\GestockBundle\Antispam\SdzAntispam
+    gestock.entity.class: Glsr\GestockBundle\Entity
 
 services:
-#    glsr_gestock.example:
-#        class: %glsr_gestock.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
-#    sdzblog.antispam:
-#        class: %glsr_gestock.antispam.class%
-#        arguments: [@mailer, %locale%, 3]
+#    kernel.listener.glsr_request:
+#        class: Glsr\GestockBundle\Listener\GlsrRequestListener
+#        arguments: [ @doctrine.orm.entity_manager, @service_container, @router ]
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
