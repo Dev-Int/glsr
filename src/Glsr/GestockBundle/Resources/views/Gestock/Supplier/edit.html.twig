@@ -1,0 +1,21 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Supplier\edit.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Settings - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    
+    <h3>{{ 'Edit Supplier'|trans }}</h3>
+    
+    {% include 'GlsrGestockBundle:Gestock/Supplier:form.html.twig' %}
+    
+    <p>
+        <a href="{{ path('glstock_suppli_show') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            {{ "Retour à la liste"|trans }}
+        </a>
+    </p>
+{% endblock %}

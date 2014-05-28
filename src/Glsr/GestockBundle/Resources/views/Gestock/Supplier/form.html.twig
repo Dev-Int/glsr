@@ -1,0 +1,14 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Supplier\form.html.twig #}
+
+{# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
+{# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
+
+<h4>{{ "Formulaire Supplier"|trans }}</h4>
+
+<div class="well">
+    <form method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" class="btn btn-default btn-primary" value="{{ 'article.edit.submit_button'|trans }}" />
+    </form>
+</div>
