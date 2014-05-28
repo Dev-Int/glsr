@@ -61,4 +61,12 @@ class ZoneStorage
     {
         return $this->name;
     }
+    
+    // Cette méthode permet de faire "echo $zoneStorage"
+    // Ainsi, pour "afficher" $zoneStorage, PHP affichera en réalité le retour de cette méthode
+    // Ici, le nom, donc "echo $zoneStorage" est équivalent à "echo $zoneStorage->getName()"
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

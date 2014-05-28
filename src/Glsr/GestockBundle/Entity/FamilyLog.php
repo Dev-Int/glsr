@@ -61,4 +61,12 @@ class FamilyLog
     {
         return $this->name;
     }
+    
+    // Cette méthode permet de faire "echo $familyLog"
+    // Ainsi, pour "afficher" $familyLog, PHP affichera en réalité le retour de cette méthode
+    // Ici, le nom, donc "echo $familyLog" est équivalent à "echo $familyLog->getName()"
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -133,4 +133,12 @@ class SubFamilyLog
     {
         return $this->familylog;
     }
+    
+    // Cette méthode permet de faire "echo $subFamilyLog"
+    // Ainsi, pour "afficher" $subFamilyLog, PHP affichera en réalité le retour de cette méthode
+    // Ici, le nom, donc "echo $subFamilyLog" est équivalent à "echo $subFamilyLog->getName()"
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

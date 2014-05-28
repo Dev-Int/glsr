@@ -91,4 +91,12 @@ class UnitStorage
     {
         return $this->abbr;
     }
+    
+    // Cette méthode permet de faire "echo $unitStorage"
+    // Ainsi, pour "afficher" $unitStorage, PHP affichera en réalité le retour de cette méthode
+    // Ici, le nom, donc "echo $unitStorage" est équivalent à "echo $unitStorage->getName()"
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
