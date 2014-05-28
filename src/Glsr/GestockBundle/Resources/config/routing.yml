@@ -67,7 +67,7 @@ glstock_setdiv_unitstorage_edit:
 # Routes des Articles
 glstock_art_show:
     pattern:  /article/{page}
-    defaults: { _controller: GlsrGestockBundle:Article:index }
+    defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
     
 glstock_art_add:
     pattern:  /article/add
@@ -84,7 +84,7 @@ glstock_art_del:
 # Routes des Suppliers
 glstock_suppli_show:
     pattern:  /supplier/{page}
-    defaults: { _controller: GlsrGestockBundle:Supplier:index }
+    defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
     
 glstock_suppli_add:
     pattern:  /supplier/add
