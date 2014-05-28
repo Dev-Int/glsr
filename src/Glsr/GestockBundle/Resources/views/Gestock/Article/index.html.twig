@@ -60,6 +60,14 @@
             {% endfor %}
         </tbody>
     </table>
+    <p>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('glstock_art_add') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'Ajouter Article'|trans }}
+        </a>
+        {% endif %}
+    </p>
 
     {# S'il y a plus d'une page, on affiche la liste des pages #}
     {% if nb_page > 1 %}
