@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * Article
  *
  * @ORM\Table(name="gs_article")
- * @ORM\Entity(repositoryClass="Sdz\BlogBundle\Entity\ArticleRepository")
+ * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Article

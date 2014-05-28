@@ -3,6 +3,7 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * SupplierRepository
@@ -24,13 +25,9 @@ class SupplierRepository extends EntityRepository
             throw new \InvalidArgumentException('l\'argument $page ne peut être inférieur à 1 (valeur : "'.$page.'").');
         }
         
-        $query = $this->createQueryBuilder('a')
-            ->leftjoin('a.familylog', 'f')
-            ->addSelect('fl')
-            ->leftJoin('a.subfamilylog', 'sf')
-            ->addSelect('sfl')
-            ->where('a.active = 1')
-            ->orderBy('a.name', 'ASC')
+        $query = $this->createQueryBuilder('s')
+            ->where('s.active = 1')
+            ->orderBy('s.name', 'ASC')
             ->getQuery();
         
         // On définit l'article à partir duquel commencer la liste

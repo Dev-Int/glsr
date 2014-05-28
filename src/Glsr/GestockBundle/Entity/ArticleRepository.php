@@ -3,6 +3,7 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * ArticleRepository
@@ -27,14 +28,6 @@ class ArticleRepository extends EntityRepository
         $query = $this->createQueryBuilder('a')
             ->leftjoin('a.supplier', 's')
             ->addSelect('s')
-            ->leftjoin('a.familylog', 'f')
-            ->addSelect('fl')
-            ->leftJoin('a.subfamilylog', 'sf')
-            ->addSelect('sfl')
-            ->leftJoin('a.unitstorage', 'u')
-            ->addSelect('u')
-            ->leftJoin('a.zonestorage', 'z')
-            ->addSelect('z')
             ->where('a.active = 1')
             ->orderBy('a.name', 'ASC')
             ->getQuery();

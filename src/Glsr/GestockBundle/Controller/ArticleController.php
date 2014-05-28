@@ -9,19 +9,21 @@ use Glsr\GestockBundle\Form\ArticleType;
 
 class ArticleController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
         // On récupère le nombre d'article par page depuis un paramètre du conteneur
         // cf app/config/parameters.yml
-        $nbParPage = $this->container->getParameter('glsr.nb_per_page');
+        $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
         
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
-            ->getArticles($nbParPage, $page);
+            ->getArticles($nbPerPage, $page);
 
         return $this->render('GlsrGestockBundle:Gestock/Article:index.html.twig', array(
-            'articles' => $articles
+            'articles' => $articles,
+            'page'       => $page,
+            'nb_page' => ceil(count($articles) / $nbPerPage) ?: 1
         ));
     }
     
