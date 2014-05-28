@@ -17,15 +17,52 @@
     
 {% block menu_bundle %}
     <ul class="nav nav-tabs">
-        <li class="active"><a href="{{ path('glstock_home') }}">Accueil</a></li>
+        <li class="active">
+            <a href="{{ path('glstock_home') }}">
+                <i class="glyphicon glyphicon-home"></i>
+                Accueil
+            </a>
+        </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                 Article <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
+                <li>
+                    <a href="{{ path('glstock_art_list') }}">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        Article list
+                    </a>
+                </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
+                <li>
+                    <a href="{{ path('glstock_art_add') }}">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Article add
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                Supplier <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{{ path('glstock_suppli_list') }}">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        Supplier list
+                    </a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="{{ path('glstock_suppli_add') }}">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Supplier add
+                    </a>
+                </li>
                 {% endif %}
             </ul>
 
@@ -35,9 +72,15 @@
                 Settings <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('glstock_settings') }}#company">Company</a></li>
-                <li><a href="{{ path('glstock_settings') }}#application">Application</a></li>
-                <li><a href="{{ path('glstock_settings') }}#divers">Divers</a></li>
+                <li><a href="{{ path('glstock_settings') }}#company">
+                        <i class="glyphicon glyphicon-tower"></i>
+                        Company</a></li>
+                <li><a href="{{ path('glstock_settings') }}#application">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        Application</a></li>
+                <li><a href="{{ path('glstock_settings') }}#divers">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        Divers</a></li>
             </ul>
 
         </li>
@@ -60,8 +103,12 @@
     
     <hr />
     {% for message in app.session.flashbag.get('info') %}
-    <p class="well badge-success">{{ message }}</p>
+    <p class="alert alert-info">{{ message }}</p>
     {% endfor %}
+    {% for message in app.session.flashbag.get('error') %}
+    <p class="alert alert-danger">{{ message }}</p>
+    {% endfor %}
+
     {# On définit un nouveau block, que les vues du bundle pourront remplir #}
     {% block glstock_body %}
     {% endblock %}

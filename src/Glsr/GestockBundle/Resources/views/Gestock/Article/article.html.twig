@@ -1,0 +1,30 @@
+        <tr>
+            <td width="2%">{{ article.id }}</td>
+            <td width="15%">{{ article.name }}</td>
+            <td width="15%">{{ article.supplier }}</td>
+            <td width="8%">{{ article.unitstorage }}</td>
+            <td width="5%">{{ article.unitbill }}</td>
+            <td width="10%">{{ article.price }} €</td>
+            <td width="5%">{{ article.quantity }}</td>
+            <td width="8%">{{ article.minstock }}</td>
+            <td width="12%">
+                {% for zstorage in article.zonestorages %}
+                    - {{ zstorage.name }}<br />
+                {% endfor %}
+            </td>
+            <td width="10%">{{ article.familyLog }}</td>
+            <td width="5%">{{ article.subFamilyLog }}</td>
+        </tr>
+
+    {% block buttons %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('glstock_art_add') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'Ajouter Article'|trans }}
+        </a>&nbsp;
+        <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ "Modifier l'Article"|trans }}
+        </a>
+        {% endif %}
+    {% endblock %}

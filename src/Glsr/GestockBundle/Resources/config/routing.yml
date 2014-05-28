@@ -65,9 +65,15 @@ glstock_setdiv_unitstorage_edit:
 
 
 # Routes des Articles
-glstock_art_show:
+glstock_art_list:
     pattern:  /article/{page}
     defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_art_show:
+    pattern:  /article/{name}
+    defaults: { _controller: GlsrGestockBundle:Article:show }
     requirements:
         page:  \d+
     
@@ -84,9 +90,15 @@ glstock_art_del:
     defaults: { _controller: GlsrGestockBundle:Article:delete }
 
 # Routes des Suppliers
-glstock_suppli_show:
+glstock_suppli_list:
     pattern:  /supplier/{page}
     defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_suppli_show:
+    pattern:  /supplier/{name}
+    defaults: { _controller: GlsrGestockBundle:Supplier:show }
     requirements:
         page:  \d+
     

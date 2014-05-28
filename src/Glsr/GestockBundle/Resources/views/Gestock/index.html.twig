@@ -13,9 +13,15 @@
             <header class="panel-heading"><a href="{{ path('glstock_settings') }}">Configuration</a></header>
             <div class="panel-body">
                 <ul>
-                    <li><a href="{{ path('glstock_settings') }}#application">Application</a></li>
-                    <li><a href="{{ path('glstock_settings') }}#company">Company</a></li>
-                    <li><a href="{{ path('glstock_settings') }}#divers">Divers</a></li>
+                    <li><a href="{{ path('glstock_settings') }}#application">
+                            <i class="glyphicon glyphicon-tower"></i>
+                            Application</a></li>
+                    <li><a href="{{ path('glstock_settings') }}#company">
+                            <i class="glyphicon glyphicon-cog"></i>
+                            Company</a></li>
+                    <li><a href="{{ path('glstock_settings') }}#divers">
+                            <i class="glyphicon glyphicon-cog"></i>
+                            Divers</a></li>
                 </ul>
             </div>
         </div>
@@ -29,9 +35,13 @@
             <header class="panel-heading">Article</header>
             <section class="panel-body">
                 <ul>
-                    <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
+                    <li><a href="{{ path('glstock_art_list') }}">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            Article list</a></li>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
+                    <li><a href="{{ path('glstock_art_add') }}">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Article add</a></li>
                     {% endif %}
                 </ul>
             </section>
@@ -40,9 +50,13 @@
             <header class="panel-heading">Fournisseur</header>
             <section class="panel-body">
                 <ul>
-                    <li><a href="{{ path('glstock_suppli_show') }}">Supplier list</a></li>
+                    <li><a href="{{ path('glstock_suppli_list') }}">
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                            Supplier list</a></li>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('glstock_suppli_add') }}">Supplier add</a></li>
+                    <li><a href="{{ path('glstock_suppli_add') }}">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            Supplier add</a></li>
                     {% endif %}
                 </ul>
             </section>
@@ -52,9 +66,18 @@
     <section class="col-md-3 well panel panel-default">
         <header class="panel-heading">Gestion</header>
         <ul class="panel-body">
-            <li><a href="">Inventaires</a></li>
-            <li><a href="">Suivi des Commandes</a></li>
-            <li><a href="">Suivi des Livraisons</a></li>
+            <li><a href="">
+                    <i class="glyphicon glyphicon-tasks"></i>
+                    Inventaires
+                </a></li>
+            <li><a href="">
+                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                    Suivi des Commandes
+                </a></li>
+            <li><a href="">
+                    <i class="glyphicon glyphicon-road"></i>
+                    Suivi des Livraisons
+                </a></li>
         </ul>
     </section>
     

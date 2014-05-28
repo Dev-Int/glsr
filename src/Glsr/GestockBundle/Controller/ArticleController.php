@@ -109,6 +109,13 @@ class ArticleController extends Controller
     {
         
     }
+    
+    public function showAction(Article $article)
+    {
+        return $this->render('GlsrGestockBundle:Gestock/Article:index.html.twig', array(
+            'article' => $article
+        ));
+    }
 }
 
 ?>

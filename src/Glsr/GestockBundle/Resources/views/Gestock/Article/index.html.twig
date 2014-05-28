@@ -8,7 +8,7 @@
 
 {% block glstock_body %}
 
-    <h2>Liste des articles</h2>
+    <h2><i class="glyphicon glyphicon-list-alt"></i> Liste des articles</h2>
 
     <table class="table-striped table-bordered">
         <thead>
@@ -27,60 +27,32 @@
             </tr>
         </thead>
         <tbody>
-        {% for article in articles %}
-            <tr>
-                <td width="2%">{{ article.id }}</td>
-                <td width="15%">
-                    <a href="{{ path('glstock_art_edit', {'name': article.name}) }}">
-                        {{ article.name }}
-                    </a>
-                </td>
-                <td width="15%">
-                    <a href="{{ path('glstock_suppli_edit', {'name': article.supplier}) }}">
-                        {{ article.supplier }}
-                    </a>
-                </td>
-                <td width="8%">{{ article.unitstorage }}</td>
-                <td width="5%">{{ article.unitbill }}</td>
-                <td width="10%">{{ article.price }} €</td>
-                <td width="5%">{{ article.quantity }}</td>
-                <td width="8%">{{ article.minstock }}</td>
-                <td width="12%">
-                    {% for zstorage in article.zonestorages %}
-                        - {{ zstorage.name }}<br />
-                    {% endfor %}
-                </td>
-                <td width="10%">{{ article.familyLog }}</td>
-                <td width="5%">{{ article.subFamilyLog }}</td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">Pas (encore !) d'article</td>
-            </tr>
-            {% endfor %}
+        {% if articles is defined %}
+            {% include 'GlsrGestockBundle:Gestock/Article:articles.html.twig' %}
+        {% elseif article is defined %}
+            {% include 'GlsrGestockBundle:Gestock/Article:article.html.twig' %}
+        {% endif %}
         </tbody>
     </table>
     <p>
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('glstock_art_add') }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
-            {{ 'Ajouter Article'|trans }}
-        </a>
-        {% endif %}
+        {% block buttons %}
+        {% endblock %}
     </p>
 
     {# S'il y a plus d'une page, on affiche la liste des pages #}
-    {% if nb_page > 1 %}
-        <div class="pagination">
-            <ul>
-                {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
-                {% for p in range(1, nb_page) %}
-                    <li {% if p == page %} class="active" {% endif %}>
-                        <a href="{{ path('glstock_home', {'page': p}) }}">{{ p }}</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+    {% if articles is defined %}
+        {% if nb_page > 1 %}
+            <div class="pagination">
+                <ul>
+                    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+                    {% for p in range(1, nb_page) %}
+                        <li {% if p == page %} class="active" {% endif %}>
+                            <a href="{{ path('glstock_home', {'page': p}) }}">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

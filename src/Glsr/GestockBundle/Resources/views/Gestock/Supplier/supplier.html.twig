@@ -1,0 +1,24 @@
+    <tr>
+        <td class="col-md-1">{{ supplier.id }}</td>
+        <td class="col-md-2">{{ supplier.name }}</td>
+        <td class="col-md-2">
+            {{ supplier.address }}<br />
+            {{ supplier.zipcode }}<br />
+            {{ supplier.town }}
+        </td>
+        <td class="col-md-1">{{ supplier.familyLog }}</td>
+        <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
+    </tr>
+
+    {% block buttons %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'Ajouter Supplier'|trans }}
+        </a>&nbsp;
+        <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'Modifier Supplier'|trans }}
+        </a>
+        {% endif %}
+    {% endblock %}

@@ -99,4 +99,11 @@ class SupplierController extends Controller
             'form' => $form->createView()
         ));
     }
+    
+    public function showAction(Supplier $supplier)
+    {
+        return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(
+            'supplier' => $supplier
+        ));
+    }
 }
