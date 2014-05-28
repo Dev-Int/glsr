@@ -1,0 +1,23 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\add.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'article.create.title'|trans }} - {{ parent() }}
+{% endblock %}
+    
+{% block glstock_body %}
+    
+    <h3>{{ 'article.create.title'|trans }}</h3>
+    
+    {% include 'GlsrGestockBundle:Gestock/Article:form.html.twig' %}
+    
+    <p>{{ 'article.create.caution'|trans }}</p>
+    
+    <p>
+        <a href="{{ path('glstock_home') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            {{ "glsr.gestock.home.return"|trans }}
+        </a>
+    </p>
+{% endblock %}

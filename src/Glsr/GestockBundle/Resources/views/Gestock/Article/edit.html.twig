@@ -1,0 +1,21 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\edit.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Settings - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    
+    <h3>{{ 'Edit Article'|trans }}</h3>
+    
+    {% include 'GlsrGestockBundle:Gestock/Article:form.html.twig' %}
+    
+    <p>
+        <a href="{{ path('glstock_art_show') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            {{ "Retour à la liste"|trans }}
+        </a>
+    </p>
+{% endblock %}

@@ -1,0 +1,70 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\form.html.twig #}
+
+{# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
+{# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
+
+<h4>{{ "article.form"|trans }}</h4>
+
+<div class="well">
+    <form method="post" {{ form_enctype(form) }} class="form-horizontal" role='form'>
+        {{ form_errors(form) }}
+        <fieldset><legend>Informations</legend>
+            <section class="row col-md-12">
+                <div class="col-md-5 form-group">
+                    {{ form_label(form.name, "Intitulé"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.name) }}</span>
+                    {{ form_widget(form.name) }}
+                </div>
+                <div class="col-md-5 form-group">
+                    {{ form_label(form.supplier, "Fournisseur"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.supplier) }}</span>
+                    {{ form_widget(form.supplier) }}
+                </div>
+                <div class="col-md-2 form-group">
+                    {{ form_label(form.active, "Actif"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.active) }}</span>
+                    {{ form_widget(form.active) }}
+                </div>
+            </section>
+            <section class="row col-md-12">
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.zone_storages, "Zone de stockage"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
+                    {{ form_widget(form.zone_storages) }}
+                </div>
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.family_log, "Famille logistique"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.family_log) }}</span>
+                    {{ form_widget(form.family_log) }}
+                </div>
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.sub_family_log, "Sous-famille"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.sub_family_log) }}</span>
+                    {{ form_widget(form.sub_family_log) }}
+                </div>
+            </section>
+        </fieldset>
+        <fieldset><legend>Caractéristiques</legend>
+             <section class="row col-md-12">
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.quantity, "Quantité"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.quantity) }}</span>
+                    {{ form_widget(form.quantity) }}
+                </div>
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.unit_storage, "Unité de stockage"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
+                    {{ form_widget(form.unit_storage) }}
+                </div>
+                <div class="col-md-4 input-group form-group">
+                    {{ form_label(form.price, "Prix"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.price) }}</span>
+                    <span class="input-group-addon">&euro;</span>{{ form_widget(form.price) }}
+                </div>
+            </section>
+           {{ form_rest(form) }}
+        </fieldset>
+
+        <input type="submit" class="btn btn-default btn-primary" value="{{ 'article.edit.submit_button'|trans }}" />
+    </form>
+</div>

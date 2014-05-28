@@ -1,0 +1,63 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\index.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Article - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    <h2>Liste des articles</h2>
+
+    <table class="table-striped table-bordered">
+        <thead>
+            <tr>
+                <th width="2%">id</th>
+                <th width="15%">name</th>
+                <th width="15%">supplier</th>
+                <th width="8%">{#unitstorage#}unité stockage</th>
+                <th width="5%">{#unitbill#}unité facture</th>
+                <th width="10%">price</th>
+                <th width="5%">quantity</th>
+                <th width="8%">{#minstock#}mini</th>
+                <th width="12%">{#zonestorages#}zone stockage</th>
+                <th width="10%">{#FamilyLog#}famille logistique</th>
+                <th width="5%">{#SubFamilyLog#}sous famille</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td width="2%">{{ article.id }}</td>
+                <td width="15%">
+                    <a href="{{ path('glstock_art_edit', {'name': article.name}) }}">
+                        {{ article.name }}
+                    </a>
+                </td>
+                <td width="15%">
+                    <a href="{{ path('glstock_suppli_edit', {'name': article.supplier}) }}">
+                        {{ article.supplier }}
+                    </a>
+                </td>
+                <td width="8%">{{ article.unitstorage }}</td>
+                <td width="5%">{{ article.unitbill }}</td>
+                <td width="10%">{{ article.price }} €</td>
+                <td width="5%">{{ article.quantity }}</td>
+                <td width="8%">{{ article.minstock }}</td>
+                <td width="12%">
+                    {% for zstorage in article.zonestorages %}
+                        - {{ zstorage.name }}<br />
+                    {% endfor %}
+                </td>
+                <td width="10%">{{ article.familyLog }}</td>
+                <td width="5%">{{ article.subFamilyLog }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Pas (encore !) d'article</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
