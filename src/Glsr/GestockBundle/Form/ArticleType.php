@@ -6,9 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Glsr\GestockBundle\Entity\Settings;
+
+/**
+ * Article Form properties
+ */
 class ArticleType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,11 +21,29 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('name',            'text')
-            ->add('unit_bill',       'text')
-            ->add('price',           'text')
-            ->add('quantity',        'text')
-            ->add('minstock',        'text')
-            ->add('realstock',       'text')
+            ->add('unit_bill',       'number', array(
+                'precision'     => 3,
+                'grouping'      => TRUE,
+                'label'         => 'packaging'
+            ))
+            ->add('price',           'money', array(
+                'precision'     => 3,
+                'grouping'      => TRUE,
+                'currency'      => 'EUR'
+            ))
+            ->add('quantity',        'number', array(
+                'precision'     => 3,
+                'grouping'      => TRUE,
+            ))
+            ->add('minstock',        'number', array(
+                'precision'     => 3,
+                'grouping'      => TRUE,
+            ))
+            ->add('realstock',       'number', array(
+                'precision'     => 3,
+                'grouping'      => TRUE,
+                'data'          => 0
+            ))
             ->add('active',       'checkbox')
             /**
              * @todo Créer exception si aucun fournisseurs

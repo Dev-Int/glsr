@@ -59,7 +59,7 @@
                 <div class="col-md-4 input-group form-group">
                     {{ form_label(form.price, "Prix"|trans) }}
                     <span class="text-danger">{{ form_errors(form.price) }}</span>
-                    <span class="input-group-addon">&euro;</span>{{ form_widget(form.price) }}
+                    {{ form_widget(form.price) }}
                 </div>
             </section>
            {{ form_rest(form) }}
