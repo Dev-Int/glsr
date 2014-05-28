@@ -65,18 +65,6 @@ glstock_setdiv_unitstorage_edit:
 
 
 # Routes des Articles
-glstock_art_list:
-    pattern:  /article/{page}
-    defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
-    requirements:
-        page:  \d+
-
-glstock_art_show:
-    pattern:  /article/{name}
-    defaults: { _controller: GlsrGestockBundle:Article:show }
-    requirements:
-        page:  \d+
-    
 glstock_art_add:
     pattern:  /article/add
     defaults: { _controller: GlsrGestockBundle:Article:add }
@@ -88,20 +76,20 @@ glstock_art_edit:
 glstock_art_del:
     pattern:  /article/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Article:delete }
+    requirements:
+        id: \d+
+
+glstock_art_list:
+    pattern:  /article/{page}
+    defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_art_show:
+    pattern:  /article/{name}
+    defaults: { _controller: GlsrGestockBundle:Article:show }
 
 # Routes des Suppliers
-glstock_suppli_list:
-    pattern:  /supplier/{page}
-    defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
-    requirements:
-        page:  \d+
-
-glstock_suppli_show:
-    pattern:  /supplier/{name}
-    defaults: { _controller: GlsrGestockBundle:Supplier:show }
-    requirements:
-        page:  \d+
-    
 glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
@@ -113,7 +101,19 @@ glstock_suppli_edit:
 glstock_suppli_del:
     pattern:  /supplier/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Supplier:delete }
+    requirements:
+        id: \d+
 
+glstock_suppli_list:
+    pattern:  /supplier/{page}
+    defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_suppli_show:
+    pattern:  /supplier/{name}
+    defaults: { _controller: GlsrGestockBundle:Supplier:show }
+    
 # route des alertes
 glstock_show:
     pattern:  /
