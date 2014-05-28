@@ -117,6 +117,7 @@ class Article
     public function __construct()
     {
         $this->zone_storages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->active = TRUE;
     }
 
     /**

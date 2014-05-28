@@ -100,6 +100,50 @@ class SupplierController extends Controller
         ));
     }
     
+    public function deleteAction(Supplier $supplier)
+    {
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression du fournisseur contre cette faille
+        $form = $this->createFormBuilder()->getForm();
+        
+        //On modifie l'état actif du fournisseur
+        $supplier->setActive(0);
+        
+        $request = $this->getRequest();        
+        if ($request->getMethod() == 'POST') {
+            // Si la requête est en POST, on supprimera le fournisseur
+            $form->bind($request);
+            
+            if ($form->isValid()) {
+                // On supprime le fournisseur
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($supplier);
+                $etm->flush();
+                
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'supplier.delete.ok');
+
+                // Puis on redirige vers l'accueil
+                return $this->redirect($this->generateUrl('glstock_home'));
+            } else {
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'Supplier pas désactivé');
+            }
+        }
+
+        // Si la requête est en GET, 
+        // on affiche une page de confirmation avant de supprimer
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Supplier:delete.html.twig',
+            array(
+                'supplier' => $supplier,
+                'form'    => $form->createView()
+                )
+        );
+    }
+    
     public function showAction(Supplier $supplier)
     {
         return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(

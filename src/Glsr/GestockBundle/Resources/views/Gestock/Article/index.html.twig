@@ -8,7 +8,13 @@
 
 {% block glstock_body %}
 
-    <h2><i class="glyphicon glyphicon-list-alt"></i> Liste des articles</h2>
+    <h2>
+        {% if articles is defined %}
+        <i class="glyphicon glyphicon-list-alt"></i> Liste des articles
+        {% elseif article is defined %}
+        <i class="glyphicon glyphicon-eye-open"></i> Article : {{ article.name }}
+        {% endif %}
+    </h2>
 
     <table class="table-striped table-bordered">
         <thead>
@@ -16,7 +22,7 @@
                 <th width="2%">id</th>
                 <th width="15%">name</th>
                 <th width="15%">supplier</th>
-                <th width="8%">{#unitstorage#}unité stockage</th>
+                <th width="5%">{#unitstorage#}unité</th>
                 <th width="5%">{#unitbill#}unité facture</th>
                 <th width="10%">price</th>
                 <th width="5%">quantity</th>
@@ -24,6 +30,7 @@
                 <th width="12%">{#zonestorages#}zone stockage</th>
                 <th width="10%">{#FamilyLog#}famille logistique</th>
                 <th width="5%">{#SubFamilyLog#}sous famille</th>
+                <th width="8%">Action</th>
             </tr>
         </thead>
         <tbody>

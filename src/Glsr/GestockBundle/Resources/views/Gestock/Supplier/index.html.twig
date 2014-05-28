@@ -18,6 +18,7 @@
                 <th class="col-md-2">address</th>
                 <th class="col-md-1">{#FamilyLog#}famille logistique</th>
                 <th class="col-md-1">{#SubFamilyLog#}sous famille</th>
+                <th class="col-md-1">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -32,12 +33,6 @@
         {% block buttons %}
         {% endblock %}
     </p>
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
-            {{ 'Ajouter Supplier'|trans }}
-        </a>
-        {% endif %}
 
     {# S'il y a plus d'une page, on affiche la liste des pages #}
     {% if articles is defined %}

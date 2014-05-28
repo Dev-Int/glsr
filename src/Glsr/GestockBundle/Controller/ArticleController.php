@@ -107,7 +107,46 @@ class ArticleController extends Controller
     
     public function deleteAction(Article $article)
     {
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'article contre cette faille
+        $form = $this->createFormBuilder()->getForm();
         
+        //On modifie l'état actif de l'article
+        $article->setActive(0);
+        
+        $request = $this->getRequest();        
+        if ($request->getMethod() == 'POST') {
+            // Si la requête est en POST, on supprimera l'article
+            $form->bind($request);
+            
+            if ($form->isValid()) {
+                // On supprime l'article
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($article);
+                $etm->flush();
+                
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'article.delete.ok');
+
+                // Puis on redirige vers l'accueil
+                return $this->redirect($this->generateUrl('glstock_home'));
+            } else {
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'Article pas désactivé');
+            }
+        }
+
+        // Si la requête est en GET, 
+        // on affiche une page de confirmation avant de supprimer
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Article:delete.html.twig',
+            array(
+                'article' => $article,
+                'form'    => $form->createView()
+                )
+        );
     }
     
     public function showAction(Article $article)

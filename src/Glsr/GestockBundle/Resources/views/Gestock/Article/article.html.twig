@@ -2,7 +2,7 @@
             <td width="2%">{{ article.id }}</td>
             <td width="15%">{{ article.name }}</td>
             <td width="15%">{{ article.supplier }}</td>
-            <td width="8%">{{ article.unitstorage }}</td>
+            <td width="5%">{{ article.unitstorage }}</td>
             <td width="5%">{{ article.unitbill }}</td>
             <td width="10%">{{ article.price }} €</td>
             <td width="5%">{{ article.quantity }}</td>
@@ -14,6 +14,14 @@
             </td>
             <td width="10%">{{ article.familyLog }}</td>
             <td width="5%">{{ article.subFamilyLog }}</td>
+            <td width="8%">
+                <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default" title="{{ 'Modifier Article'|trans }}">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>&nbsp;
+                <a href="{{ path('glstock_art_del', {'id': article.id}) }}" class="btn btn-default" title="{{ 'Supprimer Article'|trans }}">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
         </tr>
 
     {% block buttons %}
@@ -22,8 +30,8 @@
             <i class="glyphicon glyphicon-edit"></i>
             {{ 'Ajouter Article'|trans }}
         </a>&nbsp;
-        <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-edit"></i>
+        <a href="{{ path('glstock_art_list', {'name': article.name}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-list-alt"></i>
             {{ "Modifier l'Article"|trans }}
         </a>
         {% endif %}

@@ -120,6 +120,11 @@ class Supplier
     private $active;
 
 
+    public function __construct()
+    {
+        $this->active = TRUE;
+    }
+    
     /**
      * Get id
      *
