@@ -97,6 +97,6 @@ class UnitStorage
     // Ici, le nom, donc "echo $unitStorage" est équivalent à "echo $unitStorage->getName()"
     public function __toString()
     {
-        return $this->name;
+        return $this->abbr;
     }
 }
