@@ -11,8 +11,14 @@ class SupplierController extends Controller
 {
     public function indexAction()
     {
+        // On récupère le nombre d'article par page depuis un paramètre du conteneur
+        // cf app/config/parameters.yml
+        $nbParPage = $this->container->getParameter('glsr.nb_per_page');
+        
         $etm = $this->getDoctrine()->getManager();
-        $suppliers = $etm->getRepository('GlsrGestockBundle:Supplier')->findAll();
+        $suppliers = $etm
+            ->getRepository('GlsrGestockBundle:Supplier')
+            ->getSuppliers($nbParPage, $page);
 
         return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(
             'suppliers' => $suppliers

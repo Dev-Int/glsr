@@ -11,37 +11,15 @@ class ArticleController extends Controller
 {
     public function indexAction()
     {
+        // On récupère le nombre d'article par page depuis un paramètre du conteneur
+        // cf app/config/parameters.yml
+        $nbParPage = $this->container->getParameter('glsr.nb_per_page');
+        
         $etm = $this->getDoctrine()->getManager();
-        $articles = $etm->getRepository('GlsrGestockBundle:Article')->findAll();
-        // On génère une liste article en dur
-//        $articles = array(
-//            array(
-//                'id' => 1,
-//                'name' => 'Salade',
-//                'supplier' => 'FranceFood',
-//                'unitstorage' => 'kg',
-//                'unitbill' => '5',
-//                'price' => 0.85,
-//                'quantity' => 3.225,
-//                'minstock' => 2.000,
-//                'zonestorage' => 'Réserve Légumes',
-//                'FamilyLog' => 'Fruit Légumes',
-//                'SubFamilyLog' => '',
-//                'is_active' => TRUE),
-//            array(
-//                'id' => 2,
-//                'name' => 'Bavette 200g',
-//                'supplier' => 'ProViande',
-//                'unitstorage' => 'kg',
-//                'unitbill' => '5',
-//                'price' => 9.20,
-//                'quantity' => 5.760,
-//                'minstock' => 5.000,
-//                'zonestorage' => 'Réserve Positive',
-//                'FamilyLog' => 'Viandes',
-//                'SubFamilyLog' => '',
-//                'is_active' => TRUE),
-//        );
+        $articles = $etm
+            ->getRepository('GlsrGestockBundle:Article')
+            ->getArticles($nbParPage, $page);
+
         return $this->render('GlsrGestockBundle:Gestock/Article:index.html.twig', array(
             'articles' => $articles
         ));
