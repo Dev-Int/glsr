@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SupplierType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -30,7 +30,7 @@ class SupplierType extends AbstractType
                     1 => 'A pour B',
                     2 => 'A pour C',
                     3 => 'A pour D',
-                    3 => 'A pour E'
+                    4 => 'A pour E'
                 )
             ))
             // Choix du jour de la semaine pour les Cmdes
@@ -52,16 +52,20 @@ class SupplierType extends AbstractType
             ->add('family_log',     'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => FALSE,
+                'empty_value' => 'Choice the Family',
+                'empty_data' => null
             ))
             /**
-             * @todo #1 Créer une exception si aucune sous-famille logistique
-             * @todo Doit dépendre de family_logs
+             * @todo Doit dépendre de family_log
              */
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => FALSE,
+                'required' => FALSE,
+                'empty_value' => 'Choice the Sub Family',
+                'empty_data' => null
             ))
             ->add('active',     'checkbox')
         ;

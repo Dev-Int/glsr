@@ -94,6 +94,10 @@ glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
     
+glstock_suppli_getsubfamily:
+    pattern:  /supplier/add/subfamilylog
+    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
+    
 glstock_suppli_edit:
     pattern:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }
@@ -118,3 +122,10 @@ glstock_suppli_show:
 glstock_show:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
+    
+# route selects liés
+fill_subfamilylog:
+    pattern:  /fill_subfamilylog
+    defaults: { _controller: GlsrGestockBundle:Supplier:fill_subfamilylog }
+    requirements:
+        _method: POST

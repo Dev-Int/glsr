@@ -3,6 +3,8 @@
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+
 use Glsr\GestockBundle\Entity\Supplier;
 
 use Glsr\GestockBundle\Form\SupplierType;
@@ -30,9 +32,9 @@ class SupplierController extends Controller
     public function addAction()
     {
         $supplier = new Supplier();
-        
+        $etm = $this->getDoctrine()->getManager();
         // On crée le formulaire grâce à l'ArticleType
-        $form = $this->createForm(new SupplierType(), $supplier);
+        $form = $this->createForm(new SupplierType($etm), $supplier);
         
         // On récupère la requête
         $request = $this->getRequest();
@@ -149,5 +151,33 @@ class SupplierController extends Controller
         return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(
             'supplier' => $supplier
         ));
+    }
+    
+    public function fill_subfamilylogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = '';
+            $id = $request->get('id');
+            if ($id !='') {
+                $subFamilyLogs = $etm->getRepository('GlsrGestockBundle:subFamilyLog')->getFromFamilyLog($id);
+                $tabSubFamilyLog  = array();
+                $tabSubFamilyLog[0]['idOption'] = '';
+                $tabSubFamilyLog[0]['nameOption'] = 'Choice the Sub Family';
+                $i = 1;
+                foreach ($subFamilyLogs as $subFamilyLog) {
+                    $tabSubFamilyLog[$i]['idOption'] = $subFamilyLog->getId();
+                    $tabSubFamilyLog[$i]['nameOption'] = $subFamilyLog->getName();
+                    $i++;
+                }
+                $response = new Response();
+                $data = json_encode($tabSubFamilyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
     }
 }

@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class SubFamilyLogRepository extends EntityRepository
 {
+    public function getFromFamilyLog($id)
+    {
+        $q = $this->_em->createQuery("SELECT sf FROM GlsrGestockBundle:subFamilyLog sf WHERE sf.familylog = :id");
+        $q->setParameter('id', $id);
+
+        return $q->getResult();
+    }
 }
