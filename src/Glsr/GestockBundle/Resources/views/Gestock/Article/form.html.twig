@@ -18,7 +18,7 @@
                 <div class="col-md-5 form-group">
                     {{ form_label(form.supplier, "Fournisseur"|trans) }}
                     <span class="text-danger">{{ form_errors(form.supplier) }}</span>
-                    {{ form_widget(form.supplier) }}
+                    {{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
                 </div>
                 <div class="col-md-2 form-group">
                     {{ form_label(form.active, "Actif"|trans) }}
@@ -89,4 +89,33 @@ function fillSubFamilyLog(){
         }
     });
 }
+
+function getFamilyLog(){
+    var id_select = $('#glsr_gestockbundle_article_supplier').val();
+    $.ajax({
+        url: "{{ path('getfamilylog') }}",
+        type: 'POST',
+        data: {'id': id_select},
+        dataType: 'json',
+        success: function(json){
+            $('#glsr_gestockbundle_article_family_log option:selected').removeAttr('selected')
+            $('#glsr_gestockbundle_article_family_log option[value="' + json.familylog + '"').attr('selected', 'selected');
+            $('#glsr_gestockbundle_article_family_log').prop('disabled', true);
+            if (json.subfamilylog){
+                if ($('#glsr_gestockbundle_article_sub_family_log option[value="' + json.subfamilylog + '"').length){
+                    $('#glsr_gestockbundle_article_sub_family_log option:selected').removeAttr('selected')
+                    $('#glsr_gestockbundle_article_sub_family_log option[value="' + json.subfamilylog + '"').attr('selected', 'selected');
+                    $('#glsr_gestockbundle_article_sub_family_log').prop('disabled', true);
+                } else {
+                    fillSubFamilyLog();
+                    getFamilyLog();
+                }
+            } else {
+                $('#glsr_gestockbundle_article_sub_family_log').prop('disabled', false);
+                fillSubFamilyLog();
+            }
+        }
+    });
+}
+
 </script>

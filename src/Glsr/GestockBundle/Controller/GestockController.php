@@ -19,7 +19,7 @@ class GestockController extends Controller
      * 
      * @return \Glsr\GestockBundle\Controller\Response
      */
-    public function fill_subfamilylogAction()
+    public function fill_subFamilyLogAction()
     {
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
@@ -39,6 +39,31 @@ class GestockController extends Controller
                 }
                 $response = new Response();
                 $data = json_encode($tabSubFamilyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
+    }
+    
+    public function getFamilyLogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = '';
+            $id = $request->get('id');
+            if ($id !='') {
+                $supplier = $etm->getRepository('GlsrGestockBundle:Supplier')->find($id);
+
+                $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
+                if (NULL !== $supplier->getSubFamilyLog()) {
+                    $familyLog['subfamilylog'] = $supplier->getSubFamilyLog()->getId();
+                }
+                
+                $response = new Response();
+                $data = json_encode($familyLog);
                 $response->headers->set('Content-Type', 'application/json');
                 $response->setContent($data);
                 return $response;

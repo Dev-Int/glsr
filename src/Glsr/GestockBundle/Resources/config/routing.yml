@@ -126,6 +126,12 @@ glstock_show:
 # route selects liés
 fill_subfamilylog:
     pattern:  /fill_subfamilylog
-    defaults: { _controller: GlsrGestockBundle:Gestock:fill_subfamilylog }
+    defaults: { _controller: GlsrGestockBundle:Gestock:fill_subFamilyLog }
+    requirements:
+        _method: POST
+
+getfamilylog:
+    pattern:  /getfamilylog
+    defaults: { _controller: GlsrGestockBundle:Gestock:getFamilyLog }
     requirements:
         _method: POST

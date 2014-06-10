@@ -51,7 +51,9 @@ class ArticleType extends AbstractType
             ->add('supplier',       'entity', array(
                 'class'    => 'GlsrGestockBundle:Supplier',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => FALSE,
+                'empty_value' => 'Choice the Supplier',
+                'empty_data' => null
             ))
             /**
              * @todo Créer une exception si aucune unité de stockage
