@@ -75,16 +75,19 @@ class ArticleType extends AbstractType
             ->add('family_log',     'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => FALSE,
+                'empty_value' => 'Choice the Family',
+                'empty_data' => null
             ))
             /**
              * @todo Créer une exception si aucune sous-famille logistique
-             * @todo Doit dépendre de family_logs
              */
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => FALSE,
+                'empty_value' => 'Choice the Sub Family',
+                'empty_data' => null
             ))
         ;
     }
