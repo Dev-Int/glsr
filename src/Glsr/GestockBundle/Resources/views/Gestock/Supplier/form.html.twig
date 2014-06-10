@@ -26,7 +26,7 @@ function fillSubFamilyLog(){
         success: function(json){ // quand la réponse de la requete arrive
             $('#glsr_gestockbundle_supplier_sub_family_log').empty(); // tu vides le select2
             $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
-                if (id_select2 != null && id_select2 == value.idOption){
+                if (id_select2 !== null && id_select2 === value.idOption){
                     $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption +'" selected="selected">'+ value.nameOption +'</option>');
                 } else {
                 $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption +'">'+ value.nameOption +'</option>');
