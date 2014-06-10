@@ -5,6 +5,10 @@
 {% block title %}
     Settings - {{ parent() }}
 {% endblock %}
+    
+{% block body_js %}
+    onLoad='fillSubFamilyLog();'
+{% endblock %}
 
 {% block glstock_body %}
     

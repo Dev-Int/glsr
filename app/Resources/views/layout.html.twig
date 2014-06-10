@@ -13,7 +13,7 @@
     {% endblock %}
   </head>
     
-    <body>
+  <body{% block body_js %}{% endblock %}>
         <div class="container">
             <header id="header" class="jumbotron">
                 {% block header %}{% endblock %}
