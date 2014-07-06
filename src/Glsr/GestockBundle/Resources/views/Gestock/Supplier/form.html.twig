@@ -5,15 +5,66 @@
 
 <h4>{{ "Formulaire Supplier"|trans }}</h4>
 
-<div class="well">
-    <form method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}
-        {{ form_widget(form.sub_family_log) }}
-        {{ form_errors(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" class="btn btn-default btn-primary" value="{{ 'article.edit.submit_button'|trans }}" />
-    </form>
-</div>
+<form method="post" {{ form_enctype(form) }}>
+    <fieldset class="well">
+        <legend>Information Fournisseur</legend>
+        <div class="col-md-12"><span class="label label-default">{{ form_label(form.name) }}</span> {{ form_widget(form.name) }}</div>
+        <div class="col-md-2"><span class="label label-default">{{ form_label(form.address) }}</span></div>
+        <div class="col-md-5">
+            {{ form_widget(form.address) }}<br />
+            {{ form_widget(form.zipcode) }} {{ form_widget(form.town) }}
+        </div>
+        <div class="col-md-5"><span class="label label-default">Pays</span><br /></div>
+        <legend>Commercial</legend>
+        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <div class="col-md-4">{{ form_widget(form.contact) }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-4">{{ form_widget(form.gsm) }}</div>
+        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-3">{{ form_widget(form.fax) }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-4"></div>
+        <legend>Administratif</legend>
+        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <div class="col-md-4"></div><br />
+        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-4">{{ form_widget(form.phone) }}</div>
+        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-3">{{ form_widget(form.fax) }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-4">{{ form_widget(form.email) }}</div>
+        <legend>Details</legend>
+        <div class="col-md-2"><span class="label label-default">Famille</span></div>
+        <div class="col-md-4">{{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}</div>
+        <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
+        <div class="col-md-4">{{ form_widget(form.sub_family_log) }}</div>
+    </fieldset>
+    
+{% block choice_widget_expanded %}
+    {% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        <table class="panel panel-default">
+            <thead class="panel-heading">
+                <tr>
+                    <th class="col-md-5">Commandes</th>
+                    {% for child in form.orderdate %}
+                        <th class="col-md-1 text-center">{{ form_label(child) }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody class="panel-body">
+                <tr>
+                    <td class="col-md-5">Jour de commande</td>
+                    {% for child in form.orderdate %}
+                        <th class="col-md-1 text-center">{{ form_widget(child) }}</th>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}
+</form>
 <script type="text/javascript">
 function fillSubFamilyLog(){
     var id_select = $('#glsr_gestockbundle_supplier_family_log').val();
@@ -21,16 +72,12 @@ function fillSubFamilyLog(){
     $.ajax({
         url: "{{ path('fill_subfamilylog') }}",
         type: 'POST',
-        data: {'id': id_select},
+        data: {'id': id_select, 'id2': id_select2},
         dataType: 'json',
         success: function(json){ // quand la réponse de la requete arrive
             $('#glsr_gestockbundle_supplier_sub_family_log').empty(); // tu vides le select2
             $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
-                if (id_select2 !== null && id_select2 === value.idOption){
-                    $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption +'" selected="selected">'+ value.nameOption +'</option>');
-                } else {
-                $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption +'">'+ value.nameOption +'</option>');
-                }
+                $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption + ' ' + value.optionOption + '>'+ value.nameOption +'</option>');
             });
         }
     });

@@ -24,17 +24,24 @@ class GestockController extends Controller
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $id = '';
+            $id = ''; $id2 = '';
             $id = $request->get('id');
-            if ($id !='') {
+            $id2 = $request->get('id2');
+            if ($id != '') {
                 $subFamilyLogs = $etm->getRepository('GlsrGestockBundle:subFamilyLog')->getFromFamilyLog($id);
+                $familyLog     = $etm->getRepository('GlsrGestockBundle:familyLog')->find($id);
                 $tabSubFamilyLog  = array();
                 $tabSubFamilyLog[0]['idOption'] = '';
-                $tabSubFamilyLog[0]['nameOption'] = 'Choice the Sub Family';
+                $tabSubFamilyLog[0]['nameOption'] = 'Choice the Sub Family: ' . $familyLog->getName();
                 $i = 1;
                 foreach ($subFamilyLogs as $subFamilyLog) {
-                    $tabSubFamilyLog[$i]['idOption'] = $subFamilyLog->getId();
-                    $tabSubFamilyLog[$i]['nameOption'] = $subFamilyLog->getName();
+                    $tabSubFamilyLog[$i]['idOption']         = $subFamilyLog->getId();
+                    $tabSubFamilyLog[$i]['nameOption']       = $subFamilyLog->getName();
+                    if ($id2 != '') {
+                        $tabSubFamilyLog[$i]['optionOption'] = 'selected="selected"';
+                    } else {
+                        $tabSubFamilyLog[$i]['optionOption'] = NULL;
+                    }
                     $i++;
                 }
                 $response = new Response();

@@ -44,6 +44,7 @@ class SupplierType extends AbstractType
                     6 => 'Samedi',
                     7 => 'Dimanche',
                 ),
+                'expanded' => true,
                 'multiple' => true
             ))
             /**
