@@ -3,7 +3,7 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Supplier - {{ parent() }}
+    Suppliers - {{ parent() }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -13,29 +13,76 @@
     <table class="table-striped table-bordered">
         <thead>
             <tr>
-                <th class="col-md-1">id</th>
                 <th class="col-md-2">name</th>
-                <th class="col-md-2">address</th>
-                <th class="col-md-1">{#FamilyLog#}famille logistique</th>
-                <th class="col-md-1">{#SubFamilyLog#}sous famille</th>
-                <th class="col-md-1">Action</th>
+                <th class="col-md-2">
+                    <i class="glyphicon glyphicon-home"></i> 
+                    address
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-phone-alt"></i> 
+                    phone
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-user"></i> 
+                    contact
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-inbox"></i> 
+                    {#FamilyLog#}famille logistique
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-inbox"></i> 
+                    {#SubFamilyLog#}sous-famille logistique
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-cog"></i> 
+                    Action
+                </th>
             </tr>
         </thead>
         <tbody>
-            {% if suppliers is defined %}
-                {% include 'GlsrGestockBundle:Gestock/Supplier:suppliers.html.twig' %}
-            {% elseif supplier is defined %}
-                {% include 'GlsrGestockBundle:Gestock/Supplier:supplier.html.twig' %}
-            {% endif %}
+        {% for supplier in suppliers %}
+            <tr>
+                <td class="col-md-2">
+                    <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}">
+                        {{ supplier.name }}
+                    </a>
+                </td>
+                <td class="col-md-2">
+                    {{ supplier.address }}<br />
+                    {{ supplier.zipcode }} {{ supplier.town }}
+                </td>
+                <td class="col-md-1">{{ supplier.phone }}</td>
+                <td class="col-md-1">{{ supplier.contact }}</td>
+                <td class="col-md-1">{{ supplier.familyLog }}</td>
+                <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
+                <td class="col-md-1">
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'supplier.edit.title_button'|trans }}">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </a>&nbsp;
+                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'supplier.delete.title_button'|trans }}">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">Pas (encore !) de fournisseur</td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
     <p>
-        {% block buttons %}
-        {% endblock %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'Ajouter Supplier'|trans }}
+        </a>
+        {% endif %}
     </p>
 
     {# S'il y a plus d'une page, on affiche la liste des pages #}
-    {% if articles is defined %}
+    {% if suppliers is defined %}
         {% if nb_page > 1 %}
             <div class="pagination">
                 <ul>

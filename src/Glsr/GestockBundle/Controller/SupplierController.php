@@ -148,7 +148,7 @@ class SupplierController extends Controller
     
     public function showAction(Supplier $supplier)
     {
-        return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(
+        return $this->render('GlsrGestockBundle:Gestock/Supplier:supplier.html.twig', array(
             'supplier' => $supplier
         ));
     }
