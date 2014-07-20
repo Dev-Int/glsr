@@ -43,6 +43,8 @@ doctrine:
         user:     %database_user%
         password: %database_password%
         charset:  UTF8
+        types:
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
         # Ajouter cela si vous avez des tables non gérées par Doctrine dans votre bdd
         # (Si vous rencontrez une erreur obscure à propos du type ENUM)
         mapping_types:
@@ -62,6 +64,7 @@ swiftmailer:
 
 # Stof\DoctrineExtensionsBundle configuration
 stof_doctrine_extensions:
+    default_locale: %locale%
     orm:
         default:
             sluggable: true
