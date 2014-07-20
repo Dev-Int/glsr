@@ -79,23 +79,23 @@
     <section class="col-md-12">
         {% if is_granted('ROLE_ADMIN') %}
         <p>
-            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-success">
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-success" role="button">
                 <i class="glyphicon glyphicon-pencil"></i>
                 {{ 'supplier.edit.title_button'|trans }}
             </a>&nbsp;
-            <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-danger">
+            <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
                 <i class="glyphicon glyphicon-trash"></i>
                 {{ 'supplier.delete.title_button'|trans }}
             </a>
         </p>
         <p>
-            <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default">
-                <i class="glyphicon glyphicon-edit"></i>
-                {{ 'Ajouter Supplier'|trans }}
-            </a>&nbsp;
-            <a href="{{ path('glstock_suppli_list', {'name': supplier.name}) }}" class="btn btn-default">
-                <i class="glyphicon glyphicon-list-alt"></i>
+            <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
                 {{ 'Retour à la liste'|trans }}
+            </a>&nbsp;
+            <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-plus"></i>
+                {{ 'Ajouter Supplier'|trans }}
             </a>
         </p>
         {% endif %}

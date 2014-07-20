@@ -57,10 +57,10 @@
                 <td class="col-md-1">{{ supplier.familyLog }}</td>
                 <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
                 <td class="col-md-1">
-            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'supplier.edit.title_button'|trans }}">
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'supplier.edit.title_button'|trans }}" role="button">
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>&nbsp;
-                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'supplier.delete.title_button'|trans }}">
+                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'supplier.delete.title_button'|trans }}" role="button">
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>
                 </td>
@@ -74,7 +74,7 @@
     </table>
     <p>
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default">
+        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-edit"></i>
             {{ 'Ajouter Supplier'|trans }}
         </a>

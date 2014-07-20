@@ -19,7 +19,6 @@
     <table class="table-striped table-bordered">
         <thead>
             <tr>
-                <th width="2%">id</th>
                 <th width="15%">name</th>
                 <th width="15%">supplier</th>
                 <th width="5%">{#unitstorage#}unité</th>
@@ -34,16 +33,27 @@
             </tr>
         </thead>
         <tbody>
-        {% if articles is defined %}
-            {% include 'GlsrGestockBundle:Gestock/Article:articles.html.twig' %}
-        {% elseif article is defined %}
-            {% include 'GlsrGestockBundle:Gestock/Article:article.html.twig' %}
-        {% endif %}
+            {% if articles is defined %}
+                {% include 'GlsrGestockBundle:Gestock/Article:articles.html.twig' %}
+            {% elseif article is defined %}
+                {% include 'GlsrGestockBundle:Gestock/Article:article.html.twig' %}
+            {% endif %}
         </tbody>
     </table>
+    
     <p>
-        {% block buttons %}
-        {% endblock %}
+        {% if article is defined %}
+            <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                {{ "Retour à la liste"|trans }}
+            </a>&nbsp;
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-plus"></i>
+                {{ 'Ajouter Article'|trans }}
+            </a>
+        {% endif %}
     </p>
 
     {# S'il y a plus d'une page, on affiche la liste des pages #}

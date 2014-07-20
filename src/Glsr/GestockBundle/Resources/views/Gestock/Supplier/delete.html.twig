@@ -14,7 +14,7 @@
     
     {# On met l'id de l'supplier dans la route de l'action du formulaire #}
     <form action="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" method="post">
-        <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}" class="btn btn-default">
+        <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
             {{ 'supplier.return'|trans }}
         </a>
