@@ -52,7 +52,7 @@
                     {{ supplier.address }}<br />
                     {{ supplier.zipcode }} {{ supplier.town }}
                 </td>
-                <td class="col-md-1">{{ supplier.phone }}</td>
+                <td class="col-md-1">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
                 <td class="col-md-1">{{ supplier.contact }}</td>
                 <td class="col-md-1">{{ supplier.familyLog }}</td>
                 <td class="col-md-1">{{ supplier.subFamilyLog }}</td>

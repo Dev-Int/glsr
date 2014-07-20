@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use libphonenumber\PhoneNumberFormat;
+
 class SupplierType extends AbstractType
 {
     /**
@@ -19,11 +21,20 @@ class SupplierType extends AbstractType
             ->add('address',      'text')
             ->add('zipcode',      'text')
             ->add('town',         'text')
-            ->add('phone',        'text')
-            ->add('fax',          'text')
+            ->add('phone',        'tel', array(
+                'default_region' => 'FR', 
+                'format'         => PhoneNumberFormat::NATIONAL
+            ))
+            ->add('fax',          'tel', array(
+                'default_region' => 'FR', 
+                'format'         => PhoneNumberFormat::NATIONAL
+            ))
             ->add('email',        'email')
             ->add('contact',      'text')
-            ->add('gsm',          'text')
+            ->add('gsm',          'tel', array(
+                'default_region' => 'FR', 
+                'format'         => PhoneNumberFormat::NATIONAL
+            ))
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
             ->add('delaydeliv',   'choice', array(
                 'choices' => array(

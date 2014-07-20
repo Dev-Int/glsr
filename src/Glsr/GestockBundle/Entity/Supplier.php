@@ -3,6 +3,7 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 
 /**
  * Supplier
@@ -50,16 +51,20 @@ class Supplier
     private $town;
 
     /**
-     * @var string
+     * @var phone_number
      *
-     * @ORM\Column(name="phone", type="string", length=10)
+     * @ORM\Column(name="phone", type="phone_number")
+     * 
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $phone;
 
     /**
-     * @var string
+     * @var phone_number
      *
-     * @ORM\Column(name="fax", type="string", length=10)
+     * @ORM\Column(name="fax", type="phone_number")
+     * 
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $fax;
 
@@ -78,9 +83,11 @@ class Supplier
     private $contact;
 
     /**
-     * @var string
+     * @var phone_number
      *
-     * @ORM\Column(name="gsm", type="string", length=10)
+     * @ORM\Column(name="gsm", type="phone_number")
+     * 
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $gsm;
 

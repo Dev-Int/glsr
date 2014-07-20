@@ -7,6 +7,7 @@
 
 <form method="post" {{ form_enctype(form) }}>
     <fieldset class="well">
+        {{ form_errors(form) }}
         <legend>Information Fournisseur</legend>
         <div class="col-md-12"><span class="label label-default">{{ form_label(form.name) }}</span> {{ form_widget(form.name) }}</div>
         <div class="col-md-2"><span class="label label-default">{{ form_label(form.address) }}</span></div>
@@ -30,7 +31,7 @@
         <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
         <div class="col-md-4">{{ form_widget(form.phone) }}</div>
         <div class="col-md-1"><span class="label label-default">Fax</span></div>
-        <div class="col-md-3">{{ form_widget(form.fax) }}</div><br />
+        <div class="col-md-3">{#{ form_widget(form.fax) }#}</div><br />
         <div class="col-md-2"><span class="label label-default">Email</span></div>
         <div class="col-md-4">{{ form_widget(form.email) }}</div>
         <legend>Details</legend>
@@ -38,6 +39,8 @@
         <div class="col-md-4">{{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}</div>
         <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
         <div class="col-md-4">{{ form_widget(form.sub_family_log) }}</div>
+        <div class="col-md-2"><span class="label label-default">Délai Livraison</span></div>
+        <div class="col-md-4">{{ form_widget(form.delaydeliv) }}</div>
     </fieldset>
     
 {% block choice_widget_expanded %}
@@ -64,6 +67,8 @@
     </div>
     {% endspaceless %}
 {% endblock choice_widget_expanded %}
+    {{ form_rest(form) }}
+    <input type="submit" class="btn btn-default btn-primary" value="{{ 'supplier.edit.submit_button'|trans }}" />
 </form>
 <script type="text/javascript">
 function fillSubFamilyLog(){

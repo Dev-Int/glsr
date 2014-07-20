@@ -18,18 +18,18 @@
             <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
             <div class="col-md-4">{{ supplier.contact }}</div><br />
             <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
-            <div class="col-md-4">{{ supplier.gsm }}{# @todo include phone-number-bundle by misd-service-development #}</div>
+            <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
             <div class="col-md-1"><span class="label label-default">Fax</span></div>
-            <div class="col-md-3">{{ supplier.fax }}</div><br />
+            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
             <div class="col-md-2"><span class="label label-default">Email</span></div>
             <div class="col-md-4"></div>
             <legend>Administratif</legend>
             <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
             <div class="col-md-4"></div><br />
             <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
-            <div class="col-md-4">{{ supplier.phone }}</div>
+            <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
             <div class="col-md-1"><span class="label label-default">Fax</span></div>
-            <div class="col-md-3">{{ supplier.fax }}</div><br />
+            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
             <div class="col-md-2"><span class="label label-default">Email</span></div>
             <div class="col-md-4">{{ supplier.email }}</div>
             <legend>Details</legend>
