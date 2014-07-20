@@ -5,6 +5,7 @@ namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Response;
 
 class GestockController extends Controller
 {
@@ -12,7 +13,72 @@ class GestockController extends Controller
     {
         return $this->render('GlsrGestockBundle:Gestock:index.html.twig');
     }
+
+    /**
+     * Récupère les subFamilyLog de la FamilyLog sélectionnée
+     * 
+     * @return \Glsr\GestockBundle\Controller\Response
+     */
+    public function fill_subFamilyLogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = ''; $id2 = '';
+            $id = $request->get('id');
+            $id2 = $request->get('id2');
+            if ($id != '') {
+                $subFamilyLogs = $etm->getRepository('GlsrGestockBundle:subFamilyLog')->getFromFamilyLog($id);
+                $familyLog     = $etm->getRepository('GlsrGestockBundle:familyLog')->find($id);
+                $tabSubFamilyLog  = array();
+                $tabSubFamilyLog[0]['idOption'] = '';
+                $tabSubFamilyLog[0]['nameOption'] = 'Choice the Sub Family: ' . $familyLog->getName();
+                $i = 1;
+                foreach ($subFamilyLogs as $subFamilyLog) {
+                    $tabSubFamilyLog[$i]['idOption']         = $subFamilyLog->getId();
+                    $tabSubFamilyLog[$i]['nameOption']       = $subFamilyLog->getName();
+                    if ($id2 != '') {
+                        $tabSubFamilyLog[$i]['optionOption'] = 'selected="selected"';
+                    } else {
+                        $tabSubFamilyLog[$i]['optionOption'] = NULL;
+                    }
+                    $i++;
+                }
+                $response = new Response();
+                $data = json_encode($tabSubFamilyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
+    }
     
+    public function getFamilyLogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = '';
+            $id = $request->get('id');
+            if ($id !='') {
+                $supplier = $etm->getRepository('GlsrGestockBundle:Supplier')->find($id);
+
+                $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
+                if (NULL !== $supplier->getSubFamilyLog()) {
+                    $familyLog['subfamilylog'] = $supplier->getSubFamilyLog()->getId();
+                }
+                
+                $response = new Response();
+                $data = json_encode($familyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
+    }
+
     public function alertsAction($nombre)
     {
 //        $liste = $this->getDoctrine()

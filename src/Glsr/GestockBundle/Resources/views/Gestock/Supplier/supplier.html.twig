@@ -1,0 +1,104 @@
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Suppliers - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset class="well">
+        <legend>Information Fournisseur</legend>
+        <h2><small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}</h2>
+            <div class="col-md-2"><span class="label label-default">Adress</span></div>
+            <div class="col-md-5">
+                {{ supplier.address }}<br />
+                {{ supplier.zipcode }} {{ supplier.town }}
+            </div>
+            <div class="col-md-5"><span class="label label-default">Pays</span><br /></div>
+            <legend>Commercial</legend>
+            <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+            <div class="col-md-4">{{ supplier.contact }}</div><br />
+            <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+            <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
+            <div class="col-md-1"><span class="label label-default">Fax</span></div>
+            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+            <div class="col-md-2"><span class="label label-default">Email</span></div>
+            <div class="col-md-4"></div>
+            <legend>Administratif</legend>
+            <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+            <div class="col-md-4"></div><br />
+            <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+            <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
+            <div class="col-md-1"><span class="label label-default">Fax</span></div>
+            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+            <div class="col-md-2"><span class="label label-default">Email</span></div>
+            <div class="col-md-4">{{ supplier.email }}</div>
+            <legend>Details</legend>
+            <div class="col-md-2"><span class="label label-default">Famille</span></div>
+            <div class="col-md-4">{{ supplier.familyLog }}</div>
+            <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
+            <div class="col-md-4">{% if supplier.subFamilyLog %}{{ supplier.subFamilyLog }}{% endif %}</div>
+    </fieldset>
+    <table class="panel panel-default">
+        <thead class="panel-heading">
+            <tr>
+                <th class="col-md-5">
+                    <span class="label label-default">Commandes</span>
+                </th>
+                <th class="col-md-1 text-center">Lundi</th>
+                <th class="col-md-1 text-center">Mardi</th>
+                <th class="col-md-1 text-center">Mercredi</th>
+                <th class="col-md-1 text-center">Jeudi</th>
+                <th class="col-md-1 text-center">Vendredi</th>
+                <th class="col-md-1 text-center">Samedi</th>
+                <th class="col-md-1 text-center">Dimanche</th>
+            </tr>
+        </thead>
+        <tbody class="panel-body">
+            <tr>
+                <td class="col-md-5">Jour de commande</td>
+                {% for i in 1..7 %}
+                    {% set b = 0 %}
+                    {% for orderdate in supplier.orderdate %}
+                        {% if orderdate == 1 and i == 1 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 2 and i == 2 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 3 and i == 3 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 4 and i == 4 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 5 and i == 5 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 6 and i == 6 %}<td class="col-md-1 text-center">X</td>
+                        {% elseif orderdate == 7 and i == 7 %}<td class="col-md-1 text-center">X</td>
+                        {% else %}{% set b = b + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if b == 2 %}
+                        <td class="col-md-1 text-center">&nbsp;</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <section class="col-md-12">
+        {% if is_granted('ROLE_ADMIN') %}
+        <p>
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-success" role="button">
+                <i class="glyphicon glyphicon-pencil"></i>
+                {{ 'glsr.gestock.supplier.edit.title_button'|trans }}
+            </a>&nbsp;
+            <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
+                <i class="glyphicon glyphicon-trash"></i>
+                {{ 'glsr.gestock.supplier.delete.title_button'|trans }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                {{ 'Retour à la liste'|trans }}
+            </a>&nbsp;
+            <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-plus"></i>
+                {{ 'Ajouter Supplier'|trans }}
+            </a>
+        </p>
+        {% endif %}
+    </section>
+{% endblock %}    
+    {# @todo include articles.list #}

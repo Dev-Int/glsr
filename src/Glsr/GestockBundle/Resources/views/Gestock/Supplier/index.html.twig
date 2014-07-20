@@ -1,0 +1,100 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Supplier\index.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'glsr.gestock.supplier.title'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    <h2>{{ 'glsr.gestock.supplier.list'|trans }}</h2>
+
+    <table class="table-striped table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-2">name</th>
+                <th class="col-md-2">
+                    <i class="glyphicon glyphicon-home"></i> 
+                    address
+                </th>
+                <th class="col-md-2">
+                    <i class="glyphicon glyphicon-phone-alt"></i> 
+                    phone
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-user"></i> 
+                    contact
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-inbox"></i> 
+                    {#FamilyLog#}famille logistique
+                </th>
+                <th class="col-md-1">
+                    <i class="glyphicon glyphicon-inbox"></i> 
+                    {#SubFamilyLog#}sous-famille logistique
+                </th>
+                <th class="col-md-2">
+                    <i class="glyphicon glyphicon-cog"></i> 
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for supplier in suppliers %}
+            <tr>
+                <td class="col-md-2">
+                    <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}">
+                        {{ supplier.name }}
+                    </a>
+                </td>
+                <td class="col-md-2">
+                    {{ supplier.address }}<br />
+                    {{ supplier.zipcode }} {{ supplier.town }}
+                </td>
+                <td class="col-md-2">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
+                <td class="col-md-1">{{ supplier.contact }}</td>
+                <td class="col-md-1">{{ supplier.familyLog }}</td>
+                <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
+                <td class="col-md-2">
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </a>&nbsp;
+                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.delete.title_button'|trans }}" role="button">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">{{ 'glsr.gestock.supplier.none'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{ 'glsr.gestock.supplier.create.title_button'|trans }}
+        </a>
+        {% endif %}
+    </p>
+
+    {# S'il y a plus d'une page, on affiche la liste des pages #}
+    {% if suppliers is defined %}
+        {% if nb_page > 1 %}
+            <div class="pagination">
+                <ul>
+                    {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+                    {% for p in range(1, nb_page) %}
+                        <li {% if p == page %} class="active" {% endif %}>
+                            <a href="{{ path('glstock_home', {'page': p}) }}">{{ p }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

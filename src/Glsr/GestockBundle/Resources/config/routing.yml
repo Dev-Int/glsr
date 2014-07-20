@@ -4,54 +4,134 @@ glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
 
-# Routes Config
-glstock_config_appli:
-    pattern:  /config/application
-    defaults: { _controller: GlsrGestockBundle:Config:application }
+# Routes Settings
+glstock_settings:
+    pattern:  /settings
+    defaults: { _controller: GlsrGestockBundle:Settings:index }
 
-glstock_config_society:
-    pattern:  /config/society
-    defaults: { _controller: GlsrGestockBundle:Config:society }
+glstock_settings_add:
+    pattern:  /settings/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addSettings }
+glstock_settings_edit:
+    pattern:  /settings/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editSettings }
+    requirements:
+        id: \d+
 
-glstock_config_divers:
-    pattern:  /config/divers
-    defaults: { _controller: GlsrGestockBundle:Config:divers }
+glstock_company_add:
+    pattern:  /company/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addCompany }
+glstock_company_edit:
+    pattern:  /company/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editCompany }
+    requirements:
+        id: \d+
+
+glstock_setdiv_famlog_add:
+    pattern:  /familylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addFamilyLog }
+glstock_setdiv_famlog_edit:
+    pattern:  /familylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editFamilyLog }
+    requirements:
+        id: \d+
+
+glstock_setdiv_subfamlog_add:
+    pattern:  /subfamilylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addSubFamilyLog }
+glstock_setdiv_subfamlog_edit:
+    pattern:  /subfamilylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editSubFamilyLog }
+    requirements:
+        id: \d+
+
+glstock_setdiv_zonestorage_add:
+    pattern:  /zonestorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addZoneStorage }
+glstock_setdiv_zonestorage_edit:
+    pattern:  /zonestorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editZoneStorage }
+    requirements:
+        id: \d+
+
+glstock_setdiv_unitstorage_add:
+    pattern:  /unitstorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings:addUnitStorage }
+glstock_setdiv_unitstorage_edit:
+    pattern:  /unitstorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings:editUnitStorage }
+    requirements:
+        id: \d+
+
 
 # Routes des Articles
-glstock_art_show:
-    pattern:  /article
-    defaults: { _controller: GlsrGestockBundle:Article:index }
-    
 glstock_art_add:
     pattern:  /article/add
     defaults: { _controller: GlsrGestockBundle:Article:add }
     
 glstock_art_edit:
-    pattern:  /article/edit/{article}
+    pattern:  /article/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Article:edit }
     
 glstock_art_del:
-    pattern:  /article/delete
+    pattern:  /article/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Article:delete }
+    requirements:
+        id: \d+
+
+glstock_art_list:
+    pattern:  /article/{page}
+    defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_art_show:
+    pattern:  /article/{name}
+    defaults: { _controller: GlsrGestockBundle:Article:show }
 
 # Routes des Suppliers
-glstock_suppli_show:
-    pattern:  /supplier
-    defaults: { _controller: GlsrGestockBundle:Supplier:index }
-    
 glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
     
+glstock_suppli_getsubfamily:
+    pattern:  /supplier/add/subfamilylog
+    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
+    
 glstock_suppli_edit:
-    pattern:  /supplier/edit
+    pattern:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }
     
 glstock_suppli_del:
-    pattern:  /supplier/delete
+    pattern:  /supplier/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Supplier:delete }
+    requirements:
+        id: \d+
 
+glstock_suppli_list:
+    pattern:  /supplier/{page}
+    defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
+    requirements:
+        page:  \d+
+
+glstock_suppli_show:
+    pattern:  /supplier/{name}
+    defaults: { _controller: GlsrGestockBundle:Supplier:show }
+    
 # route des alertes
 glstock_show:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
+    
+# route selects liés
+fill_subfamilylog:
+    pattern:  /fill_subfamilylog
+    defaults: { _controller: GlsrGestockBundle:Gestock:fill_subFamilyLog }
+    requirements:
+        _method: POST
+
+getfamilylog:
+    pattern:  /getfamilylog
+    defaults: { _controller: GlsrGestockBundle:Gestock:getFamilyLog }
+    requirements:
+        _method: POST

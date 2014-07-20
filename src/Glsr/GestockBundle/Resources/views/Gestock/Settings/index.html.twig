@@ -1,0 +1,207 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\index.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Settings - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    <h2>{{'Settings'|trans }}</h2>
+    
+    <hr />
+    
+    <section class="row">
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="company"></a>Company</header>
+            <div class="panel-body">
+                <p>Paramètres de la société utilisant le logiciel.</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Name</th>
+                            <th class="col-md-4">Adress</th>
+                            <th class="col-md-2">Phone</th>
+                            <th class="col-md-3">Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set idSociety = "" %}
+                        {% for society in company %}
+                        {% set idSociety = society.id %}
+                        <tr>
+                            <td class="col-md-3">{{ society.name }}</td>
+                            <td class="col-md-4">{{ society.adress }}<br />{{ society.zipcode }}<br />{{ society.town }}</td>
+                            <td class="col-md-2">{{ society.phone }}</td>
+                            <td class="col-md-3">{{ society.contact }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_company_edit', {'id': idSociety}) }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Modifier'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="application"></a>Application</header>
+            <div class="panel-body">
+                <p>Gestion des paramètres de l'application.</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Style d'inventaire</th>
+                            <th class="col-md-3">Calcul d'inventaire</th>
+                            <th class="col-md-3">Premier inventaire</th>
+                            <th class="col-md-3">Currency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set idSetting = "" %}
+                        {% for setting in settings %}
+                        {% set idSetting = setting.id %}
+                        <tr>
+                            <td class="col-md-3">{{ setting.inventoryStyle }}</td>
+                            <td class="col-md-3">{{ setting.calculation }}</td>
+                            <td class="col-md-3">{{ setting.firstInventory|date('d/m/Y') }}</td>
+                            <td class="col-md-3">{{ setting.currency }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_settings_edit', {'id': idSetting}) }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Modifier'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="divers"></a>Family Logs</header>
+            <div class="panel-body">
+                <p>Gestion des familles et sous-familles logistiques</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">Famille</th>
+                            <th class="col-md-4">Sous-Famille</th>
+                            <th class="col-md-2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subfamily in subfamilylog %}
+                        <tr>
+                            <td class="col-md-3">{{ subfamily.familylog.name }}</td>
+                            <td class="col-md-4">
+                                {{ subfamily.name }}
+                            </td>
+                            <td class="col-md-2">
+                                <a href="{{ path('glstock_setdiv_famlog_edit', {'id': subfamily.familylog.id}) }}" class="btn btn-default" title="{{ 'Modifier famille'|trans }}" role="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>&nbsp;
+                                <a href="{{ path('glstock_setdiv_subfamlog_edit', {'id': subfamily.id}) }}" class="btn btn-default" title="{{ 'Modifier sous-famille'|trans }}" role="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_setdiv_famlog_add') }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Ajouter FamilyLog'|trans }}
+                    </a>&nbsp;
+                    <a href="{{ path('glstock_setdiv_subfamlog_add') }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Ajouter SubFamilyLog'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="zonestorage"></a>ZoneStorage</header>
+            <div class="panel-body">
+                <p>Gestion des paramètres des zones de stockage.</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-9">Zone de stockage</th>
+                            <th class="col-md-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for zstorage in zonestorage %}
+                        <tr>
+                            <td class="col-md-9">{{ zstorage.name }}</td>
+                            <td class="col-md-3">
+                                <a href="{{ path('glstock_setdiv_zonestorage_edit', {'id': zstorage.id}) }}" class="btn btn-default" title="{{ 'Modifier zone de stockage'|trans }}" role="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_setdiv_zonestorage_add') }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Ajouter ZoneStorage'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="well panel-default">
+            <header class="panel-heading"><a id="unitstorage"></a>UnitStorage</header>
+            <div class="panel-body">
+                <p>Gestion des paramètres des unités de stockage.</p>
+                <table class="table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-6">Unit de stockage</th>
+                            <th class="col-md-3">Abbr</th>
+                            <th class="col-md-3">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ustorage in unitstorage %}
+                        <tr>
+                            <td class="col-md-6">{{ ustorage.name }}</td>
+                            <td class="col-md-3">{{ ustorage.abbr }}</td>
+                            <td class="col-md-3">
+                                <a href="{{ path('glstock_setdiv_unitstorage_edit', {'id': ustorage.id}) }}" class="btn btn-default" title="{{ 'Modifier UnitStorage'|trans }}" role="button">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_setdiv_unitstorage_add') }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'Ajouter UnitStorage'|trans }}
+                    </a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </section>    
+{% endblock %}
