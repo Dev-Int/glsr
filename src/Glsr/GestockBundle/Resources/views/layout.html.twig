@@ -17,13 +17,19 @@
     
 {% block menu_bundle %}
     <ul class="nav nav-tabs">
-        <li class="active">
+        <li {% if app.request.attributes.get('_route') == 'glstock_home' %}class="active"{% endif %}>
             <a href="{{ path('glstock_home') }}">
                 <i class="glyphicon glyphicon-home"></i>
                 Accueil
             </a>
         </li>
-        <li class="dropdown">
+        <li {% if app.request.attributes.get('_route') == 'glstock_art_list' %}
+            class="active dropdown"
+            {% elseif app.request.attributes.get('_route') == 'glstock_art_add' %}
+            class="active dropdown"
+            {% else %}
+            class="dropdown"
+            {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                 Article <span class="caret"></span>
             </a>
@@ -45,7 +51,13 @@
             </ul>
 
         </li>
-        <li class="dropdown">
+        <li {% if app.request.attributes.get('_route') == 'glstock_suppli_list' %}
+            class="active dropdown"
+            {% elseif app.request.attributes.get('_route') == 'glstock_suppli_add' %}
+            class="active dropdown"
+            {% else %}
+            class="dropdown"
+            {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                 Supplier <span class="caret"></span>
             </a>
@@ -67,7 +79,11 @@
             </ul>
 
         </li>
-        <li class="dropdown">
+        <li {% if app.request.attributes.get('_route') == 'glstock_settings' %}
+            class="active dropdown"
+            {% else %}
+            class="dropdown"
+            {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
                 Settings <span class="caret"></span>
             </a>
