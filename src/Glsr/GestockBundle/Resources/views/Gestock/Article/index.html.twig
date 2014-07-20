@@ -10,7 +10,7 @@
 
     <h2>
         {% if articles is defined %}
-        <i class="glyphicon glyphicon-list-alt"></i> Liste des articles
+        <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.article.list'|trans }}
         {% elseif article is defined %}
         <i class="glyphicon glyphicon-eye-open"></i> Article : {{ article.name }}
         {% endif %}
@@ -45,13 +45,13 @@
         {% if article is defined %}
             <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
                 <i class="glyphicon glyphicon-chevron-left"></i>
-                {{ "Retour à la liste"|trans }}
+                {{ 'glsr.gestock.return_list'|trans }}
             </a>&nbsp;
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
                 <i class="glyphicon glyphicon-plus"></i>
-                {{ 'Ajouter Article'|trans }}
+                {{ 'glsr.gestock.article.create.title_button'|trans }}
             </a>
         {% endif %}
     </p>

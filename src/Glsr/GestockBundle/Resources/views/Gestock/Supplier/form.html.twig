@@ -3,12 +3,12 @@
 {# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
 {# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
 
-<h4>{{ "Formulaire Supplier"|trans }}</h4>
+<h4>{{ 'glsr.gestock.supplier.form.title'|trans }}</h4>
 
 <form method="post" {{ form_enctype(form) }}>
     <fieldset class="well">
         {{ form_errors(form) }}
-        <legend>Information Fournisseur</legend>
+        <legend>{{ 'glsr.gestock.supplier.form.info'|trans }}</legend>
         <div class="col-md-12"><span class="label label-default">{{ form_label(form.name) }}</span> {{ form_widget(form.name) }}</div>
         <div class="col-md-2"><span class="label label-default">{{ form_label(form.address) }}</span></div>
         <div class="col-md-5">
@@ -68,7 +68,7 @@
     {% endspaceless %}
 {% endblock choice_widget_expanded %}
     {{ form_rest(form) }}
-    <input type="submit" class="btn btn-default btn-primary" value="{{ 'supplier.edit.submit_button'|trans }}" />
+    <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.supplier.edit.submit_button'|trans }}" />
 </form>
 <script type="text/javascript">
 function fillSubFamilyLog(){

@@ -3,12 +3,12 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Suppliers - {{ parent() }}
+    {{ 'glsr.gestock.supplier.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block glstock_body %}
 
-    <h2>Liste des fournisseurs</h2>
+    <h2>{{ 'glsr.gestock.supplier.list'|trans }}</h2>
 
     <table class="table-striped table-bordered">
         <thead>
@@ -18,7 +18,7 @@
                     <i class="glyphicon glyphicon-home"></i> 
                     address
                 </th>
-                <th class="col-md-1">
+                <th class="col-md-2">
                     <i class="glyphicon glyphicon-phone-alt"></i> 
                     phone
                 </th>
@@ -34,7 +34,7 @@
                     <i class="glyphicon glyphicon-inbox"></i> 
                     {#SubFamilyLog#}sous-famille logistique
                 </th>
-                <th class="col-md-1">
+                <th class="col-md-2">
                     <i class="glyphicon glyphicon-cog"></i> 
                     Action
                 </th>
@@ -52,22 +52,22 @@
                     {{ supplier.address }}<br />
                     {{ supplier.zipcode }} {{ supplier.town }}
                 </td>
-                <td class="col-md-1">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
+                <td class="col-md-2">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
                 <td class="col-md-1">{{ supplier.contact }}</td>
                 <td class="col-md-1">{{ supplier.familyLog }}</td>
                 <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
-                <td class="col-md-1">
-            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'supplier.edit.title_button'|trans }}" role="button">
+                <td class="col-md-2">
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>&nbsp;
-                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'supplier.delete.title_button'|trans }}" role="button">
+                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.delete.title_button'|trans }}" role="button">
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">Pas (encore !) de fournisseur</td>
+                <td colspan="12">{{ 'glsr.gestock.supplier.none'|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -76,7 +76,7 @@
         {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-edit"></i>
-            {{ 'Ajouter Supplier'|trans }}
+            {{ 'glsr.gestock.supplier.create.title_button'|trans }}
         </a>
         {% endif %}
     </p>

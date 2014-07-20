@@ -3,22 +3,22 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ 'supplier.delete.title'|trans }} - {{ parent() }}
+    {{ 'glsr.gestock.supplier.delete.title'|trans }} - {{ parent() }}
 {% endblock %}
     
 {% block glstock_body %}
     
-    <h2>{{ 'supplier.delete.title'|trans }}</h2>
+    <h2>{{ 'glsr.gestock.supplier.delete.title'|trans }}</h2>
     
-    <p>{{ 'supplier.delete.caution'|trans({'%supplier.name%': supplier.name}) }}</p>
+    <p>{{ 'glsr.gestock.supplier.delete.caution'|trans({'%supplier.name%': supplier.name}) }}</p>
     
     {# On met l'id de l'supplier dans la route de l'action du formulaire #}
     <form action="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" method="post">
         <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
-            {{ 'supplier.return'|trans }}
+            {{ 'glsr.gestock.supplier.return'|trans }}
         </a>
-        <input type="submit" value="{{ 'supplier.delete.submit_button'|trans }}" class="btn btn-default btn-danger" />
+        <input type="submit" value="{{ 'glsr.gestock.supplier.delete.submit_button'|trans }}" class="btn btn-default btn-danger" />
         {{ form_rest(form) }}
     </form>
     

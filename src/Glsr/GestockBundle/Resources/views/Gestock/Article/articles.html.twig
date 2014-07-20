@@ -23,16 +23,16 @@
         <td width="10%">{{ article.familyLog }}</td>
         <td width="5%">{{ article.subFamilyLog }}</td>
         <td width="8%">
-            <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default" title="{{ 'Modifier Article'|trans }}" role="button">
+            <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.article.edit.title_button'|trans }}" role="button">
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>&nbsp;
-        <a href="{{ path('glstock_art_del', {'id': article.id}) }}" class="btn btn-default" title="{{ 'Supprimer Article'|trans }}" role="button">
+        <a href="{{ path('glstock_art_del', {'id': article.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.article.delete.title_button'|trans }}" role="button">
             <i class="glyphicon glyphicon-trash"></i>
         </a>
         </td>
     </tr>
 {% else %}
     <tr>
-        <td colspan="12">Pas (encore !) d'article</td>
+        <td colspan="12">{{ 'glsr.gestock.article.none'|trans }}</td>
     </tr>
 {% endfor %}

@@ -3,7 +3,7 @@
 {# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
 {# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
 
-<h4>{{ "article.form"|trans }}</h4>
+<h4>{{ 'glsr.gestock.article.form.title'|trans }}</h4>
 
 <div class="well">
     <form method="post" {{ form_enctype(form) }} class="form-horizontal" role='form'>
@@ -65,7 +65,7 @@
            {{ form_rest(form) }}
         </fieldset>
 
-        <input type="submit" class="btn btn-default btn-primary" value="{{ 'article.edit.submit_button'|trans }}" />
+        <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.article.edit.submit_button'|trans }}" />
     </form>
 </div>
 <script type="text/javascript">
