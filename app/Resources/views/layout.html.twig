@@ -6,7 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
         
     {% block stylesheets %}
-      {% stylesheets output='css/main.css' filter='cssrewrite, ?yui_css'
+      {% stylesheets filter='cssrewrite, ?yui_css'
         'css/bootstrap.css' %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
       {% endstylesheets %}
