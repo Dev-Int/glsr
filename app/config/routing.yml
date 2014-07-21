@@ -3,10 +3,6 @@
 #    resource: "@SdzBlogBundle/Resources/config/routing_accueil.yml"
 #    prefix:   /
 
-SdzBlogBundlePrefix:
-    resource: "@SdzBlogBundle/Resources/config/routing.yml"
-    prefix:   /blog
-
 # Les imports pour FOSUB :
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
@@ -26,7 +22,8 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix:   /profile
-
+    
+# J'ai séparé cet import afin de ne pas avoir le préfixe /gestock lors de l'import
 # Les imports pour Glsr
 GlsrGestockBundle:
     resource: "@GlsrGestockBundle/Resources/config/routing_accueil.yml"
