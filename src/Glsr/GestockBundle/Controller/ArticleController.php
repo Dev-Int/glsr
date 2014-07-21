@@ -127,7 +127,7 @@ class ArticleController extends Controller
                 
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'article.delete.ok');
+                    ->add('info', 'glsr.gestock.article.delete.ok');
 
                 // Puis on redirige vers l'accueil
                 return $this->redirect($this->generateUrl('glstock_home'));

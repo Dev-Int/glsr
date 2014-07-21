@@ -124,7 +124,7 @@ class SupplierController extends Controller
                 
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'supplier.delete.ok');
+                    ->add('info', 'glsr.gestock.supplier.delete.ok');
 
                 // Puis on redirige vers l'accueil
                 return $this->redirect($this->generateUrl('glstock_home'));
