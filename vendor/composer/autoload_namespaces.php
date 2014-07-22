@@ -6,9 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'dflydev\\markdown' => array($vendorDir . '/dflydev/markdown/src'),
+    'libphonenumber' => array($vendorDir . '/giggsey/libphonenumber-for-php/src'),
     'Twig_Extensions_' => array($vendorDir . '/twig/extensions/lib'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
+    'Symfony\\Component\\Intl\\' => array($vendorDir . '/symfony/intl'),
     'Symfony\\Component\\Icu\\' => array($vendorDir . '/symfony/icu'),
     'Symfony\\Bundle\\SwiftmailerBundle' => array($vendorDir . '/symfony/swiftmailer-bundle'),
     'Symfony\\Bundle\\MonologBundle' => array($vendorDir . '/symfony/monolog-bundle'),
@@ -21,6 +22,8 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src'),
     'Ornicar\\AkismetBundle' => array($vendorDir . '/ornicar/akismet-bundle'),
+    'Misd\\PhoneNumberBundle' => array($vendorDir . '/misd/phone-number-bundle'),
+    'Michelf' => array($vendorDir . '/michelf/php-markdown'),
     'Metadata\\' => array($vendorDir . '/jms/metadata/src'),
     'Knp\\Bundle\\MarkdownBundle' => array($vendorDir . '/knplabs/knp-markdown-bundle'),
     'JMS\\SecurityExtraBundle' => array($vendorDir . '/jms/security-extra-bundle'),

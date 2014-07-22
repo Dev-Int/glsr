@@ -753,7 +753,12 @@ return 443;
 }
 }
 if ($host = $this->headers->get('HOST')) {
-if (false !== $pos = strrpos($host,':')) {
+if ($host[0] ==='[') {
+$pos = strpos($host,':', strrpos($host,']'));
+} else {
+$pos = strrpos($host,':');
+}
+if (false !== $pos) {
 return intval(substr($host, $pos + 1));
 }
 return'https'=== $this->getScheme() ? 443 : 80;
@@ -762,11 +767,11 @@ return $this->server->get('SERVER_PORT');
 }
 public function getUser()
 {
-return $this->server->get('PHP_AUTH_USER');
+return $this->headers->get('PHP_AUTH_USER');
 }
 public function getPassword()
 {
-return $this->server->get('PHP_AUTH_PW');
+return $this->headers->get('PHP_AUTH_PW');
 }
 public function getUserInfo()
 {
@@ -818,7 +823,8 @@ public function isSecure()
 if (self::$trustedProxies && self::$trustedHeaders[self::HEADER_CLIENT_PROTO] && $proto = $this->headers->get(self::$trustedHeaders[self::HEADER_CLIENT_PROTO])) {
 return in_array(strtolower(current(explode(',', $proto))), array('https','on','ssl','1'));
 }
-return'on'== strtolower($this->server->get('HTTPS')) || 1 == $this->server->get('HTTPS');
+$https = $this->server->get('HTTPS');
+return !empty($https) &&'off'!== strtolower($https);
 }
 public function getHost()
 {
@@ -1245,7 +1251,9 @@ public function prepare(Request $request)
 $headers = $this->headers;
 if ($this->isInformational() || in_array($this->statusCode, array(204, 304))) {
 $this->setContent(null);
-}
+$headers->remove('Content-Type');
+$headers->remove('Content-Length');
+} else {
 if (!$headers->has('Content-Type')) {
 $format = $request->getRequestFormat();
 if (null !== $format && $mimeType = $request->getMimeType($format)) {
@@ -1254,9 +1262,9 @@ $headers->set('Content-Type', $mimeType);
 }
 $charset = $this->charset ?:'UTF-8';
 if (!$headers->has('Content-Type')) {
-$headers->set('Content-Type','text/html; charset='.$charset);
+$headers->set('Content-Type','text/html; charset='. $charset);
 } elseif (0 === stripos($headers->get('Content-Type'),'text/') && false === stripos($headers->get('Content-Type'),'charset')) {
-$headers->set('Content-Type', $headers->get('Content-Type').'; charset='.$charset);
+$headers->set('Content-Type', $headers->get('Content-Type') .'; charset='. $charset);
 }
 if ($headers->has('Transfer-Encoding')) {
 $headers->remove('Content-Length');
@@ -1266,6 +1274,7 @@ $length = $headers->get('Content-Length');
 $this->setContent(null);
 if ($length) {
 $headers->set('Content-Length', $length);
+}
 }
 }
 if ('HTTP/1.0'!= $request->server->get('SERVER_PROTOCOL')) {
@@ -2171,11 +2180,11 @@ protected $booted;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
-const VERSION ='2.3.13';
-const VERSION_ID ='20313';
+const VERSION ='2.3.18';
+const VERSION_ID ='20318';
 const MAJOR_VERSION ='2';
 const MINOR_VERSION ='3';
-const RELEASE_VERSION ='13';
+const RELEASE_VERSION ='18';
 const EXTRA_VERSION ='';
 public function __construct($environment, $debug)
 {

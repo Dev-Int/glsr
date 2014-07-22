@@ -7,6 +7,78 @@ in 2.3 minor versions.
 To get the diff for a specific change, go to https://github.com/symfony/symfony/commit/XXX where XXX is the change hash
 To get the diff between two versions, go to https://github.com/symfony/symfony/compare/v2.3.0...v2.3.1
 
+* 2.3.18 (2014-07-15)
+
+ * [Security] Forced validate of locales passed to the translator
+ * feature #11367 [HttpFoundation] Fix to prevent magic bytes injection in JSONP responses... (CVE-2014-4671) (Andrew Moore)
+ * bug #11386 Remove Spaceless Blocks from Twig Form Templates (chrisguitarguy)
+ * bug #9719 [TwigBundle] fix configuration tree for paths (mdavis1982, cordoval)
+ * bug #11244 [HttpFoundation] Remove body-related headers when sending the response, if body is empty (SimonSimCity)
+
+* 2.3.17 (2014-07-07)
+
+ * bug #11238 [Translation] Added unescaping of ids in PoFileLoader (JustBlackBird)
+ * bug #11194 [DomCrawler] Remove the query string and the anchor of the uri of a link (benja-M-1)
+ * bug #11272 [Console] Make sure formatter is the same. (akimsko)
+ * bug #11259 [Config] Fixed failed config schema loads due to libxml_disable_entity_loader usage (ccorliss)
+ * bug #11234 [ClassLoader] fixed PHP warning on PHP 5.3 (fabpot)
+ * bug #11179 [Process] Fix ExecutableFinder with open basedir (cs278)
+ * bug #11242 [CssSelector] Refactored the CssSelector to remove the circular object graph (stof)
+ * bug #11219 [DomCrawler] properly handle buttons with single and double quotes insid... (xabbuh)
+ * bug #11220 [Components][Serializer] optional constructor arguments can be omitted during the denormalization process (xabbuh)
+ * bug #11186 Added missing `break` statement (apfelbox)
+ * bug #11169 [Console] Fixed notice in DialogHelper (florianv)
+ * bug #11144 [HttpFoundation] Fixed Request::getPort returns incorrect value under IPv6 (kicken)
+ * bug #10966 PHP Fatal error when getContainer method of ContainerAwareCommand has be... (kevinvergauwen)
+ * bug #10981 [HttpFoundation] Fixed isSecure() check to be compliant with the docs (Jannik Zschiesche)
+ * bug #11092 [HttpFoundation] Fix basic authentication in url with PHP-FPM (Kdecherf)
+ * bug #10808 [DomCrawler] Empty select with attribute name="foo[]" bug fix (darles)
+ * bug #11063 [HttpFoundation] fix switch statement (Tobion)
+ * bug #11009 [HttpFoundation] smaller fixes for PdoSessionHandler (Tobion)
+ * bug #11041 Remove undefined variable $e (skydiablo)
+
+* 2.3.16 (2014-05-31)
+
+ * bug #11014 [Validator] Remove property and method targets from the optional and required constraints (jakzal)
+ * bug #10983 [DomCrawler] Fixed charset detection in html5 meta charset tag (77web)
+ * bug #10979 Make rootPath part of regex greedy (artursvonda)
+ * bug #10995 [TwigBridge][Trans]set %count% only on transChoice from the current context. (aitboudad)
+ * bug #10987 [DomCrawler] Fixed a forgotten case of complex XPath queries (stof)
+
+* 2.3.15 (2014-05-22)
+
+ * reverted #10908
+
+* 2.3.14 (2014-05-22)
+
+ * bug #10849 [WIP][Finder] Fix wrong implementation on sortable callback comparator (ProPheT777)
+ * bug #10929 [Process] Add validation on Process input (romainneutron)
+ * bug #10958 [DomCrawler] Fixed filterXPath() chaining loosing the parent DOM nodes (stof, robbertkl)
+ * bug #10953 [HttpKernel] fixed file uploads in functional tests without file selected (realmfoo)
+ * bug #10937 [HttpKernel] Fix "absolute path" when we look to the cache directory (BenoitLeveque)
+ * bug #10908 [HttpFoundation] implement session locking for PDO (Tobion)
+ * bug #10894 [HttpKernel] removed absolute paths from the generated container (fabpot)
+ * bug #10926 [DomCrawler] Fixed the initial state for options without value attribute (stof)
+ * bug #10925 [DomCrawler] Fixed the handling of boolean attributes in ChoiceFormField (stof)
+ * bug #10777 [Form] Automatically add step attribute to HTML5 time widgets to display seconds if needed (tucksaun)
+ * bug #10909 [PropertyAccess] Fixed plurals for -ves words (csarrazi)
+ * bug #10899 Explicitly define the encoding. (jakzal)
+ * bug #10897 [Console] Fix a console test (jakzal)
+ * bug #10896 [HttpKernel] Fixed cache behavior when TTL has expired and a default "global" TTL is defined (alquerci, fabpot)
+ * bug #10841 [DomCrawler] Fixed image input case sensitive (geoffrey-brier)
+ * bug #10714 [Console]Improve formatter for double-width character (denkiryokuhatsuden)
+ * bug #10872 [Form] Fixed TrimListenerTest as of PHP 5.5 (webmozart)
+ * bug #10762 [BrowserKit] Allow URLs that don't contain a path when creating a cookie from a string (thewilkybarkid)
+ * bug #10863 [Security] Add check for supported attributes in AclVoter (artursvonda)
+ * bug #10833 [TwigBridge][Transchoice] set %count% from the current context. (aitboudad)
+ * bug #10820 [WebProfilerBundle] Fixed profiler seach/homepage with empty token (tucksaun)
+ * bug #10815 Fixed issue #5427 (umpirsky)
+ * bug #10817 [Debug] fix #10313: FlattenException not found (nicolas-grekas)
+ * bug #10803 [Debug] fix ErrorHandlerTest when context is not an array (nicolas-grekas)
+ * bug #10801 [Debug] ErrorHandler: remove $GLOBALS from context in PHP5.3 fix #10292 (nicolas-grekas)
+ * bug #10797 [HttpFoundation] Allow File instance to be passed to BinaryFileResponse (anlutro)
+ * bug #10643 [TwigBridge] Removed strict check when found variables inside a translation (goetas)
+
 * 2.3.13 (2014-04-27)
 
  * bug #10789 [Console] Fixed the rendering of exceptions on HHVM with a terminal width (stof)

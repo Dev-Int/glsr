@@ -19,13 +19,13 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new Sdz\BlogBundle\SdzBlogBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Glsr\GestockBundle\GlsrGestockBundle(),
             new Glsr\UserBundle\GlsrUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new Ornicar\AkismetBundle\OrnicarAkismetBundle(),
+            new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
