@@ -4,7 +4,12 @@
 {% extends "::layout.html.twig" %}
 
 {% block header %}
-    <h1>Glsr<p>Gestion Libre des Stocks d'un Restaurant...</p></h1>
+    <div class="page-header">
+        <h1>
+            <span class="glyphicon glyphicon-cutlery"></span> 
+            Glsr <small>Gestion Libre des Stocks d'un Restaurant...</small>
+        </h1>
+    </div>
 {% endblock %}
 
 {% block menu_bundle %}
@@ -18,8 +23,6 @@
                 <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
-                <li><a href="{{ path('glstock_art_edit') }}">Article edit</a></li>
-                <li><a href="{{ path('glstock_art_del') }}">Article delete</a></li>
                 {% endif %}
             </ul>
 
