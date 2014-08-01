@@ -1,24 +1,82 @@
-<tr>
-    <td width="15%">{{ article.name }}</td>
-    <td width="15%">{{ article.supplier }}</td>
-    <td width="5%">{{ article.unitstorage }}</td>
-    <td width="5%">{{ article.unitbill }}</td>
-    <td width="10%">{{ article.price }} €</td>
-    <td width="5%">{{ article.quantity }}</td>
-    <td width="8%">{{ article.minstock }}</td>
-    <td width="12%">
-        {% for zstorage in article.zonestorages %}
-            - {{ zstorage.name }}<br />
-        {% endfor %}
-    </td>
-    <td width="10%">{{ article.familyLog }}</td>
-    <td width="5%">{{ article.subFamilyLog }}</td>
-    <td width="8%">
-        <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.article.edit.title_button'|trans }}" role="button">
-            <i class="glyphicon glyphicon-pencil"></i>
-        </a>&nbsp;
-        <a href="{{ path('glstock_art_del', {'id': article.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.article.delete.title_button'|trans }}" role="button">
-            <i class="glyphicon glyphicon-trash"></i>
-        </a>
-    </td>
-</tr>
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Article - {{ parent() }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset><legend>Informations</legend>
+        <section class="row col-md-12">
+            <div class="col-md-5 form-group">
+                <span class="label label-default">{{ "Intitulé"|trans }}</span>
+                {{ article.name }}
+            </div>
+            <div class="col-md-5 form-group">
+                <span class="label label-default">{{ "Fournisseur"|trans }}</span>
+                {{ article.supplier }}
+            </div>
+        </section>
+        <section class="row col-md-12">
+            <div class="col-md-12 form-group">
+                <span class="label label-default">{{ "Zone de stockage"|trans }}</span>
+                {% set b = 0 %}
+                {% for zone in article.zonestorages %}
+                    {% if b > 0 %}
+                        , {{ zone.name }}
+                    {% else %}
+                        {{ zone.name }}
+                    {% endif %}
+                    {% set b = b + 1 %}
+                {% endfor %}
+            </div>
+            <div class="col-md-6 form-group">
+                <span class="label label-default">{{ "Famille logistique"|trans }}</span>
+                {{ article.familyLog }}
+            </div>
+            <div class="col-md-6 form-group">
+                <span class="label label-default">{{ "Sous-famille"|trans }}</span>
+                {{ article.subFamilyLog }}
+            </div>
+        </section>
+    </fieldset>
+    <fieldset><legend>Caractéristiques</legend>
+         <section class="row col-md-12">
+            <div class="col-md-4 form-group">
+                <span class="label label-default">{{ "Quantité"|trans }}</span>
+                {{ article.quantity }}
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="label label-default">{{ "Unité de stockage"|trans }}</span>
+                {{ article.unitStorage }}
+            </div>
+            <div class="col-md-4 input-group form-group">
+                <span class="label label-default">{{ "Prix"|trans }}</span>
+                {{ article.price }}
+            </div>
+        </section>
+    </fieldset>
+    <section class="col-md-12">
+        {% if is_granted('ROLE_ADMIN') %}
+        <p>
+            <a href="{{ path('glstock_art_edit', {'name': article.name}) }}" class="btn btn-success" role="button">
+                <i class="glyphicon glyphicon-pencil"></i>
+                {{ 'glsr.gestock.article.edit.title_button'|trans }}</span>
+            </a>&nbsp;
+            <a href="{{ path('glstock_art_del', {'id': article.id}) }}" class="btn btn-danger" role="button">
+                <i class="glyphicon glyphicon-trash"></i>
+                {{ 'glsr.gestock.article.delete.title_button'|trans }}</span>
+            </a>
+        </p>
+        <p>
+            <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                {{ 'glsr.gestock.return_list'|trans }}</span>
+            </a>&nbsp;
+            <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-plus"></i>
+                {{ 'glsr.gestock.article.create.title_button'|trans }}</span>
+            </a>
+        </p>
+        {% endif %}
+    </section>
+{% endblock %}    

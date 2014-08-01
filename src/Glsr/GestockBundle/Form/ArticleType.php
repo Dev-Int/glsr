@@ -69,7 +69,8 @@ class ArticleType extends AbstractType
             ->add('zone_storages',   'entity', array(
                 'class'    => 'GlsrGestockBundle:ZoneStorage',
                 'property' => 'name',
-                'multiple' => TRUE
+                'multiple' => TRUE,
+                'expanded' => TRUE
             ))
             /**
              * @todo Créer une exception si aucune famille logistique

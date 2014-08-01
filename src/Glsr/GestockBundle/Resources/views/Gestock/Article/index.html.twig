@@ -35,8 +35,6 @@
         <tbody>
             {% if articles is defined %}
                 {% include 'GlsrGestockBundle:Gestock/Article:articles.html.twig' %}
-            {% elseif article is defined %}
-                {% include 'GlsrGestockBundle:Gestock/Article:article.html.twig' %}
             {% endif %}
         </tbody>
     </table>

@@ -13,34 +13,50 @@
                 <div class="col-md-5 form-group">
                     {{ form_label(form.name, "Intitulé"|trans) }}
                     <span class="text-danger">{{ form_errors(form.name) }}</span>
-                    {{ form_widget(form.name) }}
+                    &nbsp;{{ form_widget(form.name) }}
                 </div>
                 <div class="col-md-5 form-group">
                     {{ form_label(form.supplier, "Fournisseur"|trans) }}
                     <span class="text-danger">{{ form_errors(form.supplier) }}</span>
-                    {{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
+                    &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
                 </div>
                 <div class="col-md-2 form-group">
                     {{ form_label(form.active, "Actif"|trans) }}
                     <span class="text-danger">{{ form_errors(form.active) }}</span>
-                    {{ form_widget(form.active) }}
+                    &nbsp;{{ form_widget(form.active) }}
                 </div>
             </section>
             <section class="row col-md-12">
                 <div class="col-md-4 form-group">
                     {{ form_label(form.zone_storages, "Zone de stockage"|trans) }}
                     <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
+                    {% block choice_widget_expanded %}
+                        {% spaceless %}
+                        <div {{ block('widget_container_attributes') }}>
+                            <table class="panel panel-default">
+                                <tbody class="panel-body">
+                                    {% for child in form.zone_storages %}
+                                        <tr>
+                                            <td class="col-md-1 text-center">{{ form_widget(child) }}</td>
+                                            <td class="col-md-2">{{ form_label(child) }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endspaceless %}
+                    {% endblock choice_widget_expanded %}
                     {{ form_widget(form.zone_storages) }}
                 </div>
                 <div class="col-md-4 form-group">
                     {{ form_label(form.family_log, "Famille logistique"|trans) }}
                     <span class="text-danger">{{ form_errors(form.family_log) }}</span>
-                    {{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}
+                    &nbsp;{{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}
                 </div>
                 <div class="col-md-4 form-group">
                     {{ form_label(form.sub_family_log, "Sous-famille"|trans) }}
                     <span class="text-danger">{{ form_errors(form.sub_family_log) }}</span>
-                    {{ form_widget(form.sub_family_log) }}
+                    &nbsp;{{ form_widget(form.sub_family_log) }}
                 </div>
             </section>
         </fieldset>
@@ -49,17 +65,34 @@
                 <div class="col-md-4 form-group">
                     {{ form_label(form.quantity, "Quantité"|trans) }}
                     <span class="text-danger">{{ form_errors(form.quantity) }}</span>
-                    {{ form_widget(form.quantity) }}
+                    &nbsp;{{ form_widget(form.quantity) }}
                 </div>
                 <div class="col-md-4 form-group">
                     {{ form_label(form.unit_storage, "Unité de stockage"|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
-                    {{ form_widget(form.unit_storage) }}
+                    &nbsp;{{ form_widget(form.unit_storage) }}
                 </div>
-                <div class="col-md-4 input-group form-group">
+                <div class="col-md-4 form-group">
                     {{ form_label(form.price, "Prix"|trans) }}
                     <span class="text-danger">{{ form_errors(form.price) }}</span>
-                    {{ form_widget(form.price) }}
+                    &nbsp;{{ form_widget(form.price) }}
+                </div>
+            </section>
+            <section class="row col-md-12">
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.unit_bill, "Packaging"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.unit_bill) }}</span>
+                    &nbsp;{{ form_widget(form.unit_bill) }}
+                </div>
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.minstock, "Stock mini"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.minstock) }}</span>
+                    &nbsp;{{ form_widget(form.minstock) }}
+                </div>
+                <div class="col-md-4 form-group">
+                    {{ form_label(form.realstock, "Stock théorique"|trans) }}
+                    <span class="text-danger">{{ form_errors(form.realstock) }}</span>
+                    &nbsp;{{ form_widget(form.realstock) }}
                 </div>
             </section>
            {{ form_rest(form) }}
