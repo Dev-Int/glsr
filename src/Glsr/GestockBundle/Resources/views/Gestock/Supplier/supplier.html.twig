@@ -1,13 +1,13 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Suppliers - {{ parent() }}
+    Supplier - {{ parent() }}
 {% endblock %}
 
 {% block glstock_body %}
     <fieldset class="well">
         <legend>Information Fournisseur</legend>
-        <h2><small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}</h2>
+        <legend><small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}</legend>
             <div class="col-md-2"><span class="label label-default">Adress</span></div>
             <div class="col-md-5">
                 {{ supplier.address }}<br />
