@@ -20,7 +20,7 @@
                     <span class="text-danger">{{ form_errors(form.supplier) }}</span>
                     &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
                 </div>
-                <div class="col-md-2 form-group">
+                <div class="hidden">
                     {{ form_label(form.active, "Actif"|trans) }}
                     <span class="text-danger">{{ form_errors(form.active) }}</span>
                     &nbsp;{{ form_widget(form.active) }}
@@ -62,34 +62,36 @@
         </fieldset>
         <fieldset><legend>Caractéristiques</legend>
              <section class="row col-md-12">
-                <div class="col-md-4 form-group">
+                <div class="hidden">
                     {{ form_label(form.quantity, "Quantité"|trans) }}
                     <span class="text-danger">{{ form_errors(form.quantity) }}</span>
                     &nbsp;{{ form_widget(form.quantity) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-1"></div>
+                <div class="col-md-5 form-group">
                     {{ form_label(form.unit_storage, "Unité de stockage"|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
                     &nbsp;{{ form_widget(form.unit_storage) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                     {{ form_label(form.price, "Prix"|trans) }}
                     <span class="text-danger">{{ form_errors(form.price) }}</span>
                     &nbsp;{{ form_widget(form.price) }}
                 </div>
             </section>
             <section class="row col-md-12">
-                <div class="col-md-4 form-group">
+                <div class="col-md-1"></div>
+                <div class="col-md-5 form-group">
                     {{ form_label(form.unit_bill, "Packaging"|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_bill) }}</span>
                     &nbsp;{{ form_widget(form.unit_bill) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                     {{ form_label(form.minstock, "Stock mini"|trans) }}
                     <span class="text-danger">{{ form_errors(form.minstock) }}</span>
                     &nbsp;{{ form_widget(form.minstock) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="hidden">
                     {{ form_label(form.realstock, "Stock théorique"|trans) }}
                     <span class="text-danger">{{ form_errors(form.realstock) }}</span>
                     &nbsp;{{ form_widget(form.realstock) }}
