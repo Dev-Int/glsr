@@ -4,8 +4,6 @@ namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Glsr\GestockBundle\Entity\Article;
-use Glsr\GestockBundle\Entity\ZoneStorage;
-
 use Glsr\GestockBundle\Form\ArticleType;
 
 class ArticleController extends Controller
