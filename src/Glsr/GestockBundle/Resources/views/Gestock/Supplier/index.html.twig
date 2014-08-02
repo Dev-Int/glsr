@@ -57,12 +57,14 @@
                 <td class="col-md-1">{{ supplier.familyLog }}</td>
                 <td class="col-md-1">{{ supplier.subFamilyLog }}</td>
                 <td class="col-md-2">
-            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
-                <i class="glyphicon glyphicon-pencil"></i>
-            </a>&nbsp;
-                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.delete.title_button'|trans }}" role="button">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>&nbsp;
+                        <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.delete.title_button'|trans }}" role="button">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -74,10 +76,10 @@
     </table>
     <p>
         {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
-            <i class="glyphicon glyphicon-edit"></i>
-            {{ 'glsr.gestock.supplier.create.title_button'|trans }}
-        </a>
+            <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-edit"></i>
+                {{ 'glsr.gestock.supplier.create.title_button'|trans }}
+            </a>
         {% endif %}
     </p>
 

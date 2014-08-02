@@ -40,10 +40,10 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_company_edit', {'id': idSociety}) }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Modifier'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_company_edit', {'id': idSociety}) }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Modifier'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
@@ -77,41 +77,43 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_settings_edit', {'id': idSetting}) }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Modifier'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_settings_edit', {'id': idSetting}) }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Modifier'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
         </div>
         
-        <div class="well panel-default">
+        <div class="well panel-default col-md-7">
             <header class="panel-heading"><a id="divers"></a>Family Logs</header>
             <div class="panel-body">
                 <p>Gestion des familles et sous-familles logistiques</p>
                 <table class="table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-3">Famille</th>
-                            <th class="col-md-4">Sous-Famille</th>
+                            <th class="col-md-2">Famille</th>
+                            <th class="col-md-3">Sous-Famille</th>
                             <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for subfamily in subfamilylog %}
                         <tr>
-                            <td class="col-md-3">{{ subfamily.familylog.name }}</td>
-                            <td class="col-md-4">
+                            <td class="col-md-2">{{ subfamily.familylog.name }}</td>
+                            <td class="col-md-3">
                                 {{ subfamily.name }}
                             </td>
                             <td class="col-md-2">
-                                <a href="{{ path('glstock_setdiv_famlog_edit', {'id': subfamily.familylog.id}) }}" class="btn btn-default" title="{{ 'Modifier famille'|trans }}" role="button">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>&nbsp;
-                                <a href="{{ path('glstock_setdiv_subfamlog_edit', {'id': subfamily.id}) }}" class="btn btn-default" title="{{ 'Modifier sous-famille'|trans }}" role="button">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('glstock_setdiv_famlog_edit', {'id': subfamily.familylog.id}) }}" class="btn btn-default" title="{{ 'Modifier famille'|trans }}" role="button">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>&nbsp;
+                                    <a href="{{ path('glstock_setdiv_subfamlog_edit', {'id': subfamily.id}) }}" class="btn btn-default" title="{{ 'Modifier sous-famille'|trans }}" role="button">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -119,38 +121,40 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_setdiv_famlog_add') }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Ajouter FamilyLog'|trans }}
-                    </a>&nbsp;
-                    <a href="{{ path('glstock_setdiv_subfamlog_add') }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Ajouter SubFamilyLog'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_setdiv_famlog_add') }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Ajouter FamilyLog'|trans }}
+                        </a>&nbsp;
+                        <a href="{{ path('glstock_setdiv_subfamlog_add') }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Ajouter SubFamilyLog'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
         </div>
 
-        <div class="well panel-default">
+        <div class="well panel-default col-md-4 col-md-offset-1">
             <header class="panel-heading"><a id="zonestorage"></a>ZoneStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des zones de stockage.</p>
                 <table class="table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-9">Zone de stockage</th>
-                            <th class="col-md-3">Action</th>
+                            <th class="col-md-3">Zone de stockage</th>
+                            <th class="col-md-1">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for zstorage in zonestorage %}
                         <tr>
-                            <td class="col-md-9">{{ zstorage.name }}</td>
-                            <td class="col-md-3">
-                                <a href="{{ path('glstock_setdiv_zonestorage_edit', {'id': zstorage.id}) }}" class="btn btn-default" title="{{ 'Modifier zone de stockage'|trans }}" role="button">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>
+                            <td class="col-md-3">{{ zstorage.name }}</td>
+                            <td class="col-md-1">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('glstock_setdiv_zonestorage_edit', {'id': zstorage.id}) }}" class="btn btn-default" title="{{ 'Modifier zone de stockage'|trans }}" role="button">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -158,36 +162,38 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_setdiv_zonestorage_add') }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Ajouter ZoneStorage'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_setdiv_zonestorage_add') }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Ajouter ZoneStorage'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
         </div>
 
-        <div class="well panel-default">
+        <div class="well panel-default col-md-7">
             <header class="panel-heading"><a id="unitstorage"></a>UnitStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des unités de stockage.</p>
                 <table class="table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-6">Unit de stockage</th>
-                            <th class="col-md-3">Abbr</th>
-                            <th class="col-md-3">Action</th>
+                            <th class="col-md-3">Unit de stockage</th>
+                            <th class="col-md-2">Abbr</th>
+                            <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for ustorage in unitstorage %}
                         <tr>
-                            <td class="col-md-6">{{ ustorage.name }}</td>
-                            <td class="col-md-3">{{ ustorage.abbr }}</td>
-                            <td class="col-md-3">
-                                <a href="{{ path('glstock_setdiv_unitstorage_edit', {'id': ustorage.id}) }}" class="btn btn-default" title="{{ 'Modifier UnitStorage'|trans }}" role="button">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>
+                            <td class="col-md-3">{{ ustorage.name }}</td>
+                            <td class="col-md-2">{{ ustorage.abbr }}</td>
+                            <td class="col-md-2">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('glstock_setdiv_unitstorage_edit', {'id': ustorage.id}) }}" class="btn btn-default" title="{{ 'Modifier UnitStorage'|trans }}" role="button">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -195,34 +201,36 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_setdiv_unitstorage_add') }}" class="btn btn-default" role="button">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Ajouter UnitStorage'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_setdiv_unitstorage_add') }}" class="btn btn-default" role="button">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Ajouter UnitStorage'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
         </div>
 
-        <div class="well panel-default">
+        <div class="well panel-default col-md-4 col-md-offset-1">
             <header class="panel-heading"><a id="tva"></a>Tva</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des taxes.</p>
                 <table class="table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-md-6">Taux de Tva</th>
-                            <th class="col-md-3">Action</th>
+                            <th class="col-md-2">Taux de Tva</th>
+                            <th class="col-md-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for taxe in tva %}
                         <tr>
-                            <td class="col-md-6">{{ taxe.name }}</td>
-                            <td class="col-md-3">
-                                <a href="{{ path('glstock_setdiv_tva_edit', {'id': taxe.id}) }}" class="btn btn-default" title="{{ 'Modifier Tva'|trans }}">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>
+                            <td class="col-md-2">{{ taxe.name }}</td>
+                            <td class="col-md-2">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('glstock_setdiv_tva_edit', {'id': taxe.id}) }}" class="btn btn-default" title="{{ 'Modifier Tva'|trans }}">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -230,10 +238,10 @@
                 </table>
                 <p>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_setdiv_tva_add') }}" class="btn btn-default">
-                        <i class="glyphicon glyphicon-edit"></i>
-                        {{ 'Ajouter Tva'|trans }}
-                    </a>
+                        <a href="{{ path('glstock_setdiv_tva_add') }}" class="btn btn-default">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            {{ 'Ajouter Tva'|trans }}
+                        </a>
                     {% endif %}
                 </p>
             </div>
