@@ -8,7 +8,12 @@ php:
 
 before_script: 
   ## Composer 
-  composer install -n
+  - composer install -n
+  ## Composer : Mise à jour et Installation des pre-requis
+  - composer selfupdate --quiet
+  - composer install -n --prefer-source --dev
+  ## PHPDocumentor : Dossier de sortie
+  - mkdir -p build/docs
   ## PHP_CodeSniffer
   - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
@@ -36,7 +41,16 @@ script:
   - phpmd src/ text codesize,unusedcode,naming,design
   ## PHPLOC
   - php phploc.phar src/
+  ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
 
-  notification:
-    email:
-      lq@dev-int.net
+after_script:
+  ## PHPDocumentor : Upload vers les GitHub Pages
+  - bash .travis_shell_after_success.sh
+notification:
+  email:
+    lq@dev-int.net
+
+env:
+  global:
+    - secure: b9764d5a7abe49863484355ac2cc767aa9cbc56f
