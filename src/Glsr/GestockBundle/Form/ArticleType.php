@@ -46,7 +46,7 @@ class ArticleType extends AbstractType
             ))
             ->add('active',       'checkbox')
             /**
-             * @todo Créer exception si aucun fournisseurs
+             * @todo #15 Créer exception si aucun fournisseurs
              */
             ->add('supplier',       'entity', array(
                 'class'    => 'GlsrGestockBundle:Supplier',
