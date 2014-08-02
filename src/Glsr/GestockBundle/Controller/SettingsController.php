@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 
 use Glsr\GestockBundle\Entity\Settings;
+use Glsr\GestockBundle\Entity\Tva;
 use Glsr\GestockBundle\Entity\Company;
 use Glsr\GestockBundle\Entity\FamilyLog;
 use Glsr\GestockBundle\Entity\SubFamilyLog;
@@ -13,6 +14,7 @@ use Glsr\GestockBundle\Entity\ZoneStorage;
 use Glsr\GestockBundle\Entity\UnitStorage;
 
 use Glsr\GestockBundle\Form\SettingsType;
+use Glsr\GestockBundle\Form\TvaType;
 use Glsr\GestockBundle\Form\CompanyType;
 use Glsr\GestockBundle\Form\FamilyLogType;
 use Glsr\GestockBundle\Form\SubFamilyLogType;
@@ -44,6 +46,9 @@ class SettingsController extends Controller
         $repoUnitStorage = $etm->getRepository('GlsrGestockBundle:UnitStorage');
         $unitStorage = $repoUnitStorage->findAll();
         
+        $repoTva = $etm->getRepository('GlsrGestockBundle:Tva');
+        $tva = $repoTva->findAll();
+        
         /**
          * @todo Créer la page d'accueil Settings, pour les 3 possibilités de configurations
          */
@@ -52,15 +57,18 @@ class SettingsController extends Controller
             'company'      => $company,
             'subfamilylog' => $subFamilyLog,
             'zonestorage'  => $zoneStorage,
-            'unitstorage'  => $unitStorage
+            'unitstorage'  => $unitStorage,
+            'tva'          => $tva
         ));
     }
     
     public function addSettingsAction()
     {
         $settings = new Settings();
+        $tva      = new Tva();
         
         $form = $this->createForm(new SettingsType(), $settings);
+        $form .= $this->createForm(new TvaType, $tva);
         
         // On récupère la requête
         $request = $this->getRequest();
@@ -173,6 +181,7 @@ class SettingsController extends Controller
 
             if ($form->isValid()) {
                 // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
                 $etm->persist($company);
                 $etm->flush();
 
@@ -239,6 +248,7 @@ class SettingsController extends Controller
 
             if ($form->isValid()) {
                 // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
                 $etm->persist($familyLog);
                 $etm->flush();
 
@@ -305,6 +315,7 @@ class SettingsController extends Controller
 
             if ($form->isValid()) {
                 // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
                 $etm->persist($subFamilyLog);
                 $etm->flush();
 
@@ -371,6 +382,7 @@ class SettingsController extends Controller
 
             if ($form->isValid()) {
                 // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
                 $etm->persist($zoneStorage);
                 $etm->flush();
 
@@ -437,6 +449,7 @@ class SettingsController extends Controller
 
             if ($form->isValid()) {
                 // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
                 $etm->persist($unitStorage);
                 $etm->flush();
 
@@ -450,6 +463,73 @@ class SettingsController extends Controller
         return $this->render('GlsrGestockBundle:Gestock/Settings:edit.html.twig', array(
           'form'    => $form->createView(),
           'unitstorage' => $unitStorage
+        ));
+    }
+    
+    public function addTvaAction()
+    {
+        $tva = new Tva();
+        
+        $form = $this->createForm(new TvaType(), $tva);
+        
+        // On récupère la requête
+        $request = $this->getRequest();
+
+        // On vérifie qu'elle est de type POST
+        if ($request->getMethod() == 'POST') {
+            // On fait le lien Requête <-> Formulaire
+            $form->bind($request);
+
+            // On vérifie que les valeurs rentrées sont correctes
+            if ($form->isValid()) {
+                // On enregistre l'objet $article dans la base de données
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($tva);
+                $etm->flush();                
+
+                // On définit un message flash
+                $this->get('session')->getFlashBag()->add('info', 'Tva bien ajoutée');
+
+                // On redirige vers la page de visualisation des configuration de l'appli
+                return $this->redirect($this->generateUrl('glstock_settings'));
+            }
+        }
+
+        // À ce stade :
+        // - soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
+        // - soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
+
+        return $this->render('GlsrGestockBundle:Gestock/Settings:add.html.twig', array(
+          'form' => $form->createView(),
+        ));
+    }
+    
+    function editTvaAction(Tva $tva)
+    {
+        // On utilise le SettingsType
+        $form = $this->createForm(new TvaType(), $tva);
+
+        $request = $this->getRequest();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                // On enregistre la config
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($tva);
+                $etm->flush();
+
+                // On définit un message flash
+                $this->get('session')->getFlashBag()->add('info', 'Tva bien modifié');
+
+                return $this->redirect($this->generateUrl('glstock_settings'));
+            }
+        }
+
+        return $this->render('GlsrGestockBundle:Gestock/Settings:edit.html.twig', array(
+          'form'    => $form->createView(),
+          'tva' => $tva
         ));
     }
 }
