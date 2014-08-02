@@ -4,7 +4,39 @@ php:
   - 5.3.3
   - 5.3
   - 5.4
+  - 5.5
 
-before_script: composer install -n
+before_script: 
+  ## Composer 
+  composer install -n
+  ## PHP_CodeSniffer
+  - pyrus install pear/PHP_CodeSniffer
+  - phpenv rehash
+  ## PHP Copy/Paste Detector
+  - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
+  ## PHP Mess Detector
+  - pear config-set preferred_state beta
+  - printf "\n" | pecl install imagick
+  - pear channel-discover pear.phpmd.org
+  - pear channel-discover pear.pdepend.org
+  - pear install --alldeps phpmd/PHP_PMD
+  - phpenv rehash
+  ## PHPLOC
+  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar  
 
-script: phpunit -c app
+script: 
+  ## PHPUnit
+  phpunit -c app
+  ## PHP_CodeSniffer
+  - phpcs --standard=PSR1 src/
+  - phpcs --standard=PSR2 src/
+  ## PHP Copy/Paste Detector
+  - php phpcpd.phar --verbose src/
+  ## PHP Mess Detector
+  - phpmd src/ text codesize,unusedcode,naming,design
+  ## PHPLOC
+  - php phploc.phar src/
+
+  notification:
+    email:
+      lq@dev-int.net
