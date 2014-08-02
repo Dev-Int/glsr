@@ -20,7 +20,7 @@
                 Article <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('glstock_art_list') }}">Article list</a></li>
+                <li><a href="{{ path('glstock_art_show') }}">Article list</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li><a href="{{ path('glstock_art_add') }}">Article add</a></li>
                 {% endif %}
