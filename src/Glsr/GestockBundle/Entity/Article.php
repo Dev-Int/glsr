@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Article
  *
  * @ORM\Table(name="gs_article")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\ArticleRepository")
+ * @UniqueEntity(fields="name", message="Ce nom d'article est déjà utilisé dans le système.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Article
@@ -29,6 +31,10 @@ class Article
      * @var string $name intitulé de l'article
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotNull()
+     * @Assert\Regex(pattern="'^\w+[^/]'", message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")
+     * 
+     * @todo #14 trouver la regex nécessaire
      */
     private $name;
     
@@ -51,6 +57,7 @@ class Article
      * @var $unit_bill
      *
      * @ORM\Column(name="unit_bill", type="decimal", precision=7, scale=3)
+     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $unit_bill;
 
@@ -58,6 +65,7 @@ class Article
      * @var $price
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3)
+     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $price;
 
@@ -65,6 +73,7 @@ class Article
      * @var $quantity
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
+     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $quantity;
 
@@ -72,6 +81,7 @@ class Article
      * @var $minstock
      *
      * @ORM\Column(name="minstock", type="decimal", precision=7, scale=3)
+     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $minstock;
 
@@ -79,6 +89,7 @@ class Article
      * @var realstock
      *
      * @ORM\Column(name="realstock", type="decimal", precision=7, scale=3)
+     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $realstock;
     
@@ -87,6 +98,7 @@ class Article
      * 
      * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\ZoneStorage")
      * @ORM\JoinTable(name="gs_article_zonestorage")
+     * @Assert\NotNull()
      */
     private $zone_storages;
 
@@ -94,6 +106,7 @@ class Article
      * @var string $family_log Famille logistique
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
+     * @Assert\NotNull()
      */
     private $family_log;
 
@@ -101,11 +114,12 @@ class Article
      * @var string $sub_family_log Sous-famille logistique
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\SubFamilyLog")
+     * @Assert\NotNull()
      */
     private $sub_family_log;
 
     /**
-     * @var boolean
+     * @var boolean $active 
      *
      * @ORM\Column(name="active", type="boolean")
      */
@@ -118,6 +132,9 @@ class Article
     {
         $this->zone_storages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->active = TRUE;
+        $this->quantity = 0.000;
+        $this->realstock = 0.000;
+        
     }
 
     /**
