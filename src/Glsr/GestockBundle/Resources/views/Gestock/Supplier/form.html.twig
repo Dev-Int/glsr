@@ -81,8 +81,8 @@ function fillSubFamilyLog(){
         dataType: 'json',
         success: function(json){ // quand la réponse de la requete arrive
             $('#glsr_gestockbundle_supplier_sub_family_log').empty(); // tu vides le select2
-            $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
-                $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption + ' ' + value.optionOption + '>'+ value.nameOption +'</option>');
+            $.each(json, function(index, value) { // et tu boucles sur la réponse contenu dans la variable passé à la function du success "json"
+                $('#glsr_gestockbundle_supplier_sub_family_log').append('<option value="'+ value.idOption + ' ' + value.optionOption + '">'+ value.nameOption +'</option>');
             });
         }
     });
