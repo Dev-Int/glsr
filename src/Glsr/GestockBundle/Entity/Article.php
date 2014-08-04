@@ -34,7 +34,6 @@ class Article
      * @Assert\NotNull()
      * @Assert\Regex(pattern="'^\w+[^/]'", message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")
      * 
-     * @todo #14 trouver la regex nécessaire
      */
     private $name;
     
