@@ -1,7 +1,7 @@
 Glsr
 ====
 
-[![Build Status](https://travis-ci.org/GLSR/glsr.svg?branch=master)](https://travis-ci.org/GLSR/glsr)
+[![Build Status](http://travis-ci.org/GLSR/glsr.png)](http://travis-ci.org/#!/GLSR/glsr)
 
 Open-source solution to manage a restaurant, GLSR is a Full Web application to manage all your management issues: the inventory of items to Factsheets products sold through orders items needed to manufacture of your products.
 
