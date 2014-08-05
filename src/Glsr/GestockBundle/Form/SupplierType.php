@@ -79,7 +79,7 @@ class SupplierType extends AbstractType
                 'empty_value' => 'Choice the Sub Family',
                 'empty_data' => null
             ))
-            ->add('active',     'checkbox')
+            ->add('active',     'hidden')
         ;
     }
     
