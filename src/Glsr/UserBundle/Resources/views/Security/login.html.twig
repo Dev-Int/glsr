@@ -9,6 +9,12 @@
   {% if error %}
     <div class="alert alert-error">{{ error }}</div>
   {% endif %}
+    {% for message in app.session.flashbag.get('info') %}
+    <p class="alert alert-info">{{ message }}</p>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('error') %}
+    <p class="alert alert-danger">{{ message }}</p>
+    {% endfor %}
 
   {# Le formulaire, avec URL de soumission vers la route "login_check" comme on l'a vu
      Ici, j'ai repris le contenu du login.html.twig de FOSUserBundle #}
