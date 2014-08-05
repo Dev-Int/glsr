@@ -64,6 +64,13 @@ class SettingsController extends Controller
     
     public function addSettingsAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $settings = new Settings();
         $tva      = new Tva();
         
@@ -104,6 +111,13 @@ class SettingsController extends Controller
     
     function editSettingsAction(Settings $settings)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }        
         // On utilise le SettingsType
         $form = $this->createForm(new SettingsType(), $settings);
 
@@ -133,6 +147,13 @@ class SettingsController extends Controller
 
     public function addCompanyAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $company = new Company();
         
         $form = $this->createForm(new CompanyType(), $company);
@@ -171,6 +192,13 @@ class SettingsController extends Controller
     
     function editCompanyAction(Company $company)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new CompanyType(), $company);
 
@@ -200,6 +228,13 @@ class SettingsController extends Controller
 
     public function addFamilyLogAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $familyLog = new FamilyLog();
         
         $form = $this->createForm(new FamilyLogType(), $familyLog);
@@ -238,6 +273,13 @@ class SettingsController extends Controller
     
     function editFamilyLogAction(FamilyLog $familyLog)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new FamilyLogType(), $familyLog);
 
@@ -267,6 +309,13 @@ class SettingsController extends Controller
 
     public function addSubFamilyLogAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $subFamilyLog = new SubFamilyLog();
         
         $form = $this->createForm(new SubFamilyLogType(), $subFamilyLog);
@@ -305,6 +354,13 @@ class SettingsController extends Controller
     
     function editSubFamilyLogAction(SubFamilyLog $subFamilyLog)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new SubFamilyLogType(), $subFamilyLog);
 
@@ -334,6 +390,13 @@ class SettingsController extends Controller
 
     public function addZoneStorageAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $zoneStorage = new ZoneStorage();
         
         $form = $this->createForm(new ZoneStorageType(), $zoneStorage);
@@ -372,6 +435,13 @@ class SettingsController extends Controller
     
     function editZoneStorageAction(ZoneStorage $zoneStorage)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new ZoneStorageType(), $zoneStorage);
 
@@ -401,6 +471,13 @@ class SettingsController extends Controller
     
     public function addUnitStorageAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $unitStorage = new UnitStorage();
         
         $form = $this->createForm(new UnitStorageType(), $unitStorage);
@@ -439,6 +516,13 @@ class SettingsController extends Controller
     
     function editUnitStorageAction(UnitStorage $unitStorage)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new UnitStorageType(), $unitStorage);
 
@@ -468,6 +552,13 @@ class SettingsController extends Controller
     
     public function addTvaAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $tva = new Tva();
         
         $form = $this->createForm(new TvaType(), $tva);
@@ -506,6 +597,13 @@ class SettingsController extends Controller
     
     function editTvaAction(Tva $tva)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new TvaType(), $tva);
 

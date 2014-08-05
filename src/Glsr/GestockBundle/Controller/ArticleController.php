@@ -28,6 +28,13 @@ class ArticleController extends Controller
     
     public function addAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $article = new Article();
         
         // On crée le formulaire grâce à l'ArticleType
@@ -68,6 +75,13 @@ class ArticleController extends Controller
     
     public function editAction(Article $article)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
         
@@ -106,6 +120,13 @@ class ArticleController extends Controller
     
     public function deleteAction(Article $article)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
         // Cela permet de protéger la suppression d'article contre cette faille
         $form = $this->createFormBuilder()->getForm();
