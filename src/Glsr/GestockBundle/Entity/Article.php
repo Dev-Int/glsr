@@ -31,7 +31,7 @@ class Article
      * @var string $name intitulé de l'article
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      * @Assert\Regex(pattern="'^\w+[^/]'", message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")
      * 
      */
@@ -97,7 +97,7 @@ class Article
      * 
      * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\ZoneStorage")
      * @ORM\JoinTable(name="gs_article_zonestorage")
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $zone_storages;
 
@@ -105,7 +105,7 @@ class Article
      * @var string $family_log Famille logistique
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $family_log;
 
@@ -113,7 +113,7 @@ class Article
      * @var string $sub_family_log Sous-famille logistique
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\SubFamilyLog")
-     * @Assert\NotNull()
+     * @Assert\NotBlank()
      */
     private $sub_family_log;
 
