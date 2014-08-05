@@ -4,12 +4,15 @@ namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Supplier
  *
  * @ORM\Table(name="gs_supplier")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SupplierRepository")
+ * @UniqueEntity(fields="name", message="Ce nom de fournisseur est déjà utilisé dans le système.")
  */
 class Supplier
 {
@@ -23,23 +26,30 @@ class Supplier
     private $id;
 
     /**
-     * @var string
+     * @var string $name 
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\Regex(pattern="'^[A-Z]'", message="Le nom du fournisseur doit commencer par une lettre.")
+     * @Assert\Regex(pattern="'[\w ]'", message="Le nom du fournisseur ne doit contenir que des lettres et des chiffres.")
+     * @Assert\NotBlank()
      */
     private $name;
 
     /**
-     * @var string
+     * @var string $address
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\Regex("'[\w]'")
+     * @Assert\NotBlank()
      */
     private $address;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="zipcode", type="integer")
+     * @ORM\Column(name="zipcode", type="integer", length=5)
+     * @Assert\Regex(pattern="'^[0-9]{5}$'", message="Le code postale ne contenir que 5 chiffres.")
+     * @Assert\NotBlank()
      */
     private $zipcode;
 
@@ -47,6 +57,8 @@ class Supplier
      * @var string
      *
      * @ORM\Column(name="town", type="string", length=255)
+     * @Assert\Regex(pattern="/^[A-Z]+([-' ]?[A-Z]+)+$/", message="Le nom de ville choisi n'est pas valide.")
+     * @Assert\NotBlank()
      */
     private $town;
 
@@ -54,7 +66,7 @@ class Supplier
      * @var phone_number
      *
      * @ORM\Column(name="phone", type="phone_number")
-     * 
+     * @Assert\NotBlank()
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $phone;
@@ -63,7 +75,7 @@ class Supplier
      * @var phone_number
      *
      * @ORM\Column(name="fax", type="phone_number")
-     * 
+     * @Assert\NotBlank()
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $fax;
@@ -72,6 +84,11 @@ class Supplier
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "'{{ value }}' n'est pas un email valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
@@ -79,6 +96,8 @@ class Supplier
      * @var string
      *
      * @ORM\Column(name="contact", type="string", length=50)
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^[A-Z]/", message="Le nom du contact doit commencer par une lettre.")
      */
     private $contact;
 
@@ -86,15 +105,15 @@ class Supplier
      * @var phone_number
      *
      * @ORM\Column(name="gsm", type="phone_number")
-     * 
+     * @Assert\NotBlank()
      * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $gsm;
 
     /**
      * @var string $family_log Famille logistique
-     * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
+     * @Assert\NotBlank()
      */
     private $family_log;
 
@@ -109,6 +128,8 @@ class Supplier
      * @var integer
      *
      * @ORM\Column(name="delaydeliv", type="smallint")
+     * @Assert\Length(max="1", maxMessage = "Votre choix ne peut pas être plus long que {{ limit }} caractère")
+     * @Assert\NotBlank()
      */
     private $delaydeliv;
 
@@ -116,6 +137,7 @@ class Supplier
      * @var array $orderdate Tableau des jours de commande
      *
      * @ORM\Column(name="orderdate", type="simple_array")
+     * @Assert\NotBlank(message="Il vous faut choisir au moins 1 date de commande.")
      */
     private $orderdate;
 

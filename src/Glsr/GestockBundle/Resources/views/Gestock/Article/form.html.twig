@@ -20,7 +20,7 @@
                     <span class="text-danger">{{ form_errors(form.supplier) }}</span>
                     &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
                 </div>
-                <div class="col-md-2 form-group">
+                <div class="hidden">
                     {{ form_label(form.active, "Actif"|trans) }}
                     <span class="text-danger">{{ form_errors(form.active) }}</span>
                     &nbsp;{{ form_widget(form.active) }}
@@ -52,44 +52,48 @@
                     {{ form_label(form.family_log, "Famille logistique"|trans) }}
                     <span class="text-danger">{{ form_errors(form.family_log) }}</span>
                     &nbsp;{{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}
+                    <input id="hidden_flog" name="glsr_gestockbundle_article[family_log]" type="hidden" value="" />
                 </div>
                 <div class="col-md-4 form-group">
                     {{ form_label(form.sub_family_log, "Sous-famille"|trans) }}
                     <span class="text-danger">{{ form_errors(form.sub_family_log) }}</span>
                     &nbsp;{{ form_widget(form.sub_family_log) }}
+                    <input id="hidden_sflog" name="glsr_gestockbundle_article[sub_family_log]" type="hidden" value="" />
                 </div>
             </section>
         </fieldset>
         <fieldset><legend>Caractéristiques</legend>
              <section class="row col-md-12">
-                <div class="col-md-4 form-group">
+                <div class="hidden">
                     {{ form_label(form.quantity, "Quantité"|trans) }}
                     <span class="text-danger">{{ form_errors(form.quantity) }}</span>
                     &nbsp;{{ form_widget(form.quantity) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-1"></div>
+                <div class="col-md-5 form-group">
                     {{ form_label(form.unit_storage, "Unité de stockage"|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
                     &nbsp;{{ form_widget(form.unit_storage) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                     {{ form_label(form.price, "Prix"|trans) }}
                     <span class="text-danger">{{ form_errors(form.price) }}</span>
                     &nbsp;{{ form_widget(form.price) }}
                 </div>
             </section>
             <section class="row col-md-12">
-                <div class="col-md-4 form-group">
+                <div class="col-md-1"></div>
+                <div class="col-md-5 form-group">
                     {{ form_label(form.unit_bill, "Packaging"|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_bill) }}</span>
                     &nbsp;{{ form_widget(form.unit_bill) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-6 form-group">
                     {{ form_label(form.minstock, "Stock mini"|trans) }}
                     <span class="text-danger">{{ form_errors(form.minstock) }}</span>
                     &nbsp;{{ form_widget(form.minstock) }}
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="hidden">
                     {{ form_label(form.realstock, "Stock théorique"|trans) }}
                     <span class="text-danger">{{ form_errors(form.realstock) }}</span>
                     &nbsp;{{ form_widget(form.realstock) }}
@@ -112,6 +116,8 @@ function fillSubFamilyLog(){
         dataType: 'json',
         success: function(json){ // quand la réponse de la requete arrive
             $('#glsr_gestockbundle_article_sub_family_log').empty(); // tu vides le select2
+            $('#hidden_flog').val( json.familylog );
+            $('#hidden_sflog').val( json.subfamilylog );
             $.each(json, function(index, value) { // et tu boucle sur la réponse contenu dans la variable passé à la function du success "json"
                 if (id_select2 !== null && id_select2 === value.idOption){
                     $('#glsr_gestockbundle_article_sub_family_log').append('<option value="'+ value.idOption +'" selected="selected">'+ value.nameOption +'</option>');
@@ -134,11 +140,13 @@ function getFamilyLog(){
             $('#glsr_gestockbundle_article_family_log option:selected').removeAttr('selected')
             $('#glsr_gestockbundle_article_family_log option[value="' + json.familylog + '"').attr('selected', 'selected');
             $('#glsr_gestockbundle_article_family_log').prop('disabled', true);
+            $('#hidden_flog').val( json.familylog );
             if (json.subfamilylog){
                 if ($('#glsr_gestockbundle_article_sub_family_log option[value="' + json.subfamilylog + '"').length){
                     $('#glsr_gestockbundle_article_sub_family_log option:selected').removeAttr('selected')
                     $('#glsr_gestockbundle_article_sub_family_log option[value="' + json.subfamilylog + '"').attr('selected', 'selected');
                     $('#glsr_gestockbundle_article_sub_family_log').prop('disabled', true);
+                    $('#hidden_sflog').val( json.subfamilylog );
                 } else {
                     fillSubFamilyLog();
                     getFamilyLog();

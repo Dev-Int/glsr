@@ -31,11 +31,18 @@ class SupplierController extends Controller
     
     public function addAction()
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $supplier = new Supplier();
         $etm = $this->getDoctrine()->getManager();
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType($etm), $supplier);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -71,6 +78,13 @@ class SupplierController extends Controller
     
     public function editAction(Supplier $supplier)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType(), $supplier);
         
@@ -104,6 +118,13 @@ class SupplierController extends Controller
     
     public function deleteAction(Supplier $supplier)
     {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
         // Cela permet de protéger la suppression du fournisseur contre cette faille
         $form = $this->createFormBuilder()->getForm();
