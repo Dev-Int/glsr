@@ -58,9 +58,6 @@ class SupplierType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ))
-            /**
-             * @todo #1 Créer une exception si aucune famille logistique
-             */
             ->add('family_log',     'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
@@ -68,9 +65,6 @@ class SupplierType extends AbstractType
                 'empty_value' => 'Choice the Family',
                 'empty_data' => null
             ))
-            /**
-             * @todo Doit dépendre de family_log
-             */
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',
