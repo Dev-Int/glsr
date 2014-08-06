@@ -39,4 +39,16 @@ class ArticleRepository extends EntityRepository
         // Et enfin, on retourne l'objet Paginator correspondant à la requête construite
         return new Paginator($query);
     }
+    
+    public function getArticleFromSupplier($supplier)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.active = 1')
+            ->where('a.supplier = :id')
+            ->setParameter('id', $supplier)
+            ->orderBy('a.name', 'ASC')
+            ->getQuery();
+        
+        return $query->getResult();
+    }
 }

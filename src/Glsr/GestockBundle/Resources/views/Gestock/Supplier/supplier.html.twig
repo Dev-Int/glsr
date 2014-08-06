@@ -4,39 +4,42 @@
     Supplier - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    <small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}
+{% endblock %}
+
 {% block glstock_body %}
     <fieldset class="well">
         <legend>Information Fournisseur</legend>
-        <legend><small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}</legend>
-            <div class="col-md-2"><span class="label label-default">Adress</span></div>
-            <div class="col-md-5">
-                {{ supplier.address }}<br />
-                {{ supplier.zipcode }} {{ supplier.town }}
-            </div>
-            <div class="col-md-5"><span class="label label-default">Pays</span><br /></div>
-            <legend>Commercial</legend>
-            <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
-            <div class="col-md-4">{{ supplier.contact }}</div><br />
-            <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
-            <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
-            <div class="col-md-1"><span class="label label-default">Fax</span></div>
-            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
-            <div class="col-md-2"><span class="label label-default">Email</span></div>
-            <div class="col-md-4"></div>
-            <legend>Administratif</legend>
-            <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
-            <div class="col-md-4"></div><br />
-            <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
-            <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
-            <div class="col-md-1"><span class="label label-default">Fax</span></div>
-            <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
-            <div class="col-md-2"><span class="label label-default">Email</span></div>
-            <div class="col-md-4">{{ supplier.email }}</div>
-            <legend>Details</legend>
-            <div class="col-md-2"><span class="label label-default">Famille</span></div>
-            <div class="col-md-4">{{ supplier.familyLog }}</div>
-            <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
-            <div class="col-md-4">{% if supplier.subFamilyLog %}{{ supplier.subFamilyLog }}{% endif %}</div>
+        <div class="col-md-2"><span class="label label-default">Adress</span></div>
+        <div class="col-md-5">
+            {{ supplier.address }}<br />
+            {{ supplier.zipcode }} {{ supplier.town }}
+        </div>
+        <div class="col-md-5"><span class="label label-default">Pays</span><br /></div>
+        <legend>Commercial</legend>
+        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <div class="col-md-4">{{ supplier.contact }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
+        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-4"></div>
+        <legend>Administratif</legend>
+        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <div class="col-md-4"></div><br />
+        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
+        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-4">{{ supplier.email }}</div>
+        <legend>Details</legend>
+        <div class="col-md-2"><span class="label label-default">Famille</span></div>
+        <div class="col-md-4">{{ supplier.familyLog }}</div>
+        <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
+        <div class="col-md-4">{% if supplier.subFamilyLog %}{{ supplier.subFamilyLog }}{% endif %}</div>
     </fieldset>
     <table class="panel panel-default">
         <thead class="panel-heading">
@@ -76,6 +79,45 @@
             </tr>
         </tbody>
     </table>
+    
+    <section class="col-md-12">
+        <fieldset>
+            <legend>Articles de {{ supplier.name }}</legend>
+            <table class="table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">name</th>
+                        <th class="col-md-1">{#unitstorage#}unité</th>
+                        <th class="col-md-1">{#packaging#}unité facture</th>
+                        <th class="col-md-1">price</th>
+                        <th class="col-md-1">quantity</th>
+                        <th class="col-md-1">{#minstock#}mini</th>
+                        <th class="col-md-2">{#FamilyLog#}famille logistique</th>
+                        <th class="col-md-2">{#SubFamilyLog#}sous famille</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                                {{ article.name }}
+                            </a>
+                        </td>
+                        <td>{{ article.packaging }}</td>
+                        <td>{{ article.unitstorage }}</td>
+                        <td>{{ article.price }} €</td>
+                        <td>{{ article.quantity }}</td>
+                        <td>{{ article.minstock }}</td>
+                        <td>{{ article.familyLog }}</td>
+                        <td>{{ article.subFamilyLog }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </fieldset>
+    </section>
+    
     <section class="col-md-12">
         {% if is_granted('ROLE_ADMIN') %}
             <p>
@@ -100,5 +142,5 @@
             </p>
         {% endif %}
     </section>
+
 {% endblock %}    
-    {# @todo include articles.list #}

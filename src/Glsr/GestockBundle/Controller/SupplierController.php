@@ -169,7 +169,14 @@ class SupplierController extends Controller
     
     public function showAction(Supplier $supplier)
     {
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm
+            ->getRepository('GlsrGestockBundle:Article')
+            ->getArticleFromSupplier($supplier->getId());
+//        var_dump($articles);
+        
         return $this->render('GlsrGestockBundle:Gestock/Supplier:supplier.html.twig', array(
+            'articles' => $articles,
             'supplier' => $supplier
         ));
     }
