@@ -2,9 +2,9 @@ parameters:
     gestock.entity.class: Glsr\GestockBundle\Entity
 
 services:
-#    kernel.listener.glsr_request:
-#        class: Glsr\GestockBundle\Listener\GlsrRequestListener
-#        arguments: [ @doctrine.orm.entity_manager, @service_container, @router ]
-#        tags:
-#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-#            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+    kernel.listener.glsr_request:
+        class: Glsr\GestockBundle\Listener\GlsrRequestListener
+        arguments: [ @doctrine.orm.entity_manager, @service_container, @router ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

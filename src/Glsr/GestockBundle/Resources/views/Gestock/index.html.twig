@@ -6,20 +6,23 @@
     Accueil - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{ "Page d'accueil"|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    <h2>Bienvenue sur la page d'accueil Gestock</h2>
     <section class="col-md-3">
         <div class="panel panel-default">
-            <header class="panel-heading">{#<a href="{{ path('glstock_settings') }}">#}Configuration{#</a>#}</header>
+            <header class="panel-heading">Configuration</header>
             <div class="panel-body">
                 <ul class="list-unstyled">
-                    <li><a href="{{ path('glstock_settings') }}#application">
-                            <i class="glyphicon glyphicon-wrench"></i>
-                            Application</a></li>
-                    <li><a href="{{ path('glstock_settings') }}#company">
+                    <li><a href="{{ path('glstock_company') }}">
                             <i class="glyphicon glyphicon-tower"></i>
                             Company</a></li>
-                    <li><a href="{{ path('glstock_settings') }}#divers">
+                    <li><a href="{{ path('glstock_application') }}">
+                            <i class="glyphicon glyphicon-wrench"></i>
+                            Application</a></li>
+                    <li><a href="{{ path('glstock_divers') }}">
                             <i class="glyphicon glyphicon-info-sign"></i>
                             Divers</a></li>
                 </ul>

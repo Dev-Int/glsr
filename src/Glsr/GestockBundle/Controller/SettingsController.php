@@ -28,15 +28,31 @@ use Glsr\GestockBundle\Form\UnitStorageType;
  */
 class SettingsController extends Controller
 {
-    public function indexAction()
+    public function showCompanyAction()
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $repoCompany = $etm->getRepository('GlsrGestockBundle:Company');
+        $company = $repoCompany->findAll();
+        
+        return $this->render('GlsrGestockBundle:Gestock/Settings:index.html.twig', array(
+            'company'      => $company,
+        ));
+    }
+    
+    public function showApplicationAction()
     {
         $etm = $this->getDoctrine()->getManager();
         $repoSettings = $etm->getRepository('GlsrGestockBundle:Settings');
         $settings = $repoSettings->findAll();
         
-        $repoCompany = $etm->getRepository('GlsrGestockBundle:Company');
-        $company = $repoCompany->findAll();
-        
+        return $this->render('GlsrGestockBundle:Gestock/Settings:index.html.twig', array(
+            'settings'     => $settings
+        ));
+    }
+    
+    public function showDiversAction()
+    {
+        $etm = $this->getDoctrine()->getManager();
         $repoSubFamilyLog = $etm->getRepository('GlsrGestockBundle:SubFamilyLog');
         $subFamilyLog = $repoSubFamilyLog->findAll();
         
@@ -49,12 +65,8 @@ class SettingsController extends Controller
         $repoTva = $etm->getRepository('GlsrGestockBundle:Tva');
         $tva = $repoTva->findAll();
         
-        /**
-         * @todo Créer la page d'accueil Settings, pour les 3 possibilités de configurations
-         */
         return $this->render('GlsrGestockBundle:Gestock/Settings:index.html.twig', array(
-            'settings'     => $settings,
-            'company'      => $company,
+            'divers'       => 1,
             'subfamilylog' => $subFamilyLog,
             'zonestorage'  => $zoneStorage,
             'unitstorage'  => $unitStorage,
@@ -96,7 +108,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Configuration bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_application'));
             }
         }
 
@@ -135,7 +147,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Configuration bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_application'));
             }
         }
 
@@ -177,7 +189,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Company bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_company'));
             }
         }
 
@@ -216,7 +228,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Company bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_company'));
             }
         }
 
@@ -258,7 +270,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'FamilyLog bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -297,7 +309,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'FamilyLog bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -339,7 +351,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'SubFamilyLog bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -378,7 +390,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'SubFamilyLog bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -420,7 +432,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'ZoneStorage bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -459,7 +471,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'ZoneStorage bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -501,7 +513,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'UnitStorage bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -540,7 +552,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'UnitStorage bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -582,7 +594,7 @@ class SettingsController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Tva bien ajoutée');
 
                 // On redirige vers la page de visualisation des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 
@@ -621,7 +633,7 @@ class SettingsController extends Controller
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Tva bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_settings'));
+                return $this->redirect($this->generateUrl('glstock_divers'));
             }
         }
 

@@ -53,12 +53,12 @@ class Article
     private $unit_storage;
     
     /**
-     * @var $unit_bill
+     * @var $packaging
      *
-     * @ORM\Column(name="unit_bill", type="decimal", precision=7, scale=3)
+     * @ORM\Column(name="packaging", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
-    private $unit_bill;
+    private $packaging;
 
     /**
      * @var $price
@@ -170,26 +170,26 @@ class Article
     }
 
     /**
-     * Set unit_bill
+     * Set packaging
      *
-     * @param string $unitBill
+     * @param string $packaging
      * @return Article
      */
-    public function setUnitBill($unitBill)
+    public function setUnitBill($packaging)
     {
-        $this->unit_bill = $unitBill;
+        $this->packaging = $packaging;
 
         return $this;
     }
 
     /**
-     * Get unit_bill
+     * Get packaging
      *
      * @return string 
      */
     public function getUnitBill()
     {
-        return $this->unit_bill;
+        return $this->packaging;
     }
 
     /**

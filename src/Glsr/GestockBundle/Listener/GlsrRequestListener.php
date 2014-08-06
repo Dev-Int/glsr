@@ -33,7 +33,9 @@ class GlsrRequestListener
             'glstock_setdiv_unitstorage_add',
             'glstock_setdiv_tva_add',
             'glstock_suppli_add',
-            'glstock_art_add'
+            'glstock_art_add',
+            'fos_user_security_login',
+            'fos_user_security_check'
         );
         $this->routes = $routes;
     }
@@ -42,33 +44,32 @@ class GlsrRequestListener
     {
         // Si la route en cours est celle que l'on veut attribuer, 
         // on sort de la fonction
-        if (in_array($event->getRequest()->attributes->get('_route'), $this->routes)) {
-            return;
-        }
+        if (!in_array($event->getRequest()->attributes->get('_route'), $this->routes)) {
         
-        // Tableau des entitées
-        $entities = array(
-            array('repository' => 'GlsrGestockBundle:Company',      'route' => $this->routes[0]),
-            array('repository' => 'GlsrGestockBundle:Settings',     'route' => $this->routes[1]),
-            array('repository' => 'GlsrGestockBundle:FamilyLog',    'route' => $this->routes[2]),
-            array('repository' => 'GlsrGestockBundle:SubFamilyLog', 'route' => $this->routes[3]),
-            array('repository' => 'GlsrGestockBundle:ZoneStorage',  'route' => $this->routes[4]),
-            array('repository' => 'GlsrGestockBundle:UnitStorage',  'route' => $this->routes[5]),
-            array('repository' => 'GlsrGestockBundle:Tva',          'route' => $this->routes[6]),
-            array('repository' => 'GlsrGestockBundle:Supplier',     'route' => $this->routes[7]),
-            array('repository' => 'GlsrGestockBundle:Article',      'route' => $this->routes[8])
-        );
-        // vérifie que les Entitées ne sont pas vides
-        $message = "Il faut renseigner les informations manquantes";
-        
-        for ($index = 0; $index < count($entities); $index++) {
-            $entity = $this->etm->getRepository($entities[$index]['repository']);
-            $entityData = $entity->findAll();
-            
-            if(empty($entityData)) {
-                $this->container->get('session')->getFlashBag()->add('info', $message);
-                $this->redirect = $entities[$index]['route'];
-                $index += count($entities);
+            // Tableau des entitées
+            $entities = array(
+                array('repository' => 'GlsrGestockBundle:Company',      'route' => $this->routes[0]),
+                array('repository' => 'GlsrGestockBundle:Settings',     'route' => $this->routes[1]),
+                array('repository' => 'GlsrGestockBundle:FamilyLog',    'route' => $this->routes[2]),
+                array('repository' => 'GlsrGestockBundle:SubFamilyLog', 'route' => $this->routes[3]),
+                array('repository' => 'GlsrGestockBundle:ZoneStorage',  'route' => $this->routes[4]),
+                array('repository' => 'GlsrGestockBundle:UnitStorage',  'route' => $this->routes[5]),
+                array('repository' => 'GlsrGestockBundle:Tva',          'route' => $this->routes[6]),
+                array('repository' => 'GlsrGestockBundle:Supplier',     'route' => $this->routes[7]),
+                array('repository' => 'GlsrGestockBundle:Article',      'route' => $this->routes[8])
+            );
+            // vérifie que les Entitées ne sont pas vides
+            $message = "Il faut renseigner les informations manquantes";
+
+            for ($index = 0; $index < count($entities); $index++) {
+                $entity = $this->etm->getRepository($entities[$index]['repository']);
+                $entityData = $entity->findAll();
+
+                if(empty($entityData)) {
+                    $this->container->get('session')->getFlashBag()->add('info', $message);
+                    $this->redirect = $entities[$index]['route'];
+                    $index += count($entities);
+                }
             }
         }
     }

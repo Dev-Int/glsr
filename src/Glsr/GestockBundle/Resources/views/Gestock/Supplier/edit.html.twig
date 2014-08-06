@@ -9,9 +9,11 @@
 {% block body_js %}
 {% endblock %}
 
+{% block body_title %}
+    {{ 'Edit Supplier'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h3>{{ 'Edit Supplier'|trans }}</h3>
     
     {% include 'GlsrGestockBundle:Gestock/Supplier:form.html.twig' %}
     

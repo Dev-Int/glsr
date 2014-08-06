@@ -6,16 +6,18 @@
     Settings - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{ 'Edit configuration'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h3>{{ 'Edit configuration'|trans }}</h3>
     
     {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
     
     <p>{{ 'Cette configuration déterminera le fonctionnement de votre application'|trans }}</p>
     
     <p>
-        <a href="{{ path('glstock_settings') }}" class="btn btn-default" role="button">
+        <a href="#" onclick="window.history.back();return false;" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
             {{ "Retour à la configuration"|trans }}
         </a>

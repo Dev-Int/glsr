@@ -6,13 +6,35 @@
     Settings - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{'Settings'|trans }}
+{% endblock %}
 {% block glstock_body %}
-    <h2>{{'Settings'|trans }}</h2>
     
-    <hr />
-    
-    <section class="row">
-        <div class="well panel-default">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li {% if app.request.attributes.get('_route') == 'glstock_company' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_company') }}">
+                <i class="glyphicon glyphicon-tower"></i>
+                Company
+            </a>
+        </li>
+        <li {% if app.request.attributes.get('_route') == 'glstock_application' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_application') }}">
+                <i class="glyphicon glyphicon-wrench"></i>
+                Application
+            </a>
+        </li>
+        <li {% if app.request.attributes.get('_route') == 'glstock_divers' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_divers') }}">
+                <i class="glyphicon glyphicon-info-sign"></i>
+                Divers
+            </a>
+        </li>
+    </ul>
+
+{% if company is defined %}
+    <section class="row well">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="company"></a>Company</header>
             <div class="panel-body">
                 <p>Paramètres de la société utilisant le logiciel.</p>
@@ -48,8 +70,11 @@
                 </p>
             </div>
         </div>
-        
-        <div class="well panel-default">
+    </section>
+{% endif %}    
+{% if settings is defined %}
+    <section class="well row">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="application"></a>Application</header>
             <div class="panel-body">
                 <p>Gestion des paramètres de l'application.</p>
@@ -85,8 +110,12 @@
                 </p>
             </div>
         </div>
-        
-        <div class="well panel-default col-md-7">
+    </section>
+{% endif %}    
+{% if divers is defined %}
+    <section class="well row">
+        <div class="col-md-7">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="divers"></a>Family Logs</header>
             <div class="panel-body">
                 <p>Gestion des familles et sous-familles logistiques</p>
@@ -133,8 +162,10 @@
                 </p>
             </div>
         </div>
+        </div>
 
-        <div class="well panel-default col-md-4 col-md-offset-1">
+        <div class="col-md-4 col-md-offset-1">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="zonestorage"></a>ZoneStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des zones de stockage.</p>
@@ -170,8 +201,11 @@
                 </p>
             </div>
         </div>
-
-        <div class="well panel-default col-md-7">
+        </div>
+    </section>
+    <section class="well row">
+        <div class="col-md-7">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="unitstorage"></a>UnitStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des unités de stockage.</p>
@@ -209,8 +243,10 @@
                 </p>
             </div>
         </div>
+        </div>
 
-        <div class="well panel-default col-md-4 col-md-offset-1">
+        <div class="col-md-4 col-md-offset-1">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="tva"></a>Tva</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des taxes.</p>
@@ -246,5 +282,7 @@
                 </p>
             </div>
         </div>
+        </div>
     </section>    
+{% endif %}
 {% endblock %}

@@ -21,7 +21,7 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('name',            'text')
-            ->add('unit_bill',       'number', array(
+            ->add('packaging',       'number', array(
                 'precision'     => 3,
                 'grouping'      => TRUE,
                 'label'         => 'packaging'

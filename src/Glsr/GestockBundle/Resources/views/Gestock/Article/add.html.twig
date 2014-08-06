@@ -6,9 +6,11 @@
     {{ 'glsr.gestock.article.create.title'|trans }} - {{ parent() }}
 {% endblock %}
     
+{% block body_title %}
+    {{ 'glsr.gestock.article.create.title'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h3>{{ 'glsr.gestock.article.create.title'|trans }}</h3>
     
     {% include 'GlsrGestockBundle:Gestock/Article:form.html.twig' %}
     
