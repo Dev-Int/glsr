@@ -6,9 +6,11 @@
     Settings - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{ 'Edit configuration'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h3>{{ 'Edit configuration'|trans }}</h3>
     
     {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
     

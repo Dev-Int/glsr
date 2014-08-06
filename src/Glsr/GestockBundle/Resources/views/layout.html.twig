@@ -115,7 +115,7 @@
 
 {% block body %}
     {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-    <h1>Gestock</h1>
+    <h1>Gestock - <small>{% block body_title %}{% endblock %}</small></h1>
     
     <hr />
     {% for message in app.session.flashbag.get('info') %}

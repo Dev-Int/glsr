@@ -6,15 +6,15 @@
     Article - {{ parent() }}
 {% endblock %}
 
-{% block glstock_body %}
+{% block body_title %}
+    {% if articles is defined %}
+    <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.article.list'|trans }}
+    {% elseif article is defined %}
+    <i class="glyphicon glyphicon-eye-open"></i> Article : {{ article.name }}
+    {% endif %}
+{% endblock %}
 
-    <h2>
-        {% if articles is defined %}
-        <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.article.list'|trans }}
-        {% elseif article is defined %}
-        <i class="glyphicon glyphicon-eye-open"></i> Article : {{ article.name }}
-        {% endif %}
-    </h2>
+{% block glstock_body %}
 
     <table class="table-striped table-bordered">
         <thead>

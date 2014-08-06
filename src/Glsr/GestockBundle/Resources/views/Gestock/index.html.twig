@@ -6,8 +6,11 @@
     Accueil - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{ "Page d'accueil"|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    <h2>Bienvenue sur la page d'accueil Gestock</h2>
     <section class="col-md-3">
         <div class="panel panel-default">
             <header class="panel-heading">{#<a href="{{ path('glstock_settings') }}">#}Configuration{#</a>#}</header>

@@ -6,11 +6,10 @@
     Settings - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{'Settings'|trans }}
+{% endblock %}
 {% block glstock_body %}
-    <h2>{{'Settings'|trans }}</h2>
-    
-    <hr />
-    
     <section class="row">
         <div class="well panel-default">
             <header class="panel-heading"><a id="company"></a>Company</header>

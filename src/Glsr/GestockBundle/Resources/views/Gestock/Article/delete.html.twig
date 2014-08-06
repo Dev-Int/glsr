@@ -6,9 +6,11 @@
     {{ 'glsr.gestock.article.delete.title'|trans }} - {{ parent() }}
 {% endblock %}
     
+{% block body_title %}
+    {{ 'glsr.gestock.article.delete.title'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h2>{{ 'glsr.gestock.article.delete.title'|trans }}</h2>
     
     <p>{{ 'glsr.gestock.article.delete.caution'|trans({'%article.name%': article.name}) }}</p>
     

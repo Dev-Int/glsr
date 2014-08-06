@@ -6,9 +6,11 @@
     Settings - {{ parent() }}
 {% endblock %}
 
+{% block body_title %}
+    {{ 'Nouvelle configuration'|trans }}
+{% endblock %}
+
 {% block glstock_body %}
-    
-    <h3>{{ 'Nouvelle configuration'|trans }}</h3>
     
     {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
     

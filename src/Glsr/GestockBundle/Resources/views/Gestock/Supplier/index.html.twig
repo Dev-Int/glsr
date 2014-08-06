@@ -6,9 +6,11 @@
     {{ 'glsr.gestock.supplier.title'|trans }} - {{ parent() }}
 {% endblock %}
 
-{% block glstock_body %}
+{% block body_title %}
+    {{ 'glsr.gestock.supplier.list'|trans }}
+{% endblock %}
 
-    <h2>{{ 'glsr.gestock.supplier.list'|trans }}</h2>
+{% block glstock_body %}
 
     <table class="table-striped table-bordered">
         <thead>
