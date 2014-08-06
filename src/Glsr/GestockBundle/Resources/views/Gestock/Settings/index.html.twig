@@ -10,8 +10,8 @@
     {{'Settings'|trans }}
 {% endblock %}
 {% block glstock_body %}
-    <section class="row">
-        <div class="well panel-default">
+    <section class="row well">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="company"></a>Company</header>
             <div class="panel-body">
                 <p>Paramètres de la société utilisant le logiciel.</p>
@@ -47,8 +47,9 @@
                 </p>
             </div>
         </div>
-        
-        <div class="well panel-default">
+    </section>
+    <section class="well row">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="application"></a>Application</header>
             <div class="panel-body">
                 <p>Gestion des paramètres de l'application.</p>
@@ -84,8 +85,10 @@
                 </p>
             </div>
         </div>
-        
-        <div class="well panel-default col-md-7">
+    </section>
+    <section class="well row">
+        <div class="col-md-7">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="divers"></a>Family Logs</header>
             <div class="panel-body">
                 <p>Gestion des familles et sous-familles logistiques</p>
@@ -132,8 +135,10 @@
                 </p>
             </div>
         </div>
+        </div>
 
-        <div class="well panel-default col-md-4 col-md-offset-1">
+        <div class="col-md-4 col-md-offset-1">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="zonestorage"></a>ZoneStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des zones de stockage.</p>
@@ -169,8 +174,11 @@
                 </p>
             </div>
         </div>
-
-        <div class="well panel-default col-md-7">
+        </div>
+    </section>
+    <section class="well row">
+        <div class="col-md-7">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="unitstorage"></a>UnitStorage</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des unités de stockage.</p>
@@ -208,8 +216,10 @@
                 </p>
             </div>
         </div>
+        </div>
 
-        <div class="well panel-default col-md-4 col-md-offset-1">
+        <div class="col-md-4 col-md-offset-1">
+        <div class="panel panel-default">
             <header class="panel-heading"><a id="tva"></a>Tva</header>
             <div class="panel-body">
                 <p>Gestion des paramètres des taxes.</p>
@@ -244,6 +254,7 @@
                     {% endif %}
                 </p>
             </div>
+        </div>
         </div>
     </section>    
 {% endblock %}
