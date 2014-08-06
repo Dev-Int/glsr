@@ -38,7 +38,7 @@ class Settings
     /**
      * @var datetime $first_inventory the first_inventory's date
      *
-     * @ORM\Column(name="first_inventory", type="datetime")
+     * @ORM\Column(name="first_inventory", type="datetime", nullable=true)
      */
     private $first_inventory;
 
