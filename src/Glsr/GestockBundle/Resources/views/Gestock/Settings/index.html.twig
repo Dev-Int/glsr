@@ -10,6 +10,29 @@
     {{'Settings'|trans }}
 {% endblock %}
 {% block glstock_body %}
+    
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li {% if app.request.attributes.get('_route') == 'glstock_company' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_company') }}">
+                <i class="glyphicon glyphicon-tower"></i>
+                Company
+            </a>
+        </li>
+        <li {% if app.request.attributes.get('_route') == 'glstock_application' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_application') }}">
+                <i class="glyphicon glyphicon-wrench"></i>
+                Application
+            </a>
+        </li>
+        <li {% if app.request.attributes.get('_route') == 'glstock_divers' %}class="active"{% endif %}>
+            <a href="{{ path('glstock_divers') }}">
+                <i class="glyphicon glyphicon-info-sign"></i>
+                Divers
+            </a>
+        </li>
+    </ul>
+
+{% if company is defined %}
     <section class="row well">
         <div class="panel panel-default">
             <header class="panel-heading"><a id="company"></a>Company</header>
@@ -48,6 +71,8 @@
             </div>
         </div>
     </section>
+{% endif %}    
+{% if settings is defined %}
     <section class="well row">
         <div class="panel panel-default">
             <header class="panel-heading"><a id="application"></a>Application</header>
@@ -86,6 +111,8 @@
             </div>
         </div>
     </section>
+{% endif %}    
+{% if divers is defined %}
     <section class="well row">
         <div class="col-md-7">
         <div class="panel panel-default">
@@ -257,4 +284,5 @@
         </div>
         </div>
     </section>    
+{% endif %}
 {% endblock %}

@@ -3,11 +3,21 @@
 glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
+    
+glstock_install:
+    pattern:  /install
+    defaults: { _controller: GlsrGestockBundle:Gestock:install }
 
 # Routes Settings
-glstock_settings:
-    pattern:  /settings
-    defaults: { _controller: GlsrGestockBundle:Settings:index }
+glstock_company:
+    pattern:  settings/company
+    defaults: { _controller: GlsrGestockBundle:Settings:showCompany }
+glstock_application:
+    pattern:  settings/application
+    defaults: { _controller: GlsrGestockBundle:Settings:showApplication }
+glstock_divers:
+    pattern:  settings/divers
+    defaults: { _controller: GlsrGestockBundle:Settings:showDivers }
 
 glstock_settings_add:
     pattern:  /settings/add

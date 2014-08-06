@@ -10,22 +10,28 @@
         <h1>
             <span class="glyphicon glyphicon-cutlery"></span> 
             Glsr <small>Gestion Libre des Stocks d'un Restaurant...</small>
+            <small class="pull-right">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    connecté en tant que {{ app.user.username }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">Connexion</a>
+                {% endif %}
+            </small>
         </h1>
     </div>
 {% endblock %}
     
     
 {% block menu_bundle %}
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
         <li {% if app.request.attributes.get('_route') == 'glstock_home' %}class="active"{% endif %}>
             <a href="{{ path('glstock_home') }}">
                 <i class="glyphicon glyphicon-home"></i>
                 Accueil
             </a>
         </li>
-        <li {% if app.request.attributes.get('_route') == 'glstock_art_list' %}
-            class="active dropdown"
-            {% elseif app.request.attributes.get('_route') == 'glstock_art_add' %}
+        {% set articles = ['glstock_art_list', 'glstock_art_add', 'glstock_art_show'] %}
+        <li {% if app.request.attributes.get('_route') in articles %}
             class="active dropdown"
             {% else %}
             class="dropdown"
@@ -51,9 +57,8 @@
             </ul>
 
         </li>
-        <li {% if app.request.attributes.get('_route') == 'glstock_suppli_list' %}
-            class="active dropdown"
-            {% elseif app.request.attributes.get('_route') == 'glstock_suppli_add' %}
+        {% set suppliers = ['glstock_suppli_list', 'glstock_suppli_add', 'glstock_suppli_show'] %}
+        <li {% if app.request.attributes.get('_route') in suppliers %}
             class="active dropdown"
             {% else %}
             class="dropdown"
@@ -79,7 +84,10 @@
             </ul>
 
         </li>
-        <li {% if app.request.attributes.get('_route') == 'glstock_settings' %}
+        {% set settings = ['glstock_company', 'glstock_company_add', 'glstock_company_edit',
+                            'glstock_application', 'glstock_application_add', 'glstock_application_edit', 
+                            'glstock_divers', 'glstock_divers_add', 'glstock_divers_edit'] %}
+        <li {% if app.request.attributes.get('_route') in settings %}
             class="active dropdown"
             {% else %}
             class="dropdown"
@@ -88,25 +96,18 @@
                 Settings <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ path('glstock_settings') }}#company">
+                <li><a href="{{ path('glstock_company') }}">
                         <i class="glyphicon glyphicon-tower"></i>
                         Company</a></li>
-                <li><a href="{{ path('glstock_settings') }}#application">
+                <li><a href="{{ path('glstock_application') }}">
                         <i class="glyphicon glyphicon-wrench"></i>
                         Application</a></li>
-                <li><a href="{{ path('glstock_settings') }}#divers">
+                <li><a href="{{ path('glstock_divers') }}">
                         <i class="glyphicon glyphicon-info-sign"></i>
                         Divers</a></li>
             </ul>
 
         </li>
-        <span class="pull-right">
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                connecté en tant que {{ app.user.username }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-            {% else %}
-                <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">Connexion</a>
-            {% endif %}
-        </span>
     </ul>
 
     {#{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }#}
