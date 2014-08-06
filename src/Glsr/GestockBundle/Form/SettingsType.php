@@ -35,9 +35,7 @@ class SettingsType extends AbstractType
                 'expanded' => TRUE,
                 'multiple' => FALSE,
             ))
-            ->add('first_inventory', 'date', array(
-                'input' => 'datetime'
-            ))
+            ->add('first_inventory', 'hidden')
             ->add('currency',        'currency', array(
                 'multiple'         => FALSE,
                 'expanded'         => FALSE,

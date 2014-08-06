@@ -45,9 +45,6 @@ class ArticleType extends AbstractType
                 'data'          => 0
             ))
             ->add('active',       'checkbox')
-            /**
-             * @todo #15 Créer exception si aucun fournisseurs
-             */
             ->add('supplier',       'entity', array(
                 'class'    => 'GlsrGestockBundle:Supplier',
                 'property' => 'name',
@@ -55,26 +52,17 @@ class ArticleType extends AbstractType
                 'empty_value' => 'Choice the Supplier',
                 'empty_data' => null
             ))
-            /**
-             * @todo Créer une exception si aucune unité de stockage
-             */
             ->add('unit_storage',   'entity', array(
                 'class'    => 'GlsrGestockBundle:UnitStorage',
                 'property' => 'name',
                 'multiple' => FALSE
             ))
-            /**
-             * @todo Créer une exception si aucune zone de stockage
-             */
             ->add('zone_storages',   'entity', array(
                 'class'    => 'GlsrGestockBundle:ZoneStorage',
                 'property' => 'name',
                 'multiple' => TRUE,
                 'expanded' => TRUE
             ))
-            /**
-             * @todo Créer une exception si aucune famille logistique
-             */
             ->add('family_log',     'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
@@ -82,9 +70,6 @@ class ArticleType extends AbstractType
                 'empty_value' => 'Choice the Family',
                 'empty_data' => null
             ))
-            /**
-             * @todo Créer une exception si aucune sous-famille logistique
-             */
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',

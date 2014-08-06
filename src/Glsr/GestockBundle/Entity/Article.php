@@ -175,7 +175,7 @@ class Article
      * @param string $packaging
      * @return Article
      */
-    public function setUnitBill($packaging)
+    public function setPackaging($packaging)
     {
         $this->packaging = $packaging;
 
@@ -187,7 +187,7 @@ class Article
      *
      * @return string 
      */
-    public function getUnitBill()
+    public function getPackaging()
     {
         return $this->packaging;
     }

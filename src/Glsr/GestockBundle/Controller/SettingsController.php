@@ -87,7 +87,6 @@ class SettingsController extends Controller
         $tva      = new Tva();
         
         $form = $this->createForm(new SettingsType(), $settings);
-        $form .= $this->createForm(new TvaType, $tva);
         
         // On récupère la requête
         $request = $this->getRequest();
