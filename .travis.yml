@@ -1,7 +1,5 @@
 language: php
-
 php:
-  - 5.3.3
   - 5.3
   - 5.4
   - 5.5
@@ -27,11 +25,16 @@ before_script:
   - pear install --alldeps phpmd/PHP_PMD
   - phpenv rehash
   ## PHPLOC
-  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar  
+  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
+  ## PHPUnit/DbUnit
+  - pyrus channel-discover pear.symfony.com
+  - pyrus install --force phpunit/DbUnit
+  - composer install --dev --prefer-source
 
 script: 
   ## PHPUnit
-  phpunit -c app
+  - phpunit -c app
+  - phpunit --coverage-text
   ## PHP_CodeSniffer
   - phpcs --standard=PSR1 src/
   - phpcs --standard=PSR2 src/
@@ -53,4 +56,6 @@ notification:
 
 env:
   global:
-    - secure: b9764d5a7abe49863484355ac2cc767aa9cbc56f
+    secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUW
+QPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsC
+TdxFpQoK6cNfIoHJ6ktW10="
