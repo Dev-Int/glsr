@@ -125,6 +125,21 @@ class SupplierController extends Controller
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
+        // Avant de supprimer quoi que ce soit, il faut vérifier qu'aucun article ne soit rattaché à ce fournisseur
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm
+            ->getRepository('GlsrGestockBundle:Article')
+            ->getArticleFromSupplier($supplier->getId());
+
+        if (count($articles) >= 1) {
+            // On crée le message explicatif
+            $this->get('session')
+                ->getFlashBag()
+                ->add('error', 'Vous devez réaffecter les articles de ce Fournisseur !');
+            // Puis on redirige vers la page de réaffectation
+            return $this->redirect($this->generateUrl('glstock_reassign_article', array('id' => $supplier->getId())));
+        }
+        
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
         // Cela permet de protéger la suppression du fournisseur contre cette faille
         $form = $this->createFormBuilder()->getForm();
@@ -173,7 +188,6 @@ class SupplierController extends Controller
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
             ->getArticleFromSupplier($supplier->getId());
-//        var_dump($articles);
         
         return $this->render('GlsrGestockBundle:Gestock/Supplier:supplier.html.twig', array(
             'articles' => $articles,

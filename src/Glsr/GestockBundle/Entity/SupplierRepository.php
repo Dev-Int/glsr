@@ -37,4 +37,22 @@ class SupplierRepository extends EntityRepository
         // Et enfin, on retourne l'objet Paginator correspondant à la requête construite
         return new Paginator($query);
     }
+    
+    public function getSupplierForReassign($article)
+    {
+//        var_dump($article);
+        $query = $this->createQueryBuilder('s')
+            ->where('s.name != :idname')
+            ->andWhere('s.family_log = :flname')
+            ->andWhere('s.sub_family_log = :sflname')
+            ->andWhere('s.active = 1')
+            ->setParameters(array(
+                'idname'  => $article->getSupplier()->getName(),
+                'flname'  => $article->getFamilyLog(),
+                'sflname' => $article->getSubFamilyLog()
+                ))
+            ->orderBy('s.name', 'ASC');
+        
+        return $query;
+    }
 }
