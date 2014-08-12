@@ -108,6 +108,12 @@ glstock_art_show:
     pattern:  /article/{name}
     defaults: { _controller: GlsrGestockBundle:Article:show }
 
+glstock_reassign_article:
+    pattern:  /article/reassign/{id}
+    defaults: { _controller: GlsrGestockBundle:Article:reassign }
+    requirements:
+        id: \d+
+
 # Routes des Suppliers
 glstock_suppli_add:
     pattern:  /supplier/add
