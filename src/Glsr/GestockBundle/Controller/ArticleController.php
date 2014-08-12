@@ -3,8 +3,11 @@
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Glsr\GestockBundle\Entity\Article;
+use Glsr\GestockBundle\Entity\Supplier;
 use Glsr\GestockBundle\Form\ArticleType;
+use Glsr\GestockBundle\Form\ArticleReassignType;
 
 class ArticleController extends Controller
 {
@@ -175,6 +178,61 @@ class ArticleController extends Controller
             'article' => $article,
         ));
     }
-}
+    
+    public function reassignAction(Supplier $supplier)
+    {
+        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+            // On définit un message flash
+            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            
+            // On redirige vers la page de connexion
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
 
-?>
+        // Récupérer la liste des articles à reaffecter
+        $articles = $this->getDoctrine()->getManager()
+            ->getRepository('GlsrGestockBundle:Article')
+            ->getArticleFromSupplier($supplier->getId());
+
+        $form = $this->createForm(new ArticleReassignType(), $articles);
+
+        // On récupère la requête
+        $request = $this->getRequest();
+
+        // On vérifie qu'elle est de type POST
+        if ($request->getMethod() == 'POST') {
+            // On fait le lien Requête <-> Formulaire
+            $form->bind($request);
+            $datas = $form;
+
+            $newArticles = new Article;
+            $newSupplier = new Supplier;
+            $em = $this->getDoctrine()->getManager();
+
+            foreach ($datas as $data) {
+                $input = explode('-', $data->getName());
+                list($inputName, $articleId) = $input;
+                $inputData = $data->getViewData();
+                if ($inputName === 'supplier') {
+                    $newArticles = $em->getRepository('GlsrGestockBundle:Article')->find($articleId);
+                    $newSupplier = $em->getRepository('GlsrGestockBundle:Supplier')->find($inputData);
+                    //On modifie le fournisseur de l'article
+                    $newArticles->setSupplier($newSupplier);
+                    // On enregistre l'objet $article dans la base de données
+                    $em->persist($newArticles);
+                    $em->flush();
+                }
+            }
+            // On redirige vers la page de visualisation de l'article nouvellement créé
+            return $this->redirect($this->generateUrl('glstock_suppli_del', array('id' => $supplier->getId())));
+        }
+
+        
+        return $this->render('GlsrGestockBundle:Gestock/Article:reassign.html.twig', array(
+            'form'      => $form->createView(),
+            'articles'  => $articles,
+            'supname'   => $supplier->getName(),
+            'supid'     => $supplier->getId()
+        ));
+    }
+}

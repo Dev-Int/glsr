@@ -454,4 +454,11 @@ class Article
     {
         return $this->active;
     }
+    // Cette méthode permet de faire "echo $article"
+    // Ainsi, pour "afficher" $name, PHP affichera en réalité le retour de cette méthode
+    // Ici, le nom, donc "echo $article" est équivalent à "echo $article->getName()"
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -1,0 +1,41 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\reassign.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Reassign Articles - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="glyphicon glyphicon-transfer"></i> Reassign articles from {{ supname }}
+{% endblock %}
+
+{% block glstock_body %}
+<div class="well">
+    <form method="post" {{ form_enctype(form) }} class="form-horizontal" role='form'>
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-md-5">Articles</th>
+                    <th class="col-md-5">Suppliers</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{ form_errors(form) }}
+                {% for art in articles %}
+                <tr>
+                    <td>
+                        {{ art.name }}
+                    </td>
+                    <td>
+                        {{ form_widget(form['supplier-' ~ art.id]) }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {{ form_rest(form) }}
+        <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.article.edit.submit_button'|trans }}" />
+    </form>
+</div>
+{% endblock %}
