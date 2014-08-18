@@ -27,14 +27,14 @@ before_script:
   ## PHPLOC
   - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
   ## PHPUnit/DbUnit
-  - pyrus channel-discover pear.symfony.com
-  - pyrus install --force phpunit/DbUnit
-  - composer install --dev --prefer-source
+  #- pyrus channel-discover pear.symfony.com
+  #- pyrus install --force phpunit/DbUnit
+  #- composer install --dev --prefer-source
 
 script: 
   ## PHPUnit
-  - phpunit -c app
-  - phpunit --coverage-text
+  #- phpunit -c app
+  #- phpunit --coverage-text
   ## PHP_CodeSniffer
   - phpcs --standard=PSR1 src/
   - phpcs --standard=PSR2 src/
@@ -59,3 +59,9 @@ env:
     secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUW
 QPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsC
 TdxFpQoK6cNfIoHJ6ktW10="
+
+# whitelist
+branches:
+  only:
+    - master
+    - developp
