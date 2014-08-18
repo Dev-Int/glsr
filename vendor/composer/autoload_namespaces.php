@@ -7,7 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor\\Composer' => array($vendorDir . '/phpdocumentor/unified-asset-installer/src', $vendorDir . '/phpdocumentor/unified-asset-installer/test/unit'),
-    'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/fileset/src', $vendorDir . '/phpdocumentor/fileset/tests/unit', $vendorDir . '/phpdocumentor/graphviz/src', $vendorDir . '/phpdocumentor/graphviz/tests/unit', $vendorDir . '/phpdocumentor/reflection/src', $vendorDir . '/phpdocumentor/reflection/tests/unit', $vendorDir . '/phpdocumentor/reflection/tests/mocks', $vendorDir . '/phpdocumentor/phpdocumentor/src', $vendorDir . '/phpdocumentor/phpdocumentor/tests/unit'),
+    'phpDocumentor' => array($vendorDir . '/phpdocumentor/fileset/src', $vendorDir . '/phpdocumentor/fileset/tests/unit', $vendorDir . '/phpdocumentor/phpdocumentor/src', $vendorDir . '/phpdocumentor/phpdocumentor/tests/unit', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/reflection/src', $vendorDir . '/phpdocumentor/reflection/tests/unit', $vendorDir . '/phpdocumentor/reflection/tests/mocks', $vendorDir . '/phpdocumentor/graphviz/src', $vendorDir . '/phpdocumentor/graphviz/tests/unit'),
     'libphonenumber' => array($vendorDir . '/giggsey/libphonenumber-for-php/src'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib'),
     'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager'),
@@ -44,9 +44,6 @@ return array(
     'Knp\\Menu\\' => array($vendorDir . '/knplabs/knp-menu/src'),
     'Knp\\Bundle\\MarkdownBundle' => array($vendorDir . '/knplabs/knp-markdown-bundle'),
     'JMS\\Serializer' => array($vendorDir . '/jms/serializer/src'),
-    'JMS\\SecurityExtraBundle' => array($vendorDir . '/jms/security-extra-bundle'),
-    'JMS\\DiExtraBundle' => array($vendorDir . '/jms/di-extra-bundle'),
-    'JMS\\AopBundle' => array($vendorDir . '/jms/aop-bundle'),
     'JMS\\' => array($vendorDir . '/jms/parser-lib/src'),
     'Incenteev\\ParameterHandler' => array($vendorDir . '/incenteev/composer-parameter-handler'),
     'Gedmo\\' => array($vendorDir . '/gedmo/doctrine-extensions/lib'),
@@ -66,7 +63,6 @@ return array(
     'Cilex\\Provider\\Console' => array($vendorDir . '/cilex/console-service-provider/src'),
     'Cilex\\Provider' => array($vendorDir . '/phpdocumentor/phpdocumentor/src'),
     'Cilex' => array($vendorDir . '/cilex/cilex/src'),
-    'CG\\' => array($vendorDir . '/jms/cg/src'),
     'Buzz' => array($vendorDir . '/kriswallsmith/buzz/lib'),
     'Assetic' => array($vendorDir . '/kriswallsmith/assetic/src'),
     '' => array($baseDir . '/src'),

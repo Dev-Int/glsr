@@ -1,4 +1,7 @@
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:php="http://php.net/xsl"
+>
     <xsl:output indent="yes" method="html" />
 
     <!-- Method/Function display name -->
@@ -56,7 +59,11 @@
 
     <xsl:template match="function|method" mode="contents">
         <a id="{local-name(.)}_{name}"></a>
-        <div class="element clickable {local-name(.)} {@visibility} {local-name(.)}_{name}" data-toggle="collapse" data-target=".{local-name(.)}_{name} .collapse" title="{@visibility}">
+        <xsl:variable name="inherited">
+            <xsl:if test="inherited_from"><xsl:value-of select="'inherited'" /></xsl:if>
+        </xsl:variable>
+
+        <div class="element clickable {local-name(.)} {@visibility} {local-name(.)}_{name} {$inherited}" data-toggle="collapse" data-target=".{local-name(.)}_{name} .collapse" title="{@visibility}">
             <h2><xsl:apply-templates select="name" /></h2>
             <xsl:apply-templates select="name" mode="signature" />
             <div class="labels">

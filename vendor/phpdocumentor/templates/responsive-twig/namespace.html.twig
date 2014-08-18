@@ -4,7 +4,13 @@
     <div id="{{ type }}_{{ element.name }}" class="element ajax clickable {{ type }}" data-toggle="collapse" data-target="#{{ type }}_{{ element.name }} .collapse">
         <h1>{{ element.name }}{% if path(element) %}<a href="{{ path(element) }}">¶</a>{% endif %}</h1>
         <p class="short_description">{{ element.summary }}</p>
-        <div class="details collapse">{{ element.description|markdown|raw }}</div>
+        <div class="details collapse">
+            {% if type == 'function' %}
+                {% include 'method.html.twig' with {'method': element} %}
+            {% else %}
+                {{ element.description|markdown|raw }}
+            {% endif %}
+        </div>
         {% if path(element) %}<a href="{{ path(element) }}" class="more">« More »</a>{% endif %}
     </div>
 {% endmacro %}
@@ -34,7 +40,7 @@
         {% if node.functions|length > 0 %}
             <div class="namespace-indent">
                 <h3><i class="icon-custom icon-function"></i> Functions</h3>
-                {% for function in node.functions %}
+                {% for function in node.functions|sort_asc %}
                     {{ self.elementSummary(function, 'function') }}
                 {% endfor %}
             </div>
