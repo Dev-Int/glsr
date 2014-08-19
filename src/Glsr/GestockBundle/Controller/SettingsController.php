@@ -103,9 +103,9 @@ class SettingsController extends Controller
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
                 // On enregistre l'objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($settings);
-                $em->flush();
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($settings);
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Configuration bien ajoutée');

@@ -57,9 +57,9 @@ class ArticleController extends Controller
             if ($form->isValid()) {
 
                 // On enregistre l'objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($article);
-                $em->flush();
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($article);
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Article bien ajouté');
@@ -104,9 +104,9 @@ class ArticleController extends Controller
             if ($form->isValid()) {
 
                 // On enregistre l'objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($article);
-                $em->flush();
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($article);
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Article bien modifié');
@@ -215,20 +215,20 @@ class ArticleController extends Controller
 
             $newArticles = new Article;
             $newSupplier = new Supplier;
-            $em = $this->getDoctrine()->getManager();
+            $etm = $this->getDoctrine()->getManager();
 
             foreach ($datas as $data) {
                 $input = explode('-', $data->getName());
                 list($inputName, $articleId) = $input;
                 $inputData = $data->getViewData();
                 if ($inputName === 'supplier') {
-                    $newArticles = $em->getRepository('GlsrGestockBundle:Article')->find($articleId);
-                    $newSupplier = $em->getRepository('GlsrGestockBundle:Supplier')->find($inputData);
+                    $newArticles = $etm->getRepository('GlsrGestockBundle:Article')->find($articleId);
+                    $newSupplier = $etm->getRepository('GlsrGestockBundle:Supplier')->find($inputData);
                     //On modifie le fournisseur de l'article
                     $newArticles->setSupplier($newSupplier);
                     // On enregistre l'objet $article dans la base de données
-                    $em->persist($newArticles);
-                    $em->flush();
+                    $etm->persist($newArticles);
+                    $etm->flush();
                 }
             }
             // On redirige vers la page de visualisation de l'article nouvellement créé

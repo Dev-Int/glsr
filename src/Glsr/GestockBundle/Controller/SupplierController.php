@@ -57,9 +57,9 @@ class SupplierController extends Controller
             if ($form->isValid()) {
 
                 // On enregistre l'objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($supplier);
-                $em->flush();
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($supplier);
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien ajouté');
@@ -109,9 +109,9 @@ class SupplierController extends Controller
             if ($form->isValid()) {
 
                 // On enregistre l'objet $article dans la base de données
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($supplier);
-                $em->flush();
+                $etm = $this->getDoctrine()->getManager();
+                $etm->persist($supplier);
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien modifié');
