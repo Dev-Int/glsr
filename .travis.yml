@@ -39,13 +39,13 @@ script:
   - phpcs --standard=PSR1 src/
   - phpcs --standard=PSR2 src/
   ## PHP Copy/Paste Detector
-  - php phpcpd.phar --verbose src/
+  #- php phpcpd.phar --verbose src/
   ## PHP Mess Detector
-  - phpmd src/ text codesize,unusedcode,naming,design
+  #- phpmd src/ text codesize,unusedcode,naming,design
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./src/Glsr/documentation
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
