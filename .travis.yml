@@ -45,7 +45,7 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./src/Glsr/documentation
+  #- vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./src/Glsr/documentation
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
