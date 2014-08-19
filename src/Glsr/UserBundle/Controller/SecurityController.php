@@ -29,7 +29,8 @@ class SecurityController extends BaseController
 
         $template = sprintf(
             'FOSUserBundle:Security:%s.html.%s',
-            $view, $this->container->getParameter('fos_user.template.engine')
+            $view,
+            $this->container->getParameter('fos_user.template.engine')
         );
 
         return $this->container->get('templating')->renderResponse($template, $data);
