@@ -24,7 +24,7 @@ class GestockController extends Controller
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $id = ''; 
+            $id = '';
             $id2 = '';
             $id = $request->get('id');
             $id2 = $request->get('id2');
@@ -106,10 +106,11 @@ class GestockController extends Controller
             )
         );
         return $this->render(
-            'GlsrGestockBundle:Gestock:alerts.html.twig', 
+            'GlsrGestockBundle:Gestock:alerts.html.twig',
             array(
                 // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
                 'list_alerts' => $alerts
-        ));
+            )
+        );
     }
 }

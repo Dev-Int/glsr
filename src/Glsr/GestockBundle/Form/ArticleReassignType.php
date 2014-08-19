@@ -26,7 +26,7 @@ class ArticleReassignType extends AbstractType
                 $formOptions = array(
                     'class'         => 'GlsrGestockBundle:Supplier',
                     'query_builder' => function (EntityRepository $er) use ($articles) {
-                        return $er->getSupplierForReassign($articles[0]); 
+                        return $er->getSupplierForReassign($articles[0]);
                     },
                     'multiple'   => false,
                     'empty_data' => null

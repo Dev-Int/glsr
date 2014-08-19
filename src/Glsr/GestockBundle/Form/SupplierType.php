@@ -22,17 +22,17 @@ class SupplierType extends AbstractType
             ->add('zipcode', 'text')
             ->add('town', 'text')
             ->add('phone', 'tel', array(
-                'default_region' => 'FR', 
+                'default_region' => 'FR',
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
             ->add('fax', 'tel', array(
-                'default_region' => 'FR', 
+                'default_region' => 'FR',
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
             ->add('email', 'email')
             ->add('contact', 'text')
             ->add('gsm', 'tel', array(
-                'default_region' => 'FR', 
+                'default_region' => 'FR',
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison

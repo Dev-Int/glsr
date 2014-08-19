@@ -35,10 +35,9 @@ class SettingsController extends Controller
         $company = $repoCompany->findAll();
         
         return $this->render(
-            'GlsrGestockBundle:Gestock/Settings:index.html.twig', 
-            array(
-                'company'      => $company,
-        ));
+            'GlsrGestockBundle:Gestock/Settings:index.html.twig',
+            array('company' => $company)
+        );
     }
     
     public function showApplicationAction()
@@ -49,9 +48,8 @@ class SettingsController extends Controller
         
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
-            array(
-                'settings'     => $settings
-        ));
+            array('settings' => $settings)
+        );
     }
     
     public function showDiversAction()
@@ -126,7 +124,7 @@ class SettingsController extends Controller
         ));
     }
     
-    function editSettingsAction(Settings $settings)
+    public function editSettingsAction(Settings $settings)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash

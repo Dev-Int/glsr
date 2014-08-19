@@ -27,7 +27,10 @@ class SecurityController extends BaseController
             $view = 'login_content';
         }
 
-        $template = sprintf('FOSUserBundle:Security:%s.html.%s', $view, $this->container->getParameter('fos_user.template.engine'));
+        $template = sprintf(
+            'FOSUserBundle:Security:%s.html.%s',
+            $view, $this->container->getParameter('fos_user.template.engine')
+        );
 
         return $this->container->get('templating')->renderResponse($template, $data);
     }

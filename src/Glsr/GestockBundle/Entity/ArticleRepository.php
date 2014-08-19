@@ -24,7 +24,7 @@ class ArticleRepository extends EntityRepository
             // On pourra la personnaliser plus tard
             throw new \InvalidArgumentException(
                 'l\'argument $page ne peut être inférieur à 1 (valeur : "'.$page.'").'
-                );
+            );
         }
         
         $query = $this->createQueryBuilder('a')

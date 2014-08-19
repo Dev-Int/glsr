@@ -67,9 +67,10 @@ class SupplierController extends Controller
                 // On redirige vers la page de visualisation de l'article nouvellement créé
                 return $this->redirect(
                     $this->generateUrl(
-                        'glstock_suppli_show', array(
-                            'name' => $supplier->getName())
-                        ));
+                        'glstock_suppli_show',
+                        array('name' => $supplier->getName())
+                    )
+                );
             }
         }
 
@@ -116,13 +117,12 @@ class SupplierController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien modifié');
 
                 // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->redirect($this->
-                    generateUrl(
-                        'glstock_suppli_show', 
-                        array(
-                            'name' => $supplier->getName())
-                        )
-                    );
+                return $this->redirect(
+                    $this->generateUrl(
+                        'glstock_suppli_show',
+                        array('name' => $supplier->getName())
+                    )
+                );
             }
         }
         return $this->render('GlsrGestockBundle:Gestock/Supplier:edit.html.twig', array(
