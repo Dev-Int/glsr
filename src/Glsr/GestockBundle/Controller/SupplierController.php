@@ -33,7 +33,9 @@ class SupplierController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -63,7 +65,11 @@ class SupplierController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien ajouté');
 
                 // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->redirect($this->generateUrl('glstock_suppli_show', array('name' => $supplier->getName())));
+                return $this->redirect(
+                    $this->generateUrl(
+                        'glstock_suppli_show', array(
+                            'name' => $supplier->getName())
+                        ));
             }
         }
 
@@ -80,7 +86,9 @@ class SupplierController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -108,7 +116,13 @@ class SupplierController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien modifié');
 
                 // On redirige vers la page de visualisation de l'article nouvellement créé
-                return $this->redirect($this->generateUrl('glstock_suppli_show', array('name' => $supplier->getName())));
+                return $this->redirect($this->
+                    generateUrl(
+                        'glstock_suppli_show', 
+                        array(
+                            'name' => $supplier->getName())
+                        )
+                    );
             }
         }
         return $this->render('GlsrGestockBundle:Gestock/Supplier:edit.html.twig', array(
@@ -120,7 +134,9 @@ class SupplierController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -147,7 +163,7 @@ class SupplierController extends Controller
         //On modifie l'état actif du fournisseur
         $supplier->setActive(0);
         
-        $request = $this->getRequest();        
+        $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             // Si la requête est en POST, on supprimera le fournisseur
             $form->bind($request);
@@ -171,7 +187,7 @@ class SupplierController extends Controller
             }
         }
 
-        // Si la requête est en GET, 
+        // Si la requête est en GET,
         // on affiche une page de confirmation avant de supprimer
         return $this->render(
             'GlsrGestockBundle:Gestock/Supplier:delete.html.twig',

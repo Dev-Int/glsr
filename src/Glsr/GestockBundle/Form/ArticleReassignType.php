@@ -19,16 +19,17 @@ class ArticleReassignType extends AbstractType
     {
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function(FormEvent $event) {
+            function (FormEvent $event) {
                 $form = $event->getForm();
                 $articles = $event->getData();
  
                 $formOptions = array(
                     'class'         => 'GlsrGestockBundle:Supplier',
-                    'query_builder' => function(EntityRepository $er) use ($articles) { 
-                    return $er->getSupplierForReassign($articles[0]); },
-                    'multiple'   => FALSE,
-                    'empty_data' => NULL
+                    'query_builder' => function (EntityRepository $er) use ($articles) {
+                        return $er->getSupplierForReassign($articles[0]); 
+                    },
+                    'multiple'   => false,
+                    'empty_data' => null
                 );
                 foreach ($articles as $article) {
                     $form->add('supplier-' . $article->getId(), 'entity', $formOptions);

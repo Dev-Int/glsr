@@ -34,8 +34,10 @@ class SettingsController extends Controller
         $repoCompany = $etm->getRepository('GlsrGestockBundle:Company');
         $company = $repoCompany->findAll();
         
-        return $this->render('GlsrGestockBundle:Gestock/Settings:index.html.twig', array(
-            'company'      => $company,
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Settings:index.html.twig', 
+            array(
+                'company'      => $company,
         ));
     }
     
@@ -45,8 +47,10 @@ class SettingsController extends Controller
         $repoSettings = $etm->getRepository('GlsrGestockBundle:Settings');
         $settings = $repoSettings->findAll();
         
-        return $this->render('GlsrGestockBundle:Gestock/Settings:index.html.twig', array(
-            'settings'     => $settings
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Settings:index.html.twig',
+            array(
+                'settings'     => $settings
         ));
     }
     
@@ -78,7 +82,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')->
+                getFlashBag()->
+                add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -101,7 +107,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($settings);
-                $em->flush();                
+                $em->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Configuration bien ajoutée');
@@ -124,11 +130,13 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }        
+        }
         // On utilise le SettingsType
         $form = $this->createForm(new SettingsType(), $settings);
 
@@ -160,7 +168,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -182,7 +192,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($company);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Company bien ajoutée');
@@ -201,11 +211,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editCompanyAction(Company $company)
+    public function editCompanyAction(Company $company)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -241,7 +253,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -263,7 +277,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($familyLog);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'FamilyLog bien ajoutée');
@@ -282,11 +296,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editFamilyLogAction(FamilyLog $familyLog)
+    public function editFamilyLogAction(FamilyLog $familyLog)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -322,7 +338,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -344,7 +362,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($subFamilyLog);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'SubFamilyLog bien ajoutée');
@@ -363,11 +381,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editSubFamilyLogAction(SubFamilyLog $subFamilyLog)
+    public function editSubFamilyLogAction(SubFamilyLog $subFamilyLog)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -403,7 +423,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -425,7 +447,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($zoneStorage);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'ZoneStorage bien ajoutée');
@@ -444,11 +466,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editZoneStorageAction(ZoneStorage $zoneStorage)
+    public function editZoneStorageAction(ZoneStorage $zoneStorage)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -484,7 +508,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -506,7 +532,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($unitStorage);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'UnitStorage bien ajoutée');
@@ -525,11 +551,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editUnitStorageAction(UnitStorage $unitStorage)
+    public function editUnitStorageAction(UnitStorage $unitStorage)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -565,7 +593,9 @@ class SettingsController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -587,7 +617,7 @@ class SettingsController extends Controller
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($tva);
-                $etm->flush();                
+                $etm->flush();
 
                 // On définit un message flash
                 $this->get('session')->getFlashBag()->add('info', 'Tva bien ajoutée');
@@ -606,11 +636,13 @@ class SettingsController extends Controller
         ));
     }
     
-    function editTvaAction(Tva $tva)
+    public function editTvaAction(Tva $tva)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));

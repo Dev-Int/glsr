@@ -24,21 +24,21 @@ class SettingsType extends AbstractType
                     'global' => 'Global',
                     'zonestorage' => 'Zone Storage'
                 ),
-                'expanded' => TRUE,
-                'multiple' => FALSE,
+                'expanded' => true,
+                'multiple' => false,
             ))
-            ->add('calculation',     'choice', array(
+            ->add('calculation', 'choice', array(
                 'choices' => array(
                     'fifo' => 'FIFO',
                     'weighted' => 'weighted'
                 ),
-                'expanded' => TRUE,
-                'multiple' => FALSE,
+                'expanded' => true,
+                'multiple' => false,
             ))
             ->add('first_inventory', 'hidden')
-            ->add('currency',        'currency', array(
-                'multiple'         => FALSE,
-                'expanded'         => FALSE,
+            ->add('currency', 'currency', array(
+                'multiple'         => false,
+                'expanded'         => false,
                 'preferred_choices' => array('EUR')
             ))
         ;

@@ -22,7 +22,9 @@ class SupplierRepository extends EntityRepository
             // On déclenche une exception InvalidArgumentException
             // Cela va afficher la page d'erreur 404
             // On pourra la personnaliser plus tard
-            throw new \InvalidArgumentException('l\'argument $page ne peut être inférieur à 1 (valeur : "'.$page.'").');
+            throw new \InvalidArgumentException(
+                'l\'argument $page ne peut être inférieur à 1 (valeur : "'.$page.'").'
+                );
         }
         
         $query = $this->createQueryBuilder('s')

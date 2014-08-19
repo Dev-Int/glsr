@@ -130,7 +130,7 @@ class Article
     public function __construct()
     {
         $this->zone_storages = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->active = TRUE;
+        $this->active = true;
         $this->quantity = 0.000;
         $this->realstock = 0.000;
         

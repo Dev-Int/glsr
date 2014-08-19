@@ -33,7 +33,9 @@ class ArticleController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -80,7 +82,9 @@ class ArticleController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -125,7 +129,9 @@ class ArticleController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -137,7 +143,7 @@ class ArticleController extends Controller
         //On modifie l'état actif de l'article
         $article->setActive(0);
         
-        $request = $this->getRequest();        
+        $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             // Si la requête est en POST, on supprimera l'article
             $form->bind($request);
@@ -161,7 +167,7 @@ class ArticleController extends Controller
             }
         }
 
-        // Si la requête est en GET, 
+        // Si la requête est en GET,
         // on affiche une page de confirmation avant de supprimer
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:delete.html.twig',
@@ -183,7 +189,9 @@ class ArticleController extends Controller
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             // On définit un message flash
-            $this->get('session')->getFlashBag()->add('info', 'Vous devez être connecté pour accéder à cette page.');
+            $this->get('session')
+                ->getFlashBag()
+                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
             
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));

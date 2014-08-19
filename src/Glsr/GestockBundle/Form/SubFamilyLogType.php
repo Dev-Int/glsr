@@ -15,11 +15,11 @@ class SubFamilyLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',      'text')
+            ->add('name', 'text')
             ->add('familylog', 'entity', array(
                 'class' => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => false
             ))
         ;
     }

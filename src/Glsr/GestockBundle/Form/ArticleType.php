@@ -20,60 +20,60 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',            'text')
-            ->add('packaging',       'number', array(
+            ->add('name', 'text')
+            ->add('packaging', 'number', array(
                 'precision'     => 3,
-                'grouping'      => TRUE,
+                'grouping'      => true,
                 'label'         => 'packaging'
             ))
-            ->add('price',           'money', array(
+            ->add('price', 'money', array(
                 'precision'     => 3,
-                'grouping'      => TRUE,
+                'grouping'      => true,
                 'currency'      => 'EUR'
             ))
-            ->add('quantity',        'number', array(
+            ->add('quantity', 'number', array(
                 'precision'     => 3,
-                'grouping'      => TRUE,
+                'grouping'      => true,
             ))
-            ->add('minstock',        'number', array(
+            ->add('minstock', 'number', array(
                 'precision'     => 3,
-                'grouping'      => TRUE,
+                'grouping'      => true,
             ))
-            ->add('realstock',       'number', array(
+            ->add('realstock', 'number', array(
                 'precision'     => 3,
-                'grouping'      => TRUE,
+                'grouping'      => true,
                 'data'          => 0
             ))
-            ->add('active',       'checkbox')
-            ->add('supplier',       'entity', array(
+            ->add('active', 'checkbox')
+            ->add('supplier', 'entity', array(
                 'class'    => 'GlsrGestockBundle:Supplier',
                 'property' => 'name',
-                'multiple' => FALSE,
+                'multiple' => false,
                 'empty_value' => 'Choice the Supplier',
                 'empty_data' => null
             ))
-            ->add('unit_storage',   'entity', array(
+            ->add('unit_storage', 'entity', array(
                 'class'    => 'GlsrGestockBundle:UnitStorage',
                 'property' => 'name',
-                'multiple' => FALSE
+                'multiple' => false
             ))
-            ->add('zone_storages',   'entity', array(
+            ->add('zone_storages', 'entity', array(
                 'class'    => 'GlsrGestockBundle:ZoneStorage',
                 'property' => 'name',
-                'multiple' => TRUE,
-                'expanded' => TRUE
+                'multiple' => true,
+                'expanded' => true
             ))
-            ->add('family_log',     'entity', array(
+            ->add('family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE,
+                'multiple' => false,
                 'empty_value' => 'Choice the Family',
                 'empty_data' => null
             ))
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE,
+                'multiple' => false,
                 'empty_value' => 'Choice the Sub Family',
                 'empty_data' => null
             ))

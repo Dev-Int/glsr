@@ -42,7 +42,7 @@ class GlsrRequestListener
     
     public function onKernelRequest(GetResponseEvent $event)
     {
-        // Si la route en cours est celle que l'on veut attribuer, 
+        // Si la route en cours est celle que l'on veut attribuer,
         // on sort de la fonction
         if (!in_array($event->getRequest()->attributes->get('_route'), $this->routes)) {
         
@@ -65,7 +65,7 @@ class GlsrRequestListener
                 $entity = $this->etm->getRepository($entities[$index]['repository']);
                 $entityData = $entity->findAll();
 
-                if(empty($entityData)) {
+                if (empty($entityData)) {
                     $this->container->get('session')->getFlashBag()->add('info', $message);
                     $this->redirect = $entities[$index]['route'];
                     $index += count($entities);
@@ -77,9 +77,9 @@ class GlsrRequestListener
     public function onKernelResponse(FilterResponseEvent $event)
     {
         // On redirige vers la page d'ajout d'information de la société
-        if (NULL !== $this->redirect) {
+        if (null !== $this->redirect) {
             $url = $this->router->generate($this->redirect);
             $event->setResponse(new RedirectResponse($url));
-        }        
+        }
     }
 }

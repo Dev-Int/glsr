@@ -29,8 +29,8 @@ class Supplier
      * @var string $name 
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Regex(pattern="'^[A-Z]'", message="Le nom du fournisseur doit commencer par une lettre.")
-     * @Assert\Regex(pattern="'[\w ]'", message="Le nom du fournisseur ne doit contenir que des lettres et des chiffres.")
+     * @Assert\Regex(pattern="'^[A-Z]'", message="Le nom du fournisseur doit commencer par une majuscule.")
+     * @Assert\Regex(pattern="'[\w ]'", message="Le nom ne doit contenir que des lettres et des chiffres.")
      * @Assert\NotBlank()
      */
     private $name;
@@ -151,7 +151,7 @@ class Supplier
 
     public function __construct()
     {
-        $this->active = TRUE;
+        $this->active = true;
     }
     
     /**

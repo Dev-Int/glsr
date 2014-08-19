@@ -17,26 +17,26 @@ class SupplierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',         'text')
-            ->add('address',      'text')
-            ->add('zipcode',      'text')
-            ->add('town',         'text')
-            ->add('phone',        'tel', array(
+            ->add('name', 'text')
+            ->add('address', 'text')
+            ->add('zipcode', 'text')
+            ->add('town', 'text')
+            ->add('phone', 'tel', array(
                 'default_region' => 'FR', 
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
-            ->add('fax',          'tel', array(
+            ->add('fax', 'tel', array(
                 'default_region' => 'FR', 
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
-            ->add('email',        'email')
-            ->add('contact',      'text')
-            ->add('gsm',          'tel', array(
+            ->add('email', 'email')
+            ->add('contact', 'text')
+            ->add('gsm', 'tel', array(
                 'default_region' => 'FR', 
                 'format'         => PhoneNumberFormat::NATIONAL
             ))
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
-            ->add('delaydeliv',   'choice', array(
+            ->add('delaydeliv', 'choice', array(
                 'choices' => array(
                     1 => 'A pour B',
                     2 => 'A pour C',
@@ -45,7 +45,7 @@ class SupplierType extends AbstractType
                 )
             ))
             // Choix du jour de la semaine pour les Cmdes
-            ->add('orderdate',    'choice', array(
+            ->add('orderdate', 'choice', array(
                 'choices' => array(
                     1 => 'Lundi',
                     2 => 'Mardi',
@@ -58,22 +58,22 @@ class SupplierType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ))
-            ->add('family_log',     'entity', array(
+            ->add('family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:FamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE,
+                'multiple' => false,
                 'empty_value' => 'Choice the Family',
                 'empty_data' => null
             ))
             ->add('sub_family_log', 'entity', array(
                 'class'    => 'GlsrGestockBundle:SubFamilyLog',
                 'property' => 'name',
-                'multiple' => FALSE,
-                'required' => FALSE,
+                'multiple' => false,
+                'required' => false,
                 'empty_value' => 'Choice the Sub Family',
                 'empty_data' => null
             ))
-            ->add('active',     'hidden')
+            ->add('active', 'hidden')
         ;
     }
     

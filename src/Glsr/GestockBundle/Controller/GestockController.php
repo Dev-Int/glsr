@@ -24,7 +24,8 @@ class GestockController extends Controller
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $id = ''; $id2 = '';
+            $id = ''; 
+            $id2 = '';
             $id = $request->get('id');
             $id2 = $request->get('id2');
             if ($id != '') {
@@ -40,7 +41,7 @@ class GestockController extends Controller
                     if ($id2 != '') {
                         $tabSubFamilyLog[$i]['optionOption'] = 'selected="selected"';
                     } else {
-                        $tabSubFamilyLog[$i]['optionOption'] = NULL;
+                        $tabSubFamilyLog[$i]['optionOption'] = null;
                     }
                     $i++;
                 }
@@ -65,7 +66,7 @@ class GestockController extends Controller
                 $supplier = $etm->getRepository('GlsrGestockBundle:Supplier')->find($id);
 
                 $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
-                if (NULL !== $supplier->getSubFamilyLog()) {
+                if (null !== $supplier->getSubFamilyLog()) {
                     $familyLog['subfamilylog'] = $supplier->getSubFamilyLog()->getId();
                 }
                 
@@ -83,7 +84,7 @@ class GestockController extends Controller
     {
 //        $liste = $this->getDoctrine()
 //                      ->getManager()
-//                      ->getRepository('SdzBlogBundle:Article')
+//                      ->getRepository('GlsrGestockBundle:Article')
 //                      ->findBy(
 //                        array(),          // Pas de critère
 //                        array('date' => 'desc'), // On trie par date décroissante
@@ -104,8 +105,11 @@ class GestockController extends Controller
                 'num'   => '0001'
             )
         );
-        return $this->render('GlsrGestockBundle:Gestock:alerts.html.twig', array(
-          'list_alerts' => $alerts // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
+        return $this->render(
+            'GlsrGestockBundle:Gestock:alerts.html.twig', 
+            array(
+                // C'est ici tout l'intérêt : le contrôleur passe les variables nécessaires au template !
+                'list_alerts' => $alerts
         ));
     }
 }

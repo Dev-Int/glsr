@@ -40,5 +40,3 @@ class Users implements FixtureInterface
         $manager->flush();
     }
 }
-
-?>
