@@ -33,6 +33,8 @@ before_script:
   - phpenv rehash
   ## PHPLOC
   - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
+  ## PHPDoc
+  - pear install Image_GraphViz
   ## PHPUnit/DbUnit
   #- pear channel-discover pear.phpunit.de
   #- pyrus channel-discover pear.symfony.com
