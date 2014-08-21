@@ -27,6 +27,7 @@ before_script:
   ## PHPLOC
   - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
   ## PHPUnit/DbUnit
+  # - pear channel-discover pear.phpunit.de
   #- pyrus channel-discover pear.symfony.com
   #- pyrus install --force phpunit/DbUnit
   #- composer install --dev --prefer-source
@@ -37,7 +38,7 @@ script:
   #- phpunit --coverage-text
   ## PHP_CodeSniffer
   - phpcs --standard=PSR1 src/
-  - phpcs --standard=PSR2 src/
+  - phpcs --standard=PSR2 --severity=1 src/
   ## PHP Copy/Paste Detector
   #- php phpcpd.phar --verbose src/
   ## PHP Mess Detector
@@ -45,7 +46,7 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  #- vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./src/Glsr/documentation
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
