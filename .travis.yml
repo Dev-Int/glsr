@@ -4,6 +4,10 @@ php:
   - 5.4
   - 5.5
 
+env:
+  global:
+    secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUWQPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsCTdxFpQoK6cNfIoHJ6ktW10="
+
 before_script: 
   ## Composer 
   - composer install -n
@@ -27,7 +31,7 @@ before_script:
   ## PHPLOC
   - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
   ## PHPUnit/DbUnit
-  # - pear channel-discover pear.phpunit.de
+  #- pear channel-discover pear.phpunit.de
   #- pyrus channel-discover pear.symfony.com
   #- pyrus install --force phpunit/DbUnit
   #- composer install --dev --prefer-source
@@ -46,20 +50,14 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
+ # - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
-  - bash .travis_shell_after_success.sh
+ # - bash .travis_shell_after_success.sh
 notification:
   email:
     lq@dev-int.net
-
-env:
-  global:
-    secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUW
-QPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsC
-TdxFpQoK6cNfIoHJ6ktW10="
 
 # whitelist
 branches:
