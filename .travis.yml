@@ -50,11 +50,11 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
- # - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
- # - bash .travis_shell_after_success.sh
+  - bash .travis_shell_after_success.sh
 notification:
   email:
     lq@dev-int.net
