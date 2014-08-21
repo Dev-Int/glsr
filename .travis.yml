@@ -54,7 +54,7 @@ script:
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
-  - bash .travis_shell_after_success.sh
+ - bash .travis_shell_after_success.sh
 notification:
   email:
     lq@dev-int.net
