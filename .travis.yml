@@ -45,7 +45,7 @@ script:
   #- phpunit --coverage-text
   ## PHP_CodeSniffer
   - phpcs --standard=PSR1 src/
-  - phpcs --standard=PSR2 --severity=1 src/
+  - phpcs --standard=PSR2 src/
   ## PHP Copy/Paste Detector
   #- php phpcpd.phar --verbose src/
   ## PHP Mess Detector
