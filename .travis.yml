@@ -9,7 +9,7 @@ env:
     secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUWQPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsCTdxFpQoK6cNfIoHJ6ktW10="
 
 before_install:
- - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php
+ - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc
 
 before_script: 
   ## Composer 
@@ -53,7 +53,7 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc.php -d ./src -t ./build/docs
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
