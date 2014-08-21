@@ -9,7 +9,7 @@ env:
     secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUWQPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsCTdxFpQoK6cNfIoHJ6ktW10="
 
 before_install:
- - chmod +x vendor/phpdocumentor/phpdocumentor/bin/
+ - chmod +x vendor
 
 before_script: 
   ## Composer 
