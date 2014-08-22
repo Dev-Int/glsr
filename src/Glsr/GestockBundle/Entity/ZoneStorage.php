@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * ZoneStorage Entité ZoneStorage
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,7 +34,7 @@ class ZoneStorage
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idZStor;
 
     /**
      * @var string
@@ -36,13 +51,14 @@ class ZoneStorage
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idZStor;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Nom de la zone de stockage
+     * 
      * @return ZoneStorage
      */
     public function setName($name)
@@ -62,9 +78,15 @@ class ZoneStorage
         return $this->name;
     }
     
-    // Cette méthode permet de faire "echo $zoneStorage"
-    // Ainsi, pour "afficher" $zoneStorage, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $zoneStorage" est équivalent à "echo $zoneStorage->getName()"
+    /**
+     * Cette méthode permet de faire "echo $zoneStorage".
+     * <p>Ainsi, pour "afficher" $zoneStorage, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $zoneStorage" 
+     * est équivalent à "echo $zoneStorage->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->name;

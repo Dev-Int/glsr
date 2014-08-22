@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Supplier Entité Supplier
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Supplier
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,11 +23,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * Supplier
+ * Supplier Entité Supplier
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Supplier
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_supplier")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SupplierRepository")
- * @UniqueEntity(fields="name", message="Ce nom de fournisseur est déjà utilisé dans le système.")
+ * @UniqueEntity(
+ *     fields="name",
+ *     message="Ce nom de fournisseur est déjà utilisé dans le système."
+ * )
  */
 class Supplier
 {
@@ -23,14 +48,16 @@ class Supplier
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idSup;
 
     /**
      * @var string $name 
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Regex(pattern="'^[A-Z]'", message="Le nom du fournisseur doit commencer par une majuscule.")
-     * @Assert\Regex(pattern="'[\w ]'", message="Le nom ne doit contenir que des lettres et des chiffres.")
+     * @Assert\Regex(pattern="'^[A-Z]'",
+     * message="Le nom du fournisseur doit commencer par une majuscule.")
+     * @Assert\Regex(pattern="'[\w ]'",
+     * message="Le nom ne doit contenir que des lettres et des chiffres.")
      * @Assert\NotBlank()
      */
     private $name;
@@ -48,7 +75,8 @@ class Supplier
      * @var integer
      *
      * @ORM\Column(name="zipcode", type="integer", length=5)
-     * @Assert\Regex(pattern="'^[0-9]{5}$'", message="Le code postale ne contenir que 5 chiffres.")
+     * @Assert\Regex(pattern="'^[0-9]{5}$'",
+     * message="Le code postale ne contenir que 5 chiffres.")
      * @Assert\NotBlank()
      */
     private $zipcode;
@@ -57,7 +85,10 @@ class Supplier
      * @var string
      *
      * @ORM\Column(name="town", type="string", length=255)
-     * @Assert\Regex(pattern="/^[A-Z]+([-' ]?[A-Z]+)+$/", message="Le nom de ville choisi n'est pas valide.")
+     * @Assert\Regex(
+     *     pattern="/^[A-Z]+([-' ]?[A-Z]+)+$/",
+     *     message="Le nom de ville choisi n'est pas valide."
+     * )
      * @Assert\NotBlank()
      */
     private $town;
@@ -97,7 +128,10 @@ class Supplier
      *
      * @ORM\Column(name="contact", type="string", length=50)
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/^[A-Z]/", message="Le nom du contact doit commencer par une lettre.")
+     * @Assert\Regex(
+     *     pattern="/^[A-Z]/",
+     *     message="Le nom du contact doit commencer par une lettre."
+     * )
      */
     private $contact;
 
@@ -128,7 +162,10 @@ class Supplier
      * @var integer
      *
      * @ORM\Column(name="delaydeliv", type="smallint")
-     * @Assert\Length(max="1", maxMessage = "Votre choix ne peut pas être plus long que {{ limit }} caractère")
+     * @Assert\Length(
+     *     max="1",
+     *     maxMessage = "Votre choix ne peut pas être que {{ limit }} caractère"
+     * )
      * @Assert\NotBlank()
      */
     private $delaydeliv;
@@ -148,7 +185,9 @@ class Supplier
      */
     private $active;
 
-
+    /**
+     * __construct
+     */
     public function __construct()
     {
         $this->active = true;
@@ -161,13 +200,14 @@ class Supplier
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idSup;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Nom du fournisseur
+     * 
      * @return Supplier
      */
     public function setName($name)
@@ -190,7 +230,8 @@ class Supplier
     /**
      * Set address
      *
-     * @param string $address
+     * @param string $address Adresse
+     * 
      * @return Supplier
      */
     public function setAddress($address)
@@ -213,7 +254,8 @@ class Supplier
     /**
      * Set zipcode
      *
-     * @param integer $zipcode
+     * @param integer $zipcode Code postal
+     * 
      * @return Supplier
      */
     public function setZipcode($zipcode)
@@ -236,7 +278,8 @@ class Supplier
     /**
      * Set town
      *
-     * @param string $town
+     * @param string $town Ville
+     * 
      * @return Supplier
      */
     public function setTown($town)
@@ -259,7 +302,8 @@ class Supplier
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param string $phone Téléphone
+     * 
      * @return Supplier
      */
     public function setPhone($phone)
@@ -282,7 +326,8 @@ class Supplier
     /**
      * Set fax
      *
-     * @param string $fax
+     * @param string $fax Fax
+     * 
      * @return Supplier
      */
     public function setFax($fax)
@@ -305,7 +350,8 @@ class Supplier
     /**
      * Set email
      *
-     * @param string $email
+     * @param string $email Adresse Email
+     * 
      * @return Supplier
      */
     public function setEmail($email)
@@ -328,7 +374,8 @@ class Supplier
     /**
      * Set contact
      *
-     * @param string $contact
+     * @param string $contact Nom du contact
+     * 
      * @return Supplier
      */
     public function setContact($contact)
@@ -351,7 +398,8 @@ class Supplier
     /**
      * Set gsm
      *
-     * @param string $gsm
+     * @param string $gsm Téléphone du contact
+     * 
      * @return Supplier
      */
     public function setGsm($gsm)
@@ -374,7 +422,8 @@ class Supplier
     /**
      * Set delaydeliv
      *
-     * @param integer $delaydeliv
+     * @param integer $delaydeliv Délai de livraison
+     * 
      * @return Supplier
      */
     public function setDelaydeliv($delaydeliv)
@@ -397,7 +446,8 @@ class Supplier
     /**
      * Set orderdate
      *
-     * @param array $orderdate
+     * @param array $orderdate Jour(s) de commande
+     * 
      * @return Supplier
      */
     public function setOrderdate($orderdate)
@@ -418,36 +468,15 @@ class Supplier
     }
 
     /**
-     * Set is_active
-     *
-     * @param boolean $isActive
-     * @return Supplier
-     */
-    public function setIsActive($isActive)
-    {
-        $this->is_active = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get is_active
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->is_active;
-    }
-
-    /**
      * Set family_log
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog
+     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog Famille logistique
+     * 
      * @return Supplier
      */
-    public function setFamilyLog(\Glsr\GestockBundle\Entity\FamilyLog $familyLog = null)
-    {
+    public function setFamilyLog(
+        \Glsr\GestockBundle\Entity\FamilyLog $familyLog = null
+    ) {
         $this->family_log = $familyLog;
 
         return $this;
@@ -466,11 +495,14 @@ class Supplier
     /**
      * Set sub_family_log
      *
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog
+     * @param \Glsr\GestockBundle\Entity\SubFamilyLog 
+     *     $subFamilyLog Sous-famille logistique
+     * 
      * @return Supplier
      */
-    public function setSubFamilyLog(\Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null)
-    {
+    public function setSubFamilyLog(
+        \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null
+    ) {
         $this->sub_family_log = $subFamilyLog;
 
         return $this;
@@ -486,9 +518,15 @@ class Supplier
         return $this->sub_family_log;
     }
     
-    // Cette méthode permet de faire "echo $supplier"
-    // Ainsi, pour "afficher" $supplier, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $supplier" est équivalent à "echo $supplier->getName()"
+    /**
+     * Cette méthode permet de faire "echo $supplier".
+     * <p>Ainsi, pour "afficher" $supplier, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $supplier" 
+     * est équivalent à "echo $supplier->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->name;
@@ -497,7 +535,8 @@ class Supplier
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param boolean $active Activé/Désactivé
+     * 
      * @return Supplier
      */
     public function setActive($active)
@@ -512,7 +551,7 @@ class Supplier
      *
      * @return boolean 
      */
-    public function getActive()
+    public function isActive()
     {
         return $this->active;
     }

@@ -1,11 +1,35 @@
 <?php
 
+/**
+ * SubFamilyLog Entité SubFamilyLog
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SubFamilyLog
+ * SubFamilyLog Entité SubFamilyLog
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_subfamilylog")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SubFamilyLogRepository")
@@ -19,7 +43,7 @@ class SubFamilyLog
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idSubFamLog;
 
     /**
      * @var string
@@ -45,13 +69,14 @@ class SubFamilyLog
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idSubFamLog;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Désignation
+     * 
      * @return SubFamilyLog
      */
     public function setName($name)
@@ -81,7 +106,8 @@ class SubFamilyLog
     /**
      * Add familylogs
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylogs
+     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylogs Famille logistique
+     * 
      * @return SubFamilyLog
      */
     public function addFamilylog(\Glsr\GestockBundle\Entity\FamilyLog $familylogs)
@@ -94,7 +120,9 @@ class SubFamilyLog
     /**
      * Remove familylogs
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylogs
+     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylogs Familles logistiques
+     * 
+     * @return null Suppression des famille logistiques
      */
     public function removeFamilylog(\Glsr\GestockBundle\Entity\FamilyLog $familylogs)
     {
@@ -114,7 +142,8 @@ class SubFamilyLog
     /**
      * Set familylog
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylog
+     * @param \Glsr\GestockBundle\Entity\FamilyLog $familylog Famille logistique
+     * 
      * @return SubFamilyLog
      */
     public function setFamilylog(\Glsr\GestockBundle\Entity\FamilyLog $familylog)
@@ -134,9 +163,15 @@ class SubFamilyLog
         return $this->familylog;
     }
     
-    // Cette méthode permet de faire "echo $subFamilyLog"
-    // Ainsi, pour "afficher" $subFamilyLog, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $subFamilyLog" est équivalent à "echo $subFamilyLog->getName()"
+    /**
+     * Cette méthode permet de faire "echo $subFamilyLog".
+     * <p>Ainsi, pour "afficher" $subFamilyLog, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $subFamilyLog" 
+     * est équivalent à "echo $subFamilyLog->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->name;

@@ -1,16 +1,46 @@
 <?php
+/**
+ * SupplierController controller de l'entité supplier
+ * 
+ * PHP Version 5
+ * 
+ * @category   Controller
+ * @package    Gestock
+ * @subpackage Supplier
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ * @link       https://github.com/GLSR/glsr
+ */
 
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 use Glsr\GestockBundle\Entity\Supplier;
 
 use Glsr\GestockBundle\Form\SupplierType;
 
+/**
+ * class SupplierController
+ * 
+ * @category   Controller
+ * @package    Gestock
+ * @subpackage Supplier
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
+ */
 class SupplierController extends Controller
 {
+    /**
+     * indexAction affiche la liste des fournisseurs (pagination)
+     * 
+     * @param type $page numéro de page
+     * 
+     * @return type
+     */
     public function indexAction($page)
     {
         // On récupère le nombre d'article par page depuis un paramètre du conteneur
@@ -22,13 +52,21 @@ class SupplierController extends Controller
             ->getRepository('GlsrGestockBundle:Supplier')
             ->getSuppliers($nbPerPage, $page);
 
-        return $this->render('GlsrGestockBundle:Gestock/Supplier:index.html.twig', array(
-            'suppliers' => $suppliers,
-            'page'       => $page,
-            'nb_page' => ceil(count($suppliers) / $nbPerPage) ?: 1
-        ));
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Supplier:index.html.twig',
+            array(
+                'suppliers' => $suppliers,
+                'page'       => $page,
+                'nb_page' => ceil(count($suppliers) / $nbPerPage) ?: 1
+            )
+        );
     }
     
+    /**
+     * addAction Ajouter un fournisseur
+     * 
+     * @return type
+     */
     public function addAction()
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -62,9 +100,12 @@ class SupplierController extends Controller
                 $etm->flush();
 
                 // On définit un message flash
-                $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien ajouté');
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'Fournisseur bien ajouté');
 
-                // On redirige vers la page de visualisation de l'article nouvellement créé
+                // On redirige vers la page de visualisation
+                // du fournisseur nouvellement créé
                 return $this->redirect(
                     $this->generateUrl(
                         'glstock_suppli_show',
@@ -75,14 +116,27 @@ class SupplierController extends Controller
         }
 
         // À ce stade :
-        // - soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST, mais le formulaire n'est pas valide, donc on l'affiche de nouveau
+        // - soit la requête est de type GET,
+        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
+        // - soit la requête est de type POST,
+        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
 
-        return $this->render('GlsrGestockBundle:Gestock/Supplier:add.html.twig', array(
-          'form' => $form->createView()
-        ));
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Supplier:add.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
     }
     
+    /**
+     * editAction Modifier un fournisseur
+     * 
+     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
+     * Objet fournisseur à modifier
+     * 
+     * @return type
+     */
     public function editAction(Supplier $supplier)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -114,9 +168,11 @@ class SupplierController extends Controller
                 $etm->flush();
 
                 // On définit un message flash
-                $this->get('session')->getFlashBag()->add('info', 'Fournisseur bien modifié');
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'Fournisseur bien modifié');
 
-                // On redirige vers la page de visualisation de l'article nouvellement créé
+                // On redirige vers la page de visualisation du fournisseur modifié
                 return $this->redirect(
                     $this->generateUrl(
                         'glstock_suppli_show',
@@ -125,11 +181,22 @@ class SupplierController extends Controller
                 );
             }
         }
-        return $this->render('GlsrGestockBundle:Gestock/Supplier:edit.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Supplier:edit.html.twig',
+            array(
+                'form' => $form->createView()
+            )
+        );
     }
     
+    /**
+     * deleteAction Supprimer un fournisseur
+     * 
+     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
+     * Objet fournisseur à supprimer
+     * 
+     * @return type
+     */
     public function deleteAction(Supplier $supplier)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -141,7 +208,8 @@ class SupplierController extends Controller
             // On redirige vers la page de connexion
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        // Avant de supprimer quoi que ce soit, il faut vérifier qu'aucun article ne soit rattaché à ce fournisseur
+        // Avant de supprimer quoi que ce soit,
+        // il faut vérifier qu'aucun article ne soit rattaché à ce fournisseur
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
@@ -151,9 +219,17 @@ class SupplierController extends Controller
             // On crée le message explicatif
             $this->get('session')
                 ->getFlashBag()
-                ->add('error', 'Vous devez réaffecter les articles de ce Fournisseur !');
+                ->add(
+                    'error',
+                    'Vous devez réaffecter les articles de ce Fournisseur !'
+                );
             // Puis on redirige vers la page de réaffectation
-            return $this->redirect($this->generateUrl('glstock_reassign_article', array('id' => $supplier->getId())));
+            return $this->redirect(
+                $this->generateUrl(
+                    'glstock_reassign_article',
+                    array('id' => $supplier->getId())
+                )
+            );
         }
         
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
@@ -198,6 +274,14 @@ class SupplierController extends Controller
         );
     }
     
+    /**
+     * showAction Afficher le fournisseur
+     * 
+     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
+     * Objet fournisseur à afficher
+     * 
+     * @return type
+     */
     public function showAction(Supplier $supplier)
     {
         $etm = $this->getDoctrine()->getManager();
@@ -205,9 +289,12 @@ class SupplierController extends Controller
             ->getRepository('GlsrGestockBundle:Article')
             ->getArticleFromSupplier($supplier->getId());
         
-        return $this->render('GlsrGestockBundle:Gestock/Supplier:supplier.html.twig', array(
-            'articles' => $articles,
-            'supplier' => $supplier
-        ));
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Supplier:supplier.html.twig',
+            array(
+                'articles' => $articles,
+                'supplier' => $supplier
+            )
+        );
     }
 }

@@ -112,7 +112,7 @@ function fillSubFamilyLog(){
     var id_select = $('#glsr_gestockbundle_article_family_log').val();
     var id_select2 = $('#glsr_gestockbundle_article_sub_family_log').val();
     $.ajax({
-        url: "{{ path('fill_subfamilylog') }}",
+        url: "{{ path('fillsubfamilylog') }}",
         type: 'POST',
         data: {'id': id_select},
         dataType: 'json',

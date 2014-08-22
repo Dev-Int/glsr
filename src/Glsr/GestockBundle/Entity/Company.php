@@ -1,11 +1,33 @@
 <?php
 
+/**
+ * Company Entité Company
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Company
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 3556e219c7c401ae295206e44e1ddee3f6314848
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Company
+ * Company Entité Company
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Company
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_company")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\CompanyRepository")
@@ -19,7 +41,7 @@ class Company
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idComp;
 
     /**
      * @var string
@@ -99,13 +121,14 @@ class Company
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idComp;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Nom de l'entreprise
+     * 
      * @return Company
      */
     public function setName($name)
@@ -128,7 +151,8 @@ class Company
     /**
      * Set status
      *
-     * @param string $status
+     * @param string $status Statut juridique
+     * 
      * @return Company
      */
     public function setStatus($status)
@@ -151,7 +175,8 @@ class Company
     /**
      * Set adress
      *
-     * @param string $adress
+     * @param string $adress Adresse
+     * 
      * @return Company
      */
     public function setAdress($adress)
@@ -174,7 +199,8 @@ class Company
     /**
      * Set zipcode
      *
-     * @param string $zipcode
+     * @param string $zipcode Code postal
+     * 
      * @return Company
      */
     public function setZipcode($zipcode)
@@ -197,7 +223,8 @@ class Company
     /**
      * Set town
      *
-     * @param string $town
+     * @param string $town Ville
+     * 
      * @return Company
      */
     public function setTown($town)
@@ -220,7 +247,8 @@ class Company
     /**
      * Set phone
      *
-     * @param string $phone
+     * @param string $phone Téléphone
+     * 
      * @return Company
      */
     public function setPhone($phone)
@@ -243,7 +271,8 @@ class Company
     /**
      * Set fax
      *
-     * @param string $fax
+     * @param string $fax Fax
+     * 
      * @return Company
      */
     public function setFax($fax)
@@ -266,7 +295,8 @@ class Company
     /**
      * Set mail
      *
-     * @param string $mail
+     * @param string $mail Adresse Email
+     * 
      * @return Company
      */
     public function setMail($mail)
@@ -289,7 +319,8 @@ class Company
     /**
      * Set contact
      *
-     * @param string $contact
+     * @param string $contact Nom du contact
+     * 
      * @return Company
      */
     public function setContact($contact)
@@ -312,7 +343,8 @@ class Company
     /**
      * Set gsm
      *
-     * @param string $gsm
+     * @param string $gsm Numéro de téléphone du contact
+     * 
      * @return Company
      */
     public function setGsm($gsm)

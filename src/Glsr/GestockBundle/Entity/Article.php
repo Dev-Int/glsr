@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Article Entité Article
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Article
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,29 +25,37 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Article
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Article
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_article")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\ArticleRepository")
- * @UniqueEntity(fields="name", message="Ce nom d'article est déjà utilisé dans le système.")
+ * @UniqueEntity(fields="name", message="Ce nom d'article est déjà utilisé.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
     /**
-     * @var integer
+     * @var integer $idArt
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idArt;
 
     /**
      * @var string $name intitulé de l'article
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="'^\w+[^/]'", message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")
+     * @Assert\Regex(pattern="'^\w+[^/]'",
+     * message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")
      * 
      */
     private $name;
@@ -48,7 +71,7 @@ class Article
      * @var string $unit_storage Unité de stockage
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\UnitStorage")
-     * @ORM\JoinTable(name="gs_article_unitstorage")
+     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $unit_storage;
     
@@ -56,7 +79,8 @@ class Article
      * @var $packaging
      *
      * @ORM\Column(name="packaging", type="decimal", precision=7, scale=3)
-     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="numeric",
+     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $packaging;
 
@@ -64,7 +88,8 @@ class Article
      * @var $price
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3)
-     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="numeric",
+     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $price;
 
@@ -72,7 +97,8 @@ class Article
      * @var $quantity
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
-     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="numeric",
+     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $quantity;
 
@@ -80,7 +106,8 @@ class Article
      * @var $minstock
      *
      * @ORM\Column(name="minstock", type="decimal", precision=7, scale=3)
-     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="numeric",
+     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $minstock;
 
@@ -88,7 +115,8 @@ class Article
      * @var realstock
      *
      * @ORM\Column(name="realstock", type="decimal", precision=7, scale=3)
-     * @Assert\Type(type="numeric", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * @Assert\Type(type="numeric",
+     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
     private $realstock;
     
@@ -143,13 +171,14 @@ class Article
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idArt;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Nom de l'article
+     * 
      * @return Article
      */
     public function setName($name)
@@ -172,7 +201,8 @@ class Article
     /**
      * Set packaging
      *
-     * @param string $packaging
+     * @param string $packaging Conditionnement (quantité)
+     * 
      * @return Article
      */
     public function setPackaging($packaging)
@@ -195,7 +225,8 @@ class Article
     /**
      * Set price
      *
-     * @param string $price
+     * @param string $price prix de l'article
+     * 
      * @return Article
      */
     public function setPrice($price)
@@ -218,7 +249,8 @@ class Article
     /**
      * Set quantity
      *
-     * @param string $quantity
+     * @param string $quantity quantité en stock
+     * 
      * @return Article
      */
     public function setQuantity($quantity)
@@ -241,7 +273,8 @@ class Article
     /**
      * Set minstock
      *
-     * @param string $minstock
+     * @param string $minstock stock minimum
+     * 
      * @return Article
      */
     public function setMinstock($minstock)
@@ -264,7 +297,8 @@ class Article
     /**
      * Set realstock
      *
-     * @param string $realstock
+     * @param string $realstock stock réel (relelvé pendant l'inventaire)
+     * 
      * @return Article
      */
     public function setRealstock($realstock)
@@ -285,32 +319,10 @@ class Article
     }
 
     /**
-     * Set is_active
-     *
-     * @param boolean $isActive
-     * @return Article
-     */
-    public function setIsActive($isActive)
-    {
-        $this->is_active = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get is_active
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->is_active;
-    }
-
-    /**
      * Set supplier
      *
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
+     * @param \Glsr\GestockBundle\Entity\Supplier $supplier Fournisseur de l'article
+     * 
      * @return Article
      */
     public function setSupplier(\Glsr\GestockBundle\Entity\Supplier $supplier = null)
@@ -333,11 +345,13 @@ class Article
     /**
      * Set unit_storage
      *
-     * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage
+     * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage Unité de stockage
+     * 
      * @return Article
      */
-    public function setUnitStorage(\Glsr\GestockBundle\Entity\UnitStorage $unitStorage = null)
-    {
+    public function setUnitStorage(
+        \Glsr\GestockBundle\Entity\UnitStorage $unitStorage = null
+    ) {
         $this->unit_storage = $unitStorage;
 
         return $this;
@@ -356,11 +370,14 @@ class Article
     /**
      * Add zone_storages
      *
-     * @param \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
+     * @param \Glsr\GestockBundle\Entity\ZoneStorage
+     * $zoneStorages Zone(s) de stockage
+     * 
      * @return Article
      */
-    public function addZoneStorage(\Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages)
-    {
+    public function addZoneStorage(
+        \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
+    ) {
         $this->zone_storages[] = $zoneStorages;
 
         return $this;
@@ -369,17 +386,21 @@ class Article
     /**
      * Remove zone_storages
      *
-     * @param \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
+     * @param \Glsr\GestockBundle\Entity\ZoneStorage
+     * $zoneStorages Zone de stockage à supprimer
+     * 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function removeZoneStorage(\Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages)
-    {
+    public function removeZoneStorage(
+        \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
+    ) {
         $this->zone_storages->removeElement($zoneStorages);
     }
 
     /**
      * Get zone_storages
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getZoneStorages()
     {
@@ -389,11 +410,14 @@ class Article
     /**
      * Set family_log
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog
+     * @param \Glsr\GestockBundle\Entity\FamilyLog
+     * $familyLog Famille Logistique
+     * 
      * @return Article
      */
-    public function setFamilyLog(\Glsr\GestockBundle\Entity\FamilyLog $familyLog = null)
-    {
+    public function setFamilyLog(
+        \Glsr\GestockBundle\Entity\FamilyLog $familyLog = null
+    ) {
         $this->family_log = $familyLog;
 
         return $this;
@@ -412,11 +436,14 @@ class Article
     /**
      * Set sub_family_log
      *
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog
+     * @param \Glsr\GestockBundle\Entity\SubFamilyLog
+     * $subFamilyLog Sous-famille logistique
+     * 
      * @return Article
      */
-    public function setSubFamilyLog(\Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null)
-    {
+    public function setSubFamilyLog(
+        \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null
+    ) {
         $this->sub_family_log = $subFamilyLog;
 
         return $this;
@@ -435,7 +462,8 @@ class Article
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param boolean $active Activé/Désactivé
+     * 
      * @return Article
      */
     public function setActive($active)
@@ -450,13 +478,20 @@ class Article
      *
      * @return boolean 
      */
-    public function getActive()
+    public function isActive()
     {
         return $this->active;
     }
-    // Cette méthode permet de faire "echo $article"
-    // Ainsi, pour "afficher" $name, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $article" est équivalent à "echo $article->getName()"
+    
+    /**
+     * Cette méthode permet de faire "echo $article".
+     * <p>Ainsi, pour "afficher" $article, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $article" 
+     * est équivalent à "echo $article->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->name;

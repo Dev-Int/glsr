@@ -1,11 +1,35 @@
 <?php
 
+/**
+ * UnitStorage Entité UnitStorage
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 76be3685d475a2e2d7289ef39832d65414e9ba6d
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UnitStorage
+ * UnitStorage Entité UnitStorage
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_unitstorage")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\UnitStorageRepository")
@@ -19,7 +43,7 @@ class UnitStorage
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idUStor;
 
     /**
      * @var string
@@ -43,13 +67,14 @@ class UnitStorage
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idUStor;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Nom de l'unité de stockage
+     * 
      * @return UnitStorage
      */
     public function setName($name)
@@ -72,7 +97,8 @@ class UnitStorage
     /**
      * Set abbr
      *
-     * @param string $abbr
+     * @param string $abbr Abbréviation de l'unité de stockage
+     * 
      * @return UnitStorage
      */
     public function setAbbr($abbr)
@@ -92,9 +118,15 @@ class UnitStorage
         return $this->abbr;
     }
     
-    // Cette méthode permet de faire "echo $unitStorage"
-    // Ainsi, pour "afficher" $unitStorage, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $unitStorage" est équivalent à "echo $unitStorage->getName()"
+    /**
+     * Cette méthode permet de faire "echo $unitStorage".
+     * <p>Ainsi, pour "afficher" $unitStorage, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $unitStorage" 
+     * est équivalent à "echo $unitStorage->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->abbr;

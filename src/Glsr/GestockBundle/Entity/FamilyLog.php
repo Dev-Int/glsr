@@ -1,11 +1,33 @@
 <?php
 
+/**
+ * FamilyLog Entité FamilyLog
+ * 
+ * PHP Version 5
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * FamilyLog
+ * FamilyLog Entité FamilyLog
+ * 
+ * @category   Entity
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_familylog")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\FamilyLogRepository")
@@ -19,7 +41,7 @@ class FamilyLog
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    private $idFamLog;
 
     /**
      * @var string
@@ -36,13 +58,14 @@ class FamilyLog
      */
     public function getId()
     {
-        return $this->id;
+        return $this->idFamLog;
     }
 
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $name Désignation
+     * 
      * @return FamilyLog
      */
     public function setName($name)
@@ -62,9 +85,15 @@ class FamilyLog
         return $this->name;
     }
     
-    // Cette méthode permet de faire "echo $familyLog"
-    // Ainsi, pour "afficher" $familyLog, PHP affichera en réalité le retour de cette méthode
-    // Ici, le nom, donc "echo $familyLog" est équivalent à "echo $familyLog->getName()"
+    /**
+     * Cette méthode permet de faire "echo $familyLog".
+     * <p>Ainsi, pour "afficher" $familyLog, 
+     * PHP affichera en réalité le retour de cette méthode.<br />
+     * Ici, le nom, donc "echo $familyLog" 
+     * est équivalent à "echo $familyLog->getName()"</p>
+     * 
+     * @return string name
+     */
     public function __toString()
     {
         return $this->name;

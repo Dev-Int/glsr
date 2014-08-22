@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * GlsrRequestListener Listener
+ * 
+ * PHP Version 5
+ * 
+ * @category   Listener
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @link       https://github.com/GLSR/glsr
+ */
+
 namespace Glsr\GestockBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -10,6 +25,16 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
+/**
+ * GlsrRequestListener Listener
+ * 
+ * @category   Listener
+ * @package    Gestock
+ * @subpackage Settings
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link       https://github.com/GLSR/glsr
+ */
 class GlsrRequestListener
 {
     private $etm;
@@ -19,8 +44,20 @@ class GlsrRequestListener
     private $routes = array();
 
 
-    public function __construct(EntityManager $etm, ContainerInterface $container, Router $router, $routes = array())
-    {
+    /**
+     * Constructor
+     * 
+     * @param \Doctrine\ORM\EntityManager     $etm       Entity Manager
+     * @param \ContainerInterface             $container Container of Request
+     * @param \FrameworkBundle\Routing\Router $router    Routes of Request
+     * @param array                           $routes    Routes to listen
+     */
+    public function __construct(
+        EntityManager $etm,
+        ContainerInterface $container,
+        Router $router,
+        $routes = array()
+    ) {
         $this->etm       = $etm;
         $this->container = $container;
         $this->router    = $router;
@@ -40,33 +77,75 @@ class GlsrRequestListener
         $this->routes = $routes;
     }
     
+    /**
+     * onKernel Request listener
+     * 
+     * @param \HttpKernel\Event\GetResponseEvent $event Response event
+     * 
+     * @return \RedirectResponse/null Redirige ou continue
+     */
     public function onKernelRequest(GetResponseEvent $event)
     {
         // Si la route en cours est celle que l'on veut attribuer,
         // on sort de la fonction
-        if (!in_array($event->getRequest()->attributes->get('_route'), $this->routes)) {
-        
+        if (!in_array(
+            $event->getRequest()
+                ->attributes
+                ->get('_route'), $this->routes
+        )
+        ) {
             // Tableau des entitées
             $entities = array(
-                array('repository' => 'GlsrGestockBundle:Company',      'route' => $this->routes[0]),
-                array('repository' => 'GlsrGestockBundle:Settings',     'route' => $this->routes[1]),
-                array('repository' => 'GlsrGestockBundle:FamilyLog',    'route' => $this->routes[2]),
-                array('repository' => 'GlsrGestockBundle:SubFamilyLog', 'route' => $this->routes[3]),
-                array('repository' => 'GlsrGestockBundle:ZoneStorage',  'route' => $this->routes[4]),
-                array('repository' => 'GlsrGestockBundle:UnitStorage',  'route' => $this->routes[5]),
-                array('repository' => 'GlsrGestockBundle:Tva',          'route' => $this->routes[6]),
-                array('repository' => 'GlsrGestockBundle:Supplier',     'route' => $this->routes[7]),
-                array('repository' => 'GlsrGestockBundle:Article',      'route' => $this->routes[8])
+                array(
+                    'repository' => 'GlsrGestockBundle:Company',
+                    'route' => $this->routes[0]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:Settings',
+                    'route' => $this->routes[1]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:FamilyLog',
+                    'route' => $this->routes[2]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:SubFamilyLog',
+                    'route' => $this->routes[3]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:ZoneStorage',
+                    'route' => $this->routes[4]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:UnitStorage',
+                    'route' => $this->routes[5]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:Tva',
+                    'route' => $this->routes[6]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:Supplier',
+                    'route' => $this->routes[7]
+                ),
+                array(
+                    'repository' => 'GlsrGestockBundle:Article',
+                    'route' => $this->routes[8]
+                )
             );
             // vérifie que les Entitées ne sont pas vides
             $message = "Il faut renseigner les informations manquantes";
 
             for ($index = 0; $index < count($entities); $index++) {
-                $entity = $this->etm->getRepository($entities[$index]['repository']);
+                $entity = $this->etm->getRepository(
+                    $entities[$index]['repository']
+                );
                 $entityData = $entity->findAll();
 
                 if (empty($entityData)) {
-                    $this->container->get('session')->getFlashBag()->add('info', $message);
+                    $this->container
+                        ->get('session')
+                        ->getFlashBag()->add('info', $message);
                     $this->redirect = $entities[$index]['route'];
                     $index += count($entities);
                 }
@@ -74,6 +153,13 @@ class GlsrRequestListener
         }
     }
     
+    /**
+     * on Kernel Response
+     * 
+     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event Event
+     * 
+     * @return RedirectResponse/null Redirige ou continue
+     */
     public function onKernelResponse(FilterResponseEvent $event)
     {
         // On redirige vers la page d'ajout d'information de la société
