@@ -10,6 +10,7 @@ env:
 
 before_install:
  - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc
+ - sudo apt-get update && sudo apt-get install graphviz
 
 before_script: 
   ## Composer 
