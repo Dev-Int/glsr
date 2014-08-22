@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UnitStorage
 {
     /**
-     * @var integer
+     * @var integer $idUStor Id de l'unité de stockage
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,14 +40,14 @@ class UnitStorage
     private $idUStor;
 
     /**
-     * @var string
+     * @var string $name Nom de l'unité de stockage
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
     
     /**
-     * @var string
+     * @var string $abbr Abbréviation de l'unité de stockage
      * 
      * @ORM\Column(name="abbr", type="string", length=50)
      */

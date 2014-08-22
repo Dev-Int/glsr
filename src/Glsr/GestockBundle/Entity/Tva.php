@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tva
 {
     /**
-     * @var integer $idTva
+     * @var integer $idTva Id du taux de TVA
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
