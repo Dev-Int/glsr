@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Entity
- * @package    Gestock
- * @subpackage Article
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -26,9 +23,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  * @category   Entity
  * @package    Gestock
  * @subpackage Article
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class ArticleRepository extends EntityRepository
 {

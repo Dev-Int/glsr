@@ -5,8 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category  DependencyInjection
- * @package   User
  * @author    Quétier Laurent <lq@dev-int.net>
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -23,9 +21,11 @@ use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * This is the class that loads and manages your bundle configuration
+ * 
+ * @category  DependencyInjection
+ * @package   User
  *
- * To learn more see 
- * {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
 class GlsrUserExtension extends Extension
 {

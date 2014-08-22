@@ -2,9 +2,6 @@
 /**
  * Configuration de l'injection des dépendences
  * 
- * @category   DependencyInjection
- * @package    Gestock
- * @subpackage DependencyInjection
  * @author     Quétier Laurent 
  * <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
@@ -22,9 +19,12 @@ use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * This is the class that loads and manages your bundle configuration
+ * 
+ * @category   DependencyInjection
+ * @package    Gestock
+ * @subpackage DependencyInjection
  *
- * To learn more see 
- * {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
 class GlsrGestockExtension extends Extension
 {

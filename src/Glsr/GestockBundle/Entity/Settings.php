@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Entity
- * @package    Gestock
- * @subpackage Settings
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -25,9 +22,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @category   Entity
  * @package    Gestock
  * @subpackage Settings
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  *
  * @ORM\Table(name="gs_settings")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SettingsRepository")

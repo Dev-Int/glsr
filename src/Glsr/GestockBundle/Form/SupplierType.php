@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Form
- * @package    Gestock
- * @subpackage Supplier
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -29,9 +26,6 @@ use libphonenumber\PhoneNumberFormat;
  * @category   Form
  * @package    Gestock
  * @subpackage Supplier
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class SupplierType extends AbstractType
 {
@@ -51,13 +45,17 @@ class SupplierType extends AbstractType
             ->add('zipcode', 'text')
             ->add('town', 'text')
             ->add(
-                'phone', 'tel', array(
+                'phone',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )
             )
             ->add(
-                'fax', 'tel', array(
+                'fax',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )
@@ -65,14 +63,18 @@ class SupplierType extends AbstractType
             ->add('email', 'email')
             ->add('contact', 'text')
             ->add(
-                'gsm', 'tel', array(
+                'gsm',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )
             )
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
             ->add(
-                'delaydeliv', 'choice', array(
+                'delaydeliv',
+                'choice',
+                array(
                     'choices' => array(
                         1 => 'A pour B',
                         2 => 'A pour C',
@@ -83,7 +85,9 @@ class SupplierType extends AbstractType
             )
             // Choix du jour de la semaine pour les Cmdes
             ->add(
-                'orderdate', 'choice', array(
+                'orderdate',
+                'choice',
+                array(
                     'choices' => array(
                         1 => 'Lundi',
                         2 => 'Mardi',
@@ -98,7 +102,9 @@ class SupplierType extends AbstractType
                 )
             )
             ->add(
-                'family_log', 'entity', array(
+                'family_log',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:FamilyLog',
                     'property' => 'name',
                     'multiple' => false,
@@ -107,7 +113,9 @@ class SupplierType extends AbstractType
                 )
             )
             ->add(
-                'sub_family_log', 'entity', array(
+                'sub_family_log',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:SubFamilyLog',
                     'property' => 'name',
                     'multiple' => false,

@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Form
- * @package    Gestock
- * @subpackage Article
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -29,9 +26,6 @@ use Glsr\GestockBundle\Entity\Settings;
  * @category   Form
  * @package    Gestock
  * @subpackage Article
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class ArticleType extends AbstractType
 {
@@ -48,33 +42,43 @@ class ArticleType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add(
-                'packaging', 'number', array(
+                'packaging',
+                'number',
+                array(
                     'precision' => 3,
                     'grouping'  => true,
                     'label'     => 'packaging'
                 )
             )
             ->add(
-                'price', 'money', array(
+                'price',
+                'money',
+                array(
                     'precision'  => 3,
                     'grouping'   => true,
                     'currency'   => 'EUR'
                 )
             )
             ->add(
-                'quantity', 'number', array(
+                'quantity',
+                'number',
+                array(
                     'precision' => 3,
                     'grouping'  => true,
                 )
             )
             ->add(
-                'minstock', 'number', array(
+                'minstock',
+                'number',
+                array(
                     'precision' => 3,
                     'grouping'  => true,
                 )
             )
             ->add(
-                'realstock', 'number', array(
+                'realstock',
+                'number',
+                array(
                     'precision'     => 3,
                     'grouping'      => true,
                     'data'          => 0
@@ -82,7 +86,9 @@ class ArticleType extends AbstractType
             )
             ->add('active', 'checkbox')
             ->add(
-                'supplier', 'entity', array(
+                'supplier',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:Supplier',
                     'property' => 'name',
                     'multiple' => false,
@@ -91,14 +97,18 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'unit_storage', 'entity', array(
+                'unit_storage',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:UnitStorage',
                     'property' => 'name',
                     'multiple' => false
                 )
             )
             ->add(
-                'zone_storages', 'entity', array(
+                'zone_storages',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:ZoneStorage',
                     'property' => 'name',
                     'multiple' => true,
@@ -106,7 +116,9 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'family_log', 'entity', array(
+                'family_log',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:FamilyLog',
                     'property' => 'name',
                     'multiple' => false,
@@ -115,7 +127,9 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'sub_family_log', 'entity', array(
+                'sub_family_log',
+                'entity',
+                array(
                     'class'    => 'GlsrGestockBundle:SubFamilyLog',
                     'property' => 'name',
                     'multiple' => false,

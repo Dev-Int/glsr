@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Form
- * @package    Gestock
- * @subpackage Article
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -31,9 +28,6 @@ use Doctrine\ORM\EntityRepository;
  * @category   Form
  * @package    Gestock
  * @subpackage Article
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class ArticleReassignType extends AbstractType
 {
@@ -65,7 +59,8 @@ class ArticleReassignType extends AbstractType
                 foreach ($articles as $article) {
                     $form->add(
                         'supplier-' . $article->getId(),
-                        'entity', $formOptions
+                        'entity',
+                        $formOptions
                     );
                 }
             }

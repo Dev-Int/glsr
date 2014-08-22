@@ -4,8 +4,6 @@
  * 
  * PHP Version 5
  * 
- * @category  Controller
- * @package   Gestock
  * @author    Quétier Laurent <lq@dev-int.net>
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -24,9 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
  * 
  * @category Controller
  * @package  Gestock
- * @author   Quétier Laurent <lq@dev-int.net>
- * @license  http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     https://github.com/GLSR/glsr
  */
 class GestockController extends Controller
 {
@@ -158,7 +153,7 @@ class GestockController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock:alerts.html.twig',
             array(
-                // C'est ici tout l'intérêt : 
+                // C'est ici tout l'intérêt :
                 // le contrôleur passe les variables nécessaires au template !
                 'list_alerts' => $alerts,
                 'nb' => $nombre

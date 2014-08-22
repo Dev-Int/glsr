@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Entity
- * @package    User
- * @subpackage User
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -26,9 +23,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @category   Entity
  * @package    User
  * @subpackage User
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  * 
  * @ORM\Entity
  * @ORM\Table(name="gs_user")

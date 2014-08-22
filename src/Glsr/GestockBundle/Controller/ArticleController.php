@@ -4,9 +4,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Controller
- * @package    Gestock
- * @subpackage Article
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -29,9 +26,6 @@ use Glsr\GestockBundle\Form\ArticleReassignType;
  * @category   Controller
  * @package    Gestock
  * @subpackage Article
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class ArticleController extends Controller
 {
@@ -117,9 +111,9 @@ class ArticleController extends Controller
         }
 
         // À ce stade :
-        // - soit la requête est de type GET, 
+        // - soit la requête est de type GET,
         // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST, 
+        // - soit la requête est de type POST,
         // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
 
         return $this->render(
@@ -184,9 +178,9 @@ class ArticleController extends Controller
         }
 
         // À ce stade :
-        // - soit la requête est de type GET, 
+        // - soit la requête est de type GET,
         // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST, 
+        // - soit la requête est de type POST,
         // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
 
         return $this->render(

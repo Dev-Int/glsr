@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Form
- * @package    Gestock
- * @subpackage Settings
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -31,9 +28,6 @@ $currency = Intl::getCurrencyBundle()->getCurrencyName('EUR');
  * @category   Form
  * @package    Gestock
  * @subpackage Settings
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class SettingsType extends AbstractType
 {
@@ -49,7 +43,9 @@ class SettingsType extends AbstractType
     {
         $builder
             ->add(
-                'inventory_style', 'choice', array(
+                'inventory_style',
+                'choice',
+                array(
                     'choices' => array(
                         'global' => 'Global',
                         'zonestorage' => 'Zone Storage'
@@ -59,7 +55,9 @@ class SettingsType extends AbstractType
                 )
             )
             ->add(
-                'calculation', 'choice', array(
+                'calculation',
+                'choice',
+                array(
                     'choices' => array(
                         'fifo' => 'FIFO',
                         'weighted' => 'weighted'
@@ -70,7 +68,9 @@ class SettingsType extends AbstractType
             )
             ->add('first_inventory', 'hidden')
             ->add(
-                'currency', 'currency', array(
+                'currency',
+                'currency',
+                array(
                     'multiple'         => false,
                     'expanded'         => false,
                     'preferred_choices' => array('EUR')

@@ -5,9 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category   Form
- * @package    Gestock
- * @subpackage Company
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -27,9 +24,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @category   Form
  * @package    Gestock
  * @subpackage Company
- * @author     Quétier Laurent <lq@dev-int.net>
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link       https://github.com/GLSR/glsr
  */
 class CompanyType extends AbstractType
 {
@@ -50,25 +44,33 @@ class CompanyType extends AbstractType
             ->add('zipcode', 'text')
             ->add('town', 'text')
             ->add(
-                'phone', 'tel', array(
+                'phone',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )
             )
             ->add(
-                'fax', 'tel', array(
+                'fax',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )
             )
             ->add(
-                'mail', 'email', array(
+                'mail',
+                'email',
+                array(
                     'trim' => true
                 )
             )
             ->add('contact', 'text')
             ->add(
-                'gsm', 'tel', array(
+                'gsm',
+                'tel',
+                array(
                     'default_region' => 'FR',
                     'format'         => PhoneNumberFormat::NATIONAL
                 )

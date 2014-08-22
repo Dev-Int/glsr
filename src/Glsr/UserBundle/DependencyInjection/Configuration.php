@@ -5,8 +5,6 @@
  * 
  * PHP Version 5
  * 
- * @category  DependencyInjection
- * @package   User
  * @author    Quétier Laurent <lq@dev-int.net>
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -23,8 +21,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * This is the class that validates
  * and merges configuration from your app/config files
  * 
- * To learn more see
- * {@link http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @category  DependencyInjection
+ * @package   User
+ * 
+ * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
  * #cookbook-bundles-extension-config-class}
  */
 class Configuration implements ConfigurationInterface

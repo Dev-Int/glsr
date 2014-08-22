@@ -2,9 +2,6 @@
 /**
  * Configuration de l'injection des dépendences
  * 
- * @category   DependencyInjection
- * @package    Gestock
- * @subpackage DependencyInjection
  * @author     Quétier Laurent 
  * <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
@@ -22,9 +19,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  * This is the class that validates
  * and merges configuration from your app/config files
  * 
- * To learn more see
- * {@link http://symfony.com/doc/current/cookbook/bundles/extension.html
- * #cookbook-bundles-extension-config-class}
+ * @category   DependencyInjection
+ * @package    Gestock
+ * @subpackage DependencyInjection
+
+ * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * #cookbook-bundles-extension-config-class
  */
 class Configuration implements ConfigurationInterface
 {
