@@ -15,7 +15,7 @@ if [ "$TRAVIS_REPO_SLUG" == "https://github.com/GLSR/glsr/" ] && [ "$TRAVIS_PULL
   ## Initialisation et recuperation de la branche gh-pages du depot Git
   git config --global user.email "lq@dev-int.net"
   git config --global user.name "Dev-Int"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/GLSR/glsr/ gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${f5c8a112110930363ae4d3b99f58972d0c4cf358}@github.com/GLSR/glsr/ gh-pages > /dev/null
 
   cd gh-pages
   
