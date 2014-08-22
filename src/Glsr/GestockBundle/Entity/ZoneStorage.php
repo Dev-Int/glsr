@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ZoneStorage
 {
     /**
-     * @var integer
+     * @var integer $idZStor Id De la zone de stockage
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,7 +38,7 @@ class ZoneStorage
     private $idZStor;
 
     /**
-     * @var string
+     * @var string $name Nom de la zone de stockage
      *
      * @ORM\Column(name="name", type="string", length=255)
      */

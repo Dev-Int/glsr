@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tva
 {
     /**
-     * @var integer
+     * @var integer $idTva
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,7 +38,7 @@ class Tva
     private $idTva;
 
     /**
-     * @var decimal,
+     * @var decimal $name Taux de TVA
      *
      * @ORM\Column(name="name", type="decimal", precision=5, scale=3)
      */
@@ -72,7 +72,7 @@ class Tva
     /**
      * Get name
      *
-     * @return decimal, 
+     * @return string 
      */
     public function getName()
     {

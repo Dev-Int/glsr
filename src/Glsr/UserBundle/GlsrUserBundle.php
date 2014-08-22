@@ -24,6 +24,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class GlsrUserBundle extends Bundle
 {
+    /**
+     * Renvoie le bundle dont dépend GlsrUserBundle
+     * 
+     * @return string Parent bundle
+     */
     public function getParent()
     {
         return 'FOSUserBundle';

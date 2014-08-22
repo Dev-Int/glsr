@@ -32,7 +32,7 @@ before_script:
   - pear install --alldeps phpmd/PHP_PMD
   - phpenv rehash
   ## PHPLOC
-  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
+  #- curl -o phploc.phar https://phar.phpunit.de/phploc.phar
   ## PHPDoc
   - pear install Image_GraphViz
   ## PHPUnit/DbUnit
@@ -51,7 +51,7 @@ script:
   ## PHP Copy/Paste Detector
   #- php phpcpd.phar --verbose src/
   ## PHP Mess Detector
-  - phpmd src/ text codesize,unusedcode,naming,design
+  #- phpmd src/ text codesize,unusedcode,naming,design
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie

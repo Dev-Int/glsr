@@ -30,7 +30,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @var integer
+     * @var integer $id
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")

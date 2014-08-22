@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class FamilyLog
 {
     /**
-     * @var integer
+     * @var integer $id Id de la famille logistique
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,7 +38,7 @@ class FamilyLog
     private $idFamLog;
 
     /**
-     * @var string
+     * @var string $name Nom de la famille logistique
      *
      * @ORM\Column(name="name", type="string", length=255)
      */

@@ -31,10 +31,30 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class GlsrRequestListener
 {
+    /**
+     * 
+     * @var \Doctrine\ORM\EntityManager $etm Entity Manager 
+     */
     private $etm;
+    /**
+     *
+     * @var \ContainerInterface $container Container of Request
+     */
     private $container;
+    /**
+     *
+     * @var \FrameworkBundle\Routing\Router $router Routes of Request
+     */
     protected $router;
+    /**
+     *
+     * @var string $redirect Route de redirection 
+     */
     protected $redirect = null;
+    /**
+     *
+     * @var array $routes Routes to listen
+     */
     private $routes = array();
 
 

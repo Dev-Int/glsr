@@ -35,7 +35,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Article
 {
     /**
-     * @var integer $idArt
+     * @var integer $idArt Id de l'article
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -70,7 +70,7 @@ class Article
     private $unit_storage;
     
     /**
-     * @var $packaging
+     * @var decimal $packaging Conditionement (quantité)
      *
      * @ORM\Column(name="packaging", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -79,7 +79,7 @@ class Article
     private $packaging;
 
     /**
-     * @var $price
+     * @var decimal $price prix de l'article
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -88,7 +88,7 @@ class Article
     private $price;
 
     /**
-     * @var $quantity
+     * @var decimal $quantity Quantité en stock
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -97,7 +97,7 @@ class Article
     private $quantity;
 
     /**
-     * @var $minstock
+     * @var decimal $minstock Stock minimum
      *
      * @ORM\Column(name="minstock", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -106,7 +106,7 @@ class Article
     private $minstock;
 
     /**
-     * @var realstock
+     * @var decimal $realstock Stock réel (relevé pendant l'inventaire)
      *
      * @ORM\Column(name="realstock", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -140,7 +140,7 @@ class Article
     private $sub_family_log;
 
     /**
-     * @var boolean $active 
+     * @var boolean $active Activé/Désactivé
      *
      * @ORM\Column(name="active", type="boolean")
      */

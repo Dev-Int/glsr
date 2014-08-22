@@ -31,7 +31,7 @@ use Doctrine\ORM\Mapping as ORM;
 class SubFamilyLog
 {
     /**
-     * @var integer
+     * @var integer $idSubFamLog Id de la sous-famille logistique
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,14 +40,14 @@ class SubFamilyLog
     private $idSubFamLog;
 
     /**
-     * @var string
+     * @var string $name Nom de la sous-famille logistique
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
     
     /**
-     * @var string $familylog
+     * @var string $familylog Famille logistique dont dépend la sous-famille
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
      * @ORM\JoinColumn(nullable=false)

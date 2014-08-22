@@ -36,7 +36,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Supplier
 {
     /**
-     * @var integer
+     * @var integer $idUp id du fournisseur
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -45,7 +45,7 @@ class Supplier
     private $idSup;
 
     /**
-     * @var string $name 
+     * @var string $name Nom du fournisseur
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\Regex(pattern="'^[A-Z]'",
@@ -57,7 +57,7 @@ class Supplier
     private $name;
 
     /**
-     * @var string $address
+     * @var string $address Adresse du fournisseur
      *
      * @ORM\Column(name="address", type="string", length=255)
      * @Assert\Regex("'[\w]'")
@@ -66,7 +66,7 @@ class Supplier
     private $address;
 
     /**
-     * @var integer
+     * @var integer $zipcode Code postal
      *
      * @ORM\Column(name="zipcode", type="integer", length=5)
      * @Assert\Regex(pattern="'^[0-9]{5}$'",
@@ -76,7 +76,7 @@ class Supplier
     private $zipcode;
 
     /**
-     * @var string
+     * @var string $town Ville
      *
      * @ORM\Column(name="town", type="string", length=255)
      * @Assert\Regex(
@@ -88,7 +88,7 @@ class Supplier
     private $town;
 
     /**
-     * @var phone_number
+     * @var phone_number $phone Téléphone du fournisseur
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -97,7 +97,7 @@ class Supplier
     private $phone;
 
     /**
-     * @var phone_number
+     * @var phone_number $fax Fax du fournisseur
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
@@ -106,7 +106,7 @@ class Supplier
     private $fax;
 
     /**
-     * @var string
+     * @var string $email email du fournisseur
      *
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\NotBlank()
@@ -118,7 +118,7 @@ class Supplier
     private $email;
 
     /**
-     * @var string
+     * @var string $contact Contact chez le fournisseur
      *
      * @ORM\Column(name="contact", type="string", length=50)
      * @Assert\NotBlank()
@@ -130,7 +130,7 @@ class Supplier
     private $contact;
 
     /**
-     * @var phone_number
+     * @var phone_number Gsm du contact
      *
      * @ORM\Column(name="gsm", type="phone_number")
      * @Assert\NotBlank()
@@ -153,7 +153,7 @@ class Supplier
     private $sub_family_log;
 
     /**
-     * @var integer
+     * @var integer $delayliv Délai de livraison
      *
      * @ORM\Column(name="delaydeliv", type="smallint")
      * @Assert\Length(
@@ -173,7 +173,7 @@ class Supplier
     private $orderdate;
 
     /**
-     * @var boolean
+     * @var boolean $ative Activé/Désactivé
      *
      * @ORM\Column(name="active", type="boolean")
      */

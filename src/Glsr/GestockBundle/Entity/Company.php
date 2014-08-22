@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Company
 {
     /**
-     * @var integer
+     * @var integer $idComp Id de l'entreprise
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,72 +38,83 @@ class Company
     private $idComp;
 
     /**
-     * @var string
+     * @var string $name Nom de l'entreprise
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string
+     * @var string $status Statut de l'entreprise
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
     /**
-     * @var string
+     * @var string $adress Adresse de l'entreprise
      *
      * @ORM\Column(name="adress", type="string", length=255)
      */
     private $adress;
 
     /**
-     * @var string
+     * @var string $zipcode Code postal
      *
      * @ORM\Column(name="zipcode", type="string", length=11)
      */
     private $zipcode;
 
     /**
-     * @var string
+     * @var string $town Ville
      *
      * @ORM\Column(name="town", type="string", length=255)
      */
     private $town;
 
     /**
-     * @var string
+     * @var phone_number $phone Téléphone de l'entreprise
      *
-     * @ORM\Column(name="phone", type="string", length=10)
+     * @ORM\Column(name="phone", type="phone_number")
+     * @Assert\NotBlank()
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $phone;
 
     /**
-     * @var string
+     * @var phone_number $fax Fax de l'entreprise
      *
-     * @ORM\Column(name="fax", type="string", length=10)
+     * @ORM\Column(name="fax", type="phone_number")
+     * @Assert\NotBlank()
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $fax;
 
     /**
-     * @var string
+     * @var string $mail email de l'entreprise
      *
      * @ORM\Column(name="mail", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "'{{ value }}' n'est pas un email valide.",
+     *     checkMX = true
+     * )
      */
     private $mail;
 
     /**
-     * @var string
+     * @var string $contact Contact de votre entreprise
      *
      * @ORM\Column(name="contact", type="string", length=255)
      */
     private $contact;
 
     /**
-     * @var string
+     * @var phone_number $gsm Gsm de votre entreprise
      *
-     * @ORM\Column(name="gsm", type="string", length=10)
+     * @ORM\Column(name="gsm", type="phone_number")
+     * @Assert\NotBlank()
+     * @AssertPhoneNumber(defaultRegion="FR")
      */
     private $gsm;
 

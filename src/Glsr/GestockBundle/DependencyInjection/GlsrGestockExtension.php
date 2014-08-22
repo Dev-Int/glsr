@@ -29,7 +29,15 @@ use Symfony\Component\DependencyInjection\Loader;
 class GlsrGestockExtension extends Extension
 {
     /**
-     * {@inheritDoc}
+     * Loads a specific configuration.
+     *
+     * @param array            $configs   An array of configuration values
+     * @param ContainerBuilder $container A ContainerBuilder instance
+     *
+     * @throws \InvalidArgumentException When provided tag 
+     *     is not defined in this extension
+     *
+     * @api
      */
     public function load(array $configs, ContainerBuilder $container)
     {

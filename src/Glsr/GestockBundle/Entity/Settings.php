@@ -29,7 +29,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Settings
 {
     /**
-     * @var integer
+     * @var integer $idSets Id de la configuration
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
