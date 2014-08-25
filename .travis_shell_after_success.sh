@@ -1,11 +1,11 @@
-#!/bin/bash
+"#!/bin/bash -x
 
 #echo "--DEBUG--"
 #echo "TRAVIS_REPO_SLUG: $TRAVIS_REPO_SLUG"
 #echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
 #echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
 
-if [ "$TRAVIS_REPO_SLUG" == "https://github.com/GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3.13" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3.13" ]; then
 
   echo -e "Publishing PHPDoc...\n"
   ## Copie de la documentation generee dans le $HOME
