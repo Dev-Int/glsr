@@ -1984,65 +1984,6 @@
         ]
     },
     {
-        "name": "giggsey/libphonenumber-for-php",
-        "version": "6.2.1",
-        "version_normalized": "6.2.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/giggsey/libphonenumber-for-php.git",
-            "reference": "4d23cbe855811c3770ebc278754c7d2a31ce2763"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/4d23cbe855811c3770ebc278754c7d2a31ce2763",
-            "reference": "4d23cbe855811c3770ebc278754c7d2a31ce2763",
-            "shasum": ""
-        },
-        "require": {
-            "ext-intl": "*"
-        },
-        "require-dev": {
-            "phing/phing": "~2.7",
-            "phpunit/phpunit": "~4.0",
-            "satooshi/php-coveralls": "~0.6",
-            "symfony/console": "~2.4"
-        },
-        "time": "2014-07-29 07:58:26",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "6.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "libphonenumber": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "authors": [
-            {
-                "name": "Joshua Gigg",
-                "email": "giggsey@gmail.com",
-                "homepage": "http://giggsey.com/"
-            }
-        ],
-        "description": "Unofficial PHP Port of Google's libphonenumber",
-        "homepage": "https://github.com/giggsey/libphonenumber-for-php",
-        "keywords": [
-            "geocoding",
-            "geolocation",
-            "libphonenumber",
-            "mobile",
-            "phonenumber",
-            "validation"
-        ]
-    },
-    {
         "name": "erusev/parsedown",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -4559,6 +4500,185 @@
             "expression",
             "secure",
             "security"
+        ]
+    },
+    {
+        "name": "giggsey/libphonenumber-for-php",
+        "version": "6.2.2",
+        "version_normalized": "6.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/giggsey/libphonenumber-for-php.git",
+            "reference": "5ef94154aa57eac9334e7840541c73b2026266b3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/giggsey/libphonenumber-for-php/zipball/5ef94154aa57eac9334e7840541c73b2026266b3",
+            "reference": "5ef94154aa57eac9334e7840541c73b2026266b3",
+            "shasum": ""
+        },
+        "require": {
+            "ext-intl": "*"
+        },
+        "require-dev": {
+            "phing/phing": "~2.7",
+            "phpunit/phpunit": "~4.0",
+            "satooshi/php-coveralls": "~0.6",
+            "symfony/console": "~2.4"
+        },
+        "time": "2014-08-22 10:02:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "6.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "libphonenumber": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Joshua Gigg",
+                "email": "giggsey@gmail.com",
+                "homepage": "http://giggsey.com/"
+            }
+        ],
+        "description": "Unofficial PHP Port of Google's libphonenumber",
+        "homepage": "https://github.com/giggsey/libphonenumber-for-php",
+        "keywords": [
+            "geocoding",
+            "geolocation",
+            "libphonenumber",
+            "mobile",
+            "phonenumber",
+            "validation"
+        ]
+    },
+    {
+        "name": "knplabs/knp-snappy",
+        "version": "0.2.0",
+        "version_normalized": "0.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/KnpLabs/snappy.git",
+            "reference": "4bc7af878a003a2c1ef3c4d8b08851537cb07486"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/KnpLabs/snappy/zipball/4bc7af878a003a2c1ef3c4d8b08851537cb07486",
+            "reference": "4bc7af878a003a2c1ef3c4d8b08851537cb07486",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "suggest": {
+            "google/wkhtmltopdf-amd64": "Provide wkhtmltopdf-amd64 binary, use version `0.11.0-RC1` as dependency",
+            "google/wkhtmltopdf-i386": "Provide wkhtmltopdf-i386 binary, use version `0.11.0-RC1` as dependency",
+            "symfony/process": "Process Component of Symfony2."
+        },
+        "time": "2014-03-20 15:05:12",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Knp\\Snappy": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "KnpLabs Team",
+                "homepage": "http://knplabs.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://github.com/KnpLabs/snappy/contributors"
+            }
+        ],
+        "description": "PHP5 library allowing thumbnail, snapshot or PDF generation from a url or a html page. Wrapper for wkhtmltopdf/wkhtmltoimage.",
+        "homepage": "http://github.com/KnpLabs/snappy",
+        "keywords": [
+            "knp",
+            "knplabs",
+            "pdf",
+            "snapshot",
+            "thumbnail",
+            "wkhtmltopdf"
+        ]
+    },
+    {
+        "name": "knplabs/knp-snappy-bundle",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "target-dir": "Knp/Bundle/SnappyBundle",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/KnpLabs/KnpSnappyBundle.git",
+            "reference": "0a30395f3379f29f2572b5b478ab6be3059a0468"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/KnpLabs/KnpSnappyBundle/zipball/0a30395f3379f29f2572b5b478ab6be3059a0468",
+            "reference": "0a30395f3379f29f2572b5b478ab6be3059a0468",
+            "shasum": ""
+        },
+        "require": {
+            "knplabs/knp-snappy": "*",
+            "php": ">=5.3.2",
+            "symfony/finder": ">=2.0.0",
+            "symfony/framework-bundle": ">=2.0.0"
+        },
+        "time": "2014-07-08 22:38:13",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Knp\\Bundle\\SnappyBundle": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "KnpLabs Team",
+                "homepage": "http://knplabs.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "http://github.com/KnpLabs/KnpSnappyBundle/contributors"
+            }
+        ],
+        "description": "Easily create PDF and images in Symfony2 by converting Twig/HTML templates.",
+        "homepage": "http://github.com/KnpLabs/KnpSnappyBundle",
+        "keywords": [
+            "bundle",
+            "knp",
+            "knplabs",
+            "pdf",
+            "snappy"
         ]
     }
 ]

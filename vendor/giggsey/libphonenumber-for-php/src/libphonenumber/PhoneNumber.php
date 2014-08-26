@@ -2,7 +2,7 @@
 
 namespace libphonenumber;
 
-class PhoneNumber
+class PhoneNumber implements \Serializable
 {
 
     /**
@@ -276,6 +276,36 @@ class PhoneNumber
     public function __toString()
     {
         return '+' . $this->getCountryCode() . $this->getNationalNumber();
+    }
+
+    public function serialize()
+    {
+        return serialize(
+            array(
+                $this->getCountryCode(),
+                $this->getNationalNumber(),
+                $this->getExtension(),
+                $this->isItalianLeadingZero(),
+                $this->getNumberOfLeadingZeros(),
+                $this->getRawInput(),
+                $this->getCountryCodeSource(),
+                $this->getPreferredDomesticCarrierCode(),
+            )
+        );
+    }
+
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+
+        $this->setCountryCode($data[0]);
+        $this->setNationalNumber($data[1]);
+        $this->setExtension($data[2]);
+        $this->setItalianLeadingZero($data[3]);
+        $this->setNumberOfLeadingZeros($data[4]);
+        $this->setRawInput($data[5]);
+        $this->setCountryCodeSource($data[6]);
+        $this->setPreferredDomesticCarrierCode($data[7]);
     }
 }
 
