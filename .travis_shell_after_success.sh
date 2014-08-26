@@ -5,7 +5,7 @@
 #echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
 #echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
 
-if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3.13" ]; then
+if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3" ]; then
 
   echo -e "Publishing PHPDoc...\n"
   ## Copie de la documentation generee dans le $HOME
@@ -33,7 +33,7 @@ if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false
   ## On ajoute tout
   git add -f .
   ## On commit
-  git commit -m "PHPDocumentor (Travis Build : $TRAVIS_BUILD_NUMBER  - Branch : $TRAVIS_BRANCH)"
+  git commit -m "PHPDocumentor \(Travis Build : $TRAVIS_BUILD_NUMBER  - Branch : $TRAVIS_BRANCH\)"
   ## On push
   git push -fq origin gh-pages > /dev/null
   ## Et c est en ligne !
