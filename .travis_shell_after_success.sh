@@ -1,4 +1,4 @@
-"#!/bin/bash -x
+#!/bin/bash -x
 
 #echo "--DEBUG--"
 #echo "TRAVIS_REPO_SLUG: $TRAVIS_REPO_SLUG"
