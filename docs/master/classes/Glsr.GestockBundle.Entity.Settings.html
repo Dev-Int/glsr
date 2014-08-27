@@ -3,1042 +3,718 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>API Documentation</title>
+    <title>    API Documentation &raquo; \Glsr\GestockBundle\Entity\Settings
+</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    <script type="text/javascript">
-    function loadExternalCodeSnippets() {
-        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
-            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
-            var language = 'php';
-
-            var code = document.createElement('code');
-            code.className = 'language-' + language;
-
-            pre.textContent = '';
-
-            code.textContent = 'Loading…';
-
-            pre.appendChild(code);
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('GET', src, true);
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4) {
-
-                    if (xhr.status < 400 && xhr.responseText) {
-                        code.textContent = xhr.responseText;
-
-                        Prism.highlightElement(code);
-                    }
-                    else if (xhr.status >= 400) {
-                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
-                    }
-                    else {
-                        code.textContent = '✖ Error: File does not exist or is empty';
-                    }
-                }
-            };
-
-            xhr.send(null);
-        });
-    }
-
-    $(document).ready(function(){
-        loadExternalCodeSnippets();
-    });
-    $('#source-view').on('shown', function () {
-        loadExternalCodeSnippets();
-    })
-</script>
-
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
+    
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">API Documentation</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown">
-                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
-                            API Documentation <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                                                        <li><a href="../namespaces/Glsr.html">\Glsr</a></li>
-                                                    </ul>
-                    </li>
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1034512137"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-1034512137" class="accordion-body collapse in">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1083041866"></a>
-                                <a href="../namespaces/Glsr.html" style="margin-left: 30px; padding-left: 0">Glsr</a>
-            </div>
-            <div id="namespace-1083041866" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-851279779"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.html" style="margin-left: 30px; padding-left: 0">GestockBundle</a>
-            </div>
-            <div id="namespace-851279779" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1198409738"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
-            </div>
-            <div id="namespace-1198409738" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.ArticleController.html">ArticleController</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.GestockController.html">GestockController</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.SettingsController.html">SettingsController</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.SupplierController.html">SupplierController</a></li>
-                                            </ul>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/Glsr.html">Glsr</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2020510857"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
-            </div>
-            <div id="namespace-2020510857" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.DependencyInjection.Configuration.html">Configuration</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.DependencyInjection.GlsrGestockExtension.html">GlsrGestockExtension</a></li>
-                                            </ul>
-                </div>
-            </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
         </div>
     </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-271808416"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
             </div>
-            <div id="namespace-271808416" class="accordion-body collapse ">
-                <div class="accordion-inner">
+        </noscript>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Article.html">Article</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ArticleRepository.html">ArticleRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Company.html">Company</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.CompanyRepository.html">CompanyRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.FamilyLog.html">FamilyLog</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.FamilyLogRepository.html">FamilyLogRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">Settings</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SettingsRepository.html">SettingsRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLog.html">SubFamilyLog</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLogRepository.html">SubFamilyLogRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Supplier.html">Supplier</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SupplierRepository.html">SupplierRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Tva.html">Tva</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.TvaRepository.html">TvaRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.UnitStorage.html">UnitStorage</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.UnitStorageRepository.html">UnitStorageRepository</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorage.html">ZoneStorage</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorageRepository.html">ZoneStorageRepository</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
+        
+            <style>
+        .deprecated h2 {
+            text-decoration: line-through;
+        }
+    </style>
+    <div class="row">
+        <div class="span4">
+                    <div class="btn-group view pull-right" data-toggle="buttons-radio">
+        <button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button>
+        <button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+    </div>
+    <div class="btn-group visibility" data-toggle="buttons-checkbox">
+        <button class="btn public active" title="Show public elements">Public</button>
+        <button class="btn protected" title="Show protected elements">Protected</button>
+        <button class="btn private" title="Show private elements">Private</button>
+        <button class="btn inherited active" title="Show inherited elements">Inherited</button>
     </div>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-349850556"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
-            </div>
-            <div id="namespace-349850556" class="accordion-body collapse ">
-                <div class="accordion-inner">
+        <ul class="side-nav nav nav-list">
+        <li class="nav-header">
+            <i class="icon-custom icon-method"></i> Methods
+            <ul>
+                                                                                                    <li class="method public">
+        <a href="#method_getCalculation" title="getCalculation :: Get calculation">
+            <span class="description">Get calculation</span><pre>getCalculation</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ArticleReassignType.html">ArticleReassignType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ArticleType.html">ArticleType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.CompanyType.html">CompanyType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.FamilyLogType.html">FamilyLogType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SettingsType.html">SettingsType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SubFamilyLogType.html">SubFamilyLogType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SupplierType.html">SupplierType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.TvaType.html">TvaType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.UnitStorageType.html">UnitStorageType</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ZoneStorageType.html">ZoneStorageType</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_getCurrency" title="getCurrency :: Get currency">
+            <span class="description">Get currency</span><pre>getCurrency</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1777331835"></a>
-                                <a href="../namespaces/Glsr.GestockBundle.Listener.html" style="margin-left: 30px; padding-left: 0">Listener</a>
-            </div>
-            <div id="namespace-1777331835" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_getFirstInventory" title="getFirstInventory :: Get first_inventory">
+            <span class="description">Get first_inventory</span><pre>getFirstInventory</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Listener.GlsrRequestListener.html">GlsrRequestListener</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_getId" title="getId :: Get id">
+            <span class="description">Get id</span><pre>getId</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.GlsrGestockBundle.html">GlsrGestockBundle</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_getInventoryStyle" title="getInventoryStyle :: Get inventory_style">
+            <span class="description">Get inventory_style</span><pre>getInventoryStyle</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1680988803"></a>
-                                <a href="../namespaces/Glsr.UserBundle.html" style="margin-left: 30px; padding-left: 0">UserBundle</a>
-            </div>
-            <div id="namespace-1680988803" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_setCalculation" title="setCalculation :: Set calculation">
+            <span class="description">Set calculation</span><pre>setCalculation</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1485227483"></a>
-                                <a href="../namespaces/Glsr.UserBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
-            </div>
-            <div id="namespace-1485227483" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_setCurrency" title="setCurrency :: Set currency">
+            <span class="description">Set currency</span><pre>setCurrency</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Controller.SecurityController.html">SecurityController</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                                                                        <li class="method public">
+        <a href="#method_setFirstInventory" title="setFirstInventory :: Set first_inventory">
+            <span class="description">Set first_inventory</span><pre>setFirstInventory</pre>
+        </a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2090815"></a>
-                                <a href="../namespaces/Glsr.UserBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
-            </div>
-            <div id="namespace-2090815" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                                                                                        <li class="method public">
+        <a href="#method_setInventoryStyle" title="setInventoryStyle :: Set inventory_style">
+            <span class="description">Set inventory_style</span><pre>setInventoryStyle</pre>
+        </a>
+    </li>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.DependencyInjection.Configuration.html">Configuration</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.UserBundle.DependencyInjection.GlsrUserExtension.html">GlsrUserExtension</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                                </ul>
+        </li>
+        <li class="nav-header protected">» Protected
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header private">» Private
+            <ul>
+                                                                                                                                                                                                                                                                                                                                                                                </ul>
+        </li>
+        <li class="nav-header">
+            <i class="icon-custom icon-constant"></i> Constants
+            <ul>
+                            </ul>
+        </li>
+    </ul>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1827175435"></a>
-                                <a href="../namespaces/Glsr.UserBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
-            </div>
-            <div id="namespace-1827175435" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Entity.User.html">User</a></li>
-                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Entity.UserRepository.html">UserRepository</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.GlsrUserBundle.html">GlsrUserBundle</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
         </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <nav>
-                                                <a href="../namespaces/Glsr.GestockBundle.Entity.html">\Glsr\GestockBundle\Entity</a> <i class="icon-level-up"></i>
-                                            </nav>
-                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
 
-                    <h1><small>\Glsr\GestockBundle\Entity</small>Settings</h1>
-                    <p><em>Settings Entité Settings</em></p>
-                    
-                    
-                                        
-                    <section id="summary">
-                        <h2>Summary</h2>
-                        <section class="row-fluid heading">
-                            <section class="span4">
-                                <a href="#methods">Methods</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#properties">Properties</a>
-                            </section>
-                            <section class="span4">
-                                <a href="#constants">Constants</a>
-                            </section>
-                        </section>
-                        <section class="row-fluid public">
-                            <section class="span4">
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_getId" class="">getId()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_setInventoryStyle" class="">setInventoryStyle()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_getInventoryStyle" class="">getInventoryStyle()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_setCalculation" class="">setCalculation()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_getCalculation" class="">getCalculation()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_setFirstInventory" class="">setFirstInventory()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_getFirstInventory" class="">getFirstInventory()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_setCurrency" class="">setCurrency()</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#method_getCurrency" class="">getCurrency()</a><br />
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No public properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No constants found</em>
-                                                            </section>
-                        </section>
-                        <section class="row-fluid protected">
-                            <section class="span4">
-                                                                    <em>No protected methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <em>No protected properties found</em>
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                        <section class="row-fluid private">
-                            <section class="span4">
-                                                                    <em>No private methods found</em>
-                                                            </section>
-                            <section class="span4">
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#property_idSets" class="">$idSets</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#property_inventoryStyle" class="">$inventoryStyle</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#property_calculation" class="">$calculation</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#property_firstInventory" class="">$firstInventory</a><br />
-                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html#property_currency" class="">$currency</a><br />
-                                                            </section>
-                            <section class="span4">
-                                <em>N/A</em>
-                            </section>
-                        </section>
-                    </section>
-                </div>
-                <aside class="span4 detailsbar">
-                                        
-                    
-                    <dl>
-                        <dt>File</dt>
-                            <dd><a href="../files/GestockBundle.Entity.Settings.html"><div class="path-wrapper">GestockBundle/Entity/Settings.php</div></a></dd>
-                                                <dt>Package</dt>
-                            <dd><div class="namespace-wrapper">Gestock\Settings</div></dd>
-                                                <dt>Class hierarchy</dt>
-                            <dd class="hierarchy">
-                                                                                                                                                                    <div class="namespace-wrapper">\Glsr\GestockBundle\Entity\Settings</div>
-                            </dd>
-
+        <div class="span8">
+            <div class="element class">
+                <h1>Settings</h1>
+                <small style="display: block; text-align: right">
+                                                        </small>
+                <p class="short_description">Settings Entité Settings</p>
+                <div class="details">
+                    <div class="long_description">
                         
-                        
-                        
-                        
-                                                                        </dl>
-                    <h2>Tags</h2>
-                    <table class="table table-condensed">
-                                            <tr>
-                            <th>
-                                category
-                            </th>
-                            <td>
-                                                                    <p>Entity</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                ORM\Table
-                            </th>
-                            <td>
-                                                                    <p>(name="gs_settings")</p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                ORM\Entity
-                            </th>
-                            <td>
-                                                                    <p>(repositoryClass="Glsr\GestockBundle\Entity\SettingsRepository")</p>
-                                                            </td>
-                        </tr>
-                                        </table>
-                </aside>
-            </div>
+                    </div>
+                    <table class="table table-bordered">
+                                                                                    <tr>
+                                    <th>
+                                        category
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Entity</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        package
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Gestock</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        subpackage
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>Settings</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        ORM\Table
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>(name="gs_settings")</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        ORM\Entity
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>(repositoryClass="Glsr\GestockBundle\Entity\SettingsRepository")</p>
+                                    </td>
+                                </tr>
+                                                                                                                            </table>
 
-                        
-                                    <a id="properties" name="properties"></a>
-            <div class="row-fluid">
-                <div class="span8 content class">
-                    <h2>Properties</h2>
-                </div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
-
-                                                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_idSets" name="property_idSets" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$idSets</h3>
-                <pre class="signature">$idSets : integer</pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                integer
-                &mdash; Id de la configuration                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            ORM\Column
-                        </th>
-                        <td>
-                                                            <p>(name="id", type="integer")</p>
-                                                    </td>
-                    </tr>
-                                    <tr>
-                        <th>
-                            ORM\Id
-                        </th>
-                        <td>
-                                                            
-                                                    </td>
-                    </tr>
-                                    <tr>
-                        <th>
-                            ORM\GeneratedValue
-                        </th>
-                        <td>
-                                                            <p>(strategy="AUTO")</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_inventoryStyle" name="property_inventoryStyle" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$inventoryStyle</h3>
-                <pre class="signature">$inventoryStyle : string</pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; sort mode inventory                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            ORM\Column
-                        </th>
-                        <td>
-                                                            <p>(name="inventory_style", type="string", length=50)</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_calculation" name="property_calculation" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$calculation</h3>
-                <pre class="signature">$calculation : string</pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; calculation of inventories and stocks                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            ORM\Column
-                        </th>
-                        <td>
-                                                            <p>(name="calculation", type="string", length=50)</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_firstInventory" name="property_firstInventory" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$firstInventory</h3>
-                <pre class="signature">$firstInventory : \Glsr\GestockBundle\Entity\datetime</pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                \Glsr\GestockBundle\Entity\datetime
-                &mdash; the first inventory&#039;s date                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            ORM\Column
-                        </th>
-                        <td>
-                                                            <p>(name="first_inventory", type="datetime", nullable=true)</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="property_currency" name="property_currency" class="anchor"></a>
-            <article class="property">
-                <h3 class="private ">$currency</h3>
-                <pre class="signature">$currency : string</pre>
-                <p><em></em></p>
-                
-
-                                <h4>Type</h4>
-                string
-                &mdash; currency&#039;s choice                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                        <dl>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr>
-                        <th>
-                            ORM\Column
-                        </th>
-                        <td>
-                                                            <p>(name="currency", type="string", length=50)</p>
-                                                    </td>
-                    </tr>
-                            </table>
-        </aside>
-    </div>
+                    <h3><i class="icon-custom icon-method"></i> Methods</h3>
+                                                                <a id="method_getCalculation"></a>
+                        <div class="element clickable method public  method_getCalculation" data-toggle="collapse" data-target=".method_getCalculation .collapse">
+                            <h2>Get calculation</h2>
+                            <pre>getCalculation() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
 
                             
-                                    <a id="methods" name="methods"></a>
-            <div class="row-fluid">
-                <div class="span8 content class"><h2>Methods</h2></div>
-                <aside class="span4 detailsbar"></aside>
-            </div>
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
 
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getId" name="method_getId" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getId()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getId() : integer</pre>
-                <p><em>Get id</em></p>
-                
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
 
-                
-                
-                                    <h4>Returns</h4>
-                    integer
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setInventoryStyle" name="method_setInventoryStyle" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setInventoryStyle()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setInventoryStyle(string  <span class="argument">$inventoryStyle</span>) : \Glsr\GestockBundle\Entity\Settings</pre>
-                <p><em>Set inventory_style</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$inventoryStyle </td>
-                                <td><p>Style d'inventaire</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getInventoryStyle" name="method_getInventoryStyle" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getInventoryStyle()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getInventoryStyle() : string</pre>
-                <p><em>Get inventory_style</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCalculation" name="method_setCalculation" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCalculation()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCalculation(string  <span class="argument">$calculation</span>) : \Glsr\GestockBundle\Entity\Settings</pre>
-                <p><em>Set calculation</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$calculation </td>
-                                <td><p>Mode de calcul de l'inventaire</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCalculation" name="method_getCalculation" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCalculation()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCalculation() : string</pre>
-                <p><em>Get calculation</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setFirstInventory" name="method_setFirstInventory" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setFirstInventory()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setFirstInventory(\Glsr\GestockBundle\Entity\datetime  <span class="argument">$firstInventory</span>) : \Glsr\GestockBundle\Entity\Settings</pre>
-                <p><em>Set first_inventory</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\Glsr\GestockBundle\Entity\datetime</td>
-                                <td>$firstInventory </td>
-                                <td><p>Date du premier inventaire</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getFirstInventory" name="method_getFirstInventory" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getFirstInventory()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getFirstInventory() : \Glsr\GestockBundle\Entity\datetime/null</pre>
-                <p><em>Get first_inventory</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    \Glsr\GestockBundle\Entity\datetime/null
-                                            &mdash; <p>Date du premier inventaire</p>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_setCurrency" name="method_setCurrency" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">setCurrency()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">setCurrency(string  <span class="argument">$currency</span>) : \Glsr\GestockBundle\Entity\Settings</pre>
-                <p><em>Set currency</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>string</td>
-                                <td>$currency </td>
-                                <td><p>Format monétaire de l'application</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    <a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a>
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
-            <a id="method_getCurrency" name="method_getCurrency" class="anchor"></a>
-            <article class="method">
-                <h3 class="public ">getCurrency()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getCurrency() : string</pre>
-                <p><em>Get currency</em></p>
-                
-
-                
-                
-                                    <h4>Returns</h4>
-                    string
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
                                                                     </div>
-    </section>
+                            </div>
 
-    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="source-view-label">Settings.php</h3>
-        </div>
-        <div class="modal-body">
-            <pre data-src="../files/GestockBundle/Entity/Settings.php.txt" class="language-php line-numbers"></pre>
+                        </div>
+                                            <a id="method_getCurrency"></a>
+                        <div class="element clickable method public  method_getCurrency" data-toggle="collapse" data-target=".method_getCurrency .collapse">
+                            <h2>Get currency</h2>
+                            <pre>getCurrency() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getFirstInventory"></a>
+                        <div class="element clickable method public  method_getFirstInventory" data-toggle="collapse" data-target=".method_getFirstInventory .collapse">
+                            <h2>Get first_inventory</h2>
+                            <pre>getFirstInventory() : \Glsr\GestockBundle\Entity\datetime/null</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>\Glsr\GestockBundle\Entity\datetime/null</code><p><p>Date du premier inventaire</p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getId"></a>
+                        <div class="element clickable method public  method_getId" data-toggle="collapse" data-target=".method_getId .collapse">
+                            <h2>Get id</h2>
+                            <pre>getId() : integer</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>integer</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getInventoryStyle"></a>
+                        <div class="element clickable method public  method_getInventoryStyle" data-toggle="collapse" data-target=".method_getInventoryStyle .collapse">
+                            <h2>Get inventory_style</h2>
+                            <pre>getInventoryStyle() : string</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                            <h3>Response</h3>
+                                        <code>string</code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCalculation"></a>
+                        <div class="element clickable method public  method_setCalculation" data-toggle="collapse" data-target=".method_setCalculation .collapse">
+                            <h2>Set calculation</h2>
+                            <pre>setCalculation(string $calculation) : \Glsr\GestockBundle\Entity\Settings</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$calculation</h4>
+                                                <code>string</code><p><p>Mode de calcul de l'inventaire</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setCurrency"></a>
+                        <div class="element clickable method public  method_setCurrency" data-toggle="collapse" data-target=".method_setCurrency .collapse">
+                            <h2>Set currency</h2>
+                            <pre>setCurrency(string $currency) : \Glsr\GestockBundle\Entity\Settings</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$currency</h4>
+                                                <code>string</code><p><p>Format monétaire de l'application</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setFirstInventory"></a>
+                        <div class="element clickable method public  method_setFirstInventory" data-toggle="collapse" data-target=".method_setFirstInventory .collapse">
+                            <h2>Set first_inventory</h2>
+                            <pre>setFirstInventory(\Glsr\GestockBundle\Entity\datetime $firstInventory) : \Glsr\GestockBundle\Entity\Settings</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$firstInventory</h4>
+                                                <code>\Glsr\GestockBundle\Entity\datetime</code><p><p>Date du premier inventaire</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_setInventoryStyle"></a>
+                        <div class="element clickable method public  method_setInventoryStyle" data-toggle="collapse" data-target=".method_setInventoryStyle .collapse">
+                            <h2>Set inventory_style</h2>
+                            <pre>setInventoryStyle(string $inventoryStyle) : \Glsr\GestockBundle\Entity\Settings</pre>
+                            <div class="labels">
+                                                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$inventoryStyle</h4>
+                                                <code>string</code><p><p>Style d'inventaire</p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                    
+                    
+                                                                <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_idSets"> </a>
+                            <div class="element clickable property  private property_idSets" data-toggle="collapse" data-target=".property_idSets .collapse">
+                                <h2>Id de la configuration</h2>
+                                <pre>idSets : integer</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>Id de la configuration</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Column
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(name="id", type="integer")</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Id
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\GeneratedValue
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(strategy="AUTO")</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>integer</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_inventoryStyle"> </a>
+                            <div class="element clickable property  private property_inventoryStyle" data-toggle="collapse" data-target=".property_inventoryStyle .collapse">
+                                <h2>sort mode inventory</h2>
+                                <pre>inventoryStyle : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>sort mode inventory</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Column
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(name="inventory_style", type="string", length=50)</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_calculation"> </a>
+                            <div class="element clickable property  private property_calculation" data-toggle="collapse" data-target=".property_calculation .collapse">
+                                <h2>calculation of inventories and stocks</h2>
+                                <pre>calculation : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>calculation of inventories and stocks</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Column
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(name="calculation", type="string", length=50)</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_firstInventory"> </a>
+                            <div class="element clickable property  private property_firstInventory" data-toggle="collapse" data-target=".property_firstInventory .collapse">
+                                <h2>the first inventory&#039;s date</h2>
+                                <pre>firstInventory : \Glsr\GestockBundle\Entity\datetime</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>the first inventory's date</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Column
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(name="first_inventory", type="datetime", nullable=true)</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>\Glsr\GestockBundle\Entity\datetime</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                    <a id="property_currency"> </a>
+                            <div class="element clickable property  private property_currency" data-toggle="collapse" data-target=".property_currency .collapse">
+                                <h2>currency&#039;s choice</h2>
+                                <pre>currency : string</pre>
+                                <div class="labels">
+                                                                                                        </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>currency's choice</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                            <tr>
+                                                    <th>
+                                                        ORM\Column
+                                                    </th>
+                                                    <td>
+                                                                                                                    <p>(name="currency", type="string", length=50)</p>
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
+                                                            </div>
+            </div>
+            <a id="\Glsr\GestockBundle\Entity\Settings"></a>
+            <ul class="breadcrumb">
+                <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
+                    
+    
+    <li><span class="divider">\</span><a href="../namespaces/Glsr.GestockBundle.Entity.html">Entity</a></li>
+
+                <li class="active"><span class="divider">\</span><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">Settings</a></li>
+            </ul>
         </div>
     </div>
 
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                            <li><a href="../namespaces/Glsr.html">\Glsr</a></li>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on August 27th, 2014 at 14:38.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+    </div>
 
-</body>
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Wed, 27 Aug 2014 15:52:18 +0000.<br/>
+    </footer>
+    </body>
 </html>
