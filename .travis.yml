@@ -56,7 +56,7 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs
+  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs --template="responsive-twig"
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
