@@ -6,7 +6,7 @@ php:
 
 env:
   global:
-    secure: "hLUcJOHtc8eSAdrRe9SZSZfTH1r5E+JdU5vjgBINxzqrudbY57t4eGZjUrDPiGOG9JqUWQPFiLuzSQoWSlaAhhjKOuORwyhfJA0ehyJ+L8NQZPkqeRx3+GvO9TBbOWcRo7Bwu8sqoD/M2pMzGdlsCTdxFpQoK6cNfIoHJ6ktW10="
+    secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
 
 before_install:
  - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc

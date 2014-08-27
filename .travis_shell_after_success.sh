@@ -5,7 +5,7 @@
 #echo "TRAVIS_PHP_VERSION: $TRAVIS_PHP_VERSION"
 #echo "TRAVIS_PULL_REQUEST: $TRAVIS_PULL_REQUEST"
 
-#if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr/" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3" ]; then
+#if [ "$TRAVIS_REPO_SLUG" == "GLSR/glsr" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "5.3" ]; then
 
   echo -e "Publishing PHPDoc...\n"
   ## Copie de la documentation generee dans le $HOME
@@ -13,9 +13,9 @@
 
   cd $HOME
   ## Initialisation et recuperation de la branche gh-pages du depot Git
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "travis-ci"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/GLSR/glsr/ gh-pages
+  git config --global user.email "lq@dev-int.net"
+  git config --global user.name "Dev-Int"
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/GLSR/glsr gh-pages
   
   cd gh-pages
   
