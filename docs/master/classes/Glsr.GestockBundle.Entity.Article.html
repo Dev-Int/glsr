@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/Glsr.html">\Glsr</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-166609480"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-166609480" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-868287243"></a>
+                                <a href="../namespaces/Glsr.html" style="margin-left: 30px; padding-left: 0">Glsr</a>
+            </div>
+            <div id="namespace-868287243" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-853870419"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.html" style="margin-left: 30px; padding-left: 0">GestockBundle</a>
+            </div>
+            <div id="namespace-853870419" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-104584971"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-104584971" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.ArticleController.html">ArticleController</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.GestockController.html">GestockController</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.SettingsController.html">SettingsController</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Controller.SupplierController.html">SupplierController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-867784373"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
+            </div>
+            <div id="namespace-867784373" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.DependencyInjection.Configuration.html">Configuration</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.DependencyInjection.GlsrGestockExtension.html">GlsrGestockExtension</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-150699522"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
+            </div>
+            <div id="namespace-150699522" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Article.html">Article</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ArticleRepository.html">ArticleRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Company.html">Company</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.CompanyRepository.html">CompanyRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.FamilyLog.html">FamilyLog</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.FamilyLogRepository.html">FamilyLogRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">Settings</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SettingsRepository.html">SettingsRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLog.html">SubFamilyLog</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLogRepository.html">SubFamilyLogRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Supplier.html">Supplier</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.SupplierRepository.html">SupplierRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.Tva.html">Tva</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.TvaRepository.html">TvaRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.UnitStorage.html">UnitStorage</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.UnitStorageRepository.html">UnitStorageRepository</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorage.html">ZoneStorage</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorageRepository.html">ZoneStorageRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1904635941"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
+            </div>
+            <div id="namespace-1904635941" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ArticleReassignType.html">ArticleReassignType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ArticleType.html">ArticleType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.CompanyType.html">CompanyType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.FamilyLogType.html">FamilyLogType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SettingsType.html">SettingsType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SubFamilyLogType.html">SubFamilyLogType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.SupplierType.html">SupplierType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.TvaType.html">TvaType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.UnitStorageType.html">UnitStorageType</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Form.ZoneStorageType.html">ZoneStorageType</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-997733872"></a>
+                                <a href="../namespaces/Glsr.GestockBundle.Listener.html" style="margin-left: 30px; padding-left: 0">Listener</a>
+            </div>
+            <div id="namespace-997733872" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.Listener.GlsrRequestListener.html">GlsrRequestListener</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.GestockBundle.GlsrGestockBundle.html">GlsrGestockBundle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1692332230"></a>
+                                <a href="../namespaces/Glsr.UserBundle.html" style="margin-left: 30px; padding-left: 0">UserBundle</a>
+            </div>
+            <div id="namespace-1692332230" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-658151419"></a>
+                                <a href="../namespaces/Glsr.UserBundle.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-658151419" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Controller.SecurityController.html">SecurityController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-380532129"></a>
+                                <a href="../namespaces/Glsr.UserBundle.DependencyInjection.html" style="margin-left: 30px; padding-left: 0">DependencyInjection</a>
+            </div>
+            <div id="namespace-380532129" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.DependencyInjection.Configuration.html">Configuration</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.UserBundle.DependencyInjection.GlsrUserExtension.html">GlsrUserExtension</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-248715736"></a>
+                                <a href="../namespaces/Glsr.UserBundle.Entity.html" style="margin-left: 30px; padding-left: 0">Entity</a>
+            </div>
+            <div id="namespace-248715736" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Entity.User.html">User</a></li>
+                                                    <li class="class"><a href="../classes/Glsr.UserBundle.Entity.UserRepository.html">UserRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/Glsr.UserBundle.GlsrUserBundle.html">GlsrUserBundle</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/Glsr.GestockBundle.Entity.html">\Glsr\GestockBundle\Entity</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\Glsr\GestockBundle\Entity</small>Article</h1>
+                    <p><em>Article</em></p>
+                    
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getId" class="">getId()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setName" class="">setName()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getName" class="">getName()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setPackaging" class="">setPackaging()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getPackaging" class="">getPackaging()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setPrice" class="">setPrice()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getPrice" class="">getPrice()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setQuantity" class="">setQuantity()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getQuantity" class="">getQuantity()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setMinstock" class="">setMinstock()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getMinstock" class="">getMinstock()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setRealstock" class="">setRealstock()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getRealstock" class="">getRealstock()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setSupplier" class="">setSupplier()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getSupplier" class="">getSupplier()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setUnitStorage" class="">setUnitStorage()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getUnitStorage" class="">getUnitStorage()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_addZoneStorage" class="">addZoneStorage()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_removeZoneStorage" class="">removeZoneStorage()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getZoneStorages" class="">getZoneStorages()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setFamilyLog" class="">setFamilyLog()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getFamilyLog" class="">getFamilyLog()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setSubFamilyLog" class="">setSubFamilyLog()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_getSubFamilyLog" class="">getSubFamilyLog()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_setActive" class="">setActive()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method_isActive" class="">isActive()</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#method___toString" class="">__toString()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <em>No protected methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No protected properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_idArt" class="">$idArt</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_name" class="">$name</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_supplier" class="">$supplier</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_unit_storage" class="">$unit_storage</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_packaging" class="">$packaging</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_price" class="">$price</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_quantity" class="">$quantity</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_minstock" class="">$minstock</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_realstock" class="">$realstock</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_zone_storages" class="">$zone_storages</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_family_log" class="">$family_log</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_sub_family_log" class="">$sub_family_log</a><br />
+                                                                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html#property_active" class="">$active</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/GestockBundle.Entity.Article.html"><div class="path-wrapper">GestockBundle/Entity/Article.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">Gestock\Article</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                    <div class="namespace-wrapper">\Glsr\GestockBundle\Entity\Article</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                category
+                            </th>
+                            <td>
+                                                                    <p>Entity</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                ORM\Table
+                            </th>
+                            <td>
+                                                                    <p>(name="gs_article")</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                ORM\Entity
+                            </th>
+                            <td>
+                                                                    <p>(repositoryClass="Glsr\GestockBundle\Entity\ArticleRepository")</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                UniqueEntity
+                            </th>
+                            <td>
+                                                                    <p>(fields="name", message="Ce nom d'article est déjà utilisé.")</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                ORM\HasLifecycleCallbacks
+                            </th>
+                            <td>
+                                                                    <p>()</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_idArt" name="property_idArt" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$idArt</h3>
+                <pre class="signature">$idArt : integer</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                integer
+                &mdash; Id de l&#039;article                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="id", type="integer")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            ORM\Id
+                        </th>
+                        <td>
+                                                            
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            ORM\GeneratedValue
+                        </th>
+                        <td>
+                                                            <p>(strategy="AUTO")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_name" name="property_name" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$name</h3>
+                <pre class="signature">$name : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; intitulé de l&#039;article                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="name", type="string", length=255)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\NotBlank
+                        </th>
+                        <td>
+                                                            <p>()</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Regex
+                        </th>
+                        <td>
+                                                            <p>(pattern="'^\w+[^/]'",
+message="L'intitulé ne peut contenir que des lettres, chiffres et _ ou -")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_supplier" name="property_supplier" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$supplier</h3>
+                <pre class="signature">$supplier : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Nom du fournisseur                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\ManyToOne
+                        </th>
+                        <td>
+                                                            <p>(targetEntity="Glsr\GestockBundle\Entity\Supplier")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_unit_storage" name="property_unit_storage" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$unit_storage</h3>
+                <pre class="signature">$unit_storage : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Unité de stockage                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\ManyToOne
+                        </th>
+                        <td>
+                                                            <p>(targetEntity="Glsr\GestockBundle\Entity\UnitStorage")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            ORM\JoinColumn
+                        </th>
+                        <td>
+                                                            <p>(referencedColumnName="id")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_packaging" name="property_packaging" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$packaging</h3>
+                <pre class="signature">$packaging : \Glsr\GestockBundle\Entity\decimal</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Glsr\GestockBundle\Entity\decimal
+                &mdash; Conditionement (quantité)                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="packaging", type="decimal", precision=7, scale=3)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Type
+                        </th>
+                        <td>
+                                                            <p>(type="numeric",
+message="La valeur {{ value }} n'est pas un type {{ type }} valide.")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_price" name="property_price" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$price</h3>
+                <pre class="signature">$price : \Glsr\GestockBundle\Entity\decimal</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Glsr\GestockBundle\Entity\decimal
+                &mdash; prix de l&#039;article                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="price", type="decimal", precision=7, scale=3)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Type
+                        </th>
+                        <td>
+                                                            <p>(type="numeric",
+message="La valeur {{ value }} n'est pas un type {{ type }} valide.")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_quantity" name="property_quantity" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$quantity</h3>
+                <pre class="signature">$quantity : \Glsr\GestockBundle\Entity\decimal</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Glsr\GestockBundle\Entity\decimal
+                &mdash; Quantité en stock                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="quantity", type="decimal", precision=7, scale=3)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Type
+                        </th>
+                        <td>
+                                                            <p>(type="numeric",
+message="La valeur {{ value }} n'est pas un type {{ type }} valide.")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_minstock" name="property_minstock" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$minstock</h3>
+                <pre class="signature">$minstock : \Glsr\GestockBundle\Entity\decimal</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Glsr\GestockBundle\Entity\decimal
+                &mdash; Stock minimum                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="minstock", type="decimal", precision=7, scale=3)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Type
+                        </th>
+                        <td>
+                                                            <p>(type="numeric",
+message="La valeur {{ value }} n'est pas un type {{ type }} valide.")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_realstock" name="property_realstock" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$realstock</h3>
+                <pre class="signature">$realstock : \Glsr\GestockBundle\Entity\decimal</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                \Glsr\GestockBundle\Entity\decimal
+                &mdash; Stock réel (relevé pendant l&#039;inventaire)                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="realstock", type="decimal", precision=7, scale=3)</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\Type
+                        </th>
+                        <td>
+                                                            <p>(type="numeric",
+message="La valeur {{ value }} n'est pas un type {{ type }} valide.")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_zone_storages" name="property_zone_storages" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$zone_storages</h3>
+                <pre class="signature">$zone_storages : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Zone(s) de stockage                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\ManyToMany
+                        </th>
+                        <td>
+                                                            <p>(targetEntity="Glsr\GestockBundle\Entity\ZoneStorage")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            ORM\JoinTable
+                        </th>
+                        <td>
+                                                            <p>(name="gs_article_zonestorage")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\NotBlank
+                        </th>
+                        <td>
+                                                            <p>()</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_family_log" name="property_family_log" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$family_log</h3>
+                <pre class="signature">$family_log : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Famille logistique                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\ManyToOne
+                        </th>
+                        <td>
+                                                            <p>(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\NotBlank
+                        </th>
+                        <td>
+                                                            <p>()</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_sub_family_log" name="property_sub_family_log" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$sub_family_log</h3>
+                <pre class="signature">$sub_family_log : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                &mdash; Sous-famille logistique                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\ManyToOne
+                        </th>
+                        <td>
+                                                            <p>(targetEntity="Glsr\GestockBundle\Entity\SubFamilyLog")</p>
+                                                    </td>
+                    </tr>
+                                    <tr>
+                        <th>
+                            Assert\NotBlank
+                        </th>
+                        <td>
+                                                            <p>()</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_active" name="property_active" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$active</h3>
+                <pre class="signature">$active : boolean</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                boolean
+                &mdash; Activé/Désactivé                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            ORM\Column
+                        </th>
+                        <td>
+                                                            <p>(name="active", type="boolean")</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct() </pre>
+                <p><em>Constructor</em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getId" name="method_getId" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getId()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getId() : integer</pre>
+                <p><em>Get id</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    integer
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setName" name="method_setName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setName(string  <span class="argument">$name</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set name</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td><p>Nom de l'article</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getName" name="method_getName" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getName()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getName() : string</pre>
+                <p><em>Get name</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPackaging" name="method_setPackaging" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPackaging()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPackaging(string  <span class="argument">$packaging</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set packaging</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$packaging </td>
+                                <td><p>Conditionnement (quantité)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPackaging" name="method_getPackaging" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPackaging()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPackaging() : string</pre>
+                <p><em>Get packaging</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setPrice" name="method_setPrice" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setPrice()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setPrice(string  <span class="argument">$price</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set price</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$price </td>
+                                <td><p>prix de l'article</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getPrice" name="method_getPrice" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getPrice()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getPrice() : string</pre>
+                <p><em>Get price</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setQuantity" name="method_setQuantity" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setQuantity()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setQuantity(string  <span class="argument">$quantity</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set quantity</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$quantity </td>
+                                <td><p>quantité en stock</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getQuantity" name="method_getQuantity" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getQuantity()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getQuantity() : string</pre>
+                <p><em>Get quantity</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setMinstock" name="method_setMinstock" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setMinstock()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setMinstock(string  <span class="argument">$minstock</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set minstock</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$minstock </td>
+                                <td><p>stock minimum</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getMinstock" name="method_getMinstock" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getMinstock()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getMinstock() : string</pre>
+                <p><em>Get minstock</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRealstock" name="method_setRealstock" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRealstock()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRealstock(string  <span class="argument">$realstock</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set realstock</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$realstock </td>
+                                <td><p>stock réel (relelvé pendant l'inventaire)</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRealstock" name="method_getRealstock" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRealstock()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRealstock() : string</pre>
+                <p><em>Get realstock</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSupplier" name="method_setSupplier" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSupplier()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSupplier(\Glsr\GestockBundle\Entity\Supplier  <span class="argument">$supplier = null</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set supplier</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.Supplier.html">\Glsr\GestockBundle\Entity\Supplier</a></td>
+                                <td>$supplier </td>
+                                <td><p>Fournisseur de l'article</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSupplier" name="method_getSupplier" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSupplier()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSupplier() : \Glsr\GestockBundle\Entity\Supplier</pre>
+                <p><em>Get supplier</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Supplier.html">\Glsr\GestockBundle\Entity\Supplier</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setUnitStorage" name="method_setUnitStorage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setUnitStorage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setUnitStorage(\Glsr\GestockBundle\Entity\UnitStorage  <span class="argument">$unitStorage = null</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set unit_storage</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.UnitStorage.html">\Glsr\GestockBundle\Entity\UnitStorage</a></td>
+                                <td>$unitStorage </td>
+                                <td><p>Unité de stockage</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getUnitStorage" name="method_getUnitStorage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getUnitStorage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getUnitStorage() : \Glsr\GestockBundle\Entity\UnitStorage</pre>
+                <p><em>Get unit_storage</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.UnitStorage.html">\Glsr\GestockBundle\Entity\UnitStorage</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_addZoneStorage" name="method_addZoneStorage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">addZoneStorage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">addZoneStorage(\Glsr\GestockBundle\Entity\ZoneStorage  <span class="argument">$zoneStorages</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Add zone_storages</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorage.html">\Glsr\GestockBundle\Entity\ZoneStorage</a></td>
+                                <td>$zoneStorages </td>
+                                <td><p>Zone(s) de stockage</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_removeZoneStorage" name="method_removeZoneStorage" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">removeZoneStorage()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">removeZoneStorage(\Glsr\GestockBundle\Entity\ZoneStorage  <span class="argument">$zoneStorages</span>) : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Remove zone_storages</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.ZoneStorage.html">\Glsr\GestockBundle\Entity\ZoneStorage</a></td>
+                                <td>$zoneStorages </td>
+                                <td><p>Zone de stockage à supprimer</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getZoneStorages" name="method_getZoneStorages" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getZoneStorages()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getZoneStorages() : \Doctrine\Common\Collections\Collection</pre>
+                <p><em>Get zone_storages</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    \Doctrine\Common\Collections\Collection
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setFamilyLog" name="method_setFamilyLog" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setFamilyLog()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setFamilyLog(\Glsr\GestockBundle\Entity\FamilyLog  <span class="argument">$familyLog = null</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set family_log</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.FamilyLog.html">\Glsr\GestockBundle\Entity\FamilyLog</a></td>
+                                <td>$familyLog </td>
+                                <td><p>Famille Logistique</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getFamilyLog" name="method_getFamilyLog" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getFamilyLog()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getFamilyLog() : \Glsr\GestockBundle\Entity\FamilyLog</pre>
+                <p><em>Get family_log</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.FamilyLog.html">\Glsr\GestockBundle\Entity\FamilyLog</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setSubFamilyLog" name="method_setSubFamilyLog" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setSubFamilyLog()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setSubFamilyLog(\Glsr\GestockBundle\Entity\SubFamilyLog  <span class="argument">$subFamilyLog = null</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set sub_family_log</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td><a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLog.html">\Glsr\GestockBundle\Entity\SubFamilyLog</a></td>
+                                <td>$subFamilyLog </td>
+                                <td><p>Sous-famille logistique</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getSubFamilyLog" name="method_getSubFamilyLog" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getSubFamilyLog()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getSubFamilyLog() : \Glsr\GestockBundle\Entity\SubFamilyLog</pre>
+                <p><em>Get sub_family_log</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.SubFamilyLog.html">\Glsr\GestockBundle\Entity\SubFamilyLog</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setActive" name="method_setActive" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setActive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setActive(boolean  <span class="argument">$active</span>) : \Glsr\GestockBundle\Entity\Article</pre>
+                <p><em>Set active</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>boolean</td>
+                                <td>$active </td>
+                                <td><p>Activé/Désactivé</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    <a href="../classes/Glsr.GestockBundle.Entity.Article.html">\Glsr\GestockBundle\Entity\Article</a>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_isActive" name="method_isActive" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">isActive()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">isActive() : boolean</pre>
+                <p><em>Get active</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___toString" name="method___toString" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__toString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__toString() : string</pre>
+                <p><em>Cette méthode permet de faire &quot;echo $article&quot;.</em></p>
+                <p>Ainsi, pour "afficher" $article,
+PHP affichera en réalité le retour de cette méthode.<br />
+Ici, le nom, donc "echo $article"
+est équivalent à "echo $article->getName()"</p>
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                            &mdash; <p>name</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">Article.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/GestockBundle/Entity/Article.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/Glsr.html">\Glsr</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on August 27th, 2014 at 14:38.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
