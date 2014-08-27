@@ -13,10 +13,10 @@
 
   cd $HOME
   ## Initialisation et recuperation de la branche gh-pages du depot Git
-  git config --global user.email "lq@dev-int.net"
-  git config --global user.name "Dev-Int"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/GLSR/glsr/ gh-pages #> /dev/null
-  ## f5c8a112110930363ae4d3b99f58972d0c4cf358
+  git config --global user.email "travis@travis-ci.org"
+  git config --global user.name "travis-ci"
+  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/GLSR/glsr/ gh-pages
+  
   cd gh-pages
   
   ## Suppression de l'ancienne version
@@ -35,7 +35,7 @@
   ## On commit
   git commit -m "PHPDocumentor \(Travis Build : $TRAVIS_BUILD_NUMBER  - Branch : $TRAVIS_BRANCH\)"
   ## On push
-  git push -fq origin gh-pages #> /dev/null
+  git push -fq origin gh-pages
   ## Et c est en ligne !
   echo -e "Published PHPDoc to gh-pages.\n"
 
