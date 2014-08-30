@@ -65,7 +65,6 @@ class Article
      * @var string $unit_storage Unité de stockage
      * 
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\UnitStorage")
-     * @ORM\JoinColumn(referencedColumnName="id")
      */
     private $unit_storage;
     
@@ -115,7 +114,7 @@ class Article
     private $realstock;
     
     /**
-     * @var string $zonestorage Zone(s) de stockage
+     * @var string $zone_storage Zone(s) de stockage
      * 
      * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\ZoneStorage")
      * @ORM\JoinTable(name="gs_article_zonestorage")
