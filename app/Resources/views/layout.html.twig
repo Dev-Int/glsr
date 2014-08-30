@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-        
-    <title>{% block title %}{% endblock %}</title>
-        
-    {% block stylesheets %}
-      {% stylesheets filter='cssrewrite, ?yui_css'
-        'css/bootstrap.css' %}
-        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-      {% endstylesheets %}
-    {% endblock %}
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+
+        {% block stylesheets %}
+            {% stylesheets filter='cssrewrite, ?yui_css' 'bundles/glsrgestock/css/bootstrap.css'
+                '@GlsrGestockBundle/Resources/public/css/*' %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+        {% endblock %}
+    </head>
     
-  <body{% block body_js %}{% endblock %}>
+    <body{% block body_js %}{% endblock %}>
         <div class="container">
             <header id="header" class="jumbotron">
                 {% block header %}{% endblock %}
@@ -37,15 +36,15 @@
             </footer>
         </div>
         
-    {% block javascripts %}
-      <script>window.jQuery || document.write('<script src="{{ asset('js/jquery.min.js') }}"><\/script>');</script>
+        {% block javascripts %}
+            <script>window.jQuery || document.write('<script src="{{ asset('js/jquery.min.js') }}"><\/script>');</script>
 
-      {# Tous nos javascripts avec Assetic #}
-      {% javascripts output='js/main.js' filter='?yui_js'
-        'js/bootstrap.js'
-        '@GlsrGestockBundle/Resources/public/js/*' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-      {% endjavascripts %}
-    {% endblock %}
+            {# Tous nos javascripts avec Assetic #}
+            {% javascripts output='js/main.js' filter='?yui_js'
+                'bundles/glsrgestock/js/bootstrap.js'
+                '@GlsrGestockBundle/Resources/public/js/*' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>
