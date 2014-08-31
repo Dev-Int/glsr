@@ -1,0 +1,86 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Article\index.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Inventory - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="glyphicon glyphicon-tasks"></i> Inventaire
+{% endblock %}
+
+{% block glstock_body %}
+
+    <section class="col-lg-3">
+        <div class="panel panel-default">
+            <header class="panel-heading"><i class="glyphicon glyphicon-tasks"></i> Inventaire</header>
+            <ul class="list-unstyled list-group">
+                <li class="list-group-item">
+                    <a href="{{ path('glstock_inventory_prepare') }}">
+                        <i class="glyphicon glyphicon-print"></i>
+                        Préparer inventaire
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ path('glstock_inventory_entry') }}">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        Saisie de l'inventaire
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ path('glstock_inventory_differencesStock') }}">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        Calcul des écart de stock
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ path('glstock_inventory_cancel') }}">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        Annuler l'inventaire en cours
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{{ path('glstock_inventory_entry') }}">
+                        <i class="glyphicon glyphicon-saved"></i>
+                        Clôturer l'inventaire en cours
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="col-lg-9">
+        <div class="panel panel-default">
+            <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> Journaux d'inventaire</header>
+            <ul class="list-unstyled list-group">
+                <li class="list-group-item">Liste des 5 derniers inventaires</li>
+            </ul>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-lg-3">Id</th>
+                        <th class="col-lg-3">Date</th>
+                        <th class="col-lg-3">Montant</th>
+                        <th class="col-lg-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#% for item in inventory %#}
+                    <tr>
+                        <td class="col-lg-3">{#{ item.id }#}</td>
+                        <td class="col-lg-3">{#{ item.date }#}</td>
+                        <td class="col-lg-3">{#{ item.amount }#}</td>
+                        <td class="col-lg-3"></td>
+                    </tr>
+                    <tr>
+                        <td class="col-lg-3">{#{ item.id }#}</td>
+                        <td class="col-lg-3">{#{ item.date }#}</td>
+                        <td class="col-lg-3">{#{ item.amount }#}</td>
+                        <td class="col-lg-3"></td>
+                    </tr>
+                    {#% endfor %#}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
