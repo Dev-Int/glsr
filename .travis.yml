@@ -27,7 +27,12 @@ before_script:
   - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
   ## PHP Mess Detector
   - pear config-set preferred_state beta
-  - printf "\n" | pecl install imagick
+
+  - sudo add-apt-repository -y ppa:moti-p/cc
+  - sudo apt-get update
+  - sudo apt-get -y --reinstall install imagemagick
+  - printf "\n" | pecl install imagick-beta
+
   - pear channel-discover pear.phpmd.org
   - pear channel-discover pear.pdepend.org
   - pear install --alldeps phpmd/PHP_PMD
