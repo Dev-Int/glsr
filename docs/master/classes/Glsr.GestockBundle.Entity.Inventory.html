@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \Glsr\GestockBundle\Entity\Settings
+    <title>    API Documentation &raquo; \Glsr\GestockBundle\Entity\Inventory
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -120,20 +120,20 @@
             <i class="icon-custom icon-method"></i> Methods
             <ul>
                                                                                                     <li class="method public">
-        <a href="#method_getCalculation" title="getCalculation :: Get calculation">
-            <span class="description">Get calculation</span><pre>getCalculation</pre>
+        <a href="#method_getActive" title="getActive :: Get active">
+            <span class="description">Get active</span><pre>getActive</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_getCurrency" title="getCurrency :: Get currency">
-            <span class="description">Get currency</span><pre>getCurrency</pre>
+        <a href="#method_getAmount" title="getAmount :: Get amount">
+            <span class="description">Get amount</span><pre>getAmount</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_getFirstInventory" title="getFirstInventory :: Get first_inventory">
-            <span class="description">Get first_inventory</span><pre>getFirstInventory</pre>
+        <a href="#method_getDate" title="getDate :: Get date">
+            <span class="description">Get date</span><pre>getDate</pre>
         </a>
     </li>
 
@@ -144,32 +144,26 @@
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_getInventoryStyle" title="getInventoryStyle :: Get inventory_style">
-            <span class="description">Get inventory_style</span><pre>getInventoryStyle</pre>
+        <a href="#method_getIdInv" title="getIdInv :: Get idInv">
+            <span class="description">Get idInv</span><pre>getIdInv</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_setCalculation" title="setCalculation :: Set calculation">
-            <span class="description">Set calculation</span><pre>setCalculation</pre>
+        <a href="#method_isActive" title="isActive :: is active">
+            <span class="description">is active</span><pre>isActive</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_setCurrency" title="setCurrency :: Set currency">
-            <span class="description">Set currency</span><pre>setCurrency</pre>
+        <a href="#method_setAmount" title="setAmount :: Set amount">
+            <span class="description">Set amount</span><pre>setAmount</pre>
         </a>
     </li>
 
                                                                                                         <li class="method public">
-        <a href="#method_setFirstInventory" title="setFirstInventory :: Set first_inventory">
-            <span class="description">Set first_inventory</span><pre>setFirstInventory</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_setInventoryStyle" title="setInventoryStyle :: Set inventory_style">
-            <span class="description">Set inventory_style</span><pre>setInventoryStyle</pre>
+        <a href="#method_setDate" title="setDate :: Set date">
+            <span class="description">Set date</span><pre>setDate</pre>
         </a>
     </li>
 
@@ -177,11 +171,11 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                                                                </ul>
+                                                                                                                                                                                                                                                                                                                                            </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -195,10 +189,10 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>Settings</h1>
+                <h1>Inventory</h1>
                 <small style="display: block; text-align: right">
                                                         </small>
-                <p class="short_description">Settings Entité Settings</p>
+                <p class="short_description">Inventory</p>
                 <div class="details">
                     <div class="long_description">
                         
@@ -228,7 +222,7 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Settings</p>
+                                                                                <p>Inventory</p>
                                     </td>
                                 </tr>
                                                                                                                 <tr>
@@ -237,7 +231,7 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>(name="gs_settings")</p>
+                                                                                <p>(name="gs_inventory")</p>
                                     </td>
                                 </tr>
                                                                                                                 <tr>
@@ -246,16 +240,16 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>(repositoryClass="Glsr\GestockBundle\Entity\SettingsRepository")</p>
+                                                                                <p>(repositoryClass="Glsr\GestockBundle\Entity\InventoryRepository")</p>
                                     </td>
                                 </tr>
                                                                                                                             </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method_getCalculation"></a>
-                        <div class="element clickable method public  method_getCalculation" data-toggle="collapse" data-target=".method_getCalculation .collapse">
-                            <h2>Get calculation</h2>
-                            <pre>getCalculation() : string</pre>
+                                                                <a id="method_getActive"></a>
+                        <div class="element clickable method public  method_getActive" data-toggle="collapse" data-target=".method_getActive .collapse">
+                            <h2>Get active</h2>
+                            <pre>getActive() : boolean</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -276,15 +270,15 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>string</code><p></p>
+                                        <code>boolean</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_getCurrency"></a>
-                        <div class="element clickable method public  method_getCurrency" data-toggle="collapse" data-target=".method_getCurrency .collapse">
-                            <h2>Get currency</h2>
-                            <pre>getCurrency() : string</pre>
+                                            <a id="method_getAmount"></a>
+                        <div class="element clickable method public  method_getAmount" data-toggle="collapse" data-target=".method_getAmount .collapse">
+                            <h2>Get amount</h2>
+                            <pre>getAmount() : float</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -305,15 +299,15 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>string</code><p></p>
+                                        <code>float</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_getFirstInventory"></a>
-                        <div class="element clickable method public  method_getFirstInventory" data-toggle="collapse" data-target=".method_getFirstInventory .collapse">
-                            <h2>Get first_inventory</h2>
-                            <pre>getFirstInventory() : \Glsr\GestockBundle\Entity\datetime/null</pre>
+                                            <a id="method_getDate"></a>
+                        <div class="element clickable method public  method_getDate" data-toggle="collapse" data-target=".method_getDate .collapse">
+                            <h2>Get date</h2>
+                            <pre>getDate() : \DateTime</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -334,7 +328,7 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>\Glsr\GestockBundle\Entity\datetime/null</code><p><p>Date du premier inventaire</p></p>
+                                        <code>\DateTime</code><p></p>
                                                                     </div>
                             </div>
 
@@ -368,10 +362,10 @@
                             </div>
 
                         </div>
-                                            <a id="method_getInventoryStyle"></a>
-                        <div class="element clickable method public  method_getInventoryStyle" data-toggle="collapse" data-target=".method_getInventoryStyle .collapse">
-                            <h2>Get inventory_style</h2>
-                            <pre>getInventoryStyle() : string</pre>
+                                            <a id="method_getIdInv"></a>
+                        <div class="element clickable method public  method_getIdInv" data-toggle="collapse" data-target=".method_getIdInv .collapse">
+                            <h2>Get idInv</h2>
+                            <pre>getIdInv() : integer</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -392,15 +386,15 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>string</code><p></p>
+                                        <code>integer</code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_setCalculation"></a>
-                        <div class="element clickable method public  method_setCalculation" data-toggle="collapse" data-target=".method_setCalculation .collapse">
-                            <h2>Set calculation</h2>
-                            <pre>setCalculation(string $calculation) : \Glsr\GestockBundle\Entity\Settings</pre>
+                                            <a id="method_isActive"></a>
+                        <div class="element clickable method public  method_isActive" data-toggle="collapse" data-target=".method_isActive .collapse">
+                            <h2>is active</h2>
+                            <pre>isActive(boolean $active) : \Glsr\GestockBundle\Entity\Inventory</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -414,20 +408,20 @@
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$calculation</h4>
-                                                <code>string</code><p><p>Mode de calcul de l'inventaire</p></p>
+                                                <h4>$active</h4>
+                                                <code>boolean</code><p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Inventory.html">\Glsr\GestockBundle\Entity\Inventory</a></code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_setCurrency"></a>
-                        <div class="element clickable method public  method_setCurrency" data-toggle="collapse" data-target=".method_setCurrency .collapse">
-                            <h2>Set currency</h2>
-                            <pre>setCurrency(string $currency) : \Glsr\GestockBundle\Entity\Settings</pre>
+                                            <a id="method_setAmount"></a>
+                        <div class="element clickable method public  method_setAmount" data-toggle="collapse" data-target=".method_setAmount .collapse">
+                            <h2>Set amount</h2>
+                            <pre>setAmount(float $amount) : \Glsr\GestockBundle\Entity\Inventory</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -441,20 +435,20 @@
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$currency</h4>
-                                                <code>string</code><p><p>Format monétaire de l'application</p></p>
+                                                <h4>$amount</h4>
+                                                <code>float</code><p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Inventory.html">\Glsr\GestockBundle\Entity\Inventory</a></code><p></p>
                                                                     </div>
                             </div>
 
                         </div>
-                                            <a id="method_setFirstInventory"></a>
-                        <div class="element clickable method public  method_setFirstInventory" data-toggle="collapse" data-target=".method_setFirstInventory .collapse">
-                            <h2>Set first_inventory</h2>
-                            <pre>setFirstInventory(\Glsr\GestockBundle\Entity\datetime $firstInventory) : \Glsr\GestockBundle\Entity\Settings</pre>
+                                            <a id="method_setDate"></a>
+                        <div class="element clickable method public  method_setDate" data-toggle="collapse" data-target=".method_setDate .collapse">
+                            <h2>Set date</h2>
+                            <pre>setDate(\DateTime $date) : \Glsr\GestockBundle\Entity\Inventory</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -468,39 +462,12 @@
 
                                                                             <h3>Arguments</h3>
                                                                                     <div class="subelement argument">
-                                                <h4>$firstInventory</h4>
-                                                <code>\Glsr\GestockBundle\Entity\datetime</code><p><p>Date du premier inventaire</p></p>
+                                                <h4>$date</h4>
+                                                <code>\DateTime</code><p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_setInventoryStyle"></a>
-                        <div class="element clickable method public  method_setInventoryStyle" data-toggle="collapse" data-target=".method_setInventoryStyle .collapse">
-                            <h2>Set inventory_style</h2>
-                            <pre>setInventoryStyle(string $inventoryStyle) : \Glsr\GestockBundle\Entity\Settings</pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$inventoryStyle</h4>
-                                                <code>string</code><p><p>Style d'inventaire</p></p>
-                                            </div>
-                                                                            
-                                                                            <h3>Response</h3>
-                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">\Glsr\GestockBundle\Entity\Settings</a></code><p></p>
+                                        <code><a href="../classes/Glsr.GestockBundle.Entity.Inventory.html">\Glsr\GestockBundle\Entity\Inventory</a></code><p></p>
                                                                     </div>
                             </div>
 
@@ -508,10 +475,10 @@
                     
                     
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
-                                                    <a id="property_idSets"> </a>
-                            <div class="element clickable property  private property_idSets" data-toggle="collapse" data-target=".property_idSets .collapse">
-                                <h2>Id de la configuration</h2>
-                                <pre>idSets : integer</pre>
+                                                    <a id="property_idInv"> </a>
+                            <div class="element clickable property  private property_idInv" data-toggle="collapse" data-target=".property_idInv .collapse">
+                                <h2>Id de l&#039;inventaire</h2>
+                                <pre>idInv : integer</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -524,7 +491,7 @@
                                                         var
                                                     </th>
                                                     <td>
-                                                                                                                    <p>Id de la configuration</p>
+                                                                                                                    <p>Id de l'inventaire</p>
                                                                                                             </td>
                                                 </tr>
                                                                                             <tr>
@@ -558,10 +525,10 @@
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_inventoryStyle"> </a>
-                            <div class="element clickable property  private property_inventoryStyle" data-toggle="collapse" data-target=".property_inventoryStyle .collapse">
-                                <h2>sort mode inventory</h2>
-                                <pre>inventoryStyle : string</pre>
+                                                    <a id="property_date"> </a>
+                            <div class="element clickable property  private property_date" data-toggle="collapse" data-target=".property_date .collapse">
+                                <h2>Date de l&#039;inventaire</h2>
+                                <pre>date : \DateTime</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -574,7 +541,7 @@
                                                         var
                                                     </th>
                                                     <td>
-                                                                                                                    <p>sort mode inventory</p>
+                                                                                                                    <p>Date de l'inventaire</p>
                                                                                                             </td>
                                                 </tr>
                                                                                             <tr>
@@ -582,20 +549,20 @@
                                                         ORM\Column
                                                     </th>
                                                     <td>
-                                                                                                                    <p>(name="inventory_style", type="string", length=50)</p>
+                                                                                                                    <p>(name="date", type="datetime")</p>
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>string</code>
+                                            <code>\DateTime</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_calculation"> </a>
-                            <div class="element clickable property  private property_calculation" data-toggle="collapse" data-target=".property_calculation .collapse">
-                                <h2>calculation of inventories and stocks</h2>
-                                <pre>calculation : string</pre>
+                                                    <a id="property_active"> </a>
+                            <div class="element clickable property  private property_active" data-toggle="collapse" data-target=".property_active .collapse">
+                                <h2>Activé/Désactivé</h2>
+                                <pre>active : boolean</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -608,7 +575,7 @@
                                                         var
                                                     </th>
                                                     <td>
-                                                                                                                    <p>calculation of inventories and stocks</p>
+                                                                                                                    <p>Activé/Désactivé</p>
                                                                                                             </td>
                                                 </tr>
                                                                                             <tr>
@@ -616,20 +583,20 @@
                                                         ORM\Column
                                                     </th>
                                                     <td>
-                                                                                                                    <p>(name="calculation", type="string", length=50)</p>
+                                                                                                                    <p>(name="active", type="boolean")</p>
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>string</code>
+                                            <code>boolean</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_firstInventory"> </a>
-                            <div class="element clickable property  private property_firstInventory" data-toggle="collapse" data-target=".property_firstInventory .collapse">
-                                <h2>the first inventory&#039;s date</h2>
-                                <pre>firstInventory : \Glsr\GestockBundle\Entity\datetime</pre>
+                                                    <a id="property_amount"> </a>
+                            <div class="element clickable property  private property_amount" data-toggle="collapse" data-target=".property_amount .collapse">
+                                <h2>Montant de l&#039;inventaire</h2>
+                                <pre>amount : float</pre>
                                 <div class="labels">
                                                                                                         </div>
                                 <div class="row collapse">
@@ -642,7 +609,7 @@
                                                         var
                                                     </th>
                                                     <td>
-                                                                                                                    <p>the first inventory's date</p>
+                                                                                                                    <p>Montant de l'inventaire</p>
                                                                                                             </td>
                                                 </tr>
                                                                                             <tr>
@@ -650,60 +617,26 @@
                                                         ORM\Column
                                                     </th>
                                                     <td>
-                                                                                                                    <p>(name="first_inventory", type="datetime", nullable=true)</p>
+                                                                                                                    <p>(name="amount", type="decimal", scale=3, nullable=true)</p>
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>\Glsr\GestockBundle\Entity\datetime</code>
-                                                                            </div>
-                                </div>
-                            </div>
-                                                    <a id="property_currency"> </a>
-                            <div class="element clickable property  private property_currency" data-toggle="collapse" data-target=".property_currency .collapse">
-                                <h2>currency&#039;s choice</h2>
-                                <pre>currency : string</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        var
-                                                    </th>
-                                                    <td>
-                                                                                                                    <p>currency's choice</p>
-                                                                                                            </td>
-                                                </tr>
-                                                                                            <tr>
-                                                    <th>
-                                                        ORM\Column
-                                                    </th>
-                                                    <td>
-                                                                                                                    <p>(name="currency", type="string", length=50)</p>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>string</code>
+                                            <code>float</code>
                                                                             </div>
                                 </div>
                             </div>
                                                             </div>
             </div>
-            <a id="\Glsr\GestockBundle\Entity\Settings"></a>
+            <a id="\Glsr\GestockBundle\Entity\Inventory"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
     <li><span class="divider">\</span><a href="../namespaces/Glsr.GestockBundle.Entity.html">Entity</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/Glsr.GestockBundle.Entity.Settings.html">Settings</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/Glsr.GestockBundle.Entity.Inventory.html">Inventory</a></li>
             </ul>
         </div>
     </div>
