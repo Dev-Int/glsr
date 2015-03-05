@@ -1,8 +1,8 @@
 composer.phar
-#/web/bundles/
-#/app/bootstrap*
+/web/bundles/
+/app/bootstrap*
 /app/cache/*
-#/app/logs/*
+/app/logs/*
 /vendor/
 /app/config/parameters.yml
 /nbproject/*
