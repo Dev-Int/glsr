@@ -57,6 +57,12 @@ class Inventory
      */
     private $amount;
 
+    /**
+     * @var text $file Fichier de l'inventaire
+     * 
+     * @ORM\Column(name="file", type="text", nullable=true)
+     */
+    private $file;
 
     /**
      * Get id
@@ -147,4 +153,26 @@ class Inventory
         return $this->idInv;
     }
 
+    /**
+     * Set file
+     *
+     * @param string $file
+     * @return Inventory
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
 }

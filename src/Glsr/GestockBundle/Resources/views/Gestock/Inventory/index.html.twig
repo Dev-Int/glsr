@@ -34,12 +34,12 @@
                         Calcul des écart de stock
                     </a>
                 </li>
-                <li class="list-group-item">
+                {#<li class="list-group-item">
                     <a href="{{ path('glstock_inventory_cancel') }}">
                         <i class="glyphicon glyphicon-trash"></i>
                         Annuler l'inventaire en cours
                     </a>
-                </li>
+                </li>#}
                 <li class="list-group-item">
                     <a href="{{ path('glstock_inventory_entry') }}">
                         <i class="glyphicon glyphicon-saved"></i>
@@ -53,6 +53,10 @@
         <div class="panel panel-default">
             <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> Journaux d'inventaire</header>
             <ul class="list-unstyled list-group">
+                {% if inventory is empty %}
+                <li class="list-group-item">Il n'y a pas encore d'inventaire</li>
+            </ul>
+            {% else %}
                 <li class="list-group-item">Liste des 5 derniers inventaires</li>
             </ul>
             <table class="table table-striped">
@@ -65,22 +69,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {#% for item in inventory %#}
+                    {% for item in inventory %}
                     <tr>
-                        <td class="col-lg-3">{#{ item.id }#}</td>
-                        <td class="col-lg-3">{#{ item.date }#}</td>
-                        <td class="col-lg-3">{#{ item.amount }#}</td>
-                        <td class="col-lg-3"></td>
+                        <td class="col-lg-3">{{ item.id }}</td>
+                        <td class="col-lg-3">{{ item.date|date("m/d/Y") }}</td>
+                        <td class="col-lg-3">{{ item.amount|number_format(2, ',', ' ') }}€</td>
+                        <td class="col-lg-3 text-center">
+                            {% if item.active == 1 %}
+                            <a href="{{ asset(item.file) }}" title="Imprimer la préparation" onclick="window.open(this.href); return false;"><i class="glyphicon glyphicon-print"></i> Imprimer</a> | 
+                            <a href="{{ path('glstock_inventory_cancel') }}" title="Annuler l'inventaire"><i class="glyphicon glyphicon-trash"></i> Annuler</a>
+                            {% elseif item.active == 2 %}
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            {% elseif item.active == 3 %}
+                                <i class="glyphicon glyphicon-trash"></i>
+                            {% endif %}
+                        </td>
                     </tr>
-                    <tr>
-                        <td class="col-lg-3">{#{ item.id }#}</td>
-                        <td class="col-lg-3">{#{ item.date }#}</td>
-                        <td class="col-lg-3">{#{ item.amount }#}</td>
-                        <td class="col-lg-3"></td>
-                    </tr>
-                    {#% endfor %#}
+                    {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
