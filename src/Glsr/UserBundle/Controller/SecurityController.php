@@ -14,8 +14,6 @@
 
 namespace Glsr\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\SecurityContext;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 /**
@@ -52,9 +50,8 @@ class SecurityController extends BaseController
         }
 
         $template = sprintf(
-            'FOSUserBundle:Security:%s.html.%s',
-            $view,
-            $this->container->getParameter('fos_user.template.engine')
+            'FOSUserBundle:Security:%s.html.twig',
+            $view
         );
 
         return $this->container
