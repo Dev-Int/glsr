@@ -6,3 +6,6 @@ composer.phar
 /vendor/
 /app/config/parameters.yml
 /nbproject/*
+/app/phpunit.xml
+/web/js/
+/web/css/
