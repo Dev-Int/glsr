@@ -126,3 +126,10 @@ clearfix:before,
 .table-bordered > thead > tr > td {
       border-bottom-width: 2px;
 }
+
+.page-break{
+    margin-left:100px;
+    display: block;
+    clear: both;
+    page-break-after:always;
+}
