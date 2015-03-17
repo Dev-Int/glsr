@@ -12,7 +12,9 @@
 
 {% block glstock_body %}
     
-    <p>{{ 'glsr.gestock.supplier.delete.caution'|trans({'%supplier.name%': supplier.name}) }}</p>
+    <p class="alert alert-warning">
+        {{ 'glsr.gestock.supplier.delete.caution'|trans({'%supplier.name%': supplier.name})|nl2br }}
+    </p>
     
     {# On met l'id de l'supplier dans la route de l'action du formulaire #}
     <form action="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" method="post">

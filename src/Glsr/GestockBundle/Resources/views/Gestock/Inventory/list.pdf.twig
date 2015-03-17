@@ -24,7 +24,7 @@
             }
             
             .container {
-                margin: 5mm;
+                margin: 20mm 0;
                 min-width: 200mm;
             }
             
@@ -73,18 +73,16 @@
             .table-bordered th {
                 line-height: 1.5em;
             }
+            .page-break{
+                margin-left:100px;
+                display: block;
+                clear: both;
+                page-break-after:always;
+            }
         </style>
     </head>
     <body>
-        <header>
-            <table class="col-lg-12">
-                <tr>
-                    <td class="col-lg-6">Gestock - <i class="glyphicon glyphicon-tasks"></i> Inventaire</td>
-                    <td class="col-lg-6 right">{{ daydate | localizeddate('full', 'none') }}</td>
-                </tr>
-            </table>
-            <hr />
-        </header>
+        {% for zstor in zonestorage %}
         <div class="container">
             <table class="table-bordered">
                 <thead>
@@ -97,7 +95,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for zstor in zonestorage %}
                     {% set index = 1 %}
                     {% for article in articles %}
                         {% for artzone in article.zonestorages %}
@@ -118,18 +115,10 @@
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
-                {% endfor %}
                 </tbody>
             </table>
         </div>
-        <footer>
-            <hr />
-            <table class="col-lg-12">
-                <tr>
-                    <td class="col-lg-6">GLSR &copy 2014 and beyond.</td>
-                    <td class="col-lg-6 right">Page - 1/1</td>
-                </tr>
-            </table>
-        </footer>
+        <div class="page-break"></div>
+        {% endfor %}
     </body>
 </html>

@@ -5,8 +5,7 @@
         <title>{% block title %}{% endblock %}</title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?yui_css' 'bundles/glsrgestock/css/bootstrap.css'
-                '@GlsrGestockBundle/Resources/public/css/*' %}
+            {% stylesheets filter='cssrewrite, ?yui_css' 'bundles/glsrgestock/css/bootstrap.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}
         {% endblock %}
@@ -32,17 +31,16 @@
             <hr />
         
             <footer>
-                <p>GLSR &copy 2014 and beyond.</p>
+                <p>{{ 'glsr.copy'|trans }}</p>
             </footer>
         </div>
         
         {% block javascripts %}
-            <script>window.jQuery || document.write('<script src="{{ asset('js/jquery.min.js') }}"><\/script>');</script>
+{#            <script>window.jQuery || document.write('<script src="{{ asset('bundles/glsrgestock/js/jquery.min.js') }}"><\/script>');</script>#}
 
             {# Tous nos javascripts avec Assetic #}
-            {% javascripts output='js/main.js' filter='?yui_js'
-                'bundles/glsrgestock/js/bootstrap.js'
-                '@GlsrGestockBundle/Resources/public/js/*' %}
+            {% javascripts filter='?yui_js'
+                'bundles/glsrgestock/js/*' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}

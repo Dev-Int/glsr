@@ -10,27 +10,27 @@
 <div class="well">
     <form method="post" {{ form_enctype(form) }} class="form-horizontal" role='form'>
         {{ form_errors(form) }}
-        <fieldset><legend>Informations</legend>
+        <fieldset><legend>{{ 'glsr.gestock.article.settings.information'|trans }}</legend>
             <section class="row col-md-12">
                 <div class="col-md-5 form-group">
-                    {{ form_label(form.name, "Intitulé"|trans) }}
+                    {{ form_label(form.name, 'glsr.gestock.title_item'|trans) }}
                     <span class="text-danger">{{ form_errors(form.name) }}</span>
                     &nbsp;{{ form_widget(form.name) }}
                 </div>
                 <div class="col-md-5 form-group">
-                    {{ form_label(form.supplier, "Fournisseur"|trans) }}
+                    {{ form_label(form.supplier, 'glsr.gestock.supplier.title'|trans) }}
                     <span class="text-danger">{{ form_errors(form.supplier) }}</span>
                     &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
                 </div>
                 <div class="hidden">
-                    {{ form_label(form.active, "Actif"|trans) }}
+                    {{ form_label(form.active, 'glsr.gestock.actif'|trans) }}
                     <span class="text-danger">{{ form_errors(form.active) }}</span>
                     &nbsp;{{ form_widget(form.active) }}
                 </div>
             </section>
             <section class="row col-md-12">
                 <div class="col-md-4 form-group">
-                    {{ form_label(form.zone_storages, "Zone de stockage"|trans) }}
+                    {{ form_label(form.zone_storages, 'glsr.gestock.settings.diverse.zonestorage'|trans) }}
                     <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
                     {% block choice_widget_expanded %}
                         {% spaceless %}
@@ -51,34 +51,34 @@
                     {{ form_widget(form.zone_storages) }}
                 </div>
                 <div class="col-md-4 form-group">
-                    {{ form_label(form.family_log, "Famille logistique"|trans) }}
+                    {{ form_label(form.family_log, 'glsr.gestock.settings.diverse.familylog'|trans) }}
                     <span class="text-danger">{{ form_errors(form.family_log) }}</span>
                     &nbsp;{{ form_widget(form.family_log, { 'attr' : { 'onChange':'fillSubFamilyLog();' } }) }}
                     <input id="hidden_flog" name="glsr_gestockbundle_article[family_log]" type="hidden" value="" />
                 </div>
                 <div class="col-md-4 form-group">
-                    {{ form_label(form.sub_family_log, "Sous-famille"|trans) }}
+                    {{ form_label(form.sub_family_log, 'glsr.gestock.settings.diverse.subfamilylog'|trans) }}
                     <span class="text-danger">{{ form_errors(form.sub_family_log) }}</span>
                     &nbsp;{{ form_widget(form.sub_family_log) }}
                     <input id="hidden_sflog" name="glsr_gestockbundle_article[sub_family_log]" type="hidden" value="" />
                 </div>
             </section>
         </fieldset>
-        <fieldset><legend>Caractéristiques</legend>
+        <fieldset><legend>{{ 'glsr.gestock.article.settings.feature'|trans }}</legend>
              <section class="row col-md-12">
                 <div class="hidden">
-                    {{ form_label(form.quantity, "Quantité"|trans) }}
+                    {{ form_label(form.quantity, 'glsr.gestock.article.settings.quantity'|trans) }}
                     <span class="text-danger">{{ form_errors(form.quantity) }}</span>
                     &nbsp;{{ form_widget(form.quantity) }}
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-5 form-group">
-                    {{ form_label(form.unit_storage, "Unité de stockage"|trans) }}
+                    {{ form_label(form.unit_storage, 'glsr.gestock.settings.diverse.unitstorage'|trans) }}
                     <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
                     &nbsp;{{ form_widget(form.unit_storage) }}
                 </div>
                 <div class="col-md-6 form-group">
-                    {{ form_label(form.price, "Prix"|trans) }}
+                    {{ form_label(form.price, 'glsr.gestock.article.settings.price'|trans) }}
                     <span class="text-danger">{{ form_errors(form.price) }}</span>
                     &nbsp;{{ form_widget(form.price) }}
                 </div>
@@ -86,17 +86,17 @@
             <section class="row col-md-12">
                 <div class="col-md-1"></div>
                 <div class="col-md-5 form-group">
-                    {{ form_label(form.packaging, "Packaging"|trans) }}
+                    {{ form_label(form.packaging, 'glsr.gestock.article.settings.packaging'|trans) }}
                     <span class="text-danger">{{ form_errors(form.packaging) }}</span>
                     &nbsp;{{ form_widget(form.packaging) }}
                 </div>
                 <div class="col-md-6 form-group">
-                    {{ form_label(form.minstock, "Stock mini"|trans) }}
+                    {{ form_label(form.minstock, 'glsr.gestock.article.settings.stock_alert'|trans) }}
                     <span class="text-danger">{{ form_errors(form.minstock) }}</span>
                     &nbsp;{{ form_widget(form.minstock) }}
                 </div>
                 <div class="hidden">
-                    {{ form_label(form.realstock, "Stock théorique"|trans) }}
+                    {{ form_label(form.realstock, 'glsr.gestock.article.settings.theoretical_stock'|trans) }}
                     <span class="text-danger">{{ form_errors(form.realstock) }}</span>
                     &nbsp;{{ form_widget(form.realstock) }}
                 </div>
@@ -104,7 +104,8 @@
            {{ form_rest(form) }}
         </fieldset>
 
-        <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.article.edit.submit_button'|trans }}" />
+        <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
+    <p>&nbsp;</p>
     </form>
 </div>
 <script type="text/javascript">
@@ -112,7 +113,7 @@ function fillSubFamilyLog(){
     var id_select = $('#glsr_gestockbundle_article_family_log').val();
     var id_select2 = $('#glsr_gestockbundle_article_sub_family_log').val();
     $.ajax({
-        url: "{{ path('fillsubfamilylog') }}",
+        url: "{{ path('fill_subfamilylog') }}",
         type: 'POST',
         data: {'id': id_select},
         dataType: 'json',

@@ -2,19 +2,19 @@
 
 {% extends "::layout.html.twig" %}
 {% block title %}
-    Gestock - GLSR
+    {{ 'glsr.title_page'|trans }}
 {% endblock %}
 
 {% block header %}
     <div class="page-header">
         <h1>
             <span class="glyphicon glyphicon-cutlery"></span> 
-            Glsr <small>Gestion Libre des Stocks d'un Restaurant...</small>
+            {{ 'glsr.title'|trans }} <small>{{ 'glsr.subtitle'|trans }}</small>
             <small class="pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    connecté en tant que {{ app.user.username }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    {{ 'glsr.connect_as'|trans({'%username%': app.user.username}) }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">{{ 'glsr.logout'|trans }}</a>
                 {% else %}
-                    <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">{{ 'glsr.login'|trans }}</a>
                 {% endif %}
             </small>
         </h1>
@@ -22,12 +22,12 @@
 {% endblock %}
     
     
-{% block menu_bundle %}
+{#{% block menu_bundle %}
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li {% if app.request.attributes.get('_route') == 'glstock_home' %}class="active"{% endif %}>
             <a href="{{ path('glstock_home') }}">
                 <i class="glyphicon glyphicon-home"></i>
-                Accueil
+                {{ 'glsr.gestock.home.title'|trans }}
             </a>
         </li>
         {% set articles = ['glstock_art_list', 'glstock_art_add', 'glstock_art_show'] %}
@@ -37,20 +37,20 @@
             class="dropdown"
             {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                Article <span class="caret"></span>
+                {{ 'glsr.gestock.article.title'|trans }} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 <li>
                     <a href="{{ path('glstock_art_list') }}">
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        Article list
+                        {{ 'glsr.gestock.article.list'|trans }}
                     </a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li>
                     <a href="{{ path('glstock_art_add') }}">
                         <i class="glyphicon glyphicon-plus"></i>
-                        Article add
+                        {{ 'glsr.gestock.article.create.title'|trans }}
                     </a>
                 </li>
                 {% endif %}
@@ -64,20 +64,20 @@
             class="dropdown"
             {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                Supplier <span class="caret"></span>
+                {{ 'glsr.gestock.supplier.title'|trans }} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 <li>
                     <a href="{{ path('glstock_suppli_list') }}">
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        Supplier list
+                        {{ 'glsr.gestock.supplier.list'|trans }}
                     </a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li>
                     <a href="{{ path('glstock_suppli_add') }}">
                         <i class="glyphicon glyphicon-plus"></i>
-                        Supplier add
+                        {{ 'glsr.gestock.supplier.create.title'|trans }}
                     </a>
                 </li>
                 {% endif %}
@@ -93,18 +93,18 @@
             class="dropdown"
             {% endif %}>
             <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                Settings <span class="caret"></span>
+                {{ 'glsr.gestock.settings.title'|trans }} <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 <li><a href="{{ path('glstock_company') }}">
                         <i class="glyphicon glyphicon-tower"></i>
-                        Company</a></li>
+                        {{ 'glsr.gestock.settings.company.title'|trans }}</a></li>
                 <li><a href="{{ path('glstock_application') }}">
                         <i class="glyphicon glyphicon-wrench"></i>
-                        Application</a></li>
+                        {{ 'glsr.gestock.settings.application.title'|trans }}</a></li>
                 <li><a href="{{ path('glstock_divers') }}">
                         <i class="glyphicon glyphicon-info-sign"></i>
-                        Divers</a></li>
+                        {{ 'glsr.gestock.settings.diverse.title'|trans }}</a></li>
             </ul>
 
         </li>
@@ -112,15 +112,15 @@
 
     {#{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }#}
 
-{% endblock %}
+{#{% endblock %}#}
 
 {% block body %}
     {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
-    <h1>Gestock - <small>{% block body_title %}{% endblock %}</small></h1>
+    <h1>{{ 'glsr.gestock.title'|trans }} - <small>{% block body_title %}{% endblock %}</small></h1>
     
     <hr />
     {% for message in app.session.flashbag.get('info') %}
-    <p class="alert alert-info">{{ message }}</p>
+        <p class="alert alert-info">{{ message|trans|nl2br }}</p>
     {% endfor %}
     {% for message in app.session.flashbag.get('error') %}
     <p class="alert alert-danger">{{ message }}</p>

@@ -10,26 +10,25 @@
     {% if articles is defined %}
     <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.article.list'|trans }}
     {% elseif article is defined %}
-    <i class="glyphicon glyphicon-eye-open"></i> Article : {{ article.name }}
+    <i class="glyphicon glyphicon-eye-open"></i> {{ 'glsr.gestock.article.title'|trans }} : {{ article.name }}
     {% endif %}
 {% endblock %}
 
 {% block glstock_body %}
 
-    <table class="table-striped table-bordered">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="15%">name</th>
-                <th width="15%">supplier</th>
-                <th width="5%">{#unitstorage#}unité</th>
-                <th width="5%">{#packaging#}unité facture</th>
-                <th width="10%">price</th>
-                <th width="5%">quantity</th>
-                <th width="8%">{#minstock#}mini</th>
-                <th width="12%">{#zonestorages#}zone stockage</th>
-                <th width="10%">{#FamilyLog#}famille logistique</th>
-                <th width="5%">{#SubFamilyLog#}sous famille</th>
-                <th width="8%">Action</th>
+                <th width="17%">{{ 'glsr.gestock.title_item'|trans }}</th>
+                <th width="17%">{{ 'glsr.gestock.supplier.title'|trans }}</th>
+                <th width="5%">{{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}</th>
+                <th width="5%">{{ 'glsr.gestock.article.settings.packaging'|trans }}</th>
+                <th width="10%">{{ 'glsr.gestock.article.settings.price'|trans }}</th>
+                <th width="8%">{{ 'glsr.gestock.article.settings.quantity'|trans }}</th>
+                <th width="6%">{{ 'glsr.gestock.article.settings.stock_alert'|trans }}</th>
+                <th width="10%">{{ 'glsr.gestock.settings.diverse.familylog'|trans }}</th>
+                <th width="10%">{{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}</th>
+                <th width="10%">{{ 'glsr.gestock.action'|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -40,6 +39,10 @@
     </table>
     
     <p>
+        <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">
+             <i class="glyphicon glyphicon-chevron-left"></i>
+             {{ 'glsr.gestock.home.return'|trans }}
+         </a>&nbsp;
         {% if article is defined %}
             <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
                 <i class="glyphicon glyphicon-chevron-left"></i>
@@ -48,7 +51,7 @@
         {% endif %}
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
-                <i class="glyphicon glyphicon-plus"></i>
+                <i class="glyphicon glyphicon-edit"></i>
                 {{ 'glsr.gestock.article.create.title_button'|trans }}
             </a>
         {% endif %}
@@ -57,7 +60,7 @@
     {# S'il y a plus d'une page, on affiche la liste des pages #}
     {% if articles is defined %}
         {% if nb_page > 1 %}
-            <div class="text-center">
+            <nav class="text-center">
                 <ul class="pagination">
                     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
                     <li {% if page == 1 %}class="disabled"{% endif %}><a href="{{ path('glstock_art_list', {'page': 1}) }}">&laquo;</a></li>
@@ -68,8 +71,7 @@
                     {% endfor %}
                     <li {% if page == nb_page %}class="disabled"{% endif %}><a href="{{ path('glstock_art_list', {'page': nb_page}) }}">&raquo;</a></li>
                 </ul>
-            </div>
+            </nav>
         {% endif %}
     {% endif %}
-
 {% endblock %}

@@ -7,14 +7,14 @@
 {% endblock %}
 
 {% block body_title %}
-    {{ 'Nouvelle configuration'|trans }}
+    {{ 'glsr.gestock.settings.new'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
     
     {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
     
-    <p>{{ 'Cette configuration déterminera le fonctionnement de votre application'|trans }}</p>
+    <p class="alert alert-warning">{{ 'glsr.gestock.settings.form.caution'|trans }}</p>
     
     <p>
         <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">

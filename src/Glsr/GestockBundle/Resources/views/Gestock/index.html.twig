@@ -3,11 +3,11 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Accueil - {{ parent() }}
+    {{ 'glsr.gestock.home.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
-    {{ "Page d'accueil"|trans }}
+    {{ 'glsr.gestock.home.body_title'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -18,19 +18,19 @@
                 <li class="list-group-item">
                     <a href="{{ path('glstock_company') }}">
                         <i class="glyphicon glyphicon-tower"></i>
-                        Company
+                        {{ 'glsr.gestock.settings.company.title'|trans }}
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="{{ path('glstock_application') }}">
                         <i class="glyphicon glyphicon-wrench"></i>
-                        Application
+                        {{ 'glsr.gestock.settings.application.title'|trans }}
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="{{ path('glstock_divers') }}">
                         <i class="glyphicon glyphicon-info-sign"></i>
-                        Divers
+                        {{ 'glsr.gestock.settings.diverse.title'|trans }}
                     </a>
                 </li>
             </ul>
@@ -41,52 +41,52 @@
     </section>
     <section class="col-lg-4 col-lg-offset-1">
         <div class="panel panel-default">
-            <header class="panel-heading">Article</header>
+            <header class="panel-heading">{{ 'glsr.gestock.article.title'|trans }}</header>
             <ul class="list-unstyled list-group">
                 <li class="list-group-item"><a href="{{ path('glstock_art_list') }}">
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        Article list</a></li>
+                        {{ 'glsr.gestock.article.list'|trans }}</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="list-group-item"><a href="{{ path('glstock_art_add') }}">
                     <i class="glyphicon glyphicon-plus"></i>
-                    Article add</a></li>
+                    {{ 'glsr.gestock.article.create.title'|trans }}</a></li>
                 {% endif %}
             </ul>
         </div>
         <div class="panel panel-default">
-            <header class="panel-heading">Fournisseur</header>
+            <header class="panel-heading">{{ 'glsr.gestock.supplier.title'|trans }}</header>
             <ul class="list-unstyled list-group">
                 <li class="list-group-item"><a href="{{ path('glstock_suppli_list') }}">
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        Supplier list</a></li>
+                        {{ 'glsr.gestock.supplier.list'|trans }}</a></li>
                 {% if is_granted('ROLE_ADMIN') %}
                         <li class="list-group-item"><a href="{{ path('glstock_suppli_add') }}">
                     <i class="glyphicon glyphicon-plus"></i>
-                    Supplier add</a></li>
+                    {{ 'glsr.gestock.supplier.create.title'|trans }}</a></li>
                 {% endif %}
             </ul>
         </div>
     </section>
     <section class="col-lg-3 col-lg-offset-1">
         <div class="panel panel-default">
-            <header class="panel-heading">Gestion</header>
+            <header class="panel-heading">{{ 'glsr.gestock.administration'|trans }}</header>
             <ul class="list-unstyled list-group">
                 <li class="list-group-item">
                     <a href="{{ path('glstock_inventory') }}">
                         <i class="glyphicon glyphicon-tasks"></i>
-                        Inventaires
+                        {{ 'glsr.gestock.inventory.title'|trans }}
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="">
                         <i class="glyphicon glyphicon-shopping-cart"></i>
-                        Suivi des Commandes
+                        {{ 'glsr.gestock.orders.title'|trans }}
                     </a>
                 </li>
                 <li class="list-group-item">
                     <a href="">
                         <i class="glyphicon glyphicon-road"></i>
-                        Suivi des Livraisons
+                        {{ 'glsr.gestock.delivery.title'|trans }}
                     </a>
                 </li>
             </ul>
