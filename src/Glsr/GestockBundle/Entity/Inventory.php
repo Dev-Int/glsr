@@ -46,7 +46,7 @@ class Inventory
     /**
      * @var boolean $active Activé/Désactivé
      *
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(name="active", type="smallint")
      */
     private $active;
 
@@ -63,6 +63,12 @@ class Inventory
      * @ORM\Column(name="file", type="text", nullable=true)
      */
     private $file;
+    
+    public function __construct() {
+        $this->date = new \DateTime;
+        $this->amount = 0.000;
+        $this->active = 1;
+    }
 
     /**
      * Get id

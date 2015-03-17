@@ -44,6 +44,22 @@ class InventoryController extends Controller
     }
     
     /**
+     * Afficher l'inventaire sélectionné
+     * 
+     * @param Inventory $inventory L'inventaire à afficher
+     * 
+     * @return Render
+     */
+    public function showAction(Inventory $inventory) {
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Inventory:inventory.html.twig',
+            array(
+                'inventory' => $inventory,
+            )
+        );
+    }
+    
+    /**
      * Préparer l'inventaire
      * 
      * Enregistrement de l'inventaire et création du fichier pdf
@@ -62,24 +78,44 @@ class InventoryController extends Controller
             ->getActive();
         $settings = $etm->getRepository('GlsrGestockBundle:Settings')
             ->find(1);
-    var_dump($settings);
+
         $daydate = new \DateTime('now');
-        $file = 'bundles/glsrgestock/pdf/prepare-' . $daydate->format('Ymd') . '.pdf';
+        if (!is_dir('pdf')){
+            mkdir('pdf');
+        }
+        $file = 'pdf/prepare-' . $daydate->format('Ymd') . '.pdf';
+        $datePdf = (string)$daydate->format('d-m-Y');
 
         //Vérification de l'existance du fichier de même date
-        if (!file_exists($file) && empty($inventory)){
+        if (!file_exists($file) || empty($inventory)){
             // Créer et enregistrer le fichier PDF à imprimer
-            $this->get('knp_snappy.pdf')->generateFromHtml(
-                $this->renderView(
-                    'GlsrGestockBundle:Gestock/Inventory:list.pdf.twig',
+            $this->get('knp_snappy.pdf')
+                ->generateFromHtml(
+                    $this->renderView(
+                        'GlsrGestockBundle:Gestock/Inventory:list.pdf.twig',
+                        array(
+                            'articles'    => $articles,
+                            'zonestorage' => $zoneStorages,
+                            'daydate'     => $daydate
+                        )
+                    ), 
+                    $file,
                     array(
-                        'articles'    => $articles,
-                        'zonestorage' => $zoneStorages,
-                        'daydate'     => $daydate
+                        'margin-top' => 15,
+                        'header-spacing' => 5,
+                        'header-font-size' => 8,
+                        'header-left' => 'Gestock',
+                        'header-center' => '- Inventaire -',
+                        'header-right' => $datePdf,
+                        'header-line' => true,
+                        'margin-bottom' => 15,
+                        'footer-spacing' => 5,
+                        'footer-font-size' => 8,
+                        'footer-left' => 'GLSR &copy 2014 and beyond.',
+                        'footer-right' => "Page [page]/[toPage]",
+                        'footer-line' => true
                     )
-                ), 
-                $file
-            );
+                );
             // Créer l'inventaire avec la date du jour,
             //    et enregistrement Inventory:date
             $newInventory = new Inventory();
@@ -92,23 +128,27 @@ class InventoryController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Inventaire bien ajouté');
+                ->add('info', 'glsr.gestock.inventory.prepare.add');
+
+            //    Si Settings:firstInventory == null 
+            //    Settings:firstInventory = Invetory:date 
+            if (empty($inventory) and $settings->getFirstInventory(null)) {
+                $settings->setFirstInventory($daydate);
+                $etm->persist($settings);
+                $etm->flush();
+            }
         } else {
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Le fichier prepare-' 
-                        . $daydate->format('Ymd') . 
-                        '.pdf est déjà créé !');
+                ->add('info', 
+                    array(
+                        'glsr.gestock.inventory.prepare.still_exit_pdf', 
+                        $daydate->format('Ymd')
+                    )
+                );
         }
         
-        //    Si Settings:firstInventory == null 
-        //    Settings:firstInventory = Invetory:date 
-        if (empty($inventory) and $settings->getFirstInventory(null)) {
-            $settings->setFirstInventory($daydate);
-            $etm->persist($settings);
-            $etm->flush();
-        }
         // retour à la page Inventaire:index
         return $this->redirect($this->generateUrl('glstock_inventory'));
     }
@@ -116,19 +156,46 @@ class InventoryController extends Controller
     /**
      * Annuler l'inventaire en cours
      * 
-     * @return RedirectResponse Retour page index
+     * @param Inventory $inventory
+     * @return RedirectResponse Retour index Inventory
      */
-    public function cancelAction()
+    public function cancelAction(Inventory $inventory)
     {
-        // Récupérer l'entité Inventaire
-
-        // Si inventaire en cours, prévenir que les saisies seront perdues
+        $form = $this->createFormBuilder()->getForm();
         
-        // Désactiver l'inventaire en cours
-        
-        // retour à la page Inventaire:index
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+            
+            if ($form->isValid()) {
+                $etm = $this->getDoctrine()->getManager();
+                $inventory->isActive(0);
+                unlink($inventory->getFile());
+                $inventory->setFile(NULL);
+                $etm->persist($inventory);
+                $etm->flush();
+                
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.cancel.ok');
 
+                return $this->redirect($this->generateUrl('glstock_inventory'));
+            } else {
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.cancel.no');
+            }
         }
+
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Inventory:cancel.html.twig',
+            array(
+                'inventory' => $inventory,
+                'form'    => $form->createView()
+                )
+        );
+        
+    }
     
     /**
      * Saisie de l'inventaire

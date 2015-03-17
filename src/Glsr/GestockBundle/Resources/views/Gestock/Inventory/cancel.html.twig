@@ -1,0 +1,27 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Inventory\cancel.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'glsr.gestock.inventory.cancel.title'|trans }} - {{ parent() }}
+{% endblock %}
+    
+{% block body_title %}
+    {{ 'glsr.gestock.inventory.cancel.title'|trans }}
+{% endblock %}
+
+{% block glstock_body %}
+    
+    <p>{{ 'glsr.gestock.inventory.cancel.caution'|trans({'%inventory.date%': inventory.date|date('d m Y')})|nl2br }}</p>
+    
+    {# On met l'id de l'inventory dans la route de l'action du formulaire #}
+    <form action="{{ path('glstock_inventory_cancel', {'id': inventory.id}) }}" method="post">
+        <a href="{{ path('glstock_inventory') }}" class="btn btn-default" role="button">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            {{ 'glsr.gestock.inventory.return_list'|trans }}
+        </a>
+        <input type="submit" value="{{ 'glsr.gestock.inventory.cancel.submit_button'|trans }}" class="btn btn-default btn-danger" />
+        {{ form_rest(form) }}
+    </form>
+    
+{% endblock %}
