@@ -93,6 +93,10 @@ knp_snappy:
         enabled: true
         binary:  %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
         options: []
+    image:
+        enabled:    true
+        binary:     %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
+        options:    []
         
 jms_security_extra:
     # Whether you want to secure all services (true), or only secure specific
