@@ -4,6 +4,7 @@ composer.phar
 /app/cache/*
 /app/logs/*
 /vendor/
+!/vendor/phpdocumentor/
 /app/config/parameters.yml
 /nbproject/*
 /app/phpunit.xml
