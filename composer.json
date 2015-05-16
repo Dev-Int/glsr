@@ -29,7 +29,6 @@
         "ornicar/akismet-bundle": "dev-master",
         "coresphere/console-bundle": "dev-master",
         "misd/phone-number-bundle": "~1.0",
-        "phpdocumentor/phpdocumentor": "dev-master",
         "knplabs/knp-snappy-bundle": "dev-master"
     },
     "scripts": {

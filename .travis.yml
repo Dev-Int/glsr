@@ -16,9 +16,8 @@ before_script:
   ## Composer 
   - composer install -n
   ## Composer : Mise à jour et Installation des pre-requis
-  #- /home/travis/.phpenv/versions/5.3/bin/composer self-update
   - composer selfupdate --quiet
-  - composer install -n --prefer-source --dev
+  #- composer install -n --prefer-source --dev
   ## PHPDocumentor : Dossier de sortie
   - mkdir -p build/docs
   ## PHP_CodeSniffer
@@ -55,10 +54,11 @@ script:
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
-  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR1 src/
-  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR2 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR0 src/
+  #- phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR1 src/
+  #- phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR2 src/
   ## PHP Copy/Paste Detector
-  #- php phpcpd.phar --verbose src/
+  - php phpcpd.phar --verbose src/
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
