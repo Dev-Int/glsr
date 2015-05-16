@@ -1,20 +1,21 @@
 <?php
+
 /**
- * SettingsController controller de la configuration du Bundle Gestock
- * 
+ * SettingsController controller de la configuration du Bundle Gestock.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Glsr\GestockBundle\Entity\Settings;
 use Glsr\GestockBundle\Entity\Tva;
 use Glsr\GestockBundle\Entity\Company;
@@ -22,7 +23,6 @@ use Glsr\GestockBundle\Entity\FamilyLog;
 use Glsr\GestockBundle\Entity\SubFamilyLog;
 use Glsr\GestockBundle\Entity\ZoneStorage;
 use Glsr\GestockBundle\Entity\UnitStorage;
-
 use Glsr\GestockBundle\Form\SettingsType;
 use Glsr\GestockBundle\Form\TvaType;
 use Glsr\GestockBundle\Form\CompanyType;
@@ -32,52 +32,50 @@ use Glsr\GestockBundle\Form\ZoneStorageType;
 use Glsr\GestockBundle\Form\UnitStorageType;
 
 /**
- * class SettingsController
- * 
+ * class SettingsController.
+ *
  * @category   Controller
- * @package    Gestock
- * @subpackage Settings
  */
 class SettingsController extends Controller
 {
     /**
-     * showCompanyAction Affiche les données de l'entreprise
-     * 
-     * @return type
+     * Affiche les données de l'entreprise.
+     *
+     * @return Response
      */
     public function showCompanyAction()
     {
         $etm = $this->getDoctrine()->getManager();
         $repoCompany = $etm->getRepository('GlsrGestockBundle:Company');
         $company = $repoCompany->findAll();
-        
+
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
             array('company' => $company)
         );
     }
-    
+
     /**
-     * showApplicationAction Affiche les paramètres de base de l'application
-     * 
-     * @return type
+     * Affiche les paramètres de base de l'application.
+     *
+     * @return Response
      */
     public function showApplicationAction()
     {
         $etm = $this->getDoctrine()->getManager();
         $repoSettings = $etm->getRepository('GlsrGestockBundle:Settings');
         $settings = $repoSettings->findAll();
-        
+
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
             array('settings' => $settings)
         );
     }
-    
+
     /**
-     * showDiversAction Affiche les paramètres divers de l'application
-     * 
-     * @return type
+     * Affiche les paramètres divers de l'application.
+     *
+     * @return Response
      */
     public function showDiversAction()
     {
@@ -85,33 +83,33 @@ class SettingsController extends Controller
         $subFamilyLog = $etm
             ->getRepository('GlsrGestockBundle:SubFamilyLog')
             ->findAll();
-        
+
         $zoneStorage = $etm
             ->getRepository('GlsrGestockBundle:ZoneStorage')
             ->findAll();
-        
+
         $unitStorage = $etm
             ->getRepository('GlsrGestockBundle:UnitStorage')
             ->findAll();
-        
+
         $tva = $etm->getRepository('GlsrGestockBundle:Tva')->findAll();
-        
+
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
             array(
-                'divers'       => 1,
+                'divers' => 1,
                 'subfamilylog' => $subFamilyLog,
-                'zonestorage'  => $zoneStorage,
-                'unitstorage'  => $unitStorage,
-                'tva'          => $tva
+                'zonestorage' => $zoneStorage,
+                'unitstorage' => $unitStorage,
+                'tva' => $tva,
             )
         );
     }
-    
+
     /**
-     * addSettingsAction 
-     * 
-     * @return type
+     * Ajouter un paramètre.
+     *
+     * @return Response
      */
     public function addSettingsAction()
     {
@@ -119,15 +117,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $settings = new Settings();
-        
+
         $form = $this->createForm(new SettingsType(), $settings);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -150,15 +155,13 @@ class SettingsController extends Controller
 
                 // On redirige vers la page de visualisation
                 // des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_application'));
+                return $this->redirect(
+                    $this->generateUrl(
+                        'glstock_application'
+                    )
+                );
             }
         }
-
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -167,14 +170,14 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editSettingsAction Modifier les paramètres de base de l'application
-     * 
+     * Modifier les paramètres de base de l'application.
+     *
      * @param \Glsr\GestockBundle\Entity\Settings $settings
      * Objet de l'entité Settings à modifier
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function editSettingsAction(Settings $settings)
     {
@@ -182,10 +185,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new SettingsType(), $settings);
@@ -206,23 +216,27 @@ class SettingsController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Configuration bien modifié');
 
-                return $this->redirect($this->generateUrl('glstock_application'));
+                return $this->redirect(
+                    $this->generateUrl(
+                        'glstock_application'
+                    )
+                );
             }
         }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-            'form'    => $form->createView(),
-            'settings' => $settings
+            'form' => $form->createView(),
+            'settings' => $settings,
             )
         );
     }
 
     /**
-     * addCompanyAction crée les données de l'entreprise
-     * 
-     * @return type
+     * Crée les données de l'entreprise.
+     *
+     * @return Response
      */
     public function addCompanyAction()
     {
@@ -230,15 +244,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $company = new Company();
-        
+
         $form = $this->createForm(new CompanyType(), $company);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -265,12 +286,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -278,12 +293,12 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editCompanyAction Modifier l'entreprise
-     * 
-     * @param \Glsr\GestockBundle\Entity\Company $company Entreprise à modifier
-     * 
+     * Modifier l'entreprise.
+     *
+     * @param Company $company Entreprise à modifier
+     *
      * @return type
      */
     public function editCompanyAction(Company $company)
@@ -292,10 +307,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new CompanyType(), $company);
@@ -323,16 +345,16 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'company' => $company
+                'form' => $form->createView(),
+                'company' => $company,
             )
         );
     }
 
     /**
-     * addFamilyLogAction Ajouter une famille logistique
-     * 
-     * @return type
+     * Ajouter une famille logistique.
+     *
+     * @return Response
      */
     public function addFamilyLogAction()
     {
@@ -340,15 +362,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $familyLog = new FamilyLog();
-        
+
         $form = $this->createForm(new FamilyLogType(), $familyLog);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -375,12 +404,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -388,13 +411,12 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editFamilyLogAction Modifier une famille logistique
-     * 
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog
-     * Objet famille logistique à modifier
-     * 
+     * editFamilyLogAction Modifier une famille logistique.
+     *
+     * @param FamilyLog $familyLog Objet famille logistique à modifier
+     *
      * @return type
      */
     public function editFamilyLogAction(FamilyLog $familyLog)
@@ -403,10 +425,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new FamilyLogType(), $familyLog);
@@ -434,16 +463,16 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'familylog' => $familyLog
+                'form' => $form->createView(),
+                'familylog' => $familyLog,
             )
         );
     }
 
     /**
-     * addSubFamilyLogAction Ajouter une sous-famille logistique
-     * 
-     * @return type
+     * Ajouter une sous-famille logistique.
+     *
+     * @return Response
      */
     public function addSubFamilyLogAction()
     {
@@ -451,15 +480,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $subFamilyLog = new SubFamilyLog();
-        
+
         $form = $this->createForm(new SubFamilyLogType(), $subFamilyLog);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -486,12 +522,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -499,13 +529,12 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editSubFamilyLogAction Modifier une sous-famille logistique
-     * 
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog
-     * Objet sous-famille logistique à modifier
-     * 
+     * Modifier une sous-famille logistique.
+     *
+     * @param SubFamilyLog $subFamilyLog Objet subfamily logistique à modifier
+     *
      * @return type
      */
     public function editSubFamilyLogAction(SubFamilyLog $subFamilyLog)
@@ -514,10 +543,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new SubFamilyLogType(), $subFamilyLog);
@@ -545,16 +581,16 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'subfamilylog' => $subFamilyLog
+                'form' => $form->createView(),
+                'subfamilylog' => $subFamilyLog,
             )
         );
     }
 
     /**
-     * addZoneStorageAction Ajouter une zone de stockage
-     * 
-     * @return type
+     * Ajouter une zone de stockage.
+     *
+     * @return Response
      */
     public function addZoneStorageAction()
     {
@@ -562,15 +598,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $zoneStorage = new ZoneStorage();
-        
+
         $form = $this->createForm(new ZoneStorageType(), $zoneStorage);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -597,12 +640,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -610,14 +647,13 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editZoneStorageAction Modifier une zone de stockage
-     * 
-     * @param \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorage
-     * Objet zone de stockage à modifier
-     * 
-     * @return type
+     * Modifier une zone de stockage.
+     *
+     * @param ZoneStorage $zoneStorage Objet zone de stockage à modifier
+     *
+     * @return Response
      */
     public function editZoneStorageAction(ZoneStorage $zoneStorage)
     {
@@ -625,10 +661,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new ZoneStorageType(), $zoneStorage);
@@ -656,16 +699,16 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'zonestorage' => $zoneStorage
+                'form' => $form->createView(),
+                'zonestorage' => $zoneStorage,
             )
         );
     }
-    
+
     /**
-     * addUnitStorageAction Ajouter une unité de stockage
-     * 
-     * @return type
+     * Ajouter une unité de stockage.
+     *
+     * @return Response
      */
     public function addUnitStorageAction()
     {
@@ -673,15 +716,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $unitStorage = new UnitStorage();
-        
+
         $form = $this->createForm(new UnitStorageType(), $unitStorage);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -708,12 +758,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -721,14 +765,13 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editUnitStorageAction Modifier une unité de stockage
-     * 
-     * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage
-     * Objet unité de stockage à modifier
-     * 
-     * @return type
+     * Modifier une unité de stockage.
+     *
+     * @param UnitStorage $unitStorage Objet unité de stockage à modifier
+     *
+     * @return Response
      */
     public function editUnitStorageAction(UnitStorage $unitStorage)
     {
@@ -736,10 +779,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new UnitStorageType(), $unitStorage);
@@ -767,16 +817,16 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'unitstorage' => $unitStorage
+                'form' => $form->createView(),
+                'unitstorage' => $unitStorage,
             )
         );
     }
-    
+
     /**
-     * addTvaAction Ajouter une TVA
-     * 
-     * @return type
+     * Ajouter une TVA.
+     *
+     * @return Response
      */
     public function addTvaAction()
     {
@@ -784,15 +834,22 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $tva = new Tva();
-        
+
         $form = $this->createForm(new TvaType(), $tva);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -819,12 +876,6 @@ class SettingsController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
@@ -832,13 +883,13 @@ class SettingsController extends Controller
             )
         );
     }
-    
+
     /**
-     * editTvaAction Modifier une TVA
-     * 
-     * @param \Glsr\GestockBundle\Entity\Tva $tva objet TVA à modifier
-     * 
-     * @return type
+     * Modifier une TVA.
+     *
+     * @param Tva $tva objet TVA à modifier
+     *
+     * @return Response
      */
     public function editTvaAction(Tva $tva)
     {
@@ -846,10 +897,17 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On utilise le SettingsType
         $form = $this->createForm(new TvaType(), $tva);
@@ -877,8 +935,8 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
-                'tva' => $tva
+                'form' => $form->createView(),
+                'tva' => $tva,
             )
         );
     }

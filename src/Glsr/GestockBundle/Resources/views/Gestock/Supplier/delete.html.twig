@@ -5,17 +5,17 @@
 {% block title %}
     {{ 'glsr.gestock.supplier.delete.title'|trans }} - {{ parent() }}
 {% endblock %}
-    
+
 {% block body_title %}
     {{ 'glsr.gestock.supplier.delete.title'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
-    
+
     <p class="alert alert-warning">
         {{ 'glsr.gestock.supplier.delete.caution'|trans({'%supplier.name%': supplier.name})|nl2br }}
     </p>
-    
+
     {# On met l'id de l'supplier dans la route de l'action du formulaire #}
     <form action="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" method="post">
         <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}" class="btn btn-default" role="button">
@@ -25,5 +25,5 @@
         <input type="submit" value="{{ 'glsr.gestock.supplier.delete.submit_button'|trans }}" class="btn btn-default btn-danger" />
         {{ form_rest(form) }}
     </form>
-    
+
 {% endblock %}

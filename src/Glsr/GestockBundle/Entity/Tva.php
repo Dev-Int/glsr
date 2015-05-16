@@ -1,27 +1,26 @@
 <?php
 
 /**
- * Tva Entité Tva
- * 
+ * Tva Entité Tva.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: e6aa22c616ccc10884c67779f7d35806ca4a8be8
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tva Entité Tva
- * 
+ * Tva Entité Tva.
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Settings
  *
  * @ORM\Table(name="gs_tva")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\TvaRepository")
@@ -29,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Tva
 {
     /**
-     * @var integer $idTva Id du taux de TVA
+     * @var int Id du taux de TVA
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,17 +37,16 @@ class Tva
     private $idTva;
 
     /**
-     * @var decimal $name Taux de TVA
+     * @var decimal Taux de TVA
      *
      * @ORM\Column(name="name", type="decimal", precision=5, scale=3)
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -56,10 +54,10 @@ class Tva
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param decimal $name Taux de TVA
-     * 
+     *
      * @return tva
      */
     public function setName($name)
@@ -70,13 +68,12 @@ class Tva
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-
 }

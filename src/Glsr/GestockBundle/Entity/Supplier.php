@@ -1,30 +1,31 @@
 <?php
 
 /**
- * Supplier Entité Supplier
- * 
+ * Supplier Entité Supplier.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Glsr\GestockBundle\Entity\FamilyLog;
+use Glsr\GestockBundle\Entity\SubFamilyLog;
 
 /**
- * Supplier Entité Supplier
- * 
+ * Supplier Entité Supplier.
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Supplier
  *
  * @ORM\Table(name="gs_supplier")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SupplierRepository")
@@ -36,7 +37,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Supplier
 {
     /**
-     * @var integer $idUp id du fournisseur
+     * @var int id du fournisseur
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -45,7 +46,7 @@ class Supplier
     private $idSup;
 
     /**
-     * @var string $name Nom du fournisseur
+     * @var string Nom du fournisseur
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\Regex(pattern="'^[A-Z]'",
@@ -57,7 +58,7 @@ class Supplier
     private $name;
 
     /**
-     * @var string $address Adresse du fournisseur
+     * @var string Adresse du fournisseur
      *
      * @ORM\Column(name="address", type="string", length=255)
      * @Assert\Regex("'[\w]'")
@@ -66,7 +67,7 @@ class Supplier
     private $address;
 
     /**
-     * @var integer $zipcode Code postal
+     * @var int Code postal
      *
      * @ORM\Column(name="zipcode", type="integer", length=5)
      * @Assert\Regex(pattern="'^[0-9]{5}$'",
@@ -76,7 +77,7 @@ class Supplier
     private $zipcode;
 
     /**
-     * @var string $town Ville
+     * @var string Ville
      *
      * @ORM\Column(name="town", type="string", length=255)
      * @Assert\Regex(
@@ -88,7 +89,7 @@ class Supplier
     private $town;
 
     /**
-     * @var phone_number $phone Téléphone du fournisseur
+     * @var phone_number Téléphone du fournisseur
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -97,7 +98,7 @@ class Supplier
     private $phone;
 
     /**
-     * @var phone_number $fax Fax du fournisseur
+     * @var phone_number Fax du fournisseur
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
@@ -106,7 +107,7 @@ class Supplier
     private $fax;
 
     /**
-     * @var string $email email du fournisseur
+     * @var string email du fournisseur
      *
      * @ORM\Column(name="email", type="string", length=255)
      * @Assert\NotBlank()
@@ -118,7 +119,7 @@ class Supplier
     private $email;
 
     /**
-     * @var string $contact Contact chez le fournisseur
+     * @var string Contact chez le fournisseur
      *
      * @ORM\Column(name="contact", type="string", length=50)
      * @Assert\NotBlank()
@@ -139,21 +140,21 @@ class Supplier
     private $gsm;
 
     /**
-     * @var string $family_log Famille logistique
+     * @var string Famille logistique
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
      * @Assert\NotBlank()
      */
     private $family_log;
 
     /**
-     * @var string $sub_family_log Sous-famille logistique
-     * 
+     * @var string Sous-famille logistique
+     *
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\SubFamilyLog")
      */
     private $sub_family_log;
 
     /**
-     * @var integer $delayliv Délai de livraison
+     * @var int Délai de livraison
      *
      * @ORM\Column(name="delaydeliv", type="smallint")
      * @Assert\Length(
@@ -165,7 +166,7 @@ class Supplier
     private $delaydeliv;
 
     /**
-     * @var array $orderdate Tableau des jours de commande
+     * @var array Tableau des jours de commande
      *
      * @ORM\Column(name="orderdate", type="simple_array")
      * @Assert\NotBlank(message="Il vous faut choisir au moins 1 date de commande.")
@@ -173,24 +174,24 @@ class Supplier
     private $orderdate;
 
     /**
-     * @var boolean $ative Activé/Désactivé
+     * @var bool Activé/Désactivé
      *
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
-     * __construct
+     * __construct.
      */
     public function __construct()
     {
         $this->active = true;
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -198,10 +199,10 @@ class Supplier
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name Nom du fournisseur
-     * 
+     *
      * @return Supplier
      */
     public function setName($name)
@@ -212,9 +213,9 @@ class Supplier
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -222,10 +223,10 @@ class Supplier
     }
 
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address Adresse
-     * 
+     *
      * @return Supplier
      */
     public function setAddress($address)
@@ -236,9 +237,9 @@ class Supplier
     }
 
     /**
-     * Get address
+     * Get address.
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -246,10 +247,10 @@ class Supplier
     }
 
     /**
-     * Set zipcode
+     * Set zipcode.
      *
-     * @param integer $zipcode Code postal
-     * 
+     * @param int $zipcode Code postal
+     *
      * @return Supplier
      */
     public function setZipcode($zipcode)
@@ -260,9 +261,9 @@ class Supplier
     }
 
     /**
-     * Get zipcode
+     * Get zipcode.
      *
-     * @return integer 
+     * @return int
      */
     public function getZipcode()
     {
@@ -270,10 +271,10 @@ class Supplier
     }
 
     /**
-     * Set town
+     * Set town.
      *
      * @param string $town Ville
-     * 
+     *
      * @return Supplier
      */
     public function setTown($town)
@@ -284,9 +285,9 @@ class Supplier
     }
 
     /**
-     * Get town
+     * Get town.
      *
-     * @return string 
+     * @return string
      */
     public function getTown()
     {
@@ -294,10 +295,10 @@ class Supplier
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone Téléphone
-     * 
+     *
      * @return Supplier
      */
     public function setPhone($phone)
@@ -308,9 +309,9 @@ class Supplier
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -318,10 +319,10 @@ class Supplier
     }
 
     /**
-     * Set fax
+     * Set fax.
      *
      * @param string $fax Fax
-     * 
+     *
      * @return Supplier
      */
     public function setFax($fax)
@@ -332,9 +333,9 @@ class Supplier
     }
 
     /**
-     * Get fax
+     * Get fax.
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -342,10 +343,10 @@ class Supplier
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email Adresse Email
-     * 
+     *
      * @return Supplier
      */
     public function setEmail($email)
@@ -356,9 +357,9 @@ class Supplier
     }
 
     /**
-     * Get email
+     * Get email.
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -366,10 +367,10 @@ class Supplier
     }
 
     /**
-     * Set contact
+     * Set contact.
      *
      * @param string $contact Nom du contact
-     * 
+     *
      * @return Supplier
      */
     public function setContact($contact)
@@ -380,9 +381,9 @@ class Supplier
     }
 
     /**
-     * Get contact
+     * Get contact.
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -390,10 +391,10 @@ class Supplier
     }
 
     /**
-     * Set gsm
+     * Set gsm.
      *
      * @param string $gsm Téléphone du contact
-     * 
+     *
      * @return Supplier
      */
     public function setGsm($gsm)
@@ -404,9 +405,9 @@ class Supplier
     }
 
     /**
-     * Get gsm
+     * Get gsm.
      *
-     * @return string 
+     * @return string
      */
     public function getGsm()
     {
@@ -414,10 +415,10 @@ class Supplier
     }
 
     /**
-     * Set delaydeliv
+     * Set delaydeliv.
      *
-     * @param integer $delaydeliv Délai de livraison
-     * 
+     * @param int $delaydeliv Délai de livraison
+     *
      * @return Supplier
      */
     public function setDelaydeliv($delaydeliv)
@@ -428,9 +429,9 @@ class Supplier
     }
 
     /**
-     * Get delaydeliv
+     * Get delaydeliv.
      *
-     * @return integer 
+     * @return int
      */
     public function getDelaydeliv()
     {
@@ -438,10 +439,10 @@ class Supplier
     }
 
     /**
-     * Set orderdate
+     * Set orderdate.
      *
      * @param array $orderdate Jour(s) de commande
-     * 
+     *
      * @return Supplier
      */
     public function setOrderdate($orderdate)
@@ -452,9 +453,9 @@ class Supplier
     }
 
     /**
-     * Get orderdate
+     * Get orderdate.
      *
-     * @return array 
+     * @return array
      */
     public function getOrderdate()
     {
@@ -462,24 +463,23 @@ class Supplier
     }
 
     /**
-     * Set family_log
+     * Set family_log.
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog Famille logistique
-     * 
+     * @param FamilyLog $familyLog Famille logistique
+     *
      * @return Supplier
      */
-    public function setFamilyLog(
-        \Glsr\GestockBundle\Entity\FamilyLog $familyLog = null
-    ) {
+    public function setFamilyLog(FamilyLog $familyLog = null)
+    {
         $this->family_log = $familyLog;
 
         return $this;
     }
 
     /**
-     * Get family_log
+     * Get family_log.
      *
-     * @return \Glsr\GestockBundle\Entity\FamilyLog 
+     * @return FamilyLog
      */
     public function getFamilyLog()
     {
@@ -487,38 +487,36 @@ class Supplier
     }
 
     /**
-     * Set sub_family_log
+     * Set sub_family_log.
      *
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog 
-     *     $subFamilyLog Sous-famille logistique
-     * 
+     * @param SubFamilyLog $subFamilyLog Sous-famille logistique
+     *
      * @return Supplier
      */
-    public function setSubFamilyLog(
-        \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null
-    ) {
+    public function setSubFamilyLog(SubFamilyLog $subFamilyLog = null)
+    {
         $this->sub_family_log = $subFamilyLog;
 
         return $this;
     }
 
     /**
-     * Get sub_family_log
+     * Get sub_family_log.
      *
-     * @return \Glsr\GestockBundle\Entity\SubFamilyLog 
+     * @return SubFamilyLog
      */
     public function getSubFamilyLog()
     {
         return $this->sub_family_log;
     }
-    
+
     /**
      * Cette méthode permet de faire "echo $supplier".
-     * <p>Ainsi, pour "afficher" $supplier, 
+     * <p>Ainsi, pour "afficher" $supplier,
      * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $supplier" 
-     * est équivalent à "echo $supplier->getName()"</p>
-     * 
+     * Ici, le nom, donc "echo $supplier"
+     * est équivalent à "echo $supplier->getName()"</p>.
+     *
      * @return string name
      */
     public function __toString()
@@ -527,10 +525,10 @@ class Supplier
     }
 
     /**
-     * Set active
+     * Set active.
      *
-     * @param boolean $active Activé/Désactivé
-     * 
+     * @param bool $active Activé/Désactivé
+     *
      * @return Supplier
      */
     public function setActive($active)
@@ -541,9 +539,9 @@ class Supplier
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function isActive()
     {

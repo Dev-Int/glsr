@@ -1,29 +1,28 @@
 <?php
 
 /**
- * UnitStorage Entité UnitStorage
- * 
+ * UnitStorage Entité UnitStorage.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 76be3685d475a2e2d7289ef39832d65414e9ba6d
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UnitStorage Entité UnitStorage
- * 
+ * UnitStorage Entité UnitStorage.
+ *
  * PHP Version 5
- * 
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Settings
  *
  * @ORM\Table(name="gs_unitstorage")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\UnitStorageRepository")
@@ -31,7 +30,7 @@ use Doctrine\ORM\Mapping as ORM;
 class UnitStorage
 {
     /**
-     * @var integer $idUStor Id de l'unité de stockage
+     * @var int Id de l'unité de stockage
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,24 +39,23 @@ class UnitStorage
     private $idUStor;
 
     /**
-     * @var string $name Nom de l'unité de stockage
+     * @var string Nom de l'unité de stockage
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
-     * @var string $abbr Abbréviation de l'unité de stockage
-     * 
+     * @var string Abbréviation de l'unité de stockage
+     *
      * @ORM\Column(name="abbr", type="string", length=50)
      */
     private $abbr;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -65,10 +63,10 @@ class UnitStorage
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name Nom de l'unité de stockage
-     * 
+     *
      * @return UnitStorage
      */
     public function setName($name)
@@ -79,9 +77,9 @@ class UnitStorage
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -89,10 +87,10 @@ class UnitStorage
     }
 
     /**
-     * Set abbr
+     * Set abbr.
      *
      * @param string $abbr Abbréviation de l'unité de stockage
-     * 
+     *
      * @return UnitStorage
      */
     public function setAbbr($abbr)
@@ -103,22 +101,22 @@ class UnitStorage
     }
 
     /**
-     * Get abbr
+     * Get abbr.
      *
-     * @return string 
+     * @return string
      */
     public function getAbbr()
     {
         return $this->abbr;
     }
-    
+
     /**
      * Cette méthode permet de faire "echo $unitStorage".
-     * <p>Ainsi, pour "afficher" $unitStorage, 
+     * <p>Ainsi, pour "afficher" $unitStorage,
      * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $unitStorage" 
-     * est équivalent à "echo $unitStorage->getName()"</p>
-     * 
+     * Ici, le nom, donc "echo $unitStorage"
+     * est équivalent à "echo $unitStorage->getName()"</p>.
+     *
      * @return string name
      */
     public function __toString()

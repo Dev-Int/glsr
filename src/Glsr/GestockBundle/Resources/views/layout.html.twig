@@ -8,7 +8,7 @@
 {% block header %}
     <div class="page-header">
         <h1>
-            <span class="glyphicon glyphicon-cutlery"></span> 
+            <span class="glyphicon glyphicon-cutlery"></span>
             {{ 'glsr.title'|trans }} <small>{{ 'glsr.subtitle'|trans }}</small>
             <small class="pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -20,8 +20,8 @@
         </h1>
     </div>
 {% endblock %}
-    
-    
+
+
 {#{% block menu_bundle %}
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li {% if app.request.attributes.get('_route') == 'glstock_home' %}class="active"{% endif %}>
@@ -85,7 +85,7 @@
 
         </li>
         {% set settings = ['glstock_company', 'glstock_company_add', 'glstock_company_edit',
-                            'glstock_application', 'glstock_application_add', 'glstock_application_edit', 
+                            'glstock_application', 'glstock_application_add', 'glstock_application_edit',
                             'glstock_divers', 'glstock_divers_add', 'glstock_divers_edit'] %}
         <li {% if app.request.attributes.get('_route') in settings %}
             class="active dropdown"
@@ -117,7 +117,7 @@
 {% block body %}
     {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
     <h1>{{ 'glsr.gestock.title'|trans }} - <small>{% block body_title %}{% endblock %}</small></h1>
-    
+
     <hr />
     {% for message in app.session.flashbag.get('info') %}
         <p class="alert alert-info">{{ message|trans|nl2br }}</p>

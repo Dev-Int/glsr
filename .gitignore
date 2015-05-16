@@ -9,3 +9,4 @@ composer.phar
 /app/phpunit.xml
 /web/js/
 /web/css/
+/web/pdf/

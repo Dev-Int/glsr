@@ -1,41 +1,39 @@
 <?php
 
 /**
- * SupplierType Form properties
- * 
+ * SupplierType Form properties.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: f912c90cc23014686059cf730526a2874e826553
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
 use libphonenumber\PhoneNumberFormat;
 
 /**
- * SupplierType Form properties
- * 
+ * SupplierType Form properties.
+ *
  * @category   Form
- * @package    Gestock
- * @subpackage Supplier
  */
 class SupplierType extends AbstractType
 {
     /**
-     * buildForm
-     * 
+     * buildForm.
+     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
-     * 
-     * @return Form                $form    Formulaire
+     *
+     * @return Form $form    Formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -49,7 +47,7 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
@@ -57,7 +55,7 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add('email', 'email')
@@ -67,7 +65,7 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
@@ -79,8 +77,8 @@ class SupplierType extends AbstractType
                         1 => 'A pour B',
                         2 => 'A pour C',
                         3 => 'A pour D',
-                        4 => 'A pour E'
-                    )
+                        4 => 'A pour E',
+                    ),
                 )
             )
             // Choix du jour de la semaine pour les Cmdes
@@ -98,47 +96,47 @@ class SupplierType extends AbstractType
                         7 => 'Dimanche',
                     ),
                     'expanded' => true,
-                    'multiple' => true
+                    'multiple' => true,
                 )
             )
             ->add(
                 'family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:FamilyLog',
+                    'class' => 'GlsrGestockBundle:FamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Family',
-                    'empty_data' => null
+                    'empty_data' => null,
                 )
             )
             ->add(
                 'sub_family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:SubFamilyLog',
+                    'class' => 'GlsrGestockBundle:SubFamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'required' => false,
                     'empty_value' => 'Choice the Sub Family',
-                    'empty_data' => null
+                    'empty_data' => null,
                 )
             )
             ->add('active', 'hidden');
     }
-    
+
     /**
      * Sets the default options for this type.
      *
      * @param OptionsResolverInterface $resolver The resolver for the options.
-     * 
+     *
      * @return array DefaultOption
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\Supplier'
+                'data_class' => 'Glsr\GestockBundle\Entity\Supplier',
             )
         );
     }

@@ -1,0 +1,124 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Inventory\form.html.twig #}
+{% set lastloop = 0 %}
+<form method="post" {{ form_enctype(form) }} class="form-inline" role='form'>
+    {{ form_errors(form) }}
+    <fieldset><legend>{{ 'glsr.gestock.article.settings.information'|trans }}</legend>
+        {% for item in form.vars.value %}
+            {% if loop.index == 1 %}
+        <div class="col-lg-5 form-group">
+            <label for="{{ form.vars.id }}">{{ 'glsr.gestock.inventory.seizure.item'|trans }}</label>&nbsp;
+                <input type="text" size="11" disabled="disabled" {% if item.inventory.id is not empty %}value="{{ item.inventory.id }}" {% endif %}/>
+        </div>
+        <div class="col-lg-7 form-group">
+            <label for="{{ form.vars.id }}">{{ 'glsr.gestock.date'|trans }}</label>&nbsp;
+            <input type="text" size="20" disabled="disabled" {% if item.inventory.date is not empty %}value="{{ item.inventory.date|date("l d F Y") }}" {% endif %}/>
+        </div>
+            {% endif %}
+        {% endfor %}
+    </fieldset>
+    <fieldset><legend>{{ 'glsr.gestock.details'|trans }}</legend>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-lg-5">{{ 'glsr.gestock.title_item'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.article.settings.theoretical_stock'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.article.settings.real_stock'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.article.settings.packaging'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.article.settings.price'|trans }}</th>
+                    <th class="col-lg-2">{{ 'glsr.gestock.inventory.seizure.total'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in form.vars.value %}
+                <tr>
+                    <td>
+                        <input type="hidden" id="{{ form.id.vars.id }}_{{ loop.index }}" name="{{ form.id.vars.full_name }}[]" value="{{ item.id }}" />
+                        <input type="hidden" id="{{ form.inventory.vars.id }}_{{ loop.index }}" name="{{ form.inventory.vars.full_name }}[]" value="{{ item.inventory.id }}" />
+                        <input type="hidden" id="{{ form.articles.vars.id }}_{{ loop.index }}" name="{{ form.articles.vars.full_name }}[]" {% if item.articles.id is not empty %}value="{{ item.articles.id }}" {% endif %}/>
+                        {{ item.articles.name }}
+                    </td>
+                    <td>
+                        <input type="text" size="10" disabled="disabled" {% if item.articles.quantity is not empty %}value="{{ item.articles.quantity }}" {% endif %}/>
+                    </td>
+                    <td>
+                        <input type="text" id="{{ form.realstock.vars.id }}_{{ loop.index }}" name="{{ form.realstock.vars.full_name }}[]" size="10" onfocus="value='';" onChange="realstockcalcul({{ loop.index }});" {% if item.realstock is not empty %}value="{{ item.realstock }}"{% else %}value="{{ '0'|number_format(3, ',', ' ') }}"{% endif %}  />
+                    </td>
+                    <td>{{ item.articles.unitStorage }}</td>
+                    <td>{{ item.articles.packaging }}</td>
+                    <td>
+                        <input type="hidden" id="{{ form.vars.id }}_price_{{ loop.index }}" value="{{ item.articles.price }}" />
+                        {{ item.articles.price }} €
+                    </td>
+                    <td>
+                        <input type="text" id="{{ form.total.vars.id }}_{{ loop.index }}" name="{{ form.total.vars.full_name }}[]" size="10" {% if item.realstock is not empty %}value="{{ (item.realstock * item.articles.price)|number_format(3, ',', ' ') }}"{% else %}value="{{ (0 * item.articles.price)|number_format(3, ',', ' ') }}" {% endif %} {{ form.total.vars.read_only ? 'readonly' : '' }} /> €
+                    </td>
+                </tr>
+                {% set lastloop = loop.index %}
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">{{ 'glsr.gestock.inventory.seizure.totals'|trans }}</td>
+                    <td>
+                        <input type="text" id="{{ form.vars.id }}_inventory_amount" name="{{ form.vars.full_name }}[inventory_amount]" size="10" value="" readonly /> €
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+    <input type="hidden" id="{{ form._token.vars.id }}" name="{{ form._token.vars.full_name }}" {% if form._token.vars.value is not empty %}value="{{ form._token.vars.value }}" {% endif %}/>
+    <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
+    <p>&nbsp;</p>
+</form>
+<p>
+    <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">
+         <i class="glyphicon glyphicon-chevron-left"></i>
+         {{ 'glsr.gestock.home.return'|trans }}
+    </a>&nbsp;
+    <a href="{{ path('glstock_inventory') }}" class="btn btn-default" role="button">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        {{ 'glsr.gestock.cancel'|trans }}
+    </a>
+</p>
+
+{# S'il y a plus d'une page, on affiche la liste des pages #}
+{#    {% if nb_page > 1 %}
+    <nav class="text-center">
+        <ul class="pagination">
+            {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
+{#                <li {% if page == 1 %}class="disabled"{% endif %}>
+                <a href="{{ path('glstock_inventory_entry', {'page': 1}) }}">&laquo;</a>
+            </li>
+            {% for p in range(1, nb_page) %}
+                <li {% if p == page %} class="active" {% endif %}>
+                    <a href="{{ path('glstock_inventory_entry', {'page': p}) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            <li {% if page == nb_page %}class="disabled"{% endif %}>
+                <a href="{{ path('glstock_inventory_entry', {'page': nb_page}) }}">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+{% endif %}#}
+
+<script type="text/javascript">
+function realstockcalcul(id){
+    var realstock = $('#{{ form.realstock.vars.id }}_' + id).val();
+    var price     = $('#{{ form.vars.id }}_price_' + id).val();
+    var total = realstock * price;
+    $('#{{ form.vars.id }}_total_' + id).val(total.toFixed(3));
+
+    var totals = 0;
+    for (var iter = 1; iter <= {{ lastloop }}; iter++) {
+        if(isNaN($('#{{ form.vars.id }}_total_' + iter).val())) {
+            total = 0;
+        } else {
+            total = $('#{{ form.vars.id }}_total_' + iter).val();
+        }
+        totals = Number(totals) + Number(total);
+    }
+    $('#{{ form.vars.id }}_inventory_amount').val(totals.toFixed(3));
+}
+
+</script>

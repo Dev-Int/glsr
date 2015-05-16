@@ -1,41 +1,39 @@
 <?php
 
 /**
- * CompanyType Form properties
- * 
+ * CompanyType Form properties.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
 use libphonenumber\PhoneNumberFormat;
 
 /**
- * CompanyType Form properties
- * 
+ * CompanyType Form properties.
+ *
  * @category   Form
- * @package    Gestock
- * @subpackage Company
  */
 class CompanyType extends AbstractType
 {
     /**
-     * buildForm
-     * 
+     * buildForm.
+     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
-     * 
-     * @return Form                $form    Formulaire
+     *
+     * @return Form $form    Formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -50,7 +48,7 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
@@ -58,14 +56,14 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
                 'mail',
                 'email',
                 array(
-                    'trim' => true
+                    'trim' => true,
                 )
             )
             ->add('contact', 'text')
@@ -74,23 +72,23 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             );
     }
-    
+
     /**
      * Sets the default options for this type.
      *
      * @param OptionsResolverInterface $resolver The resolver for the options.
-     * 
+     *
      * @return array DefaultOption
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\Company'
+                'data_class' => 'Glsr\GestockBundle\Entity\Company',
             )
         );
     }

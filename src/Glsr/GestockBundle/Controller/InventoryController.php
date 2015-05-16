@@ -1,30 +1,29 @@
 <?php
+
 /**
- * controller de l'entité Inventory
- * 
+ * controller de l'entité Inventory.
+ *
  * PHP Version 5
- * 
+ *
  * @author    Quétier Laurent <lq@dev-int.net>
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version   GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ *
  * @link      https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Glsr\GestockBundle\Entity\Inventory;
 use Glsr\GestockBundle\Form\InventoryArticlesType;
 use Glsr\GestockBundle\Entity\InventoryArticles;
 
 /**
- * class InventoryController
- * 
+ * class InventoryController.
+ *
  * @category   Controller
- * @package    Gestock
- * @subpackage Inventory
  */
 class InventoryController extends Controller
 {
@@ -44,9 +43,9 @@ class InventoryController extends Controller
             array('inventory' => $inventory)
         );
     }
-    
+
     /**
-     * Afficher l'inventaire sélectionné
+     * Afficher l'inventaire sélectionné.
      *
      * @param Inventory $inventory L'inventaire à afficher
      *
@@ -59,9 +58,9 @@ class InventoryController extends Controller
             array('inventory' => $inventory)
         );
     }
-    
+
     /**
-     * Préparer l'inventaire
+     * Préparer l'inventaire.
      *
      * Enregistrement de l'inventaire et création du fichier pdf
      *
@@ -70,7 +69,7 @@ class InventoryController extends Controller
     public function prepareAction()
     {
         $etm = $this->getDoctrine()->getManager();
-        
+
         $listarticles = $etm->getRepository('GlsrGestockBundle:Article')
             ->findAll();
         $zoneStorages = $etm->getRepository('GlsrGestockBundle:Zonestorage')
@@ -85,7 +84,7 @@ class InventoryController extends Controller
             mkdir('pdf');
         }
         $file = 'pdf/prepare.pdf';
-        $datePdf = (string)$daydate->format('d-m-Y');
+        $datePdf = (string) $daydate->format('d-m-Y');
 
         //Vérification de l'existance du fichier de même date
         if (!file_exists($file) || empty($inventory)) {
@@ -95,11 +94,11 @@ class InventoryController extends Controller
                     $this->renderView(
                         'GlsrGestockBundle:Gestock/Inventory:list.pdf.twig',
                         array(
-                            'articles'    => $listarticles,
+                            'articles' => $listarticles,
                             'zonestorage' => $zoneStorages,
-                            'daydate'     => $daydate
+                            'daydate' => $daydate,
                         )
-                    ), 
+                    ),
                     $file,
                     array(
                         'margin-top' => 15,
@@ -113,8 +112,8 @@ class InventoryController extends Controller
                         'footer-spacing' => 5,
                         'footer-font-size' => 8,
                         'footer-left' => 'GLSR &copy 2014 and beyond.',
-                        'footer-right' => "Page [page]/[toPage]",
-                        'footer-line' => true
+                        'footer-right' => 'Page [page]/[toPage]',
+                        'footer-line' => true,
                     )
                 );
             // Créer l'inventaire avec la date du jour,
@@ -127,14 +126,14 @@ class InventoryController extends Controller
 
             // Pour chaque article
             foreach ($listarticles as $article) {
-              $inventoryArticles = new InventoryArticles();
-              $inventoryArticles->setInventory($newInventory);
-              $inventoryArticles->setArticles($article);
-              $inventoryArticles->setRealstock(0);
-              $inventoryArticles->setTotal(0);
-              $etm->persist($inventoryArticles);
+                $inventoryArticles = new InventoryArticles();
+                $inventoryArticles->setInventory($newInventory);
+                $inventoryArticles->setArticles($article);
+                $inventoryArticles->setRealstock(0);
+                $inventoryArticles->setTotal(0);
+                $etm->persist($inventoryArticles);
             }
-            
+
             $etm->flush();
             // On définit un message flash
             $this->get('session')
@@ -144,8 +143,8 @@ class InventoryController extends Controller
                     'glsr.gestock.inventory.prepare.add'
                 );
 
-            //    Si Settings:firstInventory == null 
-            //    Settings:firstInventory = Invetory:date 
+            //    Si Settings:firstInventory == null
+            //    Settings:firstInventory = Invetory:date
             if (empty($inventory) and $settings->getFirstInventory(null)) {
                 $settings->setFirstInventory($daydate);
                 $etm->persist($settings);
@@ -156,29 +155,30 @@ class InventoryController extends Controller
             $this->get('session')
                 ->getFlashBag()
                 ->add(
-                    'info', 
+                    'info',
                     array('glsr.gestock.inventory.prepare.still_exist_pdf')
                 );
         }
-        
+
         // Retour à la page Inventaire:index
         return $this->redirect($this->generateUrl('glstock_inventory'));
     }
-    
+
     /**
-     * Annuler l'inventaire en cours
+     * Annuler l'inventaire en cours.
      *
      * @param Inventory $inventory
+     *
      * @return RedirectResponse Retour index Inventory
      */
     public function cancelAction(Inventory $inventory)
     {
         $form = $this->createFormBuilder()->getForm();
-        
+
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
-            
+
             if ($form->isValid()) {
                 $etm = $this->getDoctrine()->getManager();
                 $inventory->isActive(0);
@@ -186,7 +186,7 @@ class InventoryController extends Controller
                 $inventory->setFile(null);
                 $etm->persist($inventory);
                 $etm->flush();
-                
+
                 $this->get('session')
                     ->getFlashBag()
                     ->add('info', 'glsr.gestock.inventory.cancel.ok');
@@ -203,16 +203,16 @@ class InventoryController extends Controller
             'GlsrGestockBundle:Gestock/Inventory:cancel.html.twig',
             array(
                 'inventory' => $inventory,
-                'form'    => $form->createView()
+                'form' => $form->createView(),
                 )
         );
-        
     }
-    
+
     /**
-     * Saisie de l'inventaire
+     * Saisie de l'inventaire.
      *
      * @param Inventory $inventory Inventaire sélectionné
+     *
      * @return Response
      */
     public function entryAction(Inventory $inventory)
@@ -243,7 +243,7 @@ class InventoryController extends Controller
             // On enregistre l'objet $inventory dans la base de données
             $inventory->setAmount($inventoryAmount);
             $etm->persist($inventory);
-            $etm->flush();                
+            $etm->flush();
 
             foreach ($form->getData() as $item) {
                 var_dump($item);
@@ -255,7 +255,7 @@ class InventoryController extends Controller
 //                        $artInventory->getId($inventory->id);
 //                        $artInventory->setRealstock($realstock[$i]);
                         $etm->persist($item);
-                        $etm->flush();
+                $etm->flush();
 //                    }
 //                }
             }
@@ -278,15 +278,15 @@ class InventoryController extends Controller
     }
 
     /**
-     * Gestion des écarts de stock
+     * Gestion des écarts de stock.
      */
     public function differencesStockAction()
     {
         // Article:quantity - Article:reelstock
     }
-    
+
     /**
-     * Valide l'inventaire en cours
+     * Valide l'inventaire en cours.
      */
     public function validAction()
     {

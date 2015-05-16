@@ -76,8 +76,8 @@
                         <td>{{ item.amount|number_format(2, ',', ' ') }}€</td>
                         <td class="text-center">
                             {% if item.active == 1 %}
-                            <a href="{{ asset(item.file) }}" title="Imprimer la préparation" onclick="window.open(this.href); return false;"><i class="glyphicon glyphicon-print"></i> {{ 'glsr.gestock.print'|trans }}</a> | 
-                            <a href="{{ path('glstock_inventory_entry', {'id': item.id}) }}" title="{{ 'glsr.gestock.inventory.seizure.title'|trans }}"><i class="glyphicon glyphicon-pencil"></i> {{ 'glsr.gestock.inventory.seizure.title_short'|trans }}</a> | 
+                            <a href="{{ asset(item.file) }}" title="Imprimer la préparation" onclick="window.open(this.href); return false;"><i class="glyphicon glyphicon-print"></i> {{ 'glsr.gestock.print'|trans }}</a> |
+                            <a href="{{ path('glstock_inventory_entry', {'id': item.id}) }}" title="{{ 'glsr.gestock.inventory.seizure.title'|trans }}"><i class="glyphicon glyphicon-pencil"></i> {{ 'glsr.gestock.inventory.seizure.title_short'|trans }}</a> |
                             <a href="{{ path('glstock_inventory_cancel', {'id': item.id}) }}" title="Annuler l'inventaire"><i class="glyphicon glyphicon-trash"></i> {{ 'glsr.gestock.cancel'|trans }}</a>
                             {% elseif item.active == 2 %}
                                 <i class="glyphicon glyphicon-pencil"></i>

@@ -10,7 +10,7 @@
     {{ 'glsr.gestock.settings.title'|trans }}
 {% endblock %}
 {% block glstock_body %}
-    
+
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li {% if app.request.attributes.get('_route') == 'glstock_company' %}class="active"{% endif %}>
             <a href="{{ path('glstock_company') }}">
@@ -37,7 +37,7 @@
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="company"></a>
-                <i class="glyphicon glyphicon-tower"></i> 
+                <i class="glyphicon glyphicon-tower"></i>
                 {{ 'glsr.gestock.settings.company.title'|trans }}
             </header>
             <div class="panel-body">
@@ -47,15 +47,15 @@
                         <tr>
                             <th class="col-md-3">{{ 'glsr.gestock.name'|trans }}</th>
                             <th class="col-md-4">
-                                <i class="glyphicon glyphicon-home"></i> 
+                                <i class="glyphicon glyphicon-home"></i>
                                 {{ 'glsr.gestock.adress'|trans }}
                             </th>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-phone-alt"></i> 
+                                <i class="glyphicon glyphicon-phone-alt"></i>
                                 {{ 'glsr.gestock.phone'|trans }}
                             </th>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-user"></i> 
+                                <i class="glyphicon glyphicon-user"></i>
                                 {{ 'glsr.gestock.contact'|trans }}
                             </th>
                         </tr>
@@ -84,13 +84,13 @@
             </div>
         </div>
     </section>
-{% endif %}    
+{% endif %}
 {% if settings is defined %}
     <section class="well row">
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="application"></a>
-                <i class="glyphicon glyphicon-wrench"></i> 
+                <i class="glyphicon glyphicon-wrench"></i>
                 {{ 'glsr.gestock.settings.application.title'|trans }}
             </header>
             <div class="panel-body">
@@ -99,19 +99,19 @@
                     <thead>
                         <tr>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-book"></i> 
+                                <i class="glyphicon glyphicon-book"></i>
                                 {{ 'glsr.gestock.settings.application.style_inventory'|trans }}
                             </th>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-record"></i> 
+                                <i class="glyphicon glyphicon-record"></i>
                                 {{ 'glsr.gestock.settings.application.method_calcul_inventory'|trans }}
                             </th>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-map-marker"></i> 
+                                <i class="glyphicon glyphicon-map-marker"></i>
                                 {{ 'glsr.gestock.settings.application.first_inventory'|trans }}
                             </th>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-eur"></i> 
+                                <i class="glyphicon glyphicon-eur"></i>
                                 {{ 'glsr.gestock.settings.application.currency'|trans }}
                             </th>
                         </tr>
@@ -140,14 +140,14 @@
             </div>
         </div>
     </section>
-{% endif %}    
+{% endif %}
 {% if divers is defined %}
     <section class="well row">
         <div class="col-md-7">
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="divers"></a>
-                <i class="glyphicon glyphicon-tag"></i> 
+                <i class="glyphicon glyphicon-tag"></i>
                 {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
             </header>
             <div class="panel-body">
@@ -156,15 +156,15 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-tag"></i> 
+                                <i class="glyphicon glyphicon-tag"></i>
                                 {{ 'glsr.gestock.settings.diverse.family'|trans }}
                             </th>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-tags"></i> 
+                                <i class="glyphicon glyphicon-tags"></i>
                                 {{ 'glsr.gestock.settings.diverse.subfamily'|trans }}
                             </th>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-cog"></i> 
+                                <i class="glyphicon glyphicon-cog"></i>
                                 {{ 'glsr.gestock.action'|trans }}
                             </th>
                         </tr>
@@ -208,7 +208,7 @@
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="zonestorage"></a>
-                <i class="glyphicon glyphicon-globe"></i> 
+                <i class="glyphicon glyphicon-globe"></i>
                 {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
             </header>
             <div class="panel-body">
@@ -217,11 +217,11 @@
                     <thead>
                         <tr>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-globe"></i> 
+                                <i class="glyphicon glyphicon-globe"></i>
                                 {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
                             </th>
                             <th class="col-md-1">
-                                <i class="glyphicon glyphicon-cog"></i> 
+                                <i class="glyphicon glyphicon-cog"></i>
                                 {{ 'glsr.gestock.action'|trans }}
                             </th>
                         </tr>
@@ -258,7 +258,7 @@
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="unitstorage"></a>
-                <i class="glyphicon glyphicon-shopping-cart"></i> 
+                <i class="glyphicon glyphicon-shopping-cart"></i>
                 {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
             </header>
             <div class="panel-body">
@@ -267,15 +267,15 @@
                     <thead>
                         <tr>
                             <th class="col-md-3">
-                                <i class="glyphicon glyphicon-shopping-cart"></i> 
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
                                 {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
                             </th>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-flag"></i> 
+                                <i class="glyphicon glyphicon-flag"></i>
                                 {{ 'glsr.gestock.abbr'|trans }}
                             </th>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-cog"></i> 
+                                <i class="glyphicon glyphicon-cog"></i>
                                 {{ 'glsr.gestock.action'|trans }}
                             </th>
                         </tr>
@@ -312,7 +312,7 @@
         <div class="panel panel-default">
             <header class="panel-heading">
                 <a id="tva"></a>
-                <i class="glyphicon glyphicon-piggy-bank"></i> 
+                <i class="glyphicon glyphicon-piggy-bank"></i>
                 {{ 'glsr.gestock.settings.diverse.vat'|trans }}
             </header>
             <div class="panel-body">
@@ -321,11 +321,11 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-piggy-bank"></i> 
+                                <i class="glyphicon glyphicon-piggy-bank"></i>
                                 {{ 'glsr.gestock.settings.diverse.vat_rate'|trans }}
                             </th>
                             <th class="col-md-2">
-                                <i class="glyphicon glyphicon-cog"></i> 
+                                <i class="glyphicon glyphicon-cog"></i>
                                 {{ 'glsr.gestock.action'|trans }}
                             </th>
                         </tr>
@@ -356,7 +356,7 @@
             </div>
         </div>
         </div>
-    </section>    
+    </section>
 {% endif %}
 <p>
     <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">

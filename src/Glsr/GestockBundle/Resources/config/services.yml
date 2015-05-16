@@ -13,14 +13,14 @@ services:
         class: Glsr\GestockBundle\Controller\ArticleController
         tags:
             -  { name: security.secure_service }
-            
+
     knp_snappy.pdf:
         class:     Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator
         arguments: [ %knp_snappy.pdf.binary%, %knp_snappy.pdf.options%, %knp_snappy.pdf.env% ]
     knp_snappy.image:
         class:     Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator
         arguments: [ %knp_snappy.image.binary%, %knp_snappy.image.options%, %knp_snappy.image.env% ]
-           
+
 #    glsr_gestock.session:
 #        class:     Glsr\GestockBundle\Session\GetFlashBag
 #        tags:

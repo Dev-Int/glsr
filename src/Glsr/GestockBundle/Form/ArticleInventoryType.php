@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ArticleType Form properties.
+ * ArticleInventoryType Form properties.
  *
  * PHP Version 5
  *
@@ -20,11 +20,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * ArticleType Form properties.
+ * ArticleInventoryType Form properties.
  *
  * @category   Form
  */
-class ArticleType extends AbstractType
+class ArticleInventoryType extends AbstractType
 {
     /**
      * buildForm.
@@ -65,32 +65,12 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'minstock',
-                'number',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                )
-            )
-            ->add(
                 'realstock',
                 'number',
                 array(
                     'precision' => 3,
                     'grouping' => true,
                     'data' => 0,
-                )
-            )
-            ->add('active', 'checkbox')
-            ->add(
-                'supplier',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:Supplier',
-                    'property' => 'name',
-                    'multiple' => false,
-                    'empty_value' => 'Choice the Supplier',
-                    'empty_data' => null,
                 )
             )
             ->add(
@@ -102,38 +82,7 @@ class ArticleType extends AbstractType
                     'multiple' => false,
                 )
             )
-            ->add(
-                'zone_storages',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:ZoneStorage',
-                    'property' => 'name',
-                    'multiple' => true,
-                    'expanded' => true,
-                )
-            )
-            ->add(
-                'family_log',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:FamilyLog',
-                    'property' => 'name',
-                    'multiple' => false,
-                    'empty_value' => 'Choice the Family',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'sub_family_log',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:SubFamilyLog',
-                    'property' => 'name',
-                    'multiple' => false,
-                    'empty_value' => 'Choice the Sub Family',
-                    'empty_data' => null,
-                )
-            );
+        ;
     }
 
     /**
@@ -159,6 +108,6 @@ class ArticleType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_article';
+        return 'glsr_gestockbundle_article_inventory';
     }
 }

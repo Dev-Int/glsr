@@ -1,27 +1,26 @@
 <?php
+
 /**
- * Entité Inventory
- * 
+ * Entité Inventory.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Inventory
- * 
+ * Inventory.
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Inventory
  *
  * @ORM\Table(name="gs_inventory")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\InventoryRepository")
@@ -29,7 +28,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Inventory
 {
     /**
-     * @var integer $id Id de l'inventaire
+     * @var int Id de l'inventaire
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,43 +37,44 @@ class Inventory
     private $idInv;
 
     /**
-     * @var \DateTime $date Date de l'inventaire
+     * @var \DateTime Date de l'inventaire
      *
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
-     * @var boolean $active Activé/Désactivé
+     * @var bool Activé/Désactivé
      *
      * @ORM\Column(name="active", type="smallint")
      */
     private $active;
 
     /**
-     * @var float $amount Montant de l'inventaire
+     * @var float Montant de l'inventaire
      *
      * @ORM\Column(name="amount", type="decimal", scale=3, nullable=true)
      */
     private $amount;
 
     /**
-     * @var text $file Fichier pdf de préparation de l'inventaire
-     * 
+     * @var text Fichier pdf de préparation de l'inventaire
+     *
      * @ORM\Column(name="file", type="text", nullable=true)
      */
     private $file;
-    
-    public function __construct() {
-        $this->date = new \DateTime;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
         $this->amount = 0.000;
         $this->active = 1;
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -82,9 +82,10 @@ class Inventory
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
+     *
      * @return Inventory
      */
     public function setDate($date)
@@ -95,9 +96,9 @@ class Inventory
     }
 
     /**
-     * Get date
+     * Get date.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -105,9 +106,10 @@ class Inventory
     }
 
     /**
-     * is active
+     * is active.
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return Inventory
      */
     public function isActive($active)
@@ -118,9 +120,9 @@ class Inventory
     }
 
     /**
-     * Get active
+     * Get active.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getActive()
     {
@@ -128,9 +130,10 @@ class Inventory
     }
 
     /**
-     * Set amount
+     * Set amount.
      *
      * @param float $amount
+     *
      * @return Inventory
      */
     public function setAmount($amount)
@@ -141,9 +144,9 @@ class Inventory
     }
 
     /**
-     * Get amount
+     * Get amount.
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -151,9 +154,9 @@ class Inventory
     }
 
     /**
-     * Get idInv
+     * Get idInv.
      *
-     * @return integer 
+     * @return int
      */
     public function getIdInv()
     {
@@ -161,22 +164,23 @@ class Inventory
     }
 
     /**
-     * Set file
+     * Set file.
      *
      * @param string $file
+     *
      * @return Inventory
      */
     public function setFile($file)
     {
         $this->file = $file;
-    
+
         return $this;
     }
 
     /**
-     * Get file
+     * Get file.
      *
-     * @return string 
+     * @return string
      */
     public function getFile()
     {

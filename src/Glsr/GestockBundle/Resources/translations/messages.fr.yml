@@ -40,12 +40,12 @@ glsr:
             sun: Dimanche
         total: Total
         totals: Totaux
-        
+
         home:
             title: Accueil
             body_title: "Page d'accueil"
             return: "Retour à l'accueil"
-            
+
         settings:
             title: Configuration
             return: "Retour à la configuration"
@@ -87,7 +87,7 @@ glsr:
             form:
                 title: "Formulaire de configuration"
                 caution: 'Cette configuration déterminera le fonctionnement de votre application'
-                
+
         article:
             title: Articles
             number: 'Il y a %count% article|]1,+Inf]Il y a %count% articles'
@@ -130,7 +130,7 @@ glsr:
             ressign:
                 title: "Réassignation d'article"
                 from: "Réassigner les articles du fournisseur %supname%"
-       
+
         supplier:
             title: Fournisseurs
             name: Nom
@@ -201,7 +201,7 @@ glsr:
                 title: "Clôturer l'inventaire en cours"
             journals:
                 title: "Journaux d'inventaires"
-                
+
         orders:
             title: "Gérer les commandes"
             form:

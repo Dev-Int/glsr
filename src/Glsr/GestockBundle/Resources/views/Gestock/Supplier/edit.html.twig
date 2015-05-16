@@ -5,7 +5,7 @@
 {% block title %}
     Settings - {{ parent() }}
 {% endblock %}
-    
+
 {% block body_js %}
 {% endblock %}
 
@@ -14,9 +14,9 @@
 {% endblock %}
 
 {% block glstock_body %}
-    
+
     {% include 'GlsrGestockBundle:Gestock/Supplier:form.html.twig' %}
-    
+
     <p>
         <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
