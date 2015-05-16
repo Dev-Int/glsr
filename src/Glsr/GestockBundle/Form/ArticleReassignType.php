@@ -1,43 +1,41 @@
 <?php
 
 /**
- * ArticleReassignType Form properties
- * 
+ * ArticleReassignType Form properties.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: f912c90cc23014686059cf730526a2874e826553
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * ArticleReassignType Form properties
- * 
+ * ArticleReassignType Form properties.
+ *
  * @category   Form
- * @package    Gestock
- * @subpackage Article
  */
 class ArticleReassignType extends AbstractType
 {
     /**
-     * buildForm
-     * 
+     * buildForm.
+     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
-     * 
-     * @return Form                $form    Formulaire
+     *
+     * @return Form $form    Formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -46,19 +44,18 @@ class ArticleReassignType extends AbstractType
             function (FormEvent $event) {
                 $form = $event->getForm();
                 $articles = $event->getData();
- 
+
                 $formOptions = array(
                     'class'         => 'GlsrGestockBundle:Supplier',
-                    'query_builder' =>
-                    function (EntityRepository $er) use ($articles) {
+                    'query_builder' => function (EntityRepository $er) use ($articles) {
                         return $er->getSupplierForReassign($articles[0]);
                     },
                     'multiple'   => false,
-                    'empty_data' => null
+                    'empty_data' => null,
                 );
                 foreach ($articles as $article) {
                     $form->add(
-                        'supplier-' . $article->getId(),
+                        'supplier-'.$article->getId(),
                         'entity',
                         $formOptions
                     );
@@ -66,12 +63,12 @@ class ArticleReassignType extends AbstractType
             }
         );
     }
-    
+
     /**
      * Sets the default options for this type.
      *
      * @param OptionsResolverInterface $resolver The resolver for the options.
-     * 
+     *
      * @return array DefaultOption
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)

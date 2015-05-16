@@ -1,17 +1,18 @@
 <?php
 
 /**
- * Company Entité Company
- * 
+ * Company Entité Company.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 3556e219c7c401ae295206e44e1ddee3f6314848
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -19,11 +20,9 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Company Entité Company
- * 
+ * Company Entité Company.
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Company
  *
  * @ORM\Table(name="gs_company")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\CompanyRepository")
@@ -31,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Company
 {
     /**
-     * @var integer $idComp Id de l'entreprise
+     * @var int Id de l'entreprise
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,42 +39,42 @@ class Company
     private $idComp;
 
     /**
-     * @var string $name Nom de l'entreprise
+     * @var string Nom de l'entreprise
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string $status Statut de l'entreprise
+     * @var string Statut de l'entreprise
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
     /**
-     * @var string $adress Adresse de l'entreprise
+     * @var string Adresse de l'entreprise
      *
      * @ORM\Column(name="adress", type="string", length=255)
      */
     private $adress;
 
     /**
-     * @var string $zipcode Code postal
+     * @var string Code postal
      *
      * @ORM\Column(name="zipcode", type="string", length=11)
      */
     private $zipcode;
 
     /**
-     * @var string $town Ville
+     * @var string Ville
      *
      * @ORM\Column(name="town", type="string", length=255)
      */
     private $town;
 
     /**
-     * @var phone_number $phone Téléphone de l'entreprise
+     * @var phone_number Téléphone de l'entreprise
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -84,7 +83,7 @@ class Company
     private $phone;
 
     /**
-     * @var phone_number $fax Fax de l'entreprise
+     * @var phone_number Fax de l'entreprise
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
@@ -93,7 +92,7 @@ class Company
     private $fax;
 
     /**
-     * @var string $mail email de l'entreprise
+     * @var string email de l'entreprise
      *
      * @ORM\Column(name="mail", type="string", length=255)
      * @Assert\NotBlank()
@@ -105,14 +104,14 @@ class Company
     private $mail;
 
     /**
-     * @var string $contact Contact de votre entreprise
+     * @var string Contact de votre entreprise
      *
      * @ORM\Column(name="contact", type="string", length=255)
      */
     private $contact;
 
     /**
-     * @var phone_number $gsm Gsm de votre entreprise
+     * @var phone_number Gsm de votre entreprise
      *
      * @ORM\Column(name="gsm", type="phone_number")
      * @Assert\NotBlank()
@@ -120,11 +119,10 @@ class Company
      */
     private $gsm;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -132,10 +130,10 @@ class Company
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name Nom de l'entreprise
-     * 
+     *
      * @return Company
      */
     public function setName($name)
@@ -146,9 +144,9 @@ class Company
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -156,10 +154,10 @@ class Company
     }
 
     /**
-     * Set status
+     * Set status.
      *
      * @param string $status Statut juridique
-     * 
+     *
      * @return Company
      */
     public function setStatus($status)
@@ -170,9 +168,9 @@ class Company
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -180,10 +178,10 @@ class Company
     }
 
     /**
-     * Set adress
+     * Set adress.
      *
      * @param string $adress Adresse
-     * 
+     *
      * @return Company
      */
     public function setAdress($adress)
@@ -194,9 +192,9 @@ class Company
     }
 
     /**
-     * Get adress
+     * Get adress.
      *
-     * @return string 
+     * @return string
      */
     public function getAdress()
     {
@@ -204,10 +202,10 @@ class Company
     }
 
     /**
-     * Set zipcode
+     * Set zipcode.
      *
      * @param string $zipcode Code postal
-     * 
+     *
      * @return Company
      */
     public function setZipcode($zipcode)
@@ -218,9 +216,9 @@ class Company
     }
 
     /**
-     * Get zipcode
+     * Get zipcode.
      *
-     * @return string 
+     * @return string
      */
     public function getZipcode()
     {
@@ -228,10 +226,10 @@ class Company
     }
 
     /**
-     * Set town
+     * Set town.
      *
      * @param string $town Ville
-     * 
+     *
      * @return Company
      */
     public function setTown($town)
@@ -242,9 +240,9 @@ class Company
     }
 
     /**
-     * Get town
+     * Get town.
      *
-     * @return string 
+     * @return string
      */
     public function getTown()
     {
@@ -252,10 +250,10 @@ class Company
     }
 
     /**
-     * Set phone
+     * Set phone.
      *
      * @param string $phone Téléphone
-     * 
+     *
      * @return Company
      */
     public function setPhone($phone)
@@ -266,9 +264,9 @@ class Company
     }
 
     /**
-     * Get phone
+     * Get phone.
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -276,10 +274,10 @@ class Company
     }
 
     /**
-     * Set fax
+     * Set fax.
      *
      * @param string $fax Fax
-     * 
+     *
      * @return Company
      */
     public function setFax($fax)
@@ -290,9 +288,9 @@ class Company
     }
 
     /**
-     * Get fax
+     * Get fax.
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -300,10 +298,10 @@ class Company
     }
 
     /**
-     * Set mail
+     * Set mail.
      *
      * @param string $mail Adresse Email
-     * 
+     *
      * @return Company
      */
     public function setMail($mail)
@@ -314,9 +312,9 @@ class Company
     }
 
     /**
-     * Get mail
+     * Get mail.
      *
-     * @return string 
+     * @return string
      */
     public function getMail()
     {
@@ -324,10 +322,10 @@ class Company
     }
 
     /**
-     * Set contact
+     * Set contact.
      *
      * @param string $contact Nom du contact
-     * 
+     *
      * @return Company
      */
     public function setContact($contact)
@@ -338,9 +336,9 @@ class Company
     }
 
     /**
-     * Get contact
+     * Get contact.
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -348,10 +346,10 @@ class Company
     }
 
     /**
-     * Set gsm
+     * Set gsm.
      *
      * @param string $gsm Numéro de téléphone du contact
-     * 
+     *
      * @return Company
      */
     public function setGsm($gsm)
@@ -362,9 +360,9 @@ class Company
     }
 
     /**
-     * Get gsm
+     * Get gsm.
      *
-     * @return string 
+     * @return string
      */
     public function getGsm()
     {

@@ -22,7 +22,7 @@
             <span class="text-danger">{{ form_errors(form.zipcode) }}</span>
             <span class="text-danger">{{ form_errors(form.town) }}</span>
             {{ form_widget(form.address) }}<br />
-            {{ form_widget(form.zipcode) }} {{ form_widget(form.town, { 'attr' : { 
+            {{ form_widget(form.zipcode) }} {{ form_widget(form.town, { 'attr' : {
                 'onBlur':'this.value=this.value.toUpperCase();',
                 'onFocus':'this.value=this.value.toUpperCase();',
                 'onKeyup':'this.value=this.value.toUpperCase();'
@@ -82,7 +82,7 @@
             {{ form_widget(form.delaydeliv) }}
         </div>
     </fieldset>
-    
+
     {% block choice_widget_expanded %}
         {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
@@ -117,7 +117,7 @@
 function upperCase(){
     $("#glsr_gestockbundle_supplier_town").val().toUpperCase();
 }
-    
+
 function fillSubFamilyLog(){
     var id_select = $('#glsr_gestockbundle_supplier_family_log').val();
     var id_select2 = $('#glsr_gestockbundle_supplier_sub_family_log').val();

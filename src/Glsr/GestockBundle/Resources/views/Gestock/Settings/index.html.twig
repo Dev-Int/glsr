@@ -10,7 +10,7 @@
     {{'Settings'|trans }}
 {% endblock %}
 {% block glstock_body %}
-    
+
     <ul class="nav nav-tabs nav-justified" role="tablist">
         <li {% if app.request.attributes.get('_route') == 'glstock_company' %}class="active"{% endif %}>
             <a href="{{ path('glstock_company') }}">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </section>
-{% endif %}    
+{% endif %}
 {% if settings is defined %}
     <section class="well row">
         <div class="panel panel-default">
@@ -111,7 +111,7 @@
             </div>
         </div>
     </section>
-{% endif %}    
+{% endif %}
 {% if divers is defined %}
     <section class="well row">
         <div class="col-md-7">
@@ -283,6 +283,6 @@
             </div>
         </div>
         </div>
-    </section>    
+    </section>
 {% endif %}
 {% endblock %}

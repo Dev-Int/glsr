@@ -3,7 +3,7 @@
 glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
-    
+
 glstock_install:
     pattern:  /install
     defaults: { _controller: GlsrGestockBundle:Gestock:install }
@@ -131,12 +131,12 @@ glstock_suppli_list:
 glstock_suppli_show:
     pattern:  /supplier/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:show }
-    
+
 # route des alertes
 glstock_show:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
-    
+
 # route selects liés
 fill_subfamilylog:
     pattern:  /fill_subfamilylog
@@ -168,5 +168,3 @@ glstock_inventory_differencesStock:
 glstock_inventory_valid:
     pattern:  /inventory/valid
     defaults: { _controller: GlsrGestockBundle:Inventory:valid }
-
-

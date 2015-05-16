@@ -1,27 +1,26 @@
 <?php
 
 /**
- * ZoneStorage Entité ZoneStorage
- * 
+ * ZoneStorage Entité ZoneStorage.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZoneStorage
- * 
+ * ZoneStorage.
+ *
  * @category   Entity
- * @package    Gestock
- * @subpackage Settings
  *
  * @ORM\Table(name="gs_zonestorage")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\ZoneStorageRepository")
@@ -29,7 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ZoneStorage
 {
     /**
-     * @var integer $idZStor Id De la zone de stockage
+     * @var int Id De la zone de stockage
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -38,17 +37,16 @@ class ZoneStorage
     private $idZStor;
 
     /**
-     * @var string $name Nom de la zone de stockage
+     * @var string Nom de la zone de stockage
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -56,10 +54,10 @@ class ZoneStorage
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name Nom de la zone de stockage
-     * 
+     *
      * @return ZoneStorage
      */
     public function setName($name)
@@ -70,22 +68,22 @@ class ZoneStorage
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
-    
+
     /**
      * Cette méthode permet de faire "echo $zoneStorage".
-     * <p>Ainsi, pour "afficher" $zoneStorage, 
+     * <p>Ainsi, pour "afficher" $zoneStorage,
      * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $zoneStorage" 
-     * est équivalent à "echo $zoneStorage->getName()"</p>
-     * 
+     * Ici, le nom, donc "echo $zoneStorage"
+     * est équivalent à "echo $zoneStorage->getName()"</p>.
+     *
      * @return string name
      */
     public function __toString()

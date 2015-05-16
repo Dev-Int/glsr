@@ -38,7 +38,7 @@ glsr:
                 title: 'Créer un article'
                 title_button: 'Ajouter un article'
                 caution: 'Attention cet article sera ajouté directement au tableau des articles après validation du formulaire.'
-       
+
         supplier:
             nombre: 'Il y a %count% supplier|]1,+Inf]Il y a %count% suppliers'
             title: 'Fournisseur'

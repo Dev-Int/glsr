@@ -1,47 +1,47 @@
 <?php
+
 /**
- * ArticleController controller de l'entité Article
- * 
+ * ArticleController controller de l'entité Article.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Glsr\GestockBundle\Entity\Article;
 use Glsr\GestockBundle\Entity\Supplier;
 use Glsr\GestockBundle\Form\ArticleType;
 use Glsr\GestockBundle\Form\ArticleReassignType;
 
 /**
- * class ArticleController
- * 
+ * class ArticleController.
+ *
  * @category   Controller
- * @package    Gestock
- * @subpackage Article
  */
 class ArticleController extends Controller
 {
     /**
-     * indexAction affiche la liste des articles (pagination)
-     * 
+     * Affiche la liste des articles (pagination).
+     *
      * @param int $page numéro de page
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function indexAction($page)
     {
-        // On récupère le nombre d'article par page depuis un paramètre du conteneur
+        // On récupère le nombre d'article par page
+        // depuis un paramètre du conteneur
         // cf app/config/parameters.yml
         $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
-        
+
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
@@ -51,16 +51,16 @@ class ArticleController extends Controller
             'GlsrGestockBundle:Gestock/Article:index.html.twig',
             array(
                 'articles' => $articles,
-                'page'       => $page,
-                'nb_page' => ceil(count($articles) / $nbPerPage) ?: 1
+                'page'     => $page,
+                'nb_page'  => ceil(count($articles) / $nbPerPage) ?: 1,
             )
         );
     }
-    
+
     /**
-     * addAction Ajoute un article
-     * 
-     * @return type
+     * Ajoute un article.
+     *
+     * @return Response
      */
     public function addAction()
     {
@@ -68,16 +68,23 @@ class ArticleController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $article = new Article();
-        
+
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -110,12 +117,6 @@ class ArticleController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:add.html.twig',
             array(
@@ -123,13 +124,13 @@ class ArticleController extends Controller
             )
         );
     }
-    
+
     /**
-     * editAction Modification d'un article
-     * 
+     * Modification d'un article.
+     *
      * @param \Glsr\GestockBundle\Entity\Article $article article à modifier
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function editAction(Article $article)
     {
@@ -137,14 +138,21 @@ class ArticleController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -177,12 +185,6 @@ class ArticleController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:edit.html.twig',
             array(
@@ -190,13 +192,13 @@ class ArticleController extends Controller
             )
         );
     }
-    
+
     /**
-     * deleteAction Supprime (désactive) un article
-     * 
+     * Supprime (désactive) un article.
+     *
      * @param \Glsr\GestockBundle\Entity\Article $article article à désactiver
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function deleteAction(Article $article)
     {
@@ -204,29 +206,36 @@ class ArticleController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On crée un formulaire vide, qui ne contiendra que le champ CSRF
         // Cela permet de protéger la suppression d'article contre cette faille
         $form = $this->createFormBuilder()->getForm();
-        
+
         //On modifie l'état actif de l'article
         $article->setActive(0);
-        
+
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             // Si la requête est en POST, on supprimera l'article
             $form->bind($request);
-            
+
             if ($form->isValid()) {
                 // On supprime l'article
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($article);
                 $etm->flush();
-                
+
                 $this->get('session')
                     ->getFlashBag()
                     ->add('info', 'glsr.gestock.article.delete.ok');
@@ -246,17 +255,17 @@ class ArticleController extends Controller
             'GlsrGestockBundle:Gestock/Article:delete.html.twig',
             array(
                 'article' => $article,
-                'form'    => $form->createView()
+                'form'    => $form->createView(),
                 )
         );
     }
-    
+
     /**
-     * showAction Affiche un article
-     * 
+     * Affiche un article.
+     *
      * @param \Glsr\GestockBundle\Entity\Article $article article à afficher
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function showAction(Article $article)
     {
@@ -267,15 +276,15 @@ class ArticleController extends Controller
             )
         );
     }
-    
+
     /**
-     * reassignAction Réassignation d'articles à un autre fournisseur 
-     * que celui passé en paramètre
-     * 
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier 
-     * Fournisseur dont les articles doivent être réaffectés
-     * 
-     * @return type
+     * Réassignation d'articles à un autre fournisseur
+     * que celui passé en paramètre.
+     *
+     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
+     *                                                      Fournisseur dont les articles doivent être réaffectés
+     *
+     * @return Response
      */
     public function reassignAction(Supplier $supplier)
     {
@@ -283,10 +292,17 @@ class ArticleController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
 
         // Récupérer la liste des articles à reaffecter
@@ -305,8 +321,8 @@ class ArticleController extends Controller
             $form->bind($request);
             $datas = $form;
 
-            $newArticles = new Article;
-            $newSupplier = new Supplier;
+            $newArticles = new Article();
+            $newSupplier = new Supplier();
             $etm = $this->getDoctrine()->getManager();
 
             foreach ($datas as $data) {
@@ -314,9 +330,11 @@ class ArticleController extends Controller
                 list($inputName, $articleId) = $input;
                 $inputData = $data->getViewData();
                 if ($inputName === 'supplier') {
-                    $newArticles = $etm->getRepository('GlsrGestockBundle:Article')
+                    $newArticles = $etm
+                        ->getRepository('GlsrGestockBundle:Article')
                         ->find($articleId);
-                    $newSupplier = $etm->getRepository('GlsrGestockBundle:Supplier')
+                    $newSupplier = $etm
+                        ->getRepository('GlsrGestockBundle:Supplier')
                         ->find($inputData);
                     //On modifie le fournisseur de l'article
                     $newArticles->setSupplier($newSupplier);
@@ -335,14 +353,13 @@ class ArticleController extends Controller
             );
         }
 
-        
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:reassign.html.twig',
             array(
                 'form'      => $form->createView(),
                 'articles'  => $articles,
                 'supname'   => $supplier->getName(),
-                'supid'     => $supplier->getId()
+                'supid'     => $supplier->getId(),
             )
         );
     }

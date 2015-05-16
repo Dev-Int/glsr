@@ -1,46 +1,45 @@
 <?php
+
 /**
- * SupplierController controller de l'entité supplier
- * 
+ * SupplierController controller de l'entité supplier.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Glsr\GestockBundle\Entity\Supplier;
-
 use Glsr\GestockBundle\Form\SupplierType;
 
 /**
- * class SupplierController
- * 
+ * class SupplierController.
+ *
  * @category   Controller
- * @package    Gestock
- * @subpackage Supplier
  */
 class SupplierController extends Controller
 {
     /**
-     * indexAction affiche la liste des fournisseurs (pagination)
-     * 
+     * Affiche la liste des fournisseurs (pagination).
+     *
      * @param type $page numéro de page
-     * 
-     * @return type
+     *
+     * @return Response
      */
     public function indexAction($page)
     {
-        // On récupère le nombre d'article par page depuis un paramètre du conteneur
+        // On récupère le nombre d'article par page
+        // depuis un paramètre du conteneur
         // cf app/config/parameters.yml
         $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
-        
+
         $etm = $this->getDoctrine()->getManager();
         $suppliers = $etm
             ->getRepository('GlsrGestockBundle:Supplier')
@@ -51,15 +50,15 @@ class SupplierController extends Controller
             array(
                 'suppliers' => $suppliers,
                 'page'       => $page,
-                'nb_page' => ceil(count($suppliers) / $nbPerPage) ?: 1
+                'nb_page' => ceil(count($suppliers) / $nbPerPage) ?: 1,
             )
         );
     }
-    
+
     /**
-     * addAction Ajouter un fournisseur
-     * 
-     * @return type
+     * Ajouter un fournisseur.
+     *
+     * @return Response
      */
     public function addAction()
     {
@@ -67,10 +66,17 @@ class SupplierController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         $supplier = new Supplier();
         $etm = $this->getDoctrine()->getManager();
@@ -109,27 +115,21 @@ class SupplierController extends Controller
             }
         }
 
-        // À ce stade :
-        // - soit la requête est de type GET,
-        // donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-        // - soit la requête est de type POST,
-        // mais le formulaire n'est pas valide, donc on l'affiche de nouveau
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Supplier:add.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
             )
         );
     }
-    
+
     /**
-     * editAction Modifier un fournisseur
-     * 
+     * Modifier un fournisseur.
+     *
      * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     * Objet fournisseur à modifier
-     * 
-     * @return type
+     *                                                      Objet fournisseur à modifier
+     *
+     * @return Response
      */
     public function editAction(Supplier $supplier)
     {
@@ -137,14 +137,21 @@ class SupplierController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType(), $supplier);
-        
+
         // On récupère la requête
         $request = $this->getRequest();
 
@@ -166,7 +173,8 @@ class SupplierController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Fournisseur bien modifié');
 
-                // On redirige vers la page de visualisation du fournisseur modifié
+                // On redirige vers la page
+                // de visualisation du fournisseur modifié
                 return $this->redirect(
                     $this->generateUrl(
                         'glstock_suppli_show',
@@ -175,21 +183,22 @@ class SupplierController extends Controller
                 );
             }
         }
+
         return $this->render(
             'GlsrGestockBundle:Gestock/Supplier:edit.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
             )
         );
     }
-    
+
     /**
-     * deleteAction Supprimer un fournisseur
-     * 
+     * Supprimer un fournisseur.
+     *
      * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     * Objet fournisseur à supprimer
-     * 
-     * @return type
+     *                                                      Objet fournisseur à supprimer
+     *
+     * @return Response
      */
     public function deleteAction(Supplier $supplier)
     {
@@ -197,13 +206,21 @@ class SupplierController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
-            
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
+
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // Avant de supprimer quoi que ce soit,
-        // il faut vérifier qu'aucun article ne soit rattaché à ce fournisseur
+        // il faut vérifier qu'aucun article
+        // ne soit rattaché à ce fournisseur
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
@@ -225,25 +242,23 @@ class SupplierController extends Controller
                 )
             );
         }
-        
-        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-        // Cela permet de protéger la suppression du fournisseur contre cette faille
+
         $form = $this->createFormBuilder()->getForm();
-        
+
         //On modifie l'état actif du fournisseur
         $supplier->setActive(0);
-        
+
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             // Si la requête est en POST, on supprimera le fournisseur
             $form->bind($request);
-            
+
             if ($form->isValid()) {
                 // On supprime le fournisseur
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($supplier);
                 $etm->flush();
-                
+
                 $this->get('session')
                     ->getFlashBag()
                     ->add('info', 'glsr.gestock.supplier.delete.ok');
@@ -263,18 +278,18 @@ class SupplierController extends Controller
             'GlsrGestockBundle:Gestock/Supplier:delete.html.twig',
             array(
                 'supplier' => $supplier,
-                'form'    => $form->createView()
+                'form'    => $form->createView(),
                 )
         );
     }
-    
+
     /**
-     * showAction Afficher le fournisseur
-     * 
+     * Afficher le fournisseur.
+     *
      * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     * Objet fournisseur à afficher
-     * 
-     * @return type
+     *                                                      Objet fournisseur à afficher
+     *
+     * @return Response
      */
     public function showAction(Supplier $supplier)
     {
@@ -282,12 +297,12 @@ class SupplierController extends Controller
         $articles = $etm
             ->getRepository('GlsrGestockBundle:Article')
             ->getArticleFromSupplier($supplier->getId());
-        
+
         return $this->render(
             'GlsrGestockBundle:Gestock/Supplier:supplier.html.twig',
             array(
                 'articles' => $articles,
-                'supplier' => $supplier
+                'supplier' => $supplier,
             )
         );
     }

@@ -1,17 +1,18 @@
 <?php
 
 /**
- * FamilyLogType Form properties
- * 
+ * FamilyLogType Form properties.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: da83befb9097373813d19297c5394eca719db662
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -19,39 +20,37 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * FamilyLogType Form properties
- * 
+ * FamilyLogType Form properties.
+ *
  * @category   Form
- * @package    Gestock
- * @subpackage Settings
  */
 class FamilyLogType extends AbstractType
 {
     /**
-     * buildForm
-     * 
+     * buildForm.
+     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
-     * 
-     * @return Form                $form    Formulaire
+     *
+     * @return Form $form    Formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text');
     }
-    
+
     /**
      * Sets the default options for this type.
      *
      * @param OptionsResolverInterface $resolver The resolver for the options.
-     * 
+     *
      * @return array DefaultOption
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\FamilyLog'
+                'data_class' => 'Glsr\GestockBundle\Entity\FamilyLog',
             )
         );
     }

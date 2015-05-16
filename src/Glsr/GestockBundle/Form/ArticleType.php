@@ -1,41 +1,38 @@
 <?php
 
 /**
- * ArticleType Form properties
- * 
+ * ArticleType Form properties.
+ *
  * PHP Version 5
- * 
+ *
  * @author     Quétier Laurent <lq@dev-int.net>
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
  * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ *
  * @link       https://github.com/GLSR/glsr
  */
-
 namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Glsr\GestockBundle\Entity\Settings;
-
 /**
- * ArticleType Form properties
- * 
+ * ArticleType Form properties.
+ *
  * @category   Form
- * @package    Gestock
- * @subpackage Article
  */
 class ArticleType extends AbstractType
 {
     /**
-     * buildForm
-     * 
+     * buildForm.
+     *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
-     * 
-     * @return Form                $form    Formulaire
+     *
+     * @return Form $form    Formulaire
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,7 +44,7 @@ class ArticleType extends AbstractType
                 array(
                     'precision' => 3,
                     'grouping'  => true,
-                    'label'     => 'packaging'
+                    'label'     => 'packaging',
                 )
             )
             ->add(
@@ -56,7 +53,7 @@ class ArticleType extends AbstractType
                 array(
                     'precision'  => 3,
                     'grouping'   => true,
-                    'currency'   => 'EUR'
+                    'currency'   => 'EUR',
                 )
             )
             ->add(
@@ -81,7 +78,7 @@ class ArticleType extends AbstractType
                 array(
                     'precision'     => 3,
                     'grouping'      => true,
-                    'data'          => 0
+                    'data'          => 0,
                 )
             )
             ->add('active', 'checkbox')
@@ -93,7 +90,7 @@ class ArticleType extends AbstractType
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Supplier',
-                    'empty_data' => null
+                    'empty_data' => null,
                 )
             )
             ->add(
@@ -102,7 +99,7 @@ class ArticleType extends AbstractType
                 array(
                     'class'    => 'GlsrGestockBundle:UnitStorage',
                     'property' => 'name',
-                    'multiple' => false
+                    'multiple' => false,
                 )
             )
             ->add(
@@ -112,7 +109,7 @@ class ArticleType extends AbstractType
                     'class'    => 'GlsrGestockBundle:ZoneStorage',
                     'property' => 'name',
                     'multiple' => true,
-                    'expanded' => true
+                    'expanded' => true,
                 )
             )
             ->add(
@@ -123,7 +120,7 @@ class ArticleType extends AbstractType
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Family',
-                    'empty_data' => null
+                    'empty_data' => null,
                 )
             )
             ->add(
@@ -134,23 +131,23 @@ class ArticleType extends AbstractType
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Sub Family',
-                    'empty_data' => null
+                    'empty_data' => null,
                 )
             );
     }
-    
+
     /**
      * Sets the default options for this type.
      *
      * @param OptionsResolverInterface $resolver The resolver for the options.
-     * 
+     *
      * @return array DefaultOption
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\Article'
+                'data_class' => 'Glsr\GestockBundle\Entity\Article',
             )
         );
     }
