@@ -52,7 +52,7 @@ class Article
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Regex(
-     *     pattern="'^\w+[^/]'", 
+     *     pattern="'^\w+[^/]'",
      *     message="L'intitulé ne peut contenir que des lettres,
      *     chiffres et _ ou -"
      * )

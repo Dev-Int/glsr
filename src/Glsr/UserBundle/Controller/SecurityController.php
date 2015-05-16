@@ -44,7 +44,7 @@ class SecurityController extends BaseController
             $view = 'login';
         } else {
             // Mais sinon, il s'agit du formulaire de connexion
-            // intégré au menu, on utilise la vue "login_content" 
+            // intégré au menu, on utilise la vue "login_content"
             // car il ne faut pas hériter du layout !
             $view = 'login_content';
         }

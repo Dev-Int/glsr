@@ -62,8 +62,8 @@ class GestockController extends Controller
                     = 'Choice the Sub Family: '.$familyLog->getName();
                 $iterator = 1;
                 foreach ($subFamilyLogs as $subFamilyLog) {
-                    $tabSubFamilyLog[$iterator]['idOption'] = 
-                        $subFamilyLog->getId();
+                    $tabSubFamilyLog[$iterator]['idOption']
+                        = $subFamilyLog->getId();
                     $tabSubFamilyLog[$iterator]['nameOption']
                         = $subFamilyLog->getName();
                     if ($subFamId != '') {

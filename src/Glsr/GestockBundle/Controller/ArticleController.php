@@ -87,7 +87,6 @@ class ArticleController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($article);
@@ -136,10 +135,17 @@ class ArticleController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'Vous devez être connecté pour accéder à cette page.');
+                ->add(
+                    'info',
+                    'Vous devez être connecté pour accéder à cette page.'
+                );
 
             // On redirige vers la page de connexion
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
+            return $this->redirect(
+                $this->generateUrl(
+                    'fos_user_security_login'
+                )
+            );
         }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
@@ -154,7 +160,6 @@ class ArticleController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($article);

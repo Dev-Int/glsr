@@ -93,7 +93,6 @@ class SupplierController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($supplier);
@@ -161,7 +160,6 @@ class SupplierController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($supplier);
@@ -172,7 +170,7 @@ class SupplierController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Fournisseur bien modifié');
 
-                // On redirige vers 
+                // On redirige vers
                 // la page de visualisation du fournisseur modifié
                 return $this->redirect(
                     $this->generateUrl(
