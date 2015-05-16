@@ -54,19 +54,12 @@ script:
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
-  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR0 src/
-  #- phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR1 src/
-  #- phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR2 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR1 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR2 src/
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC
   - php phploc.phar src/
-  ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-#  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs --template="responsive-twig"
-
-after_script:
-  ## PHPDocumentor : Upload vers les GitHub Pages
-# - bash -x .travis_shell_after_success.sh
 
 notification:
   email:
