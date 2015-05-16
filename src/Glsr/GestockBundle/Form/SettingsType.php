@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Intl\Intl;
 
-\locale::setDefault('en');
+\Locale::setDefault('fr');
 $currency = Intl::getCurrencyBundle()->getCurrencyName('EUR');
 
 /**
