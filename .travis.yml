@@ -9,7 +9,7 @@ env:
     secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
 
 before_install:
- - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc
+# - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc
  - sudo apt-get update && sudo apt-get install graphviz
 
 before_script: 
@@ -19,7 +19,7 @@ before_script:
   - composer selfupdate --quiet
   - composer install -n --prefer-source --dev
   ## PHPDocumentor : Dossier de sortie
-  - mkdir -p build/docs
+#  - mkdir -p build/docs
   ## PHP_CodeSniffer
   - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
@@ -61,11 +61,11 @@ script:
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
-  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs --template="responsive-twig"
+#  - vendor/phpdocumentor/phpdocumentor/bin/phpdoc -d ./src -t ./build/docs --template="responsive-twig"
 
 after_script:
   ## PHPDocumentor : Upload vers les GitHub Pages
- - bash -x .travis_shell_after_success.sh
+# - bash -x .travis_shell_after_success.sh
 
 notification:
   email:
