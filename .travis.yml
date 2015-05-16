@@ -14,11 +14,11 @@ before_install:
 
 before_script: 
   ## Composer 
-  - composer install -n
+  #- composer install -n
   ## Composer : Mise à jour et Installation des pre-requis
   - /home/travis/.phpenv/versions/5.3/bin/composer self-update
-  - composer selfupdate --quiet
-  - composer install -n --prefer-source --dev
+  #- composer selfupdate --quiet
+  #- composer install -n --prefer-source --dev
   ## PHPDocumentor : Dossier de sortie
   - mkdir -p build/docs
   ## PHP_CodeSniffer
