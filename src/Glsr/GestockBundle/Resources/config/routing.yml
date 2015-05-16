@@ -167,8 +167,10 @@ glstock_inventory_cancel:
     requirements:
         id: \d+
 glstock_inventory_entry:
-    pattern:  /inventory/entry
+    pattern:  /inventory/entry/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:entry }
+    requirements:
+        id: \d+
 glstock_inventory_differencesStock:
     pattern:  /inventory/differencesStock
     defaults: { _controller: GlsrGestockBundle:Inventory:differencesStock }
