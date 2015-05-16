@@ -58,7 +58,7 @@ script:
   ## PHP Copy/Paste Detector
   #- php phpcpd.phar --verbose src/
   ## PHP Mess Detector
-  #- phpmd src/ text codesize,unusedcode,naming,design
+  - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHPLOC
   - php phploc.phar src/
   ## PHPDocumentor : Generation de la documentation dans le dossier de sortie
