@@ -16,6 +16,8 @@ namespace Glsr\GestockBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Glsr\GestockBundle\Entity\Inventory;
+use Glsr\GestockBundle\Form\InventoryArticlesType;
+use Glsr\GestockBundle\Entity\InventoryArticles;
 
 /**
  * class InventoryController
@@ -27,8 +29,8 @@ use Glsr\GestockBundle\Entity\Inventory;
 class InventoryController extends Controller
 {
     /**
-     * indexAction affiche la page d'accueil du Bundle
-     * 
+     * indexAction affiche la page d'accueil du Bundle.
+     *
      * @return Render
      */
     public function indexAction()
@@ -45,32 +47,31 @@ class InventoryController extends Controller
     
     /**
      * Afficher l'inventaire sélectionné
-     * 
+     *
      * @param Inventory $inventory L'inventaire à afficher
-     * 
+     *
      * @return Render
      */
-    public function showAction(Inventory $inventory) {
+    public function showAction(Inventory $inventory)
+    {
         return $this->render(
             'GlsrGestockBundle:Gestock/Inventory:inventory.html.twig',
-            array(
-                'inventory' => $inventory,
-            )
+            array('inventory' => $inventory)
         );
     }
     
     /**
      * Préparer l'inventaire
-     * 
+     *
      * Enregistrement de l'inventaire et création du fichier pdf
-     * 
+     *
      * @return RedirectResponse
      */
     public function prepareAction()
     {
         $etm = $this->getDoctrine()->getManager();
         
-        $articles = $etm->getRepository('GlsrGestockBundle:Article')
+        $listarticles = $etm->getRepository('GlsrGestockBundle:Article')
             ->findAll();
         $zoneStorages = $etm->getRepository('GlsrGestockBundle:Zonestorage')
             ->findAll();
@@ -80,21 +81,21 @@ class InventoryController extends Controller
             ->find(1);
 
         $daydate = new \DateTime('now');
-        if (!is_dir('pdf')){
+        if (!is_dir('pdf')) {
             mkdir('pdf');
         }
-        $file = 'pdf/prepare-' . $daydate->format('Ymd') . '.pdf';
+        $file = 'pdf/prepare.pdf';
         $datePdf = (string)$daydate->format('d-m-Y');
 
         //Vérification de l'existance du fichier de même date
-        if (!file_exists($file) || empty($inventory)){
+        if (!file_exists($file) || empty($inventory)) {
             // Créer et enregistrer le fichier PDF à imprimer
             $this->get('knp_snappy.pdf')
                 ->generateFromHtml(
                     $this->renderView(
                         'GlsrGestockBundle:Gestock/Inventory:list.pdf.twig',
                         array(
-                            'articles'    => $articles,
+                            'articles'    => $listarticles,
                             'zonestorage' => $zoneStorages,
                             'daydate'     => $daydate
                         )
@@ -122,13 +123,26 @@ class InventoryController extends Controller
             $newInventory->setDate($daydate);
             $newInventory->isActive(1);
             $newInventory->setFile($file);
-
             $etm->persist($newInventory);
+
+            // Pour chaque article
+            foreach ($listarticles as $article) {
+              $inventoryArticles = new InventoryArticles();
+              $inventoryArticles->setInventory($newInventory);
+              $inventoryArticles->setArticles($article);
+              $inventoryArticles->setRealstock(0);
+              $inventoryArticles->setTotal(0);
+              $etm->persist($inventoryArticles);
+            }
+            
             $etm->flush();
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 'glsr.gestock.inventory.prepare.add');
+                ->add(
+                    'info',
+                    'glsr.gestock.inventory.prepare.add'
+                );
 
             //    Si Settings:firstInventory == null 
             //    Settings:firstInventory = Invetory:date 
@@ -141,21 +155,19 @@ class InventoryController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info', 
-                    array(
-                        'glsr.gestock.inventory.prepare.still_exit_pdf', 
-                        $daydate->format('Ymd')
-                    )
+                ->add(
+                    'info', 
+                    array('glsr.gestock.inventory.prepare.still_exist_pdf')
                 );
         }
         
-        // retour à la page Inventaire:index
+        // Retour à la page Inventaire:index
         return $this->redirect($this->generateUrl('glstock_inventory'));
     }
     
     /**
      * Annuler l'inventaire en cours
-     * 
+     *
      * @param Inventory $inventory
      * @return RedirectResponse Retour index Inventory
      */
@@ -171,7 +183,7 @@ class InventoryController extends Controller
                 $etm = $this->getDoctrine()->getManager();
                 $inventory->isActive(0);
                 unlink($inventory->getFile());
-                $inventory->setFile(NULL);
+                $inventory->setFile(null);
                 $etm->persist($inventory);
                 $etm->flush();
                 
@@ -200,19 +212,22 @@ class InventoryController extends Controller
     /**
      * Saisie de l'inventaire
      */
-    public function entryAction()
+    public function entryAction(Inventory $inventory)
     {
-        // Récupérer l'entité Inventaire
-        
+        $etm = $this->getDoctrine()->getManager();
+        // Récupérer l'entité Inventaire active = 1
+        $listInventoryArticles = $etm
+            ->getRepository('GlsrGestockBundle:InventoryArticles')
+            ->findByInventory($inventory);
         // Créer le formulaire de saisie : InventoryType
         
         // Valider les entrées sur 
         //     l'entité Article:reelstock
         //     l'entité Inventory:amount
-        
+
         // Afficher Formulaire/Inventory:index
-    }
-    
+                }
+
     /**
      * Gestion des écarts de stock
      */
