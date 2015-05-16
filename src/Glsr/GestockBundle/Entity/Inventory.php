@@ -14,6 +14,7 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Inventory
@@ -58,7 +59,7 @@ class Inventory
     private $amount;
 
     /**
-     * @var text $file Fichier de l'inventaire
+     * @var text $file Fichier pdf de préparation de l'inventaire
      * 
      * @ORM\Column(name="file", type="text", nullable=true)
      */
