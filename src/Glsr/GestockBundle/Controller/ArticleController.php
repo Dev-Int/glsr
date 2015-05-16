@@ -95,7 +95,6 @@ class ArticleController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($article);
@@ -163,7 +162,6 @@ class ArticleController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($article);

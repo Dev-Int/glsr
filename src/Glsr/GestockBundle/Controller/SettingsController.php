@@ -175,7 +175,7 @@ class SettingsController extends Controller
      * Modifier les paramètres de base de l'application.
      *
      * @param \Glsr\GestockBundle\Entity\Settings $settings
-     *                                                      Objet de l'entité Settings à modifier
+     * Objet de l'entité Settings à modifier
      *
      * @return Response
      */
@@ -362,7 +362,8 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info',
+                ->add(
+                    'info',
                     'Vous devez être connecté pour accéder à cette page.'
                 );
 
@@ -415,7 +416,7 @@ class SettingsController extends Controller
      * Modifier une famille logistique.
      *
      * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog
-     *                                                        Objet famille logistique à modifier
+     * Objet famille logistique à modifier
      *
      * @return type
      */
@@ -425,7 +426,8 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info',
+                ->add(
+                    'info',
                     'Vous devez être connecté pour accéder à cette page.'
                 );
 
@@ -479,7 +481,8 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info',
+                ->add(
+                    'info',
                     'Vous devez être connecté pour accéder à cette page.'
                 );
 
@@ -532,7 +535,7 @@ class SettingsController extends Controller
      * Modifier une sous-famille logistique.
      *
      * @param \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog
-     *                                                              Objet sous-famille logistique à modifier
+     * Objet sous-famille logistique à modifier
      *
      * @return Response
      */
@@ -542,7 +545,8 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info',
+                ->add(
+                    'info',
                     'Vous devez être connecté pour accéder à cette page.'
                 );
 
@@ -596,7 +600,8 @@ class SettingsController extends Controller
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
-                ->add('info',
+                ->add(
+                    'info',
                     'Vous devez être connecté pour accéder à cette page.'
                 );
 
@@ -649,7 +654,7 @@ class SettingsController extends Controller
      * Modifier une zone de stockage.
      *
      * @param \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorage
-     *                                                            Objet zone de stockage à modifier
+     * Objet zone de stockage à modifier
      *
      * @return Response
      */
@@ -768,7 +773,7 @@ class SettingsController extends Controller
      * Modifier une unité de stockage.
      *
      * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage
-     *                                                            Objet unité de stockage à modifier
+     * Objet unité de stockage à modifier
      *
      * @return Response
      */

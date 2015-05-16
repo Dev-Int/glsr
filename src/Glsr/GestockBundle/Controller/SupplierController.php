@@ -93,7 +93,6 @@ class SupplierController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($supplier);
@@ -127,7 +126,7 @@ class SupplierController extends Controller
      * Modifier un fournisseur.
      *
      * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     *                                                      Objet fournisseur à modifier
+     * Objet fournisseur à modifier
      *
      * @return Response
      */
@@ -162,7 +161,6 @@ class SupplierController extends Controller
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
-
                 // On enregistre l'objet $article dans la base de données
                 $etm = $this->getDoctrine()->getManager();
                 $etm->persist($supplier);
@@ -196,7 +194,7 @@ class SupplierController extends Controller
      * Supprimer un fournisseur.
      *
      * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     *                                                      Objet fournisseur à supprimer
+     * Objet fournisseur à supprimer
      *
      * @return Response
      */
