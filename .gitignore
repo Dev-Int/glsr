@@ -2,6 +2,7 @@ composer.phar
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
+/app/sessions/*
 /app/config/parameters.yml
 /app/phpunit.xml
 /vendor/
