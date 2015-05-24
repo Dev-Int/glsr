@@ -20,8 +20,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Intl\Intl;
 
-//\Locale::setDefault('fr');
-//$currency = Intl::getCurrencyBundle()->getCurrencyName('EUR');
+\Locale::setDefault('fr');
+$currency = Intl::getCurrencyBundle()->getCurrencyName('EUR');
 
 /**
  * SettingsType Form properties.
