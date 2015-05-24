@@ -63,7 +63,8 @@ class GlsrRequestListener
         ContainerInterface $container,
         Router $router,
         $routes = array()
-    ) {
+    )
+    {
         $this->etm = $etm;
         $this->container = $container;
         $this->router = $router;
@@ -142,8 +143,13 @@ class GlsrRequestListener
             );
             // vérifie que les Entitées ne sont pas vides
             $message = 'Il faut renseigner les informations manquantes';
+            if (0 < count($entities) || count($entities) > 10) {
+                $nbEntities = count($entities);
+            } else {
+                $nbEntities = 0;
+            }
 
-            for ($index = 0; $index < count($entities); $index++) {
+            for ($index = 0; $index < $nbEntities; $index++) {
                 $entity = $this->etm->getRepository(
                     $entities[$index]['repository']
                 );
