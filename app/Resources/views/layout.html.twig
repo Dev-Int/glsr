@@ -5,7 +5,9 @@
         <title>{% block title %}{% endblock %}</title>
 
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?yui_css' 'bundles/glsrgestock/css/bootstrap.css' %}
+            {% stylesheets filter='cssrewrite, ?yui_css' 
+                'bundles/glsrgestock/css/main.css'
+                'bundles/glsrgestock/css/bootstrap.css' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}
         {% endblock %}
@@ -28,10 +30,10 @@
                 </section>
             </div>
 
-            <hr />
+                    <hr />
         
             <footer>
-                <p>{{ 'glsr.copy'|trans }}</p>
+                    <p>{{ 'glsr.copy'|trans }}</p>
             </footer>
         </div>
         
