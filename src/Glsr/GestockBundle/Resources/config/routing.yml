@@ -215,7 +215,7 @@ glstock_inventory_prepare:
     pattern:  /inventory/prepare
     defaults: { _controller: GlsrGestockBundle:Inventory:prepare }
     requirements:
-        _method:  GET
+        _method:  GET|POST
 glstock_inventory_cancel:
     pattern:  /inventory/cancel/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:cancel }
