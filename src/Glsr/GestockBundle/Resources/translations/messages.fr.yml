@@ -7,7 +7,7 @@ glsr:
     login: Connexion
     logout: Déconnexion
     connect_as: connecté en tant que %username%
-    copy: "GLSR &copy 2014 and beyond."
+    copy: "GLSR &copy; 2014 and beyond."
     gestock:
         title: Gestock
         administration: Gestion
