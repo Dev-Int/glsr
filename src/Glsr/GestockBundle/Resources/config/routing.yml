@@ -4,9 +4,9 @@ glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
 
-glstock_install:
-    pattern:  /install
-    defaults: { _controller: GlsrGestockBundle:Gestock:install }
+#glstock_install:
+#    pattern:  /install
+#    defaults: { _controller: GlsrGestockBundle:Gestock:install }
 
 # Routes Settings
 glstock_company:
@@ -112,9 +112,9 @@ glstock_reassign_article:
 glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
-glstock_suppli_getsubfamily:
-    pattern:  /supplier/add/subfamilylog
-    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
+#glstock_suppli_getsubfamily:
+#    pattern:  /supplier/add/subfamilylog
+#    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
 glstock_suppli_edit:
     pattern:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }

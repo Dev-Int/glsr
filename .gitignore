@@ -1,12 +1,13 @@
 composer.phar
-/web/bundles/
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
-/vendor/
 /app/config/parameters.yml
-/nbproject/*
 /app/phpunit.xml
+/vendor/
+/web/bundles/
 /web/js/
 /web/css/
 /web/pdf/
+/web/config.php
+/nbproject/*

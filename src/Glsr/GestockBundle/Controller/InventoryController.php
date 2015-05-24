@@ -145,7 +145,7 @@ class InventoryController extends Controller
 
             //    Si Settings:firstInventory == null
             //    Settings:firstInventory = Invetory:date
-            if (empty($inventory) and $settings->getFirstInventory(null)) {
+            if (empty($inventory) && $settings->getFirstInventory(null)) {
                 $settings->setFirstInventory($daydate);
                 $etm->persist($settings);
                 $etm->flush();
@@ -246,17 +246,10 @@ class InventoryController extends Controller
             $etm->flush();
 
             foreach ($form->getData() as $item) {
-                var_dump($item);
-
                 // On vérifie que les valeurs rentrées sont correctes
 //                if ($form->isValid()) {
-//                    foreach ($articles as $article) {
-//                        $artInventory->getId($article->id);
-//                        $artInventory->getId($inventory->id);
-//                        $artInventory->setRealstock($realstock[$i]);
-                        $etm->persist($item);
-                $etm->flush();
-//                    }
+                    $etm->persist($item);
+                    $etm->flush();
 //                }
             }
             // On définit un message flash
