@@ -21,112 +21,20 @@
     </div>
 {% endblock %}
 
-
-{#{% block menu_bundle %}
-    <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li {% if app.request.attributes.get('_route') == 'glstock_home' %}class="active"{% endif %}>
-            <a href="{{ path('glstock_home') }}">
-                <i class="glyphicon glyphicon-home"></i>
-                {{ 'glsr.gestock.home.title'|trans }}
-            </a>
-        </li>
-        {% set articles = ['glstock_art_list', 'glstock_art_add', 'glstock_art_show'] %}
-        <li {% if app.request.attributes.get('_route') in articles %}
-            class="active dropdown"
-            {% else %}
-            class="dropdown"
-            {% endif %}>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                {{ 'glsr.gestock.article.title'|trans }} <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="{{ path('glstock_art_list') }}">
-                        <i class="glyphicon glyphicon-list-alt"></i>
-                        {{ 'glsr.gestock.article.list'|trans }}
-                    </a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                <li>
-                    <a href="{{ path('glstock_art_add') }}">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        {{ 'glsr.gestock.article.create.title'|trans }}
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-
-        </li>
-        {% set suppliers = ['glstock_suppli_list', 'glstock_suppli_add', 'glstock_suppli_show'] %}
-        <li {% if app.request.attributes.get('_route') in suppliers %}
-            class="active dropdown"
-            {% else %}
-            class="dropdown"
-            {% endif %}>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                {{ 'glsr.gestock.supplier.title'|trans }} <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="{{ path('glstock_suppli_list') }}">
-                        <i class="glyphicon glyphicon-list-alt"></i>
-                        {{ 'glsr.gestock.supplier.list'|trans }}
-                    </a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                <li>
-                    <a href="{{ path('glstock_suppli_add') }}">
-                        <i class="glyphicon glyphicon-plus"></i>
-                        {{ 'glsr.gestock.supplier.create.title'|trans }}
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-
-        </li>
-        {% set settings = ['glstock_company', 'glstock_company_add', 'glstock_company_edit',
-                            'glstock_application', 'glstock_application_add', 'glstock_application_edit',
-                            'glstock_divers', 'glstock_divers_add', 'glstock_divers_edit'] %}
-        <li {% if app.request.attributes.get('_route') in settings %}
-            class="active dropdown"
-            {% else %}
-            class="dropdown"
-            {% endif %}>
-            <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                {{ 'glsr.gestock.settings.title'|trans }} <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ path('glstock_company') }}">
-                        <i class="glyphicon glyphicon-tower"></i>
-                        {{ 'glsr.gestock.settings.company.title'|trans }}</a></li>
-                <li><a href="{{ path('glstock_application') }}">
-                        <i class="glyphicon glyphicon-wrench"></i>
-                        {{ 'glsr.gestock.settings.application.title'|trans }}</a></li>
-                <li><a href="{{ path('glstock_divers') }}">
-                        <i class="glyphicon glyphicon-info-sign"></i>
-                        {{ 'glsr.gestock.settings.diverse.title'|trans }}</a></li>
-            </ul>
-
-        </li>
-    </ul>
-
-    {#{ render(controller("GlsrGestockBundle:Gestock:alerts", {'nombre': 3})) }#}
-
-{#{% endblock %}#}
-
 {% block body %}
-    {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
     <h1>{{ 'glsr.gestock.title'|trans }} - <small>{% block body_title %}{% endblock %}</small></h1>
 
     <hr />
-    {% for message in app.session.flashbag.get('info') %}
-        <p class="alert alert-info">{{ message|trans|nl2br }}</p>
-    {% endfor %}
-    {% for message in app.session.flashbag.get('error') %}
-    <p class="alert alert-danger">{{ message }}</p>
-    {% endfor %}
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                <div class="alert alert-{{ type }}">
+                    {{ message|trans }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
 
-    {# On définit un nouveau block, que les vues du bundle pourront remplir #}
     {% block glstock_body %}
     {% endblock %}
 {% endblock %}
