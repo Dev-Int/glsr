@@ -6,6 +6,7 @@ glsr:
     subtitle: Gestion Libre des Stocks d'un Restaurant...
     login: Connexion
     logout: Déconnexion
+    no_granted: 'Vous devez être connecté pour accéder à cette page.'
     connect_as: connecté en tant que %username%
     copy: "GLSR &copy; 2014 and beyond."
     gestock:
@@ -112,6 +113,7 @@ glsr:
                 submit_button: 'Supprimer un article'
                 caution: "Êtes-vous sûr de vouloir supprimer l'article \"%article.name%\" ?"
                 ok: 'Article bien désactivé'
+                no: 'Article non désactivé. Il doit y avoir un problème...'
             edit:
                 title: 'Modifier un article'
                 title_button: "Modifier l'article"
