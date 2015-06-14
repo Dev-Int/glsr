@@ -13,6 +13,8 @@ parameters:
     mailer_password:   ~
 
     locale:            fr
+    userpass:          userpass
+    adminpass:         adminpass
     secret:            ThisTokenIsNotSoSecretChangeIt
     
     java_path: C:\Program Files (x86)\Java\jre7\bin\java.exe
