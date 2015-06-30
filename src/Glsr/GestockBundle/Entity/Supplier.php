@@ -222,7 +222,7 @@ class Supplier extends Contact
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {

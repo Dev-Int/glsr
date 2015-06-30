@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/** 
+/**
  * Contact Entité Contact.
  *
  * @category   Entity
@@ -39,7 +39,7 @@ class Contact
 
     /**
      * @var string name nom de l'entreprise
-     * 
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -128,7 +128,7 @@ class Contact
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -151,7 +151,7 @@ class Contact
     /**
      * Get zipcode
      *
-     * @return string 
+     * @return string
      */
     public function getZipcode()
     {
@@ -174,7 +174,7 @@ class Contact
     /**
      * Get town
      *
-     * @return string 
+     * @return string
      */
     public function getTown()
     {
@@ -197,7 +197,7 @@ class Contact
     /**
      * Get phone
      *
-     * @return phone_number 
+     * @return phone_number
      */
     public function getPhone()
     {
@@ -220,7 +220,7 @@ class Contact
     /**
      * Get fax
      *
-     * @return phone_number 
+     * @return phone_number
      */
     public function getFax()
     {
@@ -243,7 +243,7 @@ class Contact
     /**
      * Get mail
      *
-     * @return string 
+     * @return string
      */
     public function getMail()
     {
@@ -266,7 +266,7 @@ class Contact
     /**
      * Get contact
      *
-     * @return string 
+     * @return string
      */
     public function getContact()
     {
@@ -277,6 +277,7 @@ class Contact
      * Set gsm
      *
      * @param phone_number $gsm
+     *
      * @return Contact
      */
     public function setGsm($gsm)
@@ -289,7 +290,7 @@ class Contact
     /**
      * Get gsm
      *
-     * @return phone_number 
+     * @return phone_number
      */
     public function getGsm()
     {
@@ -299,7 +300,7 @@ class Contact
     /**
      * Get idCont
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -309,7 +310,7 @@ class Contact
     /**
      * Get idCont
      *
-     * @return integer 
+     * @return integer
      */
     public function getIdCont()
     {
@@ -320,6 +321,7 @@ class Contact
      * Set name
      *
      * @param string $name
+     *
      * @return Contact
      */
     public function setName($name)
@@ -332,7 +334,7 @@ class Contact
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
