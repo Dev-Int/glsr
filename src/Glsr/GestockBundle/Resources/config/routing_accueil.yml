@@ -2,3 +2,5 @@
 glsrgestock_home:
     pattern:   /
     defaults:  { _controller: GlsrGestockBundle:Gestock:index }
+    requirements:
+        _method:  GET
