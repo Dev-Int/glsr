@@ -63,8 +63,7 @@ class GlsrRequestListener
         ContainerInterface $container,
         Router $router,
         $routes = array()
-    )
-    {
+    ) {
         $this->etm = $etm;
         $this->container = $container;
         $this->router = $router;
