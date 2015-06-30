@@ -18,10 +18,6 @@ namespace Glsr\GestockBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Intl\Intl;
-
-\Locale::setDefault('fr');
-$currency = Intl::getCurrencyBundle()->getCurrencyName('EUR');
 
 /**
  * SettingsType Form properties.
