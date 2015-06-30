@@ -40,7 +40,7 @@ class CompanyType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('status', 'text')
-            ->add('adress', 'text')
+            ->add('address', 'text')
             ->add('zipcode', 'text')
             ->add('town', 'text')
             ->add(

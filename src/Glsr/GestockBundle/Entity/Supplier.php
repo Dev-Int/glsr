@@ -16,9 +16,9 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Glsr\GestockBundle\Entity\Contact;
 use Glsr\GestockBundle\Entity\FamilyLog;
 use Glsr\GestockBundle\Entity\SubFamilyLog;
 
@@ -34,111 +34,8 @@ use Glsr\GestockBundle\Entity\SubFamilyLog;
  *     message="Ce nom de fournisseur est déjà utilisé dans le système."
  * )
  */
-class Supplier
+class Supplier extends Contact
 {
-    /**
-     * @var int id du fournisseur
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $idSup;
-
-    /**
-     * @var string Nom du fournisseur
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\Regex(pattern="'^[A-Z]'",
-     * message="Le nom du fournisseur doit commencer par une majuscule.")
-     * @Assert\Regex(pattern="'[\w ]'",
-     * message="Le nom ne doit contenir que des lettres et des chiffres.")
-     * @Assert\NotBlank()
-     */
-    private $name;
-
-    /**
-     * @var string Adresse du fournisseur
-     *
-     * @ORM\Column(name="address", type="string", length=255)
-     * @Assert\Regex("'[\w]'")
-     * @Assert\NotBlank()
-     */
-    private $address;
-
-    /**
-     * @var int Code postal
-     *
-     * @ORM\Column(name="zipcode", type="integer", length=5)
-     * @Assert\Regex(pattern="'^[0-9]{5}$'",
-     * message="Le code postale ne contenir que 5 chiffres.")
-     * @Assert\NotBlank()
-     */
-    private $zipcode;
-
-    /**
-     * @var string Ville
-     *
-     * @ORM\Column(name="town", type="string", length=255)
-     * @Assert\Regex(
-     *     pattern="/^[A-Z]+([-' ]?[A-Z]+)+$/",
-     *     message="Le nom de ville choisi n'est pas valide."
-     * )
-     * @Assert\NotBlank()
-     */
-    private $town;
-
-    /**
-     * @var phone_number Téléphone du fournisseur
-     *
-     * @ORM\Column(name="phone", type="phone_number")
-     * @Assert\NotBlank()
-     * @AssertPhoneNumber(defaultRegion="FR")
-     */
-    private $phone;
-
-    /**
-     * @var phone_number Fax du fournisseur
-     *
-     * @ORM\Column(name="fax", type="phone_number")
-     * @Assert\NotBlank()
-     * @AssertPhoneNumber(defaultRegion="FR")
-     */
-    private $fax;
-
-    /**
-     * @var string email du fournisseur
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
-     * )
-     */
-    private $email;
-
-    /**
-     * @var string Contact chez le fournisseur
-     *
-     * @ORM\Column(name="contact", type="string", length=50)
-     * @Assert\NotBlank()
-     * @Assert\Regex(
-     *     pattern="/^[A-Z]/",
-     *     message="Le nom du contact doit commencer par une lettre."
-     * )
-     */
-    private $contact;
-
-    /**
-     * @var phone_number Gsm du contact
-     *
-     * @ORM\Column(name="gsm", type="phone_number")
-     * @Assert\NotBlank()
-     * @AssertPhoneNumber(defaultRegion="FR")
-     */
-    private $gsm;
-
     /**
      * @var string Famille logistique
      * @ORM\ManyToOne(targetEntity="Glsr\GestockBundle\Entity\FamilyLog")
@@ -186,232 +83,6 @@ class Supplier
     public function __construct()
     {
         $this->active = true;
-    }
-
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->idSup;
-    }
-
-    /**
-     * Set name.
-     *
-     * @param string $name Nom du fournisseur
-     *
-     * @return Supplier
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set address.
-     *
-     * @param string $address Adresse
-     *
-     * @return Supplier
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address.
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set zipcode.
-     *
-     * @param int $zipcode Code postal
-     *
-     * @return Supplier
-     */
-    public function setZipcode($zipcode)
-    {
-        $this->zipcode = $zipcode;
-
-        return $this;
-    }
-
-    /**
-     * Get zipcode.
-     *
-     * @return int
-     */
-    public function getZipcode()
-    {
-        return $this->zipcode;
-    }
-
-    /**
-     * Set town.
-     *
-     * @param string $town Ville
-     *
-     * @return Supplier
-     */
-    public function setTown($town)
-    {
-        $this->town = $town;
-
-        return $this;
-    }
-
-    /**
-     * Get town.
-     *
-     * @return string
-     */
-    public function getTown()
-    {
-        return $this->town;
-    }
-
-    /**
-     * Set phone.
-     *
-     * @param string $phone Téléphone
-     *
-     * @return Supplier
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get phone.
-     *
-     * @return string
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
-     * Set fax.
-     *
-     * @param string $fax Fax
-     *
-     * @return Supplier
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-     * Get fax.
-     *
-     * @return string
-     */
-    public function getFax()
-    {
-        return $this->fax;
-    }
-
-    /**
-     * Set email.
-     *
-     * @param string $email Adresse Email
-     *
-     * @return Supplier
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email.
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set contact.
-     *
-     * @param string $contact Nom du contact
-     *
-     * @return Supplier
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
-    /**
-     * Get contact.
-     *
-     * @return string
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Set gsm.
-     *
-     * @param string $gsm Téléphone du contact
-     *
-     * @return Supplier
-     */
-    public function setGsm($gsm)
-    {
-        $this->gsm = $gsm;
-
-        return $this;
-    }
-
-    /**
-     * Get gsm.
-     *
-     * @return string
-     */
-    public function getGsm()
-    {
-        return $this->gsm;
     }
 
     /**
@@ -521,7 +192,7 @@ class Supplier
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->getName();
     }
 
     /**
@@ -544,6 +215,16 @@ class Supplier
      * @return bool
      */
     public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean 
+     */
+    public function getActive()
     {
         return $this->active;
     }
