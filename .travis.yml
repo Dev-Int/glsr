@@ -9,7 +9,6 @@ env:
     secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
 
 before_install:
-# - chmod +x vendor/phpdocumentor/phpdocumentor/bin/phpdoc
  - sudo apt-get update && sudo apt-get install graphviz
 
 before_script: 
@@ -17,9 +16,6 @@ before_script:
   - composer install -n
   ## Composer : Mise à jour et Installation des pre-requis
   - composer selfupdate --quiet
-  #- composer install -n --prefer-source --dev
-  ## PHPDocumentor : Dossier de sortie
-  - mkdir -p build/docs
   ## PHP_CodeSniffer
   - pyrus install pear/PHP_CodeSniffer
   - phpenv rehash
@@ -42,15 +38,15 @@ before_script:
   ## PHPDoc
   - pear install Image_GraphViz
   ## PHPUnit/DbUnit
-  #- pear channel-discover pear.phpunit.de
-  #- pyrus channel-discover pear.symfony.com
-  #- pyrus install --force phpunit/DbUnit
-  #- composer install --dev --prefer-source
+  - pear channel-discover pear.phpunit.de
+  - pyrus channel-discover pear.symfony.com
+  - pyrus install --force phpunit/DbUnit
+  - composer install --dev --prefer-source
 
 script: 
   ## PHPUnit
-  #- phpunit -c app
-  #- phpunit --coverage-text
+  - phpunit -c app
+  - phpunit --coverage-text
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
@@ -59,7 +55,7 @@ script:
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC
-  - php phploc.phar src/
+  #- php phploc.phar src/
 
 notification:
   email:
