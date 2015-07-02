@@ -3,238 +3,189 @@
 glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
-    requirements:
-        _method:  GET
 
-#glstock_install:
-#    pattern:  /install
-#    defaults: { _controller: GlsrGestockBundle:Gestock:install }
-#    requirements:
-#        _method:  GET
+glstock_install:
+    pattern:  /install
+    defaults: { _controller: GlsrGestockBundle:Gestock:install }
 
 # Routes Settings
 glstock_company:
     pattern:  settings/company
     defaults: { _controller: GlsrGestockBundle:Settings:showCompany }
-    requirements:
-        _method:  GET
 glstock_application:
     pattern:  settings/application
     defaults: { _controller: GlsrGestockBundle:Settings:showApplication }
-    requirements:
-        _method:  GET
 glstock_divers:
     pattern:  settings/divers
     defaults: { _controller: GlsrGestockBundle:Settings:showDivers }
-    requirements:
-        _method:  GET
 
 glstock_settings_add:
     pattern:  /settings/add
     defaults: { _controller: GlsrGestockBundle:Settings:addSettings }
-    requirements:
-        _method:  GET|POST
 glstock_settings_edit:
     pattern:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editSettings }
     requirements:
-        id:       \d+
-        _method:  GET|POST
+        id: \d+
 
 glstock_company_add:
     pattern:  /company/add
     defaults: { _controller: GlsrGestockBundle:Settings:addCompany }
-    requirements:
-        _method:  GET|POST
 glstock_company_edit:
     pattern:  /company/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editCompany }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 glstock_setdiv_famlog_add:
     pattern:  /familylog/add
     defaults: { _controller: GlsrGestockBundle:Settings:addFamilyLog }
-    requirements:
-        _method:  GET|POST
 glstock_setdiv_famlog_edit:
     pattern:  /familylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editFamilyLog }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 glstock_setdiv_subfamlog_add:
     pattern:  /subfamilylog/add
     defaults: { _controller: GlsrGestockBundle:Settings:addSubFamilyLog }
-    requirements:
-        _method:  GET|POST
 glstock_setdiv_subfamlog_edit:
     pattern:  /subfamilylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editSubFamilyLog }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 glstock_setdiv_zonestorage_add:
     pattern:  /zonestorage/add
     defaults: { _controller: GlsrGestockBundle:Settings:addZoneStorage }
-    requirements:
-        _method:  GET|POST
 glstock_setdiv_zonestorage_edit:
     pattern:  /zonestorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editZoneStorage }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 glstock_setdiv_unitstorage_add:
     pattern:  /unitstorage/add
     defaults: { _controller: GlsrGestockBundle:Settings:addUnitStorage }
-    requirements:
-        _method:  GET|POST
 glstock_setdiv_unitstorage_edit:
     pattern:  /unitstorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editUnitStorage }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 glstock_setdiv_tva_add:
     pattern:  /tva/add
     defaults: { _controller: GlsrGestockBundle:Settings:addTva }
-    requirements:
-        _method:  GET|POST
 glstock_setdiv_tva_edit:
     pattern:  /tva/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings:editTva }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 
 # Routes des Articles
 glstock_art_add:
     pattern:  /article/add
-    defaults: { _controller: GlsrGestockBundle:Article:add }
+    defaults: { _controller: GlsrGestockBundle:Article:addShow }
     requirements:
-        _method:  GET|POST
+        _method:  GET
+glstock_art_add_process:
+    pattern:  /article/add
+    defaults: { _controller: GlsrGestockBundle:Article:addProcess }
+    requirements:
+        _method:  POST
 glstock_art_edit:
     pattern:  /article/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Article:edit }
-    requirements:
-        _method:  GET|POST
 glstock_art_del:
     pattern:  /article/delete/{id}
-    defaults: { _controller: GlsrGestockBundle:Article:delete }
+    defaults: { _controller: GlsrGestockBundle:Article:deleteShow }
     requirements:
         id:      \d+
-        _method: GET|POST
+        _method: GET
+glstock_art_del_process:
+    pattern:  /article/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Article:deleteProcess }
+    requirements:
+        id:      \d+
+        _method: POST
 glstock_art_list:
     pattern:  /article/{page}
     defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
     requirements:
-        page:    \d+
-        _method: GET
+        page:  \d+
 glstock_art_show:
     pattern:  /article/{name}
     defaults: { _controller: GlsrGestockBundle:Article:show }
-    requirements:
-        _method:  GET
 glstock_reassign_article:
     pattern:  /article/reassign/{id}
-    defaults: { _controller: GlsrGestockBundle:Article:reassign }
+    defaults: { _controller: GlsrGestockBundle:Article:reassignShow }
     requirements:
         id:      \d+
-        _method: GET|POST
+        _method: GET
+glstock_reassign_article_process:
+    pattern:  /article/reassign/{id}
+    defaults: { _controller: GlsrGestockBundle:Article:reassignProcess }
+    requirements:
+        id:      \d+
+        _method: POST
 
 # Routes des Suppliers
 glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
-    requirements:
-        _method:  GET|POST
-#glstock_suppli_getsubfamily:
-#    pattern:  /supplier/add/subfamilylog
-#    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
+glstock_suppli_getsubfamily:
+    pattern:  /supplier/add/subfamilylog
+    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
 glstock_suppli_edit:
     pattern:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }
-    requirements:
-        _method:  GET|POST
 glstock_suppli_del:
     pattern:  /supplier/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Supplier:delete }
     requirements:
-        id:      \d+
-        _method: GET|POST
+        id: \d+
 glstock_suppli_list:
     pattern:  /supplier/{page}
     defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
     requirements:
-        page:    \d+
-        _method: GET
+        page:  \d+
 glstock_suppli_show:
     pattern:  /supplier/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:show }
-    requirements:
-        _method:  GET
 
 # route des alertes
 glstock_show:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
-    requirements:
-        _method:  GET
 
 # route selects liés
 fill_subfamilylog:
     pattern:  /fill_subfamilylog
     defaults: { _controller: GlsrGestockBundle:Gestock:fillSubFamilyLog }
     requirements:
-        _method: GET|POST
+        _method: POST
 getfamilylog:
     pattern:  /getfamilylog
     defaults: { _controller: GlsrGestockBundle:Gestock:getFamilyLog }
     requirements:
-        _method: GET|POST
+        _method: POST
 
 # route Inventory
 glstock_inventory:
     pattern:  /inventory
     defaults: { _controller: GlsrGestockBundle:Inventory:index }
-    requirements:
-        _method:  GET
-glstock_inventory_show:
-    pattern:  /inventory/show/{id}
-    defaults: { _controller: GlsrGestockBundle:Inventory:show }
-    requirements:
-        id:      \d+
-        _method: GET
 glstock_inventory_prepare:
     pattern:  /inventory/prepare
     defaults: { _controller: GlsrGestockBundle:Inventory:prepare }
-    requirements:
-        _method:  GET|POST
 glstock_inventory_cancel:
-    pattern:  /inventory/cancel/{id}
+    pattern:  /inventory/cancel
     defaults: { _controller: GlsrGestockBundle:Inventory:cancel }
-    requirements:
-        id:      \d+
-        _method: GET|POST
 glstock_inventory_entry:
-    pattern:  /inventory/entry/{id}
+    pattern:  /inventory/entry
     defaults: { _controller: GlsrGestockBundle:Inventory:entry }
-    requirements:
-        id:      \d+
-        _method: GET|POST
 glstock_inventory_differencesStock:
     pattern:  /inventory/differencesStock
     defaults: { _controller: GlsrGestockBundle:Inventory:differencesStock }
-    requirements:
-        _method:  GET
 glstock_inventory_valid:
     pattern:  /inventory/valid
     defaults: { _controller: GlsrGestockBundle:Inventory:valid }
-    requirements:
-        _method:  GET|POST

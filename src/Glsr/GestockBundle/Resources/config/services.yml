@@ -12,7 +12,12 @@ services:
     articles:
         class: Glsr\GestockBundle\Controller\ArticleController
         tags:
-            -  { name: security.secure_service }
+            - { name: security.secure_service }
+
+    getflash:
+        class: Glsr\GestockBundle\Session\GetSession
+        tags:
+            - { name: session.getflash }
 
     knp_snappy.pdf:
         class:     Knp\Bundle\SnappyBundle\Snappy\LoggableGenerator
