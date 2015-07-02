@@ -10,7 +10,7 @@ class InventoryControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var InventoryController
      */
-    protected $_object;
+    protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -18,7 +18,7 @@ class InventoryControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_object = new InventoryController();
+        $this->object = new InventoryController();
     }
 
     /**
