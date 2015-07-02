@@ -3,84 +3,115 @@
 glstock_home:
     pattern:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
+    requirements:
+        _method:  GET
 
 glstock_install:
     pattern:  /install
     defaults: { _controller: GlsrGestockBundle:Gestock:install }
+    requirements:
+        _method:  GET
 
 # Routes Settings
 glstock_company:
     pattern:  settings/company
     defaults: { _controller: GlsrGestockBundle:Settings/Company:show }
+    requirements:
+        _method:  GET
 glstock_application:
     pattern:  settings/application
     defaults: { _controller: GlsrGestockBundle:Settings/Application:show }
+    requirements:
+        _method:  GET
 glstock_divers:
     pattern:  settings/divers
     defaults: { _controller: GlsrGestockBundle:Settings/Divers:show }
+    requirements:
+        _method:  GET
 
 glstock_settings_add:
     pattern:  /settings/add
     defaults: { _controller: GlsrGestockBundle:Settings/Application:add }
+    requirements:
+        _method:  GET/POST
 glstock_settings_edit:
     pattern:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_company_add:
     pattern:  /company/add
     defaults: { _controller: GlsrGestockBundle:Settings/Company:add }
+    requirements:
+        _method:  GET/POST
 glstock_company_edit:
     pattern:  /company/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_setdiv_famlog_add:
     pattern:  /familylog/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:add }
+    requirements:
+        _method:  GET/POST
 glstock_setdiv_famlog_edit:
     pattern:  /familylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_setdiv_subfamlog_add:
     pattern:  /subfamilylog/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:add }
+    requirements:
+        _method:  GET/POST
 glstock_setdiv_subfamlog_edit:
     pattern:  /subfamilylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_setdiv_zonestorage_add:
     pattern:  /zonestorage/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:add }
+    requirements:
+        _method:  GET/POST
 glstock_setdiv_zonestorage_edit:
     pattern:  /zonestorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_setdiv_unitstorage_add:
     pattern:  /unitstorage/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:add }
+    requirements:
+        _method:  GET/POST
 glstock_setdiv_unitstorage_edit:
     pattern:  /unitstorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 glstock_setdiv_tva_add:
     pattern:  /tva/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:add }
+    requirements:
+        _method:  GET/POST
 glstock_setdiv_tva_edit:
     pattern:  /tva/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:edit }
     requirements:
         id: \d+
+        _method:  GET/POST
 
 # Routes des Articles
 glstock_art_add:
