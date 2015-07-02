@@ -40,7 +40,7 @@ class GetSession
      * @param string $flag Type de message
      * @param string $message Message à afficher
      */
-    static public function getFlashBag($flag, $message)
+    public static function getFlashBag($flag, $message)
     {
         // On définit un message flash
         $this->_container
@@ -51,5 +51,4 @@ class GetSession
                 $message
             );
     }
-
 }
