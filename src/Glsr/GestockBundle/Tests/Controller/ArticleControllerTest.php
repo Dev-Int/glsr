@@ -25,7 +25,7 @@ class ArticleControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var ArticleController
      */
-    protected $_object;
+    protected $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -33,7 +33,7 @@ class ArticleControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_object = new ArticleController();
+        $this->object = new ArticleController();
     }
 
     /**
