@@ -117,7 +117,7 @@ class ArticleController extends Controller
             $message = "L'article " . $article->getName() ." est bien ajouté";
         } else {
             $url = $this->generateUrl('glstock_art_add');
-            $message = "L'article " . $article->getName() ." n'est pas ajouté !"; 
+            $message = "L'article " . $article->getName() ." n'est pas ajouté !";
         }
         // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
@@ -264,7 +264,7 @@ class ArticleController extends Controller
      * Réassignation d'articles à un autre fournisseur
      *   que celui passé en paramètre.
      *
-     * @param Supplier $supplier Fournisseur 
+     * @param Supplier $supplier Fournisseur
      *   dont les articles doivent être réaffectés
      *
      * @return Response/RedirectResponse
@@ -324,10 +324,10 @@ class ArticleController extends Controller
             list($inputName, $articleId) = $input;
             $inputData = $data->getViewData();
             if ($inputName === 'supplier') {
-                $newArticles = 
+                $newArticles =
                     $etm->getRepository('GlsrGestockBundle:Article')
                     ->find($articleId);
-                $newSupplier = 
+                $newSupplier =
                     $etm->getRepository('GlsrGestockBundle:Supplier')
                     ->find($inputData);
                 //On modifie le fournisseur de l'article
