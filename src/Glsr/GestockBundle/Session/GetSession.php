@@ -22,7 +22,7 @@ class GetSession
     /**
      * @var \ContainerInterface Container of Request
      */
-    private $_container;
+    private $container;
 
     /**
      * Constructor
@@ -31,7 +31,7 @@ class GetSession
      */
     public function __construct(ContainerInterface $container)
     {
-        $this->_container = $container;
+        $this->container = $container;
     }
     
     /**
@@ -43,7 +43,7 @@ class GetSession
     public static function getFlashBag($flag, $message)
     {
         // On définit un message flash
-        $this->_container
+        $this->container
             ->get('session')
             ->getFlashBag()
             ->add(
