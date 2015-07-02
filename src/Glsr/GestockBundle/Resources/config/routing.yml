@@ -11,74 +11,74 @@ glstock_install:
 # Routes Settings
 glstock_company:
     pattern:  settings/company
-    defaults: { _controller: GlsrGestockBundle:Settings:showCompany }
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:show }
 glstock_application:
     pattern:  settings/application
-    defaults: { _controller: GlsrGestockBundle:Settings:showApplication }
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:show }
 glstock_divers:
     pattern:  settings/divers
-    defaults: { _controller: GlsrGestockBundle:Settings:showDivers }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers:show }
 
 glstock_settings_add:
     pattern:  /settings/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addSettings }
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:add }
 glstock_settings_edit:
     pattern:  /settings/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editSettings }
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }
     requirements:
         id: \d+
 
 glstock_company_add:
     pattern:  /company/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addCompany }
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:add }
 glstock_company_edit:
     pattern:  /company/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editCompany }
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
     requirements:
         id: \d+
 
 glstock_setdiv_famlog_add:
     pattern:  /familylog/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addFamilyLog }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:add }
 glstock_setdiv_famlog_edit:
     pattern:  /familylog/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editFamilyLog }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:edit }
     requirements:
         id: \d+
 
 glstock_setdiv_subfamlog_add:
     pattern:  /subfamilylog/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addSubFamilyLog }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:add }
 glstock_setdiv_subfamlog_edit:
     pattern:  /subfamilylog/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editSubFamilyLog }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:edit }
     requirements:
         id: \d+
 
 glstock_setdiv_zonestorage_add:
     pattern:  /zonestorage/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addZoneStorage }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:add }
 glstock_setdiv_zonestorage_edit:
     pattern:  /zonestorage/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editZoneStorage }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:edit }
     requirements:
         id: \d+
 
 glstock_setdiv_unitstorage_add:
     pattern:  /unitstorage/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addUnitStorage }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:add }
 glstock_setdiv_unitstorage_edit:
     pattern:  /unitstorage/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editUnitStorage }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:edit }
     requirements:
         id: \d+
 
 glstock_setdiv_tva_add:
     pattern:  /tva/add
-    defaults: { _controller: GlsrGestockBundle:Settings:addTva }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:add }
 glstock_setdiv_tva_edit:
     pattern:  /tva/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings:editTva }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:edit }
     requirements:
         id: \d+
 
