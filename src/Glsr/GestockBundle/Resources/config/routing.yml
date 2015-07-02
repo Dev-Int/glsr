@@ -6,11 +6,11 @@ glstock_home:
     requirements:
         _method:  GET
 
-glstock_install:
-    pattern:  /install
-    defaults: { _controller: GlsrGestockBundle:Gestock:install }
-    requirements:
-        _method:  GET
+#glstock_install:
+#    pattern:  /install
+#    defaults: { _controller: GlsrGestockBundle:Gestock:install }
+#    requirements:
+#        _method:  GET
 
 # Routes Settings
 glstock_company:
@@ -164,9 +164,6 @@ glstock_reassign_article_process:
 glstock_suppli_add:
     pattern:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
-glstock_suppli_getsubfamily:
-    pattern:  /supplier/add/subfamilylog
-    defaults: { _controller: GlsrGestockBundle:Supplier:getAvailableSubFamilyLogs }
 glstock_suppli_edit:
     pattern:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }
