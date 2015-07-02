@@ -38,15 +38,15 @@ before_script:
   ## PHPDoc
   - pear install Image_GraphViz
   ## PHPUnit/DbUnit
-  - pear channel-discover pear.phpunit.de
-  - pyrus channel-discover pear.symfony.com
-  - pyrus install --force phpunit/DbUnit
+  #- pear channel-discover pear.phpunit.de
+  #- pyrus channel-discover pear.symfony.com
+  #- pyrus install --force phpunit/DbUnit
   - composer install --dev --prefer-source
 
 script: 
   ## PHPUnit
-  - phpunit -c app
-  - phpunit --coverage-text
+  #- phpunit -c app
+  #- phpunit --coverage-text
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
