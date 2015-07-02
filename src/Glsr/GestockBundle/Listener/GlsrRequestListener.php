@@ -64,9 +64,9 @@ class GlsrRequestListener
         Router $router,
         $routes = array()
     ) {
-        $this->etm       = $etm;
+        $this->etm = $etm;
         $this->container = $container;
-        $this->router    = $router;
+        $this->router = $router;
         $routes = array(
             'glstock_company_add',
             'glstock_settings_add',
@@ -95,7 +95,9 @@ class GlsrRequestListener
         // Si la route en cours est celle que l'on veut attribuer,
         // on sort de la fonction
         if (!in_array(
-            $event->getRequest()->attributes->get('_route'),
+            $event->getRequest()
+                ->attributes
+                ->get('_route'),
             $this->routes
         )
         ) {
@@ -140,8 +142,13 @@ class GlsrRequestListener
             );
             // vérifie que les Entitées ne sont pas vides
             $message = 'Il faut renseigner les informations manquantes';
+            if (0 < count($entities) || count($entities) > 10) {
+                $nbEntities = count($entities);
+            } else {
+                $nbEntities = 0;
+            }
 
-            for ($index = 0; $index < count($entities); $index++) {
+            for ($index = 0; $index < $nbEntities; $index++) {
                 $entity = $this->etm->getRepository(
                     $entities[$index]['repository']
                 );
@@ -161,14 +168,13 @@ class GlsrRequestListener
     /**
      * on Kernel Response.
      *
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent
-     * $event Event
+     * @param FilterResponseEvent $event Event
      *
      * @return RedirectResponse/null Redirige ou continue
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        // On redirige vers la page en paramètre $this->redirect
+        // On redirige vers la page d'ajout d'information de la société
         if (null !== $this->redirect) {
             $url = $this->router->generate($this->redirect);
             $event->setResponse(new RedirectResponse($url));

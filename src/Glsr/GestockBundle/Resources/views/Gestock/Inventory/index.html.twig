@@ -3,84 +3,93 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Inventory - {{ parent() }}
+    {{ 'glsr.gestock.inventory.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
-    <i class="glyphicon glyphicon-tasks"></i> Inventaire
+    <i class="glyphicon glyphicon-tasks"></i> {{ 'glsr.gestock.inventory.title'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
 
     <section class="col-lg-3">
         <div class="panel panel-default">
-            <header class="panel-heading"><i class="glyphicon glyphicon-tasks"></i> Inventaire</header>
+            <header class="panel-heading"><i class="glyphicon glyphicon-tasks"></i> {{ 'glsr.gestock.inventory.title'|trans }}</header>
             <ul class="list-unstyled list-group">
                 <li class="list-group-item">
                     <a href="{{ path('glstock_inventory_prepare') }}">
                         <i class="glyphicon glyphicon-print"></i>
-                        Préparer inventaire
+                        {{ 'glsr.gestock.inventory.prepare.title'|trans }}
                     </a>
                 </li>
-                <li class="list-group-item">
+{#                <li class="list-group-item">
                     <a href="{{ path('glstock_inventory_entry') }}">
                         <i class="glyphicon glyphicon-pencil"></i>
-                        Saisie de l'inventaire
+                        {{ 'glsr.gestock.inventory.seizure.title'|trans }}
                     </a>
-                </li>
+                </li>#}
                 <li class="list-group-item">
                     <a href="{{ path('glstock_inventory_differencesStock') }}">
                         <i class="glyphicon glyphicon-list-alt"></i>
-                        Calcul des écart de stock
+                        {{ 'glsr.gestock.inventory.calcul_gap.title'|trans }}
                     </a>
                 </li>
-                <li class="list-group-item">
-                    <a href="{{ path('glstock_inventory_cancel') }}">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        Annuler l'inventaire en cours
-                    </a>
-                </li>
-                <li class="list-group-item">
+{#                <li class="list-group-item">
                     <a href="{{ path('glstock_inventory_entry') }}">
                         <i class="glyphicon glyphicon-saved"></i>
-                        Clôturer l'inventaire en cours
+                        {{ 'glsr.gestock.inventory.close.title'|trans }}
                     </a>
-                </li>
+                </li>#}
             </ul>
         </div>
+        <p>
+            <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">
+                 <i class="glyphicon glyphicon-chevron-left"></i>
+                 {{ 'glsr.gestock.home.return'|trans }}
+             </a>
+        </p>
     </section>
     <section class="col-lg-9">
         <div class="panel panel-default">
-            <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> Journaux d'inventaire</header>
+            <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> {{ 'glsr.gestock.inventory.journals.title'|trans }}</header>
             <ul class="list-unstyled list-group">
-                <li class="list-group-item">Liste des 5 derniers inventaires</li>
+                {% if inventory is empty %}
+                <li class="list-group-item">{{ 'glsr.gestock.inventory.none'|trans }}</li>
+            </ul>
+            {% else %}
+                <li class="list-group-item">{{ 'glsr.gestock.inventory.list'|trans }}</li>
             </ul>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="col-lg-3">Id</th>
-                        <th class="col-lg-3">Date</th>
-                        <th class="col-lg-3">Montant</th>
-                        <th class="col-lg-3">Action</th>
+                        <th class="col-lg-2">{{ 'glsr.gestock.id'|trans }}</th>
+                        <th class="col-lg-3">{{ 'glsr.gestock.date'|trans }}</th>
+                        <th class="col-lg-3">{{ 'glsr.gestock.amount'|trans }}</th>
+                        <th class="col-lg-4">{{ 'glsr.gestock.action'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {#% for item in inventory %#}
+                    {% for item in inventory %}
                     <tr>
-                        <td class="col-lg-3">{#{ item.id }#}</td>
-                        <td class="col-lg-3">{#{ item.date }#}</td>
-                        <td class="col-lg-3">{#{ item.amount }#}</td>
-                        <td class="col-lg-3"></td>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.date|date("m/d/Y") }}</td>
+                        <td>{{ item.amount|number_format(2, ',', ' ') }}€</td>
+                        <td class="text-center">
+                            {% if item.active == 1 %}
+                            <a href="{{ asset(item.file) }}" title="Imprimer la préparation" onclick="window.open(this.href); return false;"><i class="glyphicon glyphicon-print"></i> {{ 'glsr.gestock.print'|trans }}</a> |
+                            <a href="{{ path('glstock_inventory_entry', {'id': item.id}) }}" title="{{ 'glsr.gestock.inventory.seizure.title'|trans }}"><i class="glyphicon glyphicon-pencil"></i> {{ 'glsr.gestock.inventory.seizure.title_short'|trans }}</a> |
+                            <a href="{{ path('glstock_inventory_cancel', {'id': item.id}) }}" title="Annuler l'inventaire"><i class="glyphicon glyphicon-trash"></i> {{ 'glsr.gestock.cancel'|trans }}</a>
+                            {% elseif item.active == 2 %}
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            {% elseif item.active == 3 %}
+                                <i class="glyphicon glyphicon-trash"></i>
+                            {% endif %}
+                        </td>
                     </tr>
-                    <tr>
-                        <td class="col-lg-3">{#{ item.id }#}</td>
-                        <td class="col-lg-3">{#{ item.date }#}</td>
-                        <td class="col-lg-3">{#{ item.amount }#}</td>
-                        <td class="col-lg-3"></td>
-                    </tr>
-                    {#% endfor %#}
+                    {% endfor %}
                 </tbody>
             </table>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

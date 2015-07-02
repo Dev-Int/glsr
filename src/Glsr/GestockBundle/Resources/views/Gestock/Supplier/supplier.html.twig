@@ -1,7 +1,7 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Supplier - {{ parent() }}
+    {{ 'glsr.gestock.supplier.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
@@ -10,55 +10,121 @@
 
 {% block glstock_body %}
     <fieldset class="well">
-        <legend>Information Fournisseur</legend>
-        <div class="col-md-2"><span class="label label-default">Adress</span></div>
+        <legend>{{ 'glsr.gestock.supplier.form.info'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.adress'|trans }}
+            </span>
+        </div>
         <div class="col-md-5">
             {{ supplier.address }}<br />
             {{ supplier.zipcode }} {{ supplier.town }}
         </div>
-        <div class="col-md-5"><span class="label label-default">Pays</span><br /></div>
-        <legend>Commercial</legend>
-        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <div class="col-md-5">
+            <span class="label label-default">
+                {{ 'glsr.gestock.supplier.settings.country'|trans }}
+            </span><br />
+        </div>
+        <legend>{{ 'glsr.gestock.supplier.settings.commercial'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.contact'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{{ supplier.contact }}</div><br />
-        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.phone'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
-        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-1">
+            <span class="label label-default">
+                {{ 'glsr.gestock.fax'|trans }}
+            </span>
+        </div>
         <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
-        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.mail'|trans }}
+            </span>
+        </div>
         <div class="col-md-4"></div>
-        <legend>Administratif</legend>
-        <div class="col-md-2"><span class="label label-default">Interlocuteur</span></div>
+        <legend>{{ 'glsr.gestock.supplier.settings.administratif'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.contact'|trans }}
+            </span>
+        </div>
         <div class="col-md-4"></div><br />
-        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.phone'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
-        <div class="col-md-1"><span class="label label-default">Fax</span></div>
+        <div class="col-md-1">
+            <span class="label label-default">
+                {{ 'glsr.gestock.fax'|trans }}
+            </span>
+        </div>
         <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
-        <div class="col-md-2"><span class="label label-default">Email</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.mail'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{{ supplier.email }}</div>
-        <legend>Details</legend>
-        <div class="col-md-2"><span class="label label-default">Famille</span></div>
+        <legend>{{ 'glsr.gestock.details'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{{ supplier.familyLog }}</div>
-        <div class="col-md-2"><span class="label label-default">Sous-famille</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}
+            </span>
+        </div>
         <div class="col-md-4">{% if supplier.subFamilyLog %}{{ supplier.subFamilyLog }}{% endif %}</div>
     </fieldset>
     <table class="panel panel-default">
         <thead class="panel-heading">
             <tr>
                 <th class="col-md-5">
-                    <span class="label label-default">Commandes</span>
+                    <span class="label label-default">
+                        {{ 'glsr.gestock.supplier.settings.order'|trans }}
+                    </span>
                 </th>
-                <th class="col-md-1 text-center">Lundi</th>
-                <th class="col-md-1 text-center">Mardi</th>
-                <th class="col-md-1 text-center">Mercredi</th>
-                <th class="col-md-1 text-center">Jeudi</th>
-                <th class="col-md-1 text-center">Vendredi</th>
-                <th class="col-md-1 text-center">Samedi</th>
-                <th class="col-md-1 text-center">Dimanche</th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.mon'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.tue'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.wed'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.thu'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.fri'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.sat'|trans }}
+                </th>
+                <th class="col-md-1 text-center">
+                    {{ 'glsr.gestock.dates.sun'|trans }}
+                </th>
             </tr>
         </thead>
         <tbody class="panel-body">
             <tr>
-                <td class="col-md-5">Jour de commande</td>
+                <td class="col-md-5">
+                    {{ 'glsr.gestock.supplier.settings.day_order'|trans }}
+                </td>
                 {% for i in 1..7 %}
                     {% set b = 0 %}
                     {% for orderdate in supplier.orderdate %}
@@ -82,39 +148,63 @@
 
     <section class="col-md-12">
         <fieldset>
-            <legend>Articles de {{ supplier.name }}</legend>
-            <table class="table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-md-3">name</th>
-                        <th class="col-md-1">{#unitstorage#}unité</th>
-                        <th class="col-md-1">{#packaging#}unité facture</th>
-                        <th class="col-md-1">price</th>
-                        <th class="col-md-1">quantity</th>
-                        <th class="col-md-1">{#minstock#}mini</th>
-                        <th class="col-md-2">{#FamilyLog#}famille logistique</th>
-                        <th class="col-md-2">{#SubFamilyLog#}sous famille</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for article in articles %}
-                    <tr>
-                        <td>
-                            <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
-                                {{ article.name }}
-                            </a>
-                        </td>
-                        <td>{{ article.packaging }}</td>
-                        <td>{{ article.unitstorage }}</td>
-                        <td>{{ article.price }} €</td>
-                        <td>{{ article.quantity }}</td>
-                        <td>{{ article.minstock }}</td>
-                        <td>{{ article.familyLog }}</td>
-                        <td>{{ article.subFamilyLog }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <legend>
+                {{ 'glsr.gestock.supplier.settings.articles_of'|trans({'%supplier.name%': supplier.name}) }}
+            </legend>
+            {% if articles is empty %}
+                <p>
+                    {{ 'glsr.gestock.supplier.settings.no_articles'|trans }}
+                </p>
+            {% else %}
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">
+                                {{ 'glsr.gestock.title_item'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'glsr.gestock.article.settings.packaging'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'glsr.gestock.article.settings.price'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'glsr.gestock.article.settings.quantity'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'glsr.gestock.article.settings.stock_alert'|trans }}
+                            </th>
+                            <th class="col-md-2">
+                                {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+                            </th>
+                            <th class="col-md-2">
+                                {{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                                    {{ article.name }}
+                                </a>
+                            </td>
+                            <td>{{ article.packaging }}</td>
+                            <td>{{ article.unitstorage }}</td>
+                            <td>{{ article.price }} €</td>
+                            <td>{{ article.quantity }}</td>
+                            <td>{{ article.minstock }}</td>
+                            <td>{{ article.familyLog }}</td>
+                            <td>{{ article.subFamilyLog }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </fieldset>
     </section>
 
@@ -133,14 +223,13 @@
             <p>
                 <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
                     <i class="glyphicon glyphicon-chevron-left"></i>
-                    {{ 'Retour à la liste'|trans }}
+                    {{ 'glsr.gestock.supplier.return_list'|trans }}
                 </a>&nbsp;
                 <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
                     <i class="glyphicon glyphicon-plus"></i>
-                    {{ 'Ajouter Supplier'|trans }}
+                    {{ 'glsr.gestock.supplier.create.title_button'|trans }}
                 </a>
             </p>
         {% endif %}
     </section>
-
 {% endblock %}

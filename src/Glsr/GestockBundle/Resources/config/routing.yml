@@ -85,15 +85,29 @@ glstock_setdiv_tva_edit:
 # Routes des Articles
 glstock_art_add:
     pattern:  /article/add
-    defaults: { _controller: GlsrGestockBundle:Article:add }
+    defaults: { _controller: GlsrGestockBundle:Article:addShow }
+    requirements:
+        _method:  GET
+glstock_art_add_process:
+    pattern:  /article/add
+    defaults: { _controller: GlsrGestockBundle:Article:addProcess }
+    requirements:
+        _method:  POST
 glstock_art_edit:
     pattern:  /article/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Article:edit }
 glstock_art_del:
     pattern:  /article/delete/{id}
-    defaults: { _controller: GlsrGestockBundle:Article:delete }
+    defaults: { _controller: GlsrGestockBundle:Article:deleteShow }
     requirements:
-        id: \d+
+        id:      \d+
+        _method: GET
+glstock_art_del_process:
+    pattern:  /article/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Article:deleteProcess }
+    requirements:
+        id:      \d+
+        _method: POST
 glstock_art_list:
     pattern:  /article/{page}
     defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
@@ -104,9 +118,16 @@ glstock_art_show:
     defaults: { _controller: GlsrGestockBundle:Article:show }
 glstock_reassign_article:
     pattern:  /article/reassign/{id}
-    defaults: { _controller: GlsrGestockBundle:Article:reassign }
+    defaults: { _controller: GlsrGestockBundle:Article:reassignShow }
     requirements:
-        id: \d+
+        id:      \d+
+        _method: GET
+glstock_reassign_article_process:
+    pattern:  /article/reassign/{id}
+    defaults: { _controller: GlsrGestockBundle:Article:reassignProcess }
+    requirements:
+        id:      \d+
+        _method: POST
 
 # Routes des Suppliers
 glstock_suppli_add:

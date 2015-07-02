@@ -15,7 +15,6 @@
  */
 namespace Glsr\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\UserBundle\Controller\SecurityController as BaseController;
 
 /**
@@ -44,17 +43,15 @@ class SecurityController extends BaseController
         if ($route == 'fos_user_security_login') {
             $view = 'login';
         } else {
-            // Mais sinon, il s'agit du formulaire
-            // de connexion intégré au menu,
-            // on utilise la vue "login_content" car il ne faut pas
-            // hériter du layout !
+            // Mais sinon, il s'agit du formulaire de connexion
+            // intégré au menu, on utilise la vue "login_content"
+            // car il ne faut pas hériter du layout !
             $view = 'login_content';
         }
 
         $template = sprintf(
-            'FOSUserBundle:Security:%s.html.%s',
-            $view,
-            $this->container->getParameter('fos_user.template.engine')
+            'FOSUserBundle:Security:%s.html.twig',
+            $view
         );
 
         return $this->container

@@ -43,17 +43,17 @@ class ArticleType extends AbstractType
                 'number',
                 array(
                     'precision' => 3,
-                    'grouping'  => true,
-                    'label'     => 'packaging',
+                    'grouping' => true,
+                    'label' => 'packaging',
                 )
             )
             ->add(
                 'price',
                 'money',
                 array(
-                    'precision'  => 3,
-                    'grouping'   => true,
-                    'currency'   => 'EUR',
+                    'precision' => 3,
+                    'grouping' => true,
+                    'currency' => 'EUR',
                 )
             )
             ->add(
@@ -61,7 +61,7 @@ class ArticleType extends AbstractType
                 'number',
                 array(
                     'precision' => 3,
-                    'grouping'  => true,
+                    'grouping' => true,
                 )
             )
             ->add(
@@ -69,16 +69,16 @@ class ArticleType extends AbstractType
                 'number',
                 array(
                     'precision' => 3,
-                    'grouping'  => true,
+                    'grouping' => true,
                 )
             )
             ->add(
                 'realstock',
                 'number',
                 array(
-                    'precision'     => 3,
-                    'grouping'      => true,
-                    'data'          => 0,
+                    'precision' => 3,
+                    'grouping' => true,
+                    'data' => 0,
                 )
             )
             ->add('active', 'checkbox')
@@ -86,7 +86,7 @@ class ArticleType extends AbstractType
                 'supplier',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:Supplier',
+                    'class' => 'GlsrGestockBundle:Supplier',
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Supplier',
@@ -97,7 +97,7 @@ class ArticleType extends AbstractType
                 'unit_storage',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:UnitStorage',
+                    'class' => 'GlsrGestockBundle:UnitStorage',
                     'property' => 'name',
                     'multiple' => false,
                 )
@@ -106,7 +106,7 @@ class ArticleType extends AbstractType
                 'zone_storages',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:ZoneStorage',
+                    'class' => 'GlsrGestockBundle:ZoneStorage',
                     'property' => 'name',
                     'multiple' => true,
                     'expanded' => true,
@@ -116,7 +116,7 @@ class ArticleType extends AbstractType
                 'family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:FamilyLog',
+                    'class' => 'GlsrGestockBundle:FamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Family',
@@ -127,7 +127,7 @@ class ArticleType extends AbstractType
                 'sub_family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:SubFamilyLog',
+                    'class' => 'GlsrGestockBundle:SubFamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Sub Family',

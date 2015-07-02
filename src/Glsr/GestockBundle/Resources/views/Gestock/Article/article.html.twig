@@ -5,20 +5,26 @@
 {% endblock %}
 
 {% block glstock_body %}
-    <fieldset><legend>Informations</legend>
+    <fieldset><legend>{{ 'glsr.gestock.article.settings.information'|trans }}</legend>
         <section class="row col-md-12">
             <div class="col-md-5 form-group">
-                <span class="label label-default">{{ "Intitulé"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.title_item'|trans }}
+                </span>&nbsp;
                 {{ article.name }}
             </div>
             <div class="col-md-5 form-group">
-                <span class="label label-default">{{ "Fournisseur"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.supplier.title'|trans }}
+                </span>&nbsp;
                 {{ article.supplier }}
             </div>
         </section>
         <section class="row col-md-12">
             <div class="col-md-12 form-group">
-                <span class="label label-default">{{ "Zone de stockage"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
+                </span>&nbsp;
                 {% set b = 0 %}
                 {% for zone in article.zonestorages %}
                     {% if b > 0 %}
@@ -30,27 +36,37 @@
                 {% endfor %}
             </div>
             <div class="col-md-6 form-group">
-                <span class="label label-default">{{ "Famille logistique"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+                </span>&nbsp;
                 {{ article.familyLog }}
             </div>
             <div class="col-md-6 form-group">
-                <span class="label label-default">{{ "Sous-famille"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}
+                </span>&nbsp;
                 {{ article.subFamilyLog }}
             </div>
         </section>
     </fieldset>
-    <fieldset><legend>Caractéristiques</legend>
+    <fieldset><legend>{{ 'glsr.gestock.article.settings.feature'|trans }}</legend>
          <section class="row col-md-12">
             <div class="col-md-4 form-group">
-                <span class="label label-default">{{ "Quantité"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.article.settings.quantity'|trans }}
+                </span>&nbsp;
                 {{ article.quantity }}
             </div>
             <div class="col-md-4 form-group">
-                <span class="label label-default">{{ "Unité de stockage"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
+                </span>&nbsp;
                 {{ article.unitStorage }}
             </div>
             <div class="col-md-4 input-group form-group">
-                <span class="label label-default">{{ "Prix"|trans }}</span>
+                <span class="label label-default">
+                    {{ 'glsr.gestock.article.settings.price'|trans }}
+                </span>&nbsp;
                 {{ article.price }}
             </div>
         </section>

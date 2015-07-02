@@ -46,7 +46,7 @@ class Inventory
     /**
      * @var bool Activé/Désactivé
      *
-     * @ORM\Column(name="active", type="boolean")
+     * @ORM\Column(name="active", type="smallint")
      */
     private $active;
 
@@ -56,6 +56,20 @@ class Inventory
      * @ORM\Column(name="amount", type="decimal", scale=3, nullable=true)
      */
     private $amount;
+
+    /**
+     * @var text Fichier pdf de préparation de l'inventaire
+     *
+     * @ORM\Column(name="file", type="text", nullable=true)
+     */
+    private $file;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->amount = 0.000;
+        $this->active = 1;
+    }
 
     /**
      * Get id.
@@ -147,5 +161,29 @@ class Inventory
     public function getIdInv()
     {
         return $this->idInv;
+    }
+
+    /**
+     * Set file.
+     *
+     * @param string $file
+     *
+     * @return Inventory
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

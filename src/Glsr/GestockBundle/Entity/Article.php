@@ -19,6 +19,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Glsr\GestockBundle\Entity\Supplier;
+use Glsr\GestockBundle\Entity\UnitStorage;
+use Glsr\GestockBundle\Entity\ZoneStorage;
+use Glsr\GestockBundle\Entity\FamilyLog;
+use Glsr\GestockBundle\Entity\SubFamilyLog;
 
 /**
  * Article.
@@ -46,9 +51,11 @@ class Article
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="'^\w+[^/]'",
-     * message="L'intitulé ne peut contenir
-     * que des lettres, chiffres et _ ou -")
+     * @Assert\Regex(
+     *     pattern="'^\w+[^/]'",
+     *     message="L'intitulé ne peut contenir que des lettres,
+     *     chiffres et _ ou -"
+     * )
      */
     private $name;
 
@@ -311,11 +318,11 @@ class Article
     /**
      * Set supplier.
      *
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier Fournisseur de l'article
+     * @param Supplier $supplier Fournisseur de l'article
      *
      * @return Article
      */
-    public function setSupplier(\Glsr\GestockBundle\Entity\Supplier $supplier = null)
+    public function setSupplier(Supplier $supplier = null)
     {
         $this->supplier = $supplier;
 
@@ -325,7 +332,7 @@ class Article
     /**
      * Get supplier.
      *
-     * @return \Glsr\GestockBundle\Entity\Supplier
+     * @return Supplier
      */
     public function getSupplier()
     {
@@ -335,13 +342,12 @@ class Article
     /**
      * Set unit_storage.
      *
-     * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage Unité de stockage
+     * @param UnitStorage $unitStorage Unité de stockage
      *
      * @return Article
      */
-    public function setUnitStorage(
-        \Glsr\GestockBundle\Entity\UnitStorage $unitStorage = null
-    ) {
+    public function setUnitStorage(UnitStorage $unitStorage = null)
+    {
         $this->unit_storage = $unitStorage;
 
         return $this;
@@ -350,7 +356,7 @@ class Article
     /**
      * Get unit_storage.
      *
-     * @return \Glsr\GestockBundle\Entity\UnitStorage
+     * @return UnitStorage
      */
     public function getUnitStorage()
     {
@@ -365,9 +371,8 @@ class Article
      *
      * @return Article
      */
-    public function addZoneStorage(
-        \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
-    ) {
+    public function addZoneStorage(ZoneStorage $zoneStorages)
+    {
         $this->zone_storages[] = $zoneStorages;
 
         return $this;
@@ -376,14 +381,12 @@ class Article
     /**
      * Remove zone_storages.
      *
-     * @param \Glsr\GestockBundle\Entity\ZoneStorage
-     * $zoneStorages Zone de stockage à supprimer
+     * @param ZoneStorage $zoneStorages Zone de stockage à supprimer
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function removeZoneStorage(
-        \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorages
-    ) {
+    public function removeZoneStorage(ZoneStorage $zoneStorages)
+    {
         $this->zone_storages->removeElement($zoneStorages);
     }
 
@@ -400,14 +403,12 @@ class Article
     /**
      * Set family_log.
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog
-     * $familyLog Famille Logistique
+     * @param FamilyLog $familyLog Famille Logistique
      *
      * @return Article
      */
-    public function setFamilyLog(
-        \Glsr\GestockBundle\Entity\FamilyLog $familyLog = null
-    ) {
+    public function setFamilyLog(FamilyLog $familyLog = null)
+    {
         $this->family_log = $familyLog;
 
         return $this;
@@ -416,7 +417,7 @@ class Article
     /**
      * Get family_log.
      *
-     * @return \Glsr\GestockBundle\Entity\FamilyLog
+     * @return FamilyLog
      */
     public function getFamilyLog()
     {
@@ -426,14 +427,12 @@ class Article
     /**
      * Set sub_family_log.
      *
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog
-     * $subFamilyLog Sous-famille logistique
+     * @param SubFamilyLog $subFamilyLog Sous-famille logistique
      *
      * @return Article
      */
-    public function setSubFamilyLog(
-        \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog = null
-    ) {
+    public function setSubFamilyLog(SubFamilyLog $subFamilyLog = null)
+    {
         $this->sub_family_log = $subFamilyLog;
 
         return $this;
@@ -442,7 +441,7 @@ class Article
     /**
      * Get sub_family_log.
      *
-     * @return \Glsr\GestockBundle\Entity\SubFamilyLog
+     * @return SubFamilyLog
      */
     public function getSubFamilyLog()
     {

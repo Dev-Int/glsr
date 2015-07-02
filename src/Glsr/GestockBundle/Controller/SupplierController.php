@@ -27,7 +27,7 @@ use Glsr\GestockBundle\Form\SupplierType;
 class SupplierController extends Controller
 {
     /**
-     * Affiche la liste des fournisseurs (pagination).
+     * affiche la liste des fournisseurs (pagination).
      *
      * @param type $page numéro de page
      *
@@ -49,7 +49,7 @@ class SupplierController extends Controller
             'GlsrGestockBundle:Gestock/Supplier:index.html.twig',
             array(
                 'suppliers' => $suppliers,
-                'page'       => $page,
+                'page' => $page,
                 'nb_page' => ceil(count($suppliers) / $nbPerPage) ?: 1,
             )
         );
@@ -125,8 +125,7 @@ class SupplierController extends Controller
     /**
      * Modifier un fournisseur.
      *
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     * Objet fournisseur à modifier
+     * @param Supplier $supplier Objet fournisseur à modifier
      *
      * @return Response
      */
@@ -171,8 +170,8 @@ class SupplierController extends Controller
                     ->getFlashBag()
                     ->add('info', 'Fournisseur bien modifié');
 
-                // On redirige vers la page
-                // de visualisation du fournisseur modifié
+                // On redirige vers
+                // la page de visualisation du fournisseur modifié
                 return $this->redirect(
                     $this->generateUrl(
                         'glstock_suppli_show',
@@ -193,8 +192,7 @@ class SupplierController extends Controller
     /**
      * Supprimer un fournisseur.
      *
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     * Objet fournisseur à supprimer
+     * @param Supplier $supplier Objet fournisseur à supprimer
      *
      * @return Response
      */
@@ -241,6 +239,9 @@ class SupplierController extends Controller
             );
         }
 
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression
+        // du fournisseur contre cette faille
         $form = $this->createFormBuilder()->getForm();
 
         //On modifie l'état actif du fournisseur
@@ -276,7 +277,7 @@ class SupplierController extends Controller
             'GlsrGestockBundle:Gestock/Supplier:delete.html.twig',
             array(
                 'supplier' => $supplier,
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 )
         );
     }
@@ -284,8 +285,7 @@ class SupplierController extends Controller
     /**
      * Afficher le fournisseur.
      *
-     * @param \Glsr\GestockBundle\Entity\Supplier $supplier
-     *                                                      Objet fournisseur à afficher
+     * @param Supplier $supplier Objet fournisseur à afficher
      *
      * @return Response
      */

@@ -97,17 +97,17 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
             array(
-                'divers'       => 1,
+                'divers' => 1,
                 'subfamilylog' => $subFamilyLog,
-                'zonestorage'  => $zoneStorage,
-                'unitstorage'  => $unitStorage,
-                'tva'          => $tva,
+                'zonestorage' => $zoneStorage,
+                'unitstorage' => $unitStorage,
+                'tva' => $tva,
             )
         );
     }
 
     /**
-     * Ajoute un paramètre à l'application.
+     * Ajouter un paramètre.
      *
      * @return Response
      */
@@ -227,7 +227,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
             'settings' => $settings,
             )
         );
@@ -295,11 +295,11 @@ class SettingsController extends Controller
     }
 
     /**
-     * Modifier les données de l'entreprise.
+     * Modifier l'entreprise.
      *
-     * @param \Glsr\GestockBundle\Entity\Company $company Entreprise à modifier
+     * @param Company $company Entreprise à modifier
      *
-     * @return Response
+     * @return type
      */
     public function editCompanyAction(Company $company)
     {
@@ -345,7 +345,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'company' => $company,
             )
         );
@@ -413,10 +413,9 @@ class SettingsController extends Controller
     }
 
     /**
-     * Modifier une famille logistique.
+     * editFamilyLogAction Modifier une famille logistique.
      *
-     * @param \Glsr\GestockBundle\Entity\FamilyLog $familyLog
-     * Objet famille logistique à modifier
+     * @param FamilyLog $familyLog Objet famille logistique à modifier
      *
      * @return type
      */
@@ -464,7 +463,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'familylog' => $familyLog,
             )
         );
@@ -534,10 +533,9 @@ class SettingsController extends Controller
     /**
      * Modifier une sous-famille logistique.
      *
-     * @param \Glsr\GestockBundle\Entity\SubFamilyLog $subFamilyLog
-     * Objet sous-famille logistique à modifier
+     * @param SubFamilyLog $subFamilyLog Objet subfamily logistique à modifier
      *
-     * @return Response
+     * @return type
      */
     public function editSubFamilyLogAction(SubFamilyLog $subFamilyLog)
     {
@@ -583,7 +581,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'subfamilylog' => $subFamilyLog,
             )
         );
@@ -653,8 +651,7 @@ class SettingsController extends Controller
     /**
      * Modifier une zone de stockage.
      *
-     * @param \Glsr\GestockBundle\Entity\ZoneStorage $zoneStorage
-     * Objet zone de stockage à modifier
+     * @param ZoneStorage $zoneStorage Objet zone de stockage à modifier
      *
      * @return Response
      */
@@ -702,7 +699,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'zonestorage' => $zoneStorage,
             )
         );
@@ -772,8 +769,7 @@ class SettingsController extends Controller
     /**
      * Modifier une unité de stockage.
      *
-     * @param \Glsr\GestockBundle\Entity\UnitStorage $unitStorage
-     * Objet unité de stockage à modifier
+     * @param UnitStorage $unitStorage Objet unité de stockage à modifier
      *
      * @return Response
      */
@@ -821,7 +817,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'unitstorage' => $unitStorage,
             )
         );
@@ -891,7 +887,7 @@ class SettingsController extends Controller
     /**
      * Modifier une TVA.
      *
-     * @param \Glsr\GestockBundle\Entity\Tva $tva objet TVA à modifier
+     * @param Tva $tva objet TVA à modifier
      *
      * @return Response
      */
@@ -939,7 +935,7 @@ class SettingsController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-                'form'    => $form->createView(),
+                'form' => $form->createView(),
                 'tva' => $tva,
             )
         );

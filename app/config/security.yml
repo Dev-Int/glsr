@@ -5,7 +5,7 @@ jms_security_extra:
   
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User: sha512
         Glsr\UserBundle\Entity\User: sha512
 
     role_hierarchy:
@@ -16,8 +16,8 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    user:  { password: %userpass%, roles: [ 'ROLE_USER' ] }
+                    admin: { password: %adminpass%, roles: [ 'ROLE_ADMIN' ] }
         main:
             id: fos_user.user_provider.username
 

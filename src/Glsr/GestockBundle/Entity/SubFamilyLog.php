@@ -17,6 +17,7 @@ namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Glsr\GestockBundle\Entity\FamilyLog;
 
 /**
  * SubFamilyLog Entité SubFamilyLog.
@@ -146,7 +147,7 @@ class SubFamilyLog
     /**
      * Get familylog.
      *
-     * @return \Glsr\GestockBundle\Entity\FamilyLog
+     * @return FamilyLog
      */
     public function getFamilylog()
     {

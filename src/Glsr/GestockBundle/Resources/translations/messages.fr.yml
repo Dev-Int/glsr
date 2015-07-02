@@ -1,52 +1,157 @@
 Hello: 'Bonjour %name% !'
-cancel: Annuler
-validate: Valider
 Bye: 'Au revoir'
 glsr:
+    title: Glsr
+    title_page: "Gestock - GLSR"
+    subtitle: Gestion Libre des Stocks d'un Restaurant...
+    login: Connexion
+    logout: Déconnexion
+    no_granted: 'Vous devez être connecté pour accéder à cette page.'
+    connect_as: connecté en tant que %username%
+    copy: "GLSR &copy; 2014 and beyond."
     gestock:
+        title: Gestock
+        administration: Gestion
+        details: Détails
         return_list: 'Retour à la liste'
+        title_item: Intitulé
+        action: Action
+        actif: Actif
+        abbr: Abrev.
+        id: ID
+        print: Imprimer
+        validate: Valider
+        cancel: Annuler
+        edit: Modifier
+        name: Nom
+        adress: Adresse
+        phone: Téléphone
+        fax: Fax
+        mail: Courriel
+        contact: Contact
+        date: Date
+        amount: Montant
+        dates:
+            mon: Lundi
+            tue: Mardi
+            wed: Mercredi
+            thu: Jeudi
+            fri: Vendredi
+            sat: Samedi
+            sun: Dimanche
+        total: Total
+        totals: Totaux
+
         home:
             title: Accueil
-            return: 'Retour à l''accueil'
+            body_title: "Page d'accueil"
+            return: "Retour à l'accueil"
+
+        settings:
+            title: Configuration
+            return: "Retour à la configuration"
+            new: 'Nouvelle configuration'
+            company:
+                title: Etablissement
+                subtitle: "Paramètres de la société utilisant le logiciel."
+            application:
+                title: Application
+                subtitle: "Gestion des paramètres de l'application."
+                style_inventory: "Style d'inventaire"
+                method_calcul_inventory: "Mode de calcul d'inventaire"
+                first_inventory: "Inventaire d'installation"
+                currency: Monnaie
+            diverse:
+                title: Divers
+                familylog: "Famille logistique"
+                family_subtitle: "Gestion des familles et sous-familles logistiques."
+                family: Famille
+                family_edit: "Modifier la famille"
+                family_add: "Ajouter une famille"
+                subfamilylog: "Sous-famille logistique"
+                subfamily: "Sous-famille"
+                subfamily_edit: "Modifier la sous-famille"
+                subfamily_add: "Ajouter une sous-famille"
+                zonestorage: "Zone de stockage"
+                zonestorage_subtitle: "Gestion des paramètres des zones de stockage."
+                zonestorage_edit: "Modifier la zone de stockage"
+                zonestorage_add: "Ajouter une zone de stockage"
+                unitstorage: "Unité de stockage"
+                unitstorage_subtitle: "Gestion des paramètres des unités de stockage.\n 'KG', 'L'..."
+                unitstorage_edit: "Modifier l'unité de stockage"
+                unitstorage_add: "Ajouter une unité de stockage"
+                vat: "TVA"
+                vat_subtitle: "Gestion des paramètres des taxes."
+                vat_edit: "Modifier la taxe"
+                vat_add: "Ajouter une taxe"
+                vat_rate: "Taux de TVA"
+            form:
+                title: "Formulaire de configuration"
+                caution: 'Cette configuration déterminera le fonctionnement de votre application'
+
         article:
-            nombre: 'Il y a %count% article|]1,+Inf]Il y a %count% articles'
-            title: 'Titre de l''article'
-            content: 'Contenu de l''article'
+            title: Articles
+            number: 'Il y a %count% article|]1,+Inf]Il y a %count% articles'
+            title_article: "Titre de l'article"
+            content: "Contenu de l'article"
             list: 'Liste des articles'
-            none: 'Pas (encore !) d''article'
+            none: "Pas (encore !) d'article"
             lastest: 'Les derniers articles'
-            return: 'Retour à l''article'
+            return: "Retour à l'article"
+            settings:
+                packaging: "Unité de facturation"
+                price: Prix
+                quantity: Quantité
+                stock_alert: "Stock alerte"
+                theoretical_stock: "Stock théorique"
+                real_stock: "Stock réel"
+                information: Informations
+                feature: Caractéristiques
             delete:
                 title: 'Supprimer un article'
-                title_button: 'Supprimer l''article'
+                title_button: "Supprimer l'article"
                 submit_button: 'Supprimer un article'
-                caution: 'Êtes-vous sûr de vouloir supprimer l''article "%article.name%" ?'
+                caution: "Êtes-vous sûr de vouloir supprimer l'article \"%article.name%\" ?"
                 ok: 'Article bien désactivé'
+                no: 'Article non désactivé. Il doit y avoir un problème...'
             edit:
                 title: 'Modifier un article'
-                title_button: 'Modifier l''article'
-                submit_button: Valider
-                caution: 'Vous éditez un article déjà existant, ne le changez pas trop pour éviter aux membres de ne pas comprendre ce qu''il se passe.'
+                title_button: "Modifier l'article"
+                caution: "Vous éditez un article déjà existant.\n Ne le changez pas trop, pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
             form:
-                title: 'Formulaire d''article'
+                title: "Formulaire d'article"
                 info: 'Information Article'
             show:
-                title: 'Lecture d''un article'
-                edit_button: 'Editer l''article'
+                title: "Lecture d'un article"
+                edit_button: "Editer l'article"
                 create_button: 'Créer un nouvel article'
             create:
                 title: 'Créer un article'
                 title_button: 'Ajouter un article'
-                caution: 'Attention cet article sera ajouté directement au tableau des articles après validation du formulaire.'
+                caution: "Attention !\n Cet article sera ajouté directement\n au tableau des articles après validation du formulaire."
+            ressign:
+                title: "Réassignation d'article"
+                from: "Réassigner les articles du fournisseur %supname%"
 
         supplier:
-            nombre: 'Il y a %count% supplier|]1,+Inf]Il y a %count% suppliers'
-            title: 'Fournisseur'
+            title: Fournisseurs
+            name: Nom
+            number: 'Il y a %count% fournisseur|]1,+Inf]Il y a %count% fournisseurs'
             content: 'Contenu du fournisseur'
-            list: 'Liste des suppliers'
+            list: 'Liste des fournisseurs'
             none: 'Pas (encore !) de fournisseur'
             lastest: 'Les derniers fournisseurs'
             return: 'Retour au fournisseur'
+            return_list: 'Retour à la liste'
+            settings:
+                country: Pays
+                commercial: Commercial
+                administratif: Adminsitratif
+                order: Commande
+                delay: "Délai Livraison"
+                day_order: "Jour de commande"
+                articles_of: "Articles de %supplier.name%"
+                no_articles: "Il n'y a pas d'article pour ce fournisseur."
             delete:
                 title: 'Supprimer un fournisseur'
                 title_button: 'Supprimer le fournisseur'
@@ -57,7 +162,7 @@ glsr:
                 title: 'Modifier un fournisseur'
                 title_button: 'Modifier le fournisseur'
                 submit_button: Valider
-                caution: 'Vous éditez un fournisseur déjà existant, ne le changez pas trop pour éviter aux membres de ne pas comprendre ce qu''il se passe.'
+                caution: "Vous éditez un fournisseur déjà existant.\n Ne le changez pas trop pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
             form:
                 title: 'Formulaire de fournisseur'
                 info: 'Information Fournisseur'
@@ -68,36 +173,44 @@ glsr:
             create:
                 title: 'Créer un fournisseur'
                 title_button: 'Ajouter un fournisseur'
-                caution: 'Attention ce fournisseur sera ajouté directement au tableau des forunisseurs après validation du formulaire.'
+                caution: "Attention !\n Ce fournisseur sera ajouté directement\n au tableau des forunisseurs après validation du formulaire."
 
-charte:
-    titre: 'Mentions légales'
-    donnee.0: "Le Site du Zéro recueille des informations (login, e-mail) lors de votre enregistrement en tant que membre du site. Lors de votre connexion au site, un fichier \"log\" stocke les actions effectuées par votre ordinateur (via son adresse IP) au serveur.\n"
-    donnee.1: "Lorsque que vous vous connectez en tant que membre du Site du Zéro et\nque vous cochez la case correspondante, un cookie est envoyé à votre\nordinateur afin qu'il se souvienne de votre login et de votre mot de\npasse. Ceci vous est proposé uniquement afin d'automatiser la\nprocédure de connexion, et n'est en aucun cas utilisé par Simple IT à\nd'autres fins.\n"
-    donnee.2: 'Merci de votre attention.'
+        inventory:
+            title: "Gérer les inventaires"
+            return_list: 'Retour accueil inventaires'
+            none: "Il n'y a pas encore d'inventaire"
+            list: "Liste des 5 derniers inventaires"
+            prepare:
+                title: "Préparer l'inventaire"
+                still_exist_pdf: 'Le fichier prepare.pdf est déjà créé !'
+                add: 'Inventaire bien ajouté'
+            cancel:
+                title: "Annuler l'inventaire"
+                caution: "Êtes-vous sûr de vouloir annuler l'inventaire '%inventory.date%' ?\n Si vous avez saisi des données, elles seront suprimées."
+                submit_button: "Annuler l'inventaire"
+                ok: 'Inventaire bien annulé'
+                no: 'Inventaire non annulé'
+            seizure:
+                item: "Inventaire n°"
+                title: "Saisie de l'inventaire"
+                title_short: Saisie
+                ok: "Saisie de l'inventiare bien enregistrée"
+                total: "Stock valorisé"
+                totals: "Total de l'inventaire"
+            calcul_gap:
+                title: "Calcul des écarts de stock"
+            close:
+                title: "Clôturer l'inventaire en cours"
+            journals:
+                title: "Journaux d'inventaires"
 
-Intitulé: new_Intitulé
-Fournisseur: new_Fournisseur
-Actif: new_Actif
-'Zone de stockage': 'new_Zone de stockage'
-'Famille logistique': 'new_Famille logistique'
-Sous-famille: new_Sous-famille
-Quantité: new_Quantité
-'Unité de stockage': 'new_Unité de stockage'
-Prix: new_Prix
-'Nouvelle configuration': 'new_Nouvelle configuration'
-'Cette configuration déterminera le fonctionnement de votre application': 'new_Cette configuration déterminera le fonctionnement de votre application'
-'Edit configuration': 'new_Edit configuration'
-'Retour à la configuration': 'new_Retour à la configuration'
-'Formulaire de configuration': 'new_Formulaire de configuration'
-Settings: new_Settings
-Modifier: new_Modifier
-'Modifier famille': 'new_Modifier famille'
-'Modifier sous-famille': 'new_Modifier sous-famille'
-'Ajouter FamilyLog': 'new_Ajouter FamilyLog'
-'Ajouter SubFamilyLog': 'new_Ajouter SubFamilyLog'
-'Modifier zone de stockage': 'new_Modifier zone de stockage'
-'Ajouter ZoneStorage': 'new_Ajouter ZoneStorage'
-'Modifier UnitStorage': 'new_Modifier UnitStorage'
-'Ajouter UnitStorage': 'new_Ajouter UnitStorage'
-'Edit Supplier': 'new_Edit Supplier'
+        orders:
+            title: "Gérer les commandes"
+            form:
+                date_order: Date de commande
+
+        alertes:
+            title: Alertes
+
+        delivery:
+            title: "Gérer les réceptions"

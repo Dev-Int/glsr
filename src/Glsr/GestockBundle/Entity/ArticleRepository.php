@@ -26,7 +26,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ArticleRepository extends EntityRepository
 {
     /**
-     * getArticles Affiche les articles actifs, avec une pagination.
+     * Affiche les articles actifs, avec une pagination.
      *
      * @param int $nbPerPage Nombre d'article par page
      * @param int $page      Numéro de la page en cours

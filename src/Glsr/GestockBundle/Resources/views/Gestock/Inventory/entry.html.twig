@@ -1,0 +1,23 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Inventory\entry.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    Inventory - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="glyphicon glyphicon-pencil"></i> {{ 'glsr.gestock.inventory.seizure.title'|trans }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    {% include 'GlsrGestockBundle:Gestock/Inventory:form.html.twig' %}
+
+    <p>
+        <a href="{{ path('glstock_inventory') }}" class="btn btn-default" role="button">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            {{ "glsr.gestock.inventory.return_list"|trans }}
+        </a>
+    </p>
+{% endblock %}

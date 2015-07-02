@@ -76,8 +76,8 @@ class SupplierRepository extends EntityRepository
             ->andWhere('s.active = 1')
             ->setParameters(
                 array(
-                    'idname'  => $article->getSupplier()->getName(),
-                    'flname'  => $article->getFamilyLog(),
+                    'idname' => $article->getSupplier()->getName(),
+                    'flname' => $article->getFamilyLog(),
                     'sflname' => $article->getSubFamilyLog(),
                 )
             )

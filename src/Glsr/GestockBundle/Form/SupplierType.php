@@ -47,7 +47,7 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
@@ -55,7 +55,7 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add('email', 'email')
@@ -65,11 +65,10 @@ class SupplierType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
-            // Délai de livraison A = jour de Cmde,
-            // (B, C, D, E) = jour de livraison
+            // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
             ->add(
                 'delaydeliv',
                 'choice',
@@ -104,7 +103,7 @@ class SupplierType extends AbstractType
                 'family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:FamilyLog',
+                    'class' => 'GlsrGestockBundle:FamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'empty_value' => 'Choice the Family',
@@ -115,7 +114,7 @@ class SupplierType extends AbstractType
                 'sub_family_log',
                 'entity',
                 array(
-                    'class'    => 'GlsrGestockBundle:SubFamilyLog',
+                    'class' => 'GlsrGestockBundle:SubFamilyLog',
                     'property' => 'name',
                     'multiple' => false,
                     'required' => false,

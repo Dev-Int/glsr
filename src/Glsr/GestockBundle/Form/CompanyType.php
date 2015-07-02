@@ -40,7 +40,7 @@ class CompanyType extends AbstractType
         $builder
             ->add('name', 'text')
             ->add('status', 'text')
-            ->add('adress', 'text')
+            ->add('address', 'text')
             ->add('zipcode', 'text')
             ->add('town', 'text')
             ->add(
@@ -48,7 +48,7 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
@@ -56,7 +56,7 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
@@ -72,7 +72,7 @@ class CompanyType extends AbstractType
                 'tel',
                 array(
                     'default_region' => 'FR',
-                    'format'         => PhoneNumberFormat::NATIONAL,
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             );
     }

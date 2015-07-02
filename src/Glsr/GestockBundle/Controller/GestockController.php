@@ -26,9 +26,9 @@ use Symfony\Component\HttpFoundation\Response;
 class GestockController extends Controller
 {
     /**
-     * Affiche la page d'accueil du Bundle.
+     * indexAction affiche la page d'accueil du Bundle.
      *
-     * @return Response
+     * @return type
      */
     public function indexAction()
     {
@@ -38,30 +38,32 @@ class GestockController extends Controller
     /**
      * Récupère les subFamilyLog de la FamilyLog sélectionnée.
      *
-     * @return Response
+     * @return \Glsr\GestockBundle\Controller\Response
      */
     public function fillSubFamilyLogAction()
     {
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
+            $famLogId = '';
+            $subFamId = '';
             $famLogId = $request->get('id');
             $subFamId = $request->get('id2');
-            if ($famLogId != '') {
+            if ($famLogId  != '') {
                 $subFamilyLogs = $etm
                     ->getRepository('GlsrGestockBundle:subFamilyLog')
                     ->getFromFamilyLog($famLogId);
-                $familyLog     = $etm
+                $familyLog = $etm
                     ->getRepository('GlsrGestockBundle:familyLog')
                     ->find($famLogId);
-                $tabSubFamilyLog  = array();
+                $tabSubFamilyLog = array();
                 $tabSubFamilyLog[0]['idOption'] = '';
                 $tabSubFamilyLog[0]['nameOption']
                     = 'Choice the Sub Family: '.$familyLog->getName();
                 $iterator = 1;
                 foreach ($subFamilyLogs as $subFamilyLog) {
-                    $tabSubFamilyLog[$iterator]['idOption'] =
-                        $subFamilyLog->getId();
+                    $tabSubFamilyLog[$iterator]['idOption']
+                        = $subFamilyLog->getId();
                     $tabSubFamilyLog[$iterator]['nameOption']
                         = $subFamilyLog->getName();
                     if ($subFamId != '') {
@@ -87,7 +89,7 @@ class GestockController extends Controller
     /**
      * Récupère les FamilyLog de la requête post.
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getFamilyLogAction()
     {
@@ -120,11 +122,11 @@ class GestockController extends Controller
     }
 
     /**
-     * Récupère les Alertes.
+     * alertsAction Récupère les Alertes.
      *
      * @param int $nombre nombres d'alertes à afficher
      *
-     * @return Response
+     * @return type
      */
     public function alertsAction($nombre)
     {
@@ -141,15 +143,15 @@ class GestockController extends Controller
         $alerts = array(
             array(
                 'titre' => 'Cmde',
-                'num'   => '002',
+                'num' => '002',
             ),
             array(
                 'titre' => 'Cmde',
-                'num'   => '0003',
+                'num' => '0003',
             ),
             array(
                 'titre' => 'Liv',
-                'num'   => '0001',
+                'num' => '0001',
             ),
         );
 

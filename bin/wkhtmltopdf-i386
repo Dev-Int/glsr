@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+SRC_DIR="`pwd`"
+cd "`dirname "$0"`"
+cd "../vendor/h4cc/wkhtmltopdf-i386/bin"
+BIN_TARGET="`pwd`/wkhtmltopdf-i386"
+cd "$SRC_DIR"
+"$BIN_TARGET" "$@"
