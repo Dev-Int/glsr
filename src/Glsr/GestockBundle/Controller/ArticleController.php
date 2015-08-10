@@ -34,7 +34,7 @@ class ArticleController extends Controller
      *
      * @param int $page numéro de page
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function indexAction($page)
     {
@@ -61,7 +61,7 @@ class ArticleController extends Controller
     /**
      * Ajoute un article.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */
@@ -86,7 +86,7 @@ class ArticleController extends Controller
     /**
      * Ajoute un article.
      *
-     * @return RedirectResponse
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @throws AccessDeniedException
      */
@@ -117,7 +117,7 @@ class ArticleController extends Controller
             $message = "L'article " . $article->getName() ." est bien ajouté";
         } else {
             $url = $this->generateUrl('glstock_art_add');
-            $message = "L'article " . $article->getName() ." n'est pas ajouté !";
+            $message = "L'article ".$article->getName()." n'est pas ajouté !";
         }
         // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
@@ -131,7 +131,8 @@ class ArticleController extends Controller
      *
      * @param Article $article article à modifier
      *
-     * @return Response/RedirectResponse
+     * @return Symfony\Component\HttpFoundation\Response|
+     *   Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function editAction(Article $article)
     {
@@ -184,7 +185,7 @@ class ArticleController extends Controller
      *
      * @param Article $article article à désactiver
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function deleteShowAction(Article $article)
     {
@@ -210,7 +211,7 @@ class ArticleController extends Controller
      *
      * @param Article $article
      *
-     * @return RedirectResponse
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @throws AccessDeniedException
      */
@@ -248,7 +249,7 @@ class ArticleController extends Controller
      *
      * @param \Glsr\GestockBundle\Entity\Article $article article à afficher
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Article $article)
     {
@@ -262,12 +263,12 @@ class ArticleController extends Controller
 
     /**
      * Réassignation d'articles à un autre fournisseur
-     *   que celui passé en paramètre.
+     *   que celui passé en paramètre. (Form)
      *
      * @param Supplier $supplier Fournisseur
      *   dont les articles doivent être réaffectés
      *
-     * @return Response/RedirectResponse
+     * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */
@@ -295,6 +296,17 @@ class ArticleController extends Controller
         );
     }
     
+    /**
+     * Réassignation d'articles à un autre fournisseur
+     *   que celui passé en paramètre. (Process)
+     *
+     * @param Supplier $supplier Fournisseur
+     *   dont les articles doivent être réaffectés
+     *
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
+     * 
+     * @throws AccessDeniedException
+     */
     public function reassignProcessAction(Supplier $supplier)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
@@ -324,11 +336,9 @@ class ArticleController extends Controller
             list($inputName, $articleId) = $input;
             $inputData = $data->getViewData();
             if ($inputName === 'supplier') {
-                $newArticles =
-                    $etm->getRepository('GlsrGestockBundle:Article')
+                $newArticles = $etm->getRepository('GlsrGestockBundle:Article')
                     ->find($articleId);
-                $newSupplier =
-                    $etm->getRepository('GlsrGestockBundle:Supplier')
+                $newSupplier = $etm->getRepository('GlsrGestockBundle:Supplier')
                     ->find($inputData);
                 //On modifie le fournisseur de l'article
                 $newArticles->setSupplier($newSupplier);
