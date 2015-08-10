@@ -88,7 +88,8 @@ class GlsrRequestListener
      *
      * @param \HttpKernel\Event\GetResponseEvent $event Response event
      *
-     * @return \RedirectResponse/null Redirige ou continue
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|
+     *   null Redirige ou continue
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -170,7 +171,8 @@ class GlsrRequestListener
      *
      * @param FilterResponseEvent $event Event
      *
-     * @return RedirectResponse/null Redirige ou continue
+     * @return Symfony\Component\HttpFoundation\RedirectResponse|
+     *   null Redirige ou continue
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
