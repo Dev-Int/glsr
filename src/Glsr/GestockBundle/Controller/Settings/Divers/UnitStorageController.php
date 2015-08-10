@@ -29,7 +29,7 @@ class UnitStorageController extends Controller
     /**
      * Ajouter une Unités de stockage.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -92,7 +92,7 @@ class UnitStorageController extends Controller
      *
      * @param UnitStorage $unitStore objet Familles logistiques à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(UnitStorage $unitStore)
     {

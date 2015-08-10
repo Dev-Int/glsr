@@ -29,7 +29,7 @@ class TvaController extends Controller
     /**
      * Ajouter une TVA.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -92,7 +92,7 @@ class TvaController extends Controller
      *
      * @param Tva $tva objet TVA à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Tva $tva)
     {

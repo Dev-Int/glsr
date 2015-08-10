@@ -29,7 +29,7 @@ class FamilyLogController extends Controller
     /**
      * Ajouter une Familles logistiques.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -92,7 +92,7 @@ class FamilyLogController extends Controller
      *
      * @param FamilyLog $famLog objet Familles logistiques à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(FamilyLog $famLog)
     {

@@ -29,7 +29,7 @@ class ZoneStorageController extends Controller
     /**
      * Ajouter une Zones de stockage.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -92,7 +92,7 @@ class ZoneStorageController extends Controller
      *
      * @param ZoneStorage $zoneStore objet Zones de stockage à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(ZoneStorage $zoneStore)
     {
