@@ -58,7 +58,7 @@ class SupplierType extends AbstractType
                     'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
-            ->add('email', 'email')
+            ->add('mail', 'email')
             ->add('contact', 'text')
             ->add(
                 'gsm',
