@@ -50,10 +50,11 @@
                         {{ form_widget(article.price, {'attr':{'class':'inventory'}}) }}
                     </td>
                     <td>
-                        <input type="text" id="{{ form.articles.vars.id }}_{{loop.index - 1}}_total" class="inventory" value="{{ (article.realstock.vars.value * article.price.vars.value)|number_format(3, ',', ' ') }}" /> €
+                        <input type="text" id="{{ form.articles.vars.id }}_{{loop.index - 1}}_total" class="inventory" value="{{ (article.realstock.vars.value * article.price.vars.value)|number_format(3, ',', ' ') }}" readonly="readonly" /> €
                     </td>
                     <td style="text-align:right">
-                        {{ (article.realstock.vars.value - article.quantity.vars.value)|number_format(3, ',', ' ') }}
+                        <input type="text" id="{{ form.articles.vars.id }}_{{loop.index - 1}}_gap" class="inventory" value="{{ (article.realstock.vars.value - article.quantity.vars.value)|number_format(3, ',', ' ') }}" readonly="readonly" />
+                        
                     </td>
                 </tr>
                 {% set lastloop = loop.index %}
@@ -105,15 +106,19 @@
 <script type="text/javascript">
 function realstockcalcul(id){
     var realstock = $('#{{ form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
+    var quantity = $('#{{ form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
     var price     = $('#{{ form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
     var total = realstock*price;
+    var gap = realstock-quantity;
     var lastloop = {{ lastloop }}-1;
 
     $('#{{ form.articles.vars.id }}_' + id + '_total').val(total.toFixed(3));
+    $('#{{ form.articles.vars.id }}_' + id + '_gap').val(gap.toFixed(3));
 
     var totals = 0;
     for (var iter = 0; iter <= lastloop; iter++) {
-        if(isNaN($('#{{ form.articles.vars.id }}_' + iter + '_total').val()).replace(',', '.')) {
+        var total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
+        if(isNaN(total)) {
             total = 0;
         } else {
             total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
