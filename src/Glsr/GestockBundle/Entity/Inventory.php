@@ -63,6 +63,14 @@ class Inventory
      * @ORM\Column(name="file", type="text", nullable=true)
      */
     private $file;
+    
+    /**
+     * @var string articles
+     * 
+     * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\Article")
+     * @ORM\JoinTable(name="gs_inventory_articles")
+     */
+    private $articles;
 
     public function __construct()
     {
@@ -185,5 +193,51 @@ class Inventory
     public function getFile()
     {
         return $this->file;
+    }
+
+    /**
+     * Set active
+     *
+     * @param integer $active
+     * @return Inventory
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * Add articles
+     *
+     * @param \Glsr\GestockBundle\Entity\Article $articles
+     * @return Inventory
+     */
+    public function addArticle(\Glsr\GestockBundle\Entity\Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Glsr\GestockBundle\Entity\Article $articles
+     */
+    public function removeArticle(\Glsr\GestockBundle\Entity\Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }

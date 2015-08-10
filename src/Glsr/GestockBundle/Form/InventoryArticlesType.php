@@ -15,26 +15,62 @@ class InventoryArticlesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'integer')
-            ->add('inventory')
-            ->add('articles')
+            ->add(
+                'name',
+                'text',
+                array(
+                    'read_only' => true
+                )
+            )
+            ->add(
+                'quantity',
+                'number',
+                array(
+                    'precision' => 3,
+                    'grouping' => true,
+                    'disabled' => true
+                )
+            )
             ->add(
                 'realstock',
                 'number',
                 array(
-                    'grouping' => true,
                     'precision' => 3,
-                    'data' => 0,
+                    'grouping' => true,
+                    'empty_data' => 0,
+                    'attr'=> array(
+                        'class'=>'inventory',
+                        )
                 )
             )
             ->add(
-                'total',
+                'unit_storage',
+                'entity',
+                array(
+                    'class' => 'GlsrGestockBundle:UnitStorage',
+                    'property' => 'name',
+                    'multiple' => false,
+                    'disabled' => true
+                )
+            )
+            ->add(
+                'packaging',
                 'number',
                 array(
-                    'grouping' => true,
                     'precision' => 3,
-                    'data' => 0,
-                    'read_only' => true,
+                    'grouping' => true,
+                    'label' => 'packaging',
+                    'disabled' => true
+                )
+            )
+            ->add(
+                'price',
+                'money',
+                array(
+                    'precision' => 3,
+                    'grouping' => true,
+                    'currency' => 'EUR',
+                    'disabled' => true
                 )
             );
     }
@@ -44,7 +80,7 @@ class InventoryArticlesType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => null));
+        $resolver->setDefaults(array('data_class' => 'Glsr\GestockBundle\Entity\Article'));
     }
 
     /**

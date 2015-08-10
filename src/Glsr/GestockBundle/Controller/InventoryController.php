@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Glsr\GestockBundle\Entity\Inventory;
-use Glsr\GestockBundle\Form\InventoryArticlesType;
+use Glsr\GestockBundle\Form\InventoryType;
 use Glsr\GestockBundle\Entity\InventoryArticles;
 
 /**
@@ -60,11 +60,11 @@ class InventoryController extends Controller
     }
 
     /**
-     * Préparer l'inventaire.
+     * Créer et préparer l'inventaire.
      *
      * Enregistrement de l'inventaire et création du fichier pdf
      *
-     * @return RedirectResponse
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function prepareAction()
     {
@@ -122,17 +122,11 @@ class InventoryController extends Controller
             $newInventory->setDate($daydate);
             $newInventory->isActive(1);
             $newInventory->setFile($file);
-            $etm->persist($newInventory);
-
             // Pour chaque article
             foreach ($listarticles as $article) {
-                $inventoryArticles = new InventoryArticles();
-                $inventoryArticles->setInventory($newInventory);
-                $inventoryArticles->setArticles($article);
-                $inventoryArticles->setRealstock(0);
-                $inventoryArticles->setTotal(0);
-                $etm->persist($inventoryArticles);
+                $newInventory->addArticle($article);                
             }
+            $etm->persist($newInventory);
 
             $etm->flush();
             // On définit un message flash
@@ -169,7 +163,7 @@ class InventoryController extends Controller
      *
      * @param Inventory $inventory
      *
-     * @return RedirectResponse Retour index Inventory
+     * @return Symfony\Component\HttpFoundation\RedirectResponse Retour index Inventory
      */
     public function cancelAction(Inventory $inventory)
     {
@@ -213,20 +207,13 @@ class InventoryController extends Controller
      *
      * @param Inventory $inventory Inventaire sélectionné
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function entryAction(Inventory $inventory)
     {
         $etm = $this->getDoctrine()->getManager();
-        // Récupérer l'entité Inventaire active = 1
-        $listInventArticles = $etm
-            ->getRepository('GlsrGestockBundle:InventoryArticles')
-            ->findByInventory($inventory);
         // Créer le formulaire de saisie : InventoryType
-        $form = $this->createForm(
-            new InventoryArticlesType(),
-            $listInventArticles
-        );
+        $form = $this->createForm(new InventoryType(), $inventory);
 
         // On récupère la requête
         $request = $this->getRequest();
@@ -238,28 +225,18 @@ class InventoryController extends Controller
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
             $form->bind($request);
-            $extraData = $form->getExtraData();
-            $inventoryAmount = $extraData['inventory_amount'];
             // On enregistre l'objet $inventory dans la base de données
-            $inventory->setAmount($inventoryAmount);
             $etm->persist($inventory);
             $etm->flush();
 
-            foreach ($form->getData() as $item) {
-                // On vérifie que les valeurs rentrées sont correctes
-//                if ($form->isValid()) {
-                    $etm->persist($item);
-                    $etm->flush();
-//                }
-            }
             // On définit un message flash
             $this->get('session')
                 ->getFlashBag()
                 ->add('info', 'glsr.gestock.inventory.seizure.ok');
 
-//            return $this->redirect(
-//                $this->generateUrl('glstock_inventory')
-//            );
+            return $this->redirect(
+                $this->generateUrl('glstock_inventory')
+            );
         }
         // Afficher Formulaire/Inventory:index
         return $this->render(
