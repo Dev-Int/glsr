@@ -29,7 +29,7 @@ class ApplicationController extends Controller
     /**
      * Affiche les paramètres de base de l'application.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function showAction()
     {
@@ -46,7 +46,7 @@ class ApplicationController extends Controller
     /**
      * Ajouter un paramètre à l'application.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -114,7 +114,7 @@ class ApplicationController extends Controller
      * @param Settings $settings
      * Objet de l'entité Settings à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Settings $settings)
     {

@@ -206,14 +206,20 @@ glstock_inventory_prepare:
     pattern:  /inventory/prepare
     defaults: { _controller: GlsrGestockBundle:Inventory:prepare }
 glstock_inventory_cancel:
-    pattern:  /inventory/cancel
+    pattern:  /inventory/cancel/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:cancel }
+    requirements:
+        id:  \d+
 glstock_inventory_entry:
-    pattern:  /inventory/entry
+    pattern:  /inventory/entry/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:entry }
+    requirements:
+        id:  \d+
 glstock_inventory_differencesStock:
     pattern:  /inventory/differencesStock
     defaults: { _controller: GlsrGestockBundle:Inventory:differencesStock }
 glstock_inventory_valid:
-    pattern:  /inventory/valid
+    pattern:  /inventory/valid/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:valid }
+    requirements:
+        id:  \d+

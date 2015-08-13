@@ -3,55 +3,58 @@
 <form method="post" {{ form_enctype(form) }} class="form-inline" role='form'>
     {{ form_errors(form) }}
     <fieldset><legend>{{ 'glsr.gestock.article.settings.information'|trans }}</legend>
-        {% for item in form.vars.value %}
-            {% if loop.index == 1 %}
         <div class="col-lg-5 form-group">
-            <label for="{{ form.vars.id }}">{{ 'glsr.gestock.inventory.seizure.item'|trans }}</label>&nbsp;
-                <input type="text" size="11" disabled="disabled" {% if item.inventory.id is not empty %}value="{{ item.inventory.id }}" {% endif %}/>
+            {{ form_label(form.id, 'glsr.gestock.inventory.seizure.item'|trans) }}
+                    <span class="text-danger">{{ form_errors(form.id) }}</span>
+                    &nbsp;{{ form_widget(form.id) }}
         </div>
         <div class="col-lg-7 form-group">
-            <label for="{{ form.vars.id }}">{{ 'glsr.gestock.date'|trans }}</label>&nbsp;
-            <input type="text" size="20" disabled="disabled" {% if item.inventory.date is not empty %}value="{{ item.inventory.date|date("l d F Y") }}" {% endif %}/>
+            {{ form_label(form.date, 'glsr.gestock.date'|trans) }}
+                    <span class="text-danger">{{ form_errors(form.date) }}</span>
+                    &nbsp;{{ form_widget(form.date) }}
         </div>
-            {% endif %}
-        {% endfor %}
     </fieldset>
     <fieldset><legend>{{ 'glsr.gestock.details'|trans }}</legend>
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th class="col-lg-5">{{ 'glsr.gestock.title_item'|trans }}</th>
+                    <th class="col-lg-3">{{ 'glsr.gestock.title_item'|trans }}</th>
                     <th class="col-lg-1">{{ 'glsr.gestock.article.settings.theoretical_stock'|trans }}</th>
                     <th class="col-lg-1">{{ 'glsr.gestock.article.settings.real_stock'|trans }}</th>
                     <th class="col-lg-1">{{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}</th>
                     <th class="col-lg-1">{{ 'glsr.gestock.article.settings.packaging'|trans }}</th>
-                    <th class="col-lg-1">{{ 'glsr.gestock.article.settings.price'|trans }}</th>
+                    <th class="col-lg-2">{{ 'glsr.gestock.article.settings.price'|trans }}</th>
                     <th class="col-lg-2">{{ 'glsr.gestock.inventory.seizure.total'|trans }}</th>
+                    <th class="col-lg-1">{{ 'glsr.gestock.inventory.seizure.gap'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
-                {% for item in form.vars.value %}
+                {% for article in form.articles %}
                 <tr>
-                    <td>
-                        <input type="hidden" id="{{ form.id.vars.id }}_{{ loop.index }}" name="{{ form.id.vars.full_name }}[]" value="{{ item.id }}" />
-                        <input type="hidden" id="{{ form.inventory.vars.id }}_{{ loop.index }}" name="{{ form.inventory.vars.full_name }}[]" value="{{ item.inventory.id }}" />
-                        <input type="hidden" id="{{ form.articles.vars.id }}_{{ loop.index }}" name="{{ form.articles.vars.full_name }}[]" {% if item.articles.id is not empty %}value="{{ item.articles.id }}" {% endif %}/>
-                        {{ item.articles.name }}
+                    <td class="col-lg-4">
+                        {{ form_widget(article.name, {'attr':{'class':'inventory'}}) }}
                     </td>
                     <td>
-                        <input type="text" size="10" disabled="disabled" {% if item.articles.quantity is not empty %}value="{{ item.articles.quantity }}" {% endif %}/>
+                        {{ form_widget(article.quantity, {'attr':{'class':'inventory'}}) }}
                     </td>
                     <td>
-                        <input type="text" id="{{ form.realstock.vars.id }}_{{ loop.index }}" name="{{ form.realstock.vars.full_name }}[]" size="10" onfocus="value='';" onChange="realstockcalcul({{ loop.index }});" {% if item.realstock is not empty %}value="{{ item.realstock }}"{% else %}value="{{ '0'|number_format(3, ',', ' ') }}"{% endif %}  />
-                    </td>
-                    <td>{{ item.articles.unitStorage }}</td>
-                    <td>{{ item.articles.packaging }}</td>
-                    <td>
-                        <input type="hidden" id="{{ form.vars.id }}_price_{{ loop.index }}" value="{{ item.articles.price }}" />
-                        {{ item.articles.price }} €
+                        {{ form_widget(article.realstock, {'attr':{'onChange':'realstockcalcul('~(loop.index-1)~')'}}) }}
                     </td>
                     <td>
-                        <input type="text" id="{{ form.total.vars.id }}_{{ loop.index }}" name="{{ form.total.vars.full_name }}[]" size="10" {% if item.realstock is not empty %}value="{{ (item.realstock * item.articles.price)|number_format(3, ',', ' ') }}"{% else %}value="{{ (0 * item.articles.price)|number_format(3, ',', ' ') }}" {% endif %} {{ form.total.vars.read_only ? 'readonly' : '' }} /> €
+                        {{ form_widget(article.unit_storage) }}
+                    </td>
+                    <td>
+                        {{ form_widget(article.packaging, {'attr':{'class':'inventory'}}) }}
+                    </td>
+                    <td>
+                        {{ form_widget(article.price, {'attr':{'class':'inventory'}}) }}
+                    </td>
+                    <td>
+                        <input type="text" id="{{ form.articles.vars.id }}_{{loop.index - 1}}_total" class="inventory" value="{{ (article.realstock.vars.value * article.price.vars.value)|number_format(3, ',', ' ') }}" readonly="readonly" /> €
+                    </td>
+                    <td style="text-align:right">
+                        <input type="text" id="{{ form.articles.vars.id }}_{{loop.index - 1}}_gap" class="inventory" value="{{ (article.realstock.vars.value - article.quantity.vars.value)|number_format(3, ',', ' ') }}" readonly="readonly" />
+                        
                     </td>
                 </tr>
                 {% set lastloop = loop.index %}
@@ -59,15 +62,13 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6">{{ 'glsr.gestock.inventory.seizure.totals'|trans }}</td>
-                    <td>
-                        <input type="text" id="{{ form.vars.id }}_inventory_amount" name="{{ form.vars.full_name }}[inventory_amount]" size="10" value="" readonly /> €
-                    </td>
+                    <th colspan="6">{{ 'glsr.gestock.inventory.seizure.totals'|trans }}</th>
+                    <td>{{ form_widget(form.amount, {'attr':{'class':'inventory'}}) }}</td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
     </fieldset>
-    <input type="hidden" id="{{ form._token.vars.id }}" name="{{ form._token.vars.full_name }}" {% if form._token.vars.value is not empty %}value="{{ form._token.vars.value }}" {% endif %}/>
     <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
     <p>&nbsp;</p>
 </form>
@@ -104,21 +105,27 @@
 
 <script type="text/javascript">
 function realstockcalcul(id){
-    var realstock = $('#{{ form.realstock.vars.id }}_' + id).val();
-    var price     = $('#{{ form.vars.id }}_price_' + id).val();
-    var total = realstock * price;
-    $('#{{ form.vars.id }}_total_' + id).val(total.toFixed(3));
+    var realstock = $('#{{ form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
+    var quantity = $('#{{ form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
+    var price     = $('#{{ form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
+    var total = realstock*price;
+    var gap = realstock-quantity;
+    var lastloop = {{ lastloop }}-1;
+
+    $('#{{ form.articles.vars.id }}_' + id + '_total').val(total.toFixed(3));
+    $('#{{ form.articles.vars.id }}_' + id + '_gap').val(gap.toFixed(3));
 
     var totals = 0;
-    for (var iter = 1; iter <= {{ lastloop }}; iter++) {
-        if(isNaN($('#{{ form.vars.id }}_total_' + iter).val())) {
+    for (var iter = 0; iter <= lastloop; iter++) {
+        var total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
+        if(isNaN(total)) {
             total = 0;
         } else {
-            total = $('#{{ form.vars.id }}_total_' + iter).val();
+            total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
         }
         totals = Number(totals) + Number(total);
     }
-    $('#{{ form.vars.id }}_inventory_amount').val(totals.toFixed(3));
+    $('#{{ form.amount.vars.id }}').val(totals.toFixed(3));
 }
 
 </script>

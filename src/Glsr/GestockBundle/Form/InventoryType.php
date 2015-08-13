@@ -37,6 +37,16 @@ class InventoryType extends AbstractType
                     'precision' => 3,
                     'grouping' => true,
                     'currency' => 'EUR',
+                    'read_only' => true
+                )
+            )
+            ->add(
+                $builder->create(
+                    'articles',
+                    'collection',
+                    array(
+                        'type' => new InventoryArticlesType()
+                        )
                 )
             );
     }

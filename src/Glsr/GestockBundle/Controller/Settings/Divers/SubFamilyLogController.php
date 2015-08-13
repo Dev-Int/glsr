@@ -1,7 +1,8 @@
 <?php
 
 /**
- * SubFamilyLogController controller de la configuration des Sous-familles logistiques.
+ * SubFamilyLogController controller
+ *   de la configuration des Sous-familles logistiques.
  *
  * PHP Version 5
  *
@@ -29,7 +30,7 @@ class SubFamilyLogController extends Controller
     /**
      * Ajouter une Sous-familles logistiques.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -92,7 +93,7 @@ class SubFamilyLogController extends Controller
      *
      * @param SubFamilyLog $famLog objet Familles logistiques à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(SubFamilyLog $famLog)
     {

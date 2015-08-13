@@ -31,7 +31,7 @@ class SupplierController extends Controller
      *
      * @param type $page numéro de page
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function indexAction($page)
     {
@@ -58,7 +58,7 @@ class SupplierController extends Controller
     /**
      * Ajouter un fournisseur.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {
@@ -127,7 +127,7 @@ class SupplierController extends Controller
      *
      * @param Supplier $supplier Objet fournisseur à modifier
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Supplier $supplier)
     {
@@ -194,7 +194,7 @@ class SupplierController extends Controller
      *
      * @param Supplier $supplier Objet fournisseur à supprimer
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Supplier $supplier)
     {
@@ -287,7 +287,7 @@ class SupplierController extends Controller
      *
      * @param Supplier $supplier Objet fournisseur à afficher
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function showAction(Supplier $supplier)
     {

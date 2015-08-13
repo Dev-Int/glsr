@@ -29,7 +29,7 @@ class CompanyController extends Controller
     /**
      * Affiche les données de l'entreprise.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function showAction()
     {
@@ -46,7 +46,7 @@ class CompanyController extends Controller
     /**
      * Crée les données de l'entreprise.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addAction()
     {

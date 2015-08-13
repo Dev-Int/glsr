@@ -27,7 +27,7 @@ class DiversController extends Controller
     /**
      * Affiche les paramètres divers de l'application.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function showAction()
     {

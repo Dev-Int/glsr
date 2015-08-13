@@ -14,3 +14,10 @@ fieldset > section.col-md-12 {
 .table-bordered > tfoot > tr > td {
     line-height: 1.5;
 }
+
+input[type='text'].inventory {
+    width: 85%!important;
+}
+.col-lg-3 input[type='text'].inventory {
+    width: 100%!important;
+}
