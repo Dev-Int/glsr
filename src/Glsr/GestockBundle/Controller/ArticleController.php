@@ -304,7 +304,7 @@ class ArticleController extends Controller
      *   dont les articles doivent être réaffectés
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
-     * 
+     *
      * @throws AccessDeniedException
      */
     public function reassignProcessAction(Supplier $supplier)

@@ -124,7 +124,7 @@ class InventoryController extends Controller
             $newInventory->setFile($file);
             // Pour chaque article
             foreach ($listarticles as $article) {
-                $newInventory->addArticle($article);                
+                $newInventory->addArticle($article);
             }
             $etm->persist($newInventory);
 

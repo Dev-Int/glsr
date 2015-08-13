@@ -66,7 +66,7 @@ class Inventory
     
     /**
      * @var string articles
-     * 
+     *
      * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\Article")
      * @ORM\JoinTable(name="gs_inventory_articles")
      */
@@ -234,7 +234,7 @@ class Inventory
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {

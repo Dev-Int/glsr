@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SubFamilyLogController controller 
+ * SubFamilyLogController controller
  *   de la configuration des Sous-familles logistiques.
  *
  * PHP Version 5
