@@ -1,3 +1,7 @@
+body {
+    padding-top: 70px;
+}
+
 fieldset > section.col-md-12 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -20,4 +24,9 @@ input[type='text'].inventory {
 }
 .col-lg-3 input[type='text'].inventory {
     width: 100%!important;
+}
+
+input[type='text'].negative {
+    color: red!important;
+    font-weight: bold!important;
 }
