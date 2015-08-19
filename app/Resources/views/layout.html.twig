@@ -14,15 +14,9 @@
     </head>
     
     <body{% block body_js %}{% endblock %}>
+        {% block navbar %}{% endblock %}
+        
         <div class="container">
-            <header id="header" class="jumbotron">
-                {% block header %}{% endblock %}
-            </header>
-            
-            <nav id="menu" class="col-md-12">
-                {% block menu_bundle %}{% endblock %}
-            </nav>
-                
             <div class="row">
                 <section id="content" class="col-md-12">
                     {% block body %}
@@ -45,6 +39,7 @@
                 'bundles/glsrgestock/js/*' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
+            {% block js_function %}{% endblock %}
         {% endblock %}
     </body>
 </html>

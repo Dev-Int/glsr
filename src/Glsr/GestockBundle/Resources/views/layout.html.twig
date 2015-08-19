@@ -5,25 +5,100 @@
     {{ 'glsr.title_page'|trans }}
 {% endblock %}
 
-{% block header %}
-    <div class="page-header">
-        <h1>
-            <span class="glyphicon glyphicon-cutlery"></span>
-            {{ 'glsr.title'|trans }} <small>{{ 'glsr.subtitle'|trans }}</small>
-            <small class="pull-right">
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {{ 'glsr.connect_as'|trans({'%username%': app.user.username}) }} - <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_logout') }}">{{ 'glsr.logout'|trans }}</a>
-                {% else %}
-                    <a class="btn btn-default btn-primary btn-sm" href="{{ path('fos_user_security_login') }}">{{ 'glsr.login'|trans }}</a>
-                {% endif %}
-            </small>
-        </h1>
-    </div>
+{% block navbar %}
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                    
+                </button>
+                <a class="navbar-brand" href="{{ path('glstock_home') }}">
+                    <span class="glyphicon glyphicon-cutlery"></span>
+                    {{ 'glsr.title'|trans }} <small>{{ 'glsr.subtitle'|trans }}</small>
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class=" nav navbar-nav">
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ 'glsr.gestock.administration'|trans }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('glstock_inventory') }}">
+                                <i class="glyphicon glyphicon-tasks"></i>
+                                {{ 'glsr.gestock.inventory.title'|trans }}
+                            </a></li>
+                            <li><a href="">
+                                <i class="glyphicon glyphicon-shopping-cart"></i>
+                                {{ 'glsr.gestock.orders.title'|trans }}
+                            </a></li>
+                            <li><a href="">
+                                <i class="glyphicon glyphicon-road"></i>
+                                {{ 'glsr.gestock.delivery.title'|trans }}
+                            </a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuration <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('glstock_company') }}">
+                                    <i class="glyphicon glyphicon-tower"></i>
+                                    {{ 'glsr.gestock.settings.company.title'|trans }}
+                                </a></li>
+                                <li><a href="{{ path('glstock_application') }}">
+                                    <i class="glyphicon glyphicon-wrench"></i>
+                                    {{ 'glsr.gestock.settings.application.title'|trans }}
+                                </a></li>
+                                <li><a href="{{ path('glstock_divers') }}">
+                                    <i class="glyphicon glyphicon-info-sign"></i>
+                                    {{ 'glsr.gestock.settings.diverse.title'|trans }}
+                                </a></li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">{{ 'glsr.gestock.article.title'|trans }}</li>
+                                <li><a href="{{ path('glstock_art_list') }}">
+                                        <i class="glyphicon glyphicon-list-alt"></i>
+                                        {{ 'glsr.gestock.article.list'|trans }}
+                                </a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('glstock_art_add') }}">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    {{ 'glsr.gestock.article.create.title'|trans }}
+                                </a></li>
+                                {% endif %}
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">{{ 'glsr.gestock.supplier.title'|trans }}</li>
+                                <li><a href="{{ path('glstock_suppli_list') }}">
+                                        <i class="glyphicon glyphicon-list-alt"></i>
+                                        {{ 'glsr.gestock.supplier.list'|trans }}
+                                </a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('glstock_suppli_add') }}">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    {{ 'glsr.gestock.supplier.create.title'|trans }}
+                                </a></li>
+                                {% endif %}
+                            </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <p class="navbar-text">{{ 'glsr.connect_as'|trans({'%username%': app.user.username}) }}</p></li>
+                    <li><a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_logout') }}">{{ 'glsr.logout'|trans }}</a>
+                        {% else %}
+                            <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_login') }}">{{ 'glsr.login'|trans }}</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'glsr.gestock.title'|trans }} - <small>{% block body_title %}{% endblock %}</small></h1>
-
     <hr />
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}

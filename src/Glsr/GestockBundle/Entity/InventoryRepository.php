@@ -16,6 +16,7 @@
 namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * InventoryRepository.
@@ -38,5 +39,40 @@ class InventoryRepository extends EntityRepository
             ->getQuery();
 
         return $query->getResult();
+    }
+    /**
+     * Affiche les articles de l'inventaire, avec une pagination.
+     *
+     * @param int $nbPerPage Nombre d'article par page
+     * @param int $page      Numéro de la page en cours
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator Objet Paginator
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function getInventoryArticles($nbPerPage, $page)
+    {
+        if ($page < 1) {
+            throw new \InvalidArgumentException(
+                'l\'argument $page ne peut être inférieur à 1 (valeur : "'.
+                $page.'").'
+            );
+        }
+
+        $query = $this->createQueryBuilder('i')
+            ->leftjoin('i.articles', 'a')
+            ->addSelect('a')
+            ->where('a.active = 1')
+            ->orderBy('a.name', 'ASC')
+            ->getQuery();
+
+        // On définit l'article à partir duquel commencer la liste
+        $query->setFirstResult(($page - 1) * $nbPerPage)
+            // Ainsi que le nombre d'article à afficher
+            ->setMaxResults($nbPerPage);
+
+        // Et enfin, on retourne l'objet
+        // Paginator correspondant à la requête construite
+        return new Paginator($query);
     }
 }

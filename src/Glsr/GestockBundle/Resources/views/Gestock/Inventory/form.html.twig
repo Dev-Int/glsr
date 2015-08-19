@@ -69,6 +69,7 @@
             </tfoot>
         </table>
     </fieldset>
+    {{ form_rest(form) }} 
     <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
     <p>&nbsp;</p>
 </form>
@@ -84,48 +85,68 @@
 </p>
 
 {# S'il y a plus d'une page, on affiche la liste des pages #}
-{#    {% if nb_page > 1 %}
+    {% if nb_page > 1 %}
     <nav class="text-center">
         <ul class="pagination">
             {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
-{#                <li {% if page == 1 %}class="disabled"{% endif %}>
-                <a href="{{ path('glstock_inventory_entry', {'page': 1}) }}">&laquo;</a>
+                <li {% if page == 1 %}class="disabled"{% endif %}>
+                <a href="{{ path('glstock_inventory_entry', {'id': form.id.vars.value, 'page': 1}) }}">&laquo;</a>
             </li>
             {% for p in range(1, nb_page) %}
                 <li {% if p == page %} class="active" {% endif %}>
-                    <a href="{{ path('glstock_inventory_entry', {'page': p}) }}">{{ p }}</a>
+                    <a href="{{ path('glstock_inventory_entry', {'id': form.id.vars.value, 'page': p}) }}">{{ p }}</a>
                 </li>
             {% endfor %}
             <li {% if page == nb_page %}class="disabled"{% endif %}>
-                <a href="{{ path('glstock_inventory_entry', {'page': nb_page}) }}">&raquo;</a>
+                <a href="{{ path('glstock_inventory_entry', {'id': form.id.vars.value, 'page': nb_page}) }}">&raquo;</a>
             </li>
         </ul>
     </nav>
-{% endif %}#}
+{% endif %}
 
-<script type="text/javascript">
-function realstockcalcul(id){
-    var realstock = $('#{{ form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
-    var quantity = $('#{{ form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
-    var price     = $('#{{ form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
-    var total = realstock*price;
-    var gap = realstock-quantity;
-    var lastloop = {{ lastloop }}-1;
+    <script type="text/javascript">
+        function realstockcalcul(id){
+            var realstock = $('#{{ form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
+            var quantity = $('#{{ form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
+            var price     = $('#{{ form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
+            var total = realstock*price;
+            var gap = realstock-quantity;
+            var lastloop = {{ lastloop }}-1;
 
-    $('#{{ form.articles.vars.id }}_' + id + '_total').val(total.toFixed(3));
-    $('#{{ form.articles.vars.id }}_' + id + '_gap').val(gap.toFixed(3));
+            $('#{{ form.articles.vars.id }}_' + id + '_total').val(total.toFixed(3));
+            $('#{{ form.articles.vars.id }}_' + id + '_total').val().replace('.', ',');
+            $('#{{ form.articles.vars.id }}_' + id + '_gap').val(gap.toFixed(3));
+            $('#{{ form.articles.vars.id }}_' + id + '_gap').val().replace('.', ',');
 
-    var totals = 0;
-    for (var iter = 0; iter <= lastloop; iter++) {
-        var total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
-        if(isNaN(total)) {
-            total = 0;
-        } else {
-            total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
+            if(gap < 0) {
+                $('#{{ form.articles.vars.id }}_' + id + '_gap').addClass('negative');
+            } else {
+                $('#{{ form.articles.vars.id }}_' + id + '_gap').removeClass('negative');
+            }
+
+            var totals = 0;
+            for (var iter = 0; iter <= lastloop; iter++) {
+                var total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
+                if(isNaN(total)) {
+                    total = 0;
+                } else {
+                    total = $('#{{ form.articles.vars.id }}_' + iter + '_total').val().replace(',', '.');
+                }
+                totals = Number(totals) + Number(total);
+            }
+            $('#{{ form.amount.vars.id }}').val(totals.toFixed(3));
         }
-        totals = Number(totals) + Number(total);
-    }
-    $('#{{ form.amount.vars.id }}').val(totals.toFixed(3));
-}
+        
+        function testGap(){
+            var lastloop = {{ lastloop }}-1;
+            for (var iter = 0; iter <= lastloop; iter++) {
+                var gap = $("[id$=" + iter + "_gap]").val().replace(',', '.');
+                if(gap < 0) {
+                    $("[id$=" + iter + "_gap]").addClass('negative');
+                } else {
 
-</script>
+                    $("[id$=" + iter + "_gap]").removeClass('negative');
+                }
+            }
+        }
+    </script>

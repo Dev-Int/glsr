@@ -1,7 +1,9 @@
 {# src\Glsr\GestockBundle\Resources\views\Gestock\Inventory\entry.html.twig #}
 
 {% extends "GlsrGestockBundle::layout.html.twig" %}
-
+{% block body_js %}
+    onload="testGap();"
+{% endblock %}
 {% block title %}
     Inventory - {{ parent() }}
 {% endblock %}

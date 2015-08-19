@@ -22,24 +22,6 @@
                         {{ 'glsr.gestock.inventory.prepare.title'|trans }}
                     </a>
                 </li>
-{#                <li class="list-group-item">
-                    <a href="{{ path('glstock_inventory_entry') }}">
-                        <i class="glyphicon glyphicon-pencil"></i>
-                        {{ 'glsr.gestock.inventory.seizure.title'|trans }}
-                    </a>
-                </li>#}
-                <li class="list-group-item">
-                    <a href="{{ path('glstock_inventory_differencesStock') }}">
-                        <i class="glyphicon glyphicon-list-alt"></i>
-                        {{ 'glsr.gestock.inventory.calcul_gap.title'|trans }}
-                    </a>
-                </li>
-{#                <li class="list-group-item">
-                    <a href="{{ path('glstock_inventory_entry') }}">
-                        <i class="glyphicon glyphicon-saved"></i>
-                        {{ 'glsr.gestock.inventory.close.title'|trans }}
-                    </a>
-                </li>#}
             </ul>
         </div>
         <p>
@@ -53,7 +35,7 @@
         <div class="panel panel-default">
             <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> {{ 'glsr.gestock.inventory.journals.title'|trans }}</header>
             <ul class="list-unstyled list-group">
-                {% if inventory is empty %}
+            {% if inventory is empty %}
                 <li class="list-group-item">{{ 'glsr.gestock.inventory.none'|trans }}</li>
             </ul>
             {% else %}
@@ -62,23 +44,24 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th class="col-lg-2">{{ 'glsr.gestock.id'|trans }}</th>
-                        <th class="col-lg-3">{{ 'glsr.gestock.date'|trans }}</th>
+                        <th class="col-lg-1">{{ 'glsr.gestock.id'|trans }}</th>
+                        <th class="col-lg-2">{{ 'glsr.gestock.date'|trans }}</th>
                         <th class="col-lg-3">{{ 'glsr.gestock.amount'|trans }}</th>
-                        <th class="col-lg-4">{{ 'glsr.gestock.action'|trans }}</th>
+                        <th class="col-lg-6">{{ 'glsr.gestock.action'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in inventory %}
                     <tr>
                         <td>{{ item.id }}</td>
-                        <td>{{ item.date|date("m/d/Y") }}</td>
+                        <td>{{ item.date|date("d/m/Y") }}</td>
                         <td>{{ item.amount|number_format(2, ',', ' ') }}€</td>
                         <td class="text-center">
                             {% if item.active == 1 %}
                             <a href="{{ asset(item.file) }}" title="Imprimer la préparation" onclick="window.open(this.href); return false;"><i class="glyphicon glyphicon-print"></i> {{ 'glsr.gestock.print'|trans }}</a> |
                             <a href="{{ path('glstock_inventory_entry', {'id': item.id}) }}" title="{{ 'glsr.gestock.inventory.seizure.title'|trans }}"><i class="glyphicon glyphicon-pencil"></i> {{ 'glsr.gestock.inventory.seizure.title_short'|trans }}</a> |
-                            <a href="{{ path('glstock_inventory_cancel', {'id': item.id}) }}" title="Annuler l'inventaire"><i class="glyphicon glyphicon-trash"></i> {{ 'glsr.gestock.cancel'|trans }}</a>
+                            <a href="{{ path('glstock_inventory_cancel', {'id': item.id}) }}" title="Annuler l'inventaire"><i class="glyphicon glyphicon-trash"></i> {{ 'glsr.gestock.cancel'|trans }}</a> |
+                            <a href="{{ path('glstock_inventory_valid', {'id': item.id}) }}" title="{{ 'glsr.gestock.inventory.close.title'|trans }}"><i class="glyphicon glyphicon-saved"></i> {{ 'glsr.gestock.inventory.close.submit_button'|trans }}</a>
                             {% elseif item.active == 2 %}
                                 <i class="glyphicon glyphicon-pencil"></i>
                             {% elseif item.active == 3 %}
