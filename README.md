@@ -28,4 +28,4 @@ With Composer, of course:
 
 ## And enjoy!
 
-- See more at: http://glsr.developpement-interessant.com/wiki/
+- See more at: http://wiki.glsr.fr/
