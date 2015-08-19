@@ -15,12 +15,12 @@ parameters:
     locale:            fr
     userpass:          userpass
     adminpass:         adminpass
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            ThisTokenIsNotSoSecretButIsSpecialToComposerAsAService
     
-    java_path: C:\Program Files (x86)\Java\jre7\bin\java.exe
+    java_path: path/to/java
     
     glsr.nb_per_page: 5
-    glsr.dest_email:      vous@vous.Com
+    glsr.dest_email:      vous@vous.com
 
     akismet_key: votre_cle
     akismet_url: votre_site
