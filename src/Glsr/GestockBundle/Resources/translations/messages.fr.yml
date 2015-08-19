@@ -202,6 +202,10 @@ glsr:
                 title: "Calcul des écarts de stock"
             close:
                 title: "Clôturer l'inventaire en cours"
+                caution: "Êtes-vous sûr de vouloir clôturer l'inventaire '%inventory.date%' ?\n Les données que vous avez saisi vont remplacer les quantités de chaque article.\n Cette action est irrévocable !"
+                submit_button: "Clôturer l'inventaire"
+                ok: 'Inventaire bien clôturé'
+                no: 'Inventaire non clôturé'
             journals:
                 title: "Journaux d'inventaires"
 

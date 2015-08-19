@@ -18,7 +18,6 @@ namespace Glsr\GestockBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Glsr\GestockBundle\Entity\Inventory;
 use Glsr\GestockBundle\Form\InventoryType;
-use Glsr\GestockBundle\Entity\InventoryArticles;
 
 /**
  * class InventoryController.
@@ -163,7 +162,8 @@ class InventoryController extends Controller
      *
      * @param Inventory $inventory
      *
-     * @return Symfony\Component\HttpFoundation\RedirectResponse Retour index Inventory
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
+     *     Retour à index Inventory
      */
     public function cancelAction(Inventory $inventory)
     {
@@ -209,9 +209,18 @@ class InventoryController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function entryAction(Inventory $inventory)
+    public function entryAction(Inventory $inventory, $page)
     {
+        // On récupère le nombre d'article par page
+        // depuis un paramètre du conteneur
+        // cf app/config/parameters.yml
+        $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
+
         $etm = $this->getDoctrine()->getManager();
+        $articles = $etm
+            ->getRepository('GlsrGestockBundle:Inventory')
+            ->getInventoryArticles($nbPerPage, $page);
+
         // Créer le formulaire de saisie : InventoryType
         $form = $this->createForm(new InventoryType(), $inventory);
 
@@ -225,42 +234,88 @@ class InventoryController extends Controller
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
             $form->bind($request);
-            // On enregistre l'objet $inventory dans la base de données
-            $etm->persist($inventory);
-            $etm->flush();
+            // On vérifie que les valeurs rentrées sont correctes
+            if ($form->isValid()) {
+                // On enregistre l'objet $article dans la base de données
+                $etm = $this->getDoctrine()->getManager();
+                // On enregistre l'objet $inventory dans la base de données
+                $etm->persist($inventory);
+                $etm->flush();
 
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add('info', 'glsr.gestock.inventory.seizure.ok');
+                // On définit un message flash
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.seizure.ok');
 
-            return $this->redirect(
-                $this->generateUrl('glstock_inventory')
-            );
+                return $this->redirect(
+                    $this->generateUrl('glstock_inventory')
+                );
+            } else {
+                // On définit un message flash
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.seizure.no');
+            }
         }
         // Afficher Formulaire/Inventory:index
         return $this->render(
             'GlsrGestockBundle:Gestock/Inventory:entry.html.twig',
             array(
                 'form' => $form->createView(),
+                'page'     => $page,
+                'nb_page'  => ceil(count($articles) / $nbPerPage) ?: 1,
             )
         );
     }
 
     /**
-     * Gestion des écarts de stock.
-     */
-    public function differencesStockAction()
-    {
-        // Article:quantity - Article:reelstock
-    }
-
-    /**
      * Valide l'inventaire en cours.
+     *
+     * @param Inventory $inventory
+     *
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
+     *     Retour à index Inventory
      */
-    public function validAction()
+    public function validAction(Inventory $inventory)
     {
         // Enregistrement de l'inventaire en cours
         //     Article:quantity = Article:reelstock
+        $form = $this->createFormBuilder()->getForm();
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $form->bind($request);
+
+            if ($form->isValid()) {
+                $etm = $this->getDoctrine()->getManager();
+                $inventory->isActive(2);
+                unlink($inventory->getFile());
+                $inventory->setFile(null);
+                foreach ($inventory->getArticles() as $article) {
+                    $article->setQuantity($article->getRealstock());
+                    $article->setRealstock('0.000');
+                }
+                $etm->persist($inventory);
+                $etm->flush();
+
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.close.ok');
+
+                return $this->redirect($this->generateUrl('glstock_inventory'));
+            } else {
+                $this->get('session')
+                    ->getFlashBag()
+                    ->add('info', 'glsr.gestock.inventory.close.no');
+            }
+        }
+
+        return $this->render(
+            'GlsrGestockBundle:Gestock/Inventory:valid.html.twig',
+            array(
+                'inventory' => $inventory,
+                'form' => $form->createView(),
+                )
+        );
     }
 }
