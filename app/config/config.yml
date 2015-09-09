@@ -28,7 +28,7 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     bundles:        [ GlsrGestockBundle ]
-    java: C:\Programmes\Java\jdk1.7.0_17\jre\bin\java.exe
+    java: %java_path%
     filters:
         cssrewrite: ~
         yui_js:
@@ -75,6 +75,10 @@ stof_doctrine_extensions:
 
 # Activation de l'extension Twig intl
 services:
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: 'twig.extension' }
     twig.extension.intl:
        class: Twig_Extensions_Extension_Intl
        tags:
@@ -91,15 +95,15 @@ ornicar_akismet:
     url:     %akismet_url%
 
 # Knplabs\KnpSnappyBundle
-knp_snappy:
-    pdf:
-        enabled: true
-        binary:  %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
-        options: []
-    image:
-        enabled:    true
-        binary:     %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
-        options:    []
+#knp_snappy:
+#    pdf:
+#        enabled: true
+#        binary:  /usr/local/bin/wkhtmltopdf
+#        options: []
+#    image:
+#        enabled:    true
+#        binary:     /usr/local/bin/wkhtmltopdf
+#        options:    []
         
 jms_security_extra:
     # Whether you want to secure all services (true), or only secure specific
