@@ -1,226 +1,232 @@
 # src/Glsr/GestockBundle/Resources/config/routing.yml
 
 glstock_home:
-    pattern:  /
+    path:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
     requirements:
-        _method:  GET
+        methods:  GET
 
 #glstock_install:
-#    pattern:  /install
+#    path:  /install
 #    defaults: { _controller: GlsrGestockBundle:Gestock:install }
 #    requirements:
-#        _method:  GET
+#        methods:  GET
 
 # Routes Settings
 glstock_company:
-    pattern:  settings/company
+    path:  settings/company
     defaults: { _controller: GlsrGestockBundle:Settings/Company:show }
     requirements:
-        _method:  GET
+        methods:  GET
 glstock_application:
-    pattern:  settings/application
+    path:  settings/application
     defaults: { _controller: GlsrGestockBundle:Settings/Application:show }
     requirements:
-        _method:  GET
+        methods:  GET
 glstock_divers:
-    pattern:  settings/divers
+    path:  settings/divers
     defaults: { _controller: GlsrGestockBundle:Settings/Divers:show }
     requirements:
-        _method:  GET
+        methods:  GET
 
 glstock_settings_add:
-    pattern:  /settings/add
+    path:  /settings/add
     defaults: { _controller: GlsrGestockBundle:Settings/Application:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_settings_edit:
-    pattern:  /settings/edit/{id}
+    path:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_company_add:
-    pattern:  /company/add
+    path:  /company/add
     defaults: { _controller: GlsrGestockBundle:Settings/Company:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_company_edit:
-    pattern:  /company/edit/{id}
+    path:  /company/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_setdiv_famlog_add:
-    pattern:  /familylog/add
+    path:  /familylog/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_setdiv_famlog_edit:
-    pattern:  /familylog/edit/{id}
+    path:  /familylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_setdiv_subfamlog_add:
-    pattern:  /subfamilylog/add
+    path:  /subfamilylog/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_setdiv_subfamlog_edit:
-    pattern:  /subfamilylog/edit/{id}
+    path:  /subfamilylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_setdiv_zonestorage_add:
-    pattern:  /zonestorage/add
+    path:  /zonestorage/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_setdiv_zonestorage_edit:
-    pattern:  /zonestorage/edit/{id}
+    path:  /zonestorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_setdiv_unitstorage_add:
-    pattern:  /unitstorage/add
+    path:  /unitstorage/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_setdiv_unitstorage_edit:
-    pattern:  /unitstorage/edit/{id}
+    path:  /unitstorage/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 glstock_setdiv_tva_add:
-    pattern:  /tva/add
+    path:  /tva/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:add }
     requirements:
-        _method:  GET/POST
+        methods:  GET/POST
 glstock_setdiv_tva_edit:
-    pattern:  /tva/edit/{id}
+    path:  /tva/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:edit }
     requirements:
         id: \d+
-        _method:  GET/POST
+        methods:  GET/POST
 
 # Routes des Articles
 glstock_art_add:
-    pattern:  /article/add
+    path:  /article/add
     defaults: { _controller: GlsrGestockBundle:Article:addShow }
     requirements:
-        _method:  GET
+        methods:  GET
 glstock_art_add_process:
-    pattern:  /article/add
+    path:  /article/add
     defaults: { _controller: GlsrGestockBundle:Article:addProcess }
     requirements:
-        _method:  POST
+        methods:  POST
 glstock_art_edit:
-    pattern:  /article/edit/{name}
+    path:  /article/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Article:edit }
 glstock_art_del:
-    pattern:  /article/delete/{id}
+    path:  /article/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Article:deleteShow }
     requirements:
         id:      \d+
-        _method: GET
+        methods: GET
 glstock_art_del_process:
-    pattern:  /article/delete/{id}
+    path:  /article/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Article:deleteProcess }
     requirements:
         id:      \d+
-        _method: POST
+        methods: POST
 glstock_art_list:
-    pattern:  /article/{page}
+    path:  /article/{page}
     defaults: { _controller: GlsrGestockBundle:Article:index, page: 1 }
     requirements:
         page:  \d+
 glstock_art_show:
-    pattern:  /article/{name}
+    path:  /article/{name}
     defaults: { _controller: GlsrGestockBundle:Article:show }
 glstock_reassign_article:
-    pattern:  /article/reassign/{id}
+    path:  /article/reassign/{id}
     defaults: { _controller: GlsrGestockBundle:Article:reassignShow }
     requirements:
         id:      \d+
-        _method: GET
+        methods: GET
 glstock_reassign_article_process:
-    pattern:  /article/reassign/{id}
+    path:  /article/reassign/{id}
     defaults: { _controller: GlsrGestockBundle:Article:reassignProcess }
     requirements:
         id:      \d+
-        _method: POST
+        methods: POST
 
 # Routes des Suppliers
 glstock_suppli_add:
-    pattern:  /supplier/add
+    path:  /supplier/add
     defaults: { _controller: GlsrGestockBundle:Supplier:add }
 glstock_suppli_edit:
-    pattern:  /supplier/edit/{name}
+    path:  /supplier/edit/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:edit }
 glstock_suppli_del:
-    pattern:  /supplier/delete/{id}
+    path:  /supplier/delete/{id}
     defaults: { _controller: GlsrGestockBundle:Supplier:delete }
     requirements:
         id: \d+
 glstock_suppli_list:
-    pattern:  /supplier/{page}
+    path:  /supplier/{page}
     defaults: { _controller: GlsrGestockBundle:Supplier:index, page: 1 }
     requirements:
         page:  \d+
 glstock_suppli_show:
-    pattern:  /supplier/{name}
+    path:  /supplier/{name}
     defaults: { _controller: GlsrGestockBundle:Supplier:show }
 
 # route des alertes
 glstock_show:
-    pattern:  /
+    path:  /
     defaults: { _controller: GlsrGestockBundle:Gestock:index }
 
 # route selects liés
 fill_subfamilylog:
-    pattern:  /fill_subfamilylog
+    path:  /fill_subfamilylog
     defaults: { _controller: GlsrGestockBundle:Gestock:fillSubFamilyLog }
     requirements:
-        _method: POST
+        methods: POST
 getfamilylog:
-    pattern:  /getfamilylog
+    path:  /getfamilylog
     defaults: { _controller: GlsrGestockBundle:Gestock:getFamilyLog }
     requirements:
-        _method: POST
+        methods: POST
 
 # route Inventory
 glstock_inventory:
-    pattern:  /inventory
+    path:  /inventory
     defaults: { _controller: GlsrGestockBundle:Inventory:index }
 glstock_inventory_prepare:
-    pattern:  /inventory/prepare
+    path:  /inventory/prepare
     defaults: { _controller: GlsrGestockBundle:Inventory:prepare }
 glstock_inventory_cancel:
-    pattern:  /inventory/cancel/{id}
+    path:  /inventory/cancel/{id}
     defaults: { _controller: GlsrGestockBundle:Inventory:cancel }
     requirements:
-        id:  \d+
-glstock_inventory_entry:
-    pattern:  /inventory/entry/{id}/{page}
-    defaults: { _controller: GlsrGestockBundle:Inventory:entry, page: 1 }
+        id:      \d+
+glstock_inventory_show:
+    path:     /inventory/entry/{id}
+    defaults: { _controller: GlsrGestockBundle:Inventory:show }
     requirements:
-        id:  \d+
-        page: \d+
+        id:      \d+
+        methods: GET
+glstock_inventory_update:
+    path:      /inventory/entry/{id}
+    defaults:  { _controller: GlsrGestockBundle:Inventory:update }
+    requirements:
+        id:    \d+
+        methods: POST
 glstock_inventory_differencesStock:
-    pattern:  /inventory/differencesStock
+    path:  /inventory/differencesStock
     defaults: { _controller: GlsrGestockBundle:Inventory:differencesStock }
 glstock_inventory_valid:
-    pattern:  /inventory/valid/{id}
+    path:  /inventory/valid
     defaults: { _controller: GlsrGestockBundle:Inventory:valid }
     requirements:
         id:  \d+
