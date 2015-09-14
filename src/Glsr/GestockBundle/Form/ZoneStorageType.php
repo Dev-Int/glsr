@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * ZoneStorageType Form properties.
@@ -36,17 +36,21 @@ class ZoneStorageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text');
+        $builder->add(
+            'name',
+            'text',
+            array('label' => 'glsr.gestock.settings.diverse.zonestorage')
+        );
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(
@@ -62,6 +66,6 @@ class ZoneStorageType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_zonestoragetype';
+        return 'glsr_gestockbundle_zonestorage';
     }
 }

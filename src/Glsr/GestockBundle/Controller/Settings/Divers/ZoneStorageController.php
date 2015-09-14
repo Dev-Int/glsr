@@ -16,6 +16,8 @@
 namespace Glsr\GestockBundle\Controller\Settings\Divers;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\ZoneStorage;
 use Glsr\GestockBundle\Form\ZoneStorageType;
 
@@ -31,35 +33,19 @@ class ZoneStorageController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         $zoneStore = new ZoneStorage();
 
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        // On récupère la requête
-        $request = $this->getRequest();
-
         // On vérifie qu'elle est de type POST
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
-            $form->bind($request);
+            $form->submit($request);
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
@@ -71,7 +57,7 @@ class ZoneStorageController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Zones de stockage bien ajoutée');
+                    ->add('info', 'glsr.gestock.settings.add_ok');
 
                 // On redirige vers la page de visualisation des
                 // configuration de l'appli
@@ -94,31 +80,16 @@ class ZoneStorageController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(ZoneStorage $zoneStore)
+    public function editAction(ZoneStorage $zoneStore, Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         // On utilise le SettingsType
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        $request = $this->getRequest();
-
         if ($request->getMethod() == 'POST') {
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
                 // On enregistre la config
@@ -129,7 +100,7 @@ class ZoneStorageController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Famille bien modifié');
+                    ->add('info', 'glsr.gestock.settings.edit_ok');
 
                 return $this->redirect($this->generateUrl('glstock_divers'));
             }
