@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
 
 /**
@@ -78,13 +78,13 @@ class CompanyType extends AbstractType
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(
@@ -92,7 +92,7 @@ class CompanyType extends AbstractType
             )
         );
     }
-
+    
     /**
      * Returns the name of this type.
      *

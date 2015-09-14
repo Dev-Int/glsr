@@ -308,16 +308,6 @@ class Contact
     }
 
     /**
-     * Get idCont
-     *
-     * @return integer
-     */
-    public function getIdCont()
-    {
-        return $this->idCont;
-    }
-
-    /**
      * Set name
      *
      * @param string $name
