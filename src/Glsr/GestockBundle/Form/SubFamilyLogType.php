@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * SubFamilyLogType Form properties.
@@ -37,26 +37,31 @@ class SubFamilyLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
+            ->add(
+                'name',
+                'text',
+                array('label' => 'glsr.gestock.settings.diverse.family')
+            )
             ->add(
                 'familylog',
                 'entity',
                 array(
                     'class' => 'GlsrGestockBundle:FamilyLog',
-                    'property' => 'name',
+                    'choice_label' => 'name',
                     'multiple' => false,
+                    'label' => 'glsr.gestock.settings.diverse.subfamily'
                 )
             );
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(
