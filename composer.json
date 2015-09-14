@@ -2,6 +2,7 @@
     "name": "dev-int/glsr",
     "license": "MIT",
     "type": "project",
+    "description": "The GLSR Application, managing a restaurant stocks",
     "autoload": {
         "psr-4": {
             "": "src/",
