@@ -16,11 +16,12 @@
 namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Article;
 use Glsr\GestockBundle\Entity\Supplier;
 use Glsr\GestockBundle\Form\ArticleType;
 use Glsr\GestockBundle\Form\ArticleReassignType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * class ArticleController.
@@ -67,7 +68,7 @@ class ArticleController extends Controller
      */
     public function addShowAction()
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         $article = new Article();
@@ -86,23 +87,22 @@ class ArticleController extends Controller
     /**
      * Ajoute un article.
      *
-     * @return Symfony\Component\HttpFoundation\RedirectResponse
+     * @param Request $request objet requète
      *
+     * @return Symfony\Component\HttpFoundation\RedirectResponse
      * @throws AccessDeniedException
      */
-    public function addProcessAction()
+    public function addProcessAction(Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         $article = new Article();
-        // On récupère la requête
-        $request = $this->getRequest();
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
 
         // On fait le lien Requête <-> Formulaire
-        $form->bind($request);
+        $form->submit($request);
 
         // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
@@ -114,10 +114,10 @@ class ArticleController extends Controller
                 'glstock_art_show',
                 array('name' => $article->getName())
             );
-            $message = "L'article " . $article->getName() ." est bien ajouté";
+            $message = "glsr.gestock.article.create.ok";
         } else {
             $url = $this->generateUrl('glstock_art_add');
-            $message = "L'article ".$article->getName()." n'est pas ajouté !";
+            $message = "glsr.gestock.article.create.no";
         }
         // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
@@ -130,47 +130,19 @@ class ArticleController extends Controller
      * Modification d'un article.
      *
      * @param Article $article article à modifier
+     * @param Request $request objet requète
      *
-     * @return Symfony\Component\HttpFoundation\Response|
-     *   Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @throws AccessDeniedException
      */
-    public function editAction(Article $article)
+    public function editShowAction(Article $article, Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
-
-        // On récupère la requête
-        $request = $this->getRequest();
-
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-            // On fait le lien Requête <-> Formulaire
-            $form->bind($request);
-
-            // On vérifie que les valeurs rentrées sont correctes
-            if ($form->isValid()) {
-                // On enregistre l'objet $article dans la base de données
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($article);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')->getFlashBag()
-                    ->add('info', 'Article bien modifié');
-
-                // On redirige vers la page de visualisation
-                //  de l'article nouvellement créé
-                return $this->redirect(
-                    $this->generateUrl(
-                        'glstock_art_show',
-                        array('name' => $article->getName())
-                    )
-                );
-            }
-        }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:edit.html.twig',
@@ -178,6 +150,51 @@ class ArticleController extends Controller
                 'form' => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Modification d'un article.
+     *
+     * @param Article $article article à modifier
+     * @param Request $request objet requète
+     *
+     * @return Symfony\Component\HttpFoundation\Response|
+     *   Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editProcessAction(Article $article, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        // On crée le formulaire grâce à l'ArticleType
+        $form = $this->createForm(new ArticleType(), $article);
+
+        // On fait le lien Requête <-> Formulaire
+        $form->submit($request);
+
+        // On vérifie que les valeurs rentrées sont correctes
+        if ($form->isValid()) {
+            // On enregistre l'objet $article dans la base de données
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($article);
+            $etm->flush();
+            $url = $this->generateUrl(
+                'glstock_art_show',
+                array('name' => $article->getName())
+            );
+            $message = "glsr.gestock.article.edit.ok";
+        } else {
+            $url = $this->generateUrl(
+                'glstock_art_edit',
+                array('name' => $article->getName())
+            );
+            $message = "glsr.gestock.article.create.no";
+        }
+        // On définit un message flash
+        $this->get('session')->getFlashBag()->add('info', $message);
+        // On redirige vers la page de visualisation
+        //  de l'article nouvellement créé
+        return $this->redirect($url);
     }
 
     /**
@@ -189,13 +206,10 @@ class ArticleController extends Controller
      */
     public function deleteShowAction(Article $article)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         $form = $this->createFormBuilder()->getForm();
-
-        //On modifie l'état actif de l'article
-        $article->setActive(0);
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Article:delete.html.twig',
@@ -210,24 +224,26 @@ class ArticleController extends Controller
      * Supprime (désactive) un article.
      *
      * @param Article $article
+     * @param Request $request objet requète
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @throws AccessDeniedException
      */
-    public function deleteProcessAction(Article $article)
+    public function deleteProcessAction(Article $article, Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         $form = $this->createFormBuilder()->getForm();
 
-        $request = $this->getRequest();
-        $form->bind($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             // On supprime l'article
             $etm = $this->getDoctrine()->getManager();
+            //On modifie l'état actif de l'article
+            $article->setActive(0);
             $etm->persist($article);
             $etm->flush();
 
@@ -274,7 +290,7 @@ class ArticleController extends Controller
      */
     public function reassignShowAction(Supplier $supplier)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
 
@@ -302,12 +318,13 @@ class ArticleController extends Controller
      *
      * @param Supplier $supplier Fournisseur
      *   dont les articles doivent être réaffectés
+     * @param Request $request objet requète
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @throws AccessDeniedException
      */
-    public function reassignProcessAction(Supplier $supplier)
+    public function reassignProcessAction(Supplier $supplier, Request $request)
     {
         if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -320,11 +337,8 @@ class ArticleController extends Controller
 
         $form = $this->createForm(new ArticleReassignType(), $articles);
 
-        // On récupère la requête
-        $request = $this->getRequest();
-
         // On fait le lien Requête <-> Formulaire
-        $form->bind($request);
+        $form->submit($request);
         $datas = $form;
 
         $newArticles = new Article();

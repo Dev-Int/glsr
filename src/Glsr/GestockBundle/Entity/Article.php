@@ -116,7 +116,7 @@ class Article
      * @Assert\Type(type="numeric",
      * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
-    private $realstock;
+//    private $realstock;
 
     /**
      * @var string Zone(s) de stockage
@@ -158,7 +158,7 @@ class Article
         $this->zone_storages = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
-        $this->realstock = 0.000;
+//        $this->realstock = 0.000;
     }
 
     /**
@@ -298,22 +298,22 @@ class Article
      *
      * @return Article
      */
-    public function setRealstock($realstock)
-    {
-        $this->realstock = $realstock;
-
-        return $this;
-    }
+//    public function setRealstock($realstock)
+//    {
+//        $this->realstock = $realstock;
+//
+//        return $this;
+//    }
 
     /**
      * Get realstock.
      *
      * @return string
      */
-    public function getRealstock()
-    {
-        return $this->realstock;
-    }
+//    public function getRealstock()
+//    {
+//        return $this->realstock;
+//    }
 
     /**
      * Set supplier.

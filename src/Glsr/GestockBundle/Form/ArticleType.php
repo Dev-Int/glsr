@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * ArticleType Form properties.
@@ -37,69 +37,30 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
             ->add(
-                'packaging',
-                'number',
+                'name',
+                'text',
                 array(
-                    'precision' => 3,
-                    'grouping' => true,
-                    'label' => 'packaging',
+                    'label' => 'glsr.gestock.title_item'
                 )
-            )
-            ->add(
-                'price',
-                'money',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
                 )
-            )
-            ->add(
-                'quantity',
-                'number',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                )
-            )
-            ->add(
-                'minstock',
-                'number',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                )
-            )
-            ->add(
-                'realstock',
-                'number',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                    'data' => 0,
-                )
-            )
-            ->add('active', 'checkbox')
             ->add(
                 'supplier',
                 'entity',
                 array(
                     'class' => 'GlsrGestockBundle:Supplier',
-                    'property' => 'name',
+                    'choice_label' => 'name',
                     'multiple' => false,
-                    'empty_value' => 'Choice the Supplier',
+                    'placeholder' => 'glsr.gestock.article.form.choice_supplier',
                     'empty_data' => null,
+                    'label' => 'glsr.gestock.supplier.title'
                 )
             )
             ->add(
-                'unit_storage',
-                'entity',
+                'active',
+                'hidden',
                 array(
-                    'class' => 'GlsrGestockBundle:UnitStorage',
-                    'property' => 'name',
-                    'multiple' => false,
+                    'label' => 'glsr.gestock.actif'
                 )
             )
             ->add(
@@ -107,9 +68,10 @@ class ArticleType extends AbstractType
                 'entity',
                 array(
                     'class' => 'GlsrGestockBundle:ZoneStorage',
-                    'property' => 'name',
+                    'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true,
+                    'label' => 'glsr.gestock.settings.diverse.zonestorage'
                 )
             )
             ->add(
@@ -117,10 +79,11 @@ class ArticleType extends AbstractType
                 'entity',
                 array(
                     'class' => 'GlsrGestockBundle:FamilyLog',
-                    'property' => 'name',
+                    'choice_label' => 'name',
                     'multiple' => false,
-                    'empty_value' => 'Choice the Family',
+                    'placeholder' => 'glsr.gestock.settings.diverse.choice_family',
                     'empty_data' => null,
+                    'label' => 'glsr.gestock.settings.diverse.familylog'
                 )
             )
             ->add(
@@ -128,22 +91,70 @@ class ArticleType extends AbstractType
                 'entity',
                 array(
                     'class' => 'GlsrGestockBundle:SubFamilyLog',
-                    'property' => 'name',
+                    'choice_label' => 'name',
                     'multiple' => false,
-                    'empty_value' => 'Choice the Sub Family',
+                    'placeholder' => 'glsr.gestock.settings.diverse.choice_subfam',
                     'empty_data' => null,
+                    'label' => 'glsr.gestock.settings.diverse.subfamilylog'
+                )
+            )
+            ->add(
+                'quantity',
+                'number',
+                array(
+                    'scale' => 3,
+                    'grouping' => true,
+                    'label' => 'glsr.gestock.article.settings.quantity'
+                )
+            )
+            ->add(
+                'unit_storage',
+                'entity',
+                array(
+                    'class' => 'GlsrGestockBundle:UnitStorage',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'label' => 'glsr.gestock.settings.diverse.unitstorage'
+                )
+            )
+            ->add(
+                'price',
+                'money',
+                array(
+                    'scale' => 3,
+                    'grouping' => true,
+                    'currency' => 'EUR',
+                    'label' => 'glsr.gestock.article.settings.price'
+                )
+            )
+            ->add(
+                'packaging',
+                'number',
+                array(
+                    'scale' => 3,
+                    'grouping' => true,
+                    'label' => 'glsr.gestock.article.settings.packaging'
+                )
+            )
+            ->add(
+                'minstock',
+                'number',
+                array(
+                    'scale' => 3,
+                    'grouping' => true,
+                    'label' => 'glsr.gestock.article.settings.stock_alert'
                 )
             );
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(
