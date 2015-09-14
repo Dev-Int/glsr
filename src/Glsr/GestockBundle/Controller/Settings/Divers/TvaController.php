@@ -16,6 +16,8 @@
 namespace Glsr\GestockBundle\Controller\Settings\Divers;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Tva;
 use Glsr\GestockBundle\Form\TvaType;
 
@@ -29,37 +31,23 @@ class TvaController extends Controller
     /**
      * Ajouter une TVA.
      *
+     * @param Request $request objet requète
+     *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         $tva = new Tva();
 
         $form = $this->createForm(new TvaType(), $tva);
 
-        // On récupère la requête
-        $request = $this->getRequest();
-
         // On vérifie qu'elle est de type POST
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
-            $form->bind($request);
+            $form->submit($request);
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
@@ -71,7 +59,7 @@ class TvaController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Tva bien ajoutée');
+                    ->add('info', 'glsr.gestock.settings.add_ok');
 
                 // On redirige vers la page de visualisation des
                 // configuration de l'appli
@@ -91,31 +79,17 @@ class TvaController extends Controller
      * Modifier une TVA.
      *
      * @param Tva $tva objet TVA à modifier
+     * @param Request $request objet requète
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Tva $tva)
+    public function editAction(Tva $tva, Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         // On utilise le SettingsType
         $form = $this->createForm(new TvaType(), $tva);
-
-        $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
@@ -129,7 +103,7 @@ class TvaController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Tva bien modifié');
+                    ->add('info', 'glsr.gestock.settings.edit_ok');
 
                 return $this->redirect($this->generateUrl('glstock_divers'));
             }
