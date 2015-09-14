@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * SettingsType Form properties.
@@ -42,11 +42,12 @@ class SettingsType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        'global' => 'Global',
-                        'zonestorage' => 'Zone Storage',
+                        'global' => 'glsr.gestock.settings.application.global',
+                        'zonestorage' => 'glsr.gestock.settings.application.zone_storage',
                     ),
                     'expanded' => true,
                     'multiple' => false,
+                    'label' => 'glsr.gestock.settings.application.style_inventory'
                 )
             )
             ->add(
@@ -54,14 +55,15 @@ class SettingsType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        'fifo' => 'FIFO',
-                        'weighted' => 'weighted',
+                        'fifo' => 'glsr.gestock.settings.application.fifo',
+                        'weighted' => 'glsr.gestock.settings.application.weighted',
                     ),
                     'expanded' => true,
                     'multiple' => false,
+                    'label' => 'glsr.gestock.settings.application.calculation'
                 )
             )
-            ->add('first_inventory', 'hidden')
+//            ->add('first_inventory', 'hidden')
             ->add(
                 'currency',
                 'currency',
@@ -69,18 +71,19 @@ class SettingsType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'preferred_choices' => array('EUR'),
+                    'label' => 'glsr.gestock.settings.application.currency'
                 )
             );
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(
@@ -88,7 +91,7 @@ class SettingsType extends AbstractType
             )
         );
     }
-
+    
     /**
      * Returns the name of this type.
      *

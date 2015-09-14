@@ -16,6 +16,8 @@
 namespace Glsr\GestockBundle\Controller\Settings;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Settings;
 use Glsr\GestockBundle\Form\SettingsType;
 
@@ -34,8 +36,9 @@ class ApplicationController extends Controller
     public function showAction()
     {
         $etm = $this->getDoctrine()->getManager();
-        $repoSettings = $etm->getRepository('GlsrGestockBundle:Settings');
-        $settings = $repoSettings->findAll();
+        $settings = $etm
+            ->getRepository('GlsrGestockBundle:Settings')
+            ->findAll();
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:index.html.twig',
@@ -48,35 +51,19 @@ class ApplicationController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function addAction(Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         $settings = new Settings();
 
         $form = $this->createForm(new SettingsType(), $settings);
 
-        // On récupère la requête
-        $request = $this->getRequest();
-
         // On vérifie qu'elle est de type POST
         if ($request->getMethod() == 'POST') {
             // On fait le lien Requête <-> Formulaire
-            $form->bind($request);
+            $form->submit($request);
 
             // On vérifie que les valeurs rentrées sont correctes
             if ($form->isValid()) {
@@ -88,7 +75,7 @@ class ApplicationController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Configuration bien ajoutée');
+                    ->add('info', 'glsr.gestock.settings.add_ok');
 
                 // On redirige vers la page de visualisation
                 // des configuration de l'appli
@@ -116,28 +103,13 @@ class ApplicationController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Settings $settings)
+    public function editAction(Settings $settings, Request $request)
     {
-        if (!$this->get('security.context')->isGranted('ROLE_ADMIN')) {
-            // On définit un message flash
-            $this->get('session')
-                ->getFlashBag()
-                ->add(
-                    'info',
-                    'Vous devez être connecté pour accéder à cette page.'
-                );
-
-            // On redirige vers la page de connexion
-            return $this->redirect(
-                $this->generateUrl(
-                    'fos_user_security_login'
-                )
-            );
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
         }
         // On utilise le SettingsType
         $form = $this->createForm(new SettingsType(), $settings);
-
-        $request = $this->getRequest();
 
         if ($request->getMethod() == 'POST') {
             $form->bind($request);
@@ -151,7 +123,7 @@ class ApplicationController extends Controller
                 // On définit un message flash
                 $this->get('session')
                     ->getFlashBag()
-                    ->add('info', 'Configuration bien modifié');
+                    ->add('info', 'glsr.gestock.settings.edit_ok');
 
                 return $this->redirect(
                     $this->generateUrl(
