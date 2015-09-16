@@ -16,14 +16,13 @@
         {{ 'glsr.gestock.supplier.delete.caution'|trans({'%supplier.name%': supplier.name})|nl2br }}
     </p>
 
-    {# On met l'id de l'supplier dans la route de l'action du formulaire #}
-    <form action="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" method="post">
-        <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}" class="btn btn-default" role="button">
+    {{ form_start(form) }}
+{#        {{ form_errors(form) }}#}
+        <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
-            {{ 'glsr.gestock.supplier.return'|trans }}
+            {{ 'glsr.gestock.return_list'|trans }}
         </a>
         <input type="submit" value="{{ 'glsr.gestock.supplier.delete.submit_button'|trans }}" class="btn btn-default btn-danger" />
-        {{ form_rest(form) }}
-    </form>
+    {{ form_end(form) }}
 
 {% endblock %}

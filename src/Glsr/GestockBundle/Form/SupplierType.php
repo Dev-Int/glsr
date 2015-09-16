@@ -17,7 +17,7 @@ namespace Glsr\GestockBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
 
 /**
@@ -38,16 +38,48 @@ class SupplierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
-            ->add('address', 'text')
-            ->add('zipcode', 'text')
-            ->add('town', 'text')
             ->add(
-                'phone',
+                'name',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.name'
+                )
+            )
+            ->add(
+                'address',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.address'
+                )
+            )
+            ->add(
+                'zipcode',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.address'
+                )
+            )
+            ->add(
+                'town',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.address'
+                )
+            )
+            ->add(
+                'contact',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.contact'
+                )
+            )
+            ->add(
+                'gsm',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.gsm'
                 )
             )
             ->add(
@@ -56,16 +88,48 @@ class SupplierType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.fax'
                 )
             )
-            ->add('mail', 'email')
-            ->add('contact', 'text')
             ->add(
-                'gsm',
+                'phone',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.phone'
+                )
+            )
+            ->add(
+                'mail',
+                'email',
+                array(
+                    'label' => 'glsr.gestock.mail'
+                )
+            )
+            ->add(
+                'family_log',
+                'entity',
+                array(
+                    'class' => 'GlsrGestockBundle:FamilyLog',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'placeholder' => 'glsr.gestock.settings.diverse.choice_family',
+                    'empty_data' => null,
+                    'label' => 'glsr.gestock.settings.diverse.familylog'
+                )
+            )
+            ->add(
+                'sub_family_log',
+                'entity',
+                array(
+                    'class' => 'GlsrGestockBundle:SubFamilyLog',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'required' => false,
+                    'placeholder' => 'glsr.gestock.settings.diverse.choice_subfam',
+                    'empty_data' => null,
+                    'label' => 'glsr.gestock.settings.diverse.subfamilylog'
                 )
             )
             // Délai de livraison A = jour de Cmde, (B, C, D, E) = jour de livraison
@@ -74,11 +138,12 @@ class SupplierType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        1 => 'A pour B',
-                        2 => 'A pour C',
-                        3 => 'A pour D',
-                        4 => 'A pour E',
+                        1 => 'glsr.gestock.supplier.form.atob',
+                        2 => 'glsr.gestock.supplier.form.atoc',
+                        3 => 'glsr.gestock.supplier.form.atod',
+                        4 => 'glsr.gestock.supplier.form.atoe',
                     ),
+                    'label' => 'glsr.gestock.supplier.settings.delay'
                 )
             )
             // Choix du jour de la semaine pour les Cmdes
@@ -87,52 +152,30 @@ class SupplierType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        1 => 'Lundi',
-                        2 => 'Mardi',
-                        3 => 'Mercredi',
-                        4 => 'Jeudi',
-                        5 => 'Vendredi',
-                        6 => 'Samedi',
-                        7 => 'Dimanche',
+                        1 => 'glsr.gestock.dates.mon',
+                        2 => 'glsr.gestock.dates.tue',
+                        3 => 'glsr.gestock.dates.wed',
+                        4 => 'glsr.gestock.dates.thu',
+                        5 => 'glsr.gestock.dates.fri',
+                        6 => 'glsr.gestock.dates.sat',
+                        7 => 'glsr.gestock.dates.sun',
                     ),
                     'expanded' => true,
                     'multiple' => true,
-                )
-            )
-            ->add(
-                'family_log',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:FamilyLog',
-                    'property' => 'name',
-                    'multiple' => false,
-                    'empty_value' => 'Choice the Family',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'sub_family_log',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:SubFamilyLog',
-                    'property' => 'name',
-                    'multiple' => false,
-                    'required' => false,
-                    'empty_value' => 'Choice the Sub Family',
-                    'empty_data' => null,
+                    'label' => 'glsr.gestock.supplier.settings.order'
                 )
             )
             ->add('active', 'hidden');
     }
 
     /**
-     * Sets the default options for this type.
+     * Configure the default options for this type.
      *
-     * @param OptionsResolverInterface $resolver The resolver for the options.
+     * @param OptionsResolver $resolver The resolver for the options.
      *
      * @return array DefaultOption
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver$resolver)
     {
         $resolver->setDefaults(
             array(

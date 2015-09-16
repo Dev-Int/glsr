@@ -8,7 +8,7 @@
 {% endblock %}
 
 <div class="well">
-    <form method="post" {{ form_enctype(form) }} class="form-horizontal" role='form'>
+    {{ form_start(form, { 'attr' : { 'class':'form-horizontal' } }) }}
         {{ form_errors(form) }}
         <fieldset><legend>{{ 'glsr.gestock.article.settings.information'|trans }}</legend>
             <section class="row col-md-12">

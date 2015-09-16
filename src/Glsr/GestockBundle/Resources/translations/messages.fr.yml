@@ -24,8 +24,9 @@ glsr:
         cancel: Annuler
         edit: Modifier
         name: Nom
-        adress: Adresse
+        address: Adresse
         phone: Téléphone
+        gsm: Mobile
         fax: Fax
         mail: Courriel
         contact: Contact
@@ -51,16 +52,25 @@ glsr:
             title: Configuration
             return: "Retour à la configuration"
             new: 'Nouvelle configuration'
+            commercial: Commercial
+            administratif: Adminsitratif
+            add_ok: "Configuration bien ajoutée"
+            edit_ok: "Configuration bien modifiée"
             company:
                 title: Etablissement
                 subtitle: "Paramètres de la société utilisant le logiciel."
+                status: Statut social
             application:
                 title: Application
                 subtitle: "Gestion des paramètres de l'application."
                 style_inventory: "Style d'inventaire"
-                method_calcul_inventory: "Mode de calcul d'inventaire"
-                first_inventory: "Inventaire d'installation"
-                currency: Monnaie
+                global: "Global "
+                zone_storage: "Zone de stockage"
+                calculation: "Mode de calcul d'inventaire "
+                fifo: "FIFO "
+                weighted: "Pondéré "
+                first_inventory: "Inventaire d'installation "
+                currency: "Monnaie "
             diverse:
                 title: Divers
                 familylog: "Famille logistique"
@@ -68,10 +78,12 @@ glsr:
                 family: Famille
                 family_edit: "Modifier la famille"
                 family_add: "Ajouter une famille"
+                choice_family: "Choisissez une famille"
                 subfamilylog: "Sous-famille logistique"
                 subfamily: "Sous-famille"
                 subfamily_edit: "Modifier la sous-famille"
                 subfamily_add: "Ajouter une sous-famille"
+                choice_subfam: "Choisissez une sous-famille"
                 zonestorage: "Zone de stockage"
                 zonestorage_subtitle: "Gestion des paramètres des zones de stockage."
                 zonestorage_edit: "Modifier la zone de stockage"
@@ -80,6 +92,7 @@ glsr:
                 unitstorage_subtitle: "Gestion des paramètres des unités de stockage.\n 'KG', 'L'..."
                 unitstorage_edit: "Modifier l'unité de stockage"
                 unitstorage_add: "Ajouter une unité de stockage"
+                abbreviation: Abréviation
                 vat: "TVA"
                 vat_subtitle: "Gestion des paramètres des taxes."
                 vat_edit: "Modifier la taxe"
@@ -88,6 +101,7 @@ glsr:
             form:
                 title: "Formulaire de configuration"
                 caution: 'Cette configuration déterminera le fonctionnement de votre application'
+                info: 'Information Compagnie'
 
         article:
             title: Articles
@@ -118,9 +132,12 @@ glsr:
                 title: 'Modifier un article'
                 title_button: "Modifier l'article"
                 caution: "Vous éditez un article déjà existant.\n Ne le changez pas trop, pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
+                ok: "Article bien modifié"
+                no: "Article pas modifié"
             form:
                 title: "Formulaire d'article"
                 info: 'Information Article'
+                choice_supplier: "Choisissez un fournisseur"
             show:
                 title: "Lecture d'un article"
                 edit_button: "Editer l'article"
@@ -129,9 +146,12 @@ glsr:
                 title: 'Créer un article'
                 title_button: 'Ajouter un article'
                 caution: "Attention !\n Cet article sera ajouté directement\n au tableau des articles après validation du formulaire."
-            ressign:
+                ok: "L'article est bien ajouté"
+                no: "L'article n'est pas ajouté"
+            reassign:
                 title: "Réassignation d'article"
                 from: "Réassigner les articles du fournisseur %supname%"
+                submit_button: 'Réassigner'
 
         supplier:
             title: Fournisseurs
@@ -145,8 +165,6 @@ glsr:
             return_list: 'Retour à la liste'
             settings:
                 country: Pays
-                commercial: Commercial
-                administratif: Adminsitratif
                 order: Commande
                 delay: "Délai Livraison"
                 day_order: "Jour de commande"
@@ -156,16 +174,24 @@ glsr:
                 title: 'Supprimer un fournisseur'
                 title_button: 'Supprimer le fournisseur'
                 submit_button: 'Supprimer un fournisseur'
-                caution: 'Êtes-vous sûr de vouloir supprimer le fournisseur "%supplier.name%" ?'
+                caution: 'Êtes-vous sûr de vouloir désactiver le fournisseur "%supplier.name%" ?'
+                reassign: 'Vous devez réaffecter les articles du Fournisseur !'
                 ok: 'Fournisseur bien désactivé'
+                no: 'Fournisseur non désactivé'
             edit:
                 title: 'Modifier un fournisseur'
                 title_button: 'Modifier le fournisseur'
                 submit_button: Valider
                 caution: "Vous éditez un fournisseur déjà existant.\n Ne le changez pas trop pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
+                ok: "Fournisseur bien modifié"
+                no: "Fournisseur pas modifié"
             form:
                 title: 'Formulaire de fournisseur'
                 info: 'Information Fournisseur'
+                atob: "A pour B"
+                atoc: "A pour C"
+                atod: "A pour D"
+                atoe: "A pour E"
             show:
                 title: 'Lecture d''un fournisseur'
                 edit_button: 'Editer le fournisseur'
@@ -174,6 +200,8 @@ glsr:
                 title: 'Créer un fournisseur'
                 title_button: 'Ajouter un fournisseur'
                 caution: "Attention !\n Ce fournisseur sera ajouté directement\n au tableau des forunisseurs après validation du formulaire."
+                ok: "Le fournisseur est bien ajouté"
+                no: "Le fournisseur n'est pas ajouté"
 
         inventory:
             title: "Gérer les inventaires"

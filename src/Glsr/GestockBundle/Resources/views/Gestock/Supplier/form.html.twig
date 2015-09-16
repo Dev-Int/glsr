@@ -7,13 +7,13 @@
     {{ 'glsr.gestock.supplier.form.title'|trans }}
 {% endblock %}
 
-<form method="post" {{ form_enctype(form) }}>
+{{ form_start(form) }}
     <fieldset class="well">
         {{ form_errors(form) }}
         <legend>{{ 'glsr.gestock.supplier.form.info'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ form_label(form.name, 'glsr.gestock.name'|trans) }}
+                {{ form_label(form.name) }}
             </span>
         </div>
         <div class="col-md-10">
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ form_label(form.address, 'glsr.gestock.adress'|trans) }}
+                {{ form_label(form.address) }}
             </span>
         </div>
         <div class="col-md-5">
@@ -41,10 +41,10 @@
                 {{ 'glsr.gestock.supplier.settings.country'|trans }}
             </span>
         </div>
-        <legend>{{ 'glsr.gestock.supplier.settings.commercial'|trans }}</legend>
+        <legend>{{ 'glsr.gestock.settings.commercial'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.contact'|trans }}
+                {{ form_label(form.contact) }}
             </span>
         </div>
         <div class="col-md-10">
@@ -53,7 +53,7 @@
         </div>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.phone'|trans }}
+                {{ form_label(form.gsm) }}
             </span>
         </div>
         <div class="col-md-4">
@@ -62,53 +62,43 @@
         </div>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.fax'|trans }}
+                {{ form_label(form.fax) }}
             </span>
         </div>
         <div class="col-md-4">
             <span class="text-danger">{{ form_errors(form.fax) }}</span>
             {{ form_widget(form.fax) }}
         </div>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'glsr.gestock.mail'|trans }}
-            </span>
-        </div>
         <div class="col-md-4"></div>
-        <legend>{{ 'glsr.gestock.supplier.settings.administratif'|trans }}</legend>
+        <legend>{{ 'glsr.gestock.settings.administratif'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
                 {{ 'glsr.gestock.contact'|trans }}
             </span>
         </div>
         <div class="col-md-4"></div><br />
-        <div class="col-md-2"><span class="label label-default">Téléphone</span></div>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ form_label(form.phone) }}
+            </span>
+        </div>
         <div class="col-md-4">
             <span class="text-danger">{{ form_errors(form.phone) }}</span>
             {{ form_widget(form.phone) }}
         </div>
         <div class="col-md-2">
-{#            <span class="label label-default">
-                {{ 'glsr.gestock.fax'|trans }}
-            </span>#}
-        </div>
-        <div class="col-md-4">
-{#             <span class="text-danger">{{ form_errors(form.fax) }}</span>
-            { form_widget(form.fax) }#}
-        </div>
-        <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.mail'|trans }}
+                {{ form_label(form.mail) }}
             </span>
         </div>
         <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.email) }}</span>
-            {{ form_widget(form.email) }}
+            <span class="text-danger">{{ form_errors(form.mail) }}</span>
+            {{ form_widget(form.mail) }}
         </div>
         <legend>{{ 'glsr.gestock.details'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+                {{ form_label(form.family_log) }}
             </span>
         </div>
         <div class="col-md-4">
@@ -117,16 +107,16 @@
         </div>
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}
+                {{ form_label(form.sub_family_log) }}
             </span>
         </div>
         <div class="col-md-4">
             <span class="text-danger">{{ form_errors(form.sub_family_log) }}</span>
             {{ form_widget(form.sub_family_log) }}
-        </div>
+        </div><br />
         <div class="col-md-2">
             <span class="label label-default">
-                {{ 'glsr.gestock.settings.diverse.delay'|trans }}
+                {{ form_label(form.delaydeliv) }}
             </span>
         </div>
         <div class="col-md-4">
@@ -141,7 +131,7 @@
             <table class="panel panel-default">
                 <thead class="panel-heading">
                     <tr>
-                        <th class="col-md-5">{{ 'glsr.gestock.supplier.settings.order'|trans }}</th>
+                        <th class="col-md-5">{{ form_label(form.orderdate) }}</th>
                         {% for child in form.orderdate %}
                             <th class="col-md-1 text-center">{{ form_label(child) }}</th>
                         {% endfor %}
@@ -165,7 +155,7 @@
     {{ form_rest(form) }}
     <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.supplier.edit.submit_button'|trans }}" />
     <p>&nbsp;</p>
-</form>
+{{ form_end(form) }}
 <script type="text/javascript">
 function upperCase(){
     $("#glsr_gestockbundle_supplier_town").val().toUpperCase();
