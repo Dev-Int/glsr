@@ -17,6 +17,7 @@ namespace Glsr\GestockBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * class GestockController.
@@ -38,15 +39,16 @@ class GestockController extends Controller
     /**
      * Récupère les subFamilyLog de la FamilyLog sélectionnée.
      *
+     * @param Request $request objet requète
+     *
      * @return \Glsr\GestockBundle\Controller\Response
      */
-    public function fillSubFamilyLogAction()
+    public function fillSubFamilyLogAction(Request $request)
     {
-        $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $famLogId = '';
-            $subFamId = '';
+//            $famLogId = '';
+//            $subFamId = '';
             $famLogId = $request->get('id');
             $subFamId = $request->get('id2');
             if ($famLogId  != '') {
@@ -59,7 +61,7 @@ class GestockController extends Controller
                 $tabSubFamilyLog = array();
                 $tabSubFamilyLog[0]['idOption'] = '';
                 $tabSubFamilyLog[0]['nameOption']
-                    = 'Choice the Sub Family: '.$familyLog->getName();
+                    = 'glsr.gestock.settings.diverse.choice_subfam'.$familyLog->getName();
                 $iterator = 1;
                 foreach ($subFamilyLogs as $subFamilyLog) {
                     $tabSubFamilyLog[$iterator]['idOption']
@@ -78,25 +80,27 @@ class GestockController extends Controller
                 $data = json_encode($tabSubFamilyLog);
                 $response->headers->set('Content-Type', 'application/json');
                 $response->setContent($data);
-
-                return $response;
             }
         }
+        if (!$response) {
+            $response = new Response('Error');
+        }
 
-        return new Response('Error');
+        return $response;
     }
 
     /**
      * Récupère les FamilyLog de la requête post.
      *
+     * @param Request $request objet requète
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFamilyLogAction()
+    public function getFamilyLogAction(Request $request)
     {
-        $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $id = '';
+//            $id = '';
             $id = $request->get('id');
             if ($id != '') {
                 $supplier = $etm
@@ -113,12 +117,13 @@ class GestockController extends Controller
                 $data = json_encode($familyLog);
                 $response->headers->set('Content-Type', 'application/json');
                 $response->setContent($data);
-
-                return $response;
             }
         }
+        if (!$response) {
+            $response = new Response('Error');
+        }
 
-        return new Response('Error');
+        return $response;
     }
 
     /**
