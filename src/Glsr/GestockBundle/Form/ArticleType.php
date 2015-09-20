@@ -43,7 +43,7 @@ class ArticleType extends AbstractType
                 array(
                     'label' => 'glsr.gestock.title_item'
                 )
-                )
+            )
             ->add(
                 'supplier',
                 'entity',
