@@ -29,7 +29,6 @@
         "doctrine/data-fixtures": "@dev",
         "twig/extensions": "1.0.*",
         "symfony/intl": "2.7.4",
-        "sensio/generator-bundle": "^2.5",
         "jms/security-extra-bundle": "dev-master",
         "stof/doctrine-extensions-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master",
@@ -39,7 +38,7 @@
         "whiteoctober/tcpdf-bundle": "~1.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.4"
+        "sensio/generator-bundle": "^2.5"
     },
     "scripts": {
         "post-root-package-install": [
