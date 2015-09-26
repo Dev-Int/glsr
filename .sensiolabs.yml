@@ -96,8 +96,8 @@ exclude_patterns:
 #         enabled: true
 #     symfony.acme_bundle_found:
 #         enabled: true
-    symfony.app.cache_or_log_file_in_repository:
-        enabled: true
+#    symfony.app.cache_or_log_file_in_repository:
+#        enabled: true
 #     symfony.app.confidential_parameters_file_present_in_repository:
 #         enabled: true
 #     symfony.app.first_level_service:
@@ -126,8 +126,8 @@ exclude_patterns:
 #         enabled: true
 #         max_count: 6
 #         threshold: 5
-    symfony.dependency_injection.no_container_as_parameter:
-        enabled: true
+#    symfony.dependency_injection.no_container_as_parameter:
+#        enabled: true
 #     symfony.dependency_injection.no_entity_manager_as_parameter:
 #         enabled: true
 #     symfony.dependency_injection.use_dir_file_constant:
