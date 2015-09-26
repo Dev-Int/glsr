@@ -166,7 +166,7 @@ class InventoryArticles
     /**
      * Get articles
      *
-     * @return \Glsr\GestockBundle\Entity\Article 
+     * @return \Glsr\GestockBundle\Entity\Article
      */
     public function getArticles()
     {
