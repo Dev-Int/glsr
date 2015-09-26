@@ -283,30 +283,6 @@ class Article
     }
 
     /**
-     * Set realstock.
-     *
-     * @param string $realstock stock réel (relelvé pendant l'inventaire)
-     *
-     * @return Article
-     */
-//    public function setRealstock($realstock)
-//    {
-//        $this->realstock = $realstock;
-//
-//        return $this;
-//    }
-
-    /**
-     * Get realstock.
-     *
-     * @return string
-     */
-//    public function getRealstock()
-//    {
-//        return $this->realstock;
-//    }
-
-    /**
      * Set supplier.
      *
      * @param Supplier $supplier Fournisseur de l'article
