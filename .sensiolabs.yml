@@ -126,8 +126,8 @@ exclude_patterns:
 #         enabled: true
 #         max_count: 6
 #         threshold: 5
-#     symfony.dependency_injection.no_container_as_parameter:
-#         enabled: true
+    symfony.dependency_injection.no_container_as_parameter:
+        enabled: true
 #     symfony.dependency_injection.no_entity_manager_as_parameter:
 #         enabled: true
 #     symfony.dependency_injection.use_dir_file_constant:
