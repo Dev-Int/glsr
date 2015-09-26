@@ -47,8 +47,6 @@ class GestockController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-//            $famLogId = '';
-//            $subFamId = '';
             $famLogId = $request->get('id');
             $subFamId = $request->get('id2');
             if ($famLogId  != '') {
@@ -100,7 +98,6 @@ class GestockController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-//            $id = '';
             $id = $request->get('id');
             if ($id != '') {
                 $supplier = $etm
