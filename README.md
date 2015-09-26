@@ -1,6 +1,7 @@
 Glsr
 ====
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/de223fd6-2d6b-4433-a70a-08e09fa68510/big.png)](https://insight.sensiolabs.com/projects/de223fd6-2d6b-4433-a70a-08e09fa68510)
 [![Build Status](https://travis-ci.org/GLSR/glsr.svg?branch=master)](https://travis-ci.org/GLSR/glsr)
 [![Build Status](https://travis-ci.org/GLSR/glsr.svg?branch=sf2.7)](https://travis-ci.org/GLSR/glsr)
 
