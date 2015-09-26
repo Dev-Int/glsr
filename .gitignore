@@ -12,3 +12,4 @@ composer.phar
 /web/pdf/
 /web/config.php
 /nbproject/*
+/bin/*
