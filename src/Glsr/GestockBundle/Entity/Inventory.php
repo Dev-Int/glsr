@@ -44,11 +44,11 @@ class Inventory
     private $date;
 
     /**
-     * @var bool Activé/Désactivé
+     * @var integer Statut de l'inventaire
      *
-     * @ORM\Column(name="active", type="smallint")
+     * @ORM\Column(name="status", type="smallint")
      */
-    private $active;
+    private $status;
 
     /**
      * @var float Montant de l'inventaire
@@ -64,14 +64,6 @@ class Inventory
      */
     private $file;
     
-    /**
-     * @var string articles
-     *
-     * @ORM\ManyToMany(targetEntity="Glsr\GestockBundle\Entity\Article")
-     * @ORM\JoinTable(name="gs_inventory_articles")
-     */
-    private $articles;
-
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -114,27 +106,27 @@ class Inventory
     }
 
     /**
-     * is active.
+     * Set status.
      *
-     * @param bool $active
+     * @param integer $status
      *
      * @return Inventory
      */
-    public function isActive($active)
+    public function setStatus($status)
     {
-        $this->active = $active;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get active.
+     * Get status.
      *
-     * @return bool
+     * @return integer
      */
-    public function getActive()
+    public function getStatus()
     {
-        return $this->active;
+        return $this->status;
     }
 
     /**
@@ -196,6 +188,39 @@ class Inventory
     }
 
     /**
+     * Add articles
+     *
+     * @param \Glsr\GestockBundle\Entity\InventoryArticle $articles
+     * @return Inventory
+     */
+    public function addArticle(InventoryArticles $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Glsr\GestockBundle\Entity\InventoryArticle $articles
+     */
+    public function removeArticle(InventoryArticles $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
      * Set active
      *
      * @param integer $active
@@ -206,38 +231,5 @@ class Inventory
         $this->active = $active;
 
         return $this;
-    }
-
-    /**
-     * Add articles
-     *
-     * @param \Glsr\GestockBundle\Entity\Article $articles
-     * @return Inventory
-     */
-    public function addArticle(\Glsr\GestockBundle\Entity\Article $articles)
-    {
-        $this->articles[] = $articles;
-
-        return $this;
-    }
-
-    /**
-     * Remove articles
-     *
-     * @param \Glsr\GestockBundle\Entity\Article $articles
-     */
-    public function removeArticle(\Glsr\GestockBundle\Entity\Article $articles)
-    {
-        $this->articles->removeElement($articles);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
     }
 }
