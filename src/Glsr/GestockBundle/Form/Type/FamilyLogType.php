@@ -1,7 +1,7 @@
 <?php
 
 /**
- * UnitStorageType Form properties.
+ * FamilyLogType Form properties.
  *
  * PHP Version 5
  *
@@ -9,22 +9,22 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: e6aa22c616ccc10884c67779f7d35806ca4a8be8
+ * @version    GIT: da83befb9097373813d19297c5394eca719db662
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * UnitStorageType Form properties.
+ * FamilyLogType Form properties.
  *
  * @category   Form
  */
-class UnitStorageType extends AbstractType
+class FamilyLogType extends AbstractType
 {
     /**
      * buildForm.
@@ -36,17 +36,13 @@ class UnitStorageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add(
-                'name',
-                'text',
-                ['label' => 'glsr.gestock.settings.diverse.unitstorage']
+        $builder->add(
+            'name',
+            'text',
+            array(
+                'label' => 'glsr.gestock.settings.diverse.family'
             )
-            ->add(
-                'abbr',
-                'text',
-                ['label' => 'glsr.gestock.settings.diverse.abbreviation']
-            );
+        );
     }
 
     /**
@@ -60,7 +56,7 @@ class UnitStorageType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\UnitStorage',
+                'data_class' => 'Glsr\GestockBundle\Entity\FamilyLog',
             )
         );
     }
@@ -72,6 +68,6 @@ class UnitStorageType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_unitstorage';
+        return 'glsr_gestockbundle_familylog';
     }
 }

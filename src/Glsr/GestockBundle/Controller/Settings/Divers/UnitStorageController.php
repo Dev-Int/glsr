@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\UnitStorage;
-use Glsr\GestockBundle\Form\UnitStorageType;
+use Glsr\GestockBundle\Form\Type\UnitStorageType;
 
 /**
  * class UnitStorageController.

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SettingsType Form properties.
+ * CompanyType Form properties.
  *
  * PHP Version 5
  *
@@ -13,18 +13,19 @@
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use libphonenumber\PhoneNumberFormat;
 
 /**
- * SettingsType Form properties.
+ * CompanyType Form properties.
  *
  * @category   Form
  */
-class SettingsType extends AbstractType
+class CompanyType extends AbstractType
 {
     /**
      * buildForm.
@@ -37,41 +38,41 @@ class SettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', 'text')
+            ->add('status', 'text')
+            ->add('address', 'text')
+            ->add('zipcode', 'text')
+            ->add('town', 'text')
             ->add(
-                'inventory_style',
-                'choice',
+                'phone',
+                'tel',
                 array(
-                    'choices' => array(
-                        'global' => 'glsr.gestock.settings.application.global',
-                        'zonestorage' => 'glsr.gestock.settings.application.zone_storage',
-                    ),
-                    'expanded' => true,
-                    'multiple' => false,
-                    'label' => 'glsr.gestock.settings.application.style_inventory'
+                    'default_region' => 'FR',
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
             ->add(
-                'calculation',
-                'choice',
+                'fax',
+                'tel',
                 array(
-                    'choices' => array(
-                        'fifo' => 'glsr.gestock.settings.application.fifo',
-                        'weighted' => 'glsr.gestock.settings.application.weighted',
-                    ),
-                    'expanded' => true,
-                    'multiple' => false,
-                    'label' => 'glsr.gestock.settings.application.calculation'
+                    'default_region' => 'FR',
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             )
-//            ->add('first_inventory', 'hidden')
             ->add(
-                'currency',
-                'currency',
+                'mail',
+                'email',
                 array(
-                    'multiple' => false,
-                    'expanded' => false,
-                    'preferred_choices' => array('EUR'),
-                    'label' => 'glsr.gestock.settings.application.currency'
+                    'trim' => true,
+                )
+            )
+            ->add('contact', 'text')
+            ->add(
+                'gsm',
+                'tel',
+                array(
+                    'default_region' => 'FR',
+                    'format' => PhoneNumberFormat::NATIONAL,
                 )
             );
     }
@@ -87,7 +88,7 @@ class SettingsType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\Settings',
+                'data_class' => 'Glsr\GestockBundle\Entity\Company',
             )
         );
     }
@@ -99,6 +100,6 @@ class SettingsType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_settings';
+        return 'glsr_gestockbundle_company';
     }
 }

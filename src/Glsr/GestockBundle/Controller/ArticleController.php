@@ -20,8 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Article;
 use Glsr\GestockBundle\Entity\Supplier;
-use Glsr\GestockBundle\Form\ArticleType;
-use Glsr\GestockBundle\Form\ArticleReassignType;
+use Glsr\GestockBundle\Form\Type\ArticleType;
+use Glsr\GestockBundle\Form\Type\ArticleReassignType;
 
 /**
  * class ArticleController.

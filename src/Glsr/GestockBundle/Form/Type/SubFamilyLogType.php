@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CompanyType Form properties.
+ * SubFamilyLogType Form properties.
  *
  * PHP Version 5
  *
@@ -13,19 +13,18 @@
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use libphonenumber\PhoneNumberFormat;
 
 /**
- * CompanyType Form properties.
+ * SubFamilyLogType Form properties.
  *
  * @category   Form
  */
-class CompanyType extends AbstractType
+class SubFamilyLogType extends AbstractType
 {
     /**
      * buildForm.
@@ -38,41 +37,19 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
-            ->add('status', 'text')
-            ->add('address', 'text')
-            ->add('zipcode', 'text')
-            ->add('town', 'text')
             ->add(
-                'phone',
-                'tel',
-                array(
-                    'default_region' => 'FR',
-                    'format' => PhoneNumberFormat::NATIONAL,
-                )
+                'name',
+                'text',
+                array('label' => 'glsr.gestock.settings.diverse.family')
             )
             ->add(
-                'fax',
-                'tel',
+                'familylog',
+                'entity',
                 array(
-                    'default_region' => 'FR',
-                    'format' => PhoneNumberFormat::NATIONAL,
-                )
-            )
-            ->add(
-                'mail',
-                'email',
-                array(
-                    'trim' => true,
-                )
-            )
-            ->add('contact', 'text')
-            ->add(
-                'gsm',
-                'tel',
-                array(
-                    'default_region' => 'FR',
-                    'format' => PhoneNumberFormat::NATIONAL,
+                    'class' => 'GlsrGestockBundle:FamilyLog',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'label' => 'glsr.gestock.settings.diverse.subfamily'
                 )
             );
     }
@@ -88,11 +65,11 @@ class CompanyType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\Company',
+                'data_class' => 'Glsr\GestockBundle\Entity\SubFamilyLog',
             )
         );
     }
-    
+
     /**
      * Returns the name of this type.
      *
@@ -100,6 +77,6 @@ class CompanyType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_company';
+        return 'glsr_gestockbundle_subfamilylog';
     }
 }

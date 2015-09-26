@@ -13,7 +13,7 @@
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

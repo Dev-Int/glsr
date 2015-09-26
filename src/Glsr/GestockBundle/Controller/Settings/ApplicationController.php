@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Settings;
-use Glsr\GestockBundle\Form\SettingsType;
+use Glsr\GestockBundle\Form\Type\SettingsType;
 
 /**
  * class ApplicationController.

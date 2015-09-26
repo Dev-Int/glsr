@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Company;
-use Glsr\GestockBundle\Form\CompanyType;
+use Glsr\GestockBundle\Form\Type\CompanyType;
 
 /**
  * class CompanyController.

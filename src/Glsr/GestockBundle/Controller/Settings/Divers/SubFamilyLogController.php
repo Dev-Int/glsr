@@ -20,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\SubFamilyLog;
-use Glsr\GestockBundle\Form\SubFamilyLogType;
+use Glsr\GestockBundle\Form\Type\SubFamilyLogType;
 
 /**
  * class SubFamilyLogController.

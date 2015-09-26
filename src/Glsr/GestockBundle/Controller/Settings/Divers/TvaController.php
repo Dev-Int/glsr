@@ -19,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Glsr\GestockBundle\Entity\Tva;
-use Glsr\GestockBundle\Form\TvaType;
+use Glsr\GestockBundle\Form\Type\TvaType;
 
 /**
  * class TvaController.

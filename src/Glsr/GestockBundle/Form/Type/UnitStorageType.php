@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SubFamilyLogType Form properties.
+ * UnitStorageType Form properties.
  *
  * PHP Version 5
  *
@@ -9,22 +9,22 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @version    GIT: e6aa22c616ccc10884c67779f7d35806ca4a8be8
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * SubFamilyLogType Form properties.
+ * UnitStorageType Form properties.
  *
  * @category   Form
  */
-class SubFamilyLogType extends AbstractType
+class UnitStorageType extends AbstractType
 {
     /**
      * buildForm.
@@ -40,17 +40,12 @@ class SubFamilyLogType extends AbstractType
             ->add(
                 'name',
                 'text',
-                array('label' => 'glsr.gestock.settings.diverse.family')
+                ['label' => 'glsr.gestock.settings.diverse.unitstorage']
             )
             ->add(
-                'familylog',
-                'entity',
-                array(
-                    'class' => 'GlsrGestockBundle:FamilyLog',
-                    'choice_label' => 'name',
-                    'multiple' => false,
-                    'label' => 'glsr.gestock.settings.diverse.subfamily'
-                )
+                'abbr',
+                'text',
+                ['label' => 'glsr.gestock.settings.diverse.abbreviation']
             );
     }
 
@@ -65,7 +60,7 @@ class SubFamilyLogType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Glsr\GestockBundle\Entity\SubFamilyLog',
+                'data_class' => 'Glsr\GestockBundle\Entity\UnitStorage',
             )
         );
     }
@@ -77,6 +72,6 @@ class SubFamilyLogType extends AbstractType
      */
     public function getName()
     {
-        return 'glsr_gestockbundle_subfamilylog';
+        return 'glsr_gestockbundle_unitstorage';
     }
 }

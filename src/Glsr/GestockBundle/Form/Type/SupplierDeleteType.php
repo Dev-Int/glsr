@@ -13,7 +13,7 @@
  *
  * @link       https://github.com/GLSR/glsr
  */
-namespace Glsr\GestockBundle\Form;
+namespace Glsr\GestockBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -65,7 +65,7 @@ class SupplierDeleteType extends AbstractType
     /**
      * Returns the name of the parent type.
      *
-     * @return \Glsr\GestockBundle\Form\SupplierType The parent of this type
+     * @return \Glsr\GestockBundle\Form\Type\SupplierType The parent of this type
      */
     public function getParent()
     {
