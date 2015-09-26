@@ -10,10 +10,10 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>                    
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{{ path('glstock_home') }}">
                     <span class="glyphicon glyphicon-cutlery"></span>
@@ -22,7 +22,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class=" nav navbar-nav">
-                    <li>
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             {{ 'glsr.gestock.administration'|trans }} <span class="caret"></span>
                         </a>
@@ -87,9 +87,9 @@
                     <li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <p class="navbar-text">{{ 'glsr.connect_as'|trans({'%username%': app.user.username}) }}</p></li>
-                    <li><a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_logout') }}">{{ 'glsr.logout'|trans }}</a>
+                    <li><a href="{{ path('fos_user_security_logout') }}">{{ 'glsr.logout'|trans }}</a>
                         {% else %}
-                            <a class="btn btn-default navbar-btn" href="{{ path('fos_user_security_login') }}">{{ 'glsr.login'|trans }}</a>
+                            <a href="{{ path('fos_user_security_login') }}">{{ 'glsr.login'|trans }}</a>
                         {% endif %}
                     </li>
                 </ul>
