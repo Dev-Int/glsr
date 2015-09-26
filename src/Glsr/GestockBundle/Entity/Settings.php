@@ -84,7 +84,6 @@ class Settings
     public function setInventoryStyle($inventoryStyle)
     {
         /*
-         * @todo Possibilité d'insérer directement
          * le mode de tri des inventaires : global, zonestorage
          */
         $this->inventoryStyle = $inventoryStyle;
