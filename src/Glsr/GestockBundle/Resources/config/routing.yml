@@ -239,15 +239,15 @@ glstock_inventory_cancel:
     defaults: { _controller: GlsrGestockBundle:Inventory:cancel }
     requirements:
         id:      \d+
-glstock_inventory_show:
+glstock_inventory_entry:
     path:     /inventory/entry/{id}
-    defaults: { _controller: GlsrGestockBundle:Inventory:show }
+    defaults: { _controller: GlsrGestockBundle:Inventory:entryShow }
     requirements:
         id:      \d+
         _method: GET
-glstock_inventory_update:
+glstock_inventory_entry_process:
     path:      /inventory/entry/{id}
-    defaults:  { _controller: GlsrGestockBundle:Inventory:update }
+    defaults:  { _controller: GlsrGestockBundle:Inventory:entryProcess }
     requirements:
         id:    \d+
         _method: POST

@@ -223,6 +223,7 @@ glsr:
                 title: "Saisie de l'inventaire"
                 title_short: Saisie
                 ok: "Saisie de l'inventaire bien enregistrée"
+                no: "Saisie de l'inventaire non enregistrée"
                 total: "Stock valorisé"
                 totals: "Total de l'inventaire"
                 gap: "Ecart de consommation"
