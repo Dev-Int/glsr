@@ -251,9 +251,6 @@ glstock_inventory_entry_process:
     requirements:
         id:    \d+
         _method: POST
-glstock_inventory_differencesStock:
-    path:  /inventory/differencesStock
-    defaults: { _controller: GlsrGestockBundle:Inventory:differencesStock }
 glstock_inventory_valid:
     path:  /inventory/valid
     defaults: { _controller: GlsrGestockBundle:Inventory:valid }
