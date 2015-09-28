@@ -1,0 +1,60 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\divers\familylog.html.twig #}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <a id="divers"></a>
+        <i class="glyphicon glyphicon-tag"></i>
+        {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+    </header>
+    <div class="panel-body">
+        <p>{{ 'glsr.gestock.settings.diverse.family_subtitle'|trans }}</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-2">
+                        <i class="glyphicon glyphicon-tag"></i>
+                        {{ 'glsr.gestock.settings.diverse.family'|trans }}
+                    </th>
+                    <th class="col-md-3">
+                        <i class="glyphicon glyphicon-tags"></i>
+                        {{ 'glsr.gestock.settings.diverse.subfamily'|trans }}
+                    </th>
+                    <th class="col-md-2">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        {{ 'glsr.gestock.action'|trans }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subfamily in subfamilylog %}
+                <tr>
+                    <td>{{ subfamily.familylog.name }}</td>
+                    <td>{{ subfamily.name }}</td>
+                    <td class="text-center">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('glstock_setdiv_famlog_edit', {'id': subfamily.familylog.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.family_edit'|trans }}" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>&nbsp;
+                            <a href="{{ path('glstock_setdiv_subfamlog_edit', {'id': subfamily.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.subfamily_edit'|trans }}" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('glstock_setdiv_famlog_add') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    {{ 'glsr.gestock.settings.diverse.family_add'|trans }}
+                </a>&nbsp;
+                <a href="{{ path('glstock_setdiv_subfamlog_add') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    {{ 'glsr.gestock.settings.diverse.subfamily_add'|trans }}
+                </a>
+            {% endif %}
+        </p>
+    </div>
+</div>

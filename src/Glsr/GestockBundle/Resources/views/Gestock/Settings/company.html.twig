@@ -1,0 +1,53 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\company.html.twig #}
+
+<section class="well row">
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <a id="company"></a>
+            <i class="glyphicon glyphicon-tower"></i>
+            {{ 'glsr.gestock.settings.company.title'|trans }}
+        </header>
+        <div class="panel-body">
+            <p>{{ 'glsr.gestock.settings.company.subtitle'|trans }}</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">{{ 'glsr.gestock.name'|trans }}</th>
+                        <th class="col-md-4">
+                            <i class="glyphicon glyphicon-home"></i>
+                            {{ 'glsr.gestock.address'|trans }}
+                        </th>
+                        <th class="col-md-2">
+                            <i class="glyphicon glyphicon-phone-alt"></i>
+                            {{ 'glsr.gestock.phone'|trans }}
+                        </th>
+                        <th class="col-md-3">
+                            <i class="glyphicon glyphicon-user"></i>
+                            {{ 'glsr.gestock.contact'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set idSociety = "" %}
+                    {% for society in company %}
+                    {% set idSociety = society.id %}
+                    <tr>
+                        <td>{{ society.name }}</td>
+                        <td>{{ society.address }}<br />{{ society.zipcode }} {{ society.town }}</td>
+                        <td>{{ society.phone }}</td>
+                        <td>{{ society.contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('glstock_company_edit', {'id': idSociety}) }}" class="btn btn-default" role="button">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        {{ 'glsr.gestock.edit'|trans }}
+                    </a>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</section>

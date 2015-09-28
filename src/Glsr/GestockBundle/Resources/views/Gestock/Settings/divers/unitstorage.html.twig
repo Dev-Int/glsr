@@ -1,0 +1,53 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\divers\unitstorage.html.twig #}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <a id="unitstorage"></a>
+        <i class="glyphicon glyphicon-shopping-cart"></i>
+        {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
+    </header>
+    <div class="panel-body">
+        <p>{{ 'glsr.gestock.settings.diverse.unitstorage_subtitle'|trans }}</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-3">
+                        <i class="glyphicon glyphicon-shopping-cart"></i>
+                        {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
+                    </th>
+                    <th class="col-md-2">
+                        <i class="glyphicon glyphicon-flag"></i>
+                        {{ 'glsr.gestock.abbr'|trans }}
+                    </th>
+                    <th class="col-md-2">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        {{ 'glsr.gestock.action'|trans }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ustorage in unitstorage %}
+                <tr>
+                    <td>{{ ustorage.name }}</td>
+                    <td>{{ ustorage.abbr }}</td>
+                    <td class="text-center">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('glstock_setdiv_unitstorage_edit', {'id': ustorage.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.unitstorage_edit'|trans }}" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('glstock_setdiv_unitstorage_add') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    {{ 'glsr.gestock.settings.diverse.unitstorage_add'|trans }}
+                </a>
+            {% endif %}
+        </p>
+    </div>
+</div>

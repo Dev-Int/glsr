@@ -1,0 +1,48 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\divers\zonestorage.html.twig #}
+
+<div class="panel panel-default">
+    <header class="panel-heading">
+        <a id="zonestorage"></a>
+        <i class="glyphicon glyphicon-globe"></i>
+        {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
+    </header>
+    <div class="panel-body">
+        <p>{{ 'glsr.gestock.settings.diverse.zonestorage_subtitle'|trans }}</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-md-3">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
+                    </th>
+                    <th class="col-md-1">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        {{ 'glsr.gestock.action'|trans }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for zstorage in zonestorage %}
+                <tr>
+                    <td>{{ zstorage.name }}</td>
+                    <td class="text-center">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('glstock_setdiv_zonestorage_edit', {'id': zstorage.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.zonestorage_edit'|trans }}" role="button">
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('glstock_setdiv_zonestorage_add') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    {{ 'glsr.gestock.settings.diverse.zonestorage_add'|trans }}
+                </a>
+            {% endif %}
+        </p>
+    </div>
+</div>
