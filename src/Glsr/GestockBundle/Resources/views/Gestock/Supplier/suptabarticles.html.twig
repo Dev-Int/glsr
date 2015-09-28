@@ -1,0 +1,63 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Supplier\suptabarticles.html.twig #}
+
+<section class="col-md-12">
+    <fieldset>
+        <legend>
+            {{ 'glsr.gestock.supplier.settings.articles_of'|trans({'%supplier.name%': supplier.name}) }}
+        </legend>
+        {% if articles is empty %}
+            <p>
+                {{ 'glsr.gestock.supplier.settings.no_articles'|trans }}
+            </p>
+        {% else %}
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">
+                            {{ 'glsr.gestock.title_item'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'glsr.gestock.settings.diverse.unitstorage'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'glsr.gestock.article.settings.packaging'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'glsr.gestock.article.settings.price'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'glsr.gestock.article.settings.quantity'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'glsr.gestock.article.settings.stock_alert'|trans }}
+                        </th>
+                        <th class="col-md-2">
+                            {{ 'glsr.gestock.settings.diverse.familylog'|trans }}
+                        </th>
+                        <th class="col-md-2">
+                            {{ 'glsr.gestock.settings.diverse.subfamilylog'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                                {{ article.name }}
+                            </a>
+                        </td>
+                        <td>{{ article.packaging }}</td>
+                        <td>{{ article.unitstorage }}</td>
+                        <td>{{ article.price }} €</td>
+                        <td>{{ article.quantity }}</td>
+                        <td>{{ article.minstock }}</td>
+                        <td>{{ article.familyLog }}</td>
+                        <td>{{ article.subFamilyLog }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </fieldset>
+</section>
