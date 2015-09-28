@@ -103,27 +103,25 @@
     {% include 'GlsrGestockBundle:Gestock/Supplier:suptabarticles.html.twig' %}
 
     <section class="col-md-12">
+        <p>
+            <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                {{ 'glsr.gestock.supplier.return_list'|trans }}
+            </a>&nbsp;
         {% if is_granted('ROLE_ADMIN') %}
-            <p>
-                <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-success" role="button">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                    {{ 'glsr.gestock.supplier.edit.title_button'|trans }}
-                </a>&nbsp;
-                <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    {{ 'glsr.gestock.supplier.delete.title_button'|trans }}
-                </a>
-            </p>
-            <p>
-                <a href="{{ path('glstock_suppli_list') }}" class="btn btn-default" role="button">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    {{ 'glsr.gestock.supplier.return_list'|trans }}
-                </a>&nbsp;
-                <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    {{ 'glsr.gestock.supplier.create.title_button'|trans }}
-                </a>
-            </p>
+            <a href="{{ path('glstock_suppli_add') }}" class="btn btn-default" role="button">
+                <i class="glyphicon glyphicon-plus"></i>
+                {{ 'glsr.gestock.supplier.create.title_button'|trans }}
+            </a>&nbsp;
+            <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-success" role="button">
+                <i class="glyphicon glyphicon-pencil"></i>
+                {{ 'glsr.gestock.supplier.edit.title_button'|trans }}
+            </a>&nbsp;
+            <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
+                <i class="glyphicon glyphicon-trash"></i>
+                {{ 'glsr.gestock.supplier.delete.title_button'|trans }}
+            </a>
         {% endif %}
+        </p>
     </section>
 {% endblock %}
