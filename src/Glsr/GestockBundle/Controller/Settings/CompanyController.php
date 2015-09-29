@@ -49,8 +49,10 @@ class CompanyController extends Controller
      * Crée les données de l'entreprise.
      *
      * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @throws AccessDeniedException
      */
-    public function addAction()
+    public function addshowAction()
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -59,38 +61,50 @@ class CompanyController extends Controller
 
         $form = $this->createForm(new CompanyType(), $company);
 
-        // On récupère la requête
-        $request = $this->getRequest();
-
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-            // On fait le lien Requête <-> Formulaire
-            $form->submit($request);
-
-            // On vérifie que les valeurs rentrées sont correctes
-            if ($form->isValid()) {
-                // On enregistre l'objet $article dans la base de données
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($company);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.add_ok');
-
-                // On redirige vers la page de visualisation
-                // des configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_company'));
-            }
-        }
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
                 'form' => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Crée les données de l'entreprise.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     *
+     * @throws AccessDeniedException
+     */
+    public function addProcessAction(Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $company = new Company();
+
+        $form = $this->createForm(new CompanyType(), $company);
+
+        // On fait le lien Requête <-> Formulaire
+        $form->submit($request);
+
+        // On vérifie que les valeurs rentrées sont correctes
+        if ($form->isValid()) {
+            // On enregistre l'objet $article dans la base de données
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($company);
+            $etm->flush();
+           $url = $this->generateUrl('glstock_application_add');
+            $message = "glsr.gestock.settings.add_ok";
+        } else {
+            $url = $this->generateUrl('glstock_company_add');
+            $message = "glsr.gestock.settings.add_no";
+        }
+        // On définit un message flash
+        $this->get('session')->getFlashBag()->add('info', $message);
+        // On redirige vers la page de visualisation
+        //  de l'article nouvellement créé
+        return $this->redirect($url);
     }
 
     /**
@@ -124,7 +138,7 @@ class CompanyController extends Controller
                     ->getFlashBag()
                     ->add('info', 'glsr.gestock.settings.edit_ok');
 
-                return $this->redirect($this->generateUrl('glstock_company'));
+                return $this->redirect($this->generateUrl('glstock_company_show'));
             }
         }
 

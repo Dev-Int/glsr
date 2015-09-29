@@ -29,11 +29,35 @@ class GestockController extends Controller
     /**
      * indexAction affiche la page d'accueil du Bundle.
      *
-     * @return type
+     * @return Response
      */
     public function indexAction()
     {
-        return $this->render('GlsrGestockBundle:Gestock:index.html.twig');
+        /**
+         * Test d'installation
+         */
+        $etm = $this->getDoctrine()->getManager();
+        $company = $etm
+            ->getRepository('GlsrGestockBundle:Company')
+            ->findAll();
+        if (empty($company)) {
+            $url = $this->redirect($this->generateUrl('glstock_company_add'));
+            $message = "glsr.gestock.settings.company.add";
+            $this->get('session')->getFlashBag()->add('danger', $message);
+        } elseif (count($company) > 1) {
+            $application = $etm
+                ->getRepository('GlsrGestockBundle:Application')
+                ->findAll();
+            if (empty($application)) {
+                $url = $this->redirect($this->generateUrl('glstock_application_add'));
+                $message = "glsr.gestock.settings.application.add";
+                $this->get('session')->getFlashBag()->add('danger', $message);
+            }
+        } else {
+            $url = $this->render('GlsrGestockBundle:Gestock:index.html.twig');
+        }
+        
+        return $url;
     }
 
     /**

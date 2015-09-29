@@ -25,6 +25,8 @@ glsr:
         edit: Modifier
         name: Nom
         address: Adresse
+        zipcode: "Code postal"
+        town: Ville
         phone: Téléphone
         gsm: Mobile
         fax: Fax
@@ -59,10 +61,13 @@ glsr:
             company:
                 title: Etablissement
                 subtitle: "Paramètres de la société utilisant le logiciel."
+                add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de création d'entreprise."
+                name: "Nom de l'entreprise"
                 status: Statut social
             application:
                 title: Application
                 subtitle: "Gestion des paramètres de l'application."
+                add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de paramétrage de l'application."
                 style_inventory: "Style d'inventaire"
                 global: "Global "
                 zone_storage: "Zone de stockage"
@@ -227,16 +232,17 @@ glsr:
                 total: "Stock valorisé"
                 totals: "Total de l'inventaire"
                 gap: "Ecart de consommation"
-            calcul_gap:
-                title: "Calcul des écarts de stock"
             close:
                 title: "Clôturer l'inventaire en cours"
                 caution: "Êtes-vous sûr de vouloir clôturer l'inventaire '%inventory.date%' ?\n Les données que vous avez saisi vont remplacer les quantités de chaque article.\n Cette action est irrévocable !"
-                submit_button: "Clôturer l'inventaire"
+                submit_button: "Clôturer"
                 ok: 'Inventaire bien clôturé'
                 no: 'Inventaire non clôturé'
             journals:
                 title: "Journaux d'inventaires"
+            show:
+                title: "Visualiser l'inventaire '%inventory.date%'"
+                submit_button: "Voir l'inventaire"
 
         orders:
             title: "Gérer les commandes"

@@ -6,19 +6,32 @@ glstock_home:
     requirements:
         _method:  GET
 
-#glstock_install:
-#    path:  /install
-#    defaults: { _controller: GlsrGestockBundle:Gestock:install }
-#    requirements:
-#        _method:  GET
-
 # Routes Settings
-glstock_company:
+# Routes Company
+glstock_company_show:
     path:  settings/company
     defaults: { _controller: GlsrGestockBundle:Settings/Company:show }
     requirements:
         _method:  GET
-glstock_application:
+glstock_company_add:
+    path:  /company/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:addShow }
+    requirements:
+        _method:  GET
+glstock_company_add_process:
+    path:  /company/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:addProcess }
+    requirements:
+        _method:  POST
+glstock_company_edit:
+    path:  /company/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
+    requirements:
+        id: \d+
+        _method:  GET/POST
+
+# Routes Application
+glstock_application_show:
     path:  settings/application
     defaults: { _controller: GlsrGestockBundle:Settings/Application:show }
     requirements:
@@ -37,18 +50,6 @@ glstock_settings_add:
 glstock_settings_edit:
     path:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }
-    requirements:
-        id: \d+
-        _method:  GET/POST
-
-glstock_company_add:
-    path:  /company/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Company:add }
-    requirements:
-        _method:  GET/POST
-glstock_company_edit:
-    path:  /company/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
     requirements:
         id: \d+
         _method:  GET/POST

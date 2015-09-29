@@ -12,14 +12,14 @@
 {% block glstock_body %}
 
     <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li {% if app.request.attributes.get('_route') == 'glstock_company' %} class="active"{% endif %}>
-            <a href="{{ path('glstock_company') }}">
+        <li {% if app.request.attributes.get('_route') == 'glstock_company_show' %} class="active"{% endif %}>
+            <a href="{{ path('glstock_company_show') }}">
                 <i class="glyphicon glyphicon-tower"></i>
                 {{ 'glsr.gestock.settings.company.title'|trans }}
             </a>
         </li>
-        <li {% if app.request.attributes.get('_route') == 'glstock_application' %} class="active"{% endif %}>
-            <a href="{{ path('glstock_application') }}">
+        <li {% if app.request.attributes.get('_route') == 'glstock_application_show' %} class="active"{% endif %}>
+            <a href="{{ path('glstock_application_show') }}">
                 <i class="glyphicon glyphicon-wrench"></i>
                 {{ 'glsr.gestock.settings.application.title'|trans }}
             </a>

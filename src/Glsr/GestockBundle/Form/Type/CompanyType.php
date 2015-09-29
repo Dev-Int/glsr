@@ -38,17 +38,53 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text')
-            ->add('status', 'text')
-            ->add('address', 'text')
-            ->add('zipcode', 'text')
-            ->add('town', 'text')
+            ->add(
+                'name',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.settings.company.name'
+                )
+            )
+            ->add(
+                'status',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.settings.company.status'
+                )
+            )
+            ->add(
+                'address',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.address'
+                )
+            )
+            ->add(
+                'zipcode',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.zipcode'
+                )
+            )
+            ->add(
+                'town',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.town',
+                    'attr' => array(
+                        'onBlur' => 'this.value=this.value.toUpperCase();',
+                        'onFocus' => 'this.value=this.value.toUpperCase();',
+                        'onKeyup' => 'this.value=this.value.toUpperCase();'
+                    )
+                )
+            )
             ->add(
                 'phone',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.phone'
                 )
             )
             ->add(
@@ -57,6 +93,7 @@ class CompanyType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.fax'
                 )
             )
             ->add(
@@ -64,15 +101,23 @@ class CompanyType extends AbstractType
                 'email',
                 array(
                     'trim' => true,
+                    'label' => 'glsr.gestock.mail'
                 )
             )
-            ->add('contact', 'text')
+            ->add(
+                'contact',
+                'text',
+                array(
+                    'label' => 'glsr.gestock.contact'
+                )
+            )
             ->add(
                 'gsm',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'label' => 'glsr.gestock.gsm'
                 )
             );
     }
