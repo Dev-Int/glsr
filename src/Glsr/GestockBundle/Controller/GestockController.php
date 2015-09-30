@@ -153,13 +153,13 @@ class GestockController extends Controller
         );
         */
         $alerts = array(
-            ['titre' => 'Cmde', 'num' => '002'],
-            ['titre' => 'Cmde', 'num' => '0003'],
-            ['titre' => 'Liv', 'num' => '0001']);
+            array('titre' => 'Cmde', 'num' => '002'),
+            array('titre' => 'Cmde', 'num' => '0003'),
+            array('titre' => 'Liv', 'num' => '0001'));
 
         return $this->render(
             'GlsrGestockBundle:Gestock:alerts.html.twig',
-            ['list_alerts' => $alerts, 'nb' => $nombre]
+            array('list_alerts' => $alerts, 'nb' => $nombre)
         );
     }
     
@@ -173,33 +173,52 @@ class GestockController extends Controller
         $url = null;
         $etm = $this->getDoctrine()->getManager();
         // Tableau des entitées, routes
-        $entities = [['repository' => 'GlsrGestockBundle:Company',
+        $entities = array(
+            array(
+                'repository' => 'GlsrGestockBundle:Company',
                 'route' => 'glstock_company_add',
-                'message' => 'glsr.gestock.settings.company.add'],
-                ['repository' => 'GlsrGestockBundle:Settings',
+                'message' => 'glsr.gestock.settings.company.add'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:Settings',
                 'route' => 'glstock_application_add',
-                'message' => 'glsr.gestock.settings.application.add'],
-                ['repository' => 'GlsrGestockBundle:FamilyLog',
+                'message' => 'glsr.gestock.settings.application.add'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:FamilyLog',
                 'route' => 'glstock_setdiv_famlog_add',
-                'message' => 'glsr.gestock.settings.diverse.add_family'],
-                ['repository' => 'GlsrGestockBundle:SubFamilyLog',
+                'message' => 'glsr.gestock.settings.diverse.add_family'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:SubFamilyLog',
                 'route' => 'glstock_setdiv_subfamlog_add',
-                'message' => 'glsr.gestock.settings.diverse.add_subfam'],
-                ['repository' => 'GlsrGestockBundle:ZoneStorage',
+                'message' => 'glsr.gestock.settings.diverse.add_subfam'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:ZoneStorage',
                 'route' => 'glstock_setdiv_zonestorage_add',
-                'message' => 'glsr.gestock.settings.diverse.add_zonestorage'],
-                ['repository' => 'GlsrGestockBundle:UnitStorage',
+                'message' => 'glsr.gestock.settings.diverse.add_zonestorage'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:UnitStorage',
                 'route' => 'glstock_setdiv_unitstorage_add',
-                'message' => 'glsr.gestock.settings.diverse.add_unitstorage'],
-                ['repository' => 'GlsrGestockBundle:Tva',
+                'message' => 'glsr.gestock.settings.diverse.add_unitstorage'
+            ),
+            array('repository' => 'GlsrGestockBundle:Tva',
                 'route' => 'glstock_setdiv_tva_add',
-                'message' => 'glsr.gestock.settings.diverse.add_tva'],
-                ['repository' => 'GlsrGestockBundle:Supplier',
+                'message' => 'glsr.gestock.settings.diverse.add_tva'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:Supplier',
                 'route' => 'glstock_suppli_add',
-                'message' => 'glsr.gestock.supplier.none'],
-                ['repository' => 'GlsrGestockBundle:Article',
+                'message' => 'glsr.gestock.supplier.none'
+            ),
+            array(
+                'repository' => 'GlsrGestockBundle:Article',
                 'route' => 'glstock_art_add',
-                'message' => 'glsr.gestock.article.none'],];
+                'message' => 'glsr.gestock.article.none'
+            ),
+        );
         // vérifie que les Entitées ne sont pas vides
         $nbEntities = count($entities);
 
