@@ -207,9 +207,9 @@ class GestockController extends Controller
             $entity = $etm->getRepository(
                 $entities[$index]['repository']
             );
-//            $entityData = $entity->findAll();
+            $entityData = $entity->findAll();
 
-            if (empty($entity->findAll())) {
+            if (empty($entityData)) {
                 $this->container
                     ->get('session')
                     ->getFlashBag()->add('info', $entities[$index]['message']);
