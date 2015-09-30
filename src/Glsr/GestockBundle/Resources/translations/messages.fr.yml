@@ -62,12 +62,14 @@ glsr:
                 title: Etablissement
                 subtitle: "Paramètres de la société utilisant le logiciel."
                 add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de création d'entreprise."
+                add2: "Vous ne pouvez pas enregistrer une deuxième entreprise."
                 name: "Nom de l'entreprise"
                 status: Statut social
             application:
                 title: Application
                 subtitle: "Gestion des paramètres de l'application."
                 add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de paramétrage de l'application."
+                add2: "Vous ne pouvez pas enregistrer un deuxième paramétrage de l'application."
                 style_inventory: "Style d'inventaire :"
                 global: "Global "
                 zone_storage: "Zone de stockage"

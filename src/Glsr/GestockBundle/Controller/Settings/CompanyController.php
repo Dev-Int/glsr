@@ -61,21 +61,22 @@ class CompanyController extends Controller
         $testComp = $etm
             ->getRepository('GlsrGestockBundle:Company')
             ->findAll();
-        if (count($testComp) > 1) {
-            $url = $this->redirect($this->generateUrl('glstock_company_add'));
-            $message = "glsr.gestock.settings.add_no";
+        if (count($testComp) >= 1) {
+            $url = $this->redirect($this->generateUrl('glstock_home'));
+            $message = "glsr.gestock.settings.company.add2";
             $this->get('session')->getFlashBag()->add('info', $message);
+        } else {
+            $company = new Company();
+
+            $form = $this->createForm(new CompanyType(), $company);
+            $url =  $this->render(
+                'GlsrGestockBundle:Gestock/Settings:add.html.twig',
+                array(
+                    'form' => $form->createView(),
+                )
+            );
         }
 
-        $company = new Company();
-
-        $form = $this->createForm(new CompanyType(), $company);
-        $url =  $this->render(
-            'GlsrGestockBundle:Gestock/Settings:add.html.twig',
-            array(
-                'form' => $form->createView(),
-            )
-        );
         return $url;
     }
 

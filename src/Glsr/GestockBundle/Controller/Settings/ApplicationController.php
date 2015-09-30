@@ -56,16 +56,27 @@ class ApplicationController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        $settings = new Settings();
+        $etm = $this->getDoctrine()->getManager();
+        $testApp = $etm
+            ->getRepository('GlsrGestockBundle:Settings')
+            ->findAll();
+        if (count($testApp) >= 1) {
+            $url = $this->redirect($this->generateUrl('glstock_home'));
+            $message = "glsr.gestock.settings.application.add2";
+            $this->get('session')->getFlashBag()->add('info', $message);
+        } else {
+            $settings = new Settings();
 
-        $form = $this->createForm(new SettingsType(), $settings);
+            $form = $this->createForm(new SettingsType(), $settings);
 
-        return $this->render(
-            'GlsrGestockBundle:Gestock/Settings:add.html.twig',
-            array(
-                'form' => $form->createView(),
-            )
-        );
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:add.html.twig',
+                array(
+                    'form' => $form->createView(),
+                )
+            );
+        }
+        return $url;
     }
 
     /**
