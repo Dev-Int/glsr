@@ -83,7 +83,6 @@ class ApplicationController extends Controller
      * Ajouter un paramètre à l'application.
      *
      * @return Symfony\Component\HttpFoundation\Response
-     * @todo Ajouter redirection settings_add.
      */
     public function addProcessAction(Request $request)
     {
