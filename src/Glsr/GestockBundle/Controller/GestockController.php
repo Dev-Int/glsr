@@ -164,10 +164,11 @@ class GestockController extends Controller
     
     /**
      * Test des entités
-     * 
+     *
      * @return array
      */
-    private function testEntities() {
+    private function testEntities()
+    {
         $url = null;
         $etm = $this->getDoctrine()->getManager();
         // Tableau des entitées, routes
