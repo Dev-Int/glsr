@@ -152,9 +152,10 @@ class GestockController extends Controller
               0                // À partir du premier
         );
         */
-        $alerts = [['titre' => 'Cmde', 'num' => '002'],
+        $alerts = array(
+            ['titre' => 'Cmde', 'num' => '002'],
             ['titre' => 'Cmde', 'num' => '0003'],
-            ['titre' => 'Liv', 'num' => '0001']];
+            ['titre' => 'Liv', 'num' => '0001']);
 
         return $this->render(
             'GlsrGestockBundle:Gestock:alerts.html.twig',
