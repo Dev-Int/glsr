@@ -36,27 +36,13 @@ class GestockController extends Controller
         /**
          * Test d'installation
          */
-        $etm = $this->getDoctrine()->getManager();
-        $company = $etm
-            ->getRepository('GlsrGestockBundle:Company')
-            ->findAll();
-        if (empty($company)) {
-            $url = $this->redirect($this->generateUrl('glstock_company_add'));
-            $message = "glsr.gestock.settings.company.add";
-            $this->get('session')->getFlashBag()->add('danger', $message);
-        } elseif (count($company) > 1) {
-            $application = $etm
-                ->getRepository('GlsrGestockBundle:Application')
-                ->findAll();
-            if (empty($application)) {
-                $url = $this->redirect($this->generateUrl('glstock_application_add'));
-                $message = "glsr.gestock.settings.application.add";
-                $this->get('session')->getFlashBag()->add('danger', $message);
-            }
-        } else {
+        $url = $this->testEntities();
+
+        if (empty($url)) {
             $url = $this->render('GlsrGestockBundle:Gestock:index.html.twig');
+        } else {
+            $url = $this->redirect($this->generateUrl($url));
         }
-        
         return $url;
     }
 
@@ -65,7 +51,7 @@ class GestockController extends Controller
      *
      * @param Request $request objet requète
      *
-     * @return \Glsr\GestockBundle\Controller\Response
+     * @return Response
      */
     public function fillSubFamilyLogAction(Request $request)
     {
@@ -116,7 +102,7 @@ class GestockController extends Controller
      *
      * @param Request $request objet requète
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function getFamilyLogAction(Request $request)
     {
@@ -166,29 +152,69 @@ class GestockController extends Controller
               0                // À partir du premier
         );
         */
-        $alerts = array(
-            array(
-                'titre' => 'Cmde',
-                'num' => '002',
-            ),
-            array(
-                'titre' => 'Cmde',
-                'num' => '0003',
-            ),
-            array(
-                'titre' => 'Liv',
-                'num' => '0001',
-            ),
-        );
+        $alerts = [['titre' => 'Cmde', 'num' => '002'],
+            ['titre' => 'Cmde', 'num' => '0003'],
+            ['titre' => 'Liv', 'num' => '0001']];
 
         return $this->render(
             'GlsrGestockBundle:Gestock:alerts.html.twig',
-            array(
-                // C'est ici tout l'intérêt :
-                // le contrôleur passe les variables nécessaires au template !
-                'list_alerts' => $alerts,
-                'nb' => $nombre,
-            )
+            ['list_alerts' => $alerts, 'nb' => $nombre]
         );
+    }
+    
+    /**
+     * Test des entités
+     * 
+     * @return array
+     */
+    private function testEntities() {
+        $url = null;
+        $etm = $this->getDoctrine()->getManager();
+        // Tableau des entitées, routes
+        $entities = [['repository' => 'GlsrGestockBundle:Company',
+                'route' => 'glstock_company_add',
+                'message' => 'glsr.gestock.settings.company.add'],
+                ['repository' => 'GlsrGestockBundle:Settings',
+                'route' => 'glstock_application_add',
+                'message' => 'glsr.gestock.settings.application.add'],
+                ['repository' => 'GlsrGestockBundle:FamilyLog',
+                'route' => 'glstock_setdiv_famlog_add',
+                'message' => 'glsr.gestock.settings.diverse.add_family'],
+                ['repository' => 'GlsrGestockBundle:SubFamilyLog',
+                'route' => 'glstock_setdiv_subfamlog_add',
+                'message' => 'glsr.gestock.settings.diverse.add_subfam'],
+                ['repository' => 'GlsrGestockBundle:ZoneStorage',
+                'route' => 'glstock_setdiv_zonestorage_add',
+                'message' => 'glsr.gestock.settings.diverse.add_zonestorage'],
+                ['repository' => 'GlsrGestockBundle:UnitStorage',
+                'route' => 'glstock_setdiv_unitstorage_add',
+                'message' => 'glsr.gestock.settings.diverse.add_unitstorage'],
+                ['repository' => 'GlsrGestockBundle:Tva',
+                'route' => 'glstock_setdiv_tva_add',
+                'message' => 'glsr.gestock.settings.diverse.add_tva'],
+                ['repository' => 'GlsrGestockBundle:Supplier',
+                'route' => 'glstock_suppli_add',
+                'message' => 'glsr.gestock.supplier.none'],
+                ['repository' => 'GlsrGestockBundle:Article',
+                'route' => 'glstock_art_add',
+                'message' => 'glsr.gestock.article.none'],];
+        // vérifie que les Entitées ne sont pas vides
+        $nbEntities = count($entities);
+
+        for ($index = 0; $index < $nbEntities; $index++) {
+            $entity = $etm->getRepository(
+                $entities[$index]['repository']
+            );
+//            $entityData = $entity->findAll();
+
+            if (empty($entity->findAll())) {
+                $this->container
+                    ->get('session')
+                    ->getFlashBag()->add('info', $entities[$index]['message']);
+                $url = $entities[$index]['route'];
+                break;
+            }
+        }
+        return $url;
     }
 }

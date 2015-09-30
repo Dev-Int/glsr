@@ -42,11 +42,16 @@ glstock_divers:
     requirements:
         _method:  GET
 
-glstock_settings_add:
-    path:  /settings/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Application:add }
+glstock_application_add:
+    path:  /application/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_application_add_process:
+    path:  /application/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:addProcess }
+    requirements:
+        _method:  POST
 glstock_settings_edit:
     path:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }

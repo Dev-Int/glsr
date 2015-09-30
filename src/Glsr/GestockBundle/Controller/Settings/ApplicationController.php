@@ -49,9 +49,9 @@ class ApplicationController extends Controller
     /**
      * Ajouter un paramètre à l'application.
      *
-     * @return Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function addAction(Request $request)
+    public function addShowAction()
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -60,39 +60,51 @@ class ApplicationController extends Controller
 
         $form = $this->createForm(new SettingsType(), $settings);
 
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-            // On fait le lien Requête <-> Formulaire
-            $form->submit($request);
-
-            // On vérifie que les valeurs rentrées sont correctes
-            if ($form->isValid()) {
-                // On enregistre l'objet $article dans la base de données
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($settings);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.add_ok');
-
-                // On redirige vers la page de visualisation
-                // des configuration de l'appli
-                return $this->redirect(
-                    $this->generateUrl(
-                        'glstock_application'
-                    )
-                );
-            }
-        }
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
                 'form' => $form->createView(),
             )
         );
+    }
+
+    /**
+     * Ajouter un paramètre à l'application.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     * @todo Ajouter redirection settings_add.
+     */
+    public function addProcessAction(Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $settings = new Settings();
+
+        $form = $this->createForm(new SettingsType(), $settings);
+
+        // On fait le lien Requête <-> Formulaire
+        $form->submit($request);
+
+        // On vérifie que les valeurs rentrées sont correctes
+        if ($form->isValid()) {
+            // On enregistre l'objet $article dans la base de données
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($settings);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.add_ok';
+
+            $url = $this->generateUrl('glstock_home');
+        } else {
+            $message = 'glsr.gestock.settings.add_no';
+
+            $url = $this->generateUrl('glstock_application_add');
+        }
+
+        $this->get('session')->getFlashBag()->add('info', $message);
+
+        return $this->redirect($url);
     }
 
     /**
@@ -127,7 +139,7 @@ class ApplicationController extends Controller
 
                 return $this->redirect(
                     $this->generateUrl(
-                        'glstock_application'
+                        'glstock_application_show'
                     )
                 );
             }

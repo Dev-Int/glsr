@@ -68,10 +68,10 @@ glsr:
                 title: Application
                 subtitle: "Gestion des paramètres de l'application."
                 add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de paramétrage de l'application."
-                style_inventory: "Style d'inventaire"
+                style_inventory: "Style d'inventaire :"
                 global: "Global "
                 zone_storage: "Zone de stockage"
-                calculation: "Mode de calcul d'inventaire "
+                calculation: "Mode de calcul d'inventaire :"
                 fifo: "FIFO "
                 weighted: "Pondéré "
                 first_inventory: "Inventaire d'installation "
@@ -80,26 +80,31 @@ glsr:
                 title: Divers
                 familylog: "Famille logistique"
                 family_subtitle: "Gestion des familles et sous-familles logistiques."
+                add_family: "Pour le bon fonctionnement de l'application, vous devez créer des familles logistiques."
                 family: Famille
                 family_edit: "Modifier la famille"
                 family_add: "Ajouter une famille"
                 choice_family: "Choisissez une famille"
+                add_subfam: "Pour le bon fonctionnement de l'application, vous devez des créer sous-familles logistiques."
                 subfamilylog: "Sous-famille logistique"
                 subfamily: "Sous-famille"
                 subfamily_edit: "Modifier la sous-famille"
                 subfamily_add: "Ajouter une sous-famille"
                 choice_subfam: "Choisissez une sous-famille"
                 zonestorage: "Zone de stockage"
+                add_zonestorage: "Pour le bon fonctionnement de l'application, vous devez créer des zones de stockage."
                 zonestorage_subtitle: "Gestion des paramètres des zones de stockage."
                 zonestorage_edit: "Modifier la zone de stockage"
                 zonestorage_add: "Ajouter une zone de stockage"
                 unitstorage: "Unité de stockage"
                 unitstorage_subtitle: "Gestion des paramètres des unités de stockage.\n 'KG', 'L'..."
+                add_unitstorage: "Pour le bon fonctionnement de l'application, vous devez créer des unités de stockage."
                 unitstorage_edit: "Modifier l'unité de stockage"
                 unitstorage_add: "Ajouter une unité de stockage"
                 abbreviation: Abréviation
                 vat: "TVA"
                 vat_subtitle: "Gestion des paramètres des taxes."
+                add_tva: "Pour le bon fonctionnement de l'application, vous devez créer des taux de T.V.A."
                 vat_edit: "Modifier la taxe"
                 vat_add: "Ajouter une taxe"
                 vat_rate: "Taux de TVA"
@@ -114,7 +119,7 @@ glsr:
             title_article: "Titre de l'article"
             content: "Contenu de l'article"
             list: 'Liste des articles'
-            none: "Pas (encore !) d'article"
+            none: "Pas (encore !) d'article.\n Pour le bon fonctionnement de l'application, vous devez créer vos articles."
             lastest: 'Les derniers articles'
             return: "Retour à l'article"
             settings:
@@ -164,7 +169,7 @@ glsr:
             number: 'Il y a %count% fournisseur|]1,+Inf]Il y a %count% fournisseurs'
             content: 'Contenu du fournisseur'
             list: 'Liste des fournisseurs'
-            none: 'Pas (encore !) de fournisseur'
+            none: "Pas (encore !) de fournisseur.\n Pour le bon fonctionnement de l'application, vous devez créer vos fournisseurs."
             lastest: 'Les derniers fournisseurs'
             return: 'Retour au fournisseur'
             return_list: 'Retour à la liste'

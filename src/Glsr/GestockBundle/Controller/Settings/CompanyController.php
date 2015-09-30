@@ -57,16 +57,26 @@ class CompanyController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
+        $etm = $this->getDoctrine()->getManager();
+        $testComp = $etm
+            ->getRepository('GlsrGestockBundle:Company')
+            ->findAll();
+        if (count($testComp) > 1) {
+            $url = $this->redirect($this->generateUrl('glstock_company_add'));
+            $message = "glsr.gestock.settings.add_no";
+            $this->get('session')->getFlashBag()->add('info', $message);
+        }
+
         $company = new Company();
 
         $form = $this->createForm(new CompanyType(), $company);
-
-        return $this->render(
+        $url =  $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
             array(
                 'form' => $form->createView(),
             )
         );
+        return $url;
     }
 
     /**
@@ -85,25 +95,20 @@ class CompanyController extends Controller
 
         $form = $this->createForm(new CompanyType(), $company);
 
-        // On fait le lien Requête <-> Formulaire
         $form->submit($request);
 
-        // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
-            // On enregistre l'objet $article dans la base de données
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($company);
             $etm->flush();
-           $url = $this->generateUrl('glstock_application_add');
+            $url = $this->generateUrl('glstock_home');
             $message = "glsr.gestock.settings.add_ok";
         } else {
             $url = $this->generateUrl('glstock_company_add');
             $message = "glsr.gestock.settings.add_no";
         }
-        // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
-        // On redirige vers la page de visualisation
-        //  de l'article nouvellement créé
+
         return $this->redirect($url);
     }
 
