@@ -45,7 +45,7 @@
             </table>
             <p>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('glstock_settings_edit', {'id': idSetting}) }}" class="btn btn-default" role="button">
+                    <a href="{{ path('glstock_application_edit', {'id': idSetting}) }}" class="btn btn-default" role="button">
                         <i class="glyphicon glyphicon-edit"></i>
                         {{ 'glsr.gestock.edit'|trans }}
                     </a>

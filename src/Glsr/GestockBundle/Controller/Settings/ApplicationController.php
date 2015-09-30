@@ -125,35 +125,13 @@ class ApplicationController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Settings $settings, Request $request)
+    public function editShowAction(Settings $settings)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         // On utilise le SettingsType
         $form = $this->createForm(new SettingsType(), $settings);
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                // On enregistre la config
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($settings);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.edit_ok');
-
-                return $this->redirect(
-                    $this->generateUrl(
-                        'glstock_application_show'
-                    )
-                );
-            }
-        }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
@@ -162,5 +140,52 @@ class ApplicationController extends Controller
             'settings' => $settings,
             )
         );
+    }
+
+    /**
+     * Modifier les paramètres de base de l'application.
+     *
+     * @param Settings $settings
+     * Objet de l'entité Settings à modifier.
+     * @param Request $request Requète de l'édition.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function editProcessAction(Settings $settings, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        // On utilise le SettingsType
+        $form = $this->createForm(new SettingsType(), $settings);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            // On enregistre la config
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($settings);
+            $etm->flush();
+
+            // On définit un message flash
+            $message = 'glsr.gestock.settings.edit_ok';
+
+            $url = $this->redirect(
+                $this->generateUrl(
+                    'glstock_application_show'
+                )
+            );
+        } else {
+            $message = 'glsr.gestock.settings.edit_no';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'settings' => $settings,
+                )
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
     }
 }

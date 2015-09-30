@@ -116,37 +116,19 @@ class CompanyController extends Controller
     /**
      * Modifier l'entreprise.
      *
-     * @param Company $company Entreprise à modifier
+     * @param Company $company Entreprise à modifier.
      *
-     * @return type
+     * @return Response
      *
      * @throws AccessDeniedException
      */
-    public function editAction(Company $company, Request $request)
+    public function editShowAction(Company $company)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
         // On utilise le SettingsType
         $form = $this->createForm(new CompanyType(), $company);
-
-        if ($request->getMethod() == 'POST') {
-            $form->bind($request);
-
-            if ($form->isValid()) {
-                // On enregistre la config
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($company);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.edit_ok');
-
-                return $this->redirect($this->generateUrl('glstock_company_show'));
-            }
-        }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
@@ -155,5 +137,48 @@ class CompanyController extends Controller
                 'company' => $company,
             )
         );
+    }
+
+    /**
+     * Modifier l'entreprise.
+     *
+     * @param Company $company Entreprise à modifier.
+     * @param Request $request Requète de l'édition.
+     *
+     * @return Response
+     *
+     * @throws AccessDeniedException
+     */
+    public function editProcessAction(Company $company, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        // On utilise le SettingsType
+        $form = $this->createForm(new CompanyType(), $company);
+
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            // On enregistre la config
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($company);
+            $etm->flush();
+
+            // On définit un message flash
+            $message = 'glsr.gestock.settings.edit_ok';
+            $url = $this->redirect($this->generateUrl('glstock_company_show'));
+        } else {
+            $message = 'glsr.gestock.settings.edit_no';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'company' => $company,
+                )
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
     }
 }

@@ -25,10 +25,16 @@ glstock_company_add_process:
         _method:  POST
 glstock_company_edit:
     path:  /company/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Company:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_company_edit_process:
+    path:  /company/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Company:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 # Routes Application
 glstock_application_show:
@@ -36,12 +42,6 @@ glstock_application_show:
     defaults: { _controller: GlsrGestockBundle:Settings/Application:show }
     requirements:
         _method:  GET
-glstock_divers:
-    path:  settings/divers
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers:show }
-    requirements:
-        _method:  GET
-
 glstock_application_add:
     path:  /application/add
     defaults: { _controller: GlsrGestockBundle:Settings/Application:addShow }
@@ -52,13 +52,26 @@ glstock_application_add_process:
     defaults: { _controller: GlsrGestockBundle:Settings/Application:addProcess }
     requirements:
         _method:  POST
-glstock_settings_edit:
+
+glstock_application_edit:
     path:  /settings/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Application:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_application_edit_process:
+    path:  /settings/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Application:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
+glstock_divers:
+    path:  settings/divers
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers:show }
+    requirements:
+        _method:  GET
+        
 glstock_setdiv_famlog_add:
     path:  /familylog/add
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:add }

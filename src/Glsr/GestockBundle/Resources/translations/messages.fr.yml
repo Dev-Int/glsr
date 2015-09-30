@@ -58,6 +58,7 @@ glsr:
             administratif: Adminsitratif
             add_ok: "Configuration bien ajoutée"
             edit_ok: "Configuration bien modifiée"
+            edit_no: "Configuration non modifiée, il doit y avoir un problème."
             company:
                 title: Etablissement
                 subtitle: "Paramètres de la société utilisant le logiciel."
