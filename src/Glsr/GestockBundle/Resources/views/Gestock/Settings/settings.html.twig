@@ -37,7 +37,7 @@
                     <tr>
                         <td>{{ setting.inventoryStyle }}</td>
                         <td>{{ setting.calculation }}</td>
-                        <td>{{ setting.firstInventory|date('d/m/Y') }}</td>
+                        <td>{{ setting.firstInventory is empty ? "" : setting.firstInventory|date('d/m/Y') }}</td>
                         <td>{{ setting.currency }}</td>
                     </tr>
                     {% endfor %}
