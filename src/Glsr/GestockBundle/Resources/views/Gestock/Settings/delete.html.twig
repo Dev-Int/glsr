@@ -1,0 +1,36 @@
+{# src\Glsr\GestockBundle\Resources\views\Gestock\Settings\delete.html.twig #}
+
+{% extends "GlsrGestockBundle::layout.html.twig" %}
+
+{% block title %}
+    {{ 'glsr.gestock.settings.diverse.delete.title'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    {{ 'glsr.gestock.settings.diverse.delete.title'|trans }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    {# On met l'id de l'article dans la route de l'action du formulaire 
+    <form action="{{ path('glstock_art_del', {'id': article.id}) }}" method="post">#}
+    {{ form_start(form) }}
+        <section class="col-md-12">
+            {{ form_label(form.name) }}
+            {{ form_widget(form.name) }}
+            {{ form_rest(form) }}
+        </section>
+        <p>&nbsp;</p>
+        <section>
+            <a href="javascript:history.go(-1)" class="col-md-2 btn btn-default" role="button">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                {{ 'glsr.gestock.settings.return'|trans }}
+            </a>
+            <div class="col-md-2 left-inner-addon">
+                <i class="glyphicon glyphicon-trash danger"></i>
+                <input type="submit" value="{{ 'glsr.gestock.settings.diverse.delete.submit_button'|trans }}" class="btn btn-default btn-danger" />
+            </div>
+        </section>
+    {{ form_end(form) }}
+
+{% endblock %}
