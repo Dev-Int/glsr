@@ -54,6 +54,7 @@ glsr:
             title: Configuration
             return: "Retour à la configuration"
             new: 'Nouvelle configuration'
+            new_caution: "Veillez à bien choisir vos éléments de configuration.\n Une fois enregistrée, il sera impossible de la supprimer, mais vous pourrez la modifier."
             commercial: Commercial
             administratif: Adminsitratif
             add_ok: "Configuration bien ajoutée"
@@ -81,6 +82,14 @@ glsr:
                 first_inventory: "Inventaire d'installation "
                 currency: "Monnaie "
             diverse:
+                delete:
+                    title: 'Supprimer un élément de configuration'
+                    title_button: "Supprimer l'élément"
+                    submit_button: 'Supprimer un élément'
+                    caution: "Êtes-vous sûr de vouloir supprimer l'élément ?"
+                    forbidden: "Il n'est plus possible de supprimer la configuration."
+                    ok: 'Configuration bien supprimée'
+                    no: 'Configuration non supprimée. Il doit y avoir un problème...'
                 title: Divers
                 familylog: "Famille logistique"
                 family_subtitle: "Gestion des familles et sous-familles logistiques."

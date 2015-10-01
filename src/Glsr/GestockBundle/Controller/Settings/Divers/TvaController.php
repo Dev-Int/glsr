@@ -41,6 +41,8 @@ class TvaController extends Controller
         $tva = new Tva();
 
         $form = $this->createForm(new TvaType(), $tva);
+        $message = 'glsr.gestock.settings.new_caution';
+        $this->get('session')->getFlashBag()->add('danger', $message);
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -148,5 +150,71 @@ class TvaController extends Controller
         }
         $this->get('session')->getFlashBag()->add('info', $message);
         return $url;
+    }
+
+    /**
+     * Supprimer une Tva.
+     *
+     * @param Tva $tva Tva à supprimer.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteShowAction(Tva $tva)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $etm = $this->getDoctrine()->getManager();
+        $article = $etm->getRepository('GlsrGestockBundle:Article')
+            ->findAll();
+        if (!empty($article)) {
+            $message = 'glsr.gestock.settings.diverse.delete.forbidden';
+            $url = $this->redirect($this->generateUrl('glstock_home'));
+        } else {
+            $form = $this->createForm(new TvaType(), $tva);
+
+            $message = 'glsr.gestock.settings.diverse.delete.caution';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:delete.html.twig',
+                array('form' => $form->createView())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
+    }
+
+    /**
+     * Supprimer une Tva.
+     *
+     * @param Tva $tva Tva à supprimer.
+     * @param Request $request Requète de la suppression.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteProcessAction(Tva $tva, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $form = $this->createForm(new TvaType(), $tva);
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($tva);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.diverse.delete.ok';
+            $url = $this->generateUrl('glstock_divers');
+        } else {
+            $message = 'glsr.gestock.settings.diverse.delete.no';
+            $url = $this->generateUrl(
+                'glstock_setdiv_tva_del',
+                array('id' => $tva->getId())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $this->redirect($url);
     }
 }

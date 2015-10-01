@@ -11,11 +11,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th class="col-md-3">
+                    <th class="col-md-8">
                         <i class="glyphicon glyphicon-globe"></i>
                         {{ 'glsr.gestock.settings.diverse.zonestorage'|trans }}
                     </th>
-                    <th class="col-md-1">
+                    <th class="col-md-4">
                         <i class="glyphicon glyphicon-cog"></i>
                         {{ 'glsr.gestock.action'|trans }}
                     </th>
@@ -29,7 +29,10 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('glstock_setdiv_zonestorage_edit', {'id': zstorage.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.zonestorage_edit'|trans }}" role="button">
                                 <i class="glyphicon glyphicon-pencil"></i>
-                            </a>
+                            </a>&nbsp;
+                        <a href="{{ path('glstock_setdiv_zonestorage_del', {'id': zstorage.id}) }}" class="btn btn-danger" title="{{ 'glsr.gestock.settings.diverse.delete.title'|trans }}" role="button">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </a>
                         {% endif %}
                     </td>
                 </tr>

@@ -41,6 +41,8 @@ class ZoneStorageController extends Controller
         $zoneStore = new ZoneStorage();
 
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
+        $message = 'glsr.gestock.settings.new_caution';
+        $this->get('session')->getFlashBag()->add('danger', $message);
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -91,7 +93,7 @@ class ZoneStorageController extends Controller
     /**
      * Modifier une Zones de stockage.
      *
-     * @param ZoneStorage $zoneStore objet Zones de stockage à modifier.
+     * @param ZoneStorage $zoneStore Zones de stockage à modifier.
      * @param Request $request Requète de la modification.
      *
      * @return Symfony\Component\HttpFoundation\Response
@@ -115,7 +117,7 @@ class ZoneStorageController extends Controller
     /**
      * Modifier une Zones de stockage.
      *
-     * @param ZoneStorage $zoneStore objet Zones de stockage à modifier.
+     * @param ZoneStorage $zoneStore Zones de stockage à modifier.
      * @param Request $request Requète de la modification.
      *
      * @return Symfony\Component\HttpFoundation\Response
@@ -150,5 +152,71 @@ class ZoneStorageController extends Controller
         $this->get('session')->getFlashBag()->add('info', $message);
 
         return $url;
+    }
+
+    /**
+     * Supprimer une Zones de stockage.
+     *
+     * @param ZoneStorage $zoneStore Zone de stockage à supprimer.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteShowAction(ZoneStorage $zoneStore)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $etm = $this->getDoctrine()->getManager();
+        $supplier = $etm->getRepository('GlsrGestockBundle:Supplier')
+            ->findAll();
+        if (!empty($supplier)) {
+            $message = 'glsr.gestock.settings.diverse.delete.forbidden';
+            $url = $this->redirect($this->generateUrl('glstock_home'));
+        } else {
+            $form = $this->createForm(new ZoneStorageType(), $zoneStore);
+
+            $message = 'glsr.gestock.settings.diverse.delete.caution';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:delete.html.twig',
+                array('form' => $form->createView())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
+    }
+
+    /**
+     * Supprimer une Zones de stockage.
+     *
+     * @param ZoneStorage $zoneStore Zone de stockage à supprimer.
+     * @param Request $request Requète de la suppression.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteProcessAction(ZoneStorage $zoneStore, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $form = $this->createForm(new ZoneStorageType(), $zoneStore);
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($zoneStore);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.diverse.delete.ok';
+            $url = $this->generateUrl('glstock_divers');
+        } else {
+            $message = 'glsr.gestock.settings.diverse.delete.no';
+            $url = $this->generateUrl(
+                'glstock_setdiv_zonestorage_del',
+                array('id' => $zoneStore->getId())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $this->redirect($url);
     }
 }

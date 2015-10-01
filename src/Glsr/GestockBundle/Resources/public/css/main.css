@@ -35,6 +35,17 @@ input[type='text'].negative {
     font-weight: bold!important;
 }
 
-body > div.container {
-    margin-top: 51px;
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+i.danger {
+    color: white;
 }

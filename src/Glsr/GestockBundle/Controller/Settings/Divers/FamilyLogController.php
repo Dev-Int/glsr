@@ -41,6 +41,8 @@ class FamilyLogController extends Controller
         $famLog = new FamilyLog();
 
         $form = $this->createForm(new FamilyLogType(), $famLog);
+        $message = 'glsr.gestock.settings.new_caution';
+        $this->get('session')->getFlashBag()->add('danger', $message);
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -75,7 +77,7 @@ class FamilyLogController extends Controller
             $etm->flush();
 
             $message = 'glsr.gestock.settings.add_ok';
-            $url = $this->redirect($this->generateUrl('glstock_divers'));
+            $url = $this->redirect($this->generateUrl('glstock_home'));
         } else {
             $message = 'glsr.gestock.settings.add_no';
             $url = $this->render(
@@ -152,5 +154,71 @@ class FamilyLogController extends Controller
         }
         $this->get('session')->getFlashBag()->add('info', $message);
         return $url;
+    }
+
+    /**
+     * Supprimer une Familles logistiques.
+     *
+     * @param FamilyLog $famLog objet Familles logistiques à supprimer.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteShowAction(FamilyLog $famLog)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $etm = $this->getDoctrine()->getManager();
+        $supplier = $etm->getRepository('GlsrGestockBundle:Supplier')
+            ->findAll();
+        if (!empty($supplier)) {
+            $message = 'glsr.gestock.settings.diverse.delete.forbidden';
+            $url = $this->redirect($this->generateUrl('glstock_home'));
+        } else {
+            $form = $this->createForm(new FamilyLogType(), $famLog);
+
+            $message = 'glsr.gestock.settings.diverse.delete.caution';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:delete.html.twig',
+                array('form' => $form->createView())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
+    }
+
+    /**
+     * Supprimer une Familles logistiques.
+     *
+     * @param FamilyLog $famLog objet Familles logistiques à supprimer.
+     * @param Request $request Requète de l'édition.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteProcessAction(FamilyLog $famLog, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $form = $this->createForm(new FamilyLogType(), $famLog);
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($famLog);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.diverse.delete.ok';
+            $url = $this->generateUrl('glstock_divers');
+        } else {
+            $message = 'glsr.gestock.settings.diverse.delete.no';
+            $url = $this->generateUrl(
+                'glstock_setdiv_famlog_del',
+                array('id' => $famLog->getId())
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $this->redirect($url);
     }
 }

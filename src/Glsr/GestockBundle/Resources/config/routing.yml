@@ -92,6 +92,18 @@ glstock_setdiv_famlog_edit_process:
     requirements:
         id: \d+
         _method:  POST
+glstock_setdiv_famlog_del:
+    path:  /familylog/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:deleteShow }
+    requirements:
+        id: \d+
+        _method:  GET
+glstock_setdiv_famlog_del_process:
+    path:  /familylog/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:deleteProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_subfamlog_add:
     path:  /subfamilylog/add
@@ -112,6 +124,18 @@ glstock_setdiv_subfamlog_edit:
 glstock_setdiv_subfamlog_edit_process:
     path:  /subfamilylog/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
+glstock_setdiv_subfamlog_del:
+    path:  /subfamilylog/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:deleteShow }
+    requirements:
+        id: \d+
+        _method:  GET
+glstock_setdiv_subfamlog_del_process:
+    path:  /subfamilylog/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:deleteProcess }
     requirements:
         id: \d+
         _method:  POST
@@ -138,6 +162,18 @@ glstock_setdiv_zonestorage_edit_process:
     requirements:
         id: \d+
         _method:  POST
+glstock_setdiv_zonestorage_del:
+    path:  /zonestorage/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:deleteShow }
+    requirements:
+        id: \d+
+        _method:  GET
+glstock_setdiv_zonestorage_del_process:
+    path:  /zonestorage/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:deleteProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_unitstorage_add:
     path:  /unitstorage/add
@@ -161,6 +197,18 @@ glstock_setdiv_unitstorage_edit_process:
     requirements:
         id: \d+
         _method:  POST
+glstock_setdiv_unitstorage_del:
+    path:  /unitstorage/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:deleteShow }
+    requirements:
+        id: \d+
+        _method:  GET
+glstock_setdiv_unitstorage_del_process:
+    path:  /unitstorage/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:deleteProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_tva_add:
     path:  /tva/add
@@ -181,6 +229,18 @@ glstock_setdiv_tva_edit:
 glstock_setdiv_tva_edit_process:
     path:  /tva/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
+glstock_setdiv_tva_del:
+    path:  /tva/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:deleteShow }
+    requirements:
+        id: \d+
+        _method:  GET
+glstock_setdiv_tva_del_process:
+    path:  /tva/delete/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:deleteProcess }
     requirements:
         id: \d+
         _method:  POST

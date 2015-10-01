@@ -11,11 +11,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th class="col-md-2">
+                    <th class="col-md-6">
                         <i class="glyphicon glyphicon-piggy-bank"></i>
                         {{ 'glsr.gestock.settings.diverse.vat_rate'|trans }}
                     </th>
-                    <th class="col-md-2">
+                    <th class="col-md-6">
                         <i class="glyphicon glyphicon-cog"></i>
                         {{ 'glsr.gestock.action'|trans }}
                     </th>
@@ -29,6 +29,9 @@
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('glstock_setdiv_tva_edit', {'id': taxe.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.settings.diverse.vat_edit'|trans }}">
                                 <i class="glyphicon glyphicon-pencil"></i>
+                            </a>&nbsp;
+                            <a href="{{ path('glstock_setdiv_tva_del', {'id': taxe.id}) }}" class="btn btn-danger" title="{{ 'glsr.gestock.settings.diverse.delete.title'|trans }}" role="button">
+                                <i class="glyphicon glyphicon-trash"></i>
                             </a>
                         {% endif %}
                     </td>
