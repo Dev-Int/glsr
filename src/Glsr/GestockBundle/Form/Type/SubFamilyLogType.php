@@ -40,7 +40,7 @@ class SubFamilyLogType extends AbstractType
             ->add(
                 'name',
                 'text',
-                array('label' => 'glsr.gestock.settings.diverse.family')
+                array('label' => 'glsr.gestock.settings.diverse.subfamily')
             )
             ->add(
                 'familylog',
@@ -49,7 +49,7 @@ class SubFamilyLogType extends AbstractType
                     'class' => 'GlsrGestockBundle:FamilyLog',
                     'choice_label' => 'name',
                     'multiple' => false,
-                    'label' => 'glsr.gestock.settings.diverse.subfamily'
+                    'label' => 'glsr.gestock.settings.diverse.family'
                 )
             );
     }
