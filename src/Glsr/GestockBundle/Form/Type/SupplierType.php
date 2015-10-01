@@ -63,7 +63,12 @@ class SupplierType extends AbstractType
                 'town',
                 'text',
                 array(
-                    'label' => 'glsr.gestock.address'
+                    'label' => 'glsr.gestock.address',
+                    'attr' => array(
+                        'onBlur' => 'this.value=this.value.toUpperCase();',
+                        'onFocus' => 'this.value=this.value.toUpperCase();',
+                        'onKeyup' => 'this.value=this.value.toUpperCase();'
+                    )
                 )
             )
             ->add(

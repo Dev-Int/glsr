@@ -30,11 +30,7 @@
             <span class="text-danger">{{ form_errors(form.zipcode) }}</span>
             <span class="text-danger">{{ form_errors(form.town) }}</span>
             {{ form_widget(form.address) }}<br />
-            {{ form_widget(form.zipcode) }} {{ form_widget(form.town, { 'attr' : {
-                'onBlur':'this.value=this.value.toUpperCase();',
-                'onFocus':'this.value=this.value.toUpperCase();',
-                'onKeyup':'this.value=this.value.toUpperCase();'
-            } }) }}
+            {{ form_widget(form.zipcode) }} {{ form_widget(form.town) }}
         </div>
         <div class="col-md-5">
             <span class="label label-default">
