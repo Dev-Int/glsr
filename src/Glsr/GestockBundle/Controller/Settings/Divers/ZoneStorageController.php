@@ -33,7 +33,7 @@ class ZoneStorageController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function addAction(Request $request)
+    public function addShowAction()
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -41,29 +41,6 @@ class ZoneStorageController extends Controller
         $zoneStore = new ZoneStorage();
 
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
-
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-            // On fait le lien Requête <-> Formulaire
-            $form->submit($request);
-
-            // On vérifie que les valeurs rentrées sont correctes
-            if ($form->isValid()) {
-                // On enregistre l'objet $article dans la base de données
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($zoneStore);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.add_ok');
-
-                // On redirige vers la page de visualisation des
-                // configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_divers'));
-            }
-        }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -74,44 +51,104 @@ class ZoneStorageController extends Controller
     }
 
     /**
-     * Modifier une Zones de stockage.
+     * Ajouter une Zones de stockage.
      *
-     * @param ZoneStorage $zoneStore objet Zones de stockage à modifier
+     * @param Request $request Requète de l'ajout.
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(ZoneStorage $zoneStore, Request $request)
+    public function addProcessAction(Request $request)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        // On utilise le SettingsType
+        $zoneStore = new ZoneStorage();
+
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        if ($request->getMethod() == 'POST') {
-            $form->submit($request);
+        $form->submit($request);
 
-            if ($form->isValid()) {
-                // On enregistre la config
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($zoneStore);
-                $etm->flush();
+        if ($form->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($zoneStore);
+            $etm->flush();
 
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.edit_ok');
-
-                return $this->redirect($this->generateUrl('glstock_divers'));
-            }
+            $message = 'glsr.gestock.settings.add_ok';
+            $url = $this->redirect($this->generateUrl('glstock_divers'));
+        } else {
+            $message = 'glsr.gestock.settings.add_no';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:add.html.twig',
+                array(
+                    'form' => $form->createView(),
+                )
+            );
         }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
+    }
+
+    /**
+     * Modifier une Zones de stockage.
+     *
+     * @param ZoneStorage $zoneStore objet Zones de stockage à modifier.
+     * @param Request $request Requète de la modification.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function editShowAction(ZoneStorage $zoneStore, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
                 'form' => $form->createView(),
-                'tva' => $zoneStore,
+                'zonestorage' => $zoneStore,
             )
         );
+    }
+
+    /**
+     * Modifier une Zones de stockage.
+     *
+     * @param ZoneStorage $zoneStore objet Zones de stockage à modifier.
+     * @param Request $request Requète de la modification.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function editProcessAction(ZoneStorage $zoneStore, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $form = $this->createForm(new ZoneStorageType(), $zoneStore);
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($zoneStore);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.edit_ok';
+
+            $url = $this->redirect($this->generateUrl('glstock_divers'));
+        } else {
+            $message = 'glsr.gestock.settings.edit_ok';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'zonestorage' => $zoneStore,
+                )
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+
+        return $url;
     }
 }

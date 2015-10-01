@@ -6,7 +6,6 @@ glstock_home:
     requirements:
         _method:  GET
 
-# Routes Settings
 # Routes Company
 glstock_company_show:
     path:  settings/company
@@ -52,7 +51,6 @@ glstock_application_add_process:
     defaults: { _controller: GlsrGestockBundle:Settings/Application:addProcess }
     requirements:
         _method:  POST
-
 glstock_application_edit:
     path:  /settings/edit/{id}
     defaults: { _controller: GlsrGestockBundle:Settings/Application:editShow }
@@ -74,63 +72,118 @@ glstock_divers:
         
 glstock_setdiv_famlog_add:
     path:  /familylog/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:add }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_famlog_add_process:
+    path:  /familylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:addProcess }
+    requirements:
+        _method:  POST
 glstock_setdiv_famlog_edit:
     path:  /familylog/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_famlog_edit_process:
+    path:  /familylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/FamilyLog:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_subfamlog_add:
     path:  /subfamilylog/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:add }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_subfamlog_add_process:
+    path:  /subfamilylog/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:addProcess }
+    requirements:
+        _method:  POST
 glstock_setdiv_subfamlog_edit:
     path:  /subfamilylog/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_subfamlog_edit_process:
+    path:  /subfamilylog/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/SubFamilyLog:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_zonestorage_add:
     path:  /zonestorage/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:add }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_zonestorage_add_process:
+    path:  /zonestorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:addProcess }
+    requirements:
+        _method:  POST
 glstock_setdiv_zonestorage_edit:
     path:  /zonestorage/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_zonestorage_edit_process:
+    path:  /zonestorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/ZoneStorage:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_unitstorage_add:
     path:  /unitstorage/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:add }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_unitstorage_add_process:
+    path:  /unitstorage/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:addProcess }
+    requirements:
+        _method:  POST
 glstock_setdiv_unitstorage_edit:
     path:  /unitstorage/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_unitstorage_edit_process:
+    path:  /unitstorage/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/UnitStorage:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 glstock_setdiv_tva_add:
     path:  /tva/add
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:add }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:addShow }
     requirements:
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_tva_add_process:
+    path:  /tva/add
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:addProcess }
+    requirements:
+        _method:  POST
 glstock_setdiv_tva_edit:
     path:  /tva/edit/{id}
-    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:edit }
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:editShow }
     requirements:
         id: \d+
-        _method:  GET/POST
+        _method:  GET
+glstock_setdiv_tva_edit_process:
+    path:  /tva/edit/{id}
+    defaults: { _controller: GlsrGestockBundle:Settings/Divers/Tva:editProcess }
+    requirements:
+        id: \d+
+        _method:  POST
 
 # Routes des Articles
 glstock_art_add:

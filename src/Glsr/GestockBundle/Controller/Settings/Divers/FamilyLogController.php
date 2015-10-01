@@ -33,7 +33,7 @@ class FamilyLogController extends Controller
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function addAction()
+    public function addShowAction()
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -41,32 +41,6 @@ class FamilyLogController extends Controller
         $famLog = new FamilyLog();
 
         $form = $this->createForm(new FamilyLogType(), $famLog);
-
-        // On récupère la requête
-        $request = $this->getRequest();
-
-        // On vérifie qu'elle est de type POST
-        if ($request->getMethod() == 'POST') {
-            // On fait le lien Requête <-> Formulaire
-            $form->bind($request);
-
-            // On vérifie que les valeurs rentrées sont correctes
-            if ($form->isValid()) {
-                // On enregistre l'objet $article dans la base de données
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($famLog);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.add_ok');
-
-                // On redirige vers la page de visualisation des
-                // configuration de l'appli
-                return $this->redirect($this->generateUrl('glstock_divers'));
-            }
-        }
 
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:add.html.twig',
@@ -77,13 +51,52 @@ class FamilyLogController extends Controller
     }
 
     /**
+     * Ajouter une Familles logistiques.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function addProcessAction(Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        $famLog = new FamilyLog();
+
+        $form = $this->createForm(new FamilyLogType(), $famLog);
+
+        // On fait le lien Requête <-> Formulaire
+        $form->bind($request);
+
+        // On vérifie que les valeurs rentrées sont correctes
+        if ($form->isValid()) {
+            // On enregistre l'objet $article dans la base de données
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($famLog);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.add_ok';
+            $url = $this->redirect($this->generateUrl('glstock_divers'));
+        } else {
+            $message = 'glsr.gestock.settings.add_no';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:add.html.twig',
+                array(
+                    'form' => $form->createView()
+                )
+            );
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
+    }
+
+    /**
      * Modifier une Familles logistiques.
      *
      * @param FamilyLog $famLog objet Familles logistiques à modifier
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(FamilyLog $famLog, Request $request)
+    public function editShowAction(FamilyLog $famLog)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -91,30 +104,53 @@ class FamilyLogController extends Controller
         // On utilise le SettingsType
         $form = $this->createForm(new FamilyLogType(), $famLog);
 
-        if ($request->getMethod() == 'POST') {
-            $form->submit($request);
-
-            if ($form->isValid()) {
-                // On enregistre la config
-                $etm = $this->getDoctrine()->getManager();
-                $etm->persist($famLog);
-                $etm->flush();
-
-                // On définit un message flash
-                $this->get('session')
-                    ->getFlashBag()
-                    ->add('info', 'glsr.gestock.settings.edit_ok');
-
-                return $this->redirect($this->generateUrl('glstock_divers'));
-            }
-        }
-
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
                 'form' => $form->createView(),
-                'tva' => $famLog,
+                'famlog' => $famLog,
             )
         );
+    }
+
+    /**
+     * Modifier une Familles logistiques.
+     *
+     * @param FamilyLog $famLog objet Familles logistiques à modifier.
+     * @param Request $request Requète de l'éfition.
+     *
+     * @return Symfony\Component\HttpFoundation\Response
+     */
+    public function editProcessAction(FamilyLog $famLog, Request $request)
+    {
+        if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            throw new AccessDeniedException();
+        }
+        // On utilise le SettingsType
+        $form = $this->createForm(new FamilyLogType(), $famLog);
+
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            // On enregistre la config
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($famLog);
+            $etm->flush();
+
+            $message = 'glsr.gestock.settings.edit_ok';
+            $url = $this->redirect($this->generateUrl('glstock_divers'));
+        } else {
+            $message = 'glsr.gestock.settings.edit_no';
+            $url = $this->render(
+                'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
+                array(
+                    'form' => $form->createView(),
+                    'famlog' => $famLog,
+                )
+            );
+            
+        }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $url;
     }
 }

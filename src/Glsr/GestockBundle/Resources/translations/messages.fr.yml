@@ -57,6 +57,7 @@ glsr:
             commercial: Commercial
             administratif: Adminsitratif
             add_ok: "Configuration bien ajoutée"
+            add_no: "Configuration non ajoutée, il doit y avoir un problème."
             edit_ok: "Configuration bien modifiée"
             edit_no: "Configuration non modifiée, il doit y avoir un problème."
             company:
