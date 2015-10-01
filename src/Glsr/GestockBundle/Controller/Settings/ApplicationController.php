@@ -49,7 +49,7 @@ class ApplicationController extends Controller
     /**
      * Ajouter un paramètre à l'application.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function addShowAction()
     {

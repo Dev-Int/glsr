@@ -118,7 +118,7 @@ class CompanyController extends Controller
      *
      * @param Company $company Entreprise à modifier.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */
@@ -145,7 +145,7 @@ class CompanyController extends Controller
      * @param Company $company Entreprise à modifier.
      * @param Request $request Requète de l'édition.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */

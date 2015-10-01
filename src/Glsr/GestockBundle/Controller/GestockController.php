@@ -29,7 +29,7 @@ class GestockController extends Controller
     /**
      * indexAction affiche la page d'accueil du Bundle.
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
@@ -51,7 +51,7 @@ class GestockController extends Controller
      *
      * @param Request $request objet requète
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function fillSubFamilyLogAction(Request $request)
     {
@@ -102,7 +102,7 @@ class GestockController extends Controller
      *
      * @param Request $request objet requète
      *
-     * @return Response
+     * @return Symfony\Component\HttpFoundation\Response
      */
     public function getFamilyLogAction(Request $request)
     {
