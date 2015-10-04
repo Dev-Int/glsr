@@ -51,6 +51,26 @@ class SubFamilyLogType extends AbstractType
                     'multiple' => false,
                     'label' => 'glsr.gestock.settings.diverse.family'
                 )
+            )
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save&more'
+                )
             );
     }
 

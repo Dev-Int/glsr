@@ -36,11 +36,32 @@ class TvaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(
-            'name',
-            'text',
-            ['label' => 'glsr.gestock.settings.diverse.vat_rate']
-        );
+        $builder
+            ->add(
+                'name',
+                'text',
+                ['label' => 'glsr.gestock.settings.diverse.vat_rate']
+            )
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save&more'
+                )
+            );
     }
 
     /**

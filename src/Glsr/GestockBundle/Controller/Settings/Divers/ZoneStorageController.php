@@ -68,15 +68,21 @@ class ZoneStorageController extends Controller
 
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($zoneStore);
             $etm->flush();
 
+            if ($form->get('save')->isClicked()) {
+                $url = $this->redirect($this->generateUrl('glstock_home'));
+            } elseif ($form->get('addmore')->isClicked()) {
+                $url = $this->redirect(
+                    $this->generateUrl('glstock_setdiv_zonestorage_add')
+                );
+            }
             $message = 'glsr.gestock.settings.add_ok';
-            $url = $this->redirect($this->generateUrl('glstock_divers'));
         } else {
             $message = 'glsr.gestock.settings.add_no';
             $url = $this->render(
@@ -129,7 +135,7 @@ class ZoneStorageController extends Controller
         }
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
@@ -200,7 +206,7 @@ class ZoneStorageController extends Controller
         }
         $form = $this->createForm(new ZoneStorageType(), $zoneStore);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();

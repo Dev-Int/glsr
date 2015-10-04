@@ -12,9 +12,15 @@
 
 {% block glstock_body %}
 
-    {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
+    {% if company is defined %}
+        {% include 'GlsrGestockBundle:Gestock/Settings:company-form.html.twig' %}
+    {% elseif settings is defined %}
+        {% include 'GlsrGestockBundle:Gestock/Settings:settings-form.html.twig' %}
+    {% else %}
+        {% include 'GlsrGestockBundle:Gestock/Settings:form.html.twig' %}
+    {% endif %}
 
-    <p class="alert alert-warning">{{ 'glsr.gestock.settings.form.caution'|trans }}</p>
+    <p class="alert alert-warning">{{ 'glsr.gestock.settings.form.caution'|trans|nl2br }}</p>
 
     <p>
         <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">

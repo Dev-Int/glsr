@@ -68,15 +68,21 @@ class TvaController extends Controller
 
         $form = $this->createForm(new TvaType(), $tva);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($tva);
             $etm->flush();
 
+            if ($form->get('save')->isClicked()) {
+                $url = $this->redirect($this->generateUrl('glstock_divers'));
+            } elseif ($form->get('addmore')->isClicked()) {
+                $url = $this->redirect(
+                    $this->generateUrl('glstock_setdiv_tva_add')
+                );
+            }
             $message = 'glsr.gestock.settings.add_ok';
-            $url = $this->redirect($this->generateUrl('glstock_divers'));
         } else {
             $message = 'glsr.gestock.settings.add_no';
             $url = $this->render(
@@ -198,7 +204,7 @@ class TvaController extends Controller
         }
         $form = $this->createForm(new TvaType(), $tva);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();

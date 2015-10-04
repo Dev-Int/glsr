@@ -6,8 +6,9 @@
 {% block body_title %}
     {{ 'glsr.gestock.settings.form.title'|trans }}
 {% endblock %}
+
+<div class="well">
 {{ form_start(form) }}
-{#<form method="post" {{ form_enctype(form) }}>#}
     <fieldset class="well">
         {{ form_errors(form) }}
         <legend>{{ 'glsr.gestock.settings.form.info'|trans }}</legend>
@@ -55,6 +56,8 @@
 {#            <span class="text-danger">{{ form_errors(form.country) }}</span>
             {{ form_widget(form.country) }}#}
         </div>
+    </fieldset>
+        <fieldset class="well">
         <legend>{{ 'glsr.gestock.settings.administratif'|trans }}</legend>
         <div class="col-md-1">
             <span class="label label-default">
@@ -103,10 +106,10 @@
         </div>
     </fieldset>
 
-    {{ form_rest(form) }}
     <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
     <p>&nbsp;</p>
-</form>
+    {{ form_end(form) }}
+</div>
 <script type="text/javascript">
 function upperCase(){
     $("#glsr_gestockbundle_settings_town").val().toUpperCase();

@@ -73,7 +73,6 @@ class ArticleController extends Controller
         }
         $article = new Article();
 
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
 
         return $this->render(
@@ -98,31 +97,26 @@ class ArticleController extends Controller
             throw new AccessDeniedException();
         }
         $article = new Article();
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
 
-        // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
 
-        // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
-            // On enregistre l'objet $article dans la base de données
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($article);
             $etm->flush();
-            $url = $this->generateUrl(
-                'glstock_art_show',
-                array('name' => $article->getName())
-            );
+
+            if ($form->get('save')->isClicked()) {
+                $url = $this->generateUrl('glstock_home');
+            } elseif ($form->get('addmore')->isClicked()) {
+                $url = $this->generateUrl('glstock_art_add');
+            }
             $message = "glsr.gestock.article.create.ok";
         } else {
             $url = $this->generateUrl('glstock_art_add');
             $message = "glsr.gestock.article.create.no";
         }
-        // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
-        // On redirige vers la page de visualisation
-        //  de l'article nouvellement créé
         return $this->redirect($url);
     }
     
@@ -130,18 +124,16 @@ class ArticleController extends Controller
      * Modification d'un article.
      *
      * @param Article $article article à modifier
-     * @param Request $request objet requète
      *
      * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */
-    public function editShowAction(Article $article, Request $request)
+    public function editShowAction(Article $article)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
 
         return $this->render(
@@ -155,8 +147,8 @@ class ArticleController extends Controller
     /**
      * Modification d'un article.
      *
-     * @param Article $article article à modifier
-     * @param Request $request objet requète
+     * @param Article $article article à modifier.
+     * @param Request $request objet requète.
      *
      * @return Symfony\Component\HttpFoundation\Response|
      *   Symfony\Component\HttpFoundation\RedirectResponse
@@ -166,41 +158,34 @@ class ArticleController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new ArticleType(), $article);
 
-        // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
 
-        // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
-            // On enregistre l'objet $article dans la base de données
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($article);
             $etm->flush();
-            $url = $this->generateUrl(
-                'glstock_art_show',
-                array('name' => $article->getName())
-            );
+            
+            $url = 'glstock_art_show';
             $message = "glsr.gestock.article.edit.ok";
         } else {
-            $url = $this->generateUrl(
-                'glstock_art_edit',
-                array('name' => $article->getName())
-            );
+            $url = 'glstock_art_edit';
             $message = "glsr.gestock.article.create.no";
         }
-        // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
-        // On redirige vers la page de visualisation
-        //  de l'article nouvellement créé
-        return $this->redirect($url);
+        return $this->redirect(
+            $this->generateUrl(
+                $url,
+                array('name' => $article->getName())
+            )
+        );
     }
 
     /**
      * Supprime (désactive) un article.
      *
-     * @param Article $article article à désactiver
+     * @param Article $article article à désactiver.
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -223,8 +208,8 @@ class ArticleController extends Controller
     /**
      * Supprime (désactive) un article.
      *
-     * @param Article $article
-     * @param Request $request objet requète
+     * @param Article $article Article à supprimer.
+     * @param Request $request Requète.
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
@@ -237,33 +222,28 @@ class ArticleController extends Controller
         }
         $form = $this->createFormBuilder()->getForm();
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // On supprime l'article
             $etm = $this->getDoctrine()->getManager();
-            //On modifie l'état actif de l'article
             $article->setActive(0);
             $etm->persist($article);
             $etm->flush();
 
-            $this->get('session')
-                ->getFlashBag()
-                ->add('info', 'glsr.gestock.article.delete.ok');
-
-            // Puis on redirige vers l'accueil
-            return $this->redirect($this->generateUrl('glstock_home'));
+            $message = 'glsr.gestock.article.delete.ok';
+            $url = $this->generateUrl('glstock_home');
         } else {
-            $this->get('session')
-                ->getFlashBag()
-                ->add('info', 'glsr.gestock.article.delete.no');
+            $message = 'glsr.gestock.article.delete.no';
+            $url = $this->generateUrl('glstock_art_del');
         }
+        $this->get('session')->getFlashBag()->add('info', $message);
+        return $this->redirect($url);
     }
     
     /**
      * Affiche un article.
      *
-     * @param \Glsr\GestockBundle\Entity\Article $article article à afficher
+     * @param Article $article article à afficher.
      *
      * @return Symfony\Component\HttpFoundation\Response
      */
@@ -282,7 +262,7 @@ class ArticleController extends Controller
      *   que celui passé en paramètre. (Form)
      *
      * @param Supplier $supplier Fournisseur
-     *   dont les articles doivent être réaffectés
+     *   dont les articles doivent être réaffectés.
      *
      * @return Symfony\Component\HttpFoundation\Response
      *
@@ -317,8 +297,8 @@ class ArticleController extends Controller
      *   que celui passé en paramètre. (Process)
      *
      * @param Supplier $supplier Fournisseur
-     *   dont les articles doivent être réaffectés
-     * @param Request $request objet requète
+     *   dont les articles doivent être réaffectés.
+     * @param Request $request Requète.
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      *
@@ -337,8 +317,7 @@ class ArticleController extends Controller
 
         $form = $this->createForm(new ArticleReassignType(), $articles);
 
-        // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
         $datas = $form;
 
         $newArticles = new Article();

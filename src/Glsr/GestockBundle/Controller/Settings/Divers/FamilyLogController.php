@@ -76,16 +76,22 @@ class FamilyLogController extends Controller
             $etm->persist($famLog);
             $etm->flush();
 
+            if ($form->get('save')->isClicked()) {
+                $url = $this->redirect($this->generateUrl('glstock_home'));
+            } elseif ($form->get('addmore')->isClicked()) {
+                $url = $this->redirect(
+                    $this->generateUrl('glstock_setdiv_famlog_add')
+                );
+            }
             $message = 'glsr.gestock.settings.add_ok';
-            $url = $this->redirect($this->generateUrl('glstock_home'));
         } else {
-            $message = 'glsr.gestock.settings.add_no';
             $url = $this->render(
                 'GlsrGestockBundle:Gestock/Settings:add.html.twig',
                 array(
                     'form' => $form->createView()
                 )
             );
+            $message = 'glsr.gestock.settings.add_no';
         }
         $this->get('session')->getFlashBag()->add('info', $message);
         return $url;
@@ -131,7 +137,7 @@ class FamilyLogController extends Controller
         // On utilise le SettingsType
         $form = $this->createForm(new FamilyLogType(), $famLog);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             // On enregistre la config
@@ -202,7 +208,7 @@ class FamilyLogController extends Controller
         }
         $form = $this->createForm(new FamilyLogType(), $famLog);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();

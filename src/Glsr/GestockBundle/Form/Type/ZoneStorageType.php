@@ -36,11 +36,32 @@ class ZoneStorageType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(
-            'name',
-            'text',
-            array('label' => 'glsr.gestock.settings.diverse.zonestorage')
-        );
+        $builder
+            ->add(
+                'name',
+                'text',
+                array('label' => 'glsr.gestock.settings.diverse.zonestorage')
+            )
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save&more'
+                )
+            );
     }
 
     /**

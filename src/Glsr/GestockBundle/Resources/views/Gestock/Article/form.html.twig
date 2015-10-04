@@ -92,12 +92,11 @@
                     &nbsp;{{ form_widget(form.minstock) }}
                 </div>
             </section>
-           {{ form_rest(form) }}
         </fieldset>
-
-        <input type="submit" class="btn btn-default btn-primary" value="{{ 'glsr.gestock.validate'|trans }}" />
-    <p>&nbsp;</p>
-    </form>
+        <section>
+            {{ form_widget(form.save) }}&nbsp;{{ form_widget(form.addmore) }}
+        </section>
+    {{ form_end(form) }}
 </div>
 <script type="text/javascript">
 function fillSubFamilyLog(){

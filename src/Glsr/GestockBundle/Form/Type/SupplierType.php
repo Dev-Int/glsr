@@ -170,7 +170,27 @@ class SupplierType extends AbstractType
                     'label' => 'glsr.gestock.supplier.settings.order'
                 )
             )
-            ->add('active', 'hidden');
+            ->add('active', 'hidden')
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.supplier.create.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.supplier.create.save&more'
+                )
+            );
     }
 
     /**

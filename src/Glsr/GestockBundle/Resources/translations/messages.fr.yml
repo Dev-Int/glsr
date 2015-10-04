@@ -123,6 +123,8 @@ glsr:
                 vat_rate: "Taux de TVA"
             form:
                 title: "Formulaire de configuration"
+                save: "Enregistrer"
+                save&more: "Enregistrer, et ajouter une autre configuration"
                 caution: 'Cette configuration déterminera le fonctionnement de votre application'
                 info: 'Information Compagnie'
 
@@ -168,6 +170,8 @@ glsr:
             create:
                 title: 'Créer un article'
                 title_button: 'Ajouter un article'
+                save: "Enregistrer l'article"
+                save&more: "Enregistrer, et ajouter un autre article"
                 caution: "Attention !\n Cet article sera ajouté directement\n au tableau des articles après validation du formulaire."
                 ok: "L'article est bien ajouté"
                 no: "L'article n'est pas ajouté"
@@ -222,6 +226,8 @@ glsr:
             create:
                 title: 'Créer un fournisseur'
                 title_button: 'Ajouter un fournisseur'
+                save: "Enregistrer le fournisseur"
+                save&more: "Enregistrer, et ajouter un autre fournisseur"
                 caution: "Attention !\n Ce fournisseur sera ajouté directement\n au tableau des forunisseurs après validation du formulaire."
                 ok: "Le fournisseur est bien ajouté"
                 no: "Le fournisseur n'est pas ajouté"

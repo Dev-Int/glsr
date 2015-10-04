@@ -46,6 +46,26 @@ class UnitStorageType extends AbstractType
                 'abbr',
                 'text',
                 ['label' => 'glsr.gestock.settings.diverse.abbreviation']
+            )
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.settings.form.save&more'
+                )
             );
     }
 

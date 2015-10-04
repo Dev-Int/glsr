@@ -14,7 +14,7 @@
 
     {% include 'GlsrGestockBundle:Gestock/Article:form.html.twig' %}
 
-    <p class="alert alert-warning">{{ 'glsr.gestock.article.create.caution'|trans }}</p>
+    <p class="alert alert-warning">{{ 'glsr.gestock.article.create.caution'|trans|nl2br }}</p>
 
     <p>
         <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">

@@ -85,7 +85,7 @@ class SupplierController extends Controller
     /**
      * Ajoute un fournisseur.
      *
-     * @param Request $request objet requète
+     * @param Request $request objet requète.
      *
      * @return Symfony\Component\HttpFoundation\RedirectResponse
      * @throws AccessDeniedException
@@ -96,31 +96,26 @@ class SupplierController extends Controller
             throw new AccessDeniedException();
         }
         $supplier = new Supplier();
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType(), $supplier);
 
-        // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
 
-        // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
-            // On enregistre l'objet $article dans la base de données
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($supplier);
             $etm->flush();
-            $url = $this->generateUrl(
-                'glstock_suppli_show',
-                array('name' => $supplier->getName())
-            );
+
+            if ($form->get('save')->isClicked()) {
+                $url = $this->generateUrl('glstock_home');
+            } elseif ($form->get('addmore')->isClicked()) {
+                $url = $this->generateUrl('glstock_suppli_add');
+            }
             $message = "glsr.gestock.supplier.create.ok";
         } else {
             $url = $this->generateUrl('glstock_suppli_add');
             $message = "glsr.gestock.supplier.create.no";
         }
-        // On définit un message flash
         $this->get('session')->getFlashBag()->add('info', $message);
-        // On redirige vers la page de visualisation
-        //  de l'article nouvellement créé
         return $this->redirect($url);
     }
 
@@ -138,7 +133,6 @@ class SupplierController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType(), $supplier);
 
         return $this->render(
@@ -164,15 +158,11 @@ class SupplierController extends Controller
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
         }
-        // On crée le formulaire grâce à l'ArticleType
         $form = $this->createForm(new SupplierType(), $supplier);
 
-        // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
 
-        // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
-            // On enregistre l'objet $article dans la base de données
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($supplier);
             $etm->flush();
@@ -185,10 +175,7 @@ class SupplierController extends Controller
             $url = $this->generateUrl('glstock_suppli_edit');
             $message = "glsr.gestock.supplier.edit.no";
         }
-        // On définit un message flash
         $request->getSession()->getFlashBag()->add('info', $message);
-        // On redirige vers la page de visualisation
-        //  de l'article nouvellement créé
         return $this->redirect($url);
     }
 
@@ -196,13 +183,12 @@ class SupplierController extends Controller
      * Supprimer un fournisseur.
      *
      * @param Supplier $supplier Objet fournisseur à supprimer
-     * @param Request $request objet requète
      *
      * @return Symfony\Component\HttpFoundation\Response
      *
      * @throws AccessDeniedException
      */
-    public function deleteShowAction(Supplier $supplier, Request $request)
+    public function deleteShowAction(Supplier $supplier)
     {
         if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             throw new AccessDeniedException();
@@ -216,13 +202,11 @@ class SupplierController extends Controller
             ->getArticleFromSupplier($supplier->getId());
 
         if (count($articles) >= 1) {
-            // On crée le message explicatif
-            $this->get('session')
-                ->getFlashBag()
-                ->add('danger', 'glsr.gestock.supplier.delete.reassign');
+            $message = 'glsr.gestock.supplier.delete.reassign';
+            $this->get('session')->getFlashBag()->add('danger', $message);
 
             // Puis on redirige vers la page de réaffectation
-            $return = $this->redirect(
+            $url = $this->redirect(
                 $this->generateUrl(
                     'glstock_reassign_article',
                     array('id' => $supplier->getId())
@@ -233,7 +217,7 @@ class SupplierController extends Controller
 
             // Si la requête est en GET,
             // on affiche une page de confirmation avant de supprimer
-            $return = $this->render(
+            $url = $this->render(
                 'GlsrGestockBundle:Gestock/Supplier:delete.html.twig',
                 array(
                     'supplier' => $supplier,
@@ -241,7 +225,7 @@ class SupplierController extends Controller
                     )
             );
         }
-        return $return;
+        return $url;
     }
 
     /**
@@ -262,7 +246,6 @@ class SupplierController extends Controller
 
         $form = $this->createForm(new SupplierDeleteType(), $supplier);
 
-        // Si la requête est en POST, on supprimera le fournisseur
         $form->handleRequest($request);
 
         //On modifie l'état actif du fournisseur

@@ -73,6 +73,7 @@ class CompanyController extends Controller
                 'GlsrGestockBundle:Gestock/Settings:add.html.twig',
                 array(
                     'form' => $form->createView(),
+                    'company' => $company
                 )
             );
         }
@@ -96,7 +97,7 @@ class CompanyController extends Controller
 
         $form = $this->createForm(new CompanyType(), $company);
 
-        $form->submit($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();

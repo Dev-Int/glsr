@@ -73,6 +73,7 @@ class ApplicationController extends Controller
                 'GlsrGestockBundle:Gestock/Settings:add.html.twig',
                 array(
                     'form' => $form->createView(),
+                    'settings' => $settings
                 )
             );
         }
@@ -94,7 +95,7 @@ class ApplicationController extends Controller
         $form = $this->createForm(new SettingsType(), $settings);
 
         // On fait le lien Requête <-> Formulaire
-        $form->submit($request);
+        $form->handleRequest($request);
 
         // On vérifie que les valeurs rentrées sont correctes
         if ($form->isValid()) {
@@ -136,8 +137,8 @@ class ApplicationController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Settings:edit.html.twig',
             array(
-            'form' => $form->createView(),
-            'settings' => $settings,
+                'form' => $form->createView(),
+                'settings' => $settings
             )
         );
     }

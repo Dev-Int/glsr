@@ -144,6 +144,26 @@ class ArticleType extends AbstractType
                     'grouping' => true,
                     'label' => 'glsr.gestock.article.settings.stock_alert'
                 )
+            )
+            ->add(
+                'save',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.article.create.save'
+                )
+            )
+            ->add(
+                'addmore',
+                'submit',
+                array(
+                    'attr' => array(
+                        'class' => 'btn btn-default btn-primary'
+                    ),
+                    'label' => 'glsr.gestock.article.create.save&more'
+                )
             );
     }
 
