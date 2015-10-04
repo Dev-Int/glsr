@@ -218,6 +218,11 @@ class GestockController extends Controller
                 'route' => 'glstock_art_add',
                 'message' => 'glsr.gestock.article.none'
             ),
+            array(
+                'repository' => 'GlsrGestockBundle:Settings',
+                'route' => 'glstock_inventory_prepare',
+                'message' => 'glsr.gestock.settings.application.first_inventory.none'
+            ),
         );
         // vérifie que les Entitées ne sont pas vides
         $nbEntities = count($entities);
@@ -226,16 +231,18 @@ class GestockController extends Controller
             $entity = $etm->getRepository(
                 $entities[$index]['repository']
             );
-            $entityData = $entity->findAll();
+            $entityData = $entity->find(1);
 
             if (empty($entityData)) {
-                $this->container
-                    ->get('session')
-                    ->getFlashBag()->add('info', $entities[$index]['message']);
+                $message = $entities[$index]['message'];
                 $url = $entities[$index]['route'];
                 break;
+            } elseif ($index === 9 && $entityData->getFirstInventory() === null) {
+                    $message = $entities[$index]['message'];
+                    $url = $entities[$index]['route'];
             }
         }
+        $this->container->get('session')->getFlashBag()->add('warning', $message);
         return $url;
     }
 }

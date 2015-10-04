@@ -79,7 +79,9 @@ glsr:
                 calculation: "Mode de calcul d'inventaire :"
                 fifo: "FIFO "
                 weighted: "Pondéré "
-                first_inventory: "Inventaire d'installation "
+                first_inventory: 
+                    title: "Inventaire d'installation "
+                    none: "Pas (encore !) d'inventaire.\n Pour le bon fonctionnement de l'application, vous devez créer vos articles."
                 currency: "Monnaie "
             diverse:
                 delete:
