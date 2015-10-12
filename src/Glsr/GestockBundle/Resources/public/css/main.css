@@ -22,7 +22,9 @@ fieldset > section.col-md-12 {
 label {
     padding-right: 10px;
 }
-
+label.required:before {
+    content: "* ";
+}
 input[type='text'].inventory {
     width: 85%!important;
 }
