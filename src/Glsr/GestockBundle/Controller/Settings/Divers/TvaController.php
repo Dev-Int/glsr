@@ -76,7 +76,7 @@ class TvaController extends Controller
             $etm->flush();
 
             if ($form->get('save')->isClicked()) {
-                $url = $this->redirect($this->generateUrl('glstock_divers'));
+                $url = $this->redirect($this->generateUrl('glstock_home'));
             } elseif ($form->get('addmore')->isClicked()) {
                 $url = $this->redirect(
                     $this->generateUrl('glstock_setdiv_tva_add')
