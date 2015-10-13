@@ -17,6 +17,7 @@ namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Glsr\GestockBundle\Entity\Contact;
 use Glsr\GestockBundle\Entity\FamilyLog;
@@ -76,6 +77,12 @@ class Supplier extends Contact
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
+
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=false)
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * __construct.
@@ -182,6 +189,29 @@ class Supplier extends Contact
     }
 
     /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Supplier
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Cette méthode permet de faire "echo $supplier".
      * <p>Ainsi, pour "afficher" $supplier,
      * PHP affichera en réalité le retour de cette méthode.<br />
@@ -210,21 +240,11 @@ class Supplier extends Contact
     }
 
     /**
-     * Get active.
+     * Is active.
      *
      * @return bool
      */
     public function isActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     * Get active
-     *
-     * @return boolean
-     */
-    public function getActive()
     {
         return $this->active;
     }

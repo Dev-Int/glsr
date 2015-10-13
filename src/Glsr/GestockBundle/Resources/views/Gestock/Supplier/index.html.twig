@@ -46,7 +46,7 @@
         {% for supplier in suppliers %}
             <tr>
                 <td>
-                    <a href="{{ path('glstock_suppli_show', {'name': supplier.name}) }}">
+                    <a href="{{ path('glstock_suppli_show', {'slug': supplier.slug}) }}">
                         {{ supplier.name }}
                     </a>
                 </td>
@@ -60,7 +60,7 @@
                 <td>{{ supplier.subFamilyLog }}</td>
                 <td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('glstock_suppli_edit', {'name': supplier.name}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
+                        <a href="{{ path('glstock_suppli_edit', {'slug': supplier.slug}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.edit.title_button'|trans }}" role="button">
                             <i class="glyphicon glyphicon-pencil"></i>
                         </a>&nbsp;
                         <a href="{{ path('glstock_suppli_del', {'id': supplier.id}) }}" class="btn btn-default" title="{{ 'glsr.gestock.supplier.delete.title_button'|trans }}" role="button">

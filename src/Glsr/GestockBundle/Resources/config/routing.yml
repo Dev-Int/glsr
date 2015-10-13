@@ -311,12 +311,12 @@ glstock_suppli_add_process:
     requirements:
         _method:  POST
 glstock_suppli_edit:
-    path:  /supplier/edit/{name}
+    path:  /supplier/edit/{slug}
     defaults: { _controller: GlsrGestockBundle:Supplier:editShow }
     requirements:
         _method:  GET
 glstock_suppli_edit_process:
-    path:  /supplier/edit/{name}
+    path:  /supplier/edit/{slug}
     defaults: { _controller: GlsrGestockBundle:Supplier:editProcess }
     requirements:
         _method:  POST
@@ -339,7 +339,7 @@ glstock_suppli_list:
     requirements:
         page:  \d+
 glstock_suppli_show:
-    path:  /supplier/{name}
+    path:  /supplier/{slug}
     defaults: { _controller: GlsrGestockBundle:Supplier:show }
 
 # route des alertes
