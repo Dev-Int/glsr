@@ -61,15 +61,17 @@ class GestockController extends Controller
             $subFamId = $request->get('id2');
             if ($famLogId  != '') {
                 $subFamilyLogs = $etm
-                    ->getRepository('GlsrGestockBundle:subFamilyLog')
+                    ->getRepository('GlsrGestockBundle:SubFamilyLog')
                     ->getFromFamilyLog($famLogId);
                 $familyLog = $etm
-                    ->getRepository('GlsrGestockBundle:familyLog')
+                    ->getRepository('GlsrGestockBundle:FamilyLog')
                     ->find($famLogId);
                 $tabSubFamilyLog = array();
                 $tabSubFamilyLog[0]['idOption'] = '';
                 $tabSubFamilyLog[0]['nameOption']
-                    = 'glsr.gestock.settings.diverse.choice_subfam'.$familyLog->getName();
+                    = $this->get('translator')
+                    ->trans('glsr.gestock.settings.diverse.choice_subfam')
+                    .' : '.$familyLog->getName();
                 $iterator = 1;
                 foreach ($subFamilyLogs as $subFamilyLog) {
                     $tabSubFamilyLog[$iterator]['idOption']
@@ -238,8 +240,9 @@ class GestockController extends Controller
                 $url = $entities[$index]['route'];
                 break;
             } elseif ($index === 9 && $entityData->getFirstInventory() === null) {
-                    $message = $entities[$index]['message'];
-                    $url = $entities[$index]['route'];
+                $message = $entities[$index]['message'];
+                $url = $entities[$index]['route'];
+                break;
             }
         }
         $this->container->get('session')->getFlashBag()->add('warning', $message);
