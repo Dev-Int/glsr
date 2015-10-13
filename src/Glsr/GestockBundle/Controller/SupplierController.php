@@ -168,7 +168,7 @@ class SupplierController extends Controller
             $etm->flush();
             $url = $this->generateUrl(
                 'glstock_suppli_show',
-                array('name' => $supplier->getName())
+                array('slug' => $supplier->getSlug())
             );
             $message = "glsr.gestock.supplier.edit.ok";
         } else {
