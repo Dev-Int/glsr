@@ -204,7 +204,7 @@ class Supplier extends Contact
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
