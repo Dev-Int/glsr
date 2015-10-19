@@ -257,12 +257,12 @@ glstock_art_add_process:
     requirements:
         _method:  POST
 glstock_art_edit:
-    path:  /article/edit/{name}
+    path:  /article/edit/{slug}
     defaults: { _controller: GlsrGestockBundle:Article:editShow }
     requirements:
         _method:  GET
 glstock_art_edit_process:
-    path:  /article/edit/{name}
+    path:  /article/edit/{slug}
     defaults: { _controller: GlsrGestockBundle:Article:editProcess }
     requirements:
         _method:  POST
@@ -284,7 +284,7 @@ glstock_art_list:
     requirements:
         page:  \d+
 glstock_art_show:
-    path:  /article/{name}
+    path:  /article/{slug}
     defaults: { _controller: GlsrGestockBundle:Article:show }
 glstock_reassign_article:
     path:  /article/reassign/{id}

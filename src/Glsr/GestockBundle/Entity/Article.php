@@ -17,6 +17,7 @@ namespace Glsr\GestockBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Glsr\GestockBundle\Entity\Supplier;
@@ -142,6 +143,12 @@ class Article
     private $active;
 
     /**
+     * @Gedmo\Slug(fields={"name"}, updatable=false)
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -149,7 +156,6 @@ class Article
         $this->zone_storages = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
-        $this->realstock = 0.000;
     }
 
     /**
@@ -430,13 +436,36 @@ class Article
     }
 
     /**
-     * Get active.
+     * Is active
      *
-     * @return bool
+     * @return boolean 
      */
     public function isActive()
     {
         return $this->active;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

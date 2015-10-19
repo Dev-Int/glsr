@@ -171,13 +171,13 @@ class ArticleController extends Controller
             $message = "glsr.gestock.article.edit.ok";
         } else {
             $url = 'glstock_art_edit';
-            $message = "glsr.gestock.article.create.no";
+            $message = "glsr.gestock.article.edit.no";
         }
         $this->get('session')->getFlashBag()->add('info', $message);
         return $this->redirect(
             $this->generateUrl(
                 $url,
-                array('name' => $article->getName())
+                array('slug' => $article->getSlug())
             )
         );
     }

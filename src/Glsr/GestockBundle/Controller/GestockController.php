@@ -59,7 +59,7 @@ class GestockController extends Controller
         if ($request->isXmlHttpRequest()) {
             $famLogId = $request->get('id');
             $subFamId = $request->get('id2');
-            if ($famLogId  != '') {
+            if ($famLogId  !== '') {
                 $subFamilyLogs = $etm
                     ->getRepository('GlsrGestockBundle:SubFamilyLog')
                     ->getFromFamilyLog($famLogId);
@@ -78,11 +78,9 @@ class GestockController extends Controller
                         = $subFamilyLog->getId();
                     $tabSubFamilyLog[$iterator]['nameOption']
                         = $subFamilyLog->getName();
-                    if ($subFamId != '') {
+                    if ($subFamId == $subFamilyLog->getId()) {
                         $tabSubFamilyLog[$iterator]['optionOption']
                             = 'selected="selected"';
-                    } else {
-                        $tabSubFamilyLog[$iterator]['optionOption'] = null;
                     }
                     $iterator++;
                 }

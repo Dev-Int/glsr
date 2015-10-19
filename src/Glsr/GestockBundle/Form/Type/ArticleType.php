@@ -53,7 +53,10 @@ class ArticleType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'glsr.gestock.article.form.choice_supplier',
                     'empty_data' => null,
-                    'label' => 'glsr.gestock.supplier.title'
+                    'label' => 'glsr.gestock.supplier.title',
+                    'attr' => array(
+                        'onChange' => 'getFamilyLog()'
+                    )
                 )
             )
             ->add(
@@ -83,7 +86,10 @@ class ArticleType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'glsr.gestock.settings.diverse.choice_family',
                     'empty_data' => null,
-                    'label' => 'glsr.gestock.settings.diverse.familylog'
+                    'label' => 'glsr.gestock.settings.diverse.familylog',
+                    'attr' => array(
+                        'onChange' => 'fillSubFamilyLog()'
+                    )
                 )
             )
             ->add(
@@ -95,7 +101,10 @@ class ArticleType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'glsr.gestock.settings.diverse.choice_subfam',
                     'empty_data' => null,
-                    'label' => 'glsr.gestock.settings.diverse.subfamilylog'
+                    'label' => 'glsr.gestock.settings.diverse.subfamilylog',
+                    'attr' => array(
+                        'onChange' => 'getSubFamily()'
+                    )
                 )
             )
             ->add(
