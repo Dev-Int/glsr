@@ -438,7 +438,7 @@ class Article
     /**
      * Is active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function isActive()
     {
@@ -461,7 +461,7 @@ class Article
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
