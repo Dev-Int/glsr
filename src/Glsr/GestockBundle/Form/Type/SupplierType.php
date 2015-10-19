@@ -121,7 +121,10 @@ class SupplierType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'glsr.gestock.settings.diverse.choice_family',
                     'empty_data' => null,
-                    'label' => 'glsr.gestock.settings.diverse.familylog'
+                    'label' => 'glsr.gestock.settings.diverse.familylog',
+                    'attr' => array(
+                        'onChange' => 'fillSubFamilyLog();'
+                    )
                 )
             )
             ->add(
