@@ -7,11 +7,13 @@
 {% endblock %}
 
 {% block body_title %}
+    <h2>
     {% if articles is defined %}
     <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.article.list'|trans }}
     {% elseif article is defined %}
     <i class="glyphicon glyphicon-eye-open"></i> {{ 'glsr.gestock.article.title'|trans }} : {{ article.name }}
     {% endif %}
+    </h2>
 {% endblock %}
 
 {% block glstock_body %}
@@ -38,29 +40,31 @@
         </tbody>
     </table>
 
-    <p>
-        <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">
-             <i class="glyphicon glyphicon-chevron-left"></i>
-             {{ 'glsr.gestock.home.return'|trans }}
-         </a>&nbsp;
-        {% if article is defined %}
-            <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                {{ 'glsr.gestock.return_list'|trans }}
-            </a>&nbsp;
-        {% endif %}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
-                <i class="glyphicon glyphicon-edit"></i>
-                {{ 'glsr.gestock.article.create.title_button'|trans }}
-            </a>
-        {% endif %}
-    </p>
-
+    <section class="col-md-6">
+        <p>
+            <a href="{{ path('glstock_home') }}" class="btn btn-default" role="button">
+                 <i class="glyphicon glyphicon-chevron-left"></i>
+                 {{ 'glsr.gestock.home.return'|trans }}
+             </a>&nbsp;
+            {% if article is defined %}
+                <a href="{{ path('glstock_art_list') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    {{ 'glsr.gestock.return_list'|trans }}
+                </a>&nbsp;
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('glstock_art_add') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-edit"></i>
+                    {{ 'glsr.gestock.article.create.title_button'|trans }}
+                </a>
+            {% endif %}
+        </p>
+    </section>
+    <section class="col-md-6">
     {# S'il y a plus d'une page, on affiche la liste des pages #}
     {% if articles is defined %}
         {% if nb_page > 1 %}
-            <nav class="text-center">
+            <nav>
                 <ul class="pagination">
                     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
                     <li {% if page == 1 %}class="disabled"{% endif %}><a href="{{ path('glstock_art_list', {'page': 1}) }}">&laquo;</a></li>
@@ -74,4 +78,5 @@
             </nav>
         {% endif %}
     {% endif %}
+    </section>
 {% endblock %}

@@ -99,6 +99,9 @@
 {% endblock %}
 
 {% block body %}
+    {% block body_title %}
+        {{ 'glsr.gestock.shome.title'|trans }}
+    {% endblock %}
     <hr />
     {% if app.request.hasPreviousSession %}
         {% for type, messages in app.session.flashbag.all() %}

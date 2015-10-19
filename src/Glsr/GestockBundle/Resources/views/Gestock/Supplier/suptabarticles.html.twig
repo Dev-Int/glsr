@@ -43,7 +43,7 @@
                     {% for article in articles %}
                     <tr>
                         <td>
-                            <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                            <a href="{{ path('glstock_art_show', {'slug': article.slug}) }}">
                                 {{ article.name }}
                             </a>
                         </td>

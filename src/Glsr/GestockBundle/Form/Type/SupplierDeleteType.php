@@ -48,7 +48,9 @@ class SupplierDeleteType extends AbstractType
             ->remove('family_log')
             ->remove('sub_family_log')
             ->remove('delaydeliv')
-            ->remove('orderdate');
+            ->remove('orderdate')
+            ->remove('save')
+            ->remove('addmore');
     }
 
     /**

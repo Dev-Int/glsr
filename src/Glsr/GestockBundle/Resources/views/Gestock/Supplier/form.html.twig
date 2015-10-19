@@ -3,13 +3,9 @@
 {# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
 {# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
 
-{% block body_title %}
-    {{ 'glsr.gestock.supplier.form.title'|trans }}
-{% endblock %}
-
 <div class="well">
     {{ form_start(form) }}
-    <fieldset class="well">
+    <fieldset>
         {{ form_errors(form) }}
         <legend>{{ 'glsr.gestock.supplier.form.info'|trans }}</legend>
         <div class="col-md-2">
@@ -33,13 +29,13 @@
             {{ form_widget(form.address) }}<br />
             {{ form_widget(form.zipcode) }} {{ form_widget(form.town) }}
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5"><br />
             <span class="label label-default">
                 {{ 'glsr.gestock.supplier.settings.country'|trans }}
             </span>
         </div>
     </fieldset>
-    <fieldset class="well">
+    <fieldset>
         <legend>{{ 'glsr.gestock.settings.commercial'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
@@ -70,7 +66,7 @@
         </div>
         <div class="col-md-4"></div>
     </fieldset>
-    <fieldset class="well">
+    <fieldset>
         <legend>{{ 'glsr.gestock.settings.administratif'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
@@ -97,7 +93,7 @@
             {{ form_widget(form.mail) }}
         </div>
     </fieldset>
-    <fieldset class="well">
+    <fieldset>
         <legend>{{ 'glsr.gestock.details'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">

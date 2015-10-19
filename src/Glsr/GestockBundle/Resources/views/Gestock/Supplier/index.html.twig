@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block body_title %}
-    {{ 'glsr.gestock.supplier.list'|trans }}
+    <h2>
+    <i class="glyphicon glyphicon-list-alt"></i> {{ 'glsr.gestock.supplier.list'|trans }}
+    </h2>
 {% endblock %}
 
 {% block glstock_body %}
@@ -94,7 +96,7 @@
     {# S'il y a plus d'une page, on affiche la liste des pages #}
     {% if suppliers is defined %}
         {% if nb_page > 1 %}
-            <nav class="text-center">
+            <nav>
                 <ul class="pagination">
                     {# On utilise la fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
                     <li {% if page == 1 %}class="disabled"{% endif %}><a href="{{ path('glstock_suppli_list', {'page': 1}) }}">&laquo;</a></li>

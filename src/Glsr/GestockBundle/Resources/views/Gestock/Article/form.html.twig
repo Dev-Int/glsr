@@ -3,10 +3,6 @@
 {# Cette vue n'hérite de personne, elle sera inclue par d'autres vues qui, elles, hériteront sûrement du layout. #}
 {# Je dis "sûrement" car, ici pour cette vue, on n'en sait rien et c'est une info qui ne nous concerne pas. #}
 
-{% block body_title %}
-    {{ 'glsr.gestock.article.form.title'|trans }}
-{% endblock %}
-
 <div class="well">
     {{ form_start(form, { 'attr' : { 'class':'form-horizontal' } }) }}
         {{ form_errors(form) }}

@@ -3,14 +3,17 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    Settings - {{ parent() }}
+    {{ 'glsr.gestock.supplier.edit.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_js %}
 {% endblock %}
 
 {% block body_title %}
-    {{ 'glsr.gestock.supplier.edit.title'|trans }}
+    <h2>
+        <i class="glyphicon glyphicon-pencil"></i> 
+        {{ 'glsr.gestock.supplier.edit.title'|trans }}
+    </h2>
 {% endblock %}
 
 {% block glstock_body %}

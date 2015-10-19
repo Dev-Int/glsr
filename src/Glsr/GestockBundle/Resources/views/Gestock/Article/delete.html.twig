@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block body_title %}
-    {{ 'glsr.gestock.article.delete.title'|trans }}
+    <h2>
+        <i class="glyphicon glyphicon-trash"></i> 
+        {{ 'glsr.gestock.article.delete.title'|trans }}
+    </h2>
 {% endblock %}
 
 {% block glstock_body %}
@@ -18,7 +21,7 @@
 
     {# On met l'id de l'article dans la route de l'action du formulaire #}
     <form action="{{ path('glstock_art_del', {'id': article.id}) }}" method="post">
-        <a href="{{ path('glstock_art_show', {'name': article.name}) }}" class="btn btn-default" role="button">
+        <a href="{{ path('glstock_art_show', {'slug': article.slug}) }}" class="btn btn-default" role="button">
             <i class="glyphicon glyphicon-chevron-left"></i>
             {{ 'glsr.gestock.article.return'|trans }}
         </a>

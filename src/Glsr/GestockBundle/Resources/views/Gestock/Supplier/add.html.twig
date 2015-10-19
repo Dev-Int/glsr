@@ -3,11 +3,14 @@
 {% extends "GlsrGestockBundle::layout.html.twig" %}
 
 {% block title %}
-    {{ 'glsr.gestock.supplier.title'|trans }} - {{ parent() }}
+    {{ 'glsr.gestock.supplier.create.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
-    {{ 'glsr.gestock.article.create.title'|trans }}
+    <h2>
+        <i class="glyphicon glyphicon-edit"></i> 
+        {{ 'glsr.gestock.supplier.create.title'|trans }}
+    </h2>
 {% endblock %}
 
 {% block glstock_body %}
