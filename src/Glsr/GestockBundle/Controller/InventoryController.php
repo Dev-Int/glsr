@@ -9,9 +9,9 @@
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version   GIT: a4408b1f9fc87a1f93911d80e8421fef1bd96cab
+ * @version   0.1.0
  *
- * @link      https://github.com/GLSR/glsr
+ * @link      https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Controller;
 
@@ -69,14 +69,10 @@ class InventoryController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
 
-        $listarticles = $etm->getRepository('GlsrGestockBundle:Article')
-            ->findAll();
-        $zoneStorages = $etm->getRepository('GlsrGestockBundle:Zonestorage')
-            ->findAll();
-        $inventory = $etm->getRepository('GlsrGestockBundle:Inventory')
-            ->getActive();
-        $settings = $etm->getRepository('GlsrGestockBundle:Settings')
-            ->find(1);
+        $listarticles = $etm->getRepository('GlsrGestockBundle:Article')->findAll();
+        $zoneStorages = $etm->getRepository('GlsrGestockBundle:Zonestorage')->findAll();
+        $inventory = $etm->getRepository('GlsrGestockBundle:Inventory')->getActive();
+        $settings = $etm->getRepository('GlsrGestockBundle:Settings')->find(1);
 
         $daydate = new \DateTime('now');
         if (!is_dir('pdf')) {
@@ -211,15 +207,18 @@ class InventoryController extends Controller
      */
     public function entryAction(Inventory $inventory, $page)
     {
-        // On récupère le nombre d'article par page
-        // depuis un paramètre du conteneur
-        // cf app/config/parameters.yml
-        $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
-
-        $etm = $this->getDoctrine()->getManager();
-        $articles = $etm
-            ->getRepository('GlsrGestockBundle:Inventory')
-            ->getInventoryArticles($nbPerPage, $page);
+//        // On récupère le nombre d'article par page
+//        // depuis un paramètre du conteneur
+//        // cf app/config/parameters.yml
+//        $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
+//
+//        $etm = $this->getDoctrine()->getManager();
+//        $articles = $etm
+//            ->getRepository('GlsrGestockBundle:Inventory')
+//            ->getInventoryArticles($inventory->getId(), $nbPerPage, $page);
+//        $countArticles = $etm->getRepository('GlsrGestockBundle:Inventory')
+//            ->getCountArticles();
+//        var_dump($countArticles);
 
         // Créer le formulaire de saisie : InventoryType
         $form = $this->createForm(new InventoryType(), $inventory);
@@ -261,9 +260,9 @@ class InventoryController extends Controller
         return $this->render(
             'GlsrGestockBundle:Gestock/Inventory:entry.html.twig',
             array(
-                'form' => $form->createView(),
-                'page'     => $page,
-                'nb_page'  => ceil(count($articles) / $nbPerPage) ?: 1,
+                'form'    => $form->createView(),
+//                'page'    => $page,
+//                'nb_page' => ceil(count($articles) / $nbPerPage) ?: 1,
             )
         );
     }

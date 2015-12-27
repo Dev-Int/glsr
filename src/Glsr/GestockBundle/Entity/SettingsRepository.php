@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SettingsRepository Entité Settings.
+ * Entité Settings.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 76a616d67e15e86d43b13c2ad13a13fdecc6584f
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 

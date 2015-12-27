@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SubFamilyLog Entité SubFamilyLog.
+ * Entité SubFamilyLog.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
@@ -29,7 +29,7 @@ use Glsr\GestockBundle\Entity\FamilyLog;
  * @ORM\Table(name="gs_subfamilylog")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\SubFamilyLogRepository")
  */
-class SubFamilyLog
+class SubFamilyLog implements \JsonSerializable
 {
     /**
      * @var int Id de la sous-famille logistique
@@ -154,6 +154,14 @@ class SubFamilyLog
         return $this->familylog;
     }
 
+    public function jsonSerialize()
+    {
+        array(
+            'id'        => $this->id,
+            'name'      => $this->name,
+            'devices'   => $this->familylog->toArray(),
+        );
+    }
     /**
      * Cette méthode permet de faire "echo $subFamilyLog".
      * <p>Ainsi, pour "afficher" $subFamilyLog,

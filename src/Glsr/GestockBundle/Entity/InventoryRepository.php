@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Entité Inventory.
+ * Inventory Entité.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
@@ -43,6 +43,7 @@ class InventoryRepository extends EntityRepository
     /**
      * Affiche les articles de l'inventaire, avec une pagination.
      *
+     * @param Inventory $inventory Inventaire recherché
      * @param int $nbPerPage Nombre d'article par page
      * @param int $page      Numéro de la page en cours
      *
@@ -50,7 +51,7 @@ class InventoryRepository extends EntityRepository
      *
      * @throws \InvalidArgumentException
      */
-    public function getInventoryArticles($nbPerPage, $page)
+    public function getInventoryArticles(Inventory $inventory, $nbPerPage, $page)
     {
         if ($page < 1) {
             throw new \InvalidArgumentException(
@@ -60,9 +61,10 @@ class InventoryRepository extends EntityRepository
         }
 
         $query = $this->createQueryBuilder('i')
-            ->leftjoin('i.articles', 'a')
-            ->addSelect('a')
-            ->where('a.active = 1')
+            ->leftJoin('i.articles', 'a')
+            ->select('a')
+            ->where('i.idInv = :id')
+            ->setParameter('id', $inventory)
             ->orderBy('a.name', 'ASC')
             ->getQuery();
 
@@ -74,5 +76,15 @@ class InventoryRepository extends EntityRepository
         // Et enfin, on retourne l'objet
         // Paginator correspondant à la requête construite
         return new Paginator($query);
+    }
+    
+    public function getCountArticles()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->join('i.articles', 'a')
+            ->select('COUNT(a)')
+            ->groupBy('i.idInv')
+            ->getQuery();
+        return $query->getResult();
     }
 }

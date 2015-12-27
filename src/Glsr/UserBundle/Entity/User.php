@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 2d028e49620749c91f41f3837f4255a2cf8c98bd
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\UserBundle\Entity;
 

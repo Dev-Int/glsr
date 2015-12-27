@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TvaRepository Entité Tva.
+ * Entité Tva.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: e6aa22c616ccc10884c67779f7d35806ca4a8be8
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 

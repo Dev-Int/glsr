@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
@@ -49,14 +49,12 @@ class Inventory
      * @ORM\Column(name="status", type="smallint")
      */
     private $status;
-
     /**
      * @var float Montant de l'inventaire
      *
      * @ORM\Column(name="amount", type="decimal", scale=3, nullable=true)
      */
     private $amount;
-
     /**
      * @var text Fichier pdf de préparation de l'inventaire
      *
@@ -91,10 +89,8 @@ class Inventory
     public function setDate($date)
     {
         $this->date = $date;
-
         return $this;
     }
-
     /**
      * Get date.
      *
@@ -139,7 +135,6 @@ class Inventory
     public function setAmount($amount)
     {
         $this->amount = $amount;
-
         return $this;
     }
 
@@ -162,7 +157,6 @@ class Inventory
     {
         return $this->idInv;
     }
-
     /**
      * Set file.
      *
@@ -173,7 +167,6 @@ class Inventory
     public function setFile($file)
     {
         $this->file = $file;
-
         return $this;
     }
 
@@ -196,7 +189,6 @@ class Inventory
     public function addArticle(InventoryArticles $articles)
     {
         $this->articles[] = $articles;
-
         return $this;
     }
 
@@ -229,7 +221,6 @@ class Inventory
     public function setActive($active)
     {
         $this->active = $active;
-
         return $this;
     }
 }

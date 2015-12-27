@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FamilyLogRepository Entité FamilyLog.
+ * Entité FamilyLog.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: da83befb9097373813d19297c5394eca719db662
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Supplier Entité Supplier.
+ * Entité Supplier.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
@@ -102,7 +102,6 @@ class Supplier extends Contact
     public function setDelaydeliv($delaydeliv)
     {
         $this->delaydeliv = $delaydeliv;
-
         return $this;
     }
 
@@ -126,10 +125,8 @@ class Supplier extends Contact
     public function setOrderdate($orderdate)
     {
         $this->orderdate = $orderdate;
-
         return $this;
     }
-
     /**
      * Get orderdate.
      *
@@ -150,7 +147,6 @@ class Supplier extends Contact
     public function setFamilyLog(FamilyLog $familyLog = null)
     {
         $this->family_log = $familyLog;
-
         return $this;
     }
 
@@ -174,7 +170,6 @@ class Supplier extends Contact
     public function setSubFamilyLog(SubFamilyLog $subFamilyLog = null)
     {
         $this->sub_family_log = $subFamilyLog;
-
         return $this;
     }
 
@@ -197,7 +192,6 @@ class Supplier extends Contact
     public function setSlug($slug)
     {
         $this->slug = $slug;
-
         return $this;
     }
 
@@ -235,7 +229,6 @@ class Supplier extends Contact
     public function setActive($active)
     {
         $this->active = $active;
-
         return $this;
     }
 

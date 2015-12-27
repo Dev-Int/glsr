@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FamilyLog Entité FamilyLog.
+ * Entité FamilyLog.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
@@ -25,7 +25,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="gs_familylog")
  * @ORM\Entity(repositoryClass="Glsr\GestockBundle\Entity\FamilyLogRepository")
  */
-class FamilyLog
+class FamilyLog implements \JsonSerializable
 {
     /**
      * @var int Id de la famille logistique
@@ -75,6 +75,14 @@ class FamilyLog
     public function getName()
     {
         return $this->name;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id'   => $this->id,
+            'name' => $this->name,
+        );
     }
 
     /**

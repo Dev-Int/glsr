@@ -1,7 +1,7 @@
 <?php
 
 /**
- * UnitStorage Entité UnitStorage.
+ * Entité UnitStorage.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 76be3685d475a2e2d7289ef39832d65414e9ba6d
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 

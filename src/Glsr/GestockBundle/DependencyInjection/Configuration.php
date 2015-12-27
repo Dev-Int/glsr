@@ -9,7 +9,7 @@
  * @license    http://opensource.org/licenses/gpl-license.php
  * GNU Public License
  *
- * @version    GIT: 66c30ad5658ae2ccc5f74e6258fa4716d852caf9
+ * @version    0.1.0
  */
 namespace Glsr\GestockBundle\DependencyInjection;
 

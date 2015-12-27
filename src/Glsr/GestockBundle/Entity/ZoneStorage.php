@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ZoneStorage Entité ZoneStorage.
+ * Entité ZoneStorage.
  *
  * PHP Version 5
  *
@@ -9,9 +9,9 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    GIT: 9b742e3da5dc43ee04f077d2a276b76620667745
+ * @version    0.1.0
  *
- * @link       https://github.com/GLSR/glsr
+ * @link       https://github.com/Dev-Int/glsr
  */
 namespace Glsr\GestockBundle\Entity;
 
