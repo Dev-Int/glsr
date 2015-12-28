@@ -207,19 +207,6 @@ class InventoryController extends Controller
      */
     public function entryAction(Inventory $inventory, $page)
     {
-//        // On récupère le nombre d'article par page
-//        // depuis un paramètre du conteneur
-//        // cf app/config/parameters.yml
-//        $nbPerPage = $this->container->getParameter('glsr.nb_per_page');
-//
-//        $etm = $this->getDoctrine()->getManager();
-//        $articles = $etm
-//            ->getRepository('GlsrGestockBundle:Inventory')
-//            ->getInventoryArticles($inventory->getId(), $nbPerPage, $page);
-//        $countArticles = $etm->getRepository('GlsrGestockBundle:Inventory')
-//            ->getCountArticles();
-//        var_dump($countArticles);
-
         // Créer le formulaire de saisie : InventoryType
         $form = $this->createForm(new InventoryType(), $inventory);
 
@@ -261,8 +248,6 @@ class InventoryController extends Controller
             'GlsrGestockBundle:Gestock/Inventory:entry.html.twig',
             array(
                 'form'    => $form->createView(),
-//                'page'    => $page,
-//                'nb_page' => ceil(count($articles) / $nbPerPage) ?: 1,
             )
         );
     }
