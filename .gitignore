@@ -13,3 +13,4 @@ composer.phar
 /web/config.php
 /nbproject/*
 /bin/*
+/web/info.php
