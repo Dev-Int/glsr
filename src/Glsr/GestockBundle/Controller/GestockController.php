@@ -243,7 +243,9 @@ class GestockController extends Controller
                 break;
             }
         }
-        $this->container->get('session')->getFlashBag()->add('warning', $message);
+        if (isset($message)) {
+            $this->container->get('session')->getFlashBag()->add('warning', $message);
+        }
         return $url;
     }
 }
