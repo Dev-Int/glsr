@@ -1,0 +1,7 @@
+## YAML Template.
+---
+gestock:
+    orders:
+        title: "Gérer les commandes"
+        form:
+            date_order: Date de commande

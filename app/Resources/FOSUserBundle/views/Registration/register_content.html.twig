@@ -1,0 +1,34 @@
+<form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal">
+    <div class="panel-body">
+        <div class="controls-row">
+            <label for="username" class="control-label">
+                {{ 'form.username'|trans({}, 'FOSUserBundle') }}
+            </label>
+            {{ form_widget(form.username) }}
+        </div>
+        <div class="controls-row">
+            <label for="username" class="control-label">
+                {{ 'form.email'|trans({}, 'FOSUserBundle') }}
+            </label>
+            {{ form_widget(form.email) }}
+        </div>
+        <div class="controls-row">
+            <label for="password" class="control-label">
+                {{ 'form.password'|trans({}, 'FOSUserBundle') }}
+            </label>
+            {{ form_widget(form.plainPassword.first) }}
+        </div>
+        <div class="controls-row">
+            <label for="password" class="control-label">
+                {{ 'form.password_confirmation'|trans({}, 'FOSUserBundle') }}
+            </label>
+            {{ form_widget(form.plainPassword.second) }}
+        </div>
+            {{ form_rest(form) }}
+    </div>
+    <footer class="text-right">
+        <button type="submit" id="_submit" name="_submit" class="btn btn-primary">
+            {{ 'registration.submit'|trans({}, 'FOSUserBundle') }}
+        </button>
+    </footer>
+</form>

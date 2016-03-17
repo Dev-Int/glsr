@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'layout.login'|trans({}, 'FOSUserBundle') }} - {{ parent() }}
+{% endblock title %}
+
+{% block glstock_body %}
+    {# On affiche les messages flash #}
+    {% for key, message in app.session.flashbag.all() %}
+        <div class="alert alert-{{ key }}">
+            {{ message|trans({}, 'FOSUserBundle') }}
+        </div>
+    {% endfor %}
+
+    {# On définit ce block, dans lequel vont venir s'insérer les autres vues du bundle #}
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+
+{% endblock glstock_body %}

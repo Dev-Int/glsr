@@ -1,0 +1,5 @@
+## YAML Template.
+---
+gestock:
+    delivery:
+        title: "Gérer les réceptions"

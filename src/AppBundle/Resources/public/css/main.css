@@ -1,0 +1,57 @@
+body {
+    padding-top: 70px;
+}
+
+fieldset > section.col-md-12 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > th {
+    line-height: 2;
+}
+
+.table-bordered > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.table-bordered > tfoot > tr > td {
+    line-height: 1.5;
+}
+
+label {
+    padding-right: 10px;
+}
+label.required:before {
+    content: "* ";
+}
+input[type='text'].inventory {
+    width: 85%!important;
+}
+.col-lg-3 input[type='text'].inventory {
+    width: 100%!important;
+}
+
+input[type='text'].negative {
+    color: red!important;
+    font-weight: bold!important;
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+i.danger {
+    color: white;
+}
+
+.navbar-brand {
+    font-size: 20px !important;
+}
