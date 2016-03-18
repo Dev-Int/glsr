@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'Settings'}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
+    {{ '%entity% list'|trans({'%entity%': 'Settings'}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-striped table-hover table-bordered records_list">
+        <thead>
+            <tr>
+                <th scope="col">{{ 'gestock.settings.application.style_inventory'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.application.calculation'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.application.first_inventory.title'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.application.currency'|trans }}</th>
+                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for settings in entities %}
+                <tr>
+                    <td>{{ settings.inventoryStyle }}</td>
+                    <td>{{ settings.calculation }}</td>
+                    <td>{% if settings.firstInventory %}{{ settings.firstInventory|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ settings.currency }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_application_show', {id: settings.id}) }}">
+                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_application_edit', {id: settings.id}) }}">
+                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <ul class="new_entry list-unstyled">
+        {% if ctEntity < 1 %}
+            <li>
+                <a class="btn btn-info" href="{{ path('admin_application_new') }}">
+                    <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+                </a>
+            </li>
+        {% endif %}
+            <li>
+                <a class="btn btn-default" href="{{ path('_home') }}">
+                    <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;
+                    {{ 'gestock.home.return'|trans({}, 'messages') }}
+                </a>
+            </li>
+        </ul>
+    
+{% endblock %}
