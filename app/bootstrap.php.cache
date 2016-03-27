@@ -481,7 +481,7 @@ $this->format = null;
 public static function createFromGlobals()
 {
 $server = $_SERVER;
-if ('cli-server'=== php_sapi_name()) {
+if ('cli-server'=== PHP_SAPI) {
 if (array_key_exists('HTTP_CONTENT_LENGTH', $_SERVER)) {
 $server['CONTENT_LENGTH'] = $_SERVER['HTTP_CONTENT_LENGTH'];
 }
@@ -764,6 +764,7 @@ $clientIps[$key] = $clientIp = $match[1];
 }
 if (!filter_var($clientIp, FILTER_VALIDATE_IP)) {
 unset($clientIps[$key]);
+continue;
 }
 if (IpUtils::checkIp($clientIp, self::$trustedProxies)) {
 unset($clientIps[$key]);
@@ -977,14 +978,18 @@ return isset(static::$formats[$format]) ? static::$formats[$format][0] : null;
 }
 public function getFormat($mimeType)
 {
+$canonicalMimeType = null;
 if (false !== $pos = strpos($mimeType,';')) {
-$mimeType = substr($mimeType, 0, $pos);
+$canonicalMimeType = substr($mimeType, 0, $pos);
 }
 if (null === static::$formats) {
 static::initializeFormats();
 }
 foreach (static::$formats as $format => $mimeTypes) {
 if (in_array($mimeType, (array) $mimeTypes)) {
+return $format;
+}
+if (null !== $canonicalMimeType && in_array($canonicalMimeType, (array) $mimeTypes)) {
 return $format;
 }
 }
@@ -1389,8 +1394,7 @@ public static $statusTexts = array(
 415 =>'Unsupported Media Type',
 416 =>'Requested Range Not Satisfiable',
 417 =>'Expectation Failed',
-418 =>'I\'m a teapot', 422 =>'Unprocessable Entity', 423 =>'Locked', 424 =>'Failed Dependency', 425 =>'Reserved for WebDAV advanced collections expired proposal', 426 =>'Upgrade Required', 428 =>'Precondition Required', 429 =>'Too Many Requests', 431 =>'Request Header Fields Too Large', 451 =>'Unavailable For Legal Reasons',
-500 =>'Internal Server Error',
+418 =>'I\'m a teapot', 422 =>'Unprocessable Entity', 423 =>'Locked', 424 =>'Failed Dependency', 425 =>'Reserved for WebDAV advanced collections expired proposal', 426 =>'Upgrade Required', 428 =>'Precondition Required', 429 =>'Too Many Requests', 431 =>'Request Header Fields Too Large', 451 =>'Unavailable For Legal Reasons', 500 =>'Internal Server Error',
 501 =>'Not Implemented',
 502 =>'Bad Gateway',
 503 =>'Service Unavailable',
@@ -2192,9 +2196,8 @@ return isset($this->services[$id]) || array_key_exists($id, $this->services);
 public function getServiceIds()
 {
 $ids = array();
-$r = new \ReflectionClass($this);
-foreach ($r->getMethods() as $method) {
-if (preg_match('/^get(.+)Service$/', $method->name, $match)) {
+foreach (get_class_methods($this) as $method) {
+if (preg_match('/^get(.+)Service$/', $method, $match)) {
 $ids[] = self::underscore($match[1]);
 }
 }
@@ -2374,11 +2377,11 @@ protected $booted = false;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
-const VERSION ='2.7.10';
-const VERSION_ID = 20710;
+const VERSION ='2.7.11';
+const VERSION_ID = 20711;
 const MAJOR_VERSION = 2;
 const MINOR_VERSION = 7;
-const RELEASE_VERSION = 10;
+const RELEASE_VERSION = 11;
 const EXTRA_VERSION ='';
 const END_OF_MAINTENANCE ='05/2018';
 const END_OF_LIFE ='05/2019';
@@ -2726,10 +2729,7 @@ $dumper = new PhpDumper($container);
 if (class_exists('ProxyManager\Configuration') && class_exists('Symfony\Bridge\ProxyManager\LazyProxy\PhpDumper\ProxyDumper')) {
 $dumper->setProxyDumper(new ProxyDumper(md5($cache->getPath())));
 }
-$content = $dumper->dump(array('class'=> $class,'base_class'=> $baseClass,'file'=> $cache->getPath()));
-if (!$this->debug) {
-$content = static::stripComments($content);
-}
+$content = $dumper->dump(array('class'=> $class,'base_class'=> $baseClass,'file'=> $cache->getPath(),'debug'=> $this->debug));
 $cache->write($content, $container->getResources());
 }
 protected function getContainerLoader(ContainerInterface $container)
