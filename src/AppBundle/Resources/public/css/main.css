@@ -55,3 +55,24 @@ i.danger {
 .navbar-brand {
     font-size: 20px !important;
 }
+
+.btn-edit:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f044';
+    margin-right: 4px;
+}
+.btn-create:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f067';
+    margin-right: 4px;
+}
