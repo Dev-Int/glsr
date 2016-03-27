@@ -77,7 +77,7 @@ class SubFamilyLog implements \JsonSerializable
         array(
             'id'        => $this->id,
             'name'      => $this->name,
-            'devices'   => $this->familylog->toArray(),
+            'devices'   => $this->familylogs->toArray(),
         );
     }
     /**
@@ -156,7 +156,7 @@ class SubFamilyLog implements \JsonSerializable
      * @param \AppBundle\Entity\FamilyLog $familylogs
      * @return SubFamilyLog
      */
-    public function setFamilylogs(\AppBundle\Entity\FamilyLog $familylogs)
+    public function setFamilylogs(FamilyLog $familylogs)
     {
         $this->familylogs = $familylogs;
 

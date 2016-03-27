@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-tag"></span>&nbsp;
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-striped table-hover table-bordered records_list">
+        <thead>
+            <tr>
+                <th scope="col" class="col-md-10">Name</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for familylog in entities %}
+                <tr>
+                    <td><a href="{{ path('admin_familylog_show', {slug: familylog.slug}) }}">{{ familylog.name }}</a></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_familylog_show', {slug: familylog.slug}) }}">
+                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_familylog_edit', {slug: familylog.slug}) }}">
+                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <ul class="new_entry list-unstyled">
+        <li>
+            <a class="btn btn-info" href="{{ path('admin_familylog_new') }}">
+                <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+            </a>
+        </li>
+    </ul>
+    
+{% endblock %}
