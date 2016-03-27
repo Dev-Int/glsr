@@ -72,7 +72,7 @@ class MenuBuilder extends ContainerAware
                     'route' => 'admin_zonestorage',
                     'label' => 'gestock.settings.diverse.zonestorage'
                 ))
-                ->setAttribute('icon', 'glyphicon glyphicon-globe');
+                ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
 
             $menu['entities']
                 ->addChild('divider')
