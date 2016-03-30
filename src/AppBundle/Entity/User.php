@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="fos_user.email.already_used", groups={"Default", "Registration", "Profile"})
  */
 class User extends BaseUser
-{ 
+{
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -141,7 +141,7 @@ class User extends BaseUser
         return $this;
     }
  
-    function setGroups(Collection $groups = null)
+    public function setGroups(Collection $groups = null)
     {
         if ($groups !== null) {
             $this->groups = $groups;
