@@ -115,5 +115,4 @@ class MenuBuilder extends ContainerAware
  
         return $menu;
     }
- 
 }

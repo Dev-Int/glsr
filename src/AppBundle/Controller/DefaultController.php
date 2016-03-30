@@ -30,7 +30,8 @@ class DefaultController extends Controller
 {
     private $entities;
     
-    public function __construct() {
+    public function __construct()
+    {
         // Tableau des entitées
         $this->entities = array(
             'AppBundle:User',
@@ -56,7 +57,7 @@ class DefaultController extends Controller
         /**
          * Test d'installation
          */
-        $url = $this->testEntities();
+//        $url = $this->testEntities();
         if (empty($url)) {
             $url = $this->render('default/index.html.twig');
         } else {
@@ -87,9 +88,11 @@ class DefaultController extends Controller
             if (empty($entityData)) {
                 $message = 'gestock.install.none';
 //                $url = 'gs_install'; break;
+                $url = '_home'; break;
             } elseif ($index === 10 && $entityData->getFirstInventory() === null) {
                 $message = 'gestock.settings.application.first_inventory.none';
-                $url = 'gestock_inventory_prepare'; break;
+//                $url = 'gestock_inventory_prepare'; break;
+                $url = '_home'; break;
             }
         }
         if (isset($message)) {

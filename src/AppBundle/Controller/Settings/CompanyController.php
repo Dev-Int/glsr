@@ -177,5 +177,4 @@ class CompanyController extends Controller
             ->getForm()
         ;
     }
-
 }

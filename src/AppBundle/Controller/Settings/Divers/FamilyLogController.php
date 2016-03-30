@@ -86,7 +86,10 @@ class FamilyLogController extends Controller
             $em->flush();
 
             if ($form->get('save')->isClicked()) {
-                $url = $this->redirect($this->generateUrl('admin_familylog_show', array('slug' => $familylog->getSlug())));
+                $url = $this->redirect($this->generateUrl(
+                    'admin_familylog_show',
+                    array('slug' => $familylog->getSlug())
+                ));
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirect($this->generateUrl('admin_familylog_new'));
@@ -110,7 +113,10 @@ class FamilyLogController extends Controller
     public function editAction(FamilyLog $familylog)
     {
         $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
-            'action' => $this->generateUrl('admin_familylog_update', array('slug' => $familylog->getSlug())),
+            'action' => $this->generateUrl(
+                'admin_familylog_update',
+                array('slug' => $familylog->getSlug())
+            ),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
@@ -132,13 +138,19 @@ class FamilyLogController extends Controller
     public function updateAction(FamilyLog $familylog, Request $request)
     {
         $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
-            'action' => $this->generateUrl('admin_familylog_update', array('slug' => $familylog->getSlug())),
+            'action' => $this->generateUrl(
+                'admin_familylog_update',
+                array('slug' => $familylog->getSlug())
+            ),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_familylog_edit', array('slug' => $familylog->getSlug())));
+            return $this->redirect($this->generateUrl(
+                'admin_familylog_edit',
+                array('slug' => $familylog->getSlug())
+            ));
         }
         $deleteForm = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
 
@@ -182,5 +194,4 @@ class FamilyLogController extends Controller
             ->getForm()
         ;
     }
-
 }

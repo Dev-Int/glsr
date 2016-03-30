@@ -22,8 +22,7 @@ class RequestVoter implements VoterInterface
         if ($item->getUri() === $request->getRequestUri()) {
             // URL's completely match
             return true;
-        } else if (
-            $item->getUri() !== $request->getBaseUrl() . '/' &&
+        } elseif ($item->getUri() !== $request->getBaseUrl() . '/' &&
             substr($request->getRequestUri(), 0, strlen($item->getUri()))
             === $item->getUri()) {
             // URL isn't just "/" and the first part of the URL match
@@ -32,5 +31,4 @@ class RequestVoter implements VoterInterface
  
         return null;
     }
- 
 }

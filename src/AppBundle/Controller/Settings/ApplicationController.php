@@ -178,5 +178,4 @@ class ApplicationController extends Controller
             ->getForm()
         ;
     }
-
 }

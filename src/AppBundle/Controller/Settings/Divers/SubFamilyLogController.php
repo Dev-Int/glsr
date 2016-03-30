@@ -88,7 +88,12 @@ class SubFamilyLogController extends Controller
             $em->flush();
 
             if ($form->get('save')->isClicked()) {
-                $url = $this->redirect($this->generateUrl('admin_subfamilylog_show', array('slug' => $subfamilylog->getSlug())));
+                $url = $this->redirect(
+                    $this->generateUrl(
+                        'admin_subfamilylog_show',
+                        array('slug' => $subfamilylog->getSlug())
+                    )
+                );
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirect($this->generateUrl('admin_subfamilylog_new'));
@@ -112,7 +117,10 @@ class SubFamilyLogController extends Controller
     public function editAction(SubFamilyLog $subfamilylog)
     {
         $editForm = $this->createForm(new SubFamilyLogType(), $subfamilylog, array(
-            'action' => $this->generateUrl('admin_subfamilylog_update', array('slug' => $subfamilylog->getSlug())),
+            'action' => $this->generateUrl(
+                'admin_subfamilylog_update',
+                array('slug' => $subfamilylog->getSlug())
+            ),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($subfamilylog->getId(), 'admin_subfamilylog_delete');
@@ -134,13 +142,19 @@ class SubFamilyLogController extends Controller
     public function updateAction(SubFamilyLog $subfamilylog, Request $request)
     {
         $editForm = $this->createForm(new SubFamilyLogType(), $subfamilylog, array(
-            'action' => $this->generateUrl('admin_subfamilylog_update', array('slug' => $subfamilylog->getSlug())),
+            'action' => $this->generateUrl(
+                'admin_subfamilylog_update',
+                array('slug' => $subfamilylog->getSlug())
+            ),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_subfamilylog_edit', array('slug' => $subfamilylog->getSlug())));
+            return $this->redirect($this->generateUrl(
+                'admin_subfamilylog_edit',
+                array('slug' => $subfamilylog->getSlug())
+            ));
         }
         $deleteForm = $this->createDeleteForm($subfamilylog->getId(), 'admin_subfamilylog_delete');
 
@@ -171,7 +185,10 @@ class SubFamilyLogController extends Controller
      */
     protected function setOrder($name, $field, $type = 'ASC')
     {
-        $this->getRequest()->getSession()->set('sort.' . $name, array('field' => $field, 'type' => $type));
+        $this->getRequest()->getSession()->set(
+            'sort.' . $name,
+            array('field' => $field, 'type' => $type)
+        );
     }
 
     /**
@@ -230,5 +247,4 @@ class SubFamilyLogController extends Controller
             ->getForm()
         ;
     }
-
 }
