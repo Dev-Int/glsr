@@ -202,7 +202,6 @@ class GroupController extends Controller
     {
         $form = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
         
-        // @TODO refactoriser dans le modèle
         $em = $this->getDoctrine()->getManager();
         $users = $group->getUsers();
         foreach ($users as $user) {
