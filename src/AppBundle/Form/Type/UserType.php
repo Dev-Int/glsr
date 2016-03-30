@@ -30,10 +30,10 @@ class UserType extends AbstractType
                 'class' => 'AppBundle\Entity\Group'))
         ;
         if ($options['lockedRequired']) {
-            $builder->add('locked', null, array('required' => false, 
+            $builder->add('locked', null, array('required' => false,
                 'label' => 'Vérouiller le compte'));
         }
-    }  
+    }
 
     /**
      * {@inheritdoc}

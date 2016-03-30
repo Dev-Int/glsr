@@ -102,7 +102,7 @@ class ZoneStorage
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {

@@ -25,8 +25,8 @@ class LoginListener implements EventSubscriberInterface
         );
     }
  
-    protected function updateUser($user) {
-         
+    protected function updateUser($user)
+    {
         if (!$user->getLoginCount()) {
             $user->setFirstLogin(new \DateTime());
         }
@@ -41,7 +41,8 @@ class LoginListener implements EventSubscriberInterface
         $this->updateUser($event->getUser());
     }
      
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event) {
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    {
         $user = $event->getAuthenticationToken()->getUser();
         //if ($user instanceof UserInterface)
         $this->updateUser($user);

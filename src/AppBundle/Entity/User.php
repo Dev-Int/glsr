@@ -11,11 +11,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
- * @UniqueEntity(fields="usernameCanonical", errorPath="username", message="fos_user.username.already_used", groups={"Default", "Registration", "Profile"})
- * @UniqueEntity(fields="emailCanonical", errorPath="email", message="fos_user.email.already_used", groups={"Default", "Registration", "Profile"})
+ * @UniqueEntity(fields="usernameCanonical", errorPath="username",
+ *     message="fos_user.username.already_used", groups={"Default", "Registration", "Profile"})
+ * @UniqueEntity(fields="emailCanonical", errorPath="email",
+ *     message="fos_user.email.already_used", groups={"Default", "Registration", "Profile"})
  */
-class User extends BaseUser {
- 
+class User extends BaseUser
+{ 
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -44,7 +46,8 @@ class User extends BaseUser {
      */
     protected $firstLogin;
  
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->groups = new ArrayCollection();
     }
@@ -56,7 +59,8 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setLoginCount($loginCount) {
+    public function setLoginCount($loginCount)
+    {
         $this->loginCount = $loginCount;
         return $this;
     }
@@ -66,7 +70,8 @@ class User extends BaseUser {
      *
      * @return integer
      */
-    public function getLoginCount() {
+    public function getLoginCount()
+    {
         return $this->loginCount;
     }
  
@@ -77,7 +82,8 @@ class User extends BaseUser {
      *
      * @return User
      */
-    public function setFirstLogin($firstLogin) {
+    public function setFirstLogin($firstLogin)
+    {
         $this->firstLogin = $firstLogin;
         return $this;
     }
@@ -87,52 +93,63 @@ class User extends BaseUser {
      *
      * @return \DateTime
      */
-    public function getFirstLogin() {
+    public function getFirstLogin()
+    {
         return $this->firstLogin;
     }
  
-    function getEnabled() {
+    public function getEnabled()
+    {
         return $this->enabled;
     }
  
-    function getLocked() {
+    public function getLocked()
+    {
         return $this->locked;
     }
  
-    function getExpired() {
+    public function getExpired()
+    {
         return $this->expired;
     }
  
-    function getExpiresAt() {
+    public function getExpiresAt()
+    {
         return $this->expiresAt;
     }
  
-    function getCredentialsExpired() {
+    public function getCredentialsExpired()
+    {
         return $this->credentialsExpired;
     }
  
-    function getCredentialsExpireAt() {
+    public function getCredentialsExpireAt()
+    {
         return $this->credentialsExpireAt;
     }
  
-    function setSalt($salt) {
+    public function setSalt($salt)
+    {
         $this->salt = $salt;
     }
  
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         if ($password !== null) {
             $this->password = $password;
         }
         return $this;
     }
  
-    function setGroups(Collection $groups = null) {
+    function setGroups(Collection $groups = null)
+    {
         if ($groups !== null) {
             $this->groups = $groups;
         }
     }
  
-    public function setRoles(array $roles = array()) {
+    public function setRoles(array $roles = array())
+    {
         $this->roles = array();
         foreach ($roles as $role) {
             $this->addRole($role);
@@ -140,8 +157,8 @@ class User extends BaseUser {
         return $this;
     }
  
-    public function hasGroup($name = '') {
+    public function hasGroup($name = '')
+    {
         return in_array($name, $this->getGroupNames());
     }
- 
 }

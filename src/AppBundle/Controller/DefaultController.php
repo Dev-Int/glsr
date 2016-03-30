@@ -77,9 +77,7 @@ class DefaultController extends Controller
         $url = null;
         $etm = $this->getDoctrine()->getManager();
         // vérifie que les Entitées ne sont pas vides
-        $nbEntities = count($this->entities);
-
-        for ($index = 0; $index < $nbEntities; $index++) {
+        for ($index = 0; $index < count($this->entities); $index++) {
             $entity = $etm->getRepository(
                 $this->entities[$index]
             );
@@ -88,11 +86,13 @@ class DefaultController extends Controller
             if (empty($entityData)) {
                 $message = 'gestock.install.none';
 //                $url = 'gs_install'; break;
-                $url = '_home'; break;
+                $url = '_home';
+                break;
             } elseif ($index === 10 && $entityData->getFirstInventory() === null) {
                 $message = 'gestock.settings.application.first_inventory.none';
 //                $url = 'gestock_inventory_prepare'; break;
-                $url = '_home'; break;
+                $url = '_home';
+                break;
             }
         }
         if (isset($message)) {

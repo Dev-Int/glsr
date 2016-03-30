@@ -14,10 +14,29 @@ class UserFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder ->add('username', 'filter_text', array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle', 'attr' => array('class' => 'pull-right')))
-            ->add('email', 'filter_text', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle', 'attr' => array('class' => 'pull-right')))
-            ->add('enabled', 'filter_boolean', array('label' => 'Autorisé'))
-            ->add('groups', 'filter_entity', array(
+        $builder ->add(
+            'username',
+            'filter_text',
+            array(
+                'label' => 'form.username',
+                'translation_domain' => 'FOSUserBundle',
+                'attr' => array('class' => 'pull-right')
+            )
+        )
+        ->add(
+            'email',
+            'filter_text',
+            array(
+                'label' => 'form.email',
+                'translation_domain' => 'FOSUserBundle',
+                'attr' => array('class' => 'pull-right')
+            )
+        )
+        ->add('enabled', 'filter_boolean', array('label' => 'Autorisé'))
+        ->add(
+            'groups',
+            'filter_entity',
+            array(
                 'label' => 'Groupes',
                 'class' => 'AppBundle\Entity\Group',
                 'expanded' => true,
@@ -30,8 +49,8 @@ class UserFilterType extends AbstractType
                         $query->orWhere($query->expr()->in('m.id', $value->getId()));
                     }
                 },
-            ))
-        ;
+            )
+        );
     }
 
     /**

@@ -18,7 +18,8 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $this->container = $container;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return 0;
     }
 
@@ -37,5 +38,5 @@ class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setPlainPassword('somepass');
 
         $userManager->updateUser($user);
-    }     
+    }
 }

@@ -148,7 +148,7 @@ class UnitStorage
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {

@@ -97,7 +97,7 @@ class SubFamilyLog implements \JsonSerializable
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,7 +120,7 @@ class SubFamilyLog implements \JsonSerializable
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -143,7 +143,7 @@ class SubFamilyLog implements \JsonSerializable
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -166,7 +166,7 @@ class SubFamilyLog implements \JsonSerializable
     /**
      * Get familylogs
      *
-     * @return \AppBundle\Entity\FamilyLog 
+     * @return \AppBundle\Entity\FamilyLog
      */
     public function getFamilylogs()
     {
