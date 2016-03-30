@@ -77,7 +77,8 @@ class DefaultController extends Controller
         $url = null;
         $etm = $this->getDoctrine()->getManager();
         // vérifie que les Entitées ne sont pas vides
-        for ($index = 0; $index < count($this->entities); $index++) {
+        $nbEntities = count($this->entities);
+        for ($index = 0; $index < $nbEntities; $index++) {
             $entity = $etm->getRepository(
                 $this->entities[$index]
             );
