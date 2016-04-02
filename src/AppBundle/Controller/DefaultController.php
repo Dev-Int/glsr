@@ -54,6 +54,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $url = "";
         /**
          * Test d'installation
          */
@@ -61,7 +62,7 @@ class DefaultController extends Controller
         if (empty($url)) {
             $url = $this->render('default/index.html.twig');
         } else {
-            $url = $this->redirect($this->generateUrl($url));
+            $url = $this->redirectToRoute($url);
         }
         // replace this example code with whatever you need
         return $url;
@@ -97,7 +98,7 @@ class DefaultController extends Controller
             }
         }
         if (isset($message)) {
-            $this->container->get('session')->getFlashBag()->add('warning', $message);
+            $this->addFlash('warning', $message);
         }
         return $url;
     }

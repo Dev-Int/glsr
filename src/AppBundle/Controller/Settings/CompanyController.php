@@ -86,7 +86,7 @@ class CompanyController extends Controller
             $em->persist($company);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_company_show', array('id' => $company->getId())));
+            return $this->redirectToRoute('admin_company_show', array('id' =>$company->getId()));
         }
 
         return array(
@@ -133,7 +133,7 @@ class CompanyController extends Controller
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_company_edit', array('id' => $company->getId())));
+            return $this->redirectToRoute('admin_company_show', array('id' => $company->getId()));
         }
         $deleteForm = $this->createDeleteForm($company->getId(), 'admin_company_delete');
 
@@ -159,7 +159,7 @@ class CompanyController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_company'));
+        return $this->redirectToRoute('admin_company');
     }
 
     /**

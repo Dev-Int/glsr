@@ -95,12 +95,7 @@ class UserController extends Controller
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirect(
-                $this->generateUrl(
-                    'admin_users_show',
-                    array('id' => $user->getId())
-                )
-            );
+            return $this->redirectToRoute('admin_users_show', array('id', $user->getId()));
         }
 
         return array(
@@ -152,7 +147,7 @@ class UserController extends Controller
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirect($this->generateUrl('admin_users_edit', array('id' => $user->getId())));
+            return $this->redirectToRoute('admin_users_edit', array('id' => $user->getId()));
         }
         $deleteForm = $this->createDeleteForm($user->getId(), 'admin_users_delete');
 
@@ -173,7 +168,7 @@ class UserController extends Controller
     {
         $this->setOrder('user', $field, $type);
 
-        return $this->redirect($this->generateUrl('admin_users'));
+        return $this->redirectToRoute('admin_users');
     }
 
     /**
@@ -212,15 +207,20 @@ class UserController extends Controller
     /**
      * Save filters
      *
+     * @param  Request       $request Request
      * @param  FormInterface $form
-     * @param  string        $name   route/entity name
-     * @param  string        $route  route name, if different from entity name
-     * @param  array         $params possible route parameters
+     * @param  string        $name    route/entity name
+     * @param  string        $route   route name, if different from entity name
+     * @param  array         $params  possible route parameters
      * @return Response
      */
-    protected function saveFilter(FormInterface $form, $name, $route = null, array $params = null)
+    protected function saveFilter(
+        Request $request,
+        FormInterface $form,
+        $name,
+        $route = null,
+        array $params = null)
     {
-        $request = $this->getRequest();
         $url = $this->generateUrl($route ?: $name, is_null($params) ? array() : $params);
         if ($request->query->has('submit-filter') && $form->handleRequest($request)->isValid()) {
             $request->getSession()->set('filter.' . $name, $request->query->get($form->getName()));
@@ -281,7 +281,7 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_users'));
+        return $this->redirectToRoute('admin_users');
     }
 
     /**

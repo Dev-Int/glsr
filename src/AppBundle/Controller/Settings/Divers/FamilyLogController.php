@@ -92,7 +92,7 @@ class FamilyLogController extends Controller
                 ));
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirect($this->generateUrl('admin_familylog_new'));
+                $url = $this->redirectToRoute('admin_familylog_new');
             }
             return $url;
         }
@@ -135,27 +135,24 @@ class FamilyLogController extends Controller
      * @Method("PUT")
      * @Template("AppBundle:FamilyLog:edit.html.twig")
      */
-    public function updateAction(FamilyLog $familylog, Request $request)
+    public function updateAction(FamilyLog $famlog, Request $request)
     {
-        $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
+        $editForm = $this->createForm(new FamilyLogType(), $famlog, array(
             'action' => $this->generateUrl(
                 'admin_familylog_update',
-                array('slug' => $familylog->getSlug())
+                array('slug' => $famlog->getSlug())
             ),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl(
-                'admin_familylog_edit',
-                array('slug' => $familylog->getSlug())
-            ));
+            return $this->redirectToRoute('admin_familylog_edit', array('slug' => $famlog->getSlug()));
         }
-        $deleteForm = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
+        $deleteForm = $this->createDeleteForm($famlog->getId(), 'admin_familylog_delete');
 
         return array(
-            'familylog' => $familylog,
+            'familylog' => $famlog,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -176,7 +173,7 @@ class FamilyLogController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_familylog'));
+        return $this->redirectToRoute('admin_familylog');
     }
 
     /**

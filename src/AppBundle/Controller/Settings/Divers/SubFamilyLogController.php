@@ -88,15 +88,10 @@ class SubFamilyLogController extends Controller
             $em->flush();
 
             if ($form->get('save')->isClicked()) {
-                $url = $this->redirect(
-                    $this->generateUrl(
-                        'admin_subfamilylog_show',
-                        array('slug' => $subfamilylog->getSlug())
-                    )
-                );
+                $url = $this->redirectToRoute('admin_subfamilylog_show', array('slug' => $subfamilylog->getSlug()));
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirect($this->generateUrl('admin_subfamilylog_new'));
+                $url = $this->redirectToRoute('admin_subfamilylog_new');
             }
             return $url;
         }
@@ -151,10 +146,7 @@ class SubFamilyLogController extends Controller
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl(
-                'admin_subfamilylog_edit',
-                array('slug' => $subfamilylog->getSlug())
-            ));
+            return $this->redirectToRoute('admin_subfamilylog_edit', array('slug' => $subfamilylog->getSlug()));
         }
         $deleteForm = $this->createDeleteForm($subfamilylog->getId(), 'admin_subfamilylog_delete');
 
@@ -175,7 +167,7 @@ class SubFamilyLogController extends Controller
     {
         $this->setOrder('subfamilylog', $field, $type);
 
-        return $this->redirect($this->generateUrl('admin_subfamilylog'));
+        return $this->redirectToRoute('admin_subfamilylog');
     }
 
     /**
@@ -229,7 +221,7 @@ class SubFamilyLogController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_subfamilylog'));
+        return $this->redirectToRoute('admin_subfamilylog');
     }
 
     /**

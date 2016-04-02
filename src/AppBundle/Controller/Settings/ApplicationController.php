@@ -87,7 +87,7 @@ class ApplicationController extends Controller
             $em->persist($settings);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_application_show', array('id' => $settings->getId())));
+            return $this->redirectToRoute('admin_application_show', array('id' => $settings->getId()));
         }
 
         return array(
@@ -134,7 +134,7 @@ class ApplicationController extends Controller
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_application_edit', array('id' => $settings->getId())));
+            return $this->redirectToRoute('admin_application_edit', array('id' => $settings->getId()));
         }
         $deleteForm = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
 
@@ -160,7 +160,7 @@ class ApplicationController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_application'));
+        return $this->redirectToRoute('admin_application');
     }
 
     /**

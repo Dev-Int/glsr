@@ -29,9 +29,7 @@ class GroupController extends Controller
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AppBundle:Group')->findAll();
         
-        return array(
-            'entities'  => $entities,
-        );
+        return array('entities'  => $entities);
     }
 
     /**
@@ -103,12 +101,7 @@ class GroupController extends Controller
             $em->persist($group);
             $em->flush();
 
-            return $this->redirect(
-                $this->generateUrl(
-                    'admin_groups_show',
-                    array('id' => $group->getId())
-                )
-            );
+            return $this->redirectToRoute('admin_groups_show', array('id', $group->getId()));
         }
 
         return array(
@@ -145,10 +138,7 @@ class GroupController extends Controller
             'multiple' => true,
             'mapped' => true,
         ));
-        $deleteForm = $this->createDeleteForm(
-            $group->getId(),
-            'admin_groups_delete'
-        );
+        $deleteForm = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
 
         return array(
             'group' => $group,
@@ -181,7 +171,7 @@ class GroupController extends Controller
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_groups_edit', array('id' => $group->getId())));
+            return $this->redirectToRoute('admin_groups_edit', array('id' => $group->getId()));
         }
         $deleteForm = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
 
@@ -217,7 +207,7 @@ class GroupController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_groups'));
+        return $this->redirectToRoute('admin_groups');
     }
 
     /**
