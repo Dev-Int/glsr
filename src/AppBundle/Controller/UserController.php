@@ -219,8 +219,8 @@ class UserController extends Controller
         FormInterface $form,
         $name,
         $route = null,
-        array $params = null)
-    {
+        array $params = null
+    ) {
         $url = $this->generateUrl($route ?: $name, is_null($params) ? array() : $params);
         if ($request->query->has('submit-filter') && $form->handleRequest($request)->isValid()) {
             $request->getSession()->set('filter.' . $name, $request->query->get($form->getName()));
