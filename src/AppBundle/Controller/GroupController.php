@@ -235,6 +235,7 @@ class GroupController extends Controller
     {
         $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
         $roles = array_keys($roleHierarchy);
+        $theRoles = array();
 
         foreach ($roles as $role) {
             $theRoles[$role] = $role;
