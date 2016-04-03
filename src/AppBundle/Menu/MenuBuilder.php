@@ -74,6 +74,13 @@ class MenuBuilder extends ContainerAware
                 ))
                 ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
 
+            $divers
+                ->addChild('unitstorage', array(
+                    'route' => 'admin_unitstorage',
+                    'label' => 'gestock.settings.diverse.unitstorage'
+                ))
+                ->setAttribute('icon', 'fa fa-cubes');
+
             $menu['entities']
                 ->addChild('divider')
                 ->setAttribute('class', 'divider');
