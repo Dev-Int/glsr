@@ -146,6 +146,7 @@ class CompanyController extends Controller
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.settings.edit_ok');
 
             return $this->redirectToRoute('admin_company_show', array('id' => $company->getId()));
         }
