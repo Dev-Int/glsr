@@ -221,10 +221,10 @@ class UserController extends Controller
     /**
      * Save filters
      *
-     * @param  Request       $request Request
      * @param  FormInterface $form
      * @param  string        $name    route/entity name
      * @param  string        $route   route name, if different from entity name
+     * @param  Request       $request Request
      * @param  array         $params  possible route parameters
      * @return Response
      */
