@@ -229,21 +229,23 @@ class UserController extends Controller
      * @return Response
      */
     protected function saveFilter(
-        Request $request,
         FormInterface $form,
         $name,
         $route = null,
+        Request $request = null,
         array $params = null
     ) {
         $url = $this->generateUrl($route ?: $name, is_null($params) ? array() : $params);
-        if ($request->query->has('submit-filter') && $form->handleRequest($request)->isValid()) {
-            $request->getSession()->set('filter.' . $name, $request->query->get($form->getName()));
+        if (isset($request)) {
+            if ($request->query->has('submit-filter') && $form->handleRequest($request)->isValid()) {
+                $request->getSession()->set('filter.' . $name, $request->query->get($form->getName()));
 
-            return $this->redirect($url);
-        } elseif ($request->query->has('reset-filter')) {
-            $request->getSession()->set('filter.' . $name, null);
+                return $this->redirect($url);
+            } elseif ($request->query->has('reset-filter')) {
+                $request->getSession()->set('filter.' . $name, null);
 
-            return $this->redirect($url);
+                return $this->redirect($url);
+            }
         }
     }
 
