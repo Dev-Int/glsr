@@ -89,7 +89,7 @@ $qb = $em->getRepository('AppBundle:UnitStorage')->createQueryBuilder('u');
                 $url = $this->redirectToRoute('admin_unitstorage_show', array('slug' => $unitstorage->getSlug()));
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirect($this->generateUrl('admin_unitstorage_new'));
+                $url = $this->redirectToRoute('admin_unitstorage_new');
             }
             return $url;
         }
