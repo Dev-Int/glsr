@@ -151,6 +151,7 @@ class TvaController extends Controller
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.settings.edit_ok');
 
             return $this->redirectToRoute('admin_rate_edit', array('id' => $tva->getId()));
         }

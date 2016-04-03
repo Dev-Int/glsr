@@ -151,6 +151,7 @@ class UnitStorageController extends Controller
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.settings.edit_ok');
 
             return $this->redirectToRoute('admin_unitstorage_edit', array('slug' => $unitstorage->getSlug()));
         }

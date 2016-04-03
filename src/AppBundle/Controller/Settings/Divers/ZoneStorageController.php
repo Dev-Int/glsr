@@ -151,6 +151,7 @@ class ZoneStorageController extends Controller
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.settings.edit_ok');
 
             return $this->redirectToRoute('admin_zonestorage_edit', array('slug' => $zonestorage->getSlug()));
         }
