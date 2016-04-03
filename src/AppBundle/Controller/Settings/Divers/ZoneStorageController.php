@@ -86,7 +86,7 @@ class ZoneStorageController extends Controller
             $em->flush();
 
             if ($form->get('save')->isClicked()) {
-                $url = $this->redirectToRoute('admin_znoestorage_show', array('slug' => $zonestorage->getSlug()));
+                $url = $this->redirectToRoute('admin_zonestorage_show', array('slug' => $zonestorage->getSlug()));
             } elseif ($form->get('addmore')->isClicked()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirect($this->generateUrl('admin_zonestorage_new'));
