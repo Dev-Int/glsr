@@ -27,7 +27,7 @@ class UnitStorageController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-$qb = $em->getRepository('AppBundle:UnitStorage')->createQueryBuilder('u');
+        $qb = $em->getRepository('AppBundle:UnitStorage')->createQueryBuilder('u');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 20);
         return array(
             'paginator' => $paginator,
