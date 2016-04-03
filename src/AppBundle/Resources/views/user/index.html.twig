@@ -1,6 +1,8 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ '%entity% list'|trans({'%entity%': 'User'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'menu.users'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
 {% macro thead(name, field, label) %}
     {% spaceless %}
         {% set sort = app.session.get('sort.' ~ name) %}
@@ -20,7 +22,7 @@
 
 {% block body_title %}
     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-        {{ '%entity% list'|trans({'%entity%': 'User'}, 'admin') }}
+    {{ '%entity% list'|trans({'%entity%': 'menu.users'|trans}, 'admin') }}
 {% endblock body_title %}
 
 
@@ -63,12 +65,11 @@
     
     {{ knp_pagination_render(paginator) }}
     
-    <ul class="new_entry list-unstyled">
-        <li>
-            <a class="btn btn-info" href="{{ path('admin_users_new') }}">
-                <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
-            </a>
-        </li>
-    </ul>
+    <div class="btn-group">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info" href="{{ path('admin_users_new') }}">
+            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        </a>
+    </div>
     
 {% endblock glstock_body %}

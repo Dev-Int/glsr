@@ -3,12 +3,12 @@
 {% form_theme edit_form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block title %}
-    {{ '%entity% edit'|trans({'%entity%': 'Company'}, 'admin') }} - {{ parent() }}
+    {{ '%entity% edit'|trans({'%entity%': 'gestock.settings.company.title'|trans}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> 
-    {{ '%entity% edit'|trans({'%entity%': 'Company'}, 'admin') }}
+    {{ '%entity% edit'|trans({'%entity%': 'gestock.settings.company.title'|trans}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -23,7 +23,7 @@
         {{ form_widget(delete_form) }}
 
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_company') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>

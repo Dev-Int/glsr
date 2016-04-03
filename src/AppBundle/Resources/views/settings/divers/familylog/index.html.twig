@@ -36,12 +36,11 @@
         </tbody>
     </table>
     
-    <ul class="new_entry list-unstyled">
-        <li>
+    <div class="btn-group">
+        {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_familylog_new') }}">
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
-        </li>
-    </ul>
+    </div>
     
 {% endblock %}

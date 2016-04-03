@@ -1,14 +1,18 @@
 {% extends "base.html.twig" %}
 
-{% block title %}User - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ 'menu.users'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    {{ 'menu.users'|trans }}
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
-
-    <table class="table table-hover record_properties">
+    <table class="table table-hover table-bordered record_properties">
         <tbody>
             <tr>
-                <th scope="row">Id</th>
+                <th scope="row">{{ 'gestock.id'|trans }}</th>
                 <td>{{ user.id }}</td>
             </tr>
         </tbody>
@@ -18,7 +22,7 @@
         {{ form_widget(delete_form) }}
 
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_users') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>

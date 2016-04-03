@@ -25,13 +25,10 @@
 
         
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_zonestorage') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
-
-
         </div>
-
 
 {% endblock %}

@@ -2,10 +2,10 @@
 
 {% form_theme edit_form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
-{% block title %}{{ '%entity% edit'|trans({'%entity%': 'User'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }} - {{ parent() }}{% endblock %}
 
 {% block body_title %}
-    {{ '%entity% edit'|trans({'%entity%': 'User'}, 'admin') }}
+    {{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }}
 {% endblock body_title %}
 
 {% block glstock_body %}
@@ -20,7 +20,7 @@
         {{ form_widget(delete_form) }}
 
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_users') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>

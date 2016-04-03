@@ -40,12 +40,11 @@
     
     {{ knp_pagination_render(paginator) }}
     
-    <ul class="new_entry list-unstyled">
-        <li>
-            <a class="btn btn-info" href="{{ path('admin_unitstorage_new') }}">
-                <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
-            </a>
-        </li>
-    </ul>
+    <div class="btn-group">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info" href="{{ path('admin_unitstorage_new') }}">
+            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        </a>
+    </div>
     
 {% endblock %}

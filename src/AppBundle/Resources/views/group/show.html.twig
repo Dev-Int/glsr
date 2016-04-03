@@ -1,14 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ 'menu_groups'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ 'menu.groups'|trans }} - {{ parent() }}
+{% endblock %}
 
 {% block body_title %}
     <span class="fa fa-users" aria-hidden="true"></span>&nbsp;
-    {{ 'menu_groups'|trans }}
+    {{ 'menu.groups'|trans }}
 {% endblock body_title %}
 
 {% block glstock_body %}
-    <table class="table table-hover record_properties">
+    <table class="table table-hover table-bordered record_properties">
         <tbody>
             <tr>
                 <th scope="row">{{ 'form.group_name'|trans({}, 'FOSUserBundle') }}</th>
@@ -21,7 +23,7 @@
         {{ form_widget(delete_form) }}
 
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_groups') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>

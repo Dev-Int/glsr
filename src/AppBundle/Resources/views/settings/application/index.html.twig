@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ '%entity% list'|trans({'%entity%': 'Settings'}, 'admin') }} - {{ parent() }}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-    {{ '%entity% list'|trans({'%entity%': 'Settings'}, 'admin') }}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -41,20 +41,13 @@
             {% endfor %}
         </tbody>
     </table>
-        <ul class="new_entry list-unstyled">
+        <div class="new_entry list-unstyled">
+            {% include 'homeButton.html.twig' %}
         {% if ctEntity < 1 %}
-            <li>
-                <a class="btn btn-info" href="{{ path('admin_application_new') }}">
-                    <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
-                </a>
-            </li>
+            <a class="btn btn-info" href="{{ path('admin_application_new') }}">
+                <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+            </a>
         {% endif %}
-            <li>
-                <a class="btn btn-default" href="{{ path('_home') }}">
-                    <span class="glyphicon glyphicon-chevron-left"></span>&nbsp;
-                    {{ 'gestock.home.return'|trans({}, 'messages') }}
-                </a>
-            </li>
-        </ul>
+        </div>
     
 {% endblock %}

@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    Settings - {{ parent() }}
+    {{ 'gestock.settings.application.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-    Settings
+    {{ 'gestock.settings.application.title'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -35,7 +35,7 @@
         {{ form_widget(delete_form) }}
 
         <div class="btn-group record_actions">
-
+            {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_application') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
