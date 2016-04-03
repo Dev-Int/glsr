@@ -81,6 +81,13 @@ class MenuBuilder extends ContainerAware
                 ))
                 ->setAttribute('icon', 'fa fa-cubes');
 
+            $divers
+                ->addChild('tva', array(
+                    'route' => 'admin_rate',
+                    'label' => 'gestock.settings.diverse.vat'
+                ))
+                ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
+
             $menu['entities']
                 ->addChild('divider')
                 ->setAttribute('class', 'divider');
