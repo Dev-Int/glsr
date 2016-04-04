@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\SubFamilyLog;
 use AppBundle\Form\Type\SubFamilyLogType;
 
@@ -213,7 +214,7 @@ class SubFamilyLogController extends Controller
      * @param QueryBuilder $qb
      * @param string       $name
      */
-    protected function addQueryBuilderSort(\Doctrine\ORM\QueryBuilder $qb, $name)
+    protected function addQueryBuilderSort(QueryBuilder $qb, $name)
     {
         $alias = current($qb->getDQLPart('from'))->getAlias();
         if (is_array($order = $this->getOrder($name))) {
