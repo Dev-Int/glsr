@@ -156,7 +156,7 @@ class User extends BaseUser
         return $this;
     }
  
-    public function setGroups(Collection $groups = null)
+    public function setGroups(ArrayCollection $groups = null)
     {
         if ($groups !== null) {
             $this->groups = $groups;
