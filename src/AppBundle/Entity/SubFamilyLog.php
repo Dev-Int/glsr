@@ -9,7 +9,7 @@
  * @copyright  2014 Dev-Int GLSR
  * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    0.1.0
+ * @version    since 1.0.0
  *
  * @link       https://github.com/Dev-Int/glsr
  */
@@ -75,9 +75,9 @@ class SubFamilyLog implements \JsonSerializable
     public function jsonSerialize()
     {
         array(
-            'id'        => $this->id,
-            'name'      => $this->name,
-            'devices'   => $this->familylogs->toArray(),
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'familylogs' => $this->familylogs->toArray(),
         );
     }
     /**

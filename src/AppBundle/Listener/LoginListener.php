@@ -1,4 +1,17 @@
 <?php
+/**
+ * LoginListener EventListener.
+ *
+ * PHP Version 5
+ *
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version    since 1.0.0
+ *
+ * @link       https://github.com/Dev-Int/glsr
+ */
 namespace AppBundle\Listener;
 
 use FOS\UserBundle\FOSUserEvents;
@@ -8,6 +21,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
+/**
+ * LoginListener EventListener.
+ *
+ * @category   Listener
+ */
 class LoginListener implements EventSubscriberInterface
 {
     protected $userManager;

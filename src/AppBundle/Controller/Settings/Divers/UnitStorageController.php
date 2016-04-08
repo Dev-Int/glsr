@@ -8,7 +8,7 @@
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version since 1.0.0
+ * @version   since 1.0.0
  *
  * @link      https://github.com/Dev-Int/glsr
  */

@@ -18,6 +18,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
+use AppBundle\Form\Type\SubFamilyLogType;
 
 /**
  * Default controller.
@@ -47,6 +51,7 @@ class DefaultController extends Controller
             'AppBundle:Settings');
 
     }
+
     /**
      * @Route("/", name="_home")
      * @Method("GET")
@@ -101,5 +106,104 @@ class DefaultController extends Controller
             $this->addFlash('warning', $message);
         }
         return $url;
+    }
+
+    /**
+     * Récupère les subFamilyLog de la FamilyLog sélectionnée.
+     *
+     * @Route("/fill_subfamilylog", name="fill_subfamilylog")
+     * @Method("POST")
+     * @return Response
+     */
+    public function fillSubFamilyLogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $famLogId = '';
+            $subFamId = '';
+            $famLogId = $request->get('id');
+            $subFamId = $request->get('id2');
+            if ($famLogId  != '') {
+                $subFamilyLogs = $etm
+                    ->getRepository('AppBundle:subFamilyLog')
+                    ->getFromFamilyLog($famLogId);
+                $familyLog = $etm
+                    ->getRepository('AppBundle:familyLog')
+                    ->find($famLogId);
+                $tabSubFamilyLog = array();
+                $tabSubFamilyLog[0]['idOption'] = '';
+                $tabSubFamilyLog[0]['nameOption']
+                    = 'Choice the Sub Family: '.$familyLog->getName();
+                $iterator = 1;
+                foreach ($subFamilyLogs as $subFamilyLog) {
+                    $tabSubFamilyLog[$iterator]['idOption']
+                        = $subFamilyLog->getId();
+                    $tabSubFamilyLog[$iterator]['nameOption']
+                        = $subFamilyLog->getName();
+                    if ($subFamId != '') {
+                        $tabSubFamilyLog[$iterator]['optionOption']
+                            = 'selected="selected"';
+                    } else {
+                        $tabSubFamilyLog[$iterator]['optionOption'] = null;
+                    }
+                    $iterator++;
+                }
+                $response = new Response();
+                $data = json_encode($tabSubFamilyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
+    }
+
+    /**
+     * Récupère les FamilyLog de la requête post.
+     *
+     * @Route("/getfamilylog", name="getfamilylog")
+     * @Method("GET")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getFamilyLogAction()
+    {
+        $request = $this->getRequest();
+        $etm = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $id = '';
+            $id = $request->get('id');
+            if ($id != '') {
+                $supplier = $etm
+                    ->getRepository('AppBundle:Supplier')
+                    ->find($id);
+                $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
+                if (null !== $supplier->getSubFamilyLog()) {
+                    $familyLog['subfamilylog']
+                        = $supplier->getSubFamilyLog()->getId();
+                }
+                $response = new Response();
+                $data = json_encode($familyLog);
+                $response->headers->set('Content-Type', 'application/json');
+                $response->setContent($data);
+                return $response;
+            }
+        }
+        return new Response('Error');
+    }
+    
+    /**
+     * @Route("/chose-device", name="choseDevice")
+     * @Template()
+     */
+    public function choseTablet2Action()
+    {
+        $form = $this->createForm(new SubFamilyLogType());
+        $familylog = $this->getDoctrine()->getRepository('AppBundle:FamilyLog')->findAll();
+
+        return array(
+            'form'      => $form->createView(),
+            'devices'   => json_encode($familylog),
+        );
     }
 }

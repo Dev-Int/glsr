@@ -1,6 +1,17 @@
 <?php
-// src/AppBundle/Entity/User.php
- 
+/**
+ * Entité User.
+ *
+ * PHP Version 5
+ *
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version    since 1.0.0
+ *
+ * @link       https://github.com/Dev-Int/glsr
+ */
 namespace AppBundle\Entity;
  
 use FOS\UserBundle\Model\User as BaseUser;
@@ -9,6 +20,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  
 /**
+ * Entité User.
+ *
+ * @category   Entity
+ *
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields="usernameCanonical", errorPath="username",

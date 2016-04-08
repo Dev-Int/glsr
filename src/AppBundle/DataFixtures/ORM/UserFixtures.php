@@ -1,4 +1,17 @@
 <?php
+/**
+ * UserFixtures EventListener.
+ *
+ * PHP Version 5
+ *
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version    since 1.0.0
+ *
+ * @link       https://github.com/Dev-Int/glsr
+ */
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
@@ -9,10 +22,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class UserFixtures extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
-    /** * @var ContainerInterface */
+    /**
+     * @var ContainerInterface
+     */
     private $container;
 
-    /** * {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;

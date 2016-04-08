@@ -1,9 +1,27 @@
 <?php
+/**
+ * MenuBuilder KnpMenu.
+ *
+ * PHP Version 5
+ *
+ * @author     Quétier Laurent <lq@dev-int.net>
+ * @copyright  2014 Dev-Int GLSR
+ * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version    since 1.0.0
+ *
+ * @link       https://github.com/Dev-Int/glsr
+ */
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
+/**
+ * class MenuBuilder.
+ *
+ * @category   Menu
+ */
 class MenuBuilder extends ContainerAware
 {
     public function buildMainMenu(FactoryInterface $factory, array $options)
