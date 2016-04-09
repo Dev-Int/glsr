@@ -16,6 +16,12 @@
                 <th scope="row" class="col-md-4">{{ 'gestock.name'|trans }}</th>
                 <td class="col-md-8">{{ familylog.name }}</td>
             </tr>
+            {% if familylog.parent %}
+            <tr>
+                <th scope="row" class="col-md-4">{{ 'gestock.settings.diverse.parent_fam'|trans }}</th>
+                <td class="col-md-8">{{ familylog.parent }}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 
@@ -25,7 +31,7 @@
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_familylog') }}">
-                <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
             <a class="btn btn-primary" href="{{ path('admin_familylog_edit', {slug: familylog.slug}) }}">

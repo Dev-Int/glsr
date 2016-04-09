@@ -79,13 +79,6 @@ class MenuBuilder extends ContainerAware
                 ->setAttribute('icon', 'glyphicon glyphicon-tag');
 
             $divers
-                ->addChild('subfamilylog', array(
-                    'route' => 'admin_subfamilylog',
-                    'label' => 'gestock.settings.diverse.subfamilylog'
-                ))
-                ->setAttribute('icon', 'glyphicon glyphicon-tags');
-
-            $divers
                 ->addChild('zonestorage', array(
                     'route' => 'admin_zonestorage',
                     'label' => 'gestock.settings.diverse.zonestorage'

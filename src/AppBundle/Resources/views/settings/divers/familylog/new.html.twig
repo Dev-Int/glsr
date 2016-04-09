@@ -14,6 +14,7 @@
 {% block glstock_body %}
     {{ form_start(form, {action: path('admin_familylog_create')}) }}
         {{ form_row(form.name) }}
+        {{ form_row(form.parent) }}
         <div class="form-group">
             <div class="col-sm-8 col-sm-offset-3">
                 <div class="btn-group record_actions">
@@ -27,7 +28,7 @@
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('admin_familylog') }}">
-                <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
 

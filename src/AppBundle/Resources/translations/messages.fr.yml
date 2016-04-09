@@ -50,6 +50,14 @@ gestock:
     totals: Totaux
     roles: Roles
 
+    create:
+        ok: "Création bien enregistrée."
+        no: "Création non enregistrée, il doit y avoir un problème."
+
+    edit:
+        ok: "Modification bien enregistrée."
+        no: "Modification non enregistrée, il doit y avoir un problème."
+
     home:
         title: Accueil
         body_title: "Page d'accueil"
@@ -134,15 +142,10 @@ gestock:
             family_subtitle: "Gestion des familles et sous-familles logistiques."
             add_family: "Pour le bon fonctionnement de l'application, vous devez créer des familles logistiques."
             family: Famille
+            parent_fam: "Famille parente"
             family_edit: "Modifier la famille"
             family_add: "Ajouter une famille"
             choice_family: "Choisissez une famille"
-            add_subfam: "Pour le bon fonctionnement de l'application, vous devez des créer sous-familles logistiques."
-            subfamilylog: "Sous-famille logistique"
-            subfamily: "Sous-famille"
-            subfamily_edit: "Modifier la sous-famille"
-            subfamily_add: "Ajouter une sous-famille"
-            choice_subfam: "Choisissez une sous-famille"
             zonestorage: "Zone de stockage"
             add_zonestorage: "Pour le bon fonctionnement de l'application, vous devez créer des zones de stockage."
             zonestorage_subtitle: "Gestion des paramètres des zones de stockage."

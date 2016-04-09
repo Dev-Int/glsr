@@ -99,6 +99,7 @@ stof_doctrine_extensions:
         default:
             sluggable: true
             uploadable: true
+            tree: true
 
 # Activation de l'extension Twig intl
 services:

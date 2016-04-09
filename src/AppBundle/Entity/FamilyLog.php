@@ -23,10 +23,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @category   Entity
  *
+ * @Gedmo\Tree(type="materializedPath")
  * @ORM\Table(name="gs_familylog")
- * @ORM\Entity(repositoryClass="AppBundle\Entity\FamilyLogRepository")
+ * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  */
-class FamilyLog implements \JsonSerializable
+class FamilyLog
 {
     /**
      * @var int Id de la famille logistique
@@ -38,6 +39,13 @@ class FamilyLog implements \JsonSerializable
     private $id;
 
     /**
+     * @Gedmo\TreePath
+     * @ORM\Column(length=3000, nullable=true)
+     */
+    private $path;
+
+    /**
+     * @Gedmo\TreePathSource
      * @var string Nom de la famille logistique
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -51,6 +59,24 @@ class FamilyLog implements \JsonSerializable
      */
     private $slug;
 
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="FamilyLog", inversedBy="children")
+     * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $level;
+
+    /**
+     * @ORM\OneToMany(targetEntity="FamilyLog", mappedBy="parent")
+     */
+    private $children;
+ 
     /**
      * Get id.
      *
@@ -85,14 +111,6 @@ class FamilyLog implements \JsonSerializable
         return $this->name;
     }
 
-    public function jsonSerialize()
-    {
-        return array(
-            'id'   => $this->id,
-            'name' => $this->name,
-        );
-    }
-
     /**
      * Cette méthode permet de faire "echo $familyLog".
      * <p>Ainsi, pour "afficher" $familyLog,
@@ -115,5 +133,114 @@ class FamilyLog implements \JsonSerializable
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \AppBundle\Entity\FamilyLog $parent
+     * @return FamilyLog
+     */
+    public function setParent(\AppBundle\Entity\FamilyLog $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \AppBundle\Entity\FamilyLog 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \AppBundle\Entity\FamilyLog $children
+     * @return FamilyLog
+     */
+    public function addChild(\AppBundle\Entity\FamilyLog $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \AppBundle\Entity\FamilyLog $children
+     */
+    public function removeChild(\AppBundle\Entity\FamilyLog $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return FamilyLog
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return FamilyLog
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * Get level
+     *
+     * @return integer 
+     */
+    public function getLevel()
+    {
+        return $this->level;
     }
 }

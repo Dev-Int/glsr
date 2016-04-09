@@ -40,6 +40,16 @@ class FamilyLogType extends AbstractType
                     'label' => 'gestock.settings.diverse.family'
                 )
             )
+            ->add(
+                'parent',
+                'entity',
+                array(
+                    'class' => 'AppBundle\Entity\FamilyLog',
+                    'property' => 'name',
+                    'required' => false,
+                    'label' => 'gestock.settings.diverse.parent_fam'
+                )
+            )
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
     }
 
