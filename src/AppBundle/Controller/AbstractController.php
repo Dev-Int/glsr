@@ -24,8 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 abstract class AbstractController extends Controller
 {
-    abstract protected function indexAction();
-    
     abstract protected function newAction();
     
     abstract protected function createAction(Request $request);

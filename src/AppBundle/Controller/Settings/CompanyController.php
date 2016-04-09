@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\CompanyType;
  *
  * @Route("/admin/settings/company")
  */
-class CompanyController extends Controller
+class CompanyController extends AbstractController
 {
     /**
      * Lists all Company entities.
@@ -116,7 +116,7 @@ class CompanyController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Company $company)
+    public function editAction(Company $company = null)
     {
         $editForm = $this->createForm(new CompanyType(), $company, array(
             'action' => $this->generateUrl('admin_company_update', array('id' => $company->getId())),
@@ -138,7 +138,7 @@ class CompanyController extends Controller
      * @Method("PUT")
      * @Template("AppBundle:Company:edit.html.twig")
      */
-    public function updateAction(Company $company, Request $request)
+    public function updateAction(Request $request, Company $company = null)
     {
         $editForm = $this->createForm(new CompanyType(), $company, array(
             'action' => $this->generateUrl('admin_company_update', array('id' => $company->getId())),
@@ -165,7 +165,7 @@ class CompanyController extends Controller
      * @Route("/{id}/delete", name="admin_company_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Company $company, Request $request)
+    public function deleteAction(Request $request, Company $company = null)
     {
         $form = $this->createDeleteForm($company->getId(), 'admin_company_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -175,21 +175,5 @@ class CompanyController extends Controller
         }
 
         return $this->redirectToRoute('admin_company');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

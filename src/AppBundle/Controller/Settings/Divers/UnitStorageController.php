@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\UnitStorageType;
  *
  * @Route("/admin/settings/divers/unitstorage")
  */
-class UnitStorageController extends Controller
+class UnitStorageController extends AbstractController
 {
     /**
      * Lists all UnitStorage entities.
@@ -121,7 +121,7 @@ class UnitStorageController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction(UnitStorage $unitstorage)
+    public function editAction(UnitStorage $unitstorage = null)
     {
         $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
             'action' => $this->generateUrl('admin_unitstorage_update', array('slug' => $unitstorage->getSlug())),
@@ -143,7 +143,7 @@ class UnitStorageController extends Controller
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/UnitStorage:edit.html.twig")
      */
-    public function updateAction(UnitStorage $unitstorage, Request $request)
+    public function updateAction(Request $request, UnitStorage $unitstorage = null)
     {
         $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
             'action' => $this->generateUrl('admin_unitstorage_update', array('slug' => $unitstorage->getSlug())),
@@ -170,7 +170,7 @@ class UnitStorageController extends Controller
      * @Route("/{id}/delete", name="admin_unitstorage_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(UnitStorage $unitstorage, Request $request)
+    public function deleteAction(Request $request, UnitStorage $unitstorage = null)
     {
         $form = $this->createDeleteForm($unitstorage->getId(), 'admin_unitstorage_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -180,21 +180,5 @@ class UnitStorageController extends Controller
         }
 
         return $this->redirectToRoute('admin_unitstorage');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }
