@@ -15,7 +15,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\GroupType;
  *
  * @Route("/admin/groups")
  */
-class GroupController extends AbstractController
+class GroupController extends Controller
 {
     /**
      * Lists all Group entities.
@@ -131,12 +131,19 @@ class GroupController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Group $group = null)
+    public function editAction(Group $group)
     {
-        $editForm = $this->createForm(new GroupType(), $group, array(
-            'action' => $this->generateUrl('admin_groups_update', array('id' => $group->getId())),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(
+            new GroupType(),
+            $group,
+            array(
+                'action' => $this->generateUrl(
+                    'admin_groups_update',
+                    array('id' => $group->getId())
+                ),
+                'method' => 'PUT',
+            )
+        );
         $editForm->add('roles', 'choice', array(
             'choices' => $this->getExistingRoles(),
             'data' => $group->getRoles(),
@@ -161,7 +168,7 @@ class GroupController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
      */
-    public function updateAction(Request $request, Group $group = null)
+    public function updateAction(Group $group, Request $request)
     {
         $editForm = $this->createForm(new GroupType(), $group, array(
             'action' => $this->generateUrl('admin_groups_update', array('id' => $group->getId())),
@@ -195,7 +202,7 @@ class GroupController extends AbstractController
      * @Route("/{id}/delete", name="admin_groups_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Group $group = null)
+    public function deleteAction(Group $group, Request $request)
     {
         $form = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
         
@@ -215,6 +222,22 @@ class GroupController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_groups');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 
     /**

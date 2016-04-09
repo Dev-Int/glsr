@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\SettingsType;
  *
  * @Route("/admin/settings/application")
  */
-class ApplicationController extends AbstractController
+class ApplicationController extends Controller
 {
     /**
      * Lists all Settings entities.
@@ -116,7 +116,7 @@ class ApplicationController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Settings $settings = null)
+    public function editAction(Settings $settings)
     {
         $editForm = $this->createForm(new SettingsType(), $settings, array(
             'action' => $this->generateUrl('admin_application_update', array('id' => $settings->getId())),
@@ -138,7 +138,7 @@ class ApplicationController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:Application:edit.html.twig")
      */
-    public function updateAction(Request $request, Settings $settings = null)
+    public function updateAction(Settings $settings, Request $request)
     {
         $editForm = $this->createForm(new SettingsType(), $settings, array(
             'action' => $this->generateUrl('admin_application_update', array('id' => $settings->getId())),
@@ -165,7 +165,7 @@ class ApplicationController extends AbstractController
      * @Route("/{id}/delete", name="admin_application_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Settings $settings = null)
+    public function deleteAction(Settings $settings, Request $request)
     {
         $form = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -175,5 +175,21 @@ class ApplicationController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_application');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }

@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\TvaType;
  *
  * @Route("/admin/settings/divers/rate")
  */
-class TvaController extends AbstractController
+class TvaController extends Controller
 {
     /**
      * Lists all Tva entities.
@@ -121,7 +121,7 @@ class TvaController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Tva $tva = null)
+    public function editAction(Tva $tva)
     {
         $editForm = $this->createForm(new TvaType(), $tva, array(
             'action' => $this->generateUrl('admin_rate_update', array('id' => $tva->getId())),
@@ -143,7 +143,7 @@ class TvaController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:Tva:edit.html.twig")
      */
-    public function updateAction(Request $request, Tva $tva = null)
+    public function updateAction(Tva $tva, Request $request)
     {
         $editForm = $this->createForm(new TvaType(), $tva, array(
             'action' => $this->generateUrl('admin_rate_update', array('id' => $tva->getId())),
@@ -170,7 +170,7 @@ class TvaController extends AbstractController
      * @Route("/{id}/delete", name="admin_rate_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Tva $tva = null)
+    public function deleteAction(Tva $tva, Request $request)
     {
         $form = $this->createDeleteForm($tva->getId(), 'admin_rate_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -180,5 +180,21 @@ class TvaController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_rate');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }

@@ -15,7 +15,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,7 +33,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @Route("/admin/users")
  */
-class UserController extends AbstractController
+class UserController extends Controller
 {
     /**
      * Lists all User entities.
@@ -65,7 +65,7 @@ class UserController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function showAction(User $user = null)
+    public function showAction(User $user)
     {
         $deleteForm = $this->createDeleteForm($user->getId(), 'admin_users_delete');
 
@@ -125,7 +125,7 @@ class UserController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(User $user = null)
+    public function editAction(User $user)
     {
         $editForm = $this->createForm(new UserType(), $user, array(
             'action' => $this->generateUrl('admin_users_update', array('id' => $user->getId())),
@@ -149,7 +149,7 @@ class UserController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:User:edit.html.twig")
      */
-    public function updateAction(Request $request, User $user = null)
+    public function updateAction(User $user, Request $request)
     {
         $editForm = $this->createForm(new UserType(), $user, array(
             'action' => $this->generateUrl('admin_users_update', array('id' => $user->getId())),
@@ -288,7 +288,7 @@ class UserController extends AbstractController
      * @Route("/{id}/delete", name="admin_users_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, User $user = null)
+    public function deleteAction(User $user, Request $request)
     {
         $form = $this->createDeleteForm($user->getId(), 'admin_users_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -298,5 +298,21 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_users');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }

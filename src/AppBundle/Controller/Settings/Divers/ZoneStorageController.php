@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\ZoneStorageType;
  *
  * @Route("/admin/settings/divers/zonestorage")
  */
-class ZoneStorageController extends AbstractController
+class ZoneStorageController extends Controller
 {
     /**
      * Lists all ZoneStorage entities.
@@ -121,7 +121,7 @@ class ZoneStorageController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(ZoneStorage $zonestorage = null)
+    public function editAction(ZoneStorage $zonestorage)
     {
         $editForm = $this->createForm(new ZoneStorageType(), $zonestorage, array(
             'action' => $this->generateUrl('admin_zonestorage_update', array('slug' => $zonestorage->getSlug())),
@@ -143,7 +143,7 @@ class ZoneStorageController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/ZoneStorage:edit.html.twig")
      */
-    public function updateAction(Request $request, ZoneStorage $zonestorage = null)
+    public function updateAction(ZoneStorage $zonestorage, Request $request)
     {
         $editForm = $this->createForm(new ZoneStorageType(), $zonestorage, array(
             'action' => $this->generateUrl('admin_zonestorage_update', array('slug' => $zonestorage->getSlug())),
@@ -170,7 +170,7 @@ class ZoneStorageController extends AbstractController
      * @Route("/{id}/delete", name="admin_zonestorage_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, ZoneStorage $zonestorage = null)
+    public function deleteAction(ZoneStorage $zonestorage, Request $request)
     {
         $form = $this->createDeleteForm($zonestorage->getId(), 'admin_zonestorage_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -180,5 +180,21 @@ class ZoneStorageController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_zonestorage');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }

@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\FamilyLogType;
  *
  * @Route("/admin/settings/divers/familylog")
  */
-class FamilyLogController extends AbstractController
+class FamilyLogController extends Controller
 {
     /**
      * Lists all FamilyLog entities.
@@ -124,7 +124,7 @@ class FamilyLogController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(FamilyLog $familylog = null)
+    public function editAction(FamilyLog $familylog)
     {
         $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
             'action' => $this->generateUrl(
@@ -149,7 +149,7 @@ class FamilyLogController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:FamilyLog:edit.html.twig")
      */
-    public function updateAction(Request $request, FamilyLog $famlog = null)
+    public function updateAction(FamilyLog $famlog, Request $request)
     {
         $editForm = $this->createForm(new FamilyLogType(), $famlog, array(
             'action' => $this->generateUrl(
@@ -179,7 +179,7 @@ class FamilyLogController extends AbstractController
      * @Route("/{id}/delete", name="admin_familylog_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, FamilyLog $familylog = null)
+    public function deleteAction(FamilyLog $familylog, Request $request)
     {
         $form = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
         if ($form->handleRequest($request)->isValid()) {
@@ -189,5 +189,21 @@ class FamilyLogController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_familylog');
+    }
+
+    /**
+     * Create Delete form
+     *
+     * @param integer                       $id
+     * @param string                        $route
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createDeleteForm($id, $route)
+    {
+        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
+            ->setAction($this->generateUrl($route, array('id' => $id)))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }
