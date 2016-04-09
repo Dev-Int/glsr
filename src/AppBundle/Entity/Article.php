@@ -24,7 +24,6 @@ use AppBundle\Entity\Supplier;
 use AppBundle\Entity\UnitStorage;
 use AppBundle\Entity\ZoneStorage;
 use AppBundle\Entity\FamilyLog;
-use AppBundle\Entity\SubFamilyLog;
 
 /**
  * Article.
@@ -126,14 +125,6 @@ class Article
      * @Assert\NotBlank()
      */
     private $family_log;
-
-    /**
-     * @var string Sous-famille logistique
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamilyLog")
-     * @Assert\NotBlank()
-     */
-    private $sub_family_log;
 
     /**
      * @var bool Activé/Désactivé
@@ -398,30 +389,6 @@ class Article
     }
 
     /**
-     * Set sub_family_log.
-     *
-     * @param SubFamilyLog $subFamilyLog Sous-famille logistique
-     *
-     * @return Article
-     */
-    public function setSubFamilyLog(SubFamilyLog $subFamilyLog = null)
-    {
-        $this->sub_family_log = $subFamilyLog;
-
-        return $this;
-    }
-
-    /**
-     * Get sub_family_log.
-     *
-     * @return SubFamilyLog
-     */
-    public function getSubFamilyLog()
-    {
-        return $this->sub_family_log;
-    }
-
-    /**
      * Set active.
      *
      * @param bool $active Activé/Désactivé
@@ -443,19 +410,6 @@ class Article
     public function isActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Article
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
     }
 
     /**
