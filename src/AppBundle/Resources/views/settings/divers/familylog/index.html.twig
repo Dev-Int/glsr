@@ -23,7 +23,7 @@
                     <td>
                         {% set key = loop.index %}
                         {% if familylog.__children %}
-                            <button type="button" class="btn" data-toggle="collapse" data-target="#collapseme_{{ key }}" onclick="showSubFamily({{ key }});">
+                            <button type="button" class="btn" data-toggle="collapse" data-target="#collapseme_{{ key }}">
                                 <i class="fa fa-chevron-down"></i>
                             </button>
                         {% endif %}
@@ -73,15 +73,4 @@
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
     </div>
-    <script type="text/javascript">
-        function showSubFamily(id) {
-            if($("#collapseme_" + id).hasClass("out")) {
-                $("#collapseme_" + id).addClass("in");
-                $("#collapseme_" + id).removeClass("out");
-            } else {
-                $("#collapseme_" + id).addClass("out");
-                $("#collapseme_" + id).removeClass("in");
-            }
-       }
-    </script>
 {% endblock %}
