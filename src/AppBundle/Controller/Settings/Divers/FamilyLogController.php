@@ -42,7 +42,6 @@ class FamilyLogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('AppBundle:FamilyLog')->childrenHierarchy();
-//        $entities = $em->getRepository('AppBundle:FamilyLog')->findAll();
         
         return array(
             'entities'  => $entities,
