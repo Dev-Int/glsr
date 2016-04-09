@@ -151,7 +151,7 @@ class FamilyLog
     /**
      * Get parent
      *
-     * @return \AppBundle\Entity\FamilyLog 
+     * @return \AppBundle\Entity\FamilyLog
      */
     public function getParent()
     {
@@ -184,7 +184,7 @@ class FamilyLog
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -214,7 +214,7 @@ class FamilyLog
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -237,7 +237,7 @@ class FamilyLog
     /**
      * Get level
      *
-     * @return integer 
+     * @return integer
      */
     public function getLevel()
     {
