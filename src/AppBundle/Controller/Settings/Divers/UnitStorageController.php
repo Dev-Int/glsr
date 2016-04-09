@@ -99,9 +99,9 @@ class UnitStorageController extends Controller
             $em->persist($unitstorage);
             $em->flush();
 
-            if ($form->get('save')->isClicked()) {
+            if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirectToRoute('admin_unitstorage_show', array('slug' => $unitstorage->getSlug()));
-            } elseif ($form->get('addmore')->isClicked()) {
+            } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirectToRoute('admin_unitstorage_new');
             }

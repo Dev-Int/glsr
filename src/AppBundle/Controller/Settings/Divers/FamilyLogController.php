@@ -99,12 +99,12 @@ class FamilyLogController extends Controller
             $em->persist($familylog);
             $em->flush();
 
-            if ($form->get('save')->isClicked()) {
+            if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl(
                     'admin_familylog_show',
                     array('slug' => $familylog->getSlug())
                 ));
-            } elseif ($form->get('addmore')->isClicked()) {
+            } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirectToRoute('admin_familylog_new');
             }

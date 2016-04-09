@@ -99,9 +99,9 @@ class TvaController extends Controller
             $em->persist($tva);
             $em->flush();
 
-            if ($form->get('save')->isClicked()) {
+            if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirectToRoute('admin_rate_show', array('id' => $tva->getId()));
-            } elseif ($form->get('addmore')->isClicked()) {
+            } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirectToRoute('admin_rate_new');
             }
