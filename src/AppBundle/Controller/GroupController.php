@@ -131,7 +131,7 @@ class GroupController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Group $group=null)
+    public function editAction(Group $group = null)
     {
         $editForm = $this->createForm(new GroupType(), $group, array(
             'action' => $this->generateUrl('admin_groups_update', array('id' => $group->getId())),
@@ -161,7 +161,7 @@ class GroupController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
      */
-    public function updateAction(Request $request, Group $group=null)
+    public function updateAction(Request $request, Group $group = null)
     {
         $editForm = $this->createForm(new GroupType(), $group, array(
             'action' => $this->generateUrl('admin_groups_update', array('id' => $group->getId())),
@@ -195,7 +195,7 @@ class GroupController extends AbstractController
      * @Route("/{id}/delete", name="admin_groups_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Group $group=null)
+    public function deleteAction(Request $request, Group $group = null)
     {
         $form = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
         
