@@ -45,7 +45,7 @@ class FamilyLogType extends AbstractType
                 'entity',
                 array(
                     'class' => 'AppBundle\Entity\FamilyLog',
-                    'property' => 'name',
+                    'choice_label' => 'indentedName',
                     'required' => false,
                     'label' => 'gestock.settings.diverse.parent_fam'
                 )

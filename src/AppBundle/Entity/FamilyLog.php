@@ -76,7 +76,10 @@ class FamilyLog
      * @ORM\OneToMany(targetEntity="FamilyLog", mappedBy="parent")
      */
     private $children;
- 
+    
+    private $indentedName;
+
+
     /**
      * Get id.
      *
@@ -242,5 +245,13 @@ class FamilyLog
     public function getLevel()
     {
         return $this->level;
+    }
+    
+    public function getIndentedName() {
+        if ($this->parent !== null) {
+            return " >> " . $this->name;
+        } else {
+            return "- " . $this->name;
+        }
     }
 }
