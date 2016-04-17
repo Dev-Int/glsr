@@ -26,40 +26,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class SupplierRepository extends EntityRepository
 {
     /**
-     * Affiche les fournisseurs actifs, avec une pagination.
-     *
-     * @param int $nbPerPage Nombre de fournisseurs par page
-     * @param int $page      Numéro de la page en cours
-     *
-     * @return \Doctrine\ORM\Tools\Pagination\Paginator Objet Paginator
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function getSuppliers($nbPerPage, $page)
-    {
-        if ($page < 1) {
-            throw new \InvalidArgumentException(
-                'l\'argument $page ne peut être inférieur à 1 (valeur : "'
-                .$page.'").'
-            );
-        }
-
-        $query = $this->createQueryBuilder('s')
-            ->where('s.active = 1')
-            ->orderBy('s.name', 'ASC')
-            ->getQuery();
-
-        // On définit l'article à partir duquel commencer la liste
-        $query->setFirstResult(($page - 1) * $nbPerPage)
-            // Ainsi que le nombre d'article à afficher
-            ->setMaxResults($nbPerPage);
-
-        // Et enfin, on retourne l'objet Paginator
-        // correspondant à la requête construite
-        return new Paginator($query);
-    }
-
-    /**
      * Renvoie les fournisseurs correspondant à la famille logistique
      * et sous-famille logistique de l'article en paramètre.
      *
