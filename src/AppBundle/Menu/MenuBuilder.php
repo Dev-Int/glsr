@@ -28,6 +28,15 @@ class MenuBuilder extends ContainerAware
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
+        
+        $menu->addChild('manage', array('label' => 'menu.management'))
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('dropdown', true)
+            ->setAttribute('icon', 'fa fa-dashboard');
+        
+        $menu['manage']->addChild('suppliers', array('route' => 'suppliers'))
+            ->setAttribute('translation_domain', 'gs_suppliers')
+            ->setAttribute('icon', 'fa fa-industry');
  
         return $menu;
     }

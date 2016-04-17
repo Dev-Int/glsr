@@ -1,0 +1,275 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'gs_suppliers') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset class="well">
+        <legend>{{ 'form.info'|trans({}, 'gs_suppliers') }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.address'|trans }}
+            </span>
+        </div>
+        <div class="col-md-5">
+            {{ supplier.address }}<br />
+            {{ supplier.zipcode }} {{ supplier.town }}
+        </div>
+        <div class="col-md-5">
+            <span class="label label-default">
+                {{ 'settings.country'|trans({}, 'gs_suppliers') }}
+            </span><br />
+        </div>
+    </fieldset><fieldset class="well">
+        <legend>{{ 'gestock.settings.commercial'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.contact'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4">{{ supplier.contact }}</div><br />
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.phone'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
+        <div class="col-md-1">
+            <span class="label label-default">
+                {{ 'gestock.fax'|trans }}
+            </span>
+        </div>
+        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.mail'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4"></div>
+    </fieldset><fieldset class="well">
+        <legend>{{ 'gestock.settings.administratif'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.contact'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4"></div><br />
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.phone'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
+        <div class="col-md-1">
+            <span class="label label-default">
+                {{ 'gestock.fax'|trans }}
+            </span>
+        </div>
+        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.mail'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4">{{ supplier.mail }}</div>
+    </fieldset><fieldset class="well">
+        <legend>{{ 'gestock.details'|trans }}</legend>
+        <div class="col-md-2">
+            <span class="label label-default">
+                {{ 'gestock.settings.diverse.familylog'|trans }}
+            </span>
+        </div>
+        <div class="col-md-4">{{ supplier.familyLog }}</div>
+        <div class="col-md-6"></div>
+        <p>&nbsp;</p>
+        <div class="col-md-12">
+            <table class="panel panel-default">
+                <thead class="panel-heading">
+                    <tr>
+                        <th class="col-md-5">
+                            <span class="label label-default">
+                                {{ 'settings.order'|trans({}, 'gs_suppliers') }}
+                            </span>
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Monday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Tuesday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Wednesday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Thursday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Friday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Saturday'|trans }}
+                        </th>
+                        <th class="col-md-1 text-center">
+                            {{ 'Sunday'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="panel-body">
+                    <tr>
+                        <td class="col-md-5">
+                            {{ 'settings.day_order'|trans({}, 'gs_suppliers') }}
+                        </td>
+                        {% for i in 1..7 %}
+                            {% set b = 0 %}
+                            {% for orderdate in supplier.orderdate %}
+                                {% if orderdate == 1 and i == 1 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 2 and i == 2 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 3 and i == 3 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 4 and i == 4 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 5 and i == 5 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 6 and i == 6 %}<td class="col-md-1 text-center">X</td>
+                                {% elseif orderdate == 7 and i == 7 %}<td class="col-md-1 text-center">X</td>
+                                {% else %}{% set b = b + 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if b == 2 %}
+                                <td class="col-md-1 text-center">&nbsp;</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+
+    {% if articles is defined %}
+    <section class="col-md-12">
+        <fieldset>
+            <legend>
+                {{ 'settings.articles_of'|trans({'%supplier.name%': supplier.name}, 'gs_suppliers') }}
+            </legend>
+            {% if articles is empty %}
+                <p>
+                    {{ 'settings.no_articles'|trans({}, 'gs_suppliers') }}
+                </p>
+            {% else %}
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3">
+                                {{ 'gestock.title_item'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'gestock.settings.diverse.unitstorage'|trans }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'settings.packaging'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'settings.price'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-md-1">
+                                {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-md-2">
+                                {{ 'gestock.settings.diverse.familylog'|trans }}
+                            </th>
+                            <th class="col-md-2">
+                                {{ 'gestock.settings.diverse.subfamilylog'|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                                    {{ article.name }}
+                                </a>
+                            </td>
+                            <td>{{ article.packaging }}</td>
+                            <td>{{ article.unitstorage }}</td>
+                            <td>{{ article.price }} €</td>
+                            <td>{{ article.quantity }}</td>
+                            <td>{{ article.minstock }}</td>
+                            <td>{{ article.familyLog }}</td>
+                            <td>{{ article.subFamilyLog }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </fieldset>
+    </section>#}
+    {% endif %}
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info" href="{{ path('suppliers') }}">
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <a class="btn btn-primary" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
+                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    <div id="delete_confirm" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{ 'Confirm delete'|trans({}, 'admin') }}</h3>
+                </div>
+                <div class="modal-body">
+                    <p>{{ 'You are about to delete an item'|trans({}, 'admin') }}, {{ 'this procedure is irreversible'|trans({}, 'admin') }}.</p>
+                    <p>{{ 'Do you want to proceed?'|trans({}, 'admin') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger">{{ 'Yes'|trans({}, 'admin') }}</button>
+                    <button class="btn btn-default" data-dismiss="modal">{{ 'No'|trans({}, 'admin') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{#    <section class="col-md-12">
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="btn-group">
+                <a href="{{ path('suppliers_edit', {'slug': supplier.slug}) }}" class="btn btn-success" role="button">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    {{ 'edit.title_button'|trans({}, 'gs_suppliers') }}
+                </a>&nbsp;
+                <a href="{{ path('suppliers_delete', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    {{ 'delete.title_button'|trans({}, 'gs_suppliers') }}
+                </a>
+            </div>
+            <div class="btn-group">
+                <a href="{{ path('suppliers') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    {{ 'return_list'|trans }}
+                </a>&nbsp;
+                <a href="{{ path('suppliers_new') }}" class="btn btn-default" role="button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    {{ 'create.title_button'|trans({}, 'gs_suppliers') }}
+                </a>
+            </div>
+        {% endif %}
+    </section>
+#}{% endblock %}

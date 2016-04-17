@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {% include 'AppBundle:supplier:form.html.twig' %}
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info" href="{{ path('suppliers') }}">
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    <div id="delete_confirm" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{ 'Confirm delete'|trans({}, 'admin') }}</h3>
+                </div>
+                <div class="modal-body">
+                    <p>{{ 'You are about to delete an item'|trans({}, 'admin') }}, {{ 'this procedure is irreversible'|trans({}, 'admin') }}.</p>
+                    <p>{{ 'Do you want to proceed?'|trans({}, 'admin') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger">{{ 'Yes'|trans({}, 'admin') }}</button>
+                    <button class="btn btn-default" data-dismiss="modal">{{ 'No'|trans({}, 'admin') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

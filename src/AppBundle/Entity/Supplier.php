@@ -21,7 +21,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use AppBundle\Entity\Contact;
 use AppBundle\Entity\FamilyLog;
-use AppBundle\Entity\SubFamilyLog;
 
 /**
  * Supplier Entité Supplier.
@@ -52,13 +51,6 @@ class Supplier extends Contact
      * @Assert\NotBlank()
      */
     private $family_log;
-
-    /**
-     * @var string Sous-famille logistique
-     *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SubFamilyLog")
-     */
-    private $sub_family_log;
 
     /**
      * @var int Délai de livraison
@@ -177,41 +169,6 @@ class Supplier extends Contact
     public function getFamilyLog()
     {
         return $this->family_log;
-    }
-
-    /**
-     * Set sub_family_log.
-     *
-     * @param SubFamilyLog $subFamilyLog Sous-famille logistique
-     *
-     * @return Supplier
-     */
-    public function setSubFamilyLog(SubFamilyLog $subFamilyLog = null)
-    {
-        $this->sub_family_log = $subFamilyLog;
-        return $this;
-    }
-
-    /**
-     * Get sub_family_log.
-     *
-     * @return SubFamilyLog
-     */
-    public function getSubFamilyLog()
-    {
-        return $this->sub_family_log;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Supplier
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-        return $this;
     }
 
     /**

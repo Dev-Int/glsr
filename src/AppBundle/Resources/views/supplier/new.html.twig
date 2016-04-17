@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{#{% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}#}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+        {% include 'AppBundle:supplier:form.html.twig' %}
+{#    {{ form_start(form, {action: path('suppliers_create')}) }}
+        {{ form_widget(form) }}
+        <p>
+            <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
+        </p>
+    {{ form_end(form) }}#}
+        
+    <div class="btn-group record_actions">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info" href="{{ path('suppliers') }}">
+            <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+        </a>
+    </div>
+{% endblock %}

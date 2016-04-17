@@ -1,54 +1,52 @@
 ## YAML Template.
 ---
-gestock:
-    supplier:
-        title: Fournisseurs
-        name: Nom
-        number: 'Il y a %count% fournisseur|]1,+Inf]Il y a %count% fournisseurs'
-        content: 'Contenu du fournisseur'
-        list: 'Liste des fournisseurs'
-        none: "Pas (encore !) de fournisseur.\n Pour le bon fonctionnement de l'application, vous devez créer vos fournisseurs."
-        lastest: 'Les derniers fournisseurs'
-        return: 'Retour au fournisseur'
-        return_list: 'Retour à la liste'
-        settings:
-            country: Pays
-            order: Commande
-            delay: "Délai Livraison"
-            day_order: "Jour de commande"
-            articles_of: "Articles de %supplier.name%"
-            no_articles: "Il n'y a pas d'article pour ce fournisseur."
-        delete:
-            title: 'Supprimer un fournisseur'
-            title_button: 'Supprimer le fournisseur'
-            submit_button: 'Supprimer un fournisseur'
-            caution: 'Êtes-vous sûr de vouloir désactiver le fournisseur "%supplier.name%" ?'
-            reassign: 'Vous devez réaffecter les articles du Fournisseur !'
-            ok: 'Fournisseur bien désactivé'
-            no: 'Fournisseur non désactivé'
-        edit:
-            title: 'Modifier un fournisseur'
-            title_button: 'Modifier le fournisseur'
-            submit_button: Valider
-            caution: "Vous éditez un fournisseur déjà existant.\n Ne le changez pas trop pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
-            ok: "Fournisseur bien modifié"
-            no: "Fournisseur pas modifié"
-        form:
-            title: 'Formulaire de fournisseur'
-            info: 'Information Fournisseur'
-            atob: "A pour B"
-            atoc: "A pour C"
-            atod: "A pour D"
-            atoe: "A pour E"
-        show:
-            title: 'Lecture d''un fournisseur'
-            edit_button: 'Editer le fournisseur'
-            create_button: 'Créer un nouveau fournisseur'
-        create:
-            title: 'Créer un fournisseur'
-            title_button: 'Ajouter un fournisseur'
-            save: "Enregistrer le fournisseur"
-            save&more: "Enregistrer, et ajouter un autre fournisseur"
-            caution: "Attention !\n Ce fournisseur sera ajouté directement\n au tableau des forunisseurs après validation du formulaire."
-            ok: "Le fournisseur est bien ajouté"
-            no: "Le fournisseur n'est pas ajouté"
+title: Fournisseurs
+name: Nom
+number: 'Il y a %count% fournisseur|]1,+Inf]Il y a %count% fournisseurs'
+content: 'Contenu du fournisseur'
+list: 'Liste des fournisseurs'
+none: "Pas (encore !) de fournisseur.\n Pour le bon fonctionnement de l'application, vous devez créer vos fournisseurs."
+lastest: 'Les derniers fournisseurs'
+return: 'Retour au fournisseur'
+return_list: 'Retour à la liste'
+settings:
+    country: Pays
+    order: Commande
+    delay: "Délai Livraison"
+    day_order: "Jour de commande"
+    articles_of: "Articles de %supplier.name%"
+    no_articles: "Il n'y a pas d'article pour ce fournisseur."
+delete:
+    title: 'Supprimer un fournisseur'
+    title_button: 'Supprimer le fournisseur'
+    submit_button: 'Supprimer un fournisseur'
+    caution: 'Êtes-vous sûr de vouloir désactiver le fournisseur "%supplier.name%" ?'
+    reassign: 'Vous devez réaffecter les articles du Fournisseur !'
+    ok: 'Fournisseur bien désactivé'
+    no: 'Fournisseur non désactivé'
+edit:
+    title: 'Modifier un fournisseur'
+    title_button: 'Modifier le fournisseur'
+    submit_button: Valider
+    caution: "Vous éditez un fournisseur déjà existant.\n Ne le changez pas trop pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
+    ok: "Fournisseur bien modifié"
+    no: "Fournisseur pas modifié"
+form:
+    title: 'Formulaire de fournisseur'
+    info: 'Information Fournisseur'
+    atob: "A pour B"
+    atoc: "A pour C"
+    atod: "A pour D"
+    atoe: "A pour E"
+show:
+    title: 'Lecture d''un fournisseur'
+    edit_button: 'Editer le fournisseur'
+    create_button: 'Créer un nouveau fournisseur'
+create:
+    title: 'Créer un fournisseur'
+    title_button: 'Ajouter un fournisseur'
+    save: "Enregistrer le fournisseur"
+    save&more: "Enregistrer, et ajouter un autre fournisseur"
+    caution: "Attention !\n Ce fournisseur sera ajouté directement\n au tableau des forunisseurs après validation du formulaire."
+    ok: "Le fournisseur est bien ajouté"
+    no: "Le fournisseur n'est pas ajouté"

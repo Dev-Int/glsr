@@ -5,7 +5,17 @@ no_granted: 'Vous devez être connecté pour accéder à cette page.'
 copy: "GLSR &copy; 2014 and beyond."
 Next: Suivant
 Previous: Précédent
+
+Monday: Lundi
+Tuesday: Mardi
+Wednesday: Mercredi
+Thursday: Jeudi
+Friday: Vendredi
+Saturday: Samedi
+Sunday: Dimanche
+
 menu:
+    management: Gestion
     administration: Administration
     configuration: Configuration
     other_login: "Se connecter sous un autre profil"
@@ -38,14 +48,6 @@ gestock:
     contact: Contact
     date: Date
     amount: Montant
-    dates:
-        mon: Lundi
-        tue: Mardi
-        wed: Mercredi
-        thu: Jeudi
-        fri: Vendredi
-        sat: Samedi
-        sun: Dimanche
     total: Total
     totals: Totaux
     roles: Roles
