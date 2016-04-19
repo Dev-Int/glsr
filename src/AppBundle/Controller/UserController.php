@@ -24,6 +24,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
 use AppBundle\Form\Type\UserFilterType;
 use Symfony\Component\Form\FormInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * User controller.
