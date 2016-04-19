@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\FamilyLogType;
  *
  * @Route("/admin/settings/divers/familylog")
  */
-class FamilyLogController extends Controller
+class FamilyLogController extends AbstractController
 {
     /**
      * Lists all FamilyLog entities.
@@ -189,21 +189,5 @@ class FamilyLogController extends Controller
         }
 
         return $this->redirectToRoute('admin_familylog');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

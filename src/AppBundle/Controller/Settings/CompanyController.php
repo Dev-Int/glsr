@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\CompanyType;
  *
  * @Route("/admin/settings/company")
  */
-class CompanyController extends Controller
+class CompanyController extends AbstractController
 {
     /**
      * Lists all Company entities.
@@ -175,21 +175,5 @@ class CompanyController extends Controller
         }
 
         return $this->redirectToRoute('admin_company');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

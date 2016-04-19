@@ -15,12 +15,10 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Translation\Translator;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Doctrine\ORM\QueryBuilder;
 use AppBundle\Entity\Supplier;
 use AppBundle\Form\Type\SupplierType;
 
@@ -31,7 +29,7 @@ use AppBundle\Form\Type\SupplierType;
  *
  * @Route("/suppliers")
  */
-class SupplierController extends Controller
+class SupplierController extends AbstractController
 {
     /**
      * Lists all Supplier entities.
@@ -174,39 +172,6 @@ class SupplierController extends Controller
     }
 
     /**
-     * @param string $name  session name
-     * @param string $field field name
-     * @param string $type  sort type ("ASC"/"DESC")
-     */
-    protected function setOrder($name, $field, $type = 'ASC')
-    {
-        $this->getRequest()->getSession()->set('sort.' . $name, array('field' => $field, 'type' => $type));
-    }
-
-    /**
-     * @param  string $name
-     * @return array
-     */
-    protected function getOrder($name)
-    {
-        $session = $this->getRequest()->getSession();
-
-        return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
-    }
-
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $name
-     */
-    protected function addQueryBuilderSort(QueryBuilder $qb, $name)
-    {
-        $alias = current($qb->getDQLPart('from'))->getAlias();
-        if (is_array($order = $this->getOrder($name))) {
-            $qb->orderBy($alias . '.' . $order['field'], $order['type']);
-        }
-    }
-
-    /**
      * Deletes a Supplier entity.
      *
      * @Route("/{id}/delete", name="suppliers_delete", requirements={"id"="\d+"})
@@ -222,21 +187,5 @@ class SupplierController extends Controller
         }
 
         return $this->redirectToRoute('suppliers');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

@@ -15,7 +15,7 @@
 namespace AppBundle\Controller\Settings\Divers;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use AppBundle\Form\Type\UnitStorageType;
  *
  * @Route("/admin/settings/divers/unitstorage")
  */
-class UnitStorageController extends Controller
+class UnitStorageController extends AbstractController
 {
     /**
      * Lists all UnitStorage entities.
@@ -180,21 +180,5 @@ class UnitStorageController extends Controller
         }
 
         return $this->redirectToRoute('admin_unitstorage');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }

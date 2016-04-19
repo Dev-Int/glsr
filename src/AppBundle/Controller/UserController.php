@@ -15,7 +15,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +24,6 @@ use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
 use AppBundle\Form\Type\UserFilterType;
 use Symfony\Component\Form\FormInterface;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * User controller.
@@ -33,7 +32,7 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @Route("/admin/users")
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * Lists all User entities.
@@ -186,39 +185,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param string $name  session name
-     * @param string $field field name
-     * @param string $type  sort type ("ASC"/"DESC")
-     */
-    protected function setOrder($name, $field, $type = 'ASC')
-    {
-        $this->getRequest()->getSession()->set('sort.' . $name, array('field' => $field, 'type' => $type));
-    }
-
-    /**
-     * @param  string $name
-     * @return array
-     */
-    protected function getOrder($name)
-    {
-        $session = $this->getRequest()->getSession();
-
-        return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
-    }
-
-    /**
-     * @param QueryBuilder $qb
-     * @param string       $name
-     */
-    protected function addQueryBuilderSort(QueryBuilder $qb, $name)
-    {
-        $alias = current($qb->getDQLPart('from'))->getAlias();
-        if (is_array($order = $this->getOrder($name))) {
-            $qb->orderBy($alias . '.' . $order['field'], $order['type']);
-        }
-    }
-
-    /**
      * Save filters
      *
      * @param  FormInterface $form
@@ -298,21 +264,5 @@ class UserController extends Controller
         }
 
         return $this->redirectToRoute('admin_users');
-    }
-
-    /**
-     * Create Delete form
-     *
-     * @param integer                       $id
-     * @param string                        $route
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createDeleteForm($id, $route)
-    {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
     }
 }
