@@ -66,7 +66,7 @@ class SupplierType extends AbstractType
                 )
             )
             // Délai de livraison A = jour de Cmde,
-            // (B, C, D, E) = jour de livraison        
+            // (B, C, D, E) = jour de livraison
             ->add(
                 'delaydeliv',
                 'choice',

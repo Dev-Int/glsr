@@ -247,7 +247,8 @@ class FamilyLog
         return $this->level;
     }
     
-    public function getIndentedName() {
+    public function getIndentedName()
+    {
         if ($this->parent !== null) {
             return " >> " . $this->name;
         } else {

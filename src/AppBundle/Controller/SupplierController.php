@@ -239,5 +239,4 @@ class SupplierController extends Controller
             ->getForm()
         ;
     }
-
 }
