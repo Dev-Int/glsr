@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{#{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}#}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {% include 'AppBundle:article:form.html.twig' %}
+    <p class="alert alert-warning">{{ 'create.caution'|trans({}, 'gs_articles')|nl2br }}</p>
+        
+    <div class="btn-group record_actions">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info" href="{{ path('articles') }}">
+            <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+        </a>
+    </div>
+
+{% endblock %}

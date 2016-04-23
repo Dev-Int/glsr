@@ -34,9 +34,19 @@ class MenuBuilder extends ContainerAware
             ->setAttribute('dropdown', true)
             ->setAttribute('icon', 'fa fa-dashboard');
         
-        $menu['manage']->addChild('suppliers', array('route' => 'suppliers'))
-            ->setAttribute('translation_domain', 'gs_suppliers')
-            ->setAttribute('icon', 'fa fa-industry');
+        $menu['manage']->addChild('suppliers', array(
+            'label' => 'title',
+            'route' => 'suppliers'
+        ))
+            ->setExtra('translation_domain', 'gs_suppliers')
+            ->setAttribute('icon', 'glyphicon glyphicon-barcode');
+ 
+        $menu['manage']->addChild('articles', array(
+            'label' => 'title',
+            'route' => 'articles'
+        ))
+            ->setExtra('translation_domain', 'gs_articles')
+            ->setAttribute('icon', 'fa fa-shopping-basket');
  
         return $menu;
     }
