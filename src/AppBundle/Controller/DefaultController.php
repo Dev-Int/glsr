@@ -109,25 +109,21 @@ class DefaultController extends Controller
      * Récupère les FamilyLog de la requête post.
      *
      * @Route("/getfamilylog", name="getfamilylog")
-     * @Method("GET")
+     * @Method("POST")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getFamilyLogAction()
     {
+        $id = '';
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
-            $id = '';
             $id = $request->get('id');
             if ($id != '') {
                 $supplier = $etm
                     ->getRepository('AppBundle:Supplier')
                     ->find($id);
                 $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
-                if (null !== $supplier->getSubFamilyLog()) {
-                    $familyLog['subfamilylog']
-                        = $supplier->getSubFamilyLog()->getId();
-                }
                 $response = new Response();
                 $data = json_encode($familyLog);
                 $response->headers->set('Content-Type', 'application/json');
