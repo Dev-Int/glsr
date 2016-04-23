@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Article;
 use AppBundle\Form\Type\ArticleType;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Article controller.
