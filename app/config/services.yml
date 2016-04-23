@@ -4,16 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-    app.form.registration:
-        class: AppBundle\Form\RegistrationType
-        tags:
-            - { name: form.type, alias: app_user_registration }
-            
-#    app.form.group:
-#        class: AppBundle\Form\GroupType
-#        tags:
-#            - { name: form.type, alias: app_user_group }
-
     login_listener:
         class: 'AppBundle\Listener\LoginListener'
         arguments: ['@fos_user.user_manager']
