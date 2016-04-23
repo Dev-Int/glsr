@@ -1,8 +1,14 @@
-{# empty Twig template #}
+{% block body_title %}
+    {{ 'form.title'|trans({}, 'gs_suppliers') }}
+{% endblock %}
+
 {% if edit_form is defined %}
     {% set form = edit_form %}
+    {{ form_start(form) }}
+{% else %}
+    {{ form_start(form, {action: path('suppliers_create')}) }}
 {% endif %}
-{{ form_start(form, {action: path('suppliers_create')}) }}
+
     <fieldset class="well">
         {{ form_errors(form) }}
         <legend>{{ 'form.info'|trans({}, 'gs_suppliers') }}</legend>
