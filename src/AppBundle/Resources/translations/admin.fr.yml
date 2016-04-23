@@ -1,6 +1,6 @@
-"%entity% creation":             "Création - %entity%"
-"%entity% edit":                 "Modification - %entity%"
-"%entity% list":                 "Liste - %entity%"
+"%entity% creation":             "%entity% - Création"
+"%entity% edit":                 "%entity% - Modification"
+"%entity% list":                 "%entity% - Liste"
 Actions:                         Actions
 Confirm delete:                  Confirmer la suppression
 Create:                          Créer
