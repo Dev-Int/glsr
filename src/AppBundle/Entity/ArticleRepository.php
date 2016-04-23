@@ -26,39 +26,19 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ArticleRepository extends EntityRepository
 {
     /**
-     * Affiche les articles actifs, avec une pagination.
+     * Affiche les articles actifs.
      *
-     * @param int $nbPerPage Nombre d'article par page
-     * @param int $page      Numéro de la page en cours
-     *
-     * @return \Doctrine\ORM\Tools\Pagination\Paginator Objet Paginator
-     *
-     * @throws \InvalidArgumentException
+     * @return QueryBuilder Requête DQL
      */
-    public function getArticles($nbPerPage, $page)
+    public function getArticles()
     {
-        if ($page < 1) {
-            throw new \InvalidArgumentException(
-                'l\'argument $page ne peut être inférieur à 1 (valeur : "'.
-                $page.'").'
-            );
-        }
-
         $query = $this->createQueryBuilder('a')
             ->leftjoin('a.supplier', 's')
             ->addSelect('s')
             ->where('a.active = 1')
-            ->orderBy('a.name', 'ASC')
-            ->getQuery();
-
-        // On définit l'article à partir duquel commencer la liste
-        $query->setFirstResult(($page - 1) * $nbPerPage)
-            // Ainsi que le nombre d'article à afficher
-            ->setMaxResults($nbPerPage);
-
-        // Et enfin, on retourne l'objet
-        // Paginator correspondant à la requête construite
-        return new Paginator($query);
+            ->orderBy('a.name', 'ASC');
+        
+        return $query;
     }
 
     /**

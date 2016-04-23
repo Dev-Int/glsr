@@ -25,8 +25,22 @@ use Doctrine\ORM\EntityRepository;
 class SupplierRepository extends EntityRepository
 {
     /**
-     * Renvoie les fournisseurs correspondant à la famille logistique
-     * et sous-famille logistique de l'article en paramètre.
+     * Affiche les fournisseurs actifs.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getSuppliers()
+    {
+        $query = $this->createQueryBuilder('s')
+            ->where('s.active = 1')
+            ->orderBy('s.name', 'ASC');
+        
+        return $query;
+    }
+
+    /**
+     * Renvoie les fournisseurs actifs correspondant à la famille logistique
+     * de l'article en paramètre.
      *
      * @param AppBundle\Entity\Article $article Article sélectionné
      *
@@ -37,13 +51,11 @@ class SupplierRepository extends EntityRepository
         $query = $this->createQueryBuilder('s')
             ->where('s.name != :idname')
             ->andWhere('s.family_log = :flname')
-            ->andWhere('s.sub_family_log = :sflname')
             ->andWhere('s.active = 1')
             ->setParameters(
                 array(
                     'idname' => $article->getSupplier()->getName(),
                     'flname' => $article->getFamilyLog(),
-                    'sflname' => $article->getSubFamilyLog(),
                 )
             )
             ->orderBy('s.name', 'ASC');

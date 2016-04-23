@@ -41,7 +41,7 @@ class ArticleController extends AbstractController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:Article')->createQueryBuilder('a');
+        $qb = $em->getRepository('AppBundle:Article')->getArticles();
         $this->addQueryBuilderSort($qb, 'article');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 5);
         
@@ -182,7 +182,8 @@ class ArticleController extends AbstractController
         $form = $this->createDeleteForm($article->getId(), 'articles_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($article);
+            $article->setActive(false);
+            $em->persist($article);
             $em->flush();
         }
 

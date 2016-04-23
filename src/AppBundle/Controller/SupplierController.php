@@ -41,7 +41,7 @@ class SupplierController extends AbstractController
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:Supplier')->createQueryBuilder('s');
+        $qb = $em->getRepository('AppBundle:Supplier')->getSuppliers();
         $this->addQueryBuilderSort($qb, 'supplier');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 20);
         
@@ -182,7 +182,8 @@ class SupplierController extends AbstractController
         $form = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($supplier);
+            $supplier->setActive(false);
+            $em->persist($supplier);
             $em->flush();
         }
 
