@@ -31,7 +31,6 @@ edit:
     ok: "Article bien modifié"
     no: "Article pas modifié"
 form:
-    title: "Formulaire d'article"
     info: 'Information Article'
     choice_supplier: "Choisissez un fournisseur"
 show:

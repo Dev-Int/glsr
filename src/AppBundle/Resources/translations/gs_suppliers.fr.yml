@@ -32,7 +32,6 @@ edit:
     ok: "Fournisseur bien modifié"
     no: "Fournisseur pas modifié"
 form:
-    title: 'Formulaire de fournisseur'
     info: 'Information Fournisseur'
     atob: "A pour B"
     atoc: "A pour C"

@@ -1,7 +1,3 @@
-{% block body_title %}
-    {{ 'form.title'|trans({}, 'gs_suppliers') }}
-{% endblock %}
-
 {% if edit_form is defined %}
     {% set form = edit_form %}
     {{ form_start(form) }}
