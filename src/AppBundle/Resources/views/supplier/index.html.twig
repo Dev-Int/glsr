@@ -29,7 +29,7 @@
         <thead>
             <tr>
                 <th scope="col">{{ thead('supplier', 'id', 'gestock.id'|trans) }}</th>
-                <th scope="col">{{  'gestock.name'|trans }}</th>
+                <th scope="col">{{ 'gestock.name'|trans }}</th>
                 <th scope="col">{{ 'gestock.address'|trans }}</th>
                 <th scope="col">{{ 'gestock.phone'|trans }}</th>
                 <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
@@ -58,7 +58,7 @@
         </tbody>
     </table>
     
-    {{ knp_pagination_render(paginator) }}
+    <div class="text-center">{{ knp_pagination_render(paginator) }}</div>
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
