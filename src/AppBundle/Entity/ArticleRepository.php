@@ -40,6 +40,12 @@ class ArticleRepository extends EntityRepository
         return $query;
     }
 
+    public function getResultArticles() {
+        $query = $this->getArticles()->getQuery();
+        
+        return $query->getResult();
+    }
+
     /**
      * Renvoi les article du fournisseur en paramètre.
      *
