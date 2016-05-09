@@ -13,7 +13,8 @@ use AppBundle\Entity\Inventory;
  */
 class InventoryArticlesRepository extends EntityRepository
 {
-    public function getArticlesFromInventory(Inventory $inventory) {
+    public function getArticlesFromInventory(Inventory $inventory)
+    {
         $query = $this->createQueryBuilder('i')
             ->where('i.inventory = :id')
             ->setParameter('id', $inventory->getId())
