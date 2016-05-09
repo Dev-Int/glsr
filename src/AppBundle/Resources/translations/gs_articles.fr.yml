@@ -14,7 +14,6 @@ settings:
     quantity: Quantité
     stock_alert: "Stock alerte"
     theoretical_stock: "Stock théorique"
-    real_stock: "Stock réel"
     information: Informations
     feature: Caractéristiques
 delete:

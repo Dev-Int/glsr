@@ -1,6 +1,7 @@
 "%entity% creation":             "%entity% - Création"
 "%entity% edit":                 "%entity% - Modification"
 "%entity% list":                 "%entity% - Liste"
+"%entity% valid":                "%entity% - Clôture"
 Actions:                         Actions
 Confirm delete:                  Confirmer la suppression
 Create:                          Créer

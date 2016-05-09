@@ -25,6 +25,8 @@ use Doctrine\ORM\QueryBuilder;
 abstract class AbstractController extends Controller
 {
     /**
+     * SetOrder for the SortAction in views.
+     *
      * @param string $name  session name
      * @param string $field field name
      * @param string $type  sort type ("ASC"/"DESC")
@@ -35,6 +37,8 @@ abstract class AbstractController extends Controller
     }
 
     /**
+     * GetOrder for the SortAction in views.
+     *
      * @param  string $name
      * @return array
      */
@@ -46,6 +50,8 @@ abstract class AbstractController extends Controller
     }
 
     /**
+     * AddQueryBuilderSort for the SortAction in views.
+     *
      * @param QueryBuilder $qb
      * @param string       $name
      */
@@ -71,5 +77,31 @@ abstract class AbstractController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function testInventory() {
+        $url = null;
+        $em = $this->getDoctrine()->getManager();
+        $inventories = $em->getRepository('AppBundle:Inventory')->getInventory();
+
+        if (empty($inventories)) {
+            $url = null;
+            // Go to installActions
+        } else {
+            foreach ($inventories as $inventory){
+                if ($inventory->getstatus() === 1 || $inventory->getStatus() === 2) {
+                    $message = $this->get('translator')->trans('yet',array(),'gs_inventories');
+                    $this->addFlash('danger', $message);
+                    $url = 'inventory';
+                    break;
+                }
+            }
+        }
+
+        return $url;
     }
 }

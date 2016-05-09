@@ -24,15 +24,16 @@ label {
 }
 label.required:before {
     content: "* ";
+    font-weight: bold;
 }
 input[type='text'].inventory {
-    width: 85%!important;
+    text-align: right;
 }
 .col-lg-3 input[type='text'].inventory {
     width: 100%!important;
 }
 
-input[type='text'].negative {
+.negative {
     color: red!important;
     font-weight: bold!important;
 }
@@ -75,4 +76,8 @@ i.danger {
     -moz-osx-font-smoothing: grayscale;
     content: '\f067';
     margin-right: 4px;
+}
+
+#article th {
+    word-wrap: break-word;
 }
