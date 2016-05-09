@@ -319,7 +319,7 @@ class InventoryController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function prepareData(Inventory $inventory)
+    public function prepareDataAction(Inventory $inventory)
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
