@@ -162,7 +162,8 @@ class InventoryArticlesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return 'inventoryarticles';
     }
 }
