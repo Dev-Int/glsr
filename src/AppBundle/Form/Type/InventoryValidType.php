@@ -46,7 +46,8 @@ class InventoryValidType extends InventoryType
     /**
      * {@inheritdoc}
      */
-    public function getName() {
+    public function getName()
+    {
         return 'inventory_valid';
     }
 }
