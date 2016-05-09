@@ -85,7 +85,7 @@ class Inventory
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -108,7 +108,7 @@ class Inventory
     /**
      * Get date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDate()
     {
@@ -131,7 +131,7 @@ class Inventory
     /**
      * Get file
      *
-     * @return string 
+     * @return string
      */
     public function getFile()
     {
@@ -154,7 +154,7 @@ class Inventory
     /**
      * Get amount
      *
-     * @return string 
+     * @return string
      */
     public function getAmount()
     {
@@ -177,7 +177,7 @@ class Inventory
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -210,7 +210,7 @@ class Inventory
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {
