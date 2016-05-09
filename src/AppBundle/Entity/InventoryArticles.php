@@ -22,16 +22,12 @@ class InventoryArticles
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Inventory", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $inventory;
 
     /**
-     * @var string
-     *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Article")
      * @ORM\JoinColumn(nullable=false)
      */
