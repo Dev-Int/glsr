@@ -80,10 +80,11 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * 
+     * Test Inventory
      * @return string
      */
-    protected function testInventory() {
+    protected function testInventory()
+    {
         $url = null;
         $em = $this->getDoctrine()->getManager();
         $inventories = $em->getRepository('AppBundle:Inventory')->getInventory();
@@ -92,9 +93,10 @@ abstract class AbstractController extends Controller
             $url = null;
             // Go to installActions
         } else {
-            foreach ($inventories as $inventory){
+            foreach ($inventories as $inventory) {
                 if ($inventory->getstatus() === 1 || $inventory->getStatus() === 2) {
-                    $message = $this->get('translator')->trans('yet',array(),'gs_inventories');
+                    $message = $this->get('translator')
+                        ->trans('yet', array(), 'gs_inventories');
                     $this->addFlash('danger', $message);
                     $url = 'inventory';
                     break;
