@@ -71,7 +71,7 @@ class InventoryArticles
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,7 +94,7 @@ class InventoryArticles
     /**
      * Get inventory
      *
-     * @return string 
+     * @return string
      */
     public function getInventory()
     {
@@ -117,7 +117,7 @@ class InventoryArticles
     /**
      * Get article
      *
-     * @return string 
+     * @return string
      */
     public function getArticle()
     {
@@ -140,7 +140,7 @@ class InventoryArticles
     /**
      * Get realstock
      *
-     * @return string 
+     * @return string
      */
     public function getRealstock()
     {
@@ -163,7 +163,7 @@ class InventoryArticles
     /**
      * Get Price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -186,7 +186,7 @@ class InventoryArticles
     /**
      * Get quantity
      *
-     * @return string 
+     * @return string
      */
     public function getQuantity()
     {
@@ -209,7 +209,7 @@ class InventoryArticles
     /**
      * Get unit_storage
      *
-     * @return \AppBundle\Entity\UnitStorage 
+     * @return \AppBundle\Entity\UnitStorage
      */
     public function getUnitStorage()
     {
@@ -239,7 +239,7 @@ class InventoryArticles
     /**
      * Get zone_storage
      *
-     * @return integer 
+     * @return integer
      */
     public function getZoneStorage()
     {
