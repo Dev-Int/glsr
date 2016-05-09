@@ -2377,11 +2377,11 @@ protected $booted = false;
 protected $name;
 protected $startTime;
 protected $loadClassCache;
-const VERSION ='2.7.11';
-const VERSION_ID = 20711;
+const VERSION ='2.7.13';
+const VERSION_ID = 20713;
 const MAJOR_VERSION = 2;
 const MINOR_VERSION = 7;
-const RELEASE_VERSION = 11;
+const RELEASE_VERSION = 13;
 const EXTRA_VERSION ='';
 const END_OF_MAINTENANCE ='05/2018';
 const END_OF_LIFE ='05/2019';
@@ -2831,8 +2831,9 @@ return true;
 }
 public function findFile($class)
 {
-if (false === $file = apcu_fetch($this->prefix.$class)) {
-apcu_store($this->prefix.$class, $file = $this->decorated->findFile($class));
+$file = apcu_fetch($this->prefix.$class, $success);
+if (!$success) {
+apcu_store($this->prefix.$class, $file = $this->decorated->findFile($class) ?: null);
 }
 return $file;
 }
