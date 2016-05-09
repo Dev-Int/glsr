@@ -40,7 +40,8 @@ class ArticleRepository extends EntityRepository
         return $query;
     }
 
-    public function getResultArticles() {
+    public function getResultArticles()
+    {
         $query = $this->getArticles()->getQuery();
         
         return $query->getResult();
