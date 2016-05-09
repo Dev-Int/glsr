@@ -45,7 +45,7 @@ class Inventory
     private $date;
 
     /**
-     * @var boolean
+     * @var integer
      *
      * @ORM\Column(name="status", type="smallint")
      */
@@ -67,8 +67,6 @@ class Inventory
     private $file;
 
     /**
-     * @var string
-     *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\InventoryArticles", mappedBy="inventory")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -141,7 +139,7 @@ class Inventory
     /**
      * Set amount
      *
-     * @param string $amount
+     * @param float $amount
      * @return Inventory
      */
     public function setAmount($amount)
