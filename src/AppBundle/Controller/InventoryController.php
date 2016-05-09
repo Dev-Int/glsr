@@ -205,7 +205,8 @@ class InventoryController extends AbstractController
     {
         $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
             'action' => $this->generateUrl(
-                'inventory_close', array('id' => $inventory->getId())
+                'inventory_close',
+                array('id' => $inventory->getId())
             ),
             'method' => 'PUT',
         ));
@@ -244,7 +245,7 @@ class InventoryController extends AbstractController
                 foreach ($articles as $article) {
                     if ($article->getId() === $line->getArticle()->getId()) {
                         $article->setQuantity($line->getRealstock());
-                        $em->persist($article);                        
+                        $em->persist($article);
                     }
                 }
             }
@@ -353,7 +354,8 @@ class InventoryController extends AbstractController
      * @param string $title Tile title
      * @return array
      */
-    private function getArray($date, $title) {
+    private function getArray($date, $title)
+    {
         $array = array(
             'margin-top' => 15,
             'header-spacing' => 5,
