@@ -8,6 +8,9 @@
                 'bundles/app/css/*' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}
+            {% javascripts 'bundles/app/js/jquery-1.11.1.js' filter='?yui_js' %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
