@@ -1,0 +1,8 @@
+{%- block money_widget -%}
+{#    {{ money_pattern|replace({ '{{ widget }}': block('form_widget_simple') })|raw }}
+{{ dump(money_pattern) }}#}
+    <div class="input-group">
+        <input type="text" {{ block("widget_attributes") }} {% if value is not empty %}value="{{ value }}" {% endif %} aria-describedby="money-addon">
+        <span class="input-group-addon" id="money-addon">{{ money_pattern|replace({ '{{ widget }} ': '' })|raw }}</span>
+    </div>
+{%- endblock money_widget -%}
