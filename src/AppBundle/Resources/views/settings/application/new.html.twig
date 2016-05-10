@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {{ form_start(form, {action: path('admin_application_create')}) }}
+        {{ form_widget(form) }}
+        <p>
+            <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
+        </p>
+    {{ form_end(form) }}
+
+        
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info" href="{{ path('admin_application') }}">
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            </a>
+
+
+        </div>
+
+
+{% endblock %}

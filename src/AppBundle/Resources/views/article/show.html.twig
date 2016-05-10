@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'gs_articles') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i> 
+    <small>{{ "%06d"|format(article.id) }}</small> {{ article.name }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset class="well"><legend>{{ 'settings.information'|trans({}, 'gs_articles') }}</legend>
+        <section class="row col-md-12">
+            <div class="col-md-4 form-group">
+                <span class="label label-default">
+                    {{ 'title'|trans({}, 'gs_suppliers') }}
+                </span>&nbsp;
+                <a href="{{ path('suppliers_show', {slug: article.supplier.slug}) }}">
+                    {{ article.supplier }}
+                </a>
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="label label-default">
+                    {{ 'gestock.settings.diverse.zonestorage'|trans }}
+                </span>&nbsp;
+                {% set b = 0 %}
+                {% for zone in article.zonestorages %}
+                    {% if b > 0 %}
+                        , {{ zone.name }}
+                    {% else %}
+                        {{ zone.name }}
+                    {% endif %}
+                    {% set b = b + 1 %}
+                {% endfor %}
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="label label-default">
+                    {{ 'gestock.settings.diverse.familylog'|trans }}
+                </span>&nbsp;
+                {{ article.familyLog }}
+            </div>
+        </section>
+    </fieldset>
+    <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
+         <section class="row col-md-12">
+            <div class="col-md-4 form-group">
+                <span class="label label-default">
+                    {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+                </span>&nbsp;
+                {{ article.quantity }}
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="label label-default">
+                    {{ 'gestock.settings.diverse.unitstorage'|trans }}
+                </span>&nbsp;
+                {{ article.unitStorage }}
+            </div>
+            <div class="col-md-4 input-group form-group">
+                <span class="label label-default">
+                    {{ 'settings.price'|trans({}, 'gs_articles') }}
+                </span>&nbsp;
+                {{ article.price }}
+            </div>
+        </section>
+    </fieldset>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info" href="{{ path('articles') }}">
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <a class="btn btn-primary" href="{{ path('articles_edit', {slug: article.slug}) }}">
+                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    <div id="delete_confirm" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{ 'Confirm delete'|trans({}, 'admin') }}</h3>
+                </div>
+                <div class="modal-body">
+                    <p>{{ 'You are about to delete an item'|trans({}, 'admin') }}, {{ 'this procedure is irreversible'|trans({}, 'admin') }}.</p>
+                    <p>{{ 'Do you want to proceed?'|trans({}, 'admin') }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger">{{ 'Yes'|trans({}, 'admin') }}</button>
+                    <button class="btn btn-default" data-dismiss="modal">{{ 'No'|trans({}, 'admin') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

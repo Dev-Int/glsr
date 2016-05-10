@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+{% macro thead(name, field, label) %}
+    {% spaceless %}
+        {% set sort = app.session.get('sort.' ~ name) %}
+        {% if sort and sort.field == field %}
+            {% if sort.type == 'DESC' %}
+                <a href="{{ path('articles_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
+            {% elseif sort.type == 'ASC' %}
+                <a href="{{ path('articles_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
+            {% endif %}
+        {% else %}
+            <a href="{{ path('articles_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
+        {% endif %}
+    {% endspaceless %}
+{% endmacro %}
+
+{% from _self import thead %}
+
+{% block body_title %}
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i> 
+    {{ '%entity% list'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-striped table-hover table-bordered records_list">
+        <thead>
+            <tr>
+                <th scope="col">{{ 'gestock.id'|trans }}</th>
+                <th scope="col">{{ thead('article', 'name', 'gestock.name'|trans) }}</th>
+                <th scope="col">{{ 'title'|trans({}, 'gs_suppliers') }}</th>
+                <th scope="col">{{ 'gestock.settings.diverse.familylog'|trans }}</th>
+                <th scope="col">{{ 'settings.price'|trans({}, 'gs_articles') }}</th>
+                <th scope="col">{{ 'settings.quantity'|trans({}, 'gs_articles') }}</th>
+                <th scope="col">{{ 'settings.stock_alert'|trans({}, 'gs_articles') }}</th>
+                <th scope="col" class="text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in paginator %}
+                <tr>
+                    <td>{{ "%06d"|format(article.id) }}</td>
+                    <td><a href="{{ path('articles_show', {slug: article.slug}) }}">{{ article.name }}</a></td>
+                    <td><a href="{{ path('suppliers_show', {slug: article.supplier.slug}) }}">{{ article.supplier.name }}</a></td>
+                    <td>{{ article.familylog }}</td>
+                    <td>{{ article.price }}</td>
+                    <td>{{ article.quantity }}</td>
+                    <td>{{ article.minstock }}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-sm" href="{{ path('articles_show', {slug: article.slug}) }}">
+                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-default btn-sm" href="{{ path('articles_edit', {slug: article.slug}) }}">
+                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="text-center">{{ knp_pagination_render(paginator) }}</div>
+    
+    <div class="new_entry list-unstyled">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info" href="{{ path('articles_new') }}">
+            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        </a>
+    </div>
+{% endblock %}

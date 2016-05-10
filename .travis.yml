@@ -1,8 +1,7 @@
 language: php
 php:
-  - 5.3
-  - 5.4
-  - 5.5
+  - '5.5'
+  - '5.6'
 
 env:
   global:
@@ -17,7 +16,7 @@ before_script:
   ## Composer : Mise à jour et Installation des pre-requis
   - composer selfupdate --quiet
   ## PHP_CodeSniffer
-  - pyrus install pear/PHP_CodeSniffer
+  - pear install pear/PHP_CodeSniffer
   - phpenv rehash
   ## PHP Copy/Paste Detector
   - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
@@ -50,8 +49,8 @@ script:
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
-  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR1 src/
-  - phpcs --extensions=php --ignore=*/js/*,*/css/* --standard=PSR2 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/* --standard=PSR1 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/* --standard=PSR2 src/
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC
@@ -66,3 +65,4 @@ branches:
   only:
     - master
     - developp
+    - sf2.7

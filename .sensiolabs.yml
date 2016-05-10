@@ -1,22 +1,23 @@
 # global_exclude_dirs:
-#     - vendor
-#     - vendors
-#     - test
-#     - tests
-#     - Tests
-#     - lib/vendor
+#    - vendor
+#    - vendors
+#    - test
+#    - tests
+#    - Tests
+#    - lib/vendor
+#    - bin
 
 # exclude_patterns:
-#     - app/check.php
-#     - app/SymfonyRequirements.php
-#     - web/config.php
-#     - web/app_*.php
+#    - app/check.php
+#    - app/SymfonyRequirements.php
+#    - web/config.php
+#    - web/app_*.php
 
 # rules:
 #     composer.apc_class_loader_should_be_enabled:
 #         enabled: true
-#     composer.dependencies_not_installable:
-#         enabled: true
+#    composer.dependencies_not_installable:
+#        enabled: true
 #     composer.invalid_file:
 #         enabled: true
 #     composer.security_issue_in_composer:
@@ -96,8 +97,8 @@
 #         enabled: true
 #     symfony.acme_bundle_found:
 #         enabled: true
-#     symfony.app.cache_or_log_file_in_repository:
-#         enabled: true
+#    symfony.app.cache_or_log_file_in_repository:
+#        enabled: true
 #     symfony.app.confidential_parameters_file_present_in_repository:
 #         enabled: true
 #     symfony.app.first_level_service:
@@ -126,8 +127,8 @@
 #         enabled: true
 #         max_count: 6
 #         threshold: 5
-#     symfony.dependency_injection.no_container_as_parameter:
-#         enabled: true
+#    symfony.dependency_injection.no_container_as_parameter:
+#        enabled: true
 #     symfony.dependency_injection.no_entity_manager_as_parameter:
 #         enabled: true
 #     symfony.dependency_injection.use_dir_file_constant:

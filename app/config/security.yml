@@ -1,43 +1,55 @@
-# app/config/security.yml
-jms_security_extra:
-    secure_all_services: false
-    expressions: true
-  
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: sha512
-        Glsr\UserBundle\Entity\User: sha512
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_AUTEUR, ROLE_MODERATEUR]       # Un admin hérite des droits d'auteur et de modérateur
-        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] # On garde ce rôle superadmin, il nous resservira par la suite
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: %userpass%, roles: [ 'ROLE_USER' ] }
-                    admin: { password: %adminpass%, roles: [ 'ROLE_ADMIN' ] }
-        main:
+        fos_userbundle:
             id: fos_user.user_provider.username
+        in_memory:
+            memory: ~
 
     firewalls:
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                #csrf_token_generator: security.csrf.token_manager
+                # if you are using Symfony < 2.8, use the following config instead:
+                csrf_provider: form.csrf_provider
+
+            logout:       true
+            anonymous:    true
+            remember_me:
+                key:      %secret%
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+                domain:   ~ # Defaults to the current domain from $_SERVER
+#                secure:   true
+                httponly: true
+
+        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            pattern:        ^/
-            anonymous:      true
-            provider:       main
-            form_login:
-                login_path: fos_user_security_login
-                check_path: fos_user_security_check
-            logout:
-                path:       fos_user_security_logout
-                target:     /gestock
-            remember_me:
-                key:        %secret%
+#        main:
+#            anonymous: ~
+            # activate different ways to authenticate
 
-    #access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -1,106 +1,145 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+#parameters:
+#    locale: %locale%
 
 framework:
     #esi:             ~
-    translator:      { fallback: %locale% }
-    secret:          %secret%
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
     router:
-        resource:    "%kernel.root_dir%/config/routing.yml"
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
     form:            true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    default_locale:  %locale%
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
     session:
         name:        glsr_%locale%
+        # handler_id set to null will use default session handler from php.ini
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/sessions"
+    fragments:       ~
+    http_method_override: true
 
 # Twig Configuration
 twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - LexikFormFilterBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
-    debug:          %kernel.debug%
+    debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ GlsrGestockBundle ]
-    java: C:\Programmes\Java\jdk1.7.0_17\jre\bin\java.exe
+    bundles:        [ ]
+    java: %java_path%
     filters:
         cssrewrite: ~
-        yui_js:
-            jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
+        closure:
+            jar: "%kernel.root_dir%/Resources/java/compiler.jar"
         yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
+        yui_js:
             jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
         types:
             phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
         # Ajouter cela si vous avez des tables non gérées par Doctrine dans votre bdd
         # (Si vous rencontrez une erreur obscure à propos du type ENUM)
         mapping_types:
             enum: string
-
+        # Fix SensioLabsInsight : A Symfony application should be bootable
+        server_version: 5.6
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
     spool:     { type: memory }
 
-# Stof\DoctrineExtensionsBundle configuration
+# Stof\DoctrineExtensionsBundle Configuration
 stof_doctrine_extensions:
     default_locale: %locale%
     orm:
         default:
             sluggable: true
             uploadable: true
+            tree: true
 
 # Activation de l'extension Twig intl
 services:
+    twig.extension.debug:
+        class: Twig_Extensions_Extension_Debug
+        tags:
+            - { name: 'twig.extension' }
     twig.extension.intl:
        class: Twig_Extensions_Extension_Intl
        tags:
            - { name: twig.extension }
 
+# FOS_User Configuration
 fos_user:
-    db_driver:     orm                         # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
-    firewall_name: main                        # Le nom du firewall duquel on utilisera ces utilisateurs
-    user_class:    Glsr\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
-
-# Ornicar\AksimetBundle
-ornicar_akismet:
-    api_key: %akismet_key%
-    url:     %akismet_url%
-
+    db_driver:       orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name:   main
+    user_class:      AppBundle\Entity\User
+    group:
+        group_class: AppBundle\Entity\Group
+        form:
+            type:    app_user_group
+    registration:
+        form:
+            #type: AppBundle\Form\RegistrationType
+            # if you are using Symfony < 2.8 you should use the type name instead
+            type:    app_user_registration
+            
 # Knplabs\KnpSnappyBundle
 knp_snappy:
     pdf:
         enabled: true
-        binary:  %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
         options: []
     image:
-        enabled:    true
-        binary:     %kernel.root_dir%/../src/Glsr/GestockBundle/Resources/public/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
-        options:    []
+        enabled: true
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/bin/wkhtmltoimage.exe
+        options: []
         
+# JMS_Security_Extra Configuration
 jms_security_extra:
     # Whether you want to secure all services (true), or only secure specific
     # services (false); see also below
@@ -128,3 +167,20 @@ jms_security_extra:
 #            connection: # the doctrine connection name
 #            table_name: seed_table
 #            seed_provider: # service id of your own seed provider implementation
+
+# Lexik_Form_Filter Configuration
+lexik_form_filter:
+    force_case_insensitivity: false
+    where_method: ~  # null | and | or
+
+# Knp_Paginator Configuration
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig 
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

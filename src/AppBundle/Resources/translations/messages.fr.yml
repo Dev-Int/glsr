@@ -1,0 +1,174 @@
+title: Glsr
+title_page: "Gestock - GLSR"
+subtitle: Gestion Libre des Stocks d'un Restaurant...
+no_granted: 'Vous devez être connecté pour accéder à cette page.'
+copy: "GLSR &copy; 2014 and beyond."
+Next: Suivant
+Previous: Précédent
+
+#Dates
+Monday: Lundi
+Tuesday: Mardi
+Wednesday: Mercredi
+Thursday: Jeudi
+Friday: Vendredi
+Saturday: Samedi
+Sunday: Dimanche
+
+menu:
+    management: Gestion
+    administration: Administration
+    configuration: Configuration
+    other_login: "Se connecter sous un autre profil"
+    users: Utilisateurs
+    groups: Groupes
+
+gestock:
+    title: Gestock
+    details: Détails
+    return_list: 'Retour à la liste'
+    title_item: Intitulé
+    action: Action
+    actif: Actif
+    abbr: Abrev.
+    id: ID
+    print: Imprimer
+    validate: Valider
+    cancel: Annuler
+    edit: Modifier
+    next: Suivant
+    previous: Précédent
+    name: Nom
+    address: Adresse
+    zipcode: "Code postal"
+    town: Ville
+    phone: Téléphone
+    gsm: Mobile
+    fax: Fax
+    mail: Courriel
+    contact: Contact
+    date: Date
+    amount: Montant
+    total: Total
+    totals: Totaux
+    roles: Roles
+
+    create:
+        ok: "Création bien enregistrée."
+        no: "Création non enregistrée, il doit y avoir un problème."
+
+    edit:
+        ok: "Modification bien enregistrée."
+        no: "Modification non enregistrée, il doit y avoir un problème."
+
+    home:
+        title: Accueil
+        body_title: "Page d'accueil"
+        return: "Retour à l'accueil"
+
+    install:
+        none: "Vous devez suivre les étapes d'installation"
+        title: Installation
+        subtitle: "&Eacute;tapes d'installation"
+        present: 
+            title: Présentation
+            txt: "<p>Bienvenue dans G.L.S.R.</p><p>Laissez-vous guider pour suivre les différentes étapes de l'installation.</p><p>Chaque point est important pour le fonctionnement de l'application.</p>"
+        st1:
+            title: "Création des utilisateurs"
+            txt: "Créer, au moins, un utilisateur,\n pour que l'application fonctionne."
+            yet_exist: "Il existe déjà un utilisateur.\n Pour ajouter un autre utilisateur : Menu Configuration -> Utilisateurs.\n \n Vous pouvez passer à l'étape suivante."
+        st2:
+            title: "Création de l'entreprise"
+            txt: "Créer l'établissement qui va utiliser l'application."
+            yet_exist: "Il existe déjà une entreprise.\n Pour modifier l'établissement : Menu Configuration -> Etablissement.\n \n Vous pouvez passer à l'étape suivante."
+        st3:
+            title: "Création de la configuration"
+            txt: "Créer la configuration que va utiliser l'application."
+            yet_exist: "L'application est configurée.\n Pour modifier la configuration : Menu Configuration -> Application.\n \n Vous pouvez passer à l'étape suivante."
+        st4:
+            title: "Configurer l'application"
+            txt: "Configurer l'application."
+
+    settings:
+        title: Configuration
+        return: "Retour à la configuration"
+        new: 'Nouvelle configuration'
+        new_caution: "Veillez à bien choisir vos éléments de configuration.\n Une fois enregistrée, il sera impossible de la supprimer, mais vous pourrez la modifier."
+        commercial: Commercial
+        administratif: Adminsitratif
+        add_ok: "Configuration bien ajoutée"
+        add_no: "Configuration non ajoutée, il doit y avoir un problème."
+        edit_ok: "Configuration bien modifiée"
+        edit_no: "Configuration non modifiée, il doit y avoir un problème."
+        user:
+            title: Utilisateurs
+            titles: "Liste des utilisateurs"
+            lastlogin: "Dernière connexion"
+        group:
+            title: Groupes
+            titles: "Liste des groupes"
+            none: "Pas (encore !) de groupe.\n Pour le bon fonctionnement de l'application, vous devez créer des groupes."
+            new: "Nouveau groupe"
+        company:
+            title: Etablissement
+            subtitle: "Paramètres de la société utilisant le logiciel."
+            add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de création d'entreprise."
+            add2: "Vous ne pouvez pas enregistrer une deuxième entreprise."
+            name: "Nom de l'entreprise"
+            status: Statut social
+        application:
+            title: Application
+            subtitle: "Gestion des paramètres de l'application."
+            add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de paramétrage de l'application."
+            add2: "Vous ne pouvez pas enregistrer un deuxième paramétrage de l'application."
+            style_inventory: "Style d'inventaire"
+            global: "Global "
+            zone_storage: "Zone de stockage"
+            calculation: "Mode de calcul d'inventaire"
+            fifo: "FIFO "
+            weighted: "Pondéré "
+            first_inventory: 
+                title: "Inventaire d'installation"
+                none: "Pas (encore !) d'inventaire.\n Pour le bon fonctionnement de l'application, vous devez créer un inventaire."
+            currency: "Monnaie "
+        diverse:
+            delete:
+                title: 'Supprimer un élément de configuration'
+                title_button: "Supprimer l'élément"
+                submit_button: 'Supprimer un élément'
+                caution: "Êtes-vous sûr de vouloir supprimer l'élément ?"
+                forbidden: "Il n'est plus possible de supprimer la configuration."
+                ok: 'Configuration bien supprimée'
+                no: 'Configuration non supprimée. Il doit y avoir un problème...'
+            title: Divers
+            familylog: "Famille logistique"
+            family_subtitle: "Gestion des familles et sous-familles logistiques."
+            add_family: "Pour le bon fonctionnement de l'application, vous devez créer des familles logistiques."
+            family: Famille
+            parent_fam: "Famille parente"
+            family_edit: "Modifier la famille"
+            family_add: "Ajouter une famille"
+            choice_family: "Choisissez une famille"
+            zonestorage: "Zone de stockage"
+            add_zonestorage: "Pour le bon fonctionnement de l'application, vous devez créer des zones de stockage."
+            zonestorage_subtitle: "Gestion des paramètres des zones de stockage."
+            zonestorage_edit: "Modifier la zone de stockage"
+            zonestorage_add: "Ajouter une zone de stockage"
+            unitstorage: "Unité de stockage"
+            unitstorage_subtitle: "Gestion des paramètres des unités de stockage.\n 'KG', 'L'..."
+            add_unitstorage: "Pour le bon fonctionnement de l'application, vous devez créer des unités de stockage."
+            unitstorage_edit: "Modifier l'unité de stockage"
+            unitstorage_add: "Ajouter une unité de stockage"
+            abbreviation: Abréviation
+            vat: "Taux de TVA"
+            vat_subtitle: "Gestion des paramètres des taxes."
+            add_tva: "Pour le bon fonctionnement de l'application, vous devez créer des taux de T.V.A."
+            vat_edit: "Modifier la taxe"
+            vat_add: "Ajouter une taxe"
+            vat_rate: "Taux de TVA"
+        form:
+            title: "Formulaire de configuration"
+            save: "Enregistrer"
+            save&more: "Enregistrer, et ajouter une autre configuration"
+            caution: 'Cette configuration déterminera le fonctionnement de votre application'
+            info: 'Information Compagnie'

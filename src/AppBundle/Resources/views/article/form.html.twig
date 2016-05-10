@@ -1,0 +1,116 @@
+{% if edit_form is defined %}
+    {% set form = edit_form %}
+    {{ form_start(form) }}
+{% else %}
+    {{ form_start(form, {action: path('articles_create')}) }}
+{% endif %}
+
+    {{ form_errors(form) }}
+    <fieldset class="well"><legend>{{ 'form.info'|trans({}, 'gs_articles') }}</legend>
+        <section class="row col-md-12">
+            <div class="col-md-6 form-group">
+                {{ form_label(form.name, 'gestock.title_item'|trans) }}
+                <span class="text-danger">{{ form_errors(form.name) }}</span>
+                &nbsp;{{ form_widget(form.name) }}
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.supplier, 'title'|trans({}, 'gs_suppliers')) }}
+                <span class="text-danger">{{ form_errors(form.supplier) }}</span>
+                &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
+            </div>
+            <div class="hidden">
+                {{ form_label(form.active, 'gestock.actif'|trans) }}
+                <span class="text-danger">{{ form_errors(form.active) }}</span>
+                &nbsp;{{ form_widget(form.active) }}
+            </div>
+        </section>
+        <section class="row col-md-12">
+            <div class="col-md-6 form-group">
+                {{ form_label(form.zone_storages, 'gestock.settings.diverse.zonestorage'|trans) }}
+                <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
+                {% block choice_widget_expanded %}
+                    {% spaceless %}
+                    <div {{ block('widget_container_attributes') }}>
+                        <table class="panel panel-default">
+                            <tbody class="panel-body">
+                                {% for child in form.zone_storages %}
+                                    <tr>
+                                        <td class="col-md-1 text-center">{{ form_widget(child) }}</td>
+                                        <td class="col-md-2">{{ form_label(child) }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endspaceless %}
+                {% endblock choice_widget_expanded %}
+                {{ form_widget(form.zone_storages) }}
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.family_log, 'gestock.settings.diverse.familylog'|trans) }}
+                <span class="text-danger">{{ form_errors(form.family_log) }}</span>
+                &nbsp;{{ form_widget(form.family_log) }}
+                <input id="hidden_flog" name="article[family_log]" type="hidden" value="" />
+            </div>
+        </section>
+    </fieldset>
+    <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
+        <section class="row col-md-12">
+            <div class="hidden">
+                {{ form_label(form.quantity, 'settings.quantity'|trans({}, 'gs_articles')) }}
+                <span class="text-danger">{{ form_errors(form.quantity) }}</span>
+                &nbsp;{{ form_widget(form.quantity) }}
+            </div>
+            <div class="col-md-5 col-md-offset-1 form-group">
+                {{ form_label(form.unit_storage, 'gestock.settings.diverse.unitstorage'|trans) }}
+                <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
+                &nbsp;{{ form_widget(form.unit_storage) }}
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.price, 'settings.price'|trans({}, 'gs_articles')) }}
+                <span class="text-danger">{{ form_errors(form.price) }}</span>
+                &nbsp;{{ form_widget(form.price) }}
+            </div>
+        </section>
+        <section class="row col-md-12">
+           <div class="col-md-5 col-md-offset-1 form-group">
+                {{ form_label(form.packaging, 'settings.packaging'|trans({}, 'gs_articles')) }}
+                <span class="text-danger">{{ form_errors(form.packaging) }}</span>
+                &nbsp;{{ form_widget(form.packaging) }}
+            </div>
+            <div class="col-md-6 form-group">
+                {{ form_label(form.minstock, 'settings.stock_alert'|trans({}, 'gs_articles')) }}
+                <span class="text-danger">{{ form_errors(form.minstock) }}</span>
+                &nbsp;{{ form_widget(form.minstock) }}
+            </div>
+        </section>
+    </fieldset>
+
+    <p>
+        <button class="btn btn-primary" type="submit">
+            {% if edit_form is defined %}
+                {{ 'Edit'|trans({}, 'admin') }}
+            {% else %}
+                {{ 'Create'|trans({}, 'admin') }}
+            {% endif %}
+        </button>
+    </p>
+{{ form_end(form) }}
+
+<script type="text/javascript">
+function getFamilyLog(){
+    var id_select = $('#article_supplier').val();
+    $.ajax({
+        url: "{{ path('getfamilylog') }}",
+        type: 'POST',
+        data: {'id': id_select},
+        dataType: 'json',
+        success: function(json){
+            $('#article_family_log option:selected').removeAttr('selected');
+            $('#article_family_log option[value="' + json.familylog + '"').attr('selected', 'selected');
+            $('#article_family_log').prop('disabled', true);
+            $('#hidden_flog').val( json.familylog );
+        }
+    });
+}
+</script>

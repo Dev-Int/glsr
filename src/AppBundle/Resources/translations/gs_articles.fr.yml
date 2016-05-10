@@ -1,0 +1,53 @@
+## YAML Template.
+---
+title: Articles
+number: 'Il y a %count% article|]1,+Inf]Il y a %count% articles'
+title_article: "Titre de l'article"
+content: "Contenu de l'article"
+list: 'Liste des articles'
+none: "Pas (encore !) d'article.\n Pour le bon fonctionnement de l'application, vous devez créer vos articles."
+lastest: 'Les derniers articles'
+return: "Retour à l'article"
+settings:
+    packaging: "Unité de facturation"
+    price: Prix
+    quantity: Quantité
+    stock_alert: "Stock alerte"
+    theoretical_stock: "Stock théorique"
+    information: Informations
+    feature: Caractéristiques
+delete:
+    title: 'Supprimer un article'
+    title_button: "Supprimer l'article"
+    submit_button: 'Supprimer un article'
+    caution: "Êtes-vous sûr de vouloir supprimer l'article \"%article.name%\" ?"
+    ok: 'Article bien désactivé'
+    no: 'Article non désactivé. Il doit y avoir un problème...'
+edit:
+    title: 'Modifier un article'
+    title_button: "Modifier l'article"
+    caution: "Vous éditez un article déjà existant.\n Ne le changez pas trop, pour éviter aux membres\n de ne pas comprendre ce qu'il se passe."
+    ok: "Article bien modifié"
+    no: "Article pas modifié"
+form:
+    info: 'Information Article'
+    choice_supplier: "Choisissez un fournisseur"
+show:
+    title: "Lecture d'un article"
+    edit_button: "Editer l'article"
+    create_button: 'Créer un nouvel article'
+create:
+    title: 'Créer un article'
+    title_button: 'Ajouter un article'
+    save: "Enregistrer l'article"
+    save&more: "Enregistrer, et ajouter un autre article"
+    caution: "Attention !\n Cet article sera ajouté directement\n au tableau des articles après validation du formulaire."
+    ok: "L'article est bien ajouté"
+    no: "L'article n'est pas ajouté"
+reassign:
+    title: "Réassignation d'article"
+    from: "Réassigner les articles du fournisseur %supname%"
+    submit_button: 'Réassigner'
+
+alertes:
+    title: Alertes
