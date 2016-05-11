@@ -73,12 +73,12 @@
             <a class="btn btn-info" href="{{ path('articles') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
-
+            {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-primary" href="{{ path('articles_edit', {slug: article.slug}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
-
+            {% endif %}
         </div>
 
         <input name="modal" type="hidden" value="0">

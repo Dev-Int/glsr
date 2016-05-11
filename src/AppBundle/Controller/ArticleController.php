@@ -70,7 +70,7 @@ class ArticleController extends AbstractController
     /**
      * Displays a form to create a new Article entity.
      *
-     * @Route("/new", name="articles_new")
+     * @Route("/admin/new", name="articles_new")
      * @Method("GET")
      * @Template()
      */
@@ -113,7 +113,7 @@ class ArticleController extends AbstractController
     /**
      * Displays a form to edit an existing Article entity.
      *
-     * @Route("/{slug}/edit", name="articles_edit")
+     * @Route("/admin/{slug}/edit", name="articles_edit")
      * @Method("GET")
      * @Template()
      */
@@ -174,7 +174,7 @@ class ArticleController extends AbstractController
     /**
      * Deletes a Article entity.
      *
-     * @Route("/{id}/delete", name="articles_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="articles_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Article $article, Request $request)

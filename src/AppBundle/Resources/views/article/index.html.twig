@@ -54,9 +54,11 @@
                             <a class="btn btn-default btn-sm" href="{{ path('articles_show', {slug: article.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
+                            {% if is_granted('ROLE_ADMIN') %}
                             <a class="btn btn-default btn-sm" href="{{ path('articles_edit', {slug: article.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>
@@ -68,8 +70,10 @@
     
     <div class="new_entry list-unstyled">
         {% include 'homeButton.html.twig' %}
+        {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-info" href="{{ path('articles_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
+        {% endif %}
     </div>
 {% endblock %}
