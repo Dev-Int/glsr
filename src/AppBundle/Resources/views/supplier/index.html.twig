@@ -49,9 +49,11 @@
                             <a class="btn btn-default btn-sm" href="{{ path('suppliers_show', {slug: supplier.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
+                                {% if is_granted('ROLE_ADMIN') %}
                             <a class="btn btn-default btn-sm" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
+                                {% endif %}
                         </div>
                     </td>
                 </tr>
@@ -63,9 +65,11 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
+        {% if is_granted('ROLE_ADMIN') %}
         <a class="btn btn-info" href="{{ path('suppliers_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
+        {% endif %}
     </div>
     
 {% endblock %}

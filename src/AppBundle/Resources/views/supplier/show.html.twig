@@ -219,12 +219,12 @@
             <a class="btn btn-info" href="{{ path('suppliers') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
-
+                {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-primary" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
-
+                {% endif %}
         </div>
 
         <input name="modal" type="hidden" value="0">
@@ -248,29 +248,4 @@
             </div>
         </div>
     </div>
-
-{#    <section class="col-md-12">
-        {% if is_granted('ROLE_ADMIN') %}
-            <div class="btn-group">
-                <a href="{{ path('suppliers_edit', {'slug': supplier.slug}) }}" class="btn btn-success" role="button">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                    {{ 'edit.title_button'|trans({}, 'gs_suppliers') }}
-                </a>&nbsp;
-                <a href="{{ path('suppliers_delete', {'id': supplier.id}) }}" class="btn btn-danger" role="button">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    {{ 'delete.title_button'|trans({}, 'gs_suppliers') }}
-                </a>
-            </div>
-            <div class="btn-group">
-                <a href="{{ path('suppliers') }}" class="btn btn-default" role="button">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    {{ 'return_list'|trans }}
-                </a>&nbsp;
-                <a href="{{ path('suppliers_new') }}" class="btn btn-default" role="button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    {{ 'create.title_button'|trans({}, 'gs_suppliers') }}
-                </a>
-            </div>
-        {% endif %}
-    </section>
-#}{% endblock %}
+{% endblock %}

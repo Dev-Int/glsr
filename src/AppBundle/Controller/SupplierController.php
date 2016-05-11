@@ -70,7 +70,7 @@ class SupplierController extends AbstractController
     /**
      * Displays a form to create a new Supplier entity.
      *
-     * @Route("/new", name="suppliers_new")
+     * @Route("/admin/new", name="suppliers_new")
      * @Method("GET")
      * @Template()
      */
@@ -113,7 +113,7 @@ class SupplierController extends AbstractController
     /**
      * Displays a form to edit an existing Supplier entity.
      *
-     * @Route("/{slug}/edit", name="suppliers_edit")
+     * @Route("/admin/{slug}/edit", name="suppliers_edit")
      * @Method("GET")
      * @Template()
      */
@@ -174,7 +174,7 @@ class SupplierController extends AbstractController
     /**
      * Deletes a Supplier entity.
      *
-     * @Route("/{id}/delete", name="suppliers_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="suppliers_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Supplier $supplier, Request $request)
