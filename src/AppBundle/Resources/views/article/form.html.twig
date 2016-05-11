@@ -5,33 +5,39 @@
     {{ form_start(form, {action: path('articles_create')}) }}
 {% endif %}
 
-    {{ form_errors(form) }}
-    <fieldset class="well"><legend>{{ 'form.info'|trans({}, 'gs_articles') }}</legend>
-        <section class="row col-md-12">
-            <div class="col-md-6 form-group">
-                {{ form_label(form.name, 'gestock.title_item'|trans) }}
+    <fieldset class="well">
+        {{ form_errors(form) }}
+        <legend>{{ 'form.info'|trans({}, 'gs_articles') }}</legend>
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                {{ form_label(form.name) }}
+            </div>
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.name) }}</span>
-                &nbsp;{{ form_widget(form.name) }}
+                {{ form_widget(form.name) }}
             </div>
-            <div class="col-md-6 form-group">
-                {{ form_label(form.supplier, 'title'|trans({}, 'gs_suppliers')) }}
+            <div class="col-md-1 label label-default">
+                {{ form_label(form.supplier) }}
+            </div>
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.supplier) }}</span>
-                &nbsp;{{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
+                {{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
             </div>
-            <div class="hidden">
-                {{ form_label(form.active, 'gestock.actif'|trans) }}
-                <span class="text-danger">{{ form_errors(form.active) }}</span>
-                &nbsp;{{ form_widget(form.active) }}
-            </div>
+            <div class="clear"></div>
         </section>
-        <section class="row col-md-12">
-            <div class="col-md-6 form-group">
-                {{ form_label(form.zone_storages, 'gestock.settings.diverse.zonestorage'|trans) }}
+        <section class="form-line">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
                 {% block choice_widget_expanded %}
                     {% spaceless %}
                     <div {{ block('widget_container_attributes') }}>
                         <table class="panel panel-default">
+                            <thead class="page-header label label-default">
+                                <tr>
+                                    <th colspan="2">
+                                        <i class="fa fa-map-marker"></i>&nbsp;
+                                        {{ form_label(form.zone_storages) }}</th></tr>
+                            </thead>
                             <tbody class="panel-body">
                                 {% for child in form.zone_storages %}
                                     <tr>
@@ -46,51 +52,63 @@
                 {% endblock choice_widget_expanded %}
                 {{ form_widget(form.zone_storages) }}
             </div>
-            <div class="col-md-6 form-group">
-                {{ form_label(form.family_log, 'gestock.settings.diverse.familylog'|trans) }}
+            <div class="col-md-2 col-md-offset-1 label label-default">
+                <i class="fa fa-tags"></i>&nbsp;
+                {{ form_label(form.family_log) }}
+            </div>
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.family_log) }}</span>
-                &nbsp;{{ form_widget(form.family_log) }}
+                {{ form_widget(form.family_log) }}
                 <input id="hidden_flog" name="article[family_log]" type="hidden" value="" />
             </div>
+            <div class="clear"></div>
         </section>
     </fieldset>
     <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
-        <section class="row col-md-12">
-            <div class="hidden">
-                {{ form_label(form.quantity, 'settings.quantity'|trans({}, 'gs_articles')) }}
-                <span class="text-danger">{{ form_errors(form.quantity) }}</span>
-                &nbsp;{{ form_widget(form.quantity) }}
+        <section class="form-line">
+            <div class="col-md-2 label label-default">
+                <i class="fa fa-cubes"></i>&nbsp;
+                {{ form_label(form.unit_storage) }}
             </div>
-            <div class="col-md-5 col-md-offset-1 form-group">
-                {{ form_label(form.unit_storage, 'gestock.settings.diverse.unitstorage'|trans) }}
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
-                &nbsp;{{ form_widget(form.unit_storage) }}
+                {{ form_widget(form.unit_storage) }}
             </div>
-            <div class="col-md-6 form-group">
-                {{ form_label(form.price, 'settings.price'|trans({}, 'gs_articles')) }}
+            <div class="col-md-1 label label-default">
+                {{ form_label(form.price) }}
+            </div>
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.price) }}</span>
-                &nbsp;{{ form_widget(form.price) }}
+                {{ form_widget(form.price) }}
             </div>
+            <div class="clear"></div>
         </section>
-        <section class="row col-md-12">
-           <div class="col-md-5 col-md-offset-1 form-group">
-                {{ form_label(form.packaging, 'settings.packaging'|trans({}, 'gs_articles')) }}
+        <section class="form-line">
+           <div class="col-md-2 label label-default">
+                {{ form_label(form.packaging) }}
+            </div>
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.packaging) }}</span>
-                &nbsp;{{ form_widget(form.packaging) }}
+                {{ form_widget(form.packaging) }}
             </div>
-            <div class="col-md-6 form-group">
-                {{ form_label(form.minstock, 'settings.stock_alert'|trans({}, 'gs_articles')) }}
+           <div class="col-md-1 label label-default">
+                {{ form_label(form.minstock) }}
+            </div>
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.minstock) }}</span>
-                &nbsp;{{ form_widget(form.minstock) }}
+                {{ form_widget(form.minstock) }}
             </div>
+            <div class="clear"></div>
         </section>
     </fieldset>
 
     <p>
         <button class="btn btn-primary" type="submit">
             {% if edit_form is defined %}
+                <i class="fa fa-edit"></i>&nbsp;
                 {{ 'Edit'|trans({}, 'admin') }}
             {% else %}
+                <i class="fa fa-plus"></i>&nbsp;
                 {{ 'Create'|trans({}, 'admin') }}
             {% endif %}
         </button>

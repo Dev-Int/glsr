@@ -32,14 +32,23 @@ class ArticleType extends AbstractType
     {
         $builder
         
-            ->add('name', 'text', array('label' => 'gestock.title_item'))
+            ->add(
+                'name',
+                'text',
+                array(
+                    'label' => 'gestock.title_item',
+                    'attr'  => array('class' => 'form-control')
+                )
+            )
             ->add(
                 'packaging',
                 'number',
                 array(
                     'precision' => 3,
                     'grouping' => true,
-                    'label' => 'packaging',
+                    'label' => 'settings.packaging',
+                    'translation_domain' => 'gs_articles',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             ->add(
@@ -50,19 +59,11 @@ class ArticleType extends AbstractType
                     'grouping' => true,
                     'currency' => 'EUR',
                     'label' => 'settings.price',
-                    'translation_domain' => 'gs_articles'
+                    'translation_domain' => 'gs_articles',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
-            ->add(
-                'quantity',
-                'number',
-                array(
-                    'precision' => 3,
-                    'grouping' => true,
-                    'label' => 'settings.quantity',
-                    'translation_domain' => 'gs_articles'
-                )
-            )
+            ->add('quantity', 'hidden')
             ->add(
                 'minstock',
                 'number',
@@ -70,10 +71,11 @@ class ArticleType extends AbstractType
                     'precision' => 3,
                     'grouping' => true,
                     'label' => 'settings.stock_alert',
-                    'translation_domain' => 'gs_articles'
+                    'translation_domain' => 'gs_articles',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
-            ->add('active', 'checkbox', array('label' => 'gestock.actif'))
+            ->add('active', 'hidden')
             ->add('slug', 'hidden')
             ->add(
                 'supplier',
@@ -83,8 +85,10 @@ class ArticleType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => false,
                     'placeholder' => 'form.choice_supplier',
-                    'translation_domain' => 'gs_articles',
+                    'label' => 'title',
+                    'translation_domain' => 'gs_suppliers',
                     'empty_data' => null,
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             ->add(
@@ -94,7 +98,8 @@ class ArticleType extends AbstractType
                     'class' => 'AppBundle:UnitStorage',
                     'choice_label' => 'name',
                     'multiple' => false,
-                    'label' => 'gestock.settings.diverse.unitstorage'
+                    'label' => 'gestock.settings.diverse.unitstorage',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             ->add(
@@ -105,7 +110,8 @@ class ArticleType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => true,
                     'expanded' => true,
-                    'label' => 'gestock.settings.diverse.zonestorage'
+                    'label' => 'gestock.settings.diverse.zonestorage',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             ->add(
@@ -117,7 +123,8 @@ class ArticleType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'gestock.settings.diverse.choice_family',
                     'empty_data' => null,
-                    'label' => 'gestock.settings.diverse.familylog'
+                    'label' => 'gestock.settings.diverse.familylog',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
         ;

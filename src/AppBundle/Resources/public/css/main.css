@@ -81,3 +81,23 @@ i.danger {
 #article th {
     word-wrap: break-word;
 }
+
+input[type='text'].half,
+select.half {
+    width: 50%!important;
+    display: inline-block!important;
+}
+
+.form-line {
+    display: block;
+    margin-bottom: 10px;
+}
+.form-line > .clear {
+  clear: both;
+  height: 0; overflow: hidden; /* Précaution pour IE 7 */
+}
+
+thead.page-header.label {
+    display: table-caption;
+    margin: 0;
+}

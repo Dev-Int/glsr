@@ -11,19 +11,19 @@
 
 {% block glstock_body %}
     <fieldset class="well"><legend>{{ 'settings.information'|trans({}, 'gs_articles') }}</legend>
-        <section class="row col-md-12">
-            <div class="col-md-4 form-group">
-                <span class="label label-default">
-                    {{ 'title'|trans({}, 'gs_suppliers') }}
-                </span>&nbsp;
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                {{ 'title'|trans({}, 'gs_suppliers') }}
+            </div>
+            <div class="col-md-3">
                 <a href="{{ path('suppliers_show', {slug: article.supplier.slug}) }}">
                     {{ article.supplier }}
                 </a>
             </div>
-            <div class="col-md-4 form-group">
-                <span class="label label-default">
-                    {{ 'gestock.settings.diverse.zonestorage'|trans }}
-                </span>&nbsp;
+            <div class="col-md-2 label label-default">
+                {{ 'gestock.settings.diverse.zonestorage'|trans }}
+            </div>
+            <div class="col-md-2">
                 {% set b = 0 %}
                 {% for zone in article.zonestorages %}
                     {% if b > 0 %}
@@ -34,34 +34,36 @@
                     {% set b = b + 1 %}
                 {% endfor %}
             </div>
-            <div class="col-md-4 form-group">
-                <span class="label label-default">
+            <div class="col-md-2 label label-default">
                     {{ 'gestock.settings.diverse.familylog'|trans }}
-                </span>&nbsp;
+            </div>
+            <div class="col-md-2">
                 {{ article.familyLog }}
             </div>
+            <div class="clear"></div>
         </section>
     </fieldset>
     <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
-         <section class="row col-md-12">
-            <div class="col-md-4 form-group">
-                <span class="label label-default">
-                    {{ 'settings.quantity'|trans({}, 'gs_articles') }}
-                </span>&nbsp;
+         <section class="form-line">
+            <div class="col-md-1 label label-default">
+                {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+            </div>
+            <div class="col-md-3">
                 {{ article.quantity }}
             </div>
-            <div class="col-md-4 form-group">
-                <span class="label label-default">
-                    {{ 'gestock.settings.diverse.unitstorage'|trans }}
-                </span>&nbsp;
+            <div class="col-md-2 label label-default">
+                {{ 'gestock.settings.diverse.unitstorage'|trans }}
+            </div>
+            <div class="col-md-2">
                 {{ article.unitStorage }}
             </div>
-            <div class="col-md-4 input-group form-group">
-                <span class="label label-default">
+            <div class="col-md-1 col-md-offset-1 label label-default">
                     {{ 'settings.price'|trans({}, 'gs_articles') }}
-                </span>&nbsp;
-                {{ article.price }}
             </div>
+            <div class="col-md-2">
+                {{ article.price }} €
+            </div>
+            <div class="clear"></div>
         </section>
     </fieldset>
 

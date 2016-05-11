@@ -31,9 +31,18 @@
             <tr>
                 <th scope="col">{{ thead('supplier', 'id', 'gestock.id'|trans) }}</th>
                 <th scope="col">{{ 'gestock.name'|trans }}</th>
-                <th scope="col">{{ 'gestock.address'|trans }}</th>
-                <th scope="col">{{ 'gestock.phone'|trans }}</th>
-                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col">
+                    <i class="fa fa-map-marker"></i> 
+                    {{ 'gestock.address'|trans }}
+                </th>
+                <th scope="col">
+                    <i class="fa fa-phone"></i> 
+                    {{ 'gestock.phone'|trans }}
+                </th>
+                <th scope="col" class="col-md-2 text-center">
+                    <i class="fa fa-hourglass-o"></i> 
+                    {{ 'Actions'|trans({}, 'admin') }}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -50,7 +59,7 @@
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
                                 {% if is_granted('ROLE_ADMIN') %}
-                            <a class="btn btn-default btn-sm" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
+                            <a class="btn btn-info btn-sm" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                                 {% endif %}

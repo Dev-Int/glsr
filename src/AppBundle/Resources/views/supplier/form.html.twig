@@ -8,127 +8,117 @@
     <fieldset class="well">
         {{ form_errors(form) }}
         <legend>{{ 'form.info'|trans({}, 'gs_suppliers') }}</legend>
-        <div class="col-md-2">
-            <span class="label label-default">
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
                 {{ form_label(form.name, 'gestock.name'|trans) }}
-            </span>
-        </div>
-        <div class="col-md-10">
-            <span class="text-danger">{{ form_errors(form.name) }}</span>
-            {{ form_widget(form.name) }}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.name) }}</span>
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-phone"></i>&nbsp;
+                {{ form_label(form.phone) }}
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.phone) }}</span>
+                {{ form_widget(form.phone) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-map-marker"></i>&nbsp;
                 {{ form_label(form.address, 'gestock.address'|trans) }}
-            </span>
-        </div>
-        <div class="col-md-5">
-            <span class="text-danger">{{ form_errors(form.address) }}</span>
-            <span class="text-danger">{{ form_errors(form.zipcode) }}</span>
-            <span class="text-danger">{{ form_errors(form.town) }}</span>
-            {{ form_widget(form.address) }}<br />
-            {{ form_widget(form.zipcode) }} {{ form_widget(form.town, { 'attr' : {
-                'onBlur':'this.value=this.value.toUpperCase();',
-                'onFocus':'this.value=this.value.toUpperCase();',
-                'onKeyup':'this.value=this.value.toUpperCase();'
-            } }) }}
-        </div>
-        <div class="col-md-5">
-            <span class="label label-default">
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.address) }}</span>
+                <span class="text-danger">{{ form_errors(form.zipcode) }}</span>
+                <span class="text-danger">{{ form_errors(form.town) }}</span>
+                {{ form_widget(form.address) }}
+                {{ form_widget(form.zipcode) }}{{ form_widget(form.town, { 'attr' : {
+                    'onBlur':'this.value=this.value.toUpperCase();',
+                    'onFocus':'this.value=this.value.toUpperCase();',
+                    'onKeyup':'this.value=this.value.toUpperCase();'
+                } }) }}
+            </div>
+            {#<div class="col-md-1 label label-default">
                 {{ 'settings.country'|trans({}, 'gs_suppliers') }}
-            </span>
-        </div>
-    </fieldset><fieldset class="well">
+            </div>
+            <div class="col-md-5"></div>#}
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-fax"></i>&nbsp;
+                {{ form_label(form.fax) }}
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.fax) }}</span>
+                {{ form_widget(form.fax) }}
+            </div>
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-envelope"></i>&nbsp;
+                {{ form_label(form.mail) }}
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.mail) }}</span>
+                {{ form_widget(form.mail) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+    <fieldset class="well">
         <legend>{{ 'gestock.settings.commercial'|trans }}</legend>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.contact'|trans }}
-            </span>
-        </div>
-        <div class="col-md-10">
-            <span class="text-danger">{{ form_errors(form.contact) }}</span>
-            {{ form_widget(form.contact) }}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.phone'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.gsm) }}</span>
-            {{ form_widget(form.gsm) }}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.fax'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.fax) }}</span>
-            {{ form_widget(form.fax) }}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-user"></i>&nbsp;
+                {{ form_label(form.contact) }}
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.contact) }}</span>
+                {{ form_widget(form.contact) }}
+            </div>
+            <div class="col-md-6">&nbsp;</div>
+            <div class="clear"></div>
+        </section>
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-mobile"></i>&nbsp;
+                {{ form_label(form.gsm) }}
+            </div>
+            <div class="col-md-5">
+                <span class="text-danger">{{ form_errors(form.gsm) }}</span>
+                {{ form_widget(form.gsm) }}
+            </div>
+            <div class="col-md-1 label label-default">
+                <i class="fa fa-envelope"></i>&nbsp;
                 {{ 'gestock.mail'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4"></div>
-    </fieldset><fieldset class="well">
-        <legend>{{ 'gestock.settings.administratif'|trans }}</legend>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.contact'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4"></div><br />
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.phone'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.phone) }}</span>
-            {{ form_widget(form.phone) }}
-        </div>
-        <div class="col-md-2">
-{#            <span class="label label-default">
-                {{ 'gestock.fax'|trans }}
-            </span>#}
-        </div>
-        <div class="col-md-4">
-{#             <span class="text-danger">{{ form_errors(form.fax) }}</span>
-            { form_widget(form.fax) }#}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.mail'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.mail) }}</span>
-            {{ form_widget(form.mail) }}
-        </div>
-    </fieldset><fieldset class="well">
+            </div>
+            <div class="col-md-5">&nbsp;</div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+    <fieldset class="well">
         <legend>{{ 'gestock.details'|trans }}</legend>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'gestock.settings.diverse.familylog'|trans }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.family_log) }}</span>
-            {{ form_widget(form.family_log) }}
-        </div>
-        <div class="col-md-2">
-            <span class="label label-default">
-                {{ 'settings.delay'|trans({}, 'gs_suppliers') }}
-            </span>
-        </div>
-        <div class="col-md-4">
-            <span class="text-danger">{{ form_errors(form.delaydeliv) }}</span>
-            {{ form_widget(form.delaydeliv) }}
-        </div>
-
+        <section class="form-line">
+            <div class="col-md-2 label label-default">
+                <i class="fa fa-tags"></i>&nbsp;
+                {{ form_label(form.family_log) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.family_log) }}</span>
+                {{ form_widget(form.family_log) }}
+            </div>
+            <div class="col-md-2 label label-default">
+                <i class="fa fa-clock-o"></i>&nbsp;
+                {{ form_label(form.delaydeliv) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.delaydeliv) }}</span>
+                {{ form_widget(form.delaydeliv) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+        <p>&nbsp;</p>
+        <div class="col-md-12">
         {% block choice_widget_expanded %}
             {% spaceless %}
             <div {{ block('widget_container_attributes') }}>
@@ -156,13 +146,16 @@
             </div>
             {% endspaceless %}
         {% endblock choice_widget_expanded %}
+        </div>
     </fieldset>
 
     <p>
         <button class="btn btn-primary" type="submit">
             {% if edit_form is defined %}
+                <i class="fa fa-edit"></i>&nbsp;
                 {{ 'Edit'|trans({}, 'admin') }}
             {% else %}
+                <i class="fa fa-plus"></i>&nbsp;
                 {{ 'Create'|trans({}, 'admin') }}
             {% endif %}
         </button>

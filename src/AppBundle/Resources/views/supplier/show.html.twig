@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-barcode" aria-hidden="true"></i> 
+    <i class="fa fa-barcode" aria-hidden="true"></i>&nbsp;
     <small>{{ "%06d"|format(supplier.id) }}</small> {{ supplier.name }}
 {% endblock %}
 
@@ -14,6 +14,7 @@
         <legend>{{ 'form.info'|trans({}, 'gs_suppliers') }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-map-marker"></i>&nbsp;
                 {{ 'gestock.address'|trans }}
             </span>
         </div>
@@ -30,24 +31,28 @@
         <legend>{{ 'gestock.settings.commercial'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-user"></i>&nbsp;
                 {{ 'gestock.contact'|trans }}
             </span>
         </div>
         <div class="col-md-4">{{ supplier.contact }}</div><br />
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-mobile"></i>&nbsp;
                 {{ 'gestock.phone'|trans }}
             </span>
         </div>
         <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
         <div class="col-md-1">
             <span class="label label-default">
+                <i class="fa fa-fax"></i>&nbsp;
                 {{ 'gestock.fax'|trans }}
             </span>
         </div>
         <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-envelope"></i>&nbsp;
                 {{ 'gestock.mail'|trans }}
             </span>
         </div>
@@ -56,24 +61,28 @@
         <legend>{{ 'gestock.settings.administratif'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-user"></i>&nbsp;
                 {{ 'gestock.contact'|trans }}
             </span>
         </div>
         <div class="col-md-4"></div><br />
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-phone"></i>&nbsp;
                 {{ 'gestock.phone'|trans }}
             </span>
         </div>
         <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
         <div class="col-md-1">
             <span class="label label-default">
+                <i class="fa fa-fax"></i>&nbsp;
                 {{ 'gestock.fax'|trans }}
             </span>
         </div>
         <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-envelope"></i>&nbsp;
                 {{ 'gestock.mail'|trans }}
             </span>
         </div>
@@ -82,6 +91,7 @@
         <legend>{{ 'gestock.details'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
+                <i class="fa fa-tags"></i>&nbsp;
                 {{ 'gestock.settings.diverse.familylog'|trans }}
             </span>
         </div>
@@ -181,10 +191,8 @@
                                 {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
                             </th>
                             <th class="col-md-2">
+                                <i class="fa fa-tags"></i>&nbsp;
                                 {{ 'gestock.settings.diverse.familylog'|trans }}
-                            </th>
-                            <th class="col-md-2">
-                                {{ 'gestock.settings.diverse.subfamilylog'|trans }}
                             </th>
                         </tr>
                     </thead>
@@ -192,7 +200,7 @@
                         {% for article in articles %}
                         <tr>
                             <td>
-                                <a href="{{ path('glstock_art_show', {'name': article.name}) }}">
+                                <a href="{{ path('article_show', {'slug': article.slug}) }}">
                                     {{ article.name }}
                                 </a>
                             </td>
@@ -202,7 +210,6 @@
                             <td>{{ article.quantity }}</td>
                             <td>{{ article.minstock }}</td>
                             <td>{{ article.familyLog }}</td>
-                            <td>{{ article.subFamilyLog }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -217,13 +224,13 @@
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
             <a class="btn btn-info" href="{{ path('suppliers') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+                <i class="fa fa-list"></i>&nbsp;{{ 'gestock.return_list'|trans }}
             </a>
                 {% if is_granted('ROLE_ADMIN') %}
             <a class="btn btn-primary" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
-                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+                <i class="fa fa-edit"></i>&nbsp;{{ 'Edit'|trans({}, 'admin') }}
             </a>
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i>&nbsp;{{ 'Delete'|trans({}, 'admin') }}</button>
                 {% endif %}
         </div>
 

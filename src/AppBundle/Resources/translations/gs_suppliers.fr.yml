@@ -37,6 +37,7 @@ form:
     atoc: "A pour C"
     atod: "A pour D"
     atoe: "A pour E"
+    choice_supplier: "Choisissez un fournisseur"
 show:
     title: 'Lecture d''un fournisseur'
     edit_button: 'Editer le fournisseur'

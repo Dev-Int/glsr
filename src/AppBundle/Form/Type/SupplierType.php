@@ -32,17 +32,53 @@ class SupplierType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array('label' => 'gestock.name'))
-            ->add('address', 'text', array('label' => 'gestock.address'))
-            ->add('zipcode', 'text', array('label' => 'gestock.zipcode'))
-            ->add('town', 'text', array('label' => 'gestock.town'))
+            ->add(
+                'name',
+                'text',
+                array(
+                    'label' => 'gestock.name',
+                    'attr'  => array('class' => 'form-control')
+                )
+            )
+            ->add(
+                'address',
+                'text',
+                array(
+                    'label' => 'gestock.address',
+                    'attr'  => array(
+                        'placeholder' => 'gestock.address',
+                        'class' => 'form-control'
+                    )
+                )
+            )
+            ->add(
+                'zipcode',
+                'text',
+                array(
+                    'attr'  => array(
+                        'placeholder' => 'gestock.zipcode',
+                        'class' => 'form-control half'
+                    )
+                )
+            )
+            ->add(
+                'town',
+                'text',
+                array(
+                    'attr'  => array(
+                        'placeholder' => 'gestock.town',
+                        'class' => 'form-control half'
+                    )
+                )
+            )
             ->add(
                 'phone',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
-                    'label' => 'gestock.phone'
+                    'label' => 'gestock.phone',
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -51,18 +87,34 @@ class SupplierType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
-                    'label' => 'gestock.fax'
+                    'label' => 'gestock.fax',
+                    'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('mail', 'email', array('label' => 'gestock.mail'))
-            ->add('contact', 'text', array('label' => 'gestock.contact'))
+            ->add(
+                'mail',
+                'email',
+                array(
+                    'label' => 'gestock.mail',
+                    'attr'  => array('class' => 'form-control')
+                )
+            )
+            ->add(
+                'contact',
+                'text',
+                array(
+                    'label' => 'gestock.contact',
+                    'attr'  => array('class' => 'form-control')
+                )
+            )
             ->add(
                 'gsm',
                 'tel',
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
-                    'label' => 'gestock.gsm'
+                    'label' => 'gestock.gsm',
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             // Délai de livraison A = jour de Cmde,
@@ -78,7 +130,8 @@ class SupplierType extends AbstractType
                         4 => 'form.atoe',
                     ),
                     'label' => 'settings.delay',
-                    'translation_domain' => 'gs_suppliers'
+                    'translation_domain' => 'gs_suppliers',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             // Choix du jour de la semaine pour les Cmdes
@@ -98,6 +151,7 @@ class SupplierType extends AbstractType
                     'choice_translation_domain' => true,
                     'translation_domain' => 'messages',
                     'label' => 'day_order',
+                    'attr'  => array('class' => 'form-control'),
                     'expanded' => true,
                     'multiple' => true,
                 )
@@ -111,7 +165,8 @@ class SupplierType extends AbstractType
                     'multiple' => false,
                     'placeholder' => 'gestock.settings.diverse.choice_family',
                     'empty_data' => null,
-                    'label' => 'gestock.settings.diverse.familylog'
+                    'label' => 'gestock.settings.diverse.familylog',
+                    'attr'  => array('class' => 'form-control half')
                 )
             )
             ->add('active', 'hidden');
