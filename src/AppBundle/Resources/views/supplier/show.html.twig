@@ -87,7 +87,8 @@
             </span>
         </div>
         <div class="col-md-4">{{ supplier.mail }}</div>
-    </fieldset><fieldset class="well">
+    </fieldset>
+    <fieldset class="well">
         <legend>{{ 'gestock.details'|trans }}</legend>
         <div class="col-md-2">
             <span class="label label-default">
@@ -159,64 +160,62 @@
     </fieldset>
 
     {% if articles is defined %}
-    <section class="col-md-12">
-        <fieldset>
-            <legend>
-                {{ 'settings.articles_of'|trans({'%supplier.name%': supplier.name}, 'gs_suppliers') }}
-            </legend>
-            {% if articles is empty %}
-                <p>
-                    {{ 'settings.no_articles'|trans({}, 'gs_suppliers') }}
-                </p>
-            {% else %}
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="col-md-3">
-                                {{ 'gestock.title_item'|trans }}
-                            </th>
-                            <th class="col-md-1">
-                                {{ 'gestock.settings.diverse.unitstorage'|trans }}
-                            </th>
-                            <th class="col-md-1">
-                                {{ 'settings.packaging'|trans({}, 'gs_articles') }}
-                            </th>
-                            <th class="col-md-1">
-                                {{ 'settings.price'|trans({}, 'gs_articles') }}
-                            </th>
-                            <th class="col-md-1">
-                                {{ 'settings.quantity'|trans({}, 'gs_articles') }}
-                            </th>
-                            <th class="col-md-1">
-                                {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
-                            </th>
-                            <th class="col-md-2">
-                                <i class="fa fa-tags"></i>&nbsp;
-                                {{ 'gestock.settings.diverse.familylog'|trans }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for article in articles %}
-                        <tr>
-                            <td>
-                                <a href="{{ path('article_show', {'slug': article.slug}) }}">
-                                    {{ article.name }}
-                                </a>
-                            </td>
-                            <td>{{ article.packaging }}</td>
-                            <td>{{ article.unitstorage }}</td>
-                            <td>{{ article.price }} €</td>
-                            <td>{{ article.quantity }}</td>
-                            <td>{{ article.minstock }}</td>
-                            <td>{{ article.familyLog }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% endif %}
-        </fieldset>
-    </section>#}
+    <fieldset>
+        <legend>
+            {{ 'settings.articles_of'|trans({'%supplier.name%': supplier.name}, 'gs_suppliers') }}
+        </legend>
+        {% if articles is empty %}
+            <p>
+                {{ 'settings.no_articles'|trans({}, 'gs_suppliers') }}
+            </p>
+        {% else %}
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-md-3">
+                            {{ 'gestock.title_item'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'gestock.settings.diverse.unitstorage'|trans }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'settings.packaging'|trans({}, 'gs_articles') }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'settings.price'|trans({}, 'gs_articles') }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+                        </th>
+                        <th class="col-md-1">
+                            {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
+                        </th>
+                        <th class="col-md-2">
+                            <i class="fa fa-tags"></i>&nbsp;
+                            {{ 'gestock.settings.diverse.familylog'|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in articles %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('articles_show', {'slug': article.slug}) }}">
+                                {{ article.name }}
+                            </a>
+                        </td>
+                        <td>{{ article.packaging }}</td>
+                        <td>{{ article.unitstorage }}</td>
+                        <td>{{ article.price }} €</td>
+                        <td>{{ article.quantity }}</td>
+                        <td>{{ article.minstock }}</td>
+                        <td>{{ article.familyLog }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </fieldset>
     {% endif %}
     {{ form_start(delete_form) }}
         {{ form_widget(delete_form) }}

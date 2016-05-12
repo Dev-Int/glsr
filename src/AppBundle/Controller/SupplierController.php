@@ -59,10 +59,15 @@ class SupplierController extends AbstractController
      */
     public function showAction(Supplier $supplier)
     {
+        $em = $this->getDoctrine()->getManager();
+        
         $deleteForm = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
 
+        // Récupérer les articles du fournisseur.
+        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
         return array(
             'supplier' => $supplier,
+            'articles' => $articles,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -179,6 +184,8 @@ class SupplierController extends AbstractController
      */
     public function deleteAction(Supplier $supplier, Request $request)
     {
+        // Test if there is no articles with this supplier.
+        
         $form = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
