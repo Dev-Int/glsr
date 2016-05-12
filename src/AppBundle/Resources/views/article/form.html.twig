@@ -31,22 +31,18 @@
                 {% block choice_widget_expanded %}
                     {% spaceless %}
                     <div {{ block('widget_container_attributes') }}>
-                        <table class="panel panel-default">
-                            <thead class="page-header label label-default">
-                                <tr>
-                                    <th colspan="2">
-                                        <i class="fa fa-map-marker"></i>&nbsp;
-                                        {{ form_label(form.zone_storages) }}</th></tr>
-                            </thead>
-                            <tbody class="panel-body">
+                        <div class="panel panel-default">
+                            <div class="panel-heading label label-default">
+                                    <i class="fa fa-map-marker"></i>&nbsp;
+                                    {{ form_label(form.zone_storages) }}
+                            </div>
+                            <div class="panel-body">
                                 {% for child in form.zone_storages %}
-                                    <tr>
-                                        <td class="col-md-1 text-center">{{ form_widget(child) }}</td>
-                                        <td class="col-md-2">{{ form_label(child) }}</td>
-                                    </tr>
+                                    <div class="col-md-3 text-center">{{ form_widget(child) }}</div>
+                                    <div class="col-md-9">{{ form_label(child) }}</div>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     {% endspaceless %}
                 {% endblock choice_widget_expanded %}

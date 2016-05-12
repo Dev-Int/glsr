@@ -97,7 +97,16 @@ select.half {
   height: 0; overflow: hidden; /* Précaution pour IE 7 */
 }
 
-thead.page-header.label {
-    display: table-caption;
-    margin: 0;
+.panel-heading.label {
+    display: block;
+    margin: 0!important;
+    color: #ffffff!important;
+    background-color: #777777!important;
+    padding: 5px!important;
+}
+div.panel.panel-default > div.panel-body {
+    padding: 5px;
+}
+div.panel.panel-default > div.panel-body > div.col-md-9 > label {
+    font-weight: normal;
 }
