@@ -81,7 +81,7 @@ abstract class AbstractController extends Controller
 
     /**
      * Test Inventory
-     * @return string
+     * @return string|null
      */
     protected function testInventory()
     {

@@ -67,7 +67,7 @@ gestock:
         return: "Retour à l'accueil"
 
     install:
-        none: "Vous devez suivre les étapes d'installation"
+        none: "Votre application n'est pas encore configurée.\n Vous devez suivre les étapes d'installation"
         title: Installation
         subtitle: "&Eacute;tapes d'installation"
         present: 
@@ -88,6 +88,17 @@ gestock:
         st4:
             title: "Configurer l'application"
             txt: "Configurer l'application."
+            info: "Cliquez sur l'onglet pour lequel vous souhaitez ajouter des éléments.\n Une fois terminé, passer à l'étape suivante."
+        st5:
+            title: "Création des fournisseurs"
+            yet_exist: "Des fournisseurs sont déjà créés.\n Pour les modifier : Menu Gestion -> Fournisseurs.\n \n Vous pouvez passer à l'étape suivante."
+        st6:
+            title: "Création des articles"
+            yet_exist: "Des articles sont déjà créés.\n Pour les modifier : Menu Gestion -> Articles.\n \n Vous pouvez passer à l'étape suivante."
+        st7:
+            title: "Inventaire d'installation"
+            txt: "Tout est prêt !\n Vous pouvez maintenant faire l'inventaire d'installation, afin de bien démarrer l'utilisation de l'application."
+            yet_exist: "L'inventaire d'installation est déjà fait.\n Pour les prochains : Menu Gestion -> Inventaires.\n \n L'installation est terminée. Vous pouvez."
 
     settings:
         title: Configuration

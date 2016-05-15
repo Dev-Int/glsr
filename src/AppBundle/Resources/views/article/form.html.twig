@@ -4,29 +4,30 @@
 {% else %}
     {{ form_start(form, {action: path('articles_create')}) }}
 {% endif %}
+{% form_theme form 'form/fields.html.twig' %}
 
     <fieldset class="well">
         {{ form_errors(form) }}
         <legend>{{ 'form.info'|trans({}, 'gs_articles') }}</legend>
         <section class="form-line">
-            <div class="col-md-1 label label-default">
+            <div class="col-md-2 label label-default">
                 {{ form_label(form.name) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.name) }}</span>
                 {{ form_widget(form.name) }}
             </div>
-            <div class="col-md-1 label label-default">
+            <div class="col-md-2 label label-default">
                 {{ form_label(form.supplier) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.supplier) }}</span>
                 {{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
             </div>
             <div class="clear"></div>
         </section>
         <section class="form-line">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
                 {% block choice_widget_expanded %}
                     {% spaceless %}
@@ -52,7 +53,7 @@
                 <i class="fa fa-tags"></i>&nbsp;
                 {{ form_label(form.family_log) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.family_log) }}</span>
                 {{ form_widget(form.family_log) }}
                 <input id="hidden_flog" name="article[family_log]" type="hidden" value="" />
@@ -66,14 +67,14 @@
                 <i class="fa fa-cubes"></i>&nbsp;
                 {{ form_label(form.unit_storage) }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
                 {{ form_widget(form.unit_storage) }}
             </div>
-            <div class="col-md-1 label label-default">
+            <div class="col-md-2 col-md-offset-1 label label-default">
                 {{ form_label(form.price) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.price) }}</span>
                 {{ form_widget(form.price) }}
             </div>
@@ -83,14 +84,14 @@
            <div class="col-md-2 label label-default">
                 {{ form_label(form.packaging) }}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <span class="text-danger">{{ form_errors(form.packaging) }}</span>
                 {{ form_widget(form.packaging) }}
             </div>
-           <div class="col-md-1 label label-default">
+           <div class="col-md-2 col-md-offset-1 label label-default">
                 {{ form_label(form.minstock) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <span class="text-danger">{{ form_errors(form.minstock) }}</span>
                 {{ form_widget(form.minstock) }}
             </div>

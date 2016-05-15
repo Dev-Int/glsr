@@ -39,13 +39,11 @@ class DefaultController extends Controller
             'AppBundle:Company',
             'AppBundle:Settings',
             'AppBundle:FamilyLog',
-            'AppBundle:SubFamilyLog',
             'AppBundle:ZoneStorage',
             'AppBundle:UnitStorage',
             'AppBundle:Tva',
             'AppBundle:Supplier',
-            'AppBundle:Article',
-            'AppBundle:Settings');
+            'AppBundle:Article');
 
     }
 
@@ -56,17 +54,16 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $url = "";
         /**
          * Test d'installation
          */
-//        $url = $this->testEntities();
+        $url = $this->testEntities();
         if (empty($url)) {
             $url = $this->render('default/index.html.twig');
         } else {
             $url = $this->redirectToRoute($url);
         }
-        // replace this example code with whatever you need
+
         return $url;
     }
 
@@ -82,20 +79,12 @@ class DefaultController extends Controller
         // vérifie que les Entitées ne sont pas vides
         $nbEntities = count($this->entities);
         for ($index = 0; $index < $nbEntities; $index++) {
-            $entity = $etm->getRepository(
-                $this->entities[$index]
-            );
+            $entity = $etm->getRepository($this->entities[$index]);
             $entityData = $entity->find(1);
 
             if (empty($entityData)) {
                 $message = 'gestock.install.none';
-//                $url = 'gs_install'; break;
-                $url = '_home';
-                break;
-            } elseif ($index === 10 && $entityData->getFirstInventory() === null) {
-                $message = 'gestock.settings.application.first_inventory.none';
-//                $url = 'gestock_inventory_prepare'; break;
-                $url = '_home';
+                $url = 'gs_install';
                 break;
             }
         }
