@@ -28,11 +28,11 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('admin_rate') }}">
+            <a class="btn btn-info" href="{{ path('rate') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('admin_rate_edit', {id: tva.id}) }}">
+            <a class="btn btn-primary" href="{{ path('rate_edit', {id: tva.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>

@@ -34,7 +34,7 @@ class TvaController extends AbstractController
     /**
      * Lists all Tva entities.
      *
-     * @Route("/", name="admin_rate")
+     * @Route("/", name="rate")
      * @Method("GET")
      * @Template()
      */
@@ -51,13 +51,13 @@ class TvaController extends AbstractController
     /**
      * Finds and displays a Tva entity.
      *
-     * @Route("/{id}/show", name="admin_rate_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="rate_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Tva $tva)
     {
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'admin_rate_delete');
+        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
 
         return array(
             'tva' => $tva,
@@ -68,7 +68,7 @@ class TvaController extends AbstractController
     /**
      * Displays a form to create a new Tva entity.
      *
-     * @Route("/new", name="admin_rate_new")
+     * @Route("/new", name="rate_new")
      * @Method("GET")
      * @Template()
      */
@@ -86,7 +86,7 @@ class TvaController extends AbstractController
     /**
      * Creates a new Tva entity.
      *
-     * @Route("/create", name="admin_rate_create")
+     * @Route("/create", name="rate_create")
      * @Method("POST")
      * @Template("AppBundle:Tva:new.html.twig")
      */
@@ -100,10 +100,10 @@ class TvaController extends AbstractController
             $em->flush();
 
             if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirectToRoute('admin_rate_show', array('id' => $tva->getId()));
+                $url = $this->redirectToRoute('rate_show', array('id' => $tva->getId()));
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('admin_rate_new');
+                $url = $this->redirectToRoute('rate_new');
             }
             return $url;
         }
@@ -117,17 +117,17 @@ class TvaController extends AbstractController
     /**
      * Displays a form to edit an existing Tva entity.
      *
-     * @Route("/{id}/edit", name="admin_rate_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="rate_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Tva $tva)
     {
         $editForm = $this->createForm(new TvaType(), $tva, array(
-            'action' => $this->generateUrl('admin_rate_update', array('id' => $tva->getId())),
+            'action' => $this->generateUrl('rate_update', array('id' => $tva->getId())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'admin_rate_delete');
+        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
 
         return array(
             'tva' => $tva,
@@ -139,23 +139,23 @@ class TvaController extends AbstractController
     /**
      * Edits an existing Tva entity.
      *
-     * @Route("/{id}/update", name="admin_rate_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="rate_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Tva:edit.html.twig")
      */
     public function updateAction(Tva $tva, Request $request)
     {
         $editForm = $this->createForm(new TvaType(), $tva, array(
-            'action' => $this->generateUrl('admin_rate_update', array('id' => $tva->getId())),
+            'action' => $this->generateUrl('rate_update', array('id' => $tva->getId())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.settings.edit_ok');
 
-            return $this->redirectToRoute('admin_rate_edit', array('id' => $tva->getId()));
+            return $this->redirectToRoute('rate_edit', array('id' => $tva->getId()));
         }
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'admin_rate_delete');
+        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
 
         return array(
             'tva' => $tva,
@@ -167,18 +167,18 @@ class TvaController extends AbstractController
     /**
      * Deletes a Tva entity.
      *
-     * @Route("/{id}/delete", name="admin_rate_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="rate_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Tva $tva, Request $request)
     {
-        $form = $this->createDeleteForm($tva->getId(), 'admin_rate_delete');
+        $form = $this->createDeleteForm($tva->getId(), 'rate_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($tva);
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_rate');
+        return $this->redirectToRoute('rate');
     }
 }
