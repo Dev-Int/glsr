@@ -20,13 +20,13 @@
         <tbody>
             {% for zonestorage in entities %}
                 <tr>
-                    <td><a href="{{ path('admin_zonestorage_show', {slug: zonestorage.slug}) }}">{{ zonestorage.name }}</a></td>
+                    <td><a href="{{ path('zonestorage_show', {slug: zonestorage.slug}) }}">{{ zonestorage.name }}</a></td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_zonestorage_show', {slug: zonestorage.slug}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('zonestorage_show', {slug: zonestorage.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_zonestorage_edit', {slug: zonestorage.slug}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('zonestorage_edit', {slug: zonestorage.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -38,7 +38,7 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('admin_zonestorage_new') }}">
+        <a class="btn btn-info" href="{{ path('zonestorage_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>

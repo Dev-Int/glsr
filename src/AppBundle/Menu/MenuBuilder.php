@@ -106,7 +106,7 @@ class MenuBuilder extends ContainerAware
 
             $divers
                 ->addChild('zonestorage', array(
-                    'route' => 'admin_zonestorage',
+                    'route' => 'zonestorage',
                     'label' => 'gestock.settings.diverse.zonestorage'
                 ))
                 ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
