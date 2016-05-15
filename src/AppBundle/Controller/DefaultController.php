@@ -70,7 +70,7 @@ class DefaultController extends Controller
     /**
      * Test des entités
      *
-     * @return array
+     * @return string|null
      */
     private function testEntities()
     {
@@ -103,10 +103,10 @@ class DefaultController extends Controller
      */
     public function getFamilyLogAction()
     {
-        $id = '';
         $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
+            $familyLog = array();
             $id = $request->get('id');
             if ($id != '') {
                 $supplier = $etm
