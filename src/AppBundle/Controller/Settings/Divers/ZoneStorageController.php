@@ -92,6 +92,7 @@ class ZoneStorageController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        $url = '';
         $zonestorage = new ZoneStorage();
         $form = $this->createForm(new ZoneStorageType(), $zonestorage);
         if ($form->handleRequest($request)->isValid()) {

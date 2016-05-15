@@ -92,6 +92,7 @@ class UnitStorageController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        $url = '';
         $unitstorage = new UnitStorage();
         $form = $this->createForm(new UnitStorageType(), $unitstorage);
         if ($form->handleRequest($request)->isValid()) {
