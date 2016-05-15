@@ -190,10 +190,10 @@ class UserController extends AbstractController
      *
      * @param  FormInterface $form
      * @param  string        $name    route/entity name
-     * @param  string        $route   route name, if different from entity name
-     * @param  Request       $request Request
-     * @param  array         $params  possible route parameters
-     * @return Response
+     * @param  string|null   $route   route name, if different from entity name
+     * @param  nul|Request   $request Request
+     * @param  array[]       $params  possible route parameters
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
      */
     protected function saveFilter(
         FormInterface $form,
