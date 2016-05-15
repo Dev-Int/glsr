@@ -28,7 +28,7 @@
                             <th class="col-md-3">{{ form_label(item.article) }}</th>
                             <th class="col-md-1">{{ form_label(item.quantity) }}</th>
                             <th class="col-md-1">{{ form_label(item.realstock) }}</th>
-                            <th class="col-md-1">{{ form_label(item.unit_storage) }}</th>
+                            <th class="col-md-1">{{ form_label(item.unitStorage) }}</th>
                             <th class="col-md-2">{{ form_label(item.price) }}</th>
                             <th class="col-md-2">{{ form_label(item.total) }}</th>
                             <th class="col-md-1">{{ form_label(item.gap) }}</th>
@@ -47,7 +47,7 @@
                             {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
                             {% endif %}
                         </td>
-                        <td>{{ form_widget(item.unit_storage) }}</td>
+                        <td>{{ form_widget(item.unitStorage) }}</td>
                         <td>{{ form_widget(item.price) }}</td>
                         <td>{{ form_widget(item.total) }}</td>
                         <td>{{ form_widget(item.gap) }}</td>

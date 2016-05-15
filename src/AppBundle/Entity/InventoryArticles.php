@@ -53,7 +53,7 @@ class InventoryArticles
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $unit_storage;
+    private $unitStorage;
 
     /**
      * @var string
@@ -189,26 +189,26 @@ class InventoryArticles
     }
 
     /**
-     * Set unit_storage
+     * Set unitStorage
      *
      * @param \AppBundle\Entity\UnitStorage $unitStorage
      * @return InventoryArticles
      */
     public function setUnitStorage(\AppBundle\Entity\UnitStorage $unitStorage = null)
     {
-        $this->unit_storage = $unitStorage;
+        $this->unitStorage = $unitStorage;
 
         return $this;
     }
 
     /**
-     * Get unit_storage
+     * Get unitStorage
      *
      * @return \AppBundle\Entity\UnitStorage
      */
     public function getUnitStorage()
     {
-        return $this->unit_storage;
+        return $this->unitStorage;
     }
 
     /**

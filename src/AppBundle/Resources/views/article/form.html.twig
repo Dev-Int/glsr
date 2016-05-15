@@ -28,17 +28,17 @@
         </section>
         <section class="form-line">
             <div class="col-md-5">
-                <span class="text-danger">{{ form_errors(form.zone_storages) }}</span>
+                <span class="text-danger">{{ form_errors(form.zoneStorage) }}</span>
                 {% block choice_widget_expanded %}
                     {% spaceless %}
                     <div {{ block('widget_container_attributes') }}>
                         <div class="panel panel-default">
                             <div class="panel-heading label label-default">
                                     <i class="fa fa-map-marker"></i>&nbsp;
-                                    {{ form_label(form.zone_storages) }}
+                                    {{ form_label(form.zoneStorage) }}
                             </div>
                             <div class="panel-body">
-                                {% for child in form.zone_storages %}
+                                {% for child in form.zoneStorage %}
                                     <div class="col-md-3 text-center">{{ form_widget(child) }}</div>
                                     <div class="col-md-9">{{ form_label(child) }}</div>
                                 {% endfor %}
@@ -47,7 +47,7 @@
                     </div>
                     {% endspaceless %}
                 {% endblock choice_widget_expanded %}
-                {{ form_widget(form.zone_storages) }}
+                {{ form_widget(form.zoneStorage) }}
             </div>
             <div class="col-md-2 col-md-offset-1 label label-default">
                 <i class="fa fa-tags"></i>&nbsp;
@@ -65,11 +65,11 @@
         <section class="form-line">
             <div class="col-md-2 label label-default">
                 <i class="fa fa-cubes"></i>&nbsp;
-                {{ form_label(form.unit_storage) }}
+                {{ form_label(form.unitStorage) }}
             </div>
             <div class="col-md-3">
-                <span class="text-danger">{{ form_errors(form.unit_storage) }}</span>
-                {{ form_widget(form.unit_storage) }}
+                <span class="text-danger">{{ form_errors(form.unitStorage) }}</span>
+                {{ form_widget(form.unitStorage) }}
             </div>
             <div class="col-md-2 col-md-offset-1 label label-default">
                 {{ form_label(form.price) }}

@@ -71,7 +71,7 @@ class Article
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      */
-    private $unit_storage;
+    private $unitStorage;
 
     /**
      * @var decimal Conditionement (quantité)
@@ -116,7 +116,7 @@ class Article
      * @ORM\JoinTable(name="gs_article_zonestorage")
      * @Assert\NotBlank()
      */
-    private $zone_storages;
+    private $zoneStorage;
 
     /**
      * @var string Famille logistique
@@ -144,7 +144,7 @@ class Article
      */
     public function __construct()
     {
-        $this->zone_storages = new ArrayCollection();
+        $this->zoneStorage = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
     }
@@ -304,7 +304,7 @@ class Article
     }
 
     /**
-     * Set unit_storage.
+     * Set unitStorage.
      *
      * @param UnitStorage $unitStorage Unité de stockage
      *
@@ -312,23 +312,23 @@ class Article
      */
     public function setUnitStorage(UnitStorage $unitStorage = null)
     {
-        $this->unit_storage = $unitStorage;
+        $this->unitStorage = $unitStorage;
 
         return $this;
     }
 
     /**
-     * Get unit_storage.
+     * Get unitStorage.
      *
      * @return UnitStorage
      */
     public function getUnitStorage()
     {
-        return $this->unit_storage;
+        return $this->unitStorage;
     }
 
     /**
-     * Add zone_storages.
+     * Add zoneStorage.
      *
      * @param \AppBundle\Entity\ZoneStorage
      * $zoneStorages Zone(s) de stockage
@@ -337,13 +337,13 @@ class Article
      */
     public function addZoneStorage(ZoneStorage $zoneStorages)
     {
-        $this->zone_storages[] = $zoneStorages;
+        $this->zoneStorage[] = $zoneStorages;
 
         return $this;
     }
 
     /**
-     * Remove zone_storages.
+     * Remove zoneStorage.
      *
      * @param ZoneStorage $zoneStorages Zone de stockage à supprimer
      *
@@ -351,17 +351,17 @@ class Article
      */
     public function removeZoneStorage(ZoneStorage $zoneStorages)
     {
-        $this->zone_storages->removeElement($zoneStorages);
+        $this->zoneStorage->removeElement($zoneStorages);
     }
 
     /**
-     * Get zone_storages.
+     * Get zoneStorage.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getZoneStorages()
     {
-        return $this->zone_storages;
+        return $this->zoneStorage;
     }
 
     /**

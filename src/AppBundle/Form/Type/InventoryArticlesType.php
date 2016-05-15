@@ -88,7 +88,7 @@ class InventoryArticlesType extends AbstractType
                 )
             )
             ->add(
-                'unit_storage',
+                'unitStorage',
                 'entity',
                 array(
                     'class' => 'AppBundle:UnitStorage',
