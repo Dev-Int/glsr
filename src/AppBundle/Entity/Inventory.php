@@ -152,7 +152,7 @@ class Inventory
     /**
      * Get amount
      *
-     * @return string
+     * @return double
      */
     public function getAmount()
     {
@@ -208,7 +208,7 @@ class Inventory
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getArticles()
     {
