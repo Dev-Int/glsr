@@ -131,7 +131,7 @@ class MenuBuilder extends ContainerAware
 
             $menu['entities']
                 ->addChild('users', array(
-                    'route' => 'admin_users',
+                    'route' => 'users',
                     'label' => 'menu.users'))
                 ->setAttribute('icon', 'glyphicon glyphicon-user');
 

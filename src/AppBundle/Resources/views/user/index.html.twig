@@ -8,12 +8,12 @@
         {% set sort = app.session.get('sort.' ~ name) %}
         {% if sort and sort.field == field %}
             {% if sort.type == 'DESC' %}
-                <a href="{{ path('admin_users_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
+                <a href="{{ path('users_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
             {% elseif sort.type == 'ASC' %}
-                <a href="{{ path('admin_users_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
+                <a href="{{ path('users_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
             {% endif %}
         {% else %}
-            <a href="{{ path('admin_users_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
+            <a href="{{ path('users_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
@@ -43,17 +43,17 @@
         <tbody>
             {% for user in paginator %}
                 <tr>
-                    <td><a href="{{ path('admin_users_show', {id: user.id}) }}">{{ user.username }}</a></td>
+                    <td><a href="{{ path('users_show', {id: user.id}) }}">{{ user.username }}</a></td>
                     <td>{{ user.email }}</td>
                     <td>{% if user.locked %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
                     <td>{{ user.groups|join(', ') }}</td>
                     <td>{{ user.id }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_users_show', {id: user.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('users_show', {id: user.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_users_edit', {id: user.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('users_edit', {id: user.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -67,7 +67,7 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('admin_users_new') }}">
+        <a class="btn btn-info" href="{{ path('users_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>
