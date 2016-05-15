@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'gs_articles') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i> 
+    {{ 'reassign.title'|trans({}, 'gs_articles') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {{ form_start(reassign_form) }}
+    <fieldset class="well"><legend>{{ 'reassign.from'|trans({'%supname%':reassign_form.vars.value[0].supplier.name}, 'gs_articles') }}</legend>
+        <section class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading label label-default">
+                    <label class="col-md-4">{{ 'gestock.id'|trans }}</label>
+                    <label class="col-md-4">{{ 'title'|trans({}, 'gs_articles') }}</label>
+                    <label class="col-md-4">{{ 'title'|trans({}, 'gs_suppliers') }}</label>
+                    <div class="clearfix"></div>
+                </div>
+                <table class="table table-hover">
+                    <tbody>
+                    {{ form_errors(reassign_form) }}
+                    {% for article in articles %}
+                        <tr>
+                            <td class="col-md-4 text-center">{{ "%06d"|format(article.id) }}</td>
+                            <td class="col-md-4">{{ article.name }}</td>
+                            <td class="col-md-4">{{ form_widget(reassign_form['supplier-' ~ article.id]) }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">
+                <i class="glyphicon glyphicon-transfer"></i> 
+                {{ 'reassign.submit_button'|trans({}, 'gs_articles') }}
+            </button>
+        </section>
+    </fieldset>
+    {{ form_end(reassign_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info" href="{{ path('articles') }}">
+                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            </a>
+        </div>
+
+{% endblock %}

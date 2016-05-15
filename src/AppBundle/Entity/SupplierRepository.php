@@ -42,20 +42,20 @@ class SupplierRepository extends EntityRepository
      * Renvoie les fournisseurs actifs correspondant à la famille logistique
      * de l'article en paramètre.
      *
-     * @param AppBundle\Entity\Article $article Article sélectionné
+     * @param AppBundle\Entity\Supplier $supplier Fournisseur sélectionné
      *
      * @return QueryBuilder Requête DQL
      */
-    public function getSupplierForReassign($article)
+    public function getSupplierForReassign($supplier)
     {
         $query = $this->createQueryBuilder('s')
             ->where('s.name != :idname')
             ->andWhere('s.family_log = :flname')
-            ->andWhere('s.active = 1')
+            ->andWhere('s.active = true')
             ->setParameters(
                 array(
-                    'idname' => $article->getSupplier()->getName(),
-                    'flname' => $article->getFamilyLog(),
+                    'idname' => $supplier->getName(),
+                    'flname' => $supplier->getFamilyLog(),
                 )
             )
             ->orderBy('s.name', 'ASC');

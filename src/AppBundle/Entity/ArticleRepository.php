@@ -48,7 +48,7 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * Renvoi les article du fournisseur en paramètre.
+     * Renvoi les article du fournisseur en paramÃ¨tre.
      *
      * @param int $supplier Supplier_id
      *

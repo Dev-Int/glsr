@@ -124,7 +124,7 @@ class Article
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FamilyLog")
      * @Assert\NotBlank()
      */
-    private $family_log;
+    private $familyLog;
 
     /**
      * @var bool Activé/Désactivé
@@ -365,7 +365,7 @@ class Article
     }
 
     /**
-     * Set family_log.
+     * Set familyLog.
      *
      * @param FamilyLog $familyLog Famille Logistique
      *
@@ -373,19 +373,19 @@ class Article
      */
     public function setFamilyLog(FamilyLog $familyLog = null)
     {
-        $this->family_log = $familyLog;
+        $this->familyLog = $familyLog;
 
         return $this;
     }
 
     /**
-     * Get family_log.
+     * Get familyLog.
      *
      * @return FamilyLog
      */
     public function getFamilyLog()
     {
-        return $this->family_log;
+        return $this->familyLog;
     }
 
     /**

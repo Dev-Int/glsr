@@ -20,7 +20,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Supplier;
 use AppBundle\Form\Type\ArticleType;
+use AppBundle\Form\Type\ArticleReassignType;
 
 /**
  * Article controller.
@@ -159,6 +161,84 @@ class ArticleController extends AbstractController
         );
     }
 
+    /**
+     * Réassigner les articles d'un fournisseur.
+     *
+     * @param Supplier $supplier Fournisseur à réassigner
+     * @Route("/{slug}/reassign", name="articles_reassign")
+     * @Method("GET")
+     * @Template()
+     */
+    public function reassignAction(Supplier $supplier)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $suppliers = $em->getRepository('AppBundle:Supplier')->getSupplierForReassign($supplier);
+        $articles = $em->getRepository('AppBundle:Article')
+            ->getArticleFromSupplier($supplier->getId());
+
+        $reassign_form = $this->createForm(
+            new ArticleReassignType(),
+            $articles,
+            array(
+                'action' => $this->generateUrl('articles_change',array('slug' => $supplier->getSlug())),
+                'method' => 'PUT',
+            )
+        );
+
+        return array(
+            'reassign_form' => $reassign_form->createView(),
+            'suppliers' => $suppliers,
+            'articles' => $articles
+        );
+    }
+
+    /**
+     * Creates a new Article entity.
+     *
+     * @Route("/{slug}/change", name="articles_change")
+     * @Method("PUT")
+     * @Template("AppBundle:Article:reassign.html.twig")
+     */
+    public function changeAction(Request $request, Supplier $supplier)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $suppliers = $em->getRepository('AppBundle:Supplier')->getSupplierForReassign($supplier);
+        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
+        $newArticles = new Article();
+        $newSupplier = new Supplier();
+
+        $reassign_form = $this->createForm(
+            new ArticleReassignType(),
+            $articles,
+            array(
+                'action' => $this->generateUrl('articles_change',array('slug' => $supplier->getSlug())),
+                'method' => 'PUT',
+            )
+        );
+        $datas = $reassign_form->handleRequest($request);
+
+        foreach ($datas as $data) {
+            $input = explode('-', $data->getName());
+            list($inputName, $articleId) = $input;
+            $inputData = $data->getViewData();
+            if ($inputName === 'supplier') {
+                $newArticles = $em->getRepository('AppBundle:Article')->find($articleId);
+                $newSupplier = $em->getRepository('AppBundle:Supplier')->find($inputData);
+                //On modifie le fournisseur de l'article
+                $newArticles->setSupplier($newSupplier);
+                // On enregistre l'objet $article dans la base de donnÃ©es
+                $em->persist($newArticles);
+                $em->flush();
+            }
+            return $this->redirectToRoute('articles');
+        }
+
+        return array(
+            'reassign_form' => $reassign_form->createView(),
+            'suppliers' => $suppliers,
+            'articles' => $articles
+        );
+    }
 
     /**
      * Save order.

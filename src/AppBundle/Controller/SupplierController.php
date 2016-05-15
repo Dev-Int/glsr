@@ -184,7 +184,12 @@ class SupplierController extends AbstractController
      */
     public function deleteAction(Supplier $supplier, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         // Test if there is no articles with this supplier.
+        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
+        if (!empty($articles)) {
+            return $this->redirectToRoute('articles_reassign', array('slug' => $supplier->getSlug()));
+        }
         
         $form = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
         if ($form->handleRequest($request)->isValid()) {
