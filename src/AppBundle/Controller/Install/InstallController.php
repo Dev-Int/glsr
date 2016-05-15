@@ -265,7 +265,7 @@ class InstallController extends Controller
         $settings = $em->getRepository('AppBundle:Settings')->find(1);
         $message = null;
 
-        if ($settings->getFirstInventory() == null) {
+        if ($settings->getFirstInventory() === null) {
             $message = 'gestock.install.st7.yet_exist';
         }
 
