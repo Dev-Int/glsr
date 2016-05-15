@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Abstract controller
+ * Abstract controller.
  *
  * @category Controller
  */
@@ -33,13 +33,14 @@ abstract class AbstractController extends Controller
      */
     protected function setOrder($name, $field, $type = 'ASC')
     {
-        $this->getRequest()->getSession()->set('sort.' . $name, array('field' => $field, 'type' => $type));
+        $this->getRequest()->getSession()->set('sort.'.$name, array('field' => $field, 'type' => $type));
     }
 
     /**
      * GetOrder for the SortAction in views.
      *
-     * @param  string $name
+     * @param string $name
+     *
      * @return array
      */
     protected function getOrder($name)
@@ -64,10 +65,11 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * Create Delete form
+     * Create Delete form.
      *
-     * @param integer                       $id
-     * @param string                        $route
+     * @param int    $id
+     * @param string $route
+     *
      * @return \Symfony\Component\Form\Form
      */
     protected function createDeleteForm($id, $route)
@@ -80,7 +82,8 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * Test Inventory
+     * Test Inventory.
+     *
      * @return string|null
      */
     protected function testInventory()
@@ -90,8 +93,7 @@ abstract class AbstractController extends Controller
         $inventories = $em->getRepository('AppBundle:Inventory')->getInventory();
 
         if (empty($inventories)) {
-            $url = null;
-            // Go to installActions
+            $url = 'gs_install_st7';
         } else {
             foreach ($inventories as $inventory) {
                 if ($inventory->getstatus() === 1 || $inventory->getStatus() === 2) {
