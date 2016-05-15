@@ -92,6 +92,7 @@ class FamilyLogController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        $url = '';
         $familylog = new FamilyLog();
         $form = $this->createForm(new FamilyLogType(), $familylog);
         if ($form->handleRequest($request)->isValid()) {
@@ -108,7 +109,7 @@ class FamilyLogController extends AbstractController
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirectToRoute('familylog_new');
             }
-            return $url;
+        return $url;
         }
 
         return array(
