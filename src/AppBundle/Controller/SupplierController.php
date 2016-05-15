@@ -188,6 +188,13 @@ class SupplierController extends AbstractController
         // Test if there is no articles with this supplier.
         $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
         if (!empty($articles)) {
+            $message = $this->get('translator')
+                ->trans(
+                    'delete.reassign_wrong',
+                    array(),
+                    'gs_suppliers'
+                );
+            $this->addFlash('danger', $message);
             return $this->redirectToRoute('articles_reassign', array('slug' => $supplier->getSlug()));
         }
         

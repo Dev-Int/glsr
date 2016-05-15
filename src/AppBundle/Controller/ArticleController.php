@@ -202,7 +202,6 @@ class ArticleController extends AbstractController
     public function changeAction(Request $request, Supplier $supplier)
     {
         $em = $this->getDoctrine()->getManager();
-        $suppliers = $em->getRepository('AppBundle:Supplier')->getSupplierForReassign($supplier);
         $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
         $newArticles = new Article();
         $newSupplier = new Supplier();
@@ -229,15 +228,16 @@ class ArticleController extends AbstractController
                 // On enregistre l'objet $article dans la base de donnÃ©es
                 $em->persist($newArticles);
             }
-            $em->flush();
-            return $this->redirectToRoute('articles');
         }
-
-        return array(
-            'reassign_form' => $reassign_form->createView(),
-            'suppliers' => $suppliers,
-            'articles' => $articles
-        );
+            $em->flush();
+            $message = $this->get('translator')
+                ->trans(
+                    'delete.reassign_ok',
+                    array('%supplier.name%' => $supplier->getName()),
+                    'gs_suppliers'
+                );
+            $this->addFlash('info', $message);
+            return $this->redirectToRoute('suppliers');
     }
 
     /**

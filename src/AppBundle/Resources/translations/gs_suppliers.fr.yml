@@ -21,7 +21,8 @@ delete:
     title_button: 'Supprimer le fournisseur'
     submit_button: 'Supprimer un fournisseur'
     caution: 'Êtes-vous sûr de vouloir désactiver le fournisseur "%supplier.name%" ?'
-    reassign: 'Vous devez réaffecter les articles du Fournisseur !'
+    reassign_wrong: 'Vous devez réaffecter les articles du Fournisseur !'
+    reassign_ok: 'Vous pouvez maintenant supprimer %supplier.name%.'
     ok: 'Fournisseur bien désactivé'
     no: 'Fournisseur non désactivé'
 edit:

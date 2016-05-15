@@ -1,4 +1,5 @@
 {% extends "base.html.twig" %}
+{% set supslug = "" %}
 
 {% block title %}
     {{ 'title'|trans({}, 'gs_articles') }} - {{ parent() }}
@@ -24,6 +25,7 @@
                     <tbody>
                     {{ form_errors(reassign_form) }}
                     {% for article in articles %}
+                        {% set supslug = article.supplier.slug %}
                         <tr>
                             <td class="col-md-4 text-center">{{ "%06d"|format(article.id) }}</td>
                             <td class="col-md-4">{{ article.name }}</td>
@@ -33,6 +35,10 @@
                     </tbody>
                 </table>
             </div>
+            <a href="{{ path('suppliers_show', {slug: supslug}) }}" class="btn btn-danger pull-left">
+                <i class="glyphicon glyphicon-remove"></i> 
+                {{ 'gestock.cancel'|trans }}
+            </a>
             <button type="submit" class="btn btn-primary pull-right">
                 <i class="glyphicon glyphicon-transfer"></i> 
                 {{ 'reassign.submit_button'|trans({}, 'gs_articles') }}
