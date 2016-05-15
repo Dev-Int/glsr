@@ -10,7 +10,7 @@
 {% endblock body_title %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('admin_groups_create')}) }}
+    {{ form_start(form, {action: path('groups_create')}) }}
         {{ form_widget(form) }}
         <p>
             <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
@@ -19,7 +19,7 @@
 
     <div class="btn-group record_actions">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('admin_groups') }}">
+        <a class="btn btn-info" href="{{ path('groups') }}">
             <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
         </a>
 

@@ -34,7 +34,7 @@ class GroupController extends AbstractController
     /**
      * Lists all Group entities.
      *
-     * @Route("/", name="admin_groups")
+     * @Route("/", name="groups")
      * @Method("GET")
      * @Template()
      */
@@ -49,13 +49,13 @@ class GroupController extends AbstractController
     /**
      * Finds and displays a Group entity.
      *
-     * @Route("/{id}/show", name="admin_groups_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="groups_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Group $group)
     {
-        $deleteForm = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
+        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
 
         return array(
             'group' => $group,
@@ -66,7 +66,7 @@ class GroupController extends AbstractController
     /**
      * Displays a form to create a new Group entity.
      *
-     * @Route("/new", name="admin_groups_new")
+     * @Route("/new", name="groups_new")
      * @Method("GET")
      * @Template()
      */
@@ -94,7 +94,7 @@ class GroupController extends AbstractController
     /**
      * Creates a new Group entity.
      *
-     * @Route("/create", name="admin_groups_create")
+     * @Route("/create", name="groups_create")
      * @Method("POST")
      * @Template("AppBundle:Group:new.html.twig")
      */
@@ -115,7 +115,7 @@ class GroupController extends AbstractController
             $em->persist($group);
             $em->flush();
 
-            return $this->redirectToRoute('admin_groups_show', array('id', $group->getId()));
+            return $this->redirectToRoute('groups_show', array('id', $group->getId()));
         }
 
         return array(
@@ -127,7 +127,7 @@ class GroupController extends AbstractController
     /**
      * Displays a form to edit an existing Group entity.
      *
-     * @Route("/{id}/edit", name="admin_groups_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="groups_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -138,7 +138,7 @@ class GroupController extends AbstractController
             $group,
             array(
                 'action' => $this->generateUrl(
-                    'admin_groups_update',
+                    'groups_update',
                     array('id' => $group->getId())
                 ),
                 'method' => 'PUT',
@@ -152,7 +152,7 @@ class GroupController extends AbstractController
             'multiple' => true,
             'mapped' => true,
         ));
-        $deleteForm = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
+        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
 
         return array(
             'group' => $group,
@@ -164,14 +164,14 @@ class GroupController extends AbstractController
     /**
      * Edits an existing Group entity.
      *
-     * @Route("/{id}/update", name="admin_groups_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="groups_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
      */
     public function updateAction(Group $group, Request $request)
     {
         $editForm = $this->createForm(new GroupType(), $group, array(
-            'action' => $this->generateUrl('admin_groups_update', array('id' => $group->getId())),
+            'action' => $this->generateUrl('groups_update', array('id' => $group->getId())),
             'method' => 'PUT',
         ));
         $editForm->add('roles', 'choice', array(
@@ -185,9 +185,9 @@ class GroupController extends AbstractController
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_groups_edit', array('id' => $group->getId()));
+            return $this->redirectToRoute('groups_edit', array('id' => $group->getId()));
         }
-        $deleteForm = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
+        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
 
         return array(
             'group' => $group,
@@ -199,12 +199,12 @@ class GroupController extends AbstractController
     /**
      * Deletes a Group entity.
      *
-     * @Route("/{id}/delete", name="admin_groups_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="groups_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Group $group, Request $request)
     {
-        $form = $this->createDeleteForm($group->getId(), 'admin_groups_delete');
+        $form = $this->createDeleteForm($group->getId(), 'groups_delete');
         
         $em = $this->getDoctrine()->getManager();
         $users = $group->getUsers();
@@ -221,7 +221,7 @@ class GroupController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_groups');
+        return $this->redirectToRoute('groups');
     }
 
     /**

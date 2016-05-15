@@ -20,13 +20,13 @@
         <tbody>
             {% for group in entities %}
                 <tr>
-                    <td><a href="{{ path('admin_groups_show', {id: group.id}) }}">{{ group.name }}</a></td>
+                    <td><a href="{{ path('groups_show', {id: group.id}) }}">{{ group.name }}</a></td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_groups_show', {id: group.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('groups_show', {id: group.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_groups_edit', {id: group.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('groups_edit', {id: group.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -38,7 +38,7 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('admin_groups_new') }}">
+        <a class="btn btn-info" href="{{ path('groups_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>
