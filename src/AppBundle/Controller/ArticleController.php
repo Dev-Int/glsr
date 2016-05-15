@@ -176,7 +176,7 @@ class ArticleController extends AbstractController
         $articles = $em->getRepository('AppBundle:Article')
             ->getArticleFromSupplier($supplier->getId());
 
-        $reassign_form = $this->createForm(
+        $reassignForm = $this->createForm(
             new ArticleReassignType(),
             $articles,
             array(
@@ -186,7 +186,7 @@ class ArticleController extends AbstractController
         );
 
         return array(
-            'reassign_form' => $reassign_form->createView(),
+            'reassign_form' => $reassignForm->createView(),
             'suppliers' => $suppliers,
             'articles' => $articles
         );
