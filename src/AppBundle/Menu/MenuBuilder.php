@@ -113,7 +113,7 @@ class MenuBuilder extends ContainerAware
 
             $divers
                 ->addChild('unitstorage', array(
-                    'route' => 'admin_unitstorage',
+                    'route' => 'unitstorage',
                     'label' => 'gestock.settings.diverse.unitstorage'
                 ))
                 ->setAttribute('icon', 'fa fa-cubes');

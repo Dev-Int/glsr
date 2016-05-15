@@ -21,14 +21,14 @@
         <tbody>
             {% for unitstorage in paginator %}
                 <tr>
-                    <td><a href="{{ path('admin_unitstorage_show', {slug: unitstorage.slug}) }}">{{ unitstorage.name }}</a></td>
+                    <td><a href="{{ path('unitstorage_show', {slug: unitstorage.slug}) }}">{{ unitstorage.name }}</a></td>
                     <td>{{ unitstorage.abbr }}</td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_unitstorage_show', {slug: unitstorage.slug}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('unitstorage_show', {slug: unitstorage.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_unitstorage_edit', {slug: unitstorage.slug}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('unitstorage_edit', {slug: unitstorage.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -42,7 +42,7 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('admin_unitstorage_new') }}">
+        <a class="btn btn-info" href="{{ path('unitstorage_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>

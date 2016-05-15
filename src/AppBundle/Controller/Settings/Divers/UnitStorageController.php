@@ -34,7 +34,7 @@ class UnitStorageController extends AbstractController
     /**
      * Lists all UnitStorage entities.
      *
-     * @Route("/", name="admin_unitstorage")
+     * @Route("/", name="unitstorage")
      * @Method("GET")
      * @Template()
      */
@@ -51,13 +51,13 @@ class UnitStorageController extends AbstractController
     /**
      * Finds and displays a UnitStorage entity.
      *
-     * @Route("/{slug}/show", name="admin_unitstorage_show")
+     * @Route("/{slug}/show", name="unitstorage_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction(UnitStorage $unitstorage)
     {
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'admin_unitstorage_delete');
+        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
 
         return array(
             'unitstorage' => $unitstorage,
@@ -68,7 +68,7 @@ class UnitStorageController extends AbstractController
     /**
      * Displays a form to create a new UnitStorage entity.
      *
-     * @Route("/new", name="admin_unitstorage_new")
+     * @Route("/new", name="unitstorage_new")
      * @Method("GET")
      * @Template()
      */
@@ -86,7 +86,7 @@ class UnitStorageController extends AbstractController
     /**
      * Creates a new UnitStorage entity.
      *
-     * @Route("/create", name="admin_unitstorage_create")
+     * @Route("/create", name="unitstorage_create")
      * @Method("POST")
      * @Template("AppBundle:Settings/Divers/UnitStorage:new.html.twig")
      */
@@ -100,10 +100,10 @@ class UnitStorageController extends AbstractController
             $em->flush();
 
             if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirectToRoute('admin_unitstorage_show', array('slug' => $unitstorage->getSlug()));
+                $url = $this->redirectToRoute('unitstorage_show', array('slug' => $unitstorage->getSlug()));
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('admin_unitstorage_new');
+                $url = $this->redirectToRoute('unitstorage_new');
             }
             return $url;
         }
@@ -117,17 +117,17 @@ class UnitStorageController extends AbstractController
     /**
      * Displays a form to edit an existing UnitStorage entity.
      *
-     * @Route("/{slug}/edit", name="admin_unitstorage_edit")
+     * @Route("/{slug}/edit", name="unitstorage_edit")
      * @Method("GET")
      * @Template()
      */
     public function editAction(UnitStorage $unitstorage)
     {
         $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
-            'action' => $this->generateUrl('admin_unitstorage_update', array('slug' => $unitstorage->getSlug())),
+            'action' => $this->generateUrl('unitstorage_update', array('slug' => $unitstorage->getSlug())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'admin_unitstorage_delete');
+        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
 
         return array(
             'unitstorage' => $unitstorage,
@@ -139,23 +139,23 @@ class UnitStorageController extends AbstractController
     /**
      * Edits an existing UnitStorage entity.
      *
-     * @Route("/{slug}/update", name="admin_unitstorage_update")
+     * @Route("/{slug}/update", name="unitstorage_update")
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/UnitStorage:edit.html.twig")
      */
     public function updateAction(UnitStorage $unitstorage, Request $request)
     {
         $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
-            'action' => $this->generateUrl('admin_unitstorage_update', array('slug' => $unitstorage->getSlug())),
+            'action' => $this->generateUrl('unitstorage_update', array('slug' => $unitstorage->getSlug())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.settings.edit_ok');
 
-            return $this->redirectToRoute('admin_unitstorage_edit', array('slug' => $unitstorage->getSlug()));
+            return $this->redirectToRoute('unitstorage_edit', array('slug' => $unitstorage->getSlug()));
         }
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'admin_unitstorage_delete');
+        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
 
         return array(
             'unitstorage' => $unitstorage,
@@ -167,18 +167,18 @@ class UnitStorageController extends AbstractController
     /**
      * Deletes a UnitStorage entity.
      *
-     * @Route("/{id}/delete", name="admin_unitstorage_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="unitstorage_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(UnitStorage $unitstorage, Request $request)
     {
-        $form = $this->createDeleteForm($unitstorage->getId(), 'admin_unitstorage_delete');
+        $form = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($unitstorage);
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_unitstorage');
+        return $this->redirectToRoute('unitstorage');
     }
 }
