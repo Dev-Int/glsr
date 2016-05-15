@@ -141,7 +141,7 @@ class FamilyLog
     /**
      * Set parent
      *
-     * @param \AppBundle\Entity\FamilyLog $parent
+     * @param null|\AppBundle\Entity\FamilyLog $parent
      * @return FamilyLog
      */
     public function setParent(\AppBundle\Entity\FamilyLog $parent = null)
@@ -154,7 +154,7 @@ class FamilyLog
     /**
      * Get parent
      *
-     * @return \AppBundle\Entity\FamilyLog
+     * @return \AppBundle\Entity\FamilyLog|null
      */
     public function getParent()
     {
@@ -187,7 +187,7 @@ class FamilyLog
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return FamilyLog[]|\Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
