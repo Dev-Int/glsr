@@ -51,6 +51,10 @@ class Group extends BaseGroup
         return $this->getName();
     }
 
+    /**
+     * 
+     * @return AppBundle\Entity\User
+     */
     public function getUsers()
     {
         return $this->users;
