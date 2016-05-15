@@ -60,14 +60,14 @@ class Article
     private $name;
 
     /**
-     * @var string Nom du fournisseur
+     * @var string|Supplier Nom du fournisseur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Supplier")
      */
     private $supplier;
 
     /**
-     * @var string Unité de stockage
+     * @var string|AppBundle\Entity\UnitStorage Unité de stockage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      */
@@ -110,7 +110,7 @@ class Article
     private $minstock;
 
     /**
-     * @var string Zone(s) de stockage
+     * @var \Doctrine\Common\Collections\ArrayCollection Zone(s) de stockage
      *
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\ZoneStorage")
      * @ORM\JoinTable(name="gs_article_zonestorage")
@@ -119,7 +119,7 @@ class Article
     private $zoneStorage;
 
     /**
-     * @var string Famille logistique
+     * @var string|AppBundle\Entity\FamilyLog Famille logistique
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FamilyLog")
      * @Assert\NotBlank()
@@ -146,7 +146,7 @@ class Article
     {
         $this->zoneStorage = new ArrayCollection();
         $this->active = true;
-        $this->quantity = 0.000;
+        $this->quantity = 0;
     }
 
     /**
@@ -186,7 +186,7 @@ class Article
     /**
      * Set packaging.
      *
-     * @param string $packaging Conditionnement (quantité)
+     * @param decimal $packaging Conditionnement (quantité)
      *
      * @return Article
      */
@@ -200,7 +200,7 @@ class Article
     /**
      * Get packaging.
      *
-     * @return string
+     * @return decimal
      */
     public function getPackaging()
     {
@@ -210,7 +210,7 @@ class Article
     /**
      * Set price.
      *
-     * @param string $price prix de l'article
+     * @param decimal $price prix de l'article
      *
      * @return Article
      */
@@ -224,7 +224,7 @@ class Article
     /**
      * Get price.
      *
-     * @return string
+     * @return decimal
      */
     public function getPrice()
     {
@@ -234,7 +234,7 @@ class Article
     /**
      * Set quantity.
      *
-     * @param string $quantity quantité en stock
+     * @param decimal $quantity quantité en stock
      *
      * @return Article
      */
@@ -248,7 +248,7 @@ class Article
     /**
      * Get quantity.
      *
-     * @return string
+     * @return decimal
      */
     public function getQuantity()
     {
@@ -258,7 +258,7 @@ class Article
     /**
      * Set minstock.
      *
-     * @param string $minstock stock minimum
+     * @param decimal $minstock stock minimum
      *
      * @return Article
      */
@@ -272,7 +272,7 @@ class Article
     /**
      * Get minstock.
      *
-     * @return string
+     * @return decimal
      */
     public function getMinstock()
     {
@@ -282,7 +282,7 @@ class Article
     /**
      * Set supplier.
      *
-     * @param Supplier $supplier Fournisseur de l'article
+     * @param null|Supplier $supplier Fournisseur de l'article
      *
      * @return Article
      */
@@ -296,7 +296,7 @@ class Article
     /**
      * Get supplier.
      *
-     * @return Supplier
+     * @return string
      */
     public function getSupplier()
     {
@@ -306,7 +306,7 @@ class Article
     /**
      * Set unitStorage.
      *
-     * @param UnitStorage $unitStorage Unité de stockage
+     * @param null|UnitStorage $unitStorage Unité de stockage
      *
      * @return Article
      */
@@ -320,7 +320,7 @@ class Article
     /**
      * Get unitStorage.
      *
-     * @return UnitStorage
+     * @return UnitStorage|string
      */
     public function getUnitStorage()
     {
@@ -347,7 +347,7 @@ class Article
      *
      * @param ZoneStorage $zoneStorages Zone de stockage à supprimer
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection|null
      */
     public function removeZoneStorage(ZoneStorage $zoneStorages)
     {
@@ -367,7 +367,7 @@ class Article
     /**
      * Set familyLog.
      *
-     * @param FamilyLog $familyLog Famille Logistique
+     * @param null|FamilyLog $familyLog Famille Logistique
      *
      * @return Article
      */
