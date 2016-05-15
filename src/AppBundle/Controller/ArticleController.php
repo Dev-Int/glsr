@@ -181,7 +181,6 @@ class ArticleController extends AbstractController
             $articles,
             array(
                 'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
-                'method' => 'PUT',
             )
         );
 
@@ -196,22 +195,19 @@ class ArticleController extends AbstractController
      * Creates a new Article entity.
      *
      * @Route("/{slug}/change", name="articles_change")
-     * @Method("PUT")
+     * @Method("POST")
      * @Template("AppBundle:Article:reassign.html.twig")
      */
     public function changeAction(Request $request, Supplier $supplier)
     {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
-        $newArticles = new Article();
-        $newSupplier = new Supplier();
 
         $reassign_form = $this->createForm(
             new ArticleReassignType(),
             $articles,
             array(
                 'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
-                'method' => 'PUT',
             )
         );
         $datas = $reassign_form->handleRequest($request);
