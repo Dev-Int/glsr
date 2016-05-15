@@ -40,6 +40,11 @@ class ArticleRepository extends EntityRepository
         return $query;
     }
 
+    /**
+     * Affiche les articles actifs.
+     *
+     * @return array
+     */
     public function getResultArticles()
     {
         $query = $this->getArticles()->getQuery();
