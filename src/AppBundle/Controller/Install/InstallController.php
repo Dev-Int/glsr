@@ -100,7 +100,8 @@ class InstallController extends Controller
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|null|Company|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|
+     * null|Company|\Symfony\Component\Form\FormView Rendue de la page
      */
     public function step2Action(Request $request)
     {
@@ -136,7 +137,8 @@ class InstallController extends Controller
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|null|Settings|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|
+     * null|Settings|\Symfony\Component\Form\FormView Rendue de la page
      */
     public function step3Action(Request $request)
     {
@@ -187,7 +189,8 @@ class InstallController extends Controller
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|null|Supplier|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|
+     * null|Supplier|\Symfony\Component\Form\FormView Rendue de la page
      */
     public function step5Action(Request $request)
     {
@@ -223,7 +226,8 @@ class InstallController extends Controller
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|null|Article|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array|
+     * null|Article|\Symfony\Component\Form\FormView Rendue de la page
      */
     public function step6Action(Request $request)
     {
