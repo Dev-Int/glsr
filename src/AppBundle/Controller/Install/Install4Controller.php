@@ -67,7 +67,7 @@ class Install4Controller extends InstallController
             }
             $this->addFlash('info', 'gestock.settings.add_ok');
 
-            return $this->redirect($this->generateUrl('gs_install_st4_1'));
+            return $url;
         }
 
         return array(
@@ -106,7 +106,7 @@ class Install4Controller extends InstallController
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl('gs_install_st4_2'));
             }
-            return $this->redirect($this->generateUrl('gs_install_st4_2'));
+            return $url;
         }
 
         return array('zonestorage' => $zoneStorage, 'form' => $form->createView());
@@ -142,7 +142,7 @@ class Install4Controller extends InstallController
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl('gs_install_st4_3'));
             }
-            return $this->redirect($this->generateUrl('gs_install_st4_3'));
+            return $url;
         }
 
         return array('unitstorage' => $unitStorage, 'form' => $form->createView());
@@ -178,7 +178,7 @@ class Install4Controller extends InstallController
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl('gs_install_st4_4'));
             }
-            return $this->redirect($this->generateUrl('gs_install_st4_4'));
+            return $url;
         }
 
         return array('tva' => $tva, 'form' => $form->createView());
