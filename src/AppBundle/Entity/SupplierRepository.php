@@ -27,7 +27,7 @@ class SupplierRepository extends EntityRepository
     /**
      * Affiche les fournisseurs actifs.
      *
-     * @return QueryBuilder Requête DQL
+     * @return \Doctrine\ORM\QueryBuilder Requête DQL
      */
     public function getSuppliers()
     {
