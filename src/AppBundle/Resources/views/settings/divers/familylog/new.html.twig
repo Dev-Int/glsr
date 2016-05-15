@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('admin_familylog_create')}) }}
+    {{ form_start(form, {action: path('familylog_create')}) }}
         {{ form_row(form.name) }}
         {{ form_row(form.parent) }}
         <div class="form-group">

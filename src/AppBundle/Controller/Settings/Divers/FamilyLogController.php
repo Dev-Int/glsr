@@ -51,13 +51,13 @@ class FamilyLogController extends AbstractController
     /**
      * Finds and displays a FamilyLog entity.
      *
-     * @Route("/{slug}/show", name="admin_familylog_show")
+     * @Route("/{slug}/show", name="familylog_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction(FamilyLog $familylog)
     {
-        $deleteForm = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
+        $deleteForm = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
 
         return array(
             'familylog' => $familylog,
@@ -68,7 +68,7 @@ class FamilyLogController extends AbstractController
     /**
      * Displays a form to create a new FamilyLog entity.
      *
-     * @Route("/new", name="admin_familylog_new")
+     * @Route("/new", name="familylog_new")
      * @Method("GET")
      * @Template()
      */
@@ -86,7 +86,7 @@ class FamilyLogController extends AbstractController
     /**
      * Creates a new FamilyLog entity.
      *
-     * @Route("/create", name="admin_familylog_create")
+     * @Route("/create", name="familylog_create")
      * @Method("POST")
      * @Template("AppBundle:FamilyLog:new.html.twig")
      */
@@ -101,12 +101,12 @@ class FamilyLogController extends AbstractController
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl(
-                    'admin_familylog_show',
+                    'familylog_show',
                     array('slug' => $familylog->getSlug())
                 ));
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('admin_familylog_new');
+                $url = $this->redirectToRoute('familylog_new');
             }
             return $url;
         }
@@ -120,7 +120,7 @@ class FamilyLogController extends AbstractController
     /**
      * Displays a form to edit an existing FamilyLog entity.
      *
-     * @Route("/{slug}/edit", name="admin_familylog_edit")
+     * @Route("/{slug}/edit", name="familylog_edit")
      * @Method("GET")
      * @Template()
      */
@@ -128,12 +128,12 @@ class FamilyLogController extends AbstractController
     {
         $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
             'action' => $this->generateUrl(
-                'admin_familylog_update',
+                'familylog_update',
                 array('slug' => $familylog->getSlug())
             ),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
+        $deleteForm = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
 
         return array(
             'familylog' => $familylog,
@@ -145,7 +145,7 @@ class FamilyLogController extends AbstractController
     /**
      * Edits an existing FamilyLog entity.
      *
-     * @Route("/{slug}/update", name="admin_familylog_update")
+     * @Route("/{slug}/update", name="familylog_update")
      * @Method("PUT")
      * @Template("AppBundle:FamilyLog:edit.html.twig")
      */
@@ -153,7 +153,7 @@ class FamilyLogController extends AbstractController
     {
         $editForm = $this->createForm(new FamilyLogType(), $famlog, array(
             'action' => $this->generateUrl(
-                'admin_familylog_update',
+                'familylog_update',
                 array('slug' => $famlog->getSlug())
             ),
             'method' => 'PUT',
@@ -162,9 +162,9 @@ class FamilyLogController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.settings.edit_ok');
 
-            return $this->redirectToRoute('admin_familylog_edit', array('slug' => $famlog->getSlug()));
+            return $this->redirectToRoute('familylog_edit', array('slug' => $famlog->getSlug()));
         }
-        $deleteForm = $this->createDeleteForm($famlog->getId(), 'admin_familylog_delete');
+        $deleteForm = $this->createDeleteForm($famlog->getId(), 'familylog_delete');
 
         return array(
             'familylog' => $famlog,
@@ -176,12 +176,12 @@ class FamilyLogController extends AbstractController
     /**
      * Deletes a FamilyLog entity.
      *
-     * @Route("/{id}/delete", name="admin_familylog_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="familylog_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(FamilyLog $familylog, Request $request)
     {
-        $form = $this->createDeleteForm($familylog->getId(), 'admin_familylog_delete');
+        $form = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($familylog);
