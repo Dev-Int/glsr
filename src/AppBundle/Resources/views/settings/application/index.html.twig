@@ -29,10 +29,10 @@
                     <td>{{ settings.currency }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_application_show', {id: settings.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('application_show', {id: settings.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_application_edit', {id: settings.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('application_edit', {id: settings.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -44,7 +44,7 @@
         <div class="new_entry list-unstyled">
             {% include 'homeButton.html.twig' %}
         {% if ctEntity < 1 %}
-            <a class="btn btn-info" href="{{ path('admin_application_new') }}">
+            <a class="btn btn-info" href="{{ path('application_new') }}">
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
         {% endif %}

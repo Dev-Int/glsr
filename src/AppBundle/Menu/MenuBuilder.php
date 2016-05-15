@@ -84,7 +84,7 @@ class MenuBuilder extends ContainerAware
 
             $menu['entities']
                 ->addChild('applcation', array(
-                    'route' => 'admin_application',
+                    'route' => 'application',
                     'label' => 'gestock.settings.application.title'
                 ))
                 ->setExtra('translation_domain', 'messages')

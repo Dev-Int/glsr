@@ -34,7 +34,7 @@ class ApplicationController extends AbstractController
     /**
      * Lists all Settings entities.
      *
-     * @Route("/", name="admin_application")
+     * @Route("/", name="application")
      * @Method("GET")
      * @Template()
      */
@@ -52,13 +52,13 @@ class ApplicationController extends AbstractController
     /**
      * Finds and displays a Settings entity.
      *
-     * @Route("/{id}/show", name="admin_application_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="application_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Settings $settings)
     {
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
+        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
 
         return array(
             'settings' => $settings,
@@ -69,7 +69,7 @@ class ApplicationController extends AbstractController
     /**
      * Displays a form to create a new Settings entity.
      *
-     * @Route("/new", name="admin_application_new")
+     * @Route("/new", name="application_new")
      * @Method("GET")
      * @Template()
      */
@@ -87,7 +87,7 @@ class ApplicationController extends AbstractController
     /**
      * Creates a new Settings entity.
      *
-     * @Route("/create", name="admin_application_create")
+     * @Route("/create", name="application_create")
      * @Method("POST")
      * @Template("AppBundle:Application:new.html.twig")
      */
@@ -100,7 +100,7 @@ class ApplicationController extends AbstractController
             $em->persist($settings);
             $em->flush();
 
-            return $this->redirectToRoute('admin_application_show', array('id' => $settings->getId()));
+            return $this->redirectToRoute('application_show', array('id' => $settings->getId()));
         }
 
         return array(
@@ -112,17 +112,17 @@ class ApplicationController extends AbstractController
     /**
      * Displays a form to edit an existing Settings entity.
      *
-     * @Route("/{id}/edit", name="admin_application_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="application_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Settings $settings)
     {
         $editForm = $this->createForm(new SettingsType(), $settings, array(
-            'action' => $this->generateUrl('admin_application_update', array('id' => $settings->getId())),
+            'action' => $this->generateUrl('application_update', array('id' => $settings->getId())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
+        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
 
         return array(
             'settings' => $settings,
@@ -134,23 +134,23 @@ class ApplicationController extends AbstractController
     /**
      * Edits an existing Settings entity.
      *
-     * @Route("/{id}/update", name="admin_application_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="application_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Application:edit.html.twig")
      */
     public function updateAction(Settings $settings, Request $request)
     {
         $editForm = $this->createForm(new SettingsType(), $settings, array(
-            'action' => $this->generateUrl('admin_application_update', array('id' => $settings->getId())),
+            'action' => $this->generateUrl('application_update', array('id' => $settings->getId())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.settings.edit_ok');
 
-            return $this->redirectToRoute('admin_application_edit', array('id' => $settings->getId()));
+            return $this->redirectToRoute('application_edit', array('id' => $settings->getId()));
         }
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
+        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
 
         return array(
             'settings' => $settings,
@@ -162,18 +162,18 @@ class ApplicationController extends AbstractController
     /**
      * Deletes a Settings entity.
      *
-     * @Route("/{id}/delete", name="admin_application_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="application_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Settings $settings, Request $request)
     {
-        $form = $this->createDeleteForm($settings->getId(), 'admin_application_delete');
+        $form = $this->createDeleteForm($settings->getId(), 'application_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($settings);
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_application');
+        return $this->redirectToRoute('application');
     }
 }
