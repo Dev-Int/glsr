@@ -180,7 +180,7 @@ class ArticleController extends AbstractController
             new ArticleReassignType(),
             $articles,
             array(
-                'action' => $this->generateUrl('articles_change',array('slug' => $supplier->getSlug())),
+                'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
                 'method' => 'PUT',
             )
         );
@@ -211,7 +211,7 @@ class ArticleController extends AbstractController
             new ArticleReassignType(),
             $articles,
             array(
-                'action' => $this->generateUrl('articles_change',array('slug' => $supplier->getSlug())),
+                'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
                 'method' => 'PUT',
             )
         );
@@ -228,8 +228,8 @@ class ArticleController extends AbstractController
                 $newArticles->setSupplier($newSupplier);
                 // On enregistre l'objet $article dans la base de donnÃ©es
                 $em->persist($newArticles);
-                $em->flush();
             }
+            $em->flush();
             return $this->redirectToRoute('articles');
         }
 
