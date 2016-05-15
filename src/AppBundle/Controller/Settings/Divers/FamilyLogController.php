@@ -109,7 +109,7 @@ class FamilyLogController extends AbstractController
                 $this->addFlash('info', 'gestock.settings.add_ok');
                 $url = $this->redirectToRoute('familylog_new');
             }
-        return $url;
+            return $url;
         }
 
         return array(
