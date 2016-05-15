@@ -34,7 +34,7 @@ class CompanyController extends AbstractController
     /**
      * Lists all Company entities.
      *
-     * @Route("/", name="admin_company")
+     * @Route("/", name="company")
      * @Method("GET")
      * @Template()
      */
@@ -52,13 +52,13 @@ class CompanyController extends AbstractController
     /**
      * Finds and displays a Company entity.
      *
-     * @Route("/{id}/show", name="admin_company_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="company_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Company $company)
     {
-        $deleteForm = $this->createDeleteForm($company->getId(), 'admin_company_delete');
+        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
 
         return array(
             'company' => $company,
@@ -69,7 +69,7 @@ class CompanyController extends AbstractController
     /**
      * Displays a form to create a new Company entity.
      *
-     * @Route("/new", name="admin_company_new")
+     * @Route("/new", name="company_new")
      * @Method("GET")
      * @Template()
      */
@@ -87,7 +87,7 @@ class CompanyController extends AbstractController
     /**
      * Creates a new Company entity.
      *
-     * @Route("/create", name="admin_company_create")
+     * @Route("/create", name="company_create")
      * @Method("POST")
      * @Template("AppBundle:Settings/Company:new.html.twig")
      */
@@ -100,7 +100,7 @@ class CompanyController extends AbstractController
             $em->persist($company);
             $em->flush();
 
-            return $this->redirectToRoute('admin_company_show', array('id' =>$company->getId()));
+            return $this->redirectToRoute('company_show', array('id' =>$company->getId()));
         }
 
         return array(
@@ -112,17 +112,17 @@ class CompanyController extends AbstractController
     /**
      * Displays a form to edit an existing Company entity.
      *
-     * @Route("/{id}/edit", name="admin_company_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="company_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Company $company)
     {
         $editForm = $this->createForm(new CompanyType(), $company, array(
-            'action' => $this->generateUrl('admin_company_update', array('id' => $company->getId())),
+            'action' => $this->generateUrl('company_update', array('id' => $company->getId())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($company->getId(), 'admin_company_delete');
+        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
 
         return array(
             'company' => $company,
@@ -134,23 +134,23 @@ class CompanyController extends AbstractController
     /**
      * Edits an existing Company entity.
      *
-     * @Route("/{id}/update", name="admin_company_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="company_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Company:edit.html.twig")
      */
     public function updateAction(Company $company, Request $request)
     {
         $editForm = $this->createForm(new CompanyType(), $company, array(
-            'action' => $this->generateUrl('admin_company_update', array('id' => $company->getId())),
+            'action' => $this->generateUrl('company_update', array('id' => $company->getId())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.settings.edit_ok');
 
-            return $this->redirectToRoute('admin_company_show', array('id' => $company->getId()));
+            return $this->redirectToRoute('company_show', array('id' => $company->getId()));
         }
-        $deleteForm = $this->createDeleteForm($company->getId(), 'admin_company_delete');
+        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
 
         return array(
             'company' => $company,
@@ -162,18 +162,18 @@ class CompanyController extends AbstractController
     /**
      * Deletes a Company entity.
      *
-     * @Route("/{id}/delete", name="admin_company_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="company_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Company $company, Request $request)
     {
-        $form = $this->createDeleteForm($company->getId(), 'admin_company_delete');
+        $form = $this->createDeleteForm($company->getId(), 'company_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($company);
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_company');
+        return $this->redirectToRoute('company');
     }
 }

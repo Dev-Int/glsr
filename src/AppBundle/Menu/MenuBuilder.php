@@ -76,7 +76,7 @@ class MenuBuilder extends ContainerAware
 
             $menu['entities']
                 ->addChild('company', array(
-                    'route' => 'admin_company',
+                    'route' => 'company',
                     'label' => 'gestock.settings.company.title'
                 ))
                 ->setExtra('translation_domain', 'messages')
