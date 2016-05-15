@@ -48,7 +48,7 @@ class ArticleType extends AbstractType
                     'grouping' => true,
                     'label' => 'settings.packaging',
                     'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -60,7 +60,7 @@ class ArticleType extends AbstractType
                     'currency' => 'EUR',
                     'label' => 'settings.price',
                     'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add('quantity', 'hidden')
@@ -72,7 +72,7 @@ class ArticleType extends AbstractType
                     'grouping' => true,
                     'label' => 'settings.stock_alert',
                     'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add('active', 'hidden')
@@ -88,7 +88,7 @@ class ArticleType extends AbstractType
                     'label' => 'title',
                     'translation_domain' => 'gs_suppliers',
                     'empty_data' => null,
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -99,7 +99,7 @@ class ArticleType extends AbstractType
                     'choice_label' => 'name',
                     'multiple' => false,
                     'label' => 'gestock.settings.diverse.unitstorage',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -111,7 +111,7 @@ class ArticleType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'label' => 'gestock.settings.diverse.zonestorage',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -124,7 +124,7 @@ class ArticleType extends AbstractType
                     'placeholder' => 'gestock.settings.diverse.choice_family',
                     'empty_data' => null,
                     'label' => 'gestock.settings.diverse.familylog',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => array('class' => 'form-control')
                 )
             )
         ;
