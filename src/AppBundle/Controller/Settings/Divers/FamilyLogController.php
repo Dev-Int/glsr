@@ -34,7 +34,7 @@ class FamilyLogController extends AbstractController
     /**
      * Lists all FamilyLog entities.
      *
-     * @Route("/", name="admin_familylog")
+     * @Route("/", name="familylog")
      * @Method("GET")
      * @Template()
      */
