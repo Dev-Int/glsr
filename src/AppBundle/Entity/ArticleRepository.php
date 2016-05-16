@@ -77,7 +77,8 @@ class ArticleRepository extends EntityRepository
      * @param integer $count Nombre d'élément à afficher
      * @return array Query result
      */
-    public function getStockAlert($count) {
+    public function getStockAlert($count)
+    {
         $query = $this->createQueryBuilder('a')
             ->where('a.active = true')
             ->andWhere('a.quantity < a.minstock')
