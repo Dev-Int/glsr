@@ -62,8 +62,8 @@ class ArticleRepository extends EntityRepository
     public function getArticleFromSupplier($supplier)
     {
         $query = $this->createQueryBuilder('a')
-            ->where('a.active = 1')
-            ->where('a.supplier = :id')
+            ->where('a.active = true')
+            ->andWhere('a.supplier = :id')
             ->setParameter('id', $supplier)
             ->orderBy('a.name', 'ASC')
             ->getQuery();
