@@ -210,34 +210,4 @@ class InventoryArticles
     {
         return $this->unitStorage;
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Set zoneStorage
-     *
-     * @param integer $zoneStorage
-     * @return InventoryArticles
-     */
-    public function setZoneStorage($zoneStorage)
-    {
-        $this->zoneStorage = $zoneStorage;
-
-        return $this;
-    }
-
-    /**
-     * Get zoneStorage
-     *
-     * @return integer
-     */
-    public function getZoneStorage()
-    {
-        return $this->zoneStorage;
-    }
 }
