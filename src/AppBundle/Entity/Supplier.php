@@ -46,7 +46,7 @@ class Supplier extends Contact
     private $id;
 
     /**
-     * @var string Famille logistique
+     * @var string|\AppBundle\Entity\FamilyLog Famille logistique
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FamilyLog")
      * @Assert\NotBlank()
      */
@@ -151,7 +151,7 @@ class Supplier extends Contact
     /**
      * Set familyLog.
      *
-     * @param FamilyLog $familyLog Famille logistique
+     * @param null|FamilyLog $familyLog Famille logistique
      *
      * @return Supplier
      */
