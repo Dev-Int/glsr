@@ -51,12 +51,12 @@
             </div>
             <div class="col-md-2 col-md-offset-1 label label-default">
                 <i class="fa fa-tags"></i>&nbsp;
-                {{ form_label(form.family_log) }}
+                {{ form_label(form.familyLog) }}
             </div>
             <div class="col-md-4">
-                <span class="text-danger">{{ form_errors(form.family_log) }}</span>
-                {{ form_widget(form.family_log) }}
-                <input id="hidden_flog" name="article[family_log]" type="hidden" value="" />
+                <span class="text-danger">{{ form_errors(form.familyLog) }}</span>
+                {{ form_widget(form.familyLog) }}
+                <input id="hidden_flog" name="article[familyLog]" type="hidden" value="" />
             </div>
             <div class="clear"></div>
         </section>
@@ -121,9 +121,9 @@ function getFamilyLog(){
         data: {'id': id_select},
         dataType: 'json',
         success: function(json){
-            $('#article_family_log option:selected').removeAttr('selected');
-            $('#article_family_log option[value="' + json.familylog + '"').attr('selected', 'selected');
-            $('#article_family_log').prop('disabled', true);
+            $('#article_familyLog option:selected').removeAttr('selected');
+            $('#article_familyLog option[value="' + json.familylog + '"').attr('selected', 'selected');
+            $('#article_familyLog').prop('disabled', true);
             $('#hidden_flog').val( json.familylog );
         }
     });

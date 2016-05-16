@@ -115,7 +115,7 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'family_log',
+                'familyLog',
                 'entity',
                 array(
                     'class' => 'AppBundle:FamilyLog',

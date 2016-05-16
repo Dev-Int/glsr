@@ -52,7 +52,7 @@ class SupplierRepository extends EntityRepository
         $query
             ->select('s')
             ->where($query->expr()->neq('s.name', ':idname'))
-            ->andWhere('s.family_log = :flname')
+            ->andWhere('s.familyLog = :flname')
             ->andWhere('s.active = true')
             ->setParameters(
                 array(
