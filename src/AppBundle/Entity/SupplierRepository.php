@@ -44,7 +44,7 @@ class SupplierRepository extends EntityRepository
      *
      * @param AppBundle\Entity\Supplier $supplier Fournisseur sélectionné
      *
-     * @return QueryBuilder Requête DQL
+     * @return \Doctrine\ORM\QueryBuilder Requête DQL
      */
     public function getSupplierForReassign($supplier)
     {
