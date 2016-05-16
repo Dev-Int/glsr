@@ -142,7 +142,7 @@ class Settings
     /**
      * Get first_inventory.
      *
-     * @return \DateTime|null Date du premier inventaire
+     * @return \DateTime Date du premier inventaire
      */
     public function getFirstInventory()
     {
