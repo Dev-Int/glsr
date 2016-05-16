@@ -191,7 +191,7 @@ class InventoryArticles
     /**
      * Set unitStorage
      *
-     * @param null|string|\AppBundle\Entity\UnitStorage $unitStorage
+     * @param null|\AppBundle\Entity\UnitStorage $unitStorage
      * @return InventoryArticles
      */
     public function setUnitStorage(\AppBundle\Entity\UnitStorage $unitStorage = null)
