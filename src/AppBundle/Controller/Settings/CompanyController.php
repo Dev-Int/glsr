@@ -40,8 +40,8 @@ class CompanyController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Company')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:Company')->findAll();
         
         return array(
             'entities'  => $entities,
@@ -96,9 +96,9 @@ class CompanyController extends AbstractController
         $company = new Company();
         $form = $this->createForm(new CompanyType(), $company);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($company);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($company);
+            $etm->flush();
 
             return $this->redirectToRoute('company_show', array('id' =>$company->getId()));
         }
@@ -169,9 +169,9 @@ class CompanyController extends AbstractController
     {
         $form = $this->createDeleteForm($company->getId(), 'company_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($company);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($company);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('company');

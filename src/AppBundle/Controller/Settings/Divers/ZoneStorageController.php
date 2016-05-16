@@ -40,8 +40,8 @@ class ZoneStorageController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:ZoneStorage')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
         
         return array(
             'entities'  => $entities,
@@ -96,9 +96,9 @@ class ZoneStorageController extends AbstractController
         $zonestorage = new ZoneStorage();
         $form = $this->createForm(new ZoneStorageType(), $zonestorage);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($zonestorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($zonestorage);
+            $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirectToRoute('zonestorage_show', array('slug' => $zonestorage->getSlug()));
@@ -175,9 +175,9 @@ class ZoneStorageController extends AbstractController
     {
         $form = $this->createDeleteForm($zonestorage->getId(), 'zonestorage_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($zonestorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($zonestorage);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('zonestorage');

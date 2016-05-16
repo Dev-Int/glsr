@@ -40,8 +40,8 @@ class UnitStorageController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:UnitStorage')->createQueryBuilder('u');
+        $etm = $this->getDoctrine()->getManager();
+        $qb = $etm->getRepository('AppBundle:UnitStorage')->createQueryBuilder('u');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 20);
         return array(
             'paginator' => $paginator,
@@ -96,9 +96,9 @@ class UnitStorageController extends AbstractController
         $unitstorage = new UnitStorage();
         $form = $this->createForm(new UnitStorageType(), $unitstorage);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($unitstorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($unitstorage);
+            $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirectToRoute('unitstorage_show', array('slug' => $unitstorage->getSlug()));
@@ -175,9 +175,9 @@ class UnitStorageController extends AbstractController
     {
         $form = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($unitstorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($unitstorage);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('unitstorage');

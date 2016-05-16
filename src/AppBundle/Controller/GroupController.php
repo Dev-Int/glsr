@@ -40,8 +40,8 @@ class GroupController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Group')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:Group')->findAll();
         
         return array('entities'  => $entities);
     }
@@ -111,9 +111,9 @@ class GroupController extends AbstractController
             'mapped' => true,
         ));
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($group);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($group);
+            $etm->flush();
 
             return $this->redirectToRoute('groups_show', array('id', $group->getId()));
         }
@@ -206,19 +206,19 @@ class GroupController extends AbstractController
     {
         $form = $this->createDeleteForm($group->getId(), 'groups_delete');
         
-        $em = $this->getDoctrine()->getManager();
+        $etm = $this->getDoctrine()->getManager();
         $users = $group->getUsers();
         foreach ($users as $user) {
             $user->getGroups()->removeElement($group);
         }
-        $em->flush();
+        $etm->flush();
 
         $this->get('fos_user.group_manager')->deleteGroup($group);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($group);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($group);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('groups');

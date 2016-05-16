@@ -89,8 +89,8 @@ abstract class AbstractController extends Controller
     protected function testInventory()
     {
         $url = null;
-        $em = $this->getDoctrine()->getManager();
-        $inventories = $em->getRepository('AppBundle:Inventory')->getInventory();
+        $etm = $this->getDoctrine()->getManager();
+        $inventories = $etm->getRepository('AppBundle:Inventory')->getInventory();
 
         if (empty($inventories)) {
             $url = 'gs_install_st7';

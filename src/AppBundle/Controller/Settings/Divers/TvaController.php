@@ -40,8 +40,8 @@ class TvaController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Tva')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:Tva')->findAll();
         
         return array(
             'entities'  => $entities,
@@ -96,9 +96,9 @@ class TvaController extends AbstractController
         $tva = new Tva();
         $form = $this->createForm(new TvaType(), $tva);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($tva);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($tva);
+            $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirectToRoute('rate_show', array('id' => $tva->getId()));
@@ -175,9 +175,9 @@ class TvaController extends AbstractController
     {
         $form = $this->createDeleteForm($tva->getId(), 'rate_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($tva);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($tva);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('rate');

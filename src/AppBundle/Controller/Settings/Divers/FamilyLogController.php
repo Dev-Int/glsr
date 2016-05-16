@@ -40,8 +40,8 @@ class FamilyLogController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:FamilyLog')->childrenHierarchy();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:FamilyLog')->childrenHierarchy();
         
         return array(
             'entities'  => $entities,
@@ -96,9 +96,9 @@ class FamilyLogController extends AbstractController
         $familylog = new FamilyLog();
         $form = $this->createForm(new FamilyLogType(), $familylog);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($familylog);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($familylog);
+            $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl(
@@ -184,9 +184,9 @@ class FamilyLogController extends AbstractController
     {
         $form = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($familylog);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($familylog);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('familyLog');

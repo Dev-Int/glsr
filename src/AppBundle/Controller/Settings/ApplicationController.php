@@ -40,8 +40,8 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('AppBundle:Settings')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:Settings')->findAll();
         
         return array(
             'entities' => $entities,
@@ -96,9 +96,9 @@ class ApplicationController extends AbstractController
         $settings = new Settings();
         $form = $this->createForm(new SettingsType(), $settings);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($settings);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($settings);
+            $etm->flush();
 
             return $this->redirectToRoute('application_show', array('id' => $settings->getId()));
         }
@@ -169,9 +169,9 @@ class ApplicationController extends AbstractController
     {
         $form = $this->createDeleteForm($settings->getId(), 'application_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($settings);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($settings);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('application');

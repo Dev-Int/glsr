@@ -85,8 +85,8 @@ class DefaultController extends Controller
      */
     public function stockAlertAction($number)
     {
-        $em = $this->getDoctrine()->getManager();
-        $listArticles = $em->getRepository('AppBundle:Article')->getStockAlert($number);
+        $etm = $this->getDoctrine()->getManager();
+        $listArticles = $etm->getRepository('AppBundle:Article')->getStockAlert($number);
 
         return array('listArticles' => $listArticles);
     }
@@ -103,8 +103,8 @@ class DefaultController extends Controller
      */
     public function lastInventoryAction($number)
     {
-        $em = $this->getDoctrine()->getManager();
-        $listInventories = $em->getRepository('AppBundle:Inventory')->getLastInventory($number);
+        $etm = $this->getDoctrine()->getManager();
+        $listInventories = $etm->getRepository('AppBundle:Inventory')->getLastInventory($number);
 
         return array('listInventory' => $listInventories);
     }

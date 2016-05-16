@@ -42,8 +42,8 @@ class ArticleController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:Article')->getArticles();
+        $etm = $this->getDoctrine()->getManager();
+        $qb = $etm->getRepository('AppBundle:Article')->getArticles();
         $this->addQueryBuilderSort($qb, 'article');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 5);
         
@@ -99,9 +99,9 @@ class ArticleController extends AbstractController
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($article);
+            $etm->flush();
 
             return $this->redirectToRoute('articles_show', array('slug' => $article->getSlug()));
         }
@@ -171,9 +171,9 @@ class ArticleController extends AbstractController
      */
     public function reassignAction(Supplier $supplier)
     {
-        $em = $this->getDoctrine()->getManager();
-        $suppliers = $em->getRepository('AppBundle:Supplier')->getSupplierForReassign($supplier);
-        $articles = $em->getRepository('AppBundle:Article')
+        $etm = $this->getDoctrine()->getManager();
+        $suppliers = $etm->getRepository('AppBundle:Supplier')->getSupplierForReassign($supplier);
+        $articles = $etm->getRepository('AppBundle:Article')
             ->getArticleFromSupplier($supplier->getId());
 
         $reassignForm = $this->createForm(
@@ -200,8 +200,8 @@ class ArticleController extends AbstractController
      */
     public function changeAction(Request $request, Supplier $supplier)
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
         $reassignForm = $this->createForm(
             new ArticleReassignType(),
@@ -217,15 +217,15 @@ class ArticleController extends AbstractController
             list($inputName, $articleId) = $input;
             $inputData = $data->getViewData();
             if ($inputName === 'supplier') {
-                $newArticles = $em->getRepository('AppBundle:Article')->find($articleId);
-                $newSupplier = $em->getRepository('AppBundle:Supplier')->find($inputData);
+                $newArticles = $etm->getRepository('AppBundle:Article')->find($articleId);
+                $newSupplier = $etm->getRepository('AppBundle:Supplier')->find($inputData);
                 //On modifie le fournisseur de l'article
                 $newArticles->setSupplier($newSupplier);
                 // On enregistre l'objet $article dans la base de donnÃ©es
-                $em->persist($newArticles);
+                $etm->persist($newArticles);
             }
         }
-            $em->flush();
+            $etm->flush();
             $message = $this->get('translator')
                 ->trans(
                     'delete.reassign_ok',
@@ -257,10 +257,10 @@ class ArticleController extends AbstractController
     {
         $form = $this->createDeleteForm($article->getId(), 'articles_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $etm = $this->getDoctrine()->getManager();
             $article->setActive(false);
-            $em->persist($article);
-            $em->flush();
+            $etm->persist($article);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('articles');

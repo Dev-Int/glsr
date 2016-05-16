@@ -65,8 +65,8 @@ class InstallController extends Controller
      */
     public function step1Action(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ctUser = count($em->getRepository('AppBundle:User')->findAll());
+        $etm = $this->getDoctrine()->getManager();
+        $ctUser = count($etm->getRepository('AppBundle:User')->findAll());
         $user = new User();
         $message = null;
         
@@ -104,8 +104,8 @@ class InstallController extends Controller
      */
     public function step2Action(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ctCompany = count($em->getRepository('AppBundle:Company')->findAll());
+        $etm = $this->getDoctrine()->getManager();
+        $ctCompany = count($etm->getRepository('AppBundle:Company')->findAll());
         $company = new Company();
         $message = null;
         
@@ -116,9 +116,9 @@ class InstallController extends Controller
             'action' => $this->generateUrl('gs_install_st2')
         ));
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($company);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($company);
+            $etm->flush();
 
             return $this->redirect($this->generateUrl('gs_install_st2'));
         }
@@ -141,8 +141,8 @@ class InstallController extends Controller
      */
     public function step3Action(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ctSettings = count($em->getRepository('AppBundle:Settings')->findAll());
+        $etm = $this->getDoctrine()->getManager();
+        $ctSettings = count($etm->getRepository('AppBundle:Settings')->findAll());
         $settings = new Settings();
         $message = null;
         
@@ -153,9 +153,9 @@ class InstallController extends Controller
             'action' => $this->generateUrl('gs_install_st3')
         ));
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($settings);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($settings);
+            $etm->flush();
 
             return $this->redirect($this->generateUrl('gs_install_st3'));
         }
@@ -193,8 +193,8 @@ class InstallController extends Controller
      */
     public function step5Action(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ctSupplier = count($em->getRepository('AppBundle:Supplier')->findAll());
+        $etm = $this->getDoctrine()->getManager();
+        $ctSupplier = count($etm->getRepository('AppBundle:Supplier')->findAll());
         $suppliers = new Supplier();
         $message = null;
         
@@ -205,9 +205,9 @@ class InstallController extends Controller
             'action' => $this->generateUrl('gs_install_st5')
         ));
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($suppliers);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($suppliers);
+            $etm->flush();
 
             return $this->redirect($this->generateUrl('gs_install_st5'));
         }
@@ -230,8 +230,8 @@ class InstallController extends Controller
      */
     public function step6Action(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $ctArticles = count($em->getRepository('AppBundle:Article')->findAll());
+        $etm = $this->getDoctrine()->getManager();
+        $ctArticles = count($etm->getRepository('AppBundle:Article')->findAll());
         $articles = new Article();
         $message = null;
         
@@ -242,9 +242,9 @@ class InstallController extends Controller
             'action' => $this->generateUrl('gs_install_st6')
         ));
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($articles);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($articles);
+            $etm->flush();
 
             return $this->redirect($this->generateUrl('gs_install_st6'));
         }
@@ -264,8 +264,8 @@ class InstallController extends Controller
      */
     public function step7Action()
     {
-        $em = $this->getDoctrine()->getManager();
-        $settings = $em->getRepository('AppBundle:Settings')->find(1);
+        $etm = $this->getDoctrine()->getManager();
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
         $message = null;
 
         if ($settings->getFirstInventory() === null) {

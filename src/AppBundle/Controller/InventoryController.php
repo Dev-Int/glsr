@@ -45,8 +45,8 @@ class InventoryController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:Inventory')->getInventory();
+        $etm = $this->getDoctrine()->getManager();
+        $qb = $etm->getRepository('AppBundle:Inventory')->getInventory();
         
         $createForm = $this->createCreateForm('inventory_create');
 
@@ -67,8 +67,8 @@ class InventoryController extends AbstractController
      */
     public function showAction(Inventory $inventory)
     {
-        $em = $this->getDoctrine()->getManager();
-        $inventoryArticles = $em
+        $etm = $this->getDoctrine()->getManager();
+        $inventoryArticles = $etm
             ->getRepository('AppBundle:InventoryArticles')
             ->getArticlesFromInventory($inventory);
 
@@ -109,19 +109,19 @@ class InventoryController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->getResultArticles();
-        $settings = $em->getRepository('AppBundle:Settings')->find(1);
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
 
         $inventory = new Inventory();
         $form = $this->createCreateForm('inventory_create');
         if ($form->handleRequest($request)->isValid()) {
-            $em->persist($inventory);
+            $etm->persist($inventory);
 
             // Enregistrement du premier inventaire
             if (empty($settings->getFirstInventory)) {
                 $settings->setFirstInventory($inventory->getDate());
-                $em->persist($settings);
+                $etm->persist($settings);
             }
             // Enregistrement des articles dans l'inventaire
             foreach ($articles as $article) {
@@ -132,9 +132,9 @@ class InventoryController extends AbstractController
                 $inventoryArticles->setRealstock(0);
                 $inventoryArticles->setUnitStorage($article->getUnitStorage());
                 $inventoryArticles->setPrice($article->getPrice());
-                $em->persist($inventoryArticles);
+                $etm->persist($inventoryArticles);
             }
-            $em->flush();
+            $etm->flush();
 
             return $this->redirectToRoute('inventory_print_prepare', array('id' => $inventory->getId()));
         }
@@ -228,8 +228,8 @@ class InventoryController extends AbstractController
      */
     public function closeAction(Inventory $inventory, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->getResultArticles();
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
         
         $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
             'action' => $this->generateUrl(
@@ -240,16 +240,16 @@ class InventoryController extends AbstractController
         ));
         if ($validForm->handleRequest($request)->isValid()) {
             $inventory->setStatus(3);
-            $em->persist($inventory);
+            $etm->persist($inventory);
             foreach ($inventory->getArticles() as $line) {
                 foreach ($articles as $article) {
                     if ($article->getId() === $line->getArticle()->getId()) {
                         $article->setQuantity($line->getRealstock());
-                        $em->persist($article);
+                        $etm->persist($article);
                     }
                 }
             }
-            $em->flush();
+            $etm->flush();
 
             return $this->redirectToRoute('inventory');
         }
@@ -273,10 +273,10 @@ class InventoryController extends AbstractController
     {
         $form = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $etm = $this->getDoctrine()->getManager();
             $inventory->setStatus(0);
-            $em->persist($inventory);
-            $em->flush();
+            $etm->persist($inventory);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('inventory');
@@ -322,9 +322,9 @@ class InventoryController extends AbstractController
      */
     public function prepareDataAction(Inventory $inventory)
     {
-        $em = $this->getDoctrine()->getManager();
-        $articles = $em->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
-        $zoneStorages = $em->getRepository('AppBundle:Zonestorage')->findAll();
+        $etm = $this->getDoctrine()->getManager();
+        $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
+        $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
         
         $html = $this->renderView(
             'AppBundle:Inventory:list.pdf.twig',

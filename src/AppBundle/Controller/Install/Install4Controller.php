@@ -58,9 +58,9 @@ class Install4Controller extends InstallController
         ));
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($familylog);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($familylog);
+            $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
                 $url = $this->redirect($this->generateUrl('gs_install_st4'));
@@ -100,9 +100,9 @@ class Install4Controller extends InstallController
         ));
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($zoneStorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($zoneStorage);
+            $etm->flush();
             $this->addFlash('info', 'gestock.settings.add_ok');
 
             if ($form->get('save')->isSubmitted()) {
@@ -138,9 +138,9 @@ class Install4Controller extends InstallController
         ));
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($unitStorage);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($unitStorage);
+            $etm->flush();
             $this->addFlash('info', 'gestock.settings.add_ok');
 
             if ($form->get('save')->isSubmitted()) {
@@ -176,9 +176,9 @@ class Install4Controller extends InstallController
         ));
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($tva);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($tva);
+            $etm->flush();
             $this->addFlash('info', 'gestock.settings.add_ok');
 
             if ($form->get('save')->isSubmitted()) {

@@ -44,12 +44,12 @@ class UserController extends AbstractController
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $etm = $this->getDoctrine()->getManager();
         $form = $this->createForm(new UserFilterType());
         if (!is_null($response = $this->saveFilter($form, 'user', 'users'))) {
             return $response;
         }
-        $qb = $em->getRepository('AppBundle:User')->createQueryBuilder('u');
+        $qb = $etm->getRepository('AppBundle:User')->createQueryBuilder('u');
         $paginator = $this->filter($form, $qb, 'user');
         
         return array(
@@ -259,9 +259,9 @@ class UserController extends AbstractController
     {
         $form = $this->createDeleteForm($user->getId(), 'users_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($user);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('users');

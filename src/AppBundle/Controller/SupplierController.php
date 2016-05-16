@@ -40,8 +40,8 @@ class SupplierController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository('AppBundle:Supplier')->getSuppliers();
+        $etm = $this->getDoctrine()->getManager();
+        $qb = $etm->getRepository('AppBundle:Supplier')->getSuppliers();
         $this->addQueryBuilderSort($qb, 'supplier');
         $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 20);
         
@@ -59,12 +59,12 @@ class SupplierController extends AbstractController
      */
     public function showAction(Supplier $supplier)
     {
-        $em = $this->getDoctrine()->getManager();
+        $etm = $this->getDoctrine()->getManager();
         
         $deleteForm = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
 
         // Récupérer les articles du fournisseur.
-        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
         return array(
             'supplier' => $supplier,
             'articles' => $articles,
@@ -102,9 +102,9 @@ class SupplierController extends AbstractController
         $supplier = new Supplier();
         $form = $this->createForm(new SupplierType(), $supplier);
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($supplier);
-            $em->flush();
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($supplier);
+            $etm->flush();
 
             return $this->redirectToRoute('suppliers_show', array('slug' => $supplier->getSlug()));
         }
@@ -184,9 +184,9 @@ class SupplierController extends AbstractController
      */
     public function deleteAction(Supplier $supplier, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $etm = $this->getDoctrine()->getManager();
         // Test if there is no articles with this supplier.
-        $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
         if (!empty($articles)) {
             $message = $this->get('translator')
                 ->trans('delete.reassign_wrong', array(), 'gs_suppliers');
@@ -196,10 +196,10 @@ class SupplierController extends AbstractController
         
         $form = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $etm = $this->getDoctrine()->getManager();
             $supplier->setActive(false);
-            $em->persist($supplier);
-            $em->flush();
+            $etm->persist($supplier);
+            $etm->flush();
         }
 
         return $this->redirectToRoute('suppliers');
