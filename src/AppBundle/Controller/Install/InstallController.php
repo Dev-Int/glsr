@@ -120,7 +120,7 @@ class InstallController extends Controller
             $etm->persist($company);
             $etm->flush();
 
-            return $this->redirect($this->generateUrl('gs_install_st2'));
+            return $this->redirectToRoute('gs_install_st2');
         }
 
         return array('message' => $message, 'company' => $company, 'form'    => $form->createView());
