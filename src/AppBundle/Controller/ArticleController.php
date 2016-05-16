@@ -203,14 +203,14 @@ class ArticleController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
-        $reassign_form = $this->createForm(
+        $reassignForm = $this->createForm(
             new ArticleReassignType(),
             $articles,
             array(
                 'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
             )
         );
-        $datas = $reassign_form->handleRequest($request);
+        $datas = $reassignForm->handleRequest($request);
 
         foreach ($datas as $data) {
             $input = explode('-', $data->getName());
