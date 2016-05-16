@@ -57,7 +57,6 @@ class SettingsType extends AbstractType
                     'label' => 'gestock.settings.application.calculation'
                 )
             )
-            ->add('first_inventory', 'hidden')
             ->add(
                 'currency',
                 'currency',
