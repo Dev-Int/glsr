@@ -62,7 +62,6 @@ class LoginListener implements EventSubscriberInterface
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $event->getAuthenticationToken()->getUser();
-        //if ($user instanceof UserInterface)
         $this->updateUser($user);
     }
 }
