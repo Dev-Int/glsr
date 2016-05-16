@@ -27,6 +27,12 @@ class InventoryRepository extends EntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Renvoi les derniers inventaires.
+     *
+     * @param integer $count Nombre d'élément à afficher
+     * @return array Query result
+     */
     public function getLastInventory($count)
     {
         $query = $this->createQueryBuilder('i')

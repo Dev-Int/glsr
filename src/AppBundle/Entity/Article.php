@@ -60,14 +60,14 @@ class Article
     private $name;
 
     /**
-     * @var string|Supplier Nom du fournisseur
+     * @var string|\AppBundle\Entity\Supplier Nom du fournisseur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Supplier")
      */
     private $supplier;
 
     /**
-     * @var string|AppBundle\Entity\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\UnitStorage Unité de stockage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      */
@@ -119,7 +119,7 @@ class Article
     private $zoneStorage;
 
     /**
-     * @var string|AppBundle\Entity\FamilyLog Famille logistique
+     * @var string|\AppBundle\Entity\FamilyLog Famille logistique
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\FamilyLog")
      * @Assert\NotBlank()
@@ -146,7 +146,7 @@ class Article
     {
         $this->zoneStorage = new ArrayCollection();
         $this->active = true;
-        $this->quantity = 0;
+        $this->quantity = 0.000;
     }
 
     /**
@@ -282,7 +282,7 @@ class Article
     /**
      * Set supplier.
      *
-     * @param null|Supplier $supplier Fournisseur de l'article
+     * @param null|\AppBundle\Entity\Supplier $supplier Fournisseur de l'article
      *
      * @return Article
      */
@@ -296,7 +296,7 @@ class Article
     /**
      * Get supplier.
      *
-     * @return string
+     * @return string|\AppBundle\Entity\Supplier
      */
     public function getSupplier()
     {
@@ -306,7 +306,7 @@ class Article
     /**
      * Set unitStorage.
      *
-     * @param null|UnitStorage $unitStorage Unité de stockage
+     * @param null|\AppBundle\Entity\UnitStorage $unitStorage Unité de stockage
      *
      * @return Article
      */
@@ -320,7 +320,7 @@ class Article
     /**
      * Get unitStorage.
      *
-     * @return UnitStorage|string
+     * @return string|\AppBundle\Entity\UnitStorage
      */
     public function getUnitStorage()
     {
@@ -347,7 +347,7 @@ class Article
      *
      * @param ZoneStorage $zoneStorages Zone de stockage à supprimer
      *
-     * @return \Doctrine\Common\Collections\Collection|null
+     * @return \Doctrine\Common\Collections\ArrayCollection|null
      */
     public function removeZoneStorage(ZoneStorage $zoneStorages)
     {
@@ -357,7 +357,7 @@ class Article
     /**
      * Get zoneStorage.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function getZoneStorages()
     {
@@ -367,7 +367,7 @@ class Article
     /**
      * Set familyLog.
      *
-     * @param null|FamilyLog $familyLog Famille Logistique
+     * @param null|\AppBundle\Entity\FamilyLog $familyLog Famille Logistique
      *
      * @return Article
      */
@@ -381,7 +381,7 @@ class Article
     /**
      * Get familyLog.
      *
-     * @return FamilyLog
+     * @return \AppBundle\Entity\FamilyLog
      */
     public function getFamilyLog()
     {

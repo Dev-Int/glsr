@@ -187,7 +187,7 @@ class FamilyLog
     /**
      * Get children
      *
-     * @return FamilyLog[]|\Doctrine\Common\Collections\Collection
+     * @return FamilyLog[]|\Doctrine\Common\Collections\ArrayCollection
      */
     public function getChildren()
     {

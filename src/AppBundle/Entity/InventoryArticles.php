@@ -48,7 +48,7 @@ class InventoryArticles
     private $realstock;
 
     /**
-     * @var string|AppBundle\Entity\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\UnitStorage Unité de stockage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      * @ORM\JoinColumn(nullable=false)
@@ -191,7 +191,7 @@ class InventoryArticles
     /**
      * Set unitStorage
      *
-     * @param null|\AppBundle\Entity\UnitStorage $unitStorage
+     * @param null|string|\AppBundle\Entity\UnitStorage $unitStorage
      * @return InventoryArticles
      */
     public function setUnitStorage(\AppBundle\Entity\UnitStorage $unitStorage = null)
@@ -204,7 +204,7 @@ class InventoryArticles
     /**
      * Get unitStorage
      *
-     * @return \AppBundle\Entity\UnitStorage
+     * @return string|\AppBundle\Entity\UnitStorage
      */
     public function getUnitStorage()
     {

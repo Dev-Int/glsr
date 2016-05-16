@@ -43,7 +43,7 @@ class ArticleRepository extends EntityRepository
     /**
      * Affiche les articles actifs.
      *
-     * @return array
+     * @return array Query result
      */
     public function getResultArticles()
     {
@@ -71,6 +71,12 @@ class ArticleRepository extends EntityRepository
         return $query->getResult();
     }
 
+    /**
+     * Renvoi les articles en stock d'alerte.
+     *
+     * @param integer $count Nombre d'élément à afficher
+     * @return array Query result
+     */
     public function getStockAlert($count) {
         $query = $this->createQueryBuilder('a')
             ->where('a.active = true')

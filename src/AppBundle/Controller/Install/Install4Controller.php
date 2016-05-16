@@ -44,10 +44,9 @@ class Install4Controller extends InstallController
      * @Method({"POST","GET"})
      * @Template("AppBundle:install:step4.html.twig")
      *
-     * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
+     * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array,
-     * FamilyLog|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
      */
     public function step41Action(Request $request)
     {
@@ -85,9 +84,9 @@ class Install4Controller extends InstallController
      * @Method({"POST","GET"})
      * @Template("AppBundle:install:step4.html.twig")
      *
-     * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
+     * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return Symfony\Component\HttpFoundation\Response Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\Response Rendue de la page
      */
     public function step42Action(Request $request)
     {
@@ -123,8 +122,7 @@ class Install4Controller extends InstallController
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array,
-     * UnitStorage|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
      */
     public function step43Action(Request $request)
     {
@@ -160,8 +158,7 @@ class Install4Controller extends InstallController
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array,
-     * Tva|\Symfony\Component\Form\FormView Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
      */
     public function step44Action(Request $request)
     {

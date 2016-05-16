@@ -51,7 +51,7 @@ class Settings
     private $calculation;
 
     /**
-     * @var datetime the first inventory's date
+     * @var \DateTime the first inventory's date
      *
      * @ORM\Column(name="first_inventory", type="datetime", nullable=true)
      */
@@ -75,7 +75,7 @@ class Settings
     }
 
     /**
-     * Set inventory_style.
+     * Set inventoryStyle.
      *
      * @param string $inventoryStyle Style d'inventaire
      *
@@ -128,11 +128,11 @@ class Settings
     /**
      * Set first_inventory.
      *
-     * @param \Datetime $firstInventory Date du premier inventaire
+     * @param \DateTime $firstInventory Date du premier inventaire
      *
      * @return Settings
      */
-    public function setFirstInventory(\Datetime $firstInventory)
+    public function setFirstInventory(\DateTime $firstInventory)
     {
         $this->firstInventory = $firstInventory;
 
@@ -142,7 +142,7 @@ class Settings
     /**
      * Get first_inventory.
      *
-     * @return \Datetime|null Date du premier inventaire
+     * @return \DateTime|null Date du premier inventaire
      */
     public function getFirstInventory()
     {
