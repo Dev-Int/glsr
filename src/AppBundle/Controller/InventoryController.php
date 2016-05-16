@@ -352,7 +352,7 @@ class InventoryController extends AbstractController
      *
      * @param string $date File date
      * @param string $title Tile title
-     * @return array
+     * @return array<string,integer|string|boolean>
      */
     private function getArray($date, $title)
     {
