@@ -50,6 +50,7 @@ class Install4Controller extends InstallController
      */
     public function step41Action(Request $request)
     {
+        $url = '';
         $familylog = new FamilyLog();
         $form = $this->createForm(new FamilyLogType(), $familylog, array(
             'action' => $this->generateUrl('gs_install_st4_1')
@@ -90,6 +91,7 @@ class Install4Controller extends InstallController
      */
     public function step42Action(Request $request)
     {
+        $url = '';
         $zoneStorage = new ZoneStorage();
         $form = $this->createForm(new ZoneStorageType(), $zoneStorage, array(
             'action' => $this->generateUrl('gs_install_st4_2')
@@ -126,6 +128,7 @@ class Install4Controller extends InstallController
      */
     public function step43Action(Request $request)
     {
+        $url = '';
         $unitStorage = new UnitStorage();
         $form = $this->createForm(new UnitStorageType(), $unitStorage, array(
             'action' => $this->generateUrl('gs_install_st4_3')
@@ -162,6 +165,7 @@ class Install4Controller extends InstallController
      */
     public function step44Action(Request $request)
     {
+        $url = '';
         $tva = new Tva();
         $form = $this->createForm(new TvaType(), $tva, array(
             'action' => $this->generateUrl('gs_install_st4_4')
