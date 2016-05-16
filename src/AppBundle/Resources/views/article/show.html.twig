@@ -48,20 +48,28 @@
             <div class="col-md-1 label label-default">
                 {{ 'settings.quantity'|trans({}, 'gs_articles') }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-1">
                 {{ article.quantity }}
             </div>
             <div class="col-md-2 label label-default">
                 {{ 'gestock.settings.diverse.unitstorage'|trans }}
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 {{ article.unitStorage }}
             </div>
-            <div class="col-md-1 col-md-offset-1 label label-default">
+            <div class="col-md-1 label label-default">
                     {{ 'settings.price'|trans({}, 'gs_articles') }}
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 {{ article.price }} €
+            </div>
+            <div class="col-md-1 label label-default">
+                    {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
+            </div>
+                    <div class="col-md-1
+                         {% if article.quantity < article.minstock %} negative{% endif %}
+                    ">
+                {{ article.minstock }}
             </div>
             <div class="clear"></div>
         </section>

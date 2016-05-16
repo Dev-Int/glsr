@@ -55,7 +55,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         /**
-         * Test d'installation
+         * Test d'installation.
          */
         $url = $this->testEntities();
         if (empty($url)) {
@@ -64,7 +64,49 @@ class DefaultController extends Controller
             $url = $this->redirectToRoute($url);
         }
 
+        /**
+         * Affichage du dernier inventaire.
+         */
+        /**
+         * Affichage des stocks d'alerte.
+         */
         return $url;
+    }
+
+    /**
+     * Récupérer les Alertes.
+     *
+     * @param integer $number nombres d'alertes à afficher
+     * @Route("/alert", name="stockalert")
+     * @Method("GET")
+     * @Template("default/stockAlert.html.twig")
+     *
+     * @return array|null
+     */
+    public function stockAlertAction($number)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $listArticles = $em->getRepository('AppBundle:Article')->getStockAlert($number);
+
+        return array('listArticles' => $listArticles);
+    }
+
+    /**
+     * Récupérer les Alertes.
+     *
+     * @param integer $number nombres d'alertes à afficher
+     * @Route("/alert", name="stockalert")
+     * @Method("GET")
+     * @Template("default/lastInventory.html.twig")
+     *
+     * @return array|null
+     */
+    public function lastInventoryAction($number)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $listInventories = $em->getRepository('AppBundle:Inventory')->getLastInventory($number);
+
+        return array('listInventory' => $listInventories);
     }
 
     /**

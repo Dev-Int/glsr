@@ -53,7 +53,7 @@ class ArticleRepository extends EntityRepository
     }
 
     /**
-     * Renvoi les article du fournisseur en paramÃ¨tre.
+     * Renvoi les article du fournisseur en paramètre.
      *
      * @param int $supplier Supplier_id
      *
@@ -66,6 +66,17 @@ class ArticleRepository extends EntityRepository
             ->andWhere('a.supplier = :id')
             ->setParameter('id', $supplier)
             ->orderBy('a.name', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function getStockAlert($count) {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.active = true')
+            ->andWhere('a.quantity < a.minstock')
+            ->orderBy('a.name', 'ASC')
+            ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();

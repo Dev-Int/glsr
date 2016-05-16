@@ -10,4 +10,22 @@
 {% endblock body_title %}
 
 {% block glstock_body %}
+    <section id="alerts" class="col-md-4 pull-right">
+        <section class="panel panel-danger">
+            <header class="panel-heading">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                {{ 'alerts.title'|trans({}, 'gs_articles') }}
+            </header>
+            <div class="panel-body">
+                {# Block alerts #}
+                {{ render(controller('AppBundle:default:stockAlert', {'number': 3})) }}
+                {# Block inventory #}
+                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
+            </div>
+            <footer class="panel-footer">
+                <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>
+            </footer>
+        </section>
+    </section>
+
 {% endblock glstock_body %}

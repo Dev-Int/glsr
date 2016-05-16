@@ -48,5 +48,8 @@ reassign:
     from: "Réassigner les articles du fournisseur %supname%"
     submit_button: 'Réassigner'
 
-alertes:
-    title: Alertes
+alerts:
+    title: "Alertes"
+    sub_title1: "Commandes urgentes"
+    sub_title2: "Derniers inventaires"
+    txt: "Sélectionnez un élément pour agir."

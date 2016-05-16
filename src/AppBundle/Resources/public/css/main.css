@@ -110,3 +110,13 @@ div.panel.panel-default > div.panel-body {
 div.panel.panel-default > div.panel-body > div.col-md-9 > label {
     font-weight: normal;
 }
+
+#alerts .list-group-item {
+    padding: 5px!important;
+}
+#alerts span.col-md-1, #alerts span.col-md-2, #alerts span.col-md-3,
+#alerts span.col-md-4, #alerts span.col-md-5, #alerts span.col-md-6,
+#alerts span.col-md-7, #alerts span.col-md-10 {
+    padding-left: 5px!important;
+    padding-right: 5px!important;
+}

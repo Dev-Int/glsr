@@ -26,4 +26,15 @@ class InventoryRepository extends EntityRepository
         
         return $query->getResult();
     }
+
+    public function getLastInventory($count)
+    {
+        $query = $this->createQueryBuilder('i')
+            ->where('i.status > 0')
+            ->orderBy('i.id', 'DESC')
+            ->setMaxResults($count)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
