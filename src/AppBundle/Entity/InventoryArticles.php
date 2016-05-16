@@ -48,7 +48,7 @@ class InventoryArticles
     private $realstock;
 
     /**
-     * @var string Unité de stockage
+     * @var string|AppBundle\Entity\UnitStorage Unité de stockage
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UnitStorage")
      * @ORM\JoinColumn(nullable=false)
@@ -89,7 +89,7 @@ class InventoryArticles
     /**
      * Get inventory
      *
-     * @return string
+     * @return \AppBundle\Entity\Inventory
      */
     public function getInventory()
     {
@@ -112,7 +112,7 @@ class InventoryArticles
     /**
      * Get article
      *
-     * @return string
+     * @return \AppBundle\Entity\Article
      */
     public function getArticle()
     {
@@ -168,7 +168,7 @@ class InventoryArticles
     /**
      * Set quantity
      *
-     * @param string $quantity
+     * @param decimal $quantity
      * @return InventoryArticles
      */
     public function setQuantity($quantity)
@@ -181,7 +181,7 @@ class InventoryArticles
     /**
      * Get quantity
      *
-     * @return string
+     * @return decimal
      */
     public function getQuantity()
     {
@@ -191,7 +191,7 @@ class InventoryArticles
     /**
      * Set unitStorage
      *
-     * @param \AppBundle\Entity\UnitStorage $unitStorage
+     * @param null|\AppBundle\Entity\UnitStorage $unitStorage
      * @return InventoryArticles
      */
     public function setUnitStorage(\AppBundle\Entity\UnitStorage $unitStorage = null)
@@ -219,25 +219,25 @@ class InventoryArticles
     }
 
     /**
-     * Set zone_storage
+     * Set zoneStorage
      *
      * @param integer $zoneStorage
      * @return InventoryArticles
      */
     public function setZoneStorage($zoneStorage)
     {
-        $this->zone_storage = $zoneStorage;
+        $this->zoneStorage = $zoneStorage;
 
         return $this;
     }
 
     /**
-     * Get zone_storage
+     * Get zoneStorage
      *
      * @return integer
      */
     public function getZoneStorage()
     {
-        return $this->zone_storage;
+        return $this->zoneStorage;
     }
 }
