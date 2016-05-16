@@ -128,7 +128,7 @@ class Settings
     /**
      * Set first_inventory.
      *
-     * @param datetime $firstInventory Date du premier inventaire
+     * @param \Datetime $firstInventory Date du premier inventaire
      *
      * @return Settings
      */
@@ -142,7 +142,7 @@ class Settings
     /**
      * Get first_inventory.
      *
-     * @return datetime/null Date du premier inventaire
+     * @return \Datetime|null Date du premier inventaire
      */
     public function getFirstInventory()
     {
