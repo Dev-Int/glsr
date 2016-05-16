@@ -136,7 +136,8 @@ class InstallController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|
+     *     array<string,string|null|Settings|\Symfony\Component\Form\FormView> Rendue de la page
      */
     public function step3Action(Request $request)
     {
@@ -187,7 +188,8 @@ class InstallController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|
+     *     array<string,string|null|Supplier|\Symfony\Component\Form\FormView> Rendue de la page
      */
     public function step5Action(Request $request)
     {
@@ -223,7 +225,8 @@ class InstallController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array Rendue de la page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|
+     *     array<string,string|null|Article|\Symfony\Component\Form\FormView> Rendue de la page
      */
     public function step6Action(Request $request)
     {
