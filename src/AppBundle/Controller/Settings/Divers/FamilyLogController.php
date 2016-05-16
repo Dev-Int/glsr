@@ -189,6 +189,6 @@ class FamilyLogController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('admin_familylog');
+        return $this->redirectToRoute('familyLog');
     }
 }

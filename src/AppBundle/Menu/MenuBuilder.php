@@ -99,7 +99,7 @@ class MenuBuilder extends ContainerAware
             
             $divers
                 ->addChild('familylog', array(
-                    'route' => 'admin_familylog',
+                    'route' => 'familylog',
                     'label' => 'gestock.settings.diverse.familylog'
                 ))
                 ->setAttribute('icon', 'glyphicon glyphicon-tag');
