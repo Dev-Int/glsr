@@ -52,7 +52,8 @@ class Group extends BaseGroup
     }
 
     /**
-     * 
+     * Get Users
+     *
      * @return AppBundle\Entity\User
      */
     public function getUsers()
