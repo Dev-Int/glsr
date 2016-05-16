@@ -74,7 +74,7 @@ class Article
     private $unitStorage;
 
     /**
-     * @var decimal Conditionement (quantité)
+     * @var double Conditionement (quantité)
      *
      * @ORM\Column(name="packaging", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -83,7 +83,7 @@ class Article
     private $packaging;
 
     /**
-     * @var decimal prix de l'article
+     * @var double prix de l'article
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -92,7 +92,7 @@ class Article
     private $price;
 
     /**
-     * @var decimal Quantité en stock
+     * @var double Quantité en stock
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -101,7 +101,7 @@ class Article
     private $quantity;
 
     /**
-     * @var decimal Stock minimum
+     * @var double Stock minimum
      *
      * @ORM\Column(name="minstock", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
@@ -186,7 +186,7 @@ class Article
     /**
      * Set packaging.
      *
-     * @param decimal $packaging Conditionnement (quantité)
+     * @param double $packaging Conditionnement (quantité)
      *
      * @return Article
      */
@@ -200,7 +200,7 @@ class Article
     /**
      * Get packaging.
      *
-     * @return decimal
+     * @return double
      */
     public function getPackaging()
     {
@@ -210,7 +210,7 @@ class Article
     /**
      * Set price.
      *
-     * @param decimal $price prix de l'article
+     * @param double $price prix de l'article
      *
      * @return Article
      */
@@ -224,7 +224,7 @@ class Article
     /**
      * Get price.
      *
-     * @return decimal
+     * @return double
      */
     public function getPrice()
     {
@@ -234,7 +234,7 @@ class Article
     /**
      * Set quantity.
      *
-     * @param decimal $quantity quantité en stock
+     * @param double $quantity quantité en stock
      *
      * @return Article
      */
@@ -248,7 +248,7 @@ class Article
     /**
      * Get quantity.
      *
-     * @return decimal
+     * @return double
      */
     public function getQuantity()
     {
@@ -258,7 +258,7 @@ class Article
     /**
      * Set minstock.
      *
-     * @param decimal $minstock stock minimum
+     * @param double $minstock stock minimum
      *
      * @return Article
      */
@@ -272,7 +272,7 @@ class Article
     /**
      * Get minstock.
      *
-     * @return decimal
+     * @return double
      */
     public function getMinstock()
     {
