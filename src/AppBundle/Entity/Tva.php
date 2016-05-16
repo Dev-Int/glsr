@@ -70,7 +70,7 @@ class Tva
     /**
      * Get name.
      *
-     * @return string
+     * @return decimal
      */
     public function getName()
     {
