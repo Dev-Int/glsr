@@ -141,11 +141,12 @@
         </exec>
     </target>
 
-    <target name="vendors" depends="update vendors">
-        <exec executable="php" failonerror="true">
-            <arg value="composer.phar" />
-            <arg value="update" />
-        </exec>
+    <!-- Add vendors or code will fail --> 
+    <target name="vendors" depends="clean" description="Add Vendors">
+    <exec executable="php" failonerror="true">
+        <arg value='${workspace}/composer.phar' />
+        <arg value='install' />
+    </exec>
     </target>
 
     <target name="composer" unless="composer.exists">
