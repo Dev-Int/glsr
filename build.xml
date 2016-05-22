@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="Glsr" default="build">
-    <property name="workspace" value="${basedir}" />
-    <property name="sourcedir" value="${sourcedir}" />
+    <property name="workspace" value="${env.WORKSPACE}" />
+    <property name="sourcedir" value="${workspace}/src" />
     <property name="builddir" value="${workspace}/app/build" />
 
-    <property name="composer.path" value="${basedir}/composer.phar" />
+    <property name="composer.path" value="${workspace}/composer.phar" />
     <available property="composer.exists" file="${composer.path}" />
     <target name="build"
   depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
@@ -129,7 +129,7 @@
     <target name="phpunit" description="Run unit tests with PHPUnit">
         <exec executable="phpunit" failonerror="true">
             <arg value="-c" />
-            <arg path="${basedir}/app/phpunit.xml" />
+            <arg path="${workspace}/app/phpunit.xml" />
         </exec>
     </target>
 
