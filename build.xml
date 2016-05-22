@@ -2,11 +2,8 @@
 
 <project name="Glsr" default="build">
     <property name="workspace" value="${env.WORKSPACE}" />
-    <property name="sourcedir" value="${workspace}/src" />
-    <property name="builddir" value="${workspace}/app/build" />
 
-    <property name="composer.path" value="${workspace}/composer.phar" />
-    <available property="composer.exists" file="${composer.path}" />
+    <available property="composer.exists" file="${workspace}/composer.phar" />
     <target name="build"
   depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
 
@@ -26,31 +23,31 @@
     </target>
 
     <target name="clean" description="Cleanup build artifacts">
-        <delete dir="${builddir}/api"/>
-        <delete dir="${builddir}/code-browser"/>
-        <delete dir="${builddir}/coverage"/>
-        <delete dir="${builddir}/logs"/>
-        <delete dir="${builddir}/pdepend"/>
-        <delete dir="${builddir}/docs/*"/>
+        <delete dir="${workspace}/app/build/api"/>
+        <delete dir="${workspace}/app/build/code-browser"/>
+        <delete dir="${workspace}/app/build/coverage"/>
+        <delete dir="${workspace}/app/build/logs"/>
+        <delete dir="${workspace}/app/build/pdepend"/>
+        <delete dir="${workspace}/app/build/docs/*"/>
     </target>
 
     <target name="prepare" depends="clean,vendors" description="Prepare for build">
-        <mkdir dir="${builddir}/api"/>
-        <mkdir dir="${builddir}/code-browser"/>
-        <mkdir dir="${builddir}/coverage"/>
-        <mkdir dir="${builddir}/logs"/>
-        <mkdir dir="${builddir}/pdepend"/>
+        <mkdir dir="${workspace}/app/build/api"/>
+        <mkdir dir="${workspace}/app/build/code-browser"/>
+        <mkdir dir="${workspace}/app/build/coverage"/>
+        <mkdir dir="${workspace}/app/build/logs"/>
+        <mkdir dir="${workspace}/app/build/pdepend"/>
     </target>
 
     <target name="lint" description="Perform syntax check of sourcecode files">
         <apply executable="php" failonerror="true">
             <arg value="-l" />
 
-            <fileset dir="${sourcedir}">
+            <fileset dir="${workspace}/src">
                 <include name="**/*.php" />
                 <modified />
             </fileset>
-            <fileset dir="${sourcedir}/">
+            <fileset dir="${workspace}/src/">
                 <include name="**/*Test.php" />
                 <modified />
             </fileset>
@@ -60,24 +57,24 @@
     <target name="phploc" description="Measure project size using PHPLOC">
         <exec executable="phploc">
             <arg value="--log-csv" />
-            <arg value="${builddir}/logs/phploc.csv" />
-            <arg path="${sourcedir}" />
+            <arg value="${workspace}/app/build/logs/phploc.csv" />
+            <arg path="${workspace}/src" />
         </exec>
     </target>
 
     <target name="pdepend" description="Calculate software metrics using PHP_Depend">
         <exec executable="pdepend">
-            <arg value="--jdepend-xml=${builddir}/logs/jdepend.xml" />
-            <arg value="--jdepend-chart=${builddir}/pdepend/dependencies.svg" />
-            <arg value="--overview-pyramid=${builddir}/pdepend/overview-pyramid.svg" />
-            <arg path="${sourcedir}" />
+            <arg value="--jdepend-xml=${workspace}/app/build/logs/jdepend.xml" />
+            <arg value="--jdepend-chart=${workspace}/app/build/pdepend/dependencies.svg" />
+            <arg value="--overview-pyramid=${workspace}/app/build/pdepend/overview-pyramid.svg" />
+            <arg path="${workspace}/src" />
         </exec>
     </target>
 
     <target name="phpmd"
             description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpmd">
-            <arg path="${sourcedir}" />
+            <arg path="${workspace}/src" />
             <arg value="text" />
             <arg value="${workspace}/app/phpmd.xml" />
         </exec>
@@ -86,11 +83,11 @@
     <target name="phpmd-ci"
             description="Perform project mess detection using PHPMD creating a log file for the continuous integration server">
         <exec executable="phpmd">
-            <arg path="${sourcedir}" />
+            <arg path="${workspace}/src" />
             <arg value="xml" />
             <arg value="${workspace}/app/phpmd.xml" />
             <arg value="--reportfile" />
-            <arg value="${builddir}/logs/pmd.xml" />
+            <arg value="${workspace}/app/build/logs/pmd.xml" />
         </exec>
     </target>
 
@@ -98,7 +95,7 @@
             description="Find coding standard violations using PHP_CodeSniffer and print human readable output. Intended for usage on the command line before committing.">
         <exec executable="phpcs">
             <arg value="--standard=Symfony2" />
-            <arg path="${sourcedir}" />
+            <arg path="${workspace}/src" />
         </exec>
     </target>
 
@@ -106,23 +103,23 @@
             description="Find coding standard violations using PHP_CodeSniffer creating a log file for the continuous integration server">
         <exec executable="phpcs" output="/dev/null">
             <arg value="--report=checkstyle" />
-            <arg value="--report-file=${builddir}/logs/checkstyle.xml" />
+            <arg value="--report-file=${workspace}/app/build/logs/checkstyle.xml" />
             <arg value="--standard=Symfony2" />
-            <arg path="${sourcedir}" />
+            <arg path="${workspace}/src" />
         </exec>
     </target>
 
     <target name="phpcpd" description="Find duplicate code using PHPCPD">
         <exec executable="phpcpd">
             <arg value="--log-pmd" />
-            <arg value="${builddir}/logs/pmd-cpd.xml" />
-            <arg path="${sourcedir}" />
+            <arg value="${workspace}/app/build/logs/pmd-cpd.xml" />
+            <arg path="${workspace}/src" />
         </exec>
     </target>
 
     <target name="phpdoc" description="Generate API documentation using phpDox">
          <exec executable="phpdoc">
-             <arg line="-d '${sourcedir}' -t '${builddir}/docs' --title='Tempo' " />
+             <arg line="-d '${workspace}/src' -t '${workspace}/app/build/docs' --title='Tempo' " />
          </exec>
     </target>
 
@@ -136,11 +133,11 @@
     <target name="phpcb" description="Aggregate tool output with PHP_CodeBrowser">
         <exec executable="phpcb">
             <arg value="--log" />
-            <arg path="${builddir}/logs" />
+            <arg path="${workspace}/app/build/logs" />
             <arg value="--source" />
-            <arg path="${sourcedir}" />
+            <arg path="${workspace}/src" />
             <arg value="--output" />
-            <arg path="${builddir}/code-browser" />
+            <arg path="${workspace}/app/build/code-browser" />
         </exec>
     </target>
 
@@ -152,8 +149,8 @@
     </target>
 
     <target name="composer" unless="composer.exists">
-        <get src="http://getcomposer.org/composer.phar" dest="${composer.path}" />
-        <chmod file="${composer.path}" perm="775" />
+        <get src="http://getcomposer.org/composer.phar" dest="${workspace}/composer.phar" />
+        <chmod file="${workspace}/composer.phar" perm="775" />
     </target>
 
     <target name="parameters" description="Copy parameters">
