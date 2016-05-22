@@ -141,7 +141,7 @@
         </exec>
     </target>
 
-    <target name="vendors" depends="Update vendors">
+    <target name="vendors" depends="update vendors">
         <exec executable="php" failonerror="true">
             <arg value="composer.phar" />
             <arg value="update" />
