@@ -4,6 +4,11 @@
     <property name="workspace" value="${env.WORKSPACE}" />
 
     <available property="composer.exists" file="${workspace}/composer.phar" />
+    <target name="composer" unless="composer.exists">
+        <get src="http://getcomposer.org/composer.phar" dest="${workspace}/composer.phar" />
+        <chmod file="${workspace}/composer.phar" perm="775" />
+    </target>
+
     <target name="build"
   depends="prepare,vendors,parameters,lint,phploc,pdepend,phpcpd,phpmd-ci,phpcs-ci,phpdoc,phpunit,phpcb"/>
 
@@ -37,6 +42,14 @@
         <mkdir dir="${workspace}/app/build/coverage"/>
         <mkdir dir="${workspace}/app/build/logs"/>
         <mkdir dir="${workspace}/app/build/pdepend"/>
+    </target>
+
+    <!-- Add vendors or code will fail --> 
+    <target name="vendors" depends="clean" description="Add Vendors">
+        <exec executable="php" failonerror="true">
+            <arg value='composer.phar' />
+            <arg value='install' />
+        </exec>
     </target>
 
     <target name="lint" description="Perform syntax check of sourcecode files">
@@ -139,19 +152,6 @@
             <arg value="--output" />
             <arg path="${workspace}/app/build/code-browser" />
         </exec>
-    </target>
-
-    <!-- Add vendors or code will fail --> 
-    <target name="vendors" depends="clean" description="Add Vendors">
-    <exec executable="php" failonerror="true">
-        <arg value='composer.phar' />
-        <arg value='install' />
-    </exec>
-    </target>
-
-    <target name="composer" unless="composer.exists">
-        <get src="http://getcomposer.org/composer.phar" dest="${workspace}/composer.phar" />
-        <chmod file="${workspace}/composer.phar" perm="775" />
     </target>
 
     <target name="parameters" description="Copy parameters">
