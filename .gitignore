@@ -10,7 +10,6 @@
 /app/sessions/*
 /app/config/parameters.yml
 /app/phpunit.xml
-/build/
 /vendor/
 /bin/
 /composer.phar
