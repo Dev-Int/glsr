@@ -79,7 +79,9 @@ class ArticleController extends AbstractController
     public function newAction()
     {
         $article = new Article();
-        $form = $this->createForm(new ArticleType(), $article);
+        $form = $this->createForm(new ArticleType(), $article, array(
+            'action' => $this->generateUrl('articles_create'),
+        ));
 
         return array(
             'article' => $article,
