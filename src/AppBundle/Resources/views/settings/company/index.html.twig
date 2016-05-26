@@ -28,8 +28,8 @@
                             <a class="btn btn-default btn-sm" href="{{ path('company_show', {id: company.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('company_edit', {id: company.id}) }}">
-                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('company_edit', {id: company.id}) }}">
+                                {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
                     </td>

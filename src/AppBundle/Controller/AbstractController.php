@@ -14,6 +14,7 @@
  */
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
 
@@ -24,6 +25,138 @@ use Doctrine\ORM\QueryBuilder;
  */
 abstract class AbstractController extends Controller
 {
+    /**
+     * Lists all items entity.
+     *
+     */
+    public function abstractIndexAction($entityName)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
+        
+        return array(
+            'entities'  => $entities,
+            'ctEntity' => count($entities),
+        );
+    }
+
+    /**
+     * Finds and displays an item entity.
+     *
+     */
+    public function abstractShowAction($entity, $entityName)
+    {
+        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+
+        return array(
+            $entityName => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Displays a form to create a new item entity.
+     *
+     */
+    public function abstractNewAction($entity, $entityPath, $typePath)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
+
+        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
+        $form = $this->createForm(new $typePath(), $entityNew);
+        
+        $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
+
+        if ($ctEntity >= 1) {
+            $return = $this->redirectToRoute('_home');
+            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');
+        }
+
+        return $return;
+    }
+
+    /**
+     * Creates a new item entity.
+     *
+     */
+    public function abstractCreateAction(Request $request, $entity, $entityPath, $typePath)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
+        $form = $this->createForm(new $typePath(), $entityNew);
+        if ($form->handleRequest($request)->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->persist($entityNew);
+            $etm->flush();
+
+            return $this->redirectToRoute($entity.'_show', array('id' => $entityNew->getId()));
+        }
+
+        return array(
+            $entity => $entityNew,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Displays a form to edit an existing item entity.
+     *
+     */
+    public function abstractEditAction($entity, $entityName, $typePath)
+    {
+        $editForm = $this->createForm(new $typePath(), $entity, array(
+            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+
+        return array(
+            $entityName => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Edits an existing item entity.
+     *
+     */
+    public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
+    {
+        $editForm = $this->createForm(new $typePath(), $entity, array(
+            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+        if ($editForm->handleRequest($request)->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.settings.'.$entityName.'.edit_ok');
+
+            return $this->redirectToRoute($entityName.'_edit', array('id' => $entity->getId()));
+        }
+        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+
+        return array(
+            $entityName => $entity,
+            'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
+    /**
+     * Deletes an item entity.
+     *
+     */
+    public function abstractDeleteAction($entity, $request, $entityName)
+    {
+        $form = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+        if ($form->handleRequest($request)->isValid()) {
+            $etm = $this->getDoctrine()->getManager();
+            $etm->remove($entity);
+            $etm->flush();
+        }
+    }
+
     /**
      * SetOrder for the SortAction in views.
      *

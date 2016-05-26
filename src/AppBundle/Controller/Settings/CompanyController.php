@@ -40,13 +40,9 @@ class CompanyController extends AbstractController
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:Company')->findAll();
-        
-        return array(
-            'entities'  => $entities,
-            'ctEntity' => count($entities),
-        );
+        $return = $this->abstractIndexAction('Company');
+    
+        return $return;
     }
 
     /**
@@ -58,12 +54,9 @@ class CompanyController extends AbstractController
      */
     public function showAction(Company $company)
     {
-        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
+        $return = $this->abstractShowAction($company, 'company');
 
-        return array(
-            'company' => $company,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -75,13 +68,13 @@ class CompanyController extends AbstractController
      */
     public function newAction()
     {
-        $company = new Company();
-        $form = $this->createForm(new CompanyType(), $company);
-
-        return array(
-            'company' => $company,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Company',
+            'AppBundle\Entity\Company',
+            'AppBundle\Form\Type\CompanyType'
         );
+
+        return $return;
     }
 
     /**
@@ -93,20 +86,14 @@ class CompanyController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $company = new Company();
-        $form = $this->createForm(new CompanyType(), $company);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($company);
-            $etm->flush();
-
-            return $this->redirectToRoute('company_show', array('id' =>$company->getId()));
-        }
-
-        return array(
-            'company' => $company,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'company',
+            'AppBundle\Entity\Company',
+            'AppBundle\Form\Type\CompanyType'
         );
+
+        return $return;
     }
 
     /**
@@ -118,17 +105,13 @@ class CompanyController extends AbstractController
      */
     public function editAction(Company $company)
     {
-        $editForm = $this->createForm(new CompanyType(), $company, array(
-            'action' => $this->generateUrl('company_update', array('id' => $company->getId())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
-
-        return array(
-            'company' => $company,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $company,
+            'company',
+            'AppBundle\Form\Type\CompanyType'
         );
+
+        return $return;
     }
 
     /**
@@ -140,23 +123,14 @@ class CompanyController extends AbstractController
      */
     public function updateAction(Company $company, Request $request)
     {
-        $editForm = $this->createForm(new CompanyType(), $company, array(
-            'action' => $this->generateUrl('company_update', array('id' => $company->getId())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
-
-            return $this->redirectToRoute('company_show', array('id' => $company->getId()));
-        }
-        $deleteForm = $this->createDeleteForm($company->getId(), 'company_delete');
-
-        return array(
-            'company' => $company,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $company,
+            $request,
+            'company',
+            'AppBundle\Form\Type\CompanyType'
         );
+
+        return $return;
     }
 
     /**
@@ -167,12 +141,11 @@ class CompanyController extends AbstractController
      */
     public function deleteAction(Company $company, Request $request)
     {
-        $form = $this->createDeleteForm($company->getId(), 'company_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($company);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction(
+            $company,
+            $request,
+            'company'
+        );
 
         return $this->redirectToRoute('company');
     }

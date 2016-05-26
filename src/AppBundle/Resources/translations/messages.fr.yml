@@ -108,7 +108,7 @@ gestock:
         st7:
             title: "Inventaire d'installation"
             txt: "Tout est prêt !\n Vous pouvez maintenant faire l'inventaire d'installation, afin de bien démarrer l'utilisation de l'application."
-            yet_exist: "L'inventaire d'installation est déjà fait.\n Pour les prochains : Menu Gestion -> Inventaires.\n \n L'installation est terminée. Vous pouvez."
+            yet_exist: "L'inventaire d'installation est déjà fait.\n Pour les prochains : Menu Gestion -> Inventaires.\n \n L'installation est terminée. Vous pouvez continuer l'utilisation normalement."
 
     settings:
         title: Configuration
@@ -135,6 +135,7 @@ gestock:
             subtitle: "Paramètres de la société utilisant le logiciel."
             add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de création d'entreprise."
             add2: "Vous ne pouvez pas enregistrer une deuxième entreprise."
+            edit_ok: "Etablissement bien modifié"
             name: "Nom de l'entreprise"
             status: Statut social
         settings:
@@ -143,6 +144,7 @@ gestock:
             add: "Pour le bon fonctionnement de l'application, vous devez renseigner le formulaire de paramétrage de l'application."
             add2: "Vous ne pouvez pas enregistrer un deuxième paramétrage de l'application."
             calculation: "Mode de calcul d'inventaire"
+            edit_ok: "Configuration de l'application bien modifiée"
             fifo: "FIFO "
             global: "Global "
             style_inventory: "Style d'inventaire"

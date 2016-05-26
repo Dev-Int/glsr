@@ -40,139 +40,112 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:Settings')->findAll();
-        
-        return array(
-            'entities' => $entities,
-            'ctEntity' => count($entities),
-        );
+        $return = $this->abstractIndexAction('Settings');
+    
+        return $return;
     }
 
     /**
      * Finds and displays a Settings entity.
      *
-     * @Route("/{id}/show", name="application_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="settings_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Settings $settings)
     {
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
+        $return = $this->abstractShowAction($settings, 'settings');
 
-        return array(
-            'settings' => $settings,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Displays a form to create a new Settings entity.
      *
-     * @Route("/new", name="application_new")
+     * @Route("/new", name="settings_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $settings = new Settings();
-        $form = $this->createForm(new SettingsType(), $settings);
-
-        return array(
-            'settings' => $settings,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Settings',
+            'AppBundle\Entity\Settings',
+            'AppBundle\Form\Type\SettingsType'
         );
+
+        return $return;
     }
 
     /**
      * Creates a new Settings entity.
      *
-     * @Route("/create", name="application_create")
+     * @Route("/create", name="settings_create")
      * @Method("POST")
      * @Template("AppBundle:Application:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $settings = new Settings();
-        $form = $this->createForm(new SettingsType(), $settings);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($settings);
-            $etm->flush();
-
-            return $this->redirectToRoute('application_show', array('id' => $settings->getId()));
-        }
-
-        return array(
-            'settings' => $settings,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'settings',
+            'AppBundle\Entity\Settings',
+            'AppBundle\Form\Type\SettingsType'
         );
+
+        return $return;
     }
 
     /**
      * Displays a form to edit an existing Settings entity.
      *
-     * @Route("/{id}/edit", name="application_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="settings_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Settings $settings)
     {
-        $editForm = $this->createForm(new SettingsType(), $settings, array(
-            'action' => $this->generateUrl('application_update', array('id' => $settings->getId())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
-
-        return array(
-            'settings' => $settings,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $settings,
+            'settings',
+            'AppBundle\Form\Type\SettingsType'
         );
+
+        return $return;
     }
 
     /**
      * Edits an existing Settings entity.
      *
-     * @Route("/{id}/update", name="application_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="settings_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Application:edit.html.twig")
      */
     public function updateAction(Settings $settings, Request $request)
     {
-        $editForm = $this->createForm(new SettingsType(), $settings, array(
-            'action' => $this->generateUrl('application_update', array('id' => $settings->getId())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
-
-            return $this->redirectToRoute('application_edit', array('id' => $settings->getId()));
-        }
-        $deleteForm = $this->createDeleteForm($settings->getId(), 'application_delete');
-
-        return array(
-            'settings' => $settings,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $settings,
+            $request,
+            'settings',
+            'AppBundle\Form\Type\SettingsType'
         );
+
+        return $return;
     }
 
     /**
      * Deletes a Settings entity.
      *
-     * @Route("/{id}/delete", name="application_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="settings_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Settings $settings, Request $request)
     {
-        $form = $this->createDeleteForm($settings->getId(), 'application_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($settings);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction(
+            $settings,
+            $request,
+            'settings'
+        );
 
         return $this->redirectToRoute('application');
     }
