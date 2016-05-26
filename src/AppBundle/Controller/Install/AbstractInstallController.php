@@ -28,8 +28,10 @@ abstract class AbstractInstallController extends Controller
      * Etape X de l'installation.
      * Fonction adaptable aux différentes phases de l'installation.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
-     *
+     * @param \Symfony\Component\HttpFoundation\Request $request    Requète du formulaire
+     * @param string                                    $entity     Nom de l'Entity
+     * @param string                                    $entityPath Namespace de l'Entity
+     * @param string                                    $typePath   Namespace du Type
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|
      *     array<string,string|null|Settings|\Symfony\Component\Form\FormView> Rendue de la page
      */
