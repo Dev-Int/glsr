@@ -36,12 +36,12 @@ class SettingsType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        'global' => 'gestock.settings.application.global',
-                        'zonestorage' => 'gestock.settings.application.zone_storage',
+                        'global' => 'gestock.settings.settings.global',
+                        'zonestorage' => 'gestock.settings.settings.zone_storage',
                     ),
                     'expanded' => true,
                     'multiple' => false,
-                    'label' => 'gestock.settings.application.style_inventory'
+                    'label' => 'gestock.settings.settings.style_inventory'
                 )
             )
             ->add(
@@ -49,12 +49,12 @@ class SettingsType extends AbstractType
                 'choice',
                 array(
                     'choices' => array(
-                        'fifo' => 'gestock.settings.application.fifo',
-                        'weighted' => 'gestock.settings.application.weighted',
+                        'fifo' => 'gestock.settings.settings.fifo',
+                        'weighted' => 'gestock.settings.settings.weighted',
                     ),
                     'expanded' => true,
                     'multiple' => false,
-                    'label' => 'gestock.settings.application.calculation'
+                    'label' => 'gestock.settings.settings.calculation'
                 )
             )
             ->add(
@@ -64,7 +64,7 @@ class SettingsType extends AbstractType
                     'multiple' => false,
                     'expanded' => false,
                     'preferred_choices' => array('EUR'),
-                    'label' => 'gestock.settings.application.currency'
+                    'label' => 'gestock.settings.settings.currency'
                 )
             );
     }

@@ -3,16 +3,16 @@
 {% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block title %}
-    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }} - {{ parent() }}
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }}
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('application_create')}) }}
+    {{ form_start(form, {action: path('settings_create')}) }}
         {{ form_widget(form) }}
         <p>
             <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>

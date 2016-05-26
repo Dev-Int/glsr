@@ -85,7 +85,7 @@ class MenuBuilder extends ContainerAware
             $menu['entities']
                 ->addChild('applcation', array(
                     'route' => 'application',
-                    'label' => 'gestock.settings.application.title'
+                    'label' => 'gestock.settings.settings.title'
                 ))
                 ->setExtra('translation_domain', 'messages')
                 ->setAttribute('icon', 'glyphicon glyphicon-wrench');

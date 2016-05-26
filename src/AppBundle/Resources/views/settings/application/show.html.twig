@@ -1,31 +1,31 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ 'gestock.settings.application.title'|trans }} - {{ parent() }}
+    {{ 'gestock.settings.settings.title'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-    {{ 'gestock.settings.application.title'|trans }}
+    {{ 'gestock.settings.settings.title'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
     <table class="table table-hover record_properties">
         <tbody>
             <tr>
-                <th scope="row">{{ 'gestock.settings.application.style_inventory'|trans }}</th>
+                <th scope="row">{{ 'gestock.settings.settings.style_inventory'|trans }}</th>
                 <td>{{ settings.inventoryStyle }}</td>
             </tr>
             <tr>
-                <th scope="row">{{ 'gestock.settings.application.calculation'|trans }}</th>
+                <th scope="row">{{ 'gestock.settings.settings.calculation'|trans }}</th>
                 <td>{{ settings.calculation }}</td>
             </tr>
             <tr>
-                <th scope="row">{{ 'gestock.settings.application.first_inventory.title'|trans }}</th>
+                <th scope="row">{{ 'gestock.settings.settings.first_inventory.title'|trans }}</th>
                 <td>{{ settings.firstInventory is empty ? "" : settings.firstInventory|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
-                <th scope="row">{{ 'gestock.settings.application.currency'|trans }}</th>
+                <th scope="row">{{ 'gestock.settings.settings.currency'|trans }}</th>
                 <td>{{ settings.currency }}</td>
             </tr>
         </tbody>
@@ -40,7 +40,7 @@
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('application_edit', {id: settings.id}) }}">
+            <a class="btn btn-primary" href="{{ path('settings_edit', {id: settings.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>

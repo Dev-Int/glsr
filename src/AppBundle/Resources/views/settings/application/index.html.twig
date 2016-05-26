@@ -1,22 +1,22 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }} - {{ parent() }}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.application.title'|trans}, 'admin') }}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
     <table class="table table-striped table-hover table-bordered records_list">
         <thead>
             <tr>
-                <th scope="col">{{ 'gestock.settings.application.style_inventory'|trans }}</th>
-                <th scope="col">{{ 'gestock.settings.application.calculation'|trans }}</th>
-                <th scope="col">{{ 'gestock.settings.application.first_inventory.title'|trans }}</th>
-                <th scope="col">{{ 'gestock.settings.application.currency'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.settings.style_inventory'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.settings.calculation'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.settings.first_inventory.title'|trans }}</th>
+                <th scope="col">{{ 'gestock.settings.settings.currency'|trans }}</th>
                 <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
@@ -29,10 +29,10 @@
                     <td>{{ settings.currency }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('application_show', {id: settings.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('settings_show', {id: settings.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('application_edit', {id: settings.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('settings_edit', {id: settings.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -44,7 +44,7 @@
         <div class="new_entry list-unstyled">
             {% include 'homeButton.html.twig' %}
         {% if ctEntity < 1 %}
-            <a class="btn btn-info" href="{{ path('application_new') }}">
+            <a class="btn btn-info" href="{{ path('settings_new') }}">
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
         {% endif %}
