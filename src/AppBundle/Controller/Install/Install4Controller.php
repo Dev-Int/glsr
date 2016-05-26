@@ -51,31 +51,36 @@ class Install4Controller extends InstallController
      */
     public function step41Action(Request $request)
     {
-        $url = '';
-        $familylog = new FamilyLog();
-        $form = $this->createForm(new FamilyLogType(), $familylog, array(
-            'action' => $this->generateUrl('gs_install_st4_1')
-        ));
-
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($familylog);
-            $etm->flush();
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4'));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4_1'));
-            }
-            $this->addFlash('info', 'gestock.settings.add_ok');
-
-            return $url;
-        }
-
-        return array(
-            'familylog' => $familylog,
-            'form'   => $form->createView(),
+        $return = $this->stepAction(
+            $request,
+            'FamilyLog',
+            '\AppBundle\Entity\FamilyLog',
+            '\AppBundle\Form\Type\FamilyLogType',
+            '4_1'
         );
+//        $url = '';
+//        $familylog = new FamilyLog();
+//        $form = $this->createForm(new FamilyLogType(), $familylog, array(
+//            'action' => $this->generateUrl('gs_install_st4_1')
+//        ));
+//
+//        if ($form->handleRequest($request)->isValid()) {
+//            $etm = $this->getDoctrine()->getManager();
+//            $etm->persist($familylog);
+//            $etm->flush();
+//
+//            if ($form->get('save')->isSubmitted()) {
+//                $url = $this->redirect($this->generateUrl('gs_install_st4'));
+//            } elseif ($form->get('addmore')->isSubmitted()) {
+//                $url = $this->redirect($this->generateUrl('gs_install_st4_1'));
+//            }
+//            $this->addFlash('info', 'gestock.settings.add_ok');
+//
+//            return $url;
+//        }
+//
+//        return array('familylog' => $familylog, 'form'   => $form->createView(),);
+        return $return;
     }
 
     /**

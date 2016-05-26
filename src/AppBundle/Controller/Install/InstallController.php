@@ -14,21 +14,14 @@
  */
 namespace AppBundle\Controller\Install;
 
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Controller\Install\AbstractInstallController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
-use AppBundle\Entity\Company;
-use AppBundle\Form\Type\CompanyType;
-use AppBundle\Entity\Settings;
-use AppBundle\Form\Type\SettingsType;
-use AppBundle\Entity\Supplier;
-use AppBundle\Form\Type\SupplierType;
-use AppBundle\Entity\Article;
-use AppBundle\Form\Type\ArticleType;
 
 /**
  * class InstallController
@@ -37,7 +30,7 @@ use AppBundle\Form\Type\ArticleType;
  *
  * @Route("/install")
  */
-class InstallController extends Controller
+class InstallController extends AbstractInstallController
 {
     /**
      * Page d'accueil de l'installation.
@@ -76,16 +69,16 @@ class InstallController extends Controller
         $form = $this->createForm(new UserType(), $user, array(
             'action' => $this->generateUrl('gs_install_st1'),
         ));
-
+    
         if ($form->handleRequest($request)->isValid()) {
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
+            $this->addFlash('info', 'gestock.install.st1.flash');
         }
         
         return array(
             'message' => $message,
-            'user'    => $user,
             'form'    => $form->createView()
         );
     }
@@ -104,26 +97,15 @@ class InstallController extends Controller
      */
     public function step2Action(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $ctCompany = count($etm->getRepository('AppBundle:Company')->findAll());
-        $company = new Company();
-        $message = null;
+        $return = $this->stepAction(
+            $request,
+            'Company',
+            '\AppBundle\Entity\Company',
+            '\AppBundle\Form\Type\CompanyType',
+            2
+        );
         
-        if ($ctCompany > 0 && $request->getMethod() == 'GET') {
-            $message = 'gestock.install.st2.yet_exist';
-        }
-        $form = $this->createForm(new CompanyType(), $company, array(
-            'action' => $this->generateUrl('gs_install_st2')
-        ));
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($company);
-            $etm->flush();
-
-            return $this->redirectToRoute('gs_install_st2');
-        }
-
-        return array('message' => $message, 'company' => $company, 'form'    => $form->createView());
+        return $return;
     }
 
     /**
@@ -141,26 +123,15 @@ class InstallController extends Controller
      */
     public function step3Action(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $ctSettings = count($etm->getRepository('AppBundle:Settings')->findAll());
-        $settings = new Settings();
-        $message = null;
+        $return = $this->stepAction(
+            $request,
+            'Settings',
+            '\AppBundle\Entity\Settings',
+            '\AppBundle\Form\Type\SettingsType',
+            3
+        );
         
-        if ($ctSettings > 0 && $request->getMethod() == 'GET') {
-            $message = 'gestock.install.st3.yet_exist';
-        }
-        $form = $this->createForm(new SettingsType(), $settings, array(
-            'action' => $this->generateUrl('gs_install_st3')
-        ));
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($settings);
-            $etm->flush();
-
-            return $this->redirect($this->generateUrl('gs_install_st3'));
-        }
-
-        return array('message' => $message, 'settings' => $settings, 'form' => $form->createView());
+        return $return;
     }
 
     /**
@@ -193,26 +164,15 @@ class InstallController extends Controller
      */
     public function step5Action(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $ctSupplier = count($etm->getRepository('AppBundle:Supplier')->findAll());
-        $suppliers = new Supplier();
-        $message = null;
+        $return = $this->stepAction(
+            $request,
+            'Supplier',
+            '\AppBundle\Entity\Supplier',
+            '\AppBundle\Form\Type\SupplierType',
+            5
+        );
         
-        if ($ctSupplier > 0 && $request->getMethod() == 'GET') {
-            $message = 'gestock.install.st5.yet_exist';
-        }
-        $form = $this->createForm(new SupplierType(), $suppliers, array(
-            'action' => $this->generateUrl('gs_install_st5')
-        ));
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($suppliers);
-            $etm->flush();
-
-            return $this->redirect($this->generateUrl('gs_install_st5'));
-        }
-
-        return array('message' => $message, 'suppliers' => $suppliers, 'form' => $form->createView());
+        return $return;
     }
 
     /**
@@ -230,26 +190,15 @@ class InstallController extends Controller
      */
     public function step6Action(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $ctArticles = count($etm->getRepository('AppBundle:Article')->findAll());
-        $articles = new Article();
-        $message = null;
+        $return = $this->stepAction(
+            $request,
+            'Article',
+            '\AppBundle\Entity\Article',
+            '\AppBundle\Form\Type\ArticleType',
+            6
+        );
         
-        if ($ctArticles > 0 && $request->getMethod() == 'GET') {
-            $message = 'gestock.install.st6.yet_exist';
-        }
-        $form = $this->createForm(new ArticleType(), $articles, array(
-            'action' => $this->generateUrl('gs_install_st6')
-        ));
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($articles);
-            $etm->flush();
-
-            return $this->redirect($this->generateUrl('gs_install_st6'));
-        }
-
-        return array('message' => $message, 'articles' => $articles, 'form' => $form->createView());
+        return $return;
     }
     
     /**

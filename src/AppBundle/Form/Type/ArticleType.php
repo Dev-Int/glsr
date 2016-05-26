@@ -18,6 +18,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
+
 /**
  * ArticleType Form properties.
  *
@@ -63,7 +65,7 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('quantity', 'hidden')
+            ->add('quantity', 'hidden', array('data' => 0))
             ->add(
                 'minstock',
                 'number',
@@ -75,7 +77,7 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('active', 'hidden')
+            ->add('active', 'hidden', array('data' => true))
             ->add('slug', 'hidden')
             ->add(
                 'supplier',
@@ -127,6 +129,7 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
+            ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
     }
 

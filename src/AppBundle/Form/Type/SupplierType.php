@@ -169,7 +169,7 @@ class SupplierType extends AbstractType
                     'attr'  => array('class' => 'form-control half')
                 )
             )
-            ->add('active', 'hidden');
+            ->add('active', 'hidden', array('data' => true));
     }
 
     /**

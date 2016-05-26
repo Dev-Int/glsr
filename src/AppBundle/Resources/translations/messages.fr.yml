@@ -77,10 +77,12 @@ gestock:
             title: "Création des utilisateurs"
             txt: "Créer, au moins, un utilisateur,\n pour que l'application fonctionne."
             yet_exist: "Il existe déjà un utilisateur.\n Pour ajouter un autre utilisateur : Menu Configuration -> Utilisateurs.\n \n Vous pouvez passer à l'étape suivante."
+            flash: "Utilisateur bien ajouté"
         st2:
             title: "Création de l'entreprise"
             txt: "Créer l'établissement qui va utiliser l'application."
             yet_exist: "Il existe déjà une entreprise.\n Pour modifier l'établissement : Menu Configuration -> Etablissement.\n \n Vous pouvez passer à l'étape suivante."
+            flash: "Etablissement bien ajouté"
         st3:
             title: "Création de la configuration"
             txt: "Créer la configuration que va utiliser l'application."
@@ -92,9 +94,11 @@ gestock:
         st5:
             title: "Création des fournisseurs"
             yet_exist: "Des fournisseurs sont déjà créés.\n Pour les modifier : Menu Gestion -> Fournisseurs.\n \n Vous pouvez passer à l'étape suivante."
+            flash: "Fournisseur bien ajouté"
         st6:
             title: "Création des articles"
             yet_exist: "Des articles sont déjà créés.\n Pour les modifier : Menu Gestion -> Articles.\n \n Vous pouvez passer à l'étape suivante."
+            flash: "Article bien ajouté"
         st7:
             title: "Inventaire d'installation"
             txt: "Tout est prêt !\n Vous pouvez maintenant faire l'inventaire d'installation, afin de bien démarrer l'utilisation de l'application."
