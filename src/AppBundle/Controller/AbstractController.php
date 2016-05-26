@@ -28,12 +28,14 @@ abstract class AbstractController extends Controller
     /**
      * Lists all items entity.
      *
+     * @param string $entityName Name of Entity
+     * @return array
      */
     public function abstractIndexAction($entityName)
     {
         $etm = $this->getDoctrine()->getManager();
         $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
-        
+
         return array(
             'entities'  => $entities,
             'ctEntity' => count($entities),
@@ -43,6 +45,9 @@ abstract class AbstractController extends Controller
     /**
      * Finds and displays an item entity.
      *
+     * @param Object $entity     Entity
+     * @param string $entityName Name of Entity
+     * @return array
      */
     public function abstractShowAction($entity, $entityName)
     {
@@ -57,6 +62,10 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
+     * @param Object $entity     Entity
+     * @param string $entityPath Path of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
      */
     public function abstractNewAction($entity, $entityPath, $typePath)
     {
@@ -65,7 +74,7 @@ abstract class AbstractController extends Controller
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm(new $typePath(), $entityNew);
-        
+
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
         if ($ctEntity >= 1) {
@@ -79,6 +88,11 @@ abstract class AbstractController extends Controller
     /**
      * Creates a new item entity.
      *
+     * @param Request $request   Request in progress
+     * @param Object $entity     Entity
+     * @param string $entityPath Path of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
      */
     public function abstractCreateAction(Request $request, $entity, $entityPath, $typePath)
     {
@@ -102,6 +116,10 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to edit an existing item entity.
      *
+     * @param Object $entity     Entity
+     * @param string $entityName Name of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
@@ -121,6 +139,11 @@ abstract class AbstractController extends Controller
     /**
      * Edits an existing item entity.
      *
+     * @param Object $entity     Entity
+     * @param Request $request   Request in progress
+     * @param string $entityName Name of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
@@ -146,8 +169,12 @@ abstract class AbstractController extends Controller
     /**
      * Deletes an item entity.
      *
+     * @param Object $entity     Entity
+     * @param Request $request   Request in progress
+     * @param string $entityName Name of Entity
+     * @return array
      */
-    public function abstractDeleteAction($entity, $request, $entityName)
+    public function abstractDeleteAction($entity, Request $request, $entityName)
     {
         $form = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
         if ($form->handleRequest($request)->isValid()) {
