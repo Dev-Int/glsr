@@ -54,7 +54,7 @@ script:
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC
-  #- php phploc.phar src/
+  - php phploc.phar src/
 
 notification:
   email:
@@ -65,4 +65,4 @@ branches:
   only:
     - master
     - developp
-    - sf2.7
+    - #56
