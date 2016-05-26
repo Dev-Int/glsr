@@ -71,16 +71,16 @@ abstract class AbstractController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
+        
+        if ($entity === 'Company' || $entity === 'Settings' && $ctEntity >= 1) {
+            $return = $this->redirectToRoute('_home');
+            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');            
+        }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm(new $typePath(), $entityNew);
 
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
-
-        if ($ctEntity >= 1) {
-            $return = $this->redirectToRoute('_home');
-            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');
-        }
 
         return $return;
     }
@@ -99,18 +99,29 @@ abstract class AbstractController extends Controller
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm(new $typePath(), $entityNew);
+
+        $return = array($entity => $entityNew, 'form'   => $form->createView(),);
+        
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();
 
-            return $this->redirectToRoute($entity.'_show', array('id' => $entityNew->getId()));
+            if ($form->get('save')->isSubmitted()) {
+                $return = $this->redirect($this->generateUrl(
+                    $entity.'_show', array('slug' => $entityNew->getSlug())
+                ));
+            } elseif ($form->get('addmore')->isSubmitted()) {
+                $this->addFlash('info', 'gestock.settings.add_ok');
+                $return = $this->redirect($this->generateUrl($entity.'_new'));
+            } else {
+                $return = $this->redirect($this->generateUrl(
+                    $entity.'_show', array('id' => $entityNew->getId())
+                ));
+            }
         }
 
-        return array(
-            $entity => $entityNew,
-            'form'   => $form->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -123,8 +134,13 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
+        if ($entityName === 'company' || $entityName === 'settings') {
+            $param = array('id' => $entity->getId());
+        } else {
+            $param = array('slug' => $entity->getSlug());
+        }
         $editForm = $this->createForm(new $typePath(), $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
@@ -147,15 +163,22 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
+        if ($entityName === 'company' || $entityName === 'settings') {
+            $param = array('id' => $entity->getId());
+            $transName = $entityName;
+        } else {
+            $param = array('slug' => $entity->getSlug());
+            $transName = 'diverse';
+        }
         $editForm = $this->createForm(new $typePath(), $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.'.$entityName.'.edit_ok');
+            $this->addFlash('info', 'gestock.settings.'.$transName.'.edit_ok');
 
-            return $this->redirectToRoute($entityName.'_edit', array('id' => $entity->getId()));
+            return $this->redirectToRoute($entityName.'_edit', $param);
         }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 

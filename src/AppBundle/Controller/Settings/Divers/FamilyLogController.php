@@ -57,12 +57,9 @@ class FamilyLogController extends AbstractController
      */
     public function showAction(FamilyLog $familylog)
     {
-        $deleteForm = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
+        $return = $this->abstractShowAction($familylog, 'familylog');
 
-        return array(
-            'familylog' => $familylog,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -74,13 +71,13 @@ class FamilyLogController extends AbstractController
      */
     public function newAction()
     {
-        $familylog = new FamilyLog();
-        $form = $this->createForm(new FamilyLogType(), $familylog);
-
-        return array(
-            'familylog' => $familylog,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'FamilyLog',
+            'AppBundle\Entity\FamilyLog',
+            'AppBundle\Form\Type\FamilyLogType'
         );
+
+        return $return;
     }
 
     /**
@@ -92,30 +89,14 @@ class FamilyLogController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $url = '';
-        $familylog = new FamilyLog();
-        $form = $this->createForm(new FamilyLogType(), $familylog);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($familylog);
-            $etm->flush();
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl(
-                    'familylog_show',
-                    array('slug' => $familylog->getSlug())
-                ));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('familylog_new');
-            }
-            return $url;
-        }
-
-        return array(
-            'familylog' => $familylog,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'familylog',
+            'AppBundle\Entity\FamilyLog',
+            'AppBundle\Form\Type\FamilyLogType'
         );
+
+        return $return;
     }
 
     /**
@@ -127,20 +108,13 @@ class FamilyLogController extends AbstractController
      */
     public function editAction(FamilyLog $familylog)
     {
-        $editForm = $this->createForm(new FamilyLogType(), $familylog, array(
-            'action' => $this->generateUrl(
-                'familylog_update',
-                array('slug' => $familylog->getSlug())
-            ),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
-
-        return array(
-            'familylog' => $familylog,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $familylog,
+            'familylog',
+            'AppBundle\Form\Type\FamilyLogType'
         );
+
+        return $return;
     }
 
     /**
@@ -150,29 +124,17 @@ class FamilyLogController extends AbstractController
      * @Method("PUT")
      * @Template("AppBundle:FamilyLog:edit.html.twig")
      */
-    public function updateAction(FamilyLog $famlog, Request $request)
+    public function updateAction(FamilyLog $familylog, Request $request)
     {
-        $editForm = $this->createForm(new FamilyLogType(), $famlog, array(
-            'action' => $this->generateUrl(
-                'familylog_update',
-                array('slug' => $famlog->getSlug())
-            ),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
-
-            return $this->redirectToRoute('familylog_edit', array('slug' => $famlog->getSlug()));
-        }
-        $deleteForm = $this->createDeleteForm($famlog->getId(), 'familylog_delete');
-
-        return array(
-            'familylog' => $famlog,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $familylog,
+            $request,
+            'familylog',
+            'AppBundle\Form\Type\FamilyLogType'
         );
-    }
+
+        return $return;
+   }
 
     /**
      * Deletes a FamilyLog entity.
@@ -182,13 +144,12 @@ class FamilyLogController extends AbstractController
      */
     public function deleteAction(FamilyLog $familylog, Request $request)
     {
-        $form = $this->createDeleteForm($familylog->getId(), 'familylog_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($familylog);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction(
+            $familylog,
+            $request,
+            'familylog'
+        );
 
-        return $this->redirectToRoute('familyLog');
+        return $this->redirectToRoute('familylog');
     }
 }
