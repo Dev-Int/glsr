@@ -40,9 +40,9 @@ abstract class AbstractInstallController extends Controller
         ${strtolower($entity)} = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
         
-//        if (${'ct'.$entity} > 0 && $request->getMethod() == 'GET' && is_int($number)) {
-//            $message = 'gestock.install.st'.$number.'.yet_exist';
-//        }
+        if (${'ct'.$entity} > 0 && $request->getMethod() == 'GET' && is_int($number)) {
+            $message = 'gestock.install.st'.$number.'.yet_exist';
+        }
         $form = $this->createForm(new $typePath(), ${strtolower($entity)}, array(
             'action' => $this->generateUrl('gs_install_st'.$number)
         ));

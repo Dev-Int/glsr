@@ -18,14 +18,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Entity\FamilyLog;
-use AppBundle\Form\Type\FamilyLogType;
-use AppBundle\Entity\ZoneStorage;
-use AppBundle\Form\Type\ZoneStorageType;
-use AppBundle\Entity\UnitStorage;
-use AppBundle\Form\Type\UnitStorageType;
-use AppBundle\Entity\Tva;
-use AppBundle\Form\Type\TvaType;
 
 /**
  * class InstallController
@@ -58,28 +50,7 @@ class Install4Controller extends InstallController
             '\AppBundle\Form\Type\FamilyLogType',
             '4_1'
         );
-//        $url = '';
-//        $familylog = new FamilyLog();
-//        $form = $this->createForm(new FamilyLogType(), $familylog, array(
-//            'action' => $this->generateUrl('gs_install_st4_1')
-//        ));
-//
-//        if ($form->handleRequest($request)->isValid()) {
-//            $etm = $this->getDoctrine()->getManager();
-//            $etm->persist($familylog);
-//            $etm->flush();
-//
-//            if ($form->get('save')->isSubmitted()) {
-//                $url = $this->redirect($this->generateUrl('gs_install_st4'));
-//            } elseif ($form->get('addmore')->isSubmitted()) {
-//                $url = $this->redirect($this->generateUrl('gs_install_st4_1'));
-//            }
-//            $this->addFlash('info', 'gestock.settings.add_ok');
-//
-//            return $url;
-//        }
-//
-//        return array('familylog' => $familylog, 'form'   => $form->createView(),);
+
         return $return;
     }
 
@@ -98,27 +69,15 @@ class Install4Controller extends InstallController
      */
     public function step42Action(Request $request)
     {
-        $url = '';
-        $zoneStorage = new ZoneStorage();
-        $form = $this->createForm(new ZoneStorageType(), $zoneStorage, array(
-            'action' => $this->generateUrl('gs_install_st4_2')
-        ));
+        $return = $this->stepAction(
+            $request,
+            'ZoneStorage',
+            '\AppBundle\Entity\ZoneStorage',
+            '\AppBundle\Form\Type\ZoneStorageType',
+            '4_2'
+        );
 
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($zoneStorage);
-            $etm->flush();
-            $this->addFlash('info', 'gestock.settings.add_ok');
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4'));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4_2'));
-            }
-            return $url;
-        }
-
-        return array('zonestorage' => $zoneStorage, 'form' => $form->createView());
+        return $return;
     }
 
     /**
@@ -136,27 +95,15 @@ class Install4Controller extends InstallController
      */
     public function step43Action(Request $request)
     {
-        $url = '';
-        $unitStorage = new UnitStorage();
-        $form = $this->createForm(new UnitStorageType(), $unitStorage, array(
-            'action' => $this->generateUrl('gs_install_st4_3')
-        ));
+        $return = $this->stepAction(
+            $request,
+            'UnitStorage',
+            '\AppBundle\Entity\UnitStorage',
+            '\AppBundle\Form\Type\UnitStorageType',
+            '4_3'
+        );
 
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($unitStorage);
-            $etm->flush();
-            $this->addFlash('info', 'gestock.settings.add_ok');
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4'));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4_3'));
-            }
-            return $url;
-        }
-
-        return array('unitstorage' => $unitStorage, 'form' => $form->createView());
+        return $return;
     }
 
     /**
@@ -174,26 +121,14 @@ class Install4Controller extends InstallController
      */
     public function step44Action(Request $request)
     {
-        $url = '';
-        $tva = new Tva();
-        $form = $this->createForm(new TvaType(), $tva, array(
-            'action' => $this->generateUrl('gs_install_st4_4')
-        ));
+        $return = $this->stepAction(
+            $request,
+            'Tva',
+            '\AppBundle\Entity\Tva',
+            '\AppBundle\Form\Type\TvaType',
+            '4_4'
+        );
 
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($tva);
-            $etm->flush();
-            $this->addFlash('info', 'gestock.settings.add_ok');
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4'));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $url = $this->redirect($this->generateUrl('gs_install_st4_4'));
-            }
-            return $url;
-        }
-
-        return array('tva' => $tva, 'form' => $form->createView());
+        return $return;
     }
 }
