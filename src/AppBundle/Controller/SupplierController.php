@@ -82,7 +82,9 @@ class SupplierController extends AbstractController
     public function newAction()
     {
         $supplier = new Supplier();
-        $form = $this->createForm(new SupplierType(), $supplier);
+        $form = $this->createForm(new SupplierType(), $supplier, array(
+            'action' => $this->generateUrl('suppliers_create'),
+        ));
 
         return array(
             'supplier' => $supplier,

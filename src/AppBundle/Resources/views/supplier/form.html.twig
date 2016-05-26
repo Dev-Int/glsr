@@ -2,7 +2,7 @@
     {% set form = edit_form %}
     {{ form_start(form) }}
 {% else %}
-    {{ form_start(form, {action: path('suppliers_create')}) }}
+    {{ form_start(form}) }}
 {% endif %}
 
     <fieldset class="well">
