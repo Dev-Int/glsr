@@ -53,7 +53,7 @@ abstract class AbstractInstallController extends Controller
                 strtolower($entity) => ${strtolower($entity)},
                 'form' => $form->createView(),
             );
-        }       
+        }
 
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
