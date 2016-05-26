@@ -39,28 +39,28 @@ abstract class AbstractInstallController extends Controller
     public function stepAction(Request $request, $entity, $entityPath, $typePath, $number)
     {
         $etm = $this->getDoctrine()->getManager();
-        ${'ct'.$entity} = count($etm->getRepository('AppBundle:'.$entity)->findAll());
-        ${strtolower($entity)} = $etm->getClassMetadata($entityPath)->newInstance();
+        $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
+        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
         
-        if (${'ct'.$entity} > 0 && $request->getMethod() == 'GET' && is_int($number)) {
+        if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_int($number)) {
             $message = 'gestock.install.st'.$number.'.yet_exist';
         }
-        $form = $this->createForm(new $typePath(), ${strtolower($entity)}, array(
+        $form = $this->createForm(new $typePath(), $entityNew, array(
             'action' => $this->generateUrl('gs_install_st'.$number)
         ));
         if (is_int($number)) {
             $return = array('message' => $message, 'form' => $form->createView(),);
         } else {
             $return = array(
-                strtolower($entity) => ${strtolower($entity)},
+                strtolower($entity) => $entityNew,
                 'form' => $form->createView(),
             );
         }
 
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
-            $etm->persist(${strtolower($entity)});
+            $etm->persist($entityNew);
             $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
