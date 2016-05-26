@@ -103,7 +103,7 @@ class ArticleType extends AbstractType
                 )
             )
             ->add(
-                'zoneStorage',
+                'zoneStorages',
                 'entity',
                 array(
                     'class' => 'AppBundle:ZoneStorage',

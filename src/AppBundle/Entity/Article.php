@@ -116,7 +116,7 @@ class Article
      * @ORM\JoinTable(name="gs_article_zonestorage")
      * @Assert\NotBlank()
      */
-    private $zoneStorage;
+    private $zoneStorages;
 
     /**
      * @var string|\AppBundle\Entity\FamilyLog Famille logistique
@@ -144,7 +144,7 @@ class Article
      */
     public function __construct()
     {
-        $this->zoneStorage = new ArrayCollection();
+        $this->zoneStorages = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
     }
@@ -337,7 +337,7 @@ class Article
      */
     public function addZoneStorage(ZoneStorage $zoneStorages)
     {
-        $this->zoneStorage[] = $zoneStorages;
+        $this->zoneStorages[] = $zoneStorages;
 
         return $this;
     }
@@ -351,7 +351,7 @@ class Article
      */
     public function removeZoneStorage(ZoneStorage $zoneStorages)
     {
-        $this->zoneStorage->removeElement($zoneStorages);
+        $this->zoneStorages->removeElement($zoneStorages);
     }
 
     /**
@@ -361,7 +361,7 @@ class Article
      */
     public function getZoneStorages()
     {
-        return $this->zoneStorage;
+        return $this->zoneStorages;
     }
 
     /**

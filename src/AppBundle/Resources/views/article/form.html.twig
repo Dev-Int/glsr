@@ -28,17 +28,17 @@
         </section>
         <section class="form-line">
             <div class="col-md-5">
-                <span class="text-danger">{{ form_errors(form.zoneStorage) }}</span>
+                <span class="text-danger">{{ form_errors(form.zoneStorages) }}</span>
                 {% block choice_widget_expanded %}
                     {% spaceless %}
                     <div {{ block('widget_container_attributes') }}>
                         <div class="panel panel-default">
                             <div class="panel-heading label label-default">
                                     <i class="fa fa-map-marker"></i>&nbsp;
-                                    {{ form_label(form.zoneStorage) }}
+                                    {{ form_label(form.zoneStorages) }}
                             </div>
                             <div class="panel-body">
-                                {% for child in form.zoneStorage %}
+                                {% for child in form.zoneStorages %}
                                     <div class="col-md-3 text-center">{{ form_widget(child) }}</div>
                                     <div class="col-md-9">{{ form_label(child) }}</div>
                                 {% endfor %}
@@ -47,7 +47,7 @@
                     </div>
                     {% endspaceless %}
                 {% endblock choice_widget_expanded %}
-                {{ form_widget(form.zoneStorage) }}
+                {{ form_widget(form.zoneStorages) }}
             </div>
             <div class="col-md-2 col-md-offset-1 label label-default">
                 <i class="fa fa-tags"></i>&nbsp;
