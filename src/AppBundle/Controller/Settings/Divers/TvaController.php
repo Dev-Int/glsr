@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tva;
-use AppBundle\Form\Type\TvaType;
 
 /**
  * Tva controller.
@@ -133,12 +132,6 @@ class TvaController extends AbstractController
     public function deleteAction(Tva $tva, Request $request)
     {
         $this->abstractDeleteAction($tva, $request, 'tva');
-//        $form = $this->createDeleteForm($tva->getId(), 'tva_delete');
-//        if ($form->handleRequest($request)->isValid()) {
-//            $etm = $this->getDoctrine()->getManager();
-//            $etm->remove($tva);
-//            $etm->flush();
-//        }
 
         return $this->redirectToRoute('tva');
     }
