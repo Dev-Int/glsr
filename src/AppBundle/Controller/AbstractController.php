@@ -62,7 +62,7 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
-     * @param Object $entity     Entity
+     * @param string $entity     Entity
      * @param string $entityPath Path of Entity
      * @param string $typePath   Path of FormType
      * @return array
@@ -89,7 +89,7 @@ abstract class AbstractController extends Controller
      * Creates a new item entity.
      *
      * @param Request $request   Request in progress
-     * @param Object $entity     Entity
+     * @param string $entity     Entity
      * @param string $entityPath Path of Entity
      * @param string $typePath   Path of FormType
      * @return array
