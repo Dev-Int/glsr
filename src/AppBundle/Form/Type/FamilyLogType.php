@@ -17,6 +17,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
@@ -44,7 +45,11 @@ class FamilyLogType extends AbstractType
                 'parent',
                 'entity',
                 array(
-                    'class' => 'AppBundle\Entity\FamilyLog',
+                    'class' => 'AppBundle:FamilyLog',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('f')
+                            ->orderBy('f.path', 'ASC');
+                    },
                     'choice_label' => 'indentedName',
                     'required' => false,
                     'label' => 'gestock.settings.diverse.parent_fam'
