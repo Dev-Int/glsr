@@ -96,6 +96,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractCreateAction(Request $request, $entity, $entityPath, $typePath)
     {
+        $param = array();
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm(new $typePath(), $entityNew);
@@ -107,26 +108,17 @@ abstract class AbstractController extends Controller
             $etm->persist($entityNew);
             $etm->flush();
 
-            if ($form->get('save')->isSubmitted()) {
-                if ($entity === 'tva') {
-                    $param = array('id' => $entityNew->getId());
-                } else {
-                    $param = array('slug' => $entityNew->getSlug());
-                }
-                $return = $this->redirect($this->generateUrl(
-                    $entity.'_show', $param
-                ));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $this->addFlash('info', 'gestock.settings.add_ok');
-                $return = $this->redirect($this->generateUrl($entity.'_new'));
+            if ($entity === 'company' || $entity === 'settings' || $entity === 'tva') {
+                $param = array('id' => $entityNew->getId());
             } else {
-                $return = $this->redirect($this->generateUrl(
-                    $entity.'_show', array('id' => $entityNew->getId())
-                ));
+                $param = array('slug' => $entityNew->getSlug());
             }
+            $return = $form->get('addmore')->isClicked()
+                ? $entity.'_new'
+                : $entity.'_show';
         }
 
-        return $return;
+        return $this->redirectToRoute($return, $param);
     }
 
     /**
