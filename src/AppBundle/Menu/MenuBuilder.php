@@ -120,7 +120,7 @@ class MenuBuilder extends ContainerAware
 
             $divers
                 ->addChild('tva', array(
-                    'route' => 'rate',
+                    'route' => 'tva',
                     'label' => 'gestock.settings.diverse.vat'
                 ))
                 ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
