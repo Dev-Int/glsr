@@ -108,8 +108,13 @@ abstract class AbstractController extends Controller
             $etm->flush();
 
             if ($form->get('save')->isSubmitted()) {
+                if ($entity === 'tva') {
+                    $param = array('id' => $entityNew->getId());
+                } else {
+                    $param = array('slug' => $entityNew->getSlug());
+                }
                 $return = $this->redirect($this->generateUrl(
-                    $entity.'_show', array('slug' => $entityNew->getSlug())
+                    $entity.'_show', $param
                 ));
             } elseif ($form->get('addmore')->isSubmitted()) {
                 $this->addFlash('info', 'gestock.settings.add_ok');
@@ -134,7 +139,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
-        if ($entityName === 'company' || $entityName === 'settings') {
+        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
             $param = array('id' => $entity->getId());
         } else {
             $param = array('slug' => $entity->getSlug());
@@ -163,9 +168,13 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
-        if ($entityName === 'company' || $entityName === 'settings') {
+        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
             $param = array('id' => $entity->getId());
-            $transName = $entityName;
+            if ($entityName !== 'tva') {
+                $transName = $entityName;
+            } else {
+                $transName = 'diverse';
+            }
         } else {
             $param = array('slug' => $entity->getSlug());
             $transName = 'diverse';
