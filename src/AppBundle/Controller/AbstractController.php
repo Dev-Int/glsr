@@ -111,11 +111,7 @@ abstract class AbstractController extends Controller
             $etm->flush();
             $this->addFlash('info', 'gestock.create.ok');
 
-            if ($entity === 'company' || $entity === 'settings' || $entity === 'tva') {
-                $param = array('id' => $entityNew->getId());
-            } else {
-                $param = array('slug' => $entityNew->getSlug());
-            }
+            $param = $this->testReturnParam($entityNew, strtolower($entity));
             $return = $form->get('addmore')->isClicked()
                 ? $entity.'_new'
                 : $entity.'_show';
@@ -136,11 +132,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
-        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
-            $param = array('id' => $entity->getId());
-        } else {
-            $param = array('slug' => $entity->getSlug());
-        }
+        $param = $this->testReturnParam($entity, $entityName);
         $editForm = $this->createForm(new $typePath(), $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
@@ -165,11 +157,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
-        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
-            $param = array('id' => $entity->getId());
-        } else {
-            $param = array('slug' => $entity->getSlug());
-        }
+        $param = $this->testReturnParam($entity, $entityName);
         $editForm = $this->createForm(new $typePath(), $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
@@ -207,6 +195,15 @@ abstract class AbstractController extends Controller
         }
     }
 
+    private function testReturnParam($entity, $entityName) {
+        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
+            $param = array('id' => $entity->getId());
+        } else {
+            $param = array('slug' => $entity->getSlug());
+        }
+
+        return $param;
+    }
     /**
      * SetOrder for the SortAction in views.
      *
