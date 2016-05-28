@@ -12,7 +12,7 @@
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <p>
-            <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+            <button class="btn btn-primary btn-edit" type="submit">{{ 'Edit'|trans({}, 'admin') }}</button>
         </p>
     {{ form_end(edit_form) }}
 
@@ -21,7 +21,7 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('users') }}">
+            <a class="btn btn-info" href="{{ path('user') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 

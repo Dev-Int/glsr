@@ -15,6 +15,14 @@
                 <th scope="row">{{ 'gestock.id'|trans }}</th>
                 <td>{{ user.id }}</td>
             </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.name'|trans }}</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'Group'|trans({}, 'admin') }}</th>
+                <td>{{ user.groups|join(', ') }}</td>
+            </tr>
         </tbody>
     </table>
 
@@ -23,12 +31,12 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('users') }}">
+            <a class="btn btn-info" href="{{ path('user') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('users_edit', {id: user.id}) }}">
-                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            <a class="btn btn-primary btn-edit" href="{{ path('user_edit', {id: user.id}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
 

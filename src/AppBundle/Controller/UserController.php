@@ -31,14 +31,14 @@ use Doctrine\ORM\QueryBuilder;
  *
  * @category Controller
  *
- * @Route("/admin/users")
+ * @Route("/admin/user")
  */
 class UserController extends AbstractController
 {
     /**
      * Lists all User entities.
      *
-     * @Route("/", name="users")
+     * @Route("/", name="user")
      * @Method("GET")
      * @Template()
      */
@@ -46,7 +46,7 @@ class UserController extends AbstractController
     {
         $etm = $this->getDoctrine()->getManager();
         $form = $this->createForm(new UserFilterType());
-        if (!is_null($response = $this->saveFilter($form, 'user', 'users'))) {
+        if (!is_null($response = $this->saveFilter($form, 'user', 'user'))) {
             return $response;
         }
         $qb = $etm->getRepository('AppBundle:User')->createQueryBuilder('u');
@@ -61,42 +61,39 @@ class UserController extends AbstractController
     /**
      * Finds and displays a User entity.
      *
-     * @Route("/{id}/show", name="users_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="user_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(User $user)
     {
-        $deleteForm = $this->createDeleteForm($user->getId(), 'users_delete');
+        $return = $this->abstractShowAction($user, 'user');
 
-        return array(
-            'user' => $user,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Displays a form to create a new User entity.
      *
-     * @Route("/new", name="users_new")
+     * @Route("/new", name="user_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $user = new User();
-        $form = $this->createForm(new UserType(), $user);
-
-        return array(
-            'user' => $user,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'User',
+            'AppBundle\Entity\User',
+            'AppBundle\Form\Type\UserType'
         );
+
+        return $return;
     }
 
     /**
      * Creates a new User entity.
      *
-     * @Route("/create", name="users_create")
+     * @Route("/create", name="user_create")
      * @Method("POST")
      * @Template("AppBundle:User:new.html.twig")
      */
@@ -109,7 +106,7 @@ class UserController extends AbstractController
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirectToRoute('users_show', array('id', $user->getId()));
+            return $this->redirectToRoute('user_show', array('id', $user->getId()));
         }
 
         return array(
@@ -121,19 +118,19 @@ class UserController extends AbstractController
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @Route("/{id}/edit", name="users_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="user_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(User $user)
     {
         $editForm = $this->createForm(new UserType(), $user, array(
-            'action' => $this->generateUrl('users_update', array('id' => $user->getId())),
+            'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
             'passwordRequired' => false,
             'lockedRequired' => true
         ));
-        $deleteForm = $this->createDeleteForm($user->getId(), 'users_delete');
+        $deleteForm = $this->createDeleteForm($user->getId(), 'user_delete');
  
         return array(
             'user' => $user,
@@ -145,14 +142,14 @@ class UserController extends AbstractController
     /**
      * Edits an existing User entity.
      *
-     * @Route("/{id}/update", name="users_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="user_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:User:edit.html.twig")
      */
     public function updateAction(User $user, Request $request)
     {
         $editForm = $this->createForm(new UserType(), $user, array(
-            'action' => $this->generateUrl('users_update', array('id' => $user->getId())),
+            'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
             'passwordRequired' => false,
             'lockedRequired' => true
@@ -161,9 +158,9 @@ class UserController extends AbstractController
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirectToRoute('users_edit', array('id' => $user->getId()));
+            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
-        $deleteForm = $this->createDeleteForm($user->getId(), 'users_delete');
+        $deleteForm = $this->createDeleteForm($user->getId(), 'user_delete');
 
         return array(
             'user' => $user,
@@ -176,13 +173,13 @@ class UserController extends AbstractController
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="users_sort")
+     * @Route("/order/{field}/{type}", name="user_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('user', $field, $type);
 
-        return $this->redirectToRoute('users');
+        return $this->redirectToRoute('user');
     }
 
     /**
@@ -252,18 +249,13 @@ class UserController extends AbstractController
      * Deletes a User entity.
      *
      * @Security("has_role('ROLE_SUPER_ADMIN')")
-     * @Route("/{id}/delete", name="users_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="user_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(User $user, Request $request)
     {
-        $form = $this->createDeleteForm($user->getId(), 'users_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($user);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction($user, $request, 'user');
 
-        return $this->redirectToRoute('users');
+        return $this->redirectToRoute('user');
     }
 }
