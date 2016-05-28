@@ -208,9 +208,9 @@ class GroupController extends AbstractController
     /**
      * Add roles to form
      *
-     * @param Symfony\Component\Form\Form  $form  The form in which to insert the roles
-     * @param AppBundle\Entity\Group       $group The entity to deal
-     * @return Symfony\Component\Form\Form The form
+     * @param \Symfony\Component\Form\Form  $form  The form in which to insert the roles
+     * @param \AppBundle\Entity\Group       $group The entity to deal
+     * @return \Symfony\Component\Form\Form The form
      */
     private function addRoles($form, $group)
     {
