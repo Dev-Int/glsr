@@ -56,7 +56,7 @@
                 <tr>
                     <td>{{ "%06d"|format(article.id) }}</td>
                     <td><a href="{{ path('articles_show', {slug: article.slug}) }}">{{ article.name }}</a></td>
-                    <td><a href="{{ path('suppliers_show', {slug: article.supplier.slug}) }}">{{ article.supplier.name }}</a></td>
+                    <td><a href="{{ path('supplier_show', {slug: article.supplier.slug}) }}">{{ article.supplier.name }}</a></td>
                     <td>{{ article.familylog }}</td>
                     <td class="text-right">{{ article.price }}€</td>
                     <td class="text-right">{{ article.quantity }}</td>
