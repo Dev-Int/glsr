@@ -74,7 +74,7 @@ abstract class AbstractController extends Controller
         
         if ($entity === 'Company' || $entity === 'Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
-            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');            
+            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
