@@ -70,7 +70,11 @@ class UnitStorageController extends AbstractController
      */
     public function newAction()
     {
-        $return = $this->abstractNewAction('UnitStorage', 'AppBundle\Entity\UnitStorage', 'AppBundle\Form\Type\UnitStorageType');
+        $return = $this->abstractNewAction(
+            'UnitStorage',
+            'AppBundle\Entity\UnitStorage',
+            'AppBundle\Form\Type\UnitStorageType'
+        );
 
         return $return;
     }
@@ -122,7 +126,8 @@ class UnitStorageController extends AbstractController
     public function updateAction(UnitStorage $unitstorage, Request $request)
     {
         $return = $this->abstractUpdateAction(
-            $unitstorage, $request,
+            $unitstorage,
+            $request,
             'unitstorage',
             'AppBundle\Form\Type\UnitStorageType'
         );
