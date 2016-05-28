@@ -121,7 +121,7 @@ class TvaController extends AbstractController
         $return = $this->abstractUpdateAction($tva, $request, 'tva', 'AppBundle\Form\Type\TvaType');
 
         return $return;
-   }
+    }
 
     /**
      * Deletes a Tva entity.
