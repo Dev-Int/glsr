@@ -71,16 +71,6 @@ class GroupController extends AbstractController
         $group = new Group();
         $form = $this->createForm(new GroupType(), $group);
         $this->addRoles($form, $group);
-//        $form->add('roles', 'choice', array(
-//            'choices' => $this->getExistingRoles(),
-//            'data' => $group->getRoles(),
-//            'label' => 'Roles',
-//            'translation_domain' => 'admin',
-//            'expanded' => true,
-//            'multiple' => true,
-//            'mapped' => true,
-//        ));
-
 
         return array(
             'group' => $group,
