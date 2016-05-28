@@ -133,7 +133,7 @@ class FamilyLogController extends AbstractController
         );
 
         return $return;
-   }
+    }
 
     /**
      * Deletes a FamilyLog entity.
