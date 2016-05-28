@@ -235,7 +235,7 @@ class ArticleController extends AbstractController
                     'gs_suppliers'
                 );
             $this->addFlash('info', $message);
-            return $this->redirectToRoute('suppliers');
+            return $this->redirectToRoute('supplier');
     }
 
     /**

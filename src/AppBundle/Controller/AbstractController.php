@@ -78,7 +78,9 @@ abstract class AbstractController extends Controller
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew);
+        $form = $this->createForm(new $typePath(), $entityNew, array(
+            'action' => $this->generateUrl(strtolower($entity).'_create'),
+        ));
 
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
@@ -99,14 +101,15 @@ abstract class AbstractController extends Controller
         $param = array();
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew);
+        $form = $this->createForm(new $typePath(), $entityNew, array(
+            'action' => $this->generateUrl(strtolower($entity).'_create'),
+        ));
 
-        $return = array($entity => $entityNew, 'form'   => $form->createView(),);
-        
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();
+            $this->addFlash('info', 'gestock.create.ok');
 
             if ($entity === 'company' || $entity === 'settings' || $entity === 'tva') {
                 $param = array('id' => $entityNew->getId());
@@ -116,9 +119,11 @@ abstract class AbstractController extends Controller
             $return = $form->get('addmore')->isClicked()
                 ? $entity.'_new'
                 : $entity.'_show';
+
+            return $this->redirectToRoute($return, $param);
         }
 
-        return $this->redirectToRoute($return, $param);
+        return array($entity => $entityNew, 'form' => $form->createView(),);
     }
 
     /**
@@ -162,14 +167,8 @@ abstract class AbstractController extends Controller
     {
         if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
             $param = array('id' => $entity->getId());
-            if ($entityName !== 'tva') {
-                $transName = $entityName;
-            } else {
-                $transName = 'diverse';
-            }
         } else {
             $param = array('slug' => $entity->getSlug());
-            $transName = 'diverse';
         }
         $editForm = $this->createForm(new $typePath(), $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
@@ -177,7 +176,7 @@ abstract class AbstractController extends Controller
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.'.$transName.'.edit_ok');
+            $this->addFlash('info', 'gestock.edit.ok');
 
             return $this->redirectToRoute($entityName.'_edit', $param);
         }

@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * SupplierType Form properties.
@@ -161,6 +162,10 @@ class SupplierType extends AbstractType
                 'entity',
                 array(
                     'class' => 'AppBundle:FamilyLog',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('f')
+                            ->orderBy('f.path', 'ASC');
+                    },
                     'choice_label' => 'indentedName',
                     'multiple' => false,
                     'placeholder' => 'gestock.settings.diverse.choice_family',

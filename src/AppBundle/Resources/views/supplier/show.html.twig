@@ -222,11 +222,11 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('suppliers') }}">
+            <a class="btn btn-info" href="{{ path('supplier') }}">
                 <i class="fa fa-list"></i>&nbsp;{{ 'gestock.return_list'|trans }}
             </a>
                 {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
+            <a class="btn btn-primary" href="{{ path('supplier_edit', {slug: supplier.slug}) }}">
                 <i class="fa fa-edit"></i>&nbsp;{{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i>&nbsp;{{ 'Delete'|trans({}, 'admin') }}</button>

@@ -36,7 +36,7 @@ class MenuBuilder extends ContainerAware
         
         $menu['manage']->addChild('suppliers', array(
             'label' => 'title',
-            'route' => 'suppliers'
+            'route' => 'supplier'
         ))
             ->setExtra('translation_domain', 'gs_suppliers')
             ->setAttribute('icon', 'fa fa-barcode');

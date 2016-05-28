@@ -20,21 +20,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Supplier;
-use AppBundle\Form\Type\SupplierType;
 
 /**
  * Supplier controller.
  *
  * @category Controller
  *
- * @Route("/suppliers")
+ * @Route("/supplier")
  */
 class SupplierController extends AbstractController
 {
     /**
      * Lists all Supplier entities.
      *
-     * @Route("/", name="suppliers")
+     * @Route("/", name="supplier")
      * @Method("GET")
      * @Template()
      */
@@ -53,7 +52,7 @@ class SupplierController extends AbstractController
     /**
      * Finds and displays a Supplier entity.
      *
-     * @Route("/{slug}/show", name="suppliers_show")
+     * @Route("/{slug}/show", name="supplier_show")
      * @Method("GET")
      * @Template()
      */
@@ -61,7 +60,7 @@ class SupplierController extends AbstractController
     {
         $etm = $this->getDoctrine()->getManager();
         
-        $deleteForm = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
+        $deleteForm = $this->createDeleteForm($supplier->getId(), 'supplier_delete');
 
         // Récupérer les articles du fournisseur.
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
@@ -75,113 +74,94 @@ class SupplierController extends AbstractController
     /**
      * Displays a form to create a new Supplier entity.
      *
-     * @Route("/admin/new", name="suppliers_new")
+     * @Route("/admin/new", name="supplier_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $supplier = new Supplier();
-        $form = $this->createForm(new SupplierType(), $supplier, array(
-            'action' => $this->generateUrl('suppliers_create'),
-        ));
-
-        return array(
-            'supplier' => $supplier,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Supplier',
+            'AppBundle\Entity\Supplier',
+            'AppBundle\Form\Type\SupplierType'
         );
+
+        return $return;
     }
 
     /**
      * Creates a new Supplier entity.
      *
-     * @Route("/create", name="suppliers_create")
+     * @Route("/create", name="supplier_create")
      * @Method("POST")
      * @Template("AppBundle:Supplier:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $supplier = new Supplier();
-        $form = $this->createForm(new SupplierType(), $supplier);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($supplier);
-            $etm->flush();
-
-            return $this->redirectToRoute('suppliers_show', array('slug' => $supplier->getSlug()));
-        }
-
-        return array(
-            'supplier' => $supplier,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'supplier',
+            'AppBundle\Entity\Supplier',
+            'AppBundle\Form\Type\SupplierType'
         );
+
+        return $return;
     }
 
     /**
      * Displays a form to edit an existing Supplier entity.
      *
-     * @Route("/admin/{slug}/edit", name="suppliers_edit")
+     * @Route("/admin/{slug}/edit", name="supplier_edit")
      * @Method("GET")
      * @Template()
      */
     public function editAction(Supplier $supplier)
     {
-        $editForm = $this->createForm(new SupplierType(), $supplier, array(
-            'action' => $this->generateUrl('suppliers_update', array('slug' => $supplier->getSlug())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
-
-        return array(
-            'supplier' => $supplier,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $supplier,
+            'supplier',
+            'AppBundle\Form\Type\SupplierType'
         );
+
+        return $return;
     }
 
     /**
      * Edits an existing Supplier entity.
      *
-     * @Route("/{slug}/update", name="suppliers_update")
+     * @Route("/{slug}/update", name="supplier_update")
      * @Method("PUT")
      * @Template("AppBundle:Supplier:edit.html.twig")
      */
     public function updateAction(Supplier $supplier, Request $request)
     {
-        $editForm = $this->createForm(new SupplierType(), $supplier, array(
-            'action' => $this->generateUrl('suppliers_update', array('slug' => $supplier->getSlug())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.edit.ok');
-        }
-        $deleteForm = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
-
-        return array(
-            'supplier' => $supplier,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $supplier,
+            $request,
+            'supplier',
+            'AppBundle\Form\Type\SupplierType'
         );
+
+        return $return;
     }
 
 
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="suppliers_sort")
+     * @Route("/order/{field}/{type}", name="supplier_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('supplier', $field, $type);
 
-        return $this->redirectToRoute('suppliers');
+        return $this->redirectToRoute('supplier');
     }
 
     /**
      * Deletes a Supplier entity.
      *
-     * @Route("/admin/{id}/delete", name="suppliers_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="supplier_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Supplier $supplier, Request $request)
@@ -195,15 +175,9 @@ class SupplierController extends AbstractController
             $this->addFlash('danger', $message);
             return $this->redirectToRoute('articles_reassign', array('slug' => $supplier->getSlug()));
         }
-        
-        $form = $this->createDeleteForm($supplier->getId(), 'suppliers_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $supplier->setActive(false);
-            $etm->persist($supplier);
-            $etm->flush();
-        }
 
-        return $this->redirectToRoute('suppliers');
+        $this->abstractDeleteAction($supplier, $request, 'supplier');
+
+        return $this->redirectToRoute('supplier');
     }
 }

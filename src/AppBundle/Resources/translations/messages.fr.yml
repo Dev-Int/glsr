@@ -37,7 +37,6 @@ gestock:
     contact: Contact
     date: Date
     details: Détails
-    edit: Modifier
     fax: Fax
     gsm: Mobile
     id: ID
