@@ -229,7 +229,8 @@ class GroupController extends AbstractController
      * @param Group $group The entity to deal
      * @return Form The form
      */
-    private function addRoles($form, $group) {
+    private function addRoles($form, $group)
+    {
         $form->add('roles', 'choice', array(
             'choices' => $this->getExistingRoles(),
             'data' => $group->getRoles(),
