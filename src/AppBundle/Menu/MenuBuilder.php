@@ -137,7 +137,7 @@ class MenuBuilder extends ContainerAware
 
             $menu['entities']
                 ->addChild('groups', array(
-                    'route' => 'groups',
+                    'route' => 'group',
                     'label' => 'menu.groups'))
                 ->setAttribute('icon', 'fa fa-users');
         }

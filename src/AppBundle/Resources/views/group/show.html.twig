@@ -24,11 +24,11 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('groups') }}">
+            <a class="btn btn-info" href="{{ path('group') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('groups_edit', {id: group.id}) }}">
+            <a class="btn btn-primary" href="{{ path('group_edit', {id: group.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
