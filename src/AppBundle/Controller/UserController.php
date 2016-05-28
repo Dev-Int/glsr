@@ -49,8 +49,8 @@ class UserController extends AbstractController
         if (!is_null($response = $this->saveFilter($form, 'user', 'user'))) {
             return $response;
         }
-        $qb = $etm->getRepository('AppBundle:User')->createQueryBuilder('u');
-        $paginator = $this->filter($form, $qb, 'user');
+        $qbd = $etm->getRepository('AppBundle:User')->createQueryBuilder('u');
+        $paginator = $this->filter($form, $qbd, 'user');
         
         return array(
             'form'      => $form->createView(),
@@ -217,21 +217,21 @@ class UserController extends AbstractController
      * Filter form
      *
      * @param  FormInterface                                       $form
-     * @param  QueryBuilder                                        $qb
+     * @param  QueryBuilder                                        $qbd
      * @param  string                                              $name
      * @return \Knp\Component\Pager\Pagination\PaginationInterface
      */
-    protected function filter(FormInterface $form, QueryBuilder $qb, $name)
+    protected function filter(FormInterface $form, QueryBuilder $qbd, $name)
     {
         if (!is_null($values = $this->getFilter($name))) {
             if ($form->submit($values)->isValid()) {
-                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qb);
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qbd);
             }
         }
 
         // possible sorting
-        $this->addQueryBuilderSort($qb, $name);
-        return $this->get('knp_paginator')->paginate($qb, $this->getRequest()->query->get('page', 1), 20);
+        $this->addQueryBuilderSort($qbd, $name);
+        return $this->get('knp_paginator')->paginate($qbd, $this->getRequest()->query->get('page', 1), 20);
     }
 
     /**

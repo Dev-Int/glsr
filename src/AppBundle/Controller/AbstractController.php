@@ -233,14 +233,14 @@ abstract class AbstractController extends Controller
     /**
      * AddQueryBuilderSort for the SortAction in views.
      *
-     * @param QueryBuilder $qb
+     * @param QueryBuilder $qbd
      * @param string       $name
      */
-    protected function addQueryBuilderSort(QueryBuilder $qb, $name)
+    protected function addQueryBuilderSort(QueryBuilder $qbd, $name)
     {
-        $alias = current($qb->getDQLPart('from'))->getAlias();
+        $alias = current($qbd->getDQLPart('from'))->getAlias();
         if (is_array($order = $this->getOrder($name))) {
-            $qb->orderBy($alias . '.' . $order['field'], $order['type']);
+            $qbd->orderBy($alias . '.' . $order['field'], $order['type']);
         }
     }
 

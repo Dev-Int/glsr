@@ -40,9 +40,9 @@ class SupplierController extends AbstractController
     public function indexAction(Request $request)
     {
         $etm = $this->getDoctrine()->getManager();
-        $qb = $etm->getRepository('AppBundle:Supplier')->getSuppliers();
-        $this->addQueryBuilderSort($qb, 'supplier');
-        $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), 20);
+        $qbd = $etm->getRepository('AppBundle:Supplier')->getSuppliers();
+        $this->addQueryBuilderSort($qbd, 'supplier');
+        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 20);
         
         return array(
             'paginator' => $paginator,
