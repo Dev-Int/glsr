@@ -122,7 +122,12 @@ class ZoneStorageController extends AbstractController
      */
     public function updateAction(ZoneStorage $zonestorage, Request $request)
     {
-        $return = $this->abstractUpdateAction($zonestorage, $request, 'zonestorage', 'AppBundle\Form\Type\ZoneStorageType');
+        $return = $this->abstractUpdateAction(
+            $zonestorage,
+            $request,
+            'zonestorage',
+            'AppBundle\Form\Type\ZoneStorageType'
+        );
 
         return $return;
     }
