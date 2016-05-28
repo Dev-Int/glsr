@@ -195,7 +195,8 @@ abstract class AbstractController extends Controller
         }
     }
 
-    private function testReturnParam($entity, $entityName) {
+    private function testReturnParam($entity, $entityName)
+    {
         if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
             $param = array('id' => $entity->getId());
         } else {
