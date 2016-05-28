@@ -29,14 +29,14 @@ use AppBundle\Form\Type\ArticleReassignType;
  *
  * @category Controller
  *
- * @Route("/articles")
+ * @Route("/article")
  */
 class ArticleController extends AbstractController
 {
     /**
      * Lists all Article entities.
      *
-     * @Route("/", name="articles")
+     * @Route("/", name="article")
      * @Method("GET")
      * @Template()
      */
@@ -55,119 +55,92 @@ class ArticleController extends AbstractController
     /**
      * Finds and displays a Article entity.
      *
-     * @Route("/{slug}/show", name="articles_show")
+     * @Route("/{slug}/show", name="article_show")
      * @Method("GET")
      * @Template()
      */
     public function showAction(Article $article)
     {
-        $deleteForm = $this->createDeleteForm($article->getId(), 'articles_delete');
+        $return = $this->abstractShowAction($article, 'article');
 
-        return array(
-            'article' => $article,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Displays a form to create a new Article entity.
      *
-     * @Route("/admin/new", name="articles_new")
+     * @Route("/admin/new", name="article_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $article = new Article();
-        $form = $this->createForm(new ArticleType(), $article, array(
-            'action' => $this->generateUrl('articles_create'),
-        ));
-
-        return array(
-            'article' => $article,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Article',
+            'AppBundle\Entity\Article',
+            'AppBundle\Form\Type\ArticleType'
         );
+
+        return $return;
     }
 
     /**
      * Creates a new Article entity.
      *
-     * @Route("/create", name="articles_create")
+     * @Route("/create", name="article_create")
      * @Method("POST")
      * @Template("AppBundle:Article:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $article = new Article();
-        $form = $this->createForm(new ArticleType(), $article);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($article);
-            $etm->flush();
-
-            return $this->redirectToRoute('articles_show', array('slug' => $article->getSlug()));
-        }
-
-        return array(
-            'article' => $article,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'Article',
+            'AppBundle\Entity\Article',
+            'AppBundle\Form\Type\ArticleType'
         );
+
+        return $return;
     }
 
     /**
      * Displays a form to edit an existing Article entity.
      *
-     * @Route("/admin/{slug}/edit", name="articles_edit")
+     * @Route("/admin/{slug}/edit", name="article_edit")
      * @Method("GET")
      * @Template()
      */
     public function editAction(Article $article)
     {
-        $editForm = $this->createForm(new ArticleType(), $article, array(
-            'action' => $this->generateUrl('articles_update', array('slug' => $article->getSlug())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($article->getId(), 'articles_delete');
+        $return = $this->abstractEditAction($article, 'article', 'AppBundle\Form\Type\ArticleType');
 
-        return array(
-            'article' => $article,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Edits an existing Article entity.
      *
-     * @Route("/{slug}/update", name="articles_update")
+     * @Route("/{slug}/update", name="article_update")
      * @Method("PUT")
      * @Template("AppBundle:Article:edit.html.twig")
      */
     public function updateAction(Article $article, Request $request)
     {
-        $editForm = $this->createForm(new ArticleType(), $article, array(
-            'action' => $this->generateUrl('articles_update', array('slug' => $article->getSlug())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('articles_edit', array('slug' => $article->getSlug()));
-        }
-        $deleteForm = $this->createDeleteForm($article->getId(), 'articles_delete');
-
-        return array(
-            'article' => $article,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $article,
+            $request,
+            'article',
+            'AppBundle\Form\Type\ArticleType'
         );
+
+        return $return;
     }
 
     /**
      * Réassigner les articles d'un fournisseur.
      *
      * @param Supplier $supplier Fournisseur à réassigner
-     * @Route("/{slug}/reassign", name="articles_reassign")
+     * @Route("/{slug}/reassign", name="article_reassign")
      * @Method("GET")
      * @Template()
      */
@@ -182,7 +155,7 @@ class ArticleController extends AbstractController
             new ArticleReassignType(),
             $articles,
             array(
-                'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
+                'action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),
             )
         );
 
@@ -196,7 +169,7 @@ class ArticleController extends AbstractController
     /**
      * Creates a new Article entity.
      *
-     * @Route("/{slug}/change", name="articles_change")
+     * @Route("/{slug}/change", name="article_change")
      * @Method("POST")
      * @Template("AppBundle:Article:reassign.html.twig")
      */
@@ -205,13 +178,12 @@ class ArticleController extends AbstractController
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
-        $reassignForm = $this->createForm(
-            new ArticleReassignType(),
-            $articles,
-            array(
-                'action' => $this->generateUrl('articles_change', array('slug' => $supplier->getSlug())),
-            )
-        );
+        $reassignForm = $this->createForm(new ArticleReassignType(), $articles, array(
+            'action' => $this->generateUrl(
+                'article_change',
+                array('slug' => $supplier->getSlug())
+            ),
+        ));
         $datas = $reassignForm->handleRequest($request);
 
         foreach ($datas as $data) {
@@ -241,23 +213,23 @@ class ArticleController extends AbstractController
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="articles_sort")
+     * @Route("/order/{field}/{type}", name="article_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('article', $field, $type);
 
-        return $this->redirect($this->generateUrl('articles'));
+        return $this->redirect($this->generateUrl('article'));
     }
     /**
      * Deletes a Article entity.
      *
-     * @Route("/admin/{id}/delete", name="articles_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="article_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Article $article, Request $request)
     {
-        $form = $this->createDeleteForm($article->getId(), 'articles_delete');
+        $form = $this->createDeleteForm($article->getId(), 'article_delete');
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $article->setActive(false);
@@ -265,6 +237,6 @@ class ArticleController extends AbstractController
             $etm->flush();
         }
 
-        return $this->redirectToRoute('articles');
+        return $this->redirectToRoute('article');
     }
 }

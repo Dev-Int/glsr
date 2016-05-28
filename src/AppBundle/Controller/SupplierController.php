@@ -173,7 +173,7 @@ class SupplierController extends AbstractController
             $message = $this->get('translator')
                 ->trans('delete.reassign_wrong', array(), 'gs_suppliers');
             $this->addFlash('danger', $message);
-            return $this->redirectToRoute('articles_reassign', array('slug' => $supplier->getSlug()));
+            return $this->redirectToRoute('article_reassign', array('slug' => $supplier->getSlug()));
         }
 
         $this->abstractDeleteAction($supplier, $request, 'supplier');

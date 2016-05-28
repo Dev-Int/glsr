@@ -41,9 +41,9 @@ class MenuBuilder extends ContainerAware
             ->setExtra('translation_domain', 'gs_suppliers')
             ->setAttribute('icon', 'fa fa-barcode');
  
-        $menu['manage']->addChild('articles', array(
+        $menu['manage']->addChild('article', array(
             'label' => 'title',
-            'route' => 'articles'
+            'route' => 'article'
         ))
             ->setExtra('translation_domain', 'gs_articles')
             ->setAttribute('icon', 'fa fa-shopping-basket');

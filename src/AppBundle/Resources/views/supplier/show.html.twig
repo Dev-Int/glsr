@@ -200,7 +200,7 @@
                     {% for article in articles %}
                     <tr>
                         <td>
-                            <a href="{{ path('articles_show', {'slug': article.slug}) }}">
+                            <a href="{{ path('article_show', {'slug': article.slug}) }}">
                                 {{ article.name }}
                             </a>
                         </td>
