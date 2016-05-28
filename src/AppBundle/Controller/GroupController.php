@@ -125,17 +125,10 @@ class GroupController extends AbstractController
      */
     public function editAction(Group $group)
     {
-        $editForm = $this->createForm(
-            new GroupType(),
-            $group,
-            array(
-                'action' => $this->generateUrl(
-                    'group_update',
-                    array('id' => $group->getId())
-                ),
-                'method' => 'PUT',
-            )
-        );
+        $editForm = $this->createForm(new GroupType(), $group, array(
+            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
+            'method' => 'PUT',
+        ));
         $this->addRoles($editForm, $group);
 
         $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
