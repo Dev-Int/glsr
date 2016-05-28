@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Supplier;
-use AppBundle\Form\Type\ArticleType;
 use AppBundle\Form\Type\ArticleReassignType;
 
 /**
