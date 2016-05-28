@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ZoneStorage;
-use AppBundle\Form\Type\ZoneStorageType;
 
 /**
  * ZoneStorage controller.
@@ -40,12 +39,9 @@ class ZoneStorageController extends AbstractController
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
-        
-        return array(
-            'entities'  => $entities,
-        );
+        $return = $this->abstractIndexAction('ZoneStorage');
+
+        return $return;
     }
 
     /**
@@ -57,12 +53,9 @@ class ZoneStorageController extends AbstractController
      */
     public function showAction(ZoneStorage $zonestorage)
     {
-        $deleteForm = $this->createDeleteForm($zonestorage->getId(), 'zonestorage_delete');
+        $return = $this->abstractShowAction($zonestorage, 'zonestorage');
 
-        return array(
-            'zonestorage' => $zonestorage,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -74,13 +67,13 @@ class ZoneStorageController extends AbstractController
      */
     public function newAction()
     {
-        $zonestorage = new ZoneStorage();
-        $form = $this->createForm(new ZoneStorageType(), $zonestorage);
-
-        return array(
-            'zonestorage' => $zonestorage,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'ZoneStorage',
+            'AppBundle\Entity\ZoneStorage',
+            'AppBundle\Form\Type\ZoneStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -92,27 +85,14 @@ class ZoneStorageController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $url = '';
-        $zonestorage = new ZoneStorage();
-        $form = $this->createForm(new ZoneStorageType(), $zonestorage);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($zonestorage);
-            $etm->flush();
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirectToRoute('zonestorage_show', array('slug' => $zonestorage->getSlug()));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirect($this->generateUrl('zonestorage_new'));
-            }
-            return $url;
-        }
-
-        return array(
-            'zonestorage' => $zonestorage,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'zonestorage',
+            'AppBundle\Entity\ZoneStorage',
+            'AppBundle\Form\Type\ZoneStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -124,17 +104,13 @@ class ZoneStorageController extends AbstractController
      */
     public function editAction(ZoneStorage $zonestorage)
     {
-        $editForm = $this->createForm(new ZoneStorageType(), $zonestorage, array(
-            'action' => $this->generateUrl('zonestorage_update', array('slug' => $zonestorage->getSlug())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($zonestorage->getId(), 'zonestorage_delete');
-
-        return array(
-            'zonestorage' => $zonestorage,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $zonestorage,
+            'zonestorage',
+            'AppBundle\Form\Type\ZoneStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -146,23 +122,14 @@ class ZoneStorageController extends AbstractController
      */
     public function updateAction(ZoneStorage $zonestorage, Request $request)
     {
-        $editForm = $this->createForm(new ZoneStorageType(), $zonestorage, array(
-            'action' => $this->generateUrl('zonestorage_update', array('slug' => $zonestorage->getSlug())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
-
-            return $this->redirectToRoute('zonestorage_edit', array('slug' => $zonestorage->getSlug()));
-        }
-        $deleteForm = $this->createDeleteForm($zonestorage->getId(), 'zonestorage_delete');
-
-        return array(
-            'zonestorage' => $zonestorage,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $zonestorage,
+            $request,
+            'zonestorage',
+            'AppBundle\Form\Type\ZoneStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -173,12 +140,7 @@ class ZoneStorageController extends AbstractController
      */
     public function deleteAction(ZoneStorage $zonestorage, Request $request)
     {
-        $form = $this->createDeleteForm($zonestorage->getId(), 'zonestorage_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($zonestorage);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction($zonestorage, $request, 'zonestorage');
 
         return $this->redirectToRoute('zonestorage');
     }

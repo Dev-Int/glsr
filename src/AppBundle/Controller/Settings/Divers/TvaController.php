@@ -20,166 +20,119 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tva;
-use AppBundle\Form\Type\TvaType;
 
 /**
  * Tva controller.
  *
  * @category Controller
  *
- * @Route("/admin/settings/divers/rate")
+ * @Route("/admin/settings/divers/tva")
  */
 class TvaController extends AbstractController
 {
     /**
      * Lists all Tva entities.
      *
-     * @Route("/", name="rate")
+     * @Route("/", name="tva")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:Tva')->findAll();
-        
-        return array(
-            'entities'  => $entities,
-        );
+        $return = $this->abstractIndexAction('Tva');
+
+        return $return;
     }
 
     /**
      * Finds and displays a Tva entity.
      *
-     * @Route("/{id}/show", name="rate_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="tva_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Tva $tva)
     {
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
+        $return = $this->abstractShowAction($tva, 'tva');
 
-        return array(
-            'tva' => $tva,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Displays a form to create a new Tva entity.
      *
-     * @Route("/new", name="rate_new")
+     * @Route("/new", name="tva_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $tva = new Tva();
-        $form = $this->createForm(new TvaType(), $tva);
-
-        return array(
-            'tva' => $tva,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Tva',
+            'AppBundle\Entity\Tva',
+            'AppBundle\Form\Type\TvaType'
         );
+
+        return $return;
     }
 
     /**
      * Creates a new Tva entity.
      *
-     * @Route("/create", name="rate_create")
+     * @Route("/create", name="tva_create")
      * @Method("POST")
      * @Template("AppBundle:Tva:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $url = '';
-        $tva = new Tva();
-        $form = $this->createForm(new TvaType(), $tva);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($tva);
-            $etm->flush();
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirectToRoute('rate_show', array('id' => $tva->getId()));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('rate_new');
-            }
-            return $url;
-        }
-
-        return array(
-            'tva' => $tva,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'tva',
+            'AppBundle\Entity\Tva',
+            'AppBundle\Form\Type\TvaType'
         );
+
+        return $return;
     }
 
     /**
      * Displays a form to edit an existing Tva entity.
      *
-     * @Route("/{id}/edit", name="rate_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="tva_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Tva $tva)
     {
-        $editForm = $this->createForm(new TvaType(), $tva, array(
-            'action' => $this->generateUrl('rate_update', array('id' => $tva->getId())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
+        $return = $this->abstractEditAction($tva, 'tva', 'AppBundle\Form\Type\TvaType');
 
-        return array(
-            'tva' => $tva,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Edits an existing Tva entity.
      *
-     * @Route("/{id}/update", name="rate_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="tva_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Tva:edit.html.twig")
      */
     public function updateAction(Tva $tva, Request $request)
     {
-        $editForm = $this->createForm(new TvaType(), $tva, array(
-            'action' => $this->generateUrl('rate_update', array('id' => $tva->getId())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
+        $return = $this->abstractUpdateAction($tva, $request, 'tva', 'AppBundle\Form\Type\TvaType');
 
-            return $this->redirectToRoute('rate_edit', array('id' => $tva->getId()));
-        }
-        $deleteForm = $this->createDeleteForm($tva->getId(), 'rate_delete');
-
-        return array(
-            'tva' => $tva,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Deletes a Tva entity.
      *
-     * @Route("/{id}/delete", name="rate_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="tva_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Tva $tva, Request $request)
     {
-        $form = $this->createDeleteForm($tva->getId(), 'rate_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($tva);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction($tva, $request, 'tva');
 
-        return $this->redirectToRoute('rate');
+        return $this->redirectToRoute('tva');
     }
 }

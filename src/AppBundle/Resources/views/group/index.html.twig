@@ -14,20 +14,20 @@
         <thead>
             <tr>
                 <th scope="col">{{ 'form.group_name'|trans({}, 'FOSUserBundle') }}</th>
-                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
             {% for group in entities %}
                 <tr>
-                    <td><a href="{{ path('groups_show', {id: group.id}) }}">{{ group.name }}</a></td>
-                    <td>
+                    <td><a href="{{ path('group_show', {id: group.id}) }}">{{ group.name }}</a></td>
+                    <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('groups_show', {id: group.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('group_show', {id: group.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('groups_edit', {id: group.id}) }}">
-                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('group_edit', {id: group.id}) }}">
+                                {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
                     </td>
@@ -38,7 +38,7 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('groups_new') }}">
+        <a class="btn btn-info" href="{{ path('group_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>

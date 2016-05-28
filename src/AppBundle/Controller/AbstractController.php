@@ -62,7 +62,7 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
-     * @param Object $entity     Entity
+     * @param string $entity     Entity
      * @param string $entityPath Path of Entity
      * @param string $typePath   Path of FormType
      * @return array
@@ -71,16 +71,18 @@ abstract class AbstractController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
-
-        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew);
-
-        $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
-
-        if ($ctEntity >= 1) {
+        
+        if ($entity === 'Company' || $entity === 'Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
             $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');
         }
+
+        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
+        $form = $this->createForm(new $typePath(), $entityNew, array(
+            'action' => $this->generateUrl(strtolower($entity).'_create'),
+        ));
+
+        $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
         return $return;
     }
@@ -89,28 +91,39 @@ abstract class AbstractController extends Controller
      * Creates a new item entity.
      *
      * @param Request $request   Request in progress
-     * @param Object $entity     Entity
+     * @param string $entity     Entity
      * @param string $entityPath Path of Entity
      * @param string $typePath   Path of FormType
      * @return array
      */
     public function abstractCreateAction(Request $request, $entity, $entityPath, $typePath)
     {
+        $param = array();
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew);
+        $form = $this->createForm(new $typePath(), $entityNew, array(
+            'action' => $this->generateUrl(strtolower($entity).'_create'),
+        ));
+
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();
+            $this->addFlash('info', 'gestock.create.ok');
 
-            return $this->redirectToRoute($entity.'_show', array('id' => $entityNew->getId()));
+            if ($entity === 'company' || $entity === 'settings' || $entity === 'tva') {
+                $param = array('id' => $entityNew->getId());
+            } else {
+                $param = array('slug' => $entityNew->getSlug());
+            }
+            $return = $form->get('addmore')->isClicked()
+                ? $entity.'_new'
+                : $entity.'_show';
+
+            return $this->redirectToRoute($return, $param);
         }
 
-        return array(
-            $entity => $entityNew,
-            'form'   => $form->createView(),
-        );
+        return array($entity => $entityNew, 'form' => $form->createView(),);
     }
 
     /**
@@ -123,8 +136,13 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
+        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
+            $param = array('id' => $entity->getId());
+        } else {
+            $param = array('slug' => $entity->getSlug());
+        }
         $editForm = $this->createForm(new $typePath(), $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
@@ -147,15 +165,20 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
+        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
+            $param = array('id' => $entity->getId());
+        } else {
+            $param = array('slug' => $entity->getSlug());
+        }
         $editForm = $this->createForm(new $typePath(), $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.'.$entityName.'.edit_ok');
+            $this->addFlash('info', 'gestock.edit.ok');
 
-            return $this->redirectToRoute($entityName.'_edit', array('id' => $entity->getId()));
+            return $this->redirectToRoute($entityName.'_edit', $param);
         }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 

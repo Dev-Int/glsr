@@ -17,7 +17,7 @@
                 <td class="col-md-8">{{ unitstorage.name }}</td>
             </tr>
             <tr>
-                <th scope="row">{{ 'gestock.abbr'|trans }}</th>
+                <th scope="row">{{ 'gestock.abbreviation'|trans }}</th>
                 <td>{{ unitstorage.abbr }}</td>
             </tr>
         </tbody>
@@ -32,8 +32,8 @@
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('unitstorage_edit', {slug: unitstorage.slug}) }}">
-                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            <a class="btn btn-primary btn-edit" href="{{ path('unitstorage_edit', {slug: unitstorage.slug}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
 

@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('rate_create')}) }}
+    {{ form_start(form, {action: path('tva_create')}) }}
         {{ form_row(form.name) }}
         <div class="form-group">
             <div class="col-sm-8 col-sm-offset-3">
@@ -26,7 +26,7 @@
         
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('rate') }}">
+            <a class="btn btn-info" href="{{ path('tva') }}">
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 

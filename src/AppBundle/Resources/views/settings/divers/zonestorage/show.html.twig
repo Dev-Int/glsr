@@ -26,8 +26,8 @@
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('zonestorage_edit', {slug: zonestorage.slug}) }}">
-                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            <a class="btn btn-primary btn-edit" href="{{ path('zonestorage_edit', {slug: zonestorage.slug}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
 

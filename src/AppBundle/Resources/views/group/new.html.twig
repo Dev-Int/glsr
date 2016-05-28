@@ -2,7 +2,9 @@
 
 {% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
-{% block title %}{{ '%entity% creation'|trans({'%entity%': 'menu.groups'|trans}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'menu.groups'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
 
 {% block body_title %}
     <span class="fa fa-users" aria-hidden="true"></span>&nbsp;
@@ -10,16 +12,16 @@
 {% endblock body_title %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('groups_create')}) }}
+    {{ form_start(form, {action: path('group_create')}) }}
         {{ form_widget(form) }}
         <p>
-            <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
+            <button class="btn btn-primary btn-create" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
         </p>
     {{ form_end(form) }}
 
     <div class="btn-group record_actions">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('groups') }}">
+        <a class="btn btn-info" href="{{ path('group') }}">
             <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
         </a>
 

@@ -8,12 +8,12 @@
         {% set sort = app.session.get('sort.' ~ name) %}
         {% if sort and sort.field == field %}
             {% if sort.type == 'DESC' %}
-                <a href="{{ path('suppliers_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
+                <a href="{{ path('supplier_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
             {% elseif sort.type == 'ASC' %}
-                <a href="{{ path('suppliers_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
+                <a href="{{ path('supplier_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
             {% endif %}
         {% else %}
-            <a href="{{ path('suppliers_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
+            <a href="{{ path('supplier_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
@@ -49,17 +49,17 @@
             {% for supplier in paginator %}
                 <tr>
                     <td>{{ "%06d"|format(supplier.id) }}</td>
-                    <td><a href="{{ path('suppliers_show', {slug: supplier.slug}) }}">{{ supplier.name }}</a></td>
+                    <td><a href="{{ path('supplier_show', {slug: supplier.slug}) }}">{{ supplier.name }}</a></td>
                     <td>{{ supplier.address }}<br />
                         {{ supplier.zipcode }} {{ supplier.town }}</td>
                     <td>{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('suppliers_show', {slug: supplier.slug}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('supplier_show', {slug: supplier.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
                                 {% if is_granted('ROLE_ADMIN') %}
-                            <a class="btn btn-info btn-sm" href="{{ path('suppliers_edit', {slug: supplier.slug}) }}">
+                            <a class="btn btn-info btn-sm" href="{{ path('supplier_edit', {slug: supplier.slug}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                                 {% endif %}
@@ -75,7 +75,7 @@
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-info" href="{{ path('suppliers_new') }}">
+        <a class="btn btn-info" href="{{ path('supplier_new') }}">
             <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
         {% endif %}

@@ -27,46 +27,42 @@ use AppBundle\Form\Type\GroupType;
  *
  * @category Controller
  *
- * @Route("/admin/groups")
+ * @Route("/admin/group")
  */
 class GroupController extends AbstractController
 {
     /**
      * Lists all Group entities.
      *
-     * @Route("/", name="groups")
+     * @Route("/", name="group")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:Group')->findAll();
-        
-        return array('entities'  => $entities);
+        $return = $this->abstractIndexAction('Group');
+
+        return $return;
     }
 
     /**
      * Finds and displays a Group entity.
      *
-     * @Route("/{id}/show", name="groups_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="group_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Group $group)
     {
-        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
+        $return = $this->abstractShowAction($group, 'group');
 
-        return array(
-            'group' => $group,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
      * Displays a form to create a new Group entity.
      *
-     * @Route("/new", name="groups_new")
+     * @Route("/new", name="group_new")
      * @Method("GET")
      * @Template()
      */
@@ -74,15 +70,16 @@ class GroupController extends AbstractController
     {
         $group = new Group();
         $form = $this->createForm(new GroupType(), $group);
-        $form->add('roles', 'choice', array(
-            'choices' => $this->getExistingRoles(),
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'translation_domain' => 'admin',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
+        $this->addRoles($form, $group);
+//        $form->add('roles', 'choice', array(
+//            'choices' => $this->getExistingRoles(),
+//            'data' => $group->getRoles(),
+//            'label' => 'Roles',
+//            'translation_domain' => 'admin',
+//            'expanded' => true,
+//            'multiple' => true,
+//            'mapped' => true,
+//        ));
 
 
         return array(
@@ -94,7 +91,7 @@ class GroupController extends AbstractController
     /**
      * Creates a new Group entity.
      *
-     * @Route("/create", name="groups_create")
+     * @Route("/create", name="group_create")
      * @Method("POST")
      * @Template("AppBundle:Group:new.html.twig")
      */
@@ -102,20 +99,15 @@ class GroupController extends AbstractController
     {
         $group = new Group();
         $form = $this->createForm(new GroupType(), $group);
-        $form->add('roles', 'choice', array(
-            'choices' => $this->getExistingRoles(),
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
+        $this->addRoles($form, $group);
+
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($group);
             $etm->flush();
+            $this->addFlash('info', 'gestock.create.ok');
 
-            return $this->redirectToRoute('groups_show', array('id', $group->getId()));
+            return $this->redirectToRoute('group_show', array('id' => $group->getId()));
         }
 
         return array(
@@ -127,7 +119,7 @@ class GroupController extends AbstractController
     /**
      * Displays a form to edit an existing Group entity.
      *
-     * @Route("/{id}/edit", name="groups_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="group_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -138,21 +130,15 @@ class GroupController extends AbstractController
             $group,
             array(
                 'action' => $this->generateUrl(
-                    'groups_update',
+                    'group_update',
                     array('id' => $group->getId())
                 ),
                 'method' => 'PUT',
             )
         );
-        $editForm->add('roles', 'choice', array(
-            'choices' => $this->getExistingRoles(),
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
-        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
+        $this->addRoles($editForm, $group);
+
+        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
 
         return array(
             'group' => $group,
@@ -164,30 +150,25 @@ class GroupController extends AbstractController
     /**
      * Edits an existing Group entity.
      *
-     * @Route("/{id}/update", name="groups_update", requirements={"id"="\d+"})
+     * @Route("/{id}/update", name="group_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
      */
     public function updateAction(Group $group, Request $request)
     {
         $editForm = $this->createForm(new GroupType(), $group, array(
-            'action' => $this->generateUrl('groups_update', array('id' => $group->getId())),
+            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
             'method' => 'PUT',
         ));
-        $editForm->add('roles', 'choice', array(
-            'choices' => $this->getExistingRoles(),
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
+        $this->addRoles($editForm, $group);
+
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.edit.ok');
 
-            return $this->redirectToRoute('groups_edit', array('id' => $group->getId()));
+            return $this->redirectToRoute('group_edit', array('id' => $group->getId()));
         }
-        $deleteForm = $this->createDeleteForm($group->getId(), 'groups_delete');
+        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
 
         return array(
             'group' => $group,
@@ -199,12 +180,12 @@ class GroupController extends AbstractController
     /**
      * Deletes a Group entity.
      *
-     * @Route("/{id}/delete", name="groups_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="group_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Group $group, Request $request)
     {
-        $form = $this->createDeleteForm($group->getId(), 'groups_delete');
+        $form = $this->createDeleteForm($group->getId(), 'group_delete');
         
         $etm = $this->getDoctrine()->getManager();
         $users = $group->getUsers();
@@ -221,7 +202,7 @@ class GroupController extends AbstractController
             $etm->flush();
         }
 
-        return $this->redirectToRoute('groups');
+        return $this->redirectToRoute('group');
     }
 
     /**
@@ -239,5 +220,26 @@ class GroupController extends AbstractController
             $theRoles[$role] = $role;
         }
         return $theRoles;
+    }
+
+    /**
+     * Add roles to form
+     *
+     * @param Form  $form  The form in which to insert the roles
+     * @param Group $group The entity to deal
+     * @return Form The form
+     */
+    private function addRoles($form, $group)
+    {
+        $form->add('roles', 'choice', array(
+            'choices' => $this->getExistingRoles(),
+            'data' => $group->getRoles(),
+            'label' => 'Roles',
+            'expanded' => true,
+            'multiple' => true,
+            'mapped' => true,
+        ));
+
+        return $form;
     }
 }

@@ -20,7 +20,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\UnitStorage;
-use AppBundle\Form\Type\UnitStorageType;
 
 /**
  * UnitStorage controller.
@@ -57,12 +56,9 @@ class UnitStorageController extends AbstractController
      */
     public function showAction(UnitStorage $unitstorage)
     {
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
+        $return = $this->abstractShowAction($unitstorage, 'unitstorage');
 
-        return array(
-            'unitstorage' => $unitstorage,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -74,13 +70,13 @@ class UnitStorageController extends AbstractController
      */
     public function newAction()
     {
-        $unitstorage = new UnitStorage();
-        $form = $this->createForm(new UnitStorageType(), $unitstorage);
-
-        return array(
-            'unitstorage' => $unitstorage,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'UnitStorage',
+            'AppBundle\Entity\UnitStorage',
+            'AppBundle\Form\Type\UnitStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -92,27 +88,14 @@ class UnitStorageController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $url = '';
-        $unitstorage = new UnitStorage();
-        $form = $this->createForm(new UnitStorageType(), $unitstorage);
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->persist($unitstorage);
-            $etm->flush();
-
-            if ($form->get('save')->isSubmitted()) {
-                $url = $this->redirectToRoute('unitstorage_show', array('slug' => $unitstorage->getSlug()));
-            } elseif ($form->get('addmore')->isSubmitted()) {
-                $this->addFlash('info', 'gestock.settings.add_ok');
-                $url = $this->redirectToRoute('unitstorage_new');
-            }
-            return $url;
-        }
-
-        return array(
-            'unitstorage' => $unitstorage,
-            'form'   => $form->createView(),
+        $return = $this->abstractCreateAction(
+            $request,
+            'unitstorage',
+            'AppBundle\Entity\UnitStorage',
+            'AppBundle\Form\Type\UnitStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -124,17 +107,13 @@ class UnitStorageController extends AbstractController
      */
     public function editAction(UnitStorage $unitstorage)
     {
-        $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
-            'action' => $this->generateUrl('unitstorage_update', array('slug' => $unitstorage->getSlug())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
-
-        return array(
-            'unitstorage' => $unitstorage,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractEditAction(
+            $unitstorage,
+            'unitstorage',
+            'AppBundle\Form\Type\UnitStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -146,23 +125,14 @@ class UnitStorageController extends AbstractController
      */
     public function updateAction(UnitStorage $unitstorage, Request $request)
     {
-        $editForm = $this->createForm(new UnitStorageType(), $unitstorage, array(
-            'action' => $this->generateUrl('unitstorage_update', array('slug' => $unitstorage->getSlug())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.settings.edit_ok');
-
-            return $this->redirectToRoute('unitstorage_edit', array('slug' => $unitstorage->getSlug()));
-        }
-        $deleteForm = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
-
-        return array(
-            'unitstorage' => $unitstorage,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $unitstorage,
+            $request,
+            'unitstorage',
+            'AppBundle\Form\Type\UnitStorageType'
         );
+
+        return $return;
     }
 
     /**
@@ -173,12 +143,7 @@ class UnitStorageController extends AbstractController
      */
     public function deleteAction(UnitStorage $unitstorage, Request $request)
     {
-        $form = $this->createDeleteForm($unitstorage->getId(), 'unitstorage_delete');
-        if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $etm->remove($unitstorage);
-            $etm->flush();
-        }
+        $this->abstractDeleteAction($unitstorage, $request, 'unitstorage');
 
         return $this->redirectToRoute('unitstorage');
     }

@@ -37,7 +37,6 @@ gestock:
     contact: Contact
     date: Date
     details: Détails
-    edit: Modifier
     fax: Fax
     gsm: Mobile
     id: ID
@@ -156,6 +155,7 @@ gestock:
             currency: "Monnaie "
         diverse:
             title: Divers
+            edit_ok: "Configuration bien modifiée"
             familylog: "Famille logistique"
             family_subtitle: "Gestion des familles et sous-familles logistiques."
             add_family: "Pour le bon fonctionnement de l'application, vous devez créer des familles logistiques."

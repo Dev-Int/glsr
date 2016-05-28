@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-map-marker"></span>
+    <span class="glyphicon glyphicon-map-marker"></span> 
     {{ '%entity% edit'|trans({'%entity%': 'gestock.settings.diverse.zonestorage'|trans()}, 'admin') }}
 {% endblock %}
 
@@ -17,7 +17,9 @@
         <div class="form-group">
             <div class="col-sm-8 col-sm-offset-3">
                 <p>
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+                    <button class="btn btn-primary btn-edit" type="submit">
+                        {{ 'Edit'|trans({}, 'admin') }}
+                    </button>
                 </p>
                 <div class="btn-group record_actions hidden">
                     {{ form_widget(edit_form.save) }}
@@ -35,7 +37,9 @@
                 <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
             </a>
 
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger" type="submit">
+                <i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}
+            </button>
 
         </div>
 

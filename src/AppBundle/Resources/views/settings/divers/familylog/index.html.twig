@@ -33,8 +33,8 @@
                             <a class="btn btn-default btn-sm" href="{{ path('familylog_show', {slug: familylog.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('familylog_edit', {slug: familylog.slug}) }}">
-                                <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('familylog_edit', {slug: familylog.slug}) }}">
+                                {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
                     </td>
@@ -53,8 +53,8 @@
                                 <a class="btn btn-default btn-sm" href="{{ path('familylog_show', {slug: child.slug}) }}">
                                     <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                                 </a>
-                                <a class="btn btn-default btn-sm" href="{{ path('familylog_edit', {slug: child.slug}) }}">
-                                    <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
+                                <a class="btn btn-info btn-edit btn-sm" href="{{ path('familylog_edit', {slug: child.slug}) }}">
+                                    {{ 'edit'|trans({}, 'admin') }}
                                 </a>
                             </div>
                         </td>

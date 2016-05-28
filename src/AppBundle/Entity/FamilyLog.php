@@ -250,9 +250,9 @@ class FamilyLog
     public function getIndentedName()
     {
         if ($this->parent !== null) {
-            return " >> " . $this->name;
+            return '|-- '.$this->name;
         } else {
-            return "- " . $this->name;
+            return '- '.$this->name;
         }
     }
 }

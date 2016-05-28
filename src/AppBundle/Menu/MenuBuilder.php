@@ -36,7 +36,7 @@ class MenuBuilder extends ContainerAware
         
         $menu['manage']->addChild('suppliers', array(
             'label' => 'title',
-            'route' => 'suppliers'
+            'route' => 'supplier'
         ))
             ->setExtra('translation_domain', 'gs_suppliers')
             ->setAttribute('icon', 'fa fa-barcode');
@@ -120,7 +120,7 @@ class MenuBuilder extends ContainerAware
 
             $divers
                 ->addChild('tva', array(
-                    'route' => 'rate',
+                    'route' => 'tva',
                     'label' => 'gestock.settings.diverse.vat'
                 ))
                 ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
@@ -131,13 +131,13 @@ class MenuBuilder extends ContainerAware
 
             $menu['entities']
                 ->addChild('users', array(
-                    'route' => 'users',
+                    'route' => 'user',
                     'label' => 'menu.users'))
                 ->setAttribute('icon', 'glyphicon glyphicon-user');
 
             $menu['entities']
                 ->addChild('groups', array(
-                    'route' => 'groups',
+                    'route' => 'group',
                     'label' => 'menu.groups'))
                 ->setAttribute('icon', 'fa fa-users');
         }
