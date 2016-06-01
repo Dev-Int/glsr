@@ -149,11 +149,11 @@ class SupplierController extends AbstractController
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="supplier_sort")
+     * @Route("/order/{entity}/{field}/{type}", name="supplier_sort")
      */
-    public function sortAction($field, $type)
+    public function sortAction($entity, $field, $type)
     {
-        $this->setOrder('supplier', $field, $type);
+        $this->setOrder('supplier', $entity, $field, $type);
 
         return $this->redirectToRoute('supplier');
     }

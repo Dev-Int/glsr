@@ -208,13 +208,18 @@ abstract class AbstractController extends Controller
     /**
      * SetOrder for the SortAction in views.
      *
-     * @param string $name  session name
-     * @param string $field field name
-     * @param string $type  sort type ("ASC"/"DESC")
+     * @param string $name   session name
+     * @param string $entity entity name
+     * @param string $field  field name
+     * @param string $type   sort type ("ASC"/"DESC")
      */
-    protected function setOrder($name, $field, $type = 'ASC')
+    protected function setOrder($name, $entity, $field, $type = 'ASC')
     {
-        $this->getRequest()->getSession()->set('sort.'.$name, array('field' => $field, 'type' => $type));
+        $this->getRequest()->getSession()->set('sort.'.$name, array(
+            'entity' => $entity,
+            'field' => $field,
+            'type' => $type
+        ));
     }
 
     /**
@@ -239,8 +244,18 @@ abstract class AbstractController extends Controller
      */
     protected function addQueryBuilderSort(QueryBuilder $qbd, $name)
     {
-        $alias = current($qbd->getDQLPart('from'))->getAlias();
         if (is_array($order = $this->getOrder($name))) {
+            if ($name !== $order['entity']) {
+                $rootAlias = current($qbd->getDQLPart('from'))->getAlias();
+                $join = current($qbd->getDQLPart('join'));
+                foreach ($join as $item) {
+                    if ($item->getJoin() === $rootAlias.'.'.$order['entity']) {
+                        $alias = $item->getAlias();
+                    }
+                }
+            } else {
+                $alias = current($qbd->getDQLPart('from'))->getAlias();
+            }
             $qbd->orderBy($alias . '.' . $order['field'], $order['type']);
         }
     }

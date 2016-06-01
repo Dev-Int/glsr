@@ -32,10 +32,14 @@ class ArticleRepository extends EntityRepository
     public function getArticles()
     {
         $query = $this->createQueryBuilder('a')
-            ->leftjoin('a.supplier', 's')
+            ->join('a.supplier', 's')
             ->addSelect('s')
+            ->join('a.familyLog', 'fl')
+            ->addSelect('fl')
+            ->join('a.zoneStorages', 'z')
+            ->addSelect('z')
             ->where('a.active = 1')
-            ->orderBy('a.name', 'ASC');
+        ;
         
         return $query;
     }

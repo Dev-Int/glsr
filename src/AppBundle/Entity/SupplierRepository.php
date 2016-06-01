@@ -32,8 +32,10 @@ class SupplierRepository extends EntityRepository
     public function getSuppliers()
     {
         $query = $this->createQueryBuilder('s')
+            ->join('s.familyLog', 'fl')
+            ->addSelect('fl')
             ->where('s.active = 1')
-            ->orderBy('s.name', 'ASC');
+        ;
         
         return $query;
     }

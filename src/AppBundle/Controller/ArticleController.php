@@ -212,11 +212,11 @@ class ArticleController extends AbstractController
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="article_sort")
+     * @Route("/order/{entity}/{field}/{type}", name="article_sort")
      */
-    public function sortAction($field, $type)
+    public function sortAction($entity, $field, $type)
     {
-        $this->setOrder('article', $field, $type);
+        $this->setOrder('article', $entity, $field, $type);
 
         return $this->redirect($this->generateUrl('article'));
     }
