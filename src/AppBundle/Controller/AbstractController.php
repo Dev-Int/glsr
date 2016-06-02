@@ -112,9 +112,7 @@ abstract class AbstractController extends Controller
             $this->addFlash('info', 'gestock.create.ok');
 
             $param = $this->testReturnParam($entityNew, strtolower($entity));
-            $return = $form->get('addmore')->isClicked()
-                ? $entity.'_new'
-                : $entity.'_show';
+            $return = $form->get('addmore')->isClicked() ? $entity.'_new' : $entity.'_show';
 
             return $this->redirectToRoute($return, $param);
         }
@@ -244,6 +242,7 @@ abstract class AbstractController extends Controller
      */
     protected function addQueryBuilderSort(QueryBuilder $qbd, $name)
     {
+        $alias = '';
         if (is_array($order = $this->getOrder($name))) {
             if ($name !== $order['entity']) {
                 $rootAlias = current($qbd->getDQLPart('from'))->getAlias();
