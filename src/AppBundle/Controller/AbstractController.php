@@ -15,6 +15,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
 
@@ -213,7 +214,8 @@ abstract class AbstractController extends Controller
      */
     protected function setOrder($name, $entity, $field, $type = 'ASC')
     {
-        $this->getRequest()->getSession()->set('sort.'.$name, array(
+        $session = new Session();
+        $session->set('sort.'.$name, array(
             'entity' => $entity,
             'field' => $field,
             'type' => $type
@@ -223,13 +225,13 @@ abstract class AbstractController extends Controller
     /**
      * GetOrder for the SortAction in views.
      *
-     * @param string $name
+     * @param string $name session name
      *
      * @return array
      */
     protected function getOrder($name)
     {
-        $session = $this->getRequest()->getSession();
+        $session = new Session();
 
         return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
     }
