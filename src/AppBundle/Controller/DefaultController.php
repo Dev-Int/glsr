@@ -14,6 +14,7 @@
  */
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -143,9 +144,8 @@ class DefaultController extends Controller
      * @Method("POST")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFamilyLogAction()
+    public function getFamilyLogAction(Request $request)
     {
-        $request = $this->getRequest();
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
             $familyLog = array();
