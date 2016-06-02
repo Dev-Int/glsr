@@ -22,9 +22,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
-use AppBundle\Form\Type\UserFilterType;
-use Symfony\Component\Form\FormInterface;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * User controller.
@@ -42,18 +39,14 @@ class UserController extends AbstractController
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $etm = $this->getDoctrine()->getManager();
-        $form = $this->createForm(new UserFilterType());
-        if (!is_null($response = $this->saveFilter($form, 'user', 'user'))) {
-            return $response;
-        }
-        $qbd = $etm->getRepository('AppBundle:User')->createQueryBuilder('u');
-        $paginator = $this->filter($form, $qbd, 'user');
+        $qbd = $etm->getRepository('AppBundle:User')->getUsers();
+        $this->addQueryBuilderSort($qbd, 'user');
+        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 5);
         
         return array(
-            'form'      => $form->createView(),
             'paginator' => $paginator,
         );
     }
@@ -173,76 +166,13 @@ class UserController extends AbstractController
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="user_sort")
+     * @Route("/order/{entity}/{field}/{type}", name="user_sort")
      */
-    public function sortAction($field, $type)
+    public function sortAction($entity, $field, $type)
     {
-        $this->setOrder('user', $field, $type);
+        $this->setOrder('user', $entity, $field, $type);
 
         return $this->redirectToRoute('user');
-    }
-
-    /**
-     * Save filters
-     *
-     * @param  FormInterface $form
-     * @param  string        $name    route/entity name
-     * @param  string|null   $route   route name, if different from entity name
-     * @param  null|Request   $request Request
-     * @param  null|array[]       $params  possible route parameters
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
-     */
-    protected function saveFilter(
-        FormInterface $form,
-        $name,
-        $route = null,
-        Request $request = null,
-        array $params = null
-    ) {
-        $url = $this->generateUrl($route ?: $name, is_null($params) ? array() : $params);
-        if (isset($request)) {
-            if ($request->query->has('submit-filter') && $form->handleRequest($request)->isValid()) {
-                $request->getSession()->set('filter.' . $name, $request->query->get($form->getName()));
-
-                return $this->redirect($url);
-            } elseif ($request->query->has('reset-filter')) {
-                $request->getSession()->set('filter.' . $name, null);
-
-                return $this->redirect($url);
-            }
-        }
-    }
-
-    /**
-     * Filter form
-     *
-     * @param  FormInterface                                       $form
-     * @param  QueryBuilder                                        $qbd
-     * @param  string                                              $name
-     * @return \Knp\Component\Pager\Pagination\PaginationInterface
-     */
-    protected function filter(FormInterface $form, QueryBuilder $qbd, $name)
-    {
-        if (!is_null($values = $this->getFilter($name))) {
-            if ($form->submit($values)->isValid()) {
-                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $qbd);
-            }
-        }
-
-        // possible sorting
-        $this->addQueryBuilderSort($qbd, $name);
-        return $this->get('knp_paginator')->paginate($qbd, $this->getRequest()->query->get('page', 1), 20);
-    }
-
-    /**
-     * Get filters from session
-     *
-     * @param  string $name
-     * @return array
-     */
-    protected function getFilter($name)
-    {
-        return $this->getRequest()->getSession()->get('filter.' . $name);
     }
 
     /**

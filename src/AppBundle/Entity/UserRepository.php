@@ -26,4 +26,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * Display enabled users.
+     *
+     * @return QueryBuilder DQL Request
+     */
+    public function getUsers()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->join('u.groups', 'g')
+            ->addSelect('g')
+            ->where('u.enabled = 1')
+        ;
+        
+        return $query;
+    }
 }

@@ -24,7 +24,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @category   Entity
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\UserRepository")
  * @ORM\Table(name="fos_user")
  * @UniqueEntity(fields="usernameCanonical", errorPath="username",
  *     message="fos_user.username.already_used", groups={"Default", "Registration", "Profile"})
