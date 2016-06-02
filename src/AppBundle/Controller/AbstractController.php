@@ -215,6 +215,7 @@ abstract class AbstractController extends Controller
     protected function setOrder($name, $entity, $field, $type = 'ASC')
     {
         $session = new Session();
+
         $session->set('sort.'.$name, array(
             'entity' => $entity,
             'field' => $field,
