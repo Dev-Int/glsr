@@ -37,6 +37,8 @@ class GroupController extends AbstractController
      * @Route("/", name="group")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -51,6 +53,9 @@ class GroupController extends AbstractController
      * @Route("/{id}/show", name="group_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Group $group Group to display
+     * @return array
      */
     public function showAction(Group $group)
     {
@@ -65,6 +70,8 @@ class GroupController extends AbstractController
      * @Route("/new", name="group_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -84,6 +91,9 @@ class GroupController extends AbstractController
      * @Route("/create", name="group_create")
      * @Method("POST")
      * @Template("AppBundle:Group:new.html.twig")
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -112,6 +122,9 @@ class GroupController extends AbstractController
      * @Route("/{id}/edit", name="group_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Group $group Group item to edit
+     * @return array
      */
     public function editAction(Group $group)
     {
@@ -136,6 +149,10 @@ class GroupController extends AbstractController
      * @Route("/{id}/update", name="group_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Group:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Group                   $group   Group item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function updateAction(Group $group, Request $request)
     {
@@ -165,6 +182,10 @@ class GroupController extends AbstractController
      *
      * @Route("/{id}/delete", name="group_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Group                   $group   Group item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Group $group, Request $request)
     {

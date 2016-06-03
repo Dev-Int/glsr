@@ -280,7 +280,7 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * Test Inventory.
+     * Testing the installation inventory.
      *
      * @return string|null
      */
@@ -305,5 +305,32 @@ abstract class AbstractController extends Controller
         }
 
         return $url;
+    }
+
+    /**
+     * Array of file (`pdf`) layout.
+     *
+     * @param string $date File date
+     * @param string $title Tile title
+     * @return array<string,integer|string|boolean>
+     */
+    protected function getArray($date, $title)
+    {
+        $array = array(
+            'margin-top' => 15,
+            'header-spacing' => 5,
+            'header-font-size' => 8,
+            'header-left' => 'G.L.S.R.',
+            'header-center' => $title,
+            'header-right' => $date,
+            'header-line' => true,
+            'margin-bottom' => 15,
+            'footer-spacing' => 5,
+            'footer-font-size' => 8,
+            'footer-left' => 'GLSR &copy 2014 and beyond.',
+            'footer-right' => 'Page [page]/[toPage]',
+            'footer-line' => true,
+        );
+        return $array;
     }
 }

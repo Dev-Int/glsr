@@ -52,6 +52,8 @@ class DefaultController extends Controller
      * @Route("/", name="_home")
      * @Method("GET")
      * @Template()
+     *
+     * @return \Symfony\Component\HttpFoundation\Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function indexAction()
     {
@@ -64,7 +66,7 @@ class DefaultController extends Controller
         } else {
             $url = $this->redirectToRoute($url);
         }
-
+        
         /**
          * Affichage du dernier inventaire.
          */
@@ -75,13 +77,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Récupérer les Alertes.
+     * Get Alerts.
      *
-     * @param integer $number nombres d'alertes à afficher
      * @Route("/alert", name="stockalert")
      * @Method("GET")
      * @Template("default/stockAlert.html.twig")
      *
+     * @param integer $number Number of alerts to display.
      * @return array|null
      */
     public function stockAlertAction($number)
@@ -93,13 +95,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Récupérer les Alertes.
+     * Get the latest inventories.
      *
-     * @param integer $number nombres d'alertes à afficher
-     * @Route("/alert", name="stockalert")
+     * @Route("/alert", name="lastinventories")
      * @Method("GET")
      * @Template("default/lastInventory.html.twig")
      *
+     * @param integer $number Number of inventories to display
      * @return array|null
      */
     public function lastInventoryAction($number)
@@ -111,7 +113,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Test des entités
+     * Test entities.
      *
      * @return string|null
      */
@@ -138,10 +140,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * Récupère les FamilyLog de la requête post.
+     * Get FamilyLog.
      *
      * @Route("/getfamilylog", name="getfamilylog")
      * @Method("POST")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Post request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getFamilyLogAction(Request $request)

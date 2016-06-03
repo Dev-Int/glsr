@@ -42,6 +42,9 @@ class InventoryController extends AbstractController
      * @Route("/", name="inventory")
      * @Method("GET")
      * @Template()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Paginate request
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -64,6 +67,9 @@ class InventoryController extends AbstractController
      * @Route("/{id}/show", name="inventory_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Inventory $inventory Inventory item to display
+     * @return array
      */
     public function showAction(Inventory $inventory)
     {
@@ -93,11 +99,7 @@ class InventoryController extends AbstractController
         return $this->createForm(
             new InventoryType(),
             $inventory,
-            array(
-                'attr'   => array('id' => 'create'),
-                'action' => $this->generateUrl($route),
-                'method' => 'PUT'
-            )
+            array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
         );
     }
 
@@ -106,6 +108,9 @@ class InventoryController extends AbstractController
      *
      * @Route("/create", name="inventory_create")
      * @Method("PUT")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -118,12 +123,12 @@ class InventoryController extends AbstractController
         if ($form->handleRequest($request)->isValid()) {
             $etm->persist($inventory);
 
-            // Enregistrement du premier inventaire
+            // Saving the first inventory
             if (empty($settings->getFirstInventory)) {
                 $settings->setFirstInventory($inventory->getDate());
                 $etm->persist($settings);
             }
-            // Enregistrement des articles dans l'inventaire
+            // Saving of articles in the inventory
             foreach ($articles as $article) {
                 $inventoryArticles = new InventoryArticles();
                 $inventoryArticles->setArticle($article);
@@ -146,14 +151,14 @@ class InventoryController extends AbstractController
      * @Route("/{id}/edit", name="inventory_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Inventory $inventory Inventory item to edit
+     * @return array
      */
     public function editAction(Inventory $inventory)
     {
         $editForm = $this->createForm(new InventoryEditType(), $inventory, array(
-            'action' => $this->generateUrl(
-                'inventory_update',
-                array('id' => $inventory->getId())
-            ),
+            'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
@@ -171,6 +176,10 @@ class InventoryController extends AbstractController
      * @Route("/{id}/update", name="inventory_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Inventory:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Inventory               $inventory Inventory item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request   Form request
+     * @return array
      */
     public function updateAction(Inventory $inventory, Request $request)
     {
@@ -200,14 +209,14 @@ class InventoryController extends AbstractController
      * @Route("/{id}/valid", name="inventory_valid", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Inventory $inventory Inventory item to validate
+     * @return array
      */
     public function validAction(Inventory $inventory)
     {
         $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
-            'action' => $this->generateUrl(
-                'inventory_close',
-                array('id' => $inventory->getId())
-            ),
+            'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
@@ -225,6 +234,10 @@ class InventoryController extends AbstractController
      * @Route("/{id}/close", name="inventory_close", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Inventory:valid.html.twig")
+     *
+     * @param \AppBundle\Entity\Inventory               $inventory Inventory item to close
+     * @param \Symfony\Component\HttpFoundation\Request $request   Form request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function closeAction(Inventory $inventory, Request $request)
     {
@@ -232,10 +245,7 @@ class InventoryController extends AbstractController
         $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
         
         $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
-            'action' => $this->generateUrl(
-                'inventory_close',
-                array('id' => $inventory->getId())
-            ),
+            'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
         if ($validForm->handleRequest($request)->isValid()) {
@@ -268,6 +278,10 @@ class InventoryController extends AbstractController
      *
      * @Route("/{id}/delete", name="inventory_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Inventory               $inventory Inventory item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request   Form request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Inventory $inventory, Request $request)
     {
@@ -288,17 +302,17 @@ class InventoryController extends AbstractController
      * @Route("/{id}/print/", name="inventory_print", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Inventory $inventory Inventory item to print
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function printAction(Inventory $inventory)
     {
         $file = $inventory->getDate()->format('Ymd') . '-inventory.pdf';
-        // Créer et enregistrer le fichier PDF à imprimer
+        // Create and save the PDF file to print
         $html = $this->renderView(
             'AppBundle:Inventory:print.pdf.twig',
-            array(
-                'articles' => $inventory->getArticles(),
-                'inventory' => $inventory
-            )
+            array('articles' => $inventory->getArticles(), 'inventory' => $inventory,)
         );
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
@@ -319,6 +333,9 @@ class InventoryController extends AbstractController
      * @Route("/{id}/print/prepare", name="inventory_print_prepare", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Inventory $inventory
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function prepareDataAction(Inventory $inventory)
     {
@@ -328,11 +345,7 @@ class InventoryController extends AbstractController
         
         $html = $this->renderView(
             'AppBundle:Inventory:list.pdf.twig',
-            array(
-                    'articles' => $articles,
-                    'zonestorage' => $zoneStorages,
-                    'daydate' => $inventory->getDate(),
-            )
+            array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
         );
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
@@ -345,32 +358,5 @@ class InventoryController extends AbstractController
                 'Content-Disposition' => 'attachment; filename="prepare.pdf"'
             )
         );
-    }
-
-    /**
-     * Array of file (`pdf`) layout.
-     *
-     * @param string $date File date
-     * @param string $title Tile title
-     * @return array<string,integer|string|boolean>
-     */
-    private function getArray($date, $title)
-    {
-        $array = array(
-            'margin-top' => 15,
-            'header-spacing' => 5,
-            'header-font-size' => 8,
-            'header-left' => 'G.L.S.R.',
-            'header-center' => $title,
-            'header-right' => $date,
-            'header-line' => true,
-            'margin-bottom' => 15,
-            'footer-spacing' => 5,
-            'footer-font-size' => 8,
-            'footer-left' => 'GLSR &copy 2014 and beyond.',
-            'footer-right' => 'Page [page]/[toPage]',
-            'footer-line' => true,
-        );
-        return $array;
     }
 }

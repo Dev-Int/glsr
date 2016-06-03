@@ -36,6 +36,9 @@ class UnitStorageController extends AbstractController
      * @Route("/", name="unitstorage")
      * @Method("GET")
      * @Template()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Paginate request
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -53,6 +56,9 @@ class UnitStorageController extends AbstractController
      * @Route("/{slug}/show", name="unitstorage_show")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\UnitStorage $unitstorage UnitStaorage to display
+     * @return array
      */
     public function showAction(UnitStorage $unitstorage)
     {
@@ -67,6 +73,8 @@ class UnitStorageController extends AbstractController
      * @Route("/new", name="unitstorage_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -85,6 +93,9 @@ class UnitStorageController extends AbstractController
      * @Route("/create", name="unitstorage_create")
      * @Method("POST")
      * @Template("AppBundle:Settings/Divers/UnitStorage:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -104,6 +115,9 @@ class UnitStorageController extends AbstractController
      * @Route("/{slug}/edit", name="unitstorage_edit")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\UnitStorage $unitstorage UnitStorage item to edit
+     * @return array
      */
     public function editAction(UnitStorage $unitstorage)
     {
@@ -122,6 +136,10 @@ class UnitStorageController extends AbstractController
      * @Route("/{slug}/update", name="unitstorage_update")
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/UnitStorage:edit.html.twig")
+     *
+     * @param \AppBndle\Entity\UnitStorage              $unitstorage UnitStorage item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request     Form request
+     * @return array
      */
     public function updateAction(UnitStorage $unitstorage, Request $request)
     {
@@ -140,6 +158,10 @@ class UnitStorageController extends AbstractController
      *
      * @Route("/{id}/delete", name="unitstorage_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\UnitStorage             $unitstorage UnitStorage item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request     Form request
+     * @return array
      */
     public function deleteAction(UnitStorage $unitstorage, Request $request)
     {

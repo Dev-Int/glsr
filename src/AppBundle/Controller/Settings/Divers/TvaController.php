@@ -36,6 +36,8 @@ class TvaController extends AbstractController
      * @Route("/", name="tva")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -50,6 +52,9 @@ class TvaController extends AbstractController
      * @Route("/{id}/show", name="tva_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Tva $tva Tva item to display
+     * @return array
      */
     public function showAction(Tva $tva)
     {
@@ -64,6 +69,8 @@ class TvaController extends AbstractController
      * @Route("/new", name="tva_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -82,6 +89,9 @@ class TvaController extends AbstractController
      * @Route("/create", name="tva_create")
      * @Method("POST")
      * @Template("AppBundle:Tva:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -101,6 +111,9 @@ class TvaController extends AbstractController
      * @Route("/{id}/edit", name="tva_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Tva $tva Tva item to edit
+     * @return array
      */
     public function editAction(Tva $tva)
     {
@@ -115,6 +128,10 @@ class TvaController extends AbstractController
      * @Route("/{id}/update", name="tva_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Tva:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Tva                     $tva     Tva item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function updateAction(Tva $tva, Request $request)
     {
@@ -128,6 +145,10 @@ class TvaController extends AbstractController
      *
      * @Route("/{id}/delete", name="tva_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Tva                     $tva     Tva item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return type
      */
     public function deleteAction(Tva $tva, Request $request)
     {

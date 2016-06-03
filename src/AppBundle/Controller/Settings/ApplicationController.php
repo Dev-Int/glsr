@@ -36,6 +36,8 @@ class ApplicationController extends AbstractController
      * @Route("/", name="application")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -50,6 +52,9 @@ class ApplicationController extends AbstractController
      * @Route("/{id}/show", name="settings_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Settings $settings Settings item to display
+     * @return array
      */
     public function showAction(Settings $settings)
     {
@@ -64,6 +69,8 @@ class ApplicationController extends AbstractController
      * @Route("/new", name="settings_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -82,6 +89,9 @@ class ApplicationController extends AbstractController
      * @Route("/create", name="settings_create")
      * @Method("POST")
      * @Template("AppBundle:Application:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -101,6 +111,9 @@ class ApplicationController extends AbstractController
      * @Route("/{id}/edit", name="settings_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Settings $settings Settings item to edit
+     * @return array
      */
     public function editAction(Settings $settings)
     {
@@ -119,6 +132,10 @@ class ApplicationController extends AbstractController
      * @Route("/{id}/update", name="settings_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Application:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Settings                $settings Settings item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request  Form request
+     * @return array
      */
     public function updateAction(Settings $settings, Request $request)
     {
@@ -137,6 +154,10 @@ class ApplicationController extends AbstractController
      *
      * @Route("/{id}/delete", name="settings_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Settings                $settings Settings item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request  Form request
+     * @return array
      */
     public function deleteAction(Settings $settings, Request $request)
     {

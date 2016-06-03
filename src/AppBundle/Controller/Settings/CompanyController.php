@@ -36,6 +36,8 @@ class CompanyController extends AbstractController
      * @Route("/", name="company")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -50,6 +52,9 @@ class CompanyController extends AbstractController
      * @Route("/{id}/show", name="company_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Company $company Company item to display
+     * @return array
      */
     public function showAction(Company $company)
     {
@@ -64,6 +69,8 @@ class CompanyController extends AbstractController
      * @Route("/new", name="company_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -82,6 +89,9 @@ class CompanyController extends AbstractController
      * @Route("/create", name="company_create")
      * @Method("POST")
      * @Template("AppBundle:Settings/Company:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -101,6 +111,9 @@ class CompanyController extends AbstractController
      * @Route("/{id}/edit", name="company_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Company $company Company item to edit
+     * @return array
      */
     public function editAction(Company $company)
     {
@@ -119,6 +132,10 @@ class CompanyController extends AbstractController
      * @Route("/{id}/update", name="company_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Company:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Company                 $company Company item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function updateAction(Company $company, Request $request)
     {
@@ -137,6 +154,10 @@ class CompanyController extends AbstractController
      *
      * @Route("/{id}/delete", name="company_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Company                 $company Company item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function deleteAction(Company $company, Request $request)
     {

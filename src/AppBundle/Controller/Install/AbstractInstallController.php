@@ -28,13 +28,13 @@ abstract class AbstractInstallController extends Controller
      * Etape X de l'installation.
      * Fonction adaptable aux différentes étapes de l'installation.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request    Requète du formulaire
-     * @param string                                    $entity     Nom de l'Entity
-     * @param string                                    $entityPath Namespace de l'Entity
-     * @param string                                    $typePath   Namespace du Type
-     * @param int|string                                $number     Numéro de l'étape
+     * @param \Symfony\Component\HttpFoundation\Request $request    Form request
+     * @param string                                    $entity     Entity name
+     * @param string                                    $entityPath Entity Namespace
+     * @param string                                    $typePath   Type of Namespace
+     * @param int|string                                $number     Step number
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|
-     *     array<string,string|null|Settings|\Symfony\Component\Form\FormView> Rendue de la page
+     *     array<string,string|null|Settings|\Symfony\Component\Form\FormView> Rendered view
      */
     public function stepAction(Request $request, $entity, $entityPath, $typePath, $number)
     {
@@ -58,6 +58,9 @@ abstract class AbstractInstallController extends Controller
             );
         }
 
+        /**
+         * @todo Refactor handleRequest of Form
+         */
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);

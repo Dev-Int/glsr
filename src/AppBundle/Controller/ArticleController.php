@@ -38,6 +38,9 @@ class ArticleController extends AbstractController
      * @Route("/", name="article")
      * @Method("GET")
      * @Template()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Paginate request
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -57,6 +60,9 @@ class ArticleController extends AbstractController
      * @Route("/{slug}/show", name="article_show")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Article $article Article item to display
+     * @return array
      */
     public function showAction(Article $article)
     {
@@ -71,6 +77,8 @@ class ArticleController extends AbstractController
      * @Route("/admin/new", name="article_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -89,6 +97,9 @@ class ArticleController extends AbstractController
      * @Route("/create", name="article_create")
      * @Method("POST")
      * @Template("AppBundle:Article:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -108,6 +119,9 @@ class ArticleController extends AbstractController
      * @Route("/admin/{slug}/edit", name="article_edit")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Article $article Article item to edit
+     * @return array
      */
     public function editAction(Article $article)
     {
@@ -122,6 +136,10 @@ class ArticleController extends AbstractController
      * @Route("/{slug}/update", name="article_update")
      * @Method("PUT")
      * @Template("AppBundle:Article:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Article                 $article Article item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function updateAction(Article $article, Request $request)
     {
@@ -142,6 +160,9 @@ class ArticleController extends AbstractController
      * @Route("/{slug}/reassign", name="article_reassign")
      * @Method("GET")
      * @Template()
+     * 
+     * @param \AppBundle\Entity\Supplier $supplier Supplier articles to reassign
+     * @return array
      */
     public function reassignAction(Supplier $supplier)
     {
@@ -154,7 +175,10 @@ class ArticleController extends AbstractController
             new ArticleReassignType(),
             $articles,
             array(
-                'action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),
+                'action' => $this->generateUrl(
+                    'article_change',
+                    array('slug' => $supplier->getSlug())
+                ),
             )
         );
 
@@ -171,6 +195,10 @@ class ArticleController extends AbstractController
      * @Route("/{slug}/change", name="article_change")
      * @Method("POST")
      * @Template("AppBundle:Article:reassign.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request  Form request
+     * @param \AppBundle\Entity\Supplier                $supplier Supplier to desactivate
+     * @return array
      */
     public function changeAction(Request $request, Supplier $supplier)
     {
@@ -178,10 +206,7 @@ class ArticleController extends AbstractController
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
         $reassignForm = $this->createForm(new ArticleReassignType(), $articles, array(
-            'action' => $this->generateUrl(
-                'article_change',
-                array('slug' => $supplier->getSlug())
-            ),
+            'action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),
         ));
         $datas = $reassignForm->handleRequest($request);
 
@@ -200,11 +225,7 @@ class ArticleController extends AbstractController
         }
             $etm->flush();
             $message = $this->get('translator')
-                ->trans(
-                    'delete.reassign_ok',
-                    array('%supplier.name%' => $supplier->getName()),
-                    'gs_suppliers'
-                );
+                ->trans('delete.reassign_ok', array('%supplier.name%' => $supplier->getName()), 'gs_suppliers');
             $this->addFlash('info', $message);
             return $this->redirectToRoute('supplier');
     }
@@ -213,6 +234,11 @@ class ArticleController extends AbstractController
      * Save order.
      *
      * @Route("/order/{entity}/{field}/{type}", name="article_sort")
+     * 
+     * @param string $entity Entity of the field to sort
+     * @param string $field  Field to sort
+     * @param string $type   type of sort
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function sortAction($entity, $field, $type)
     {
@@ -225,6 +251,10 @@ class ArticleController extends AbstractController
      *
      * @Route("/admin/{id}/delete", name="article_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Article                 $article Article item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Article $article, Request $request)
     {

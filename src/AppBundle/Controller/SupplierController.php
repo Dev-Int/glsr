@@ -36,6 +36,9 @@ class SupplierController extends AbstractController
      * @Route("/", name="supplier")
      * @Method("GET")
      * @Template()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Paginate|Sort request
+     * @return array
      */
     public function indexAction(Request $request)
     {
@@ -44,9 +47,7 @@ class SupplierController extends AbstractController
         $this->addQueryBuilderSort($qbd, 'supplier');
         $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 20);
         
-        return array(
-            'paginator' => $paginator,
-        );
+        return array('paginator' => $paginator,);
     }
 
     /**
@@ -55,6 +56,9 @@ class SupplierController extends AbstractController
      * @Route("/{slug}/show", name="supplier_show")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Supplier $supplier Supplier item to display
+     * @return array
      */
     public function showAction(Supplier $supplier)
     {
@@ -77,6 +81,8 @@ class SupplierController extends AbstractController
      * @Route("/admin/new", name="supplier_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -95,6 +101,9 @@ class SupplierController extends AbstractController
      * @Route("/create", name="supplier_create")
      * @Method("POST")
      * @Template("AppBundle:Supplier:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -114,6 +123,9 @@ class SupplierController extends AbstractController
      * @Route("/admin/{slug}/edit", name="supplier_edit")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\Supplier $supplier Supplier item to edit
+     * @return array
      */
     public function editAction(Supplier $supplier)
     {
@@ -132,6 +144,10 @@ class SupplierController extends AbstractController
      * @Route("/{slug}/update", name="supplier_update")
      * @Method("PUT")
      * @Template("AppBundle:Supplier:edit.html.twig")
+     *
+     * @param \AppBundle\Entity\Supplier                $supplier Supplier item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request  Form request
+     * @return array
      */
     public function updateAction(Supplier $supplier, Request $request)
     {
@@ -150,6 +166,11 @@ class SupplierController extends AbstractController
      * Save order.
      *
      * @Route("/order/{entity}/{field}/{type}", name="supplier_sort")
+     *
+     * @param string $entity Entity of the field to sort
+     * @param string $field  Field to sort
+     * @param string $type   type of sort
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function sortAction($entity, $field, $type)
     {
@@ -163,6 +184,10 @@ class SupplierController extends AbstractController
      *
      * @Route("/admin/{id}/delete", name="supplier_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\Supplier                $supplier Supplier item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request  Form request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Supplier $supplier, Request $request)
     {

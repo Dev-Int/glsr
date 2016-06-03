@@ -36,6 +36,8 @@ class ZoneStorageController extends AbstractController
      * @Route("/", name="zonestorage")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function indexAction()
     {
@@ -50,6 +52,9 @@ class ZoneStorageController extends AbstractController
      * @Route("/{slug}/show", name="zonestorage_show")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\ZoneStorage $zonestorage ZoneStorage to display
+     * @return array
      */
     public function showAction(ZoneStorage $zonestorage)
     {
@@ -64,6 +69,8 @@ class ZoneStorageController extends AbstractController
      * @Route("/new", name="zonestorage_new")
      * @Method("GET")
      * @Template()
+     *
+     * @return array
      */
     public function newAction()
     {
@@ -82,6 +89,9 @@ class ZoneStorageController extends AbstractController
      * @Route("/create", name="zonestorage_create")
      * @Method("POST")
      * @Template("AppBundle:Settings/Divers/ZoneStorage:new.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Form request
+     * @return array
      */
     public function createAction(Request $request)
     {
@@ -101,6 +111,9 @@ class ZoneStorageController extends AbstractController
      * @Route("/{slug}/edit", name="zonestorage_edit")
      * @Method("GET")
      * @Template()
+     *
+     * @param \AppBundle\Entity\ZoneStorage $zonestorage ZoneStorage item to edit
+     * @return array
      */
     public function editAction(ZoneStorage $zonestorage)
     {
@@ -119,6 +132,10 @@ class ZoneStorageController extends AbstractController
      * @Route("/{slug}/update", name="zonestorage_update")
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/ZoneStorage:edit.html.twig")
+     * 
+     * @param \AppBundle\Entity\ZoneStorage             $zonestorage ZoneStorage item to update
+     * @param \Symfony\Component\HttpFoundation\Request $request     Form request
+     * @return array
      */
     public function updateAction(ZoneStorage $zonestorage, Request $request)
     {
@@ -137,6 +154,10 @@ class ZoneStorageController extends AbstractController
      *
      * @Route("/{id}/delete", name="zonestorage_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
+     *
+     * @param \AppBundle\Entity\ZoneStorage             $zonestorage ZoneStorage item to delete
+     * @param \Symfony\Component\HttpFoundation\Request $request     Form request
+     * @return array
      */
     public function deleteAction(ZoneStorage $zonestorage, Request $request)
     {
