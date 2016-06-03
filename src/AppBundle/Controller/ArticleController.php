@@ -160,7 +160,7 @@ class ArticleController extends AbstractController
      * @Route("/{slug}/reassign", name="article_reassign")
      * @Method("GET")
      * @Template()
-     * 
+     *
      * @param \AppBundle\Entity\Supplier $supplier Supplier articles to reassign
      * @return array
      */
@@ -234,7 +234,7 @@ class ArticleController extends AbstractController
      * Save order.
      *
      * @Route("/order/{entity}/{field}/{type}", name="article_sort")
-     * 
+     *
      * @param string $entity Entity of the field to sort
      * @param string $field  Field to sort
      * @param string $type   type of sort

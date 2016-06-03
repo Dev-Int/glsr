@@ -91,7 +91,7 @@ class GroupController extends AbstractController
      * @Route("/create", name="group_create")
      * @Method("POST")
      * @Template("AppBundle:Group:new.html.twig")
-     * 
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
      */

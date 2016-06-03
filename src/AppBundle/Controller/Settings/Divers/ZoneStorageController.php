@@ -132,7 +132,7 @@ class ZoneStorageController extends AbstractController
      * @Route("/{slug}/update", name="zonestorage_update")
      * @Method("PUT")
      * @Template("AppBundle:Settings/Divers/ZoneStorage:edit.html.twig")
-     * 
+     *
      * @param \AppBundle\Entity\ZoneStorage             $zonestorage ZoneStorage item to update
      * @param \Symfony\Component\HttpFoundation\Request $request     Form request
      * @return array

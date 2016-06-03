@@ -55,7 +55,7 @@ class FamilyLogController extends AbstractController
      * @Route("/{slug}/show", name="familylog_show")
      * @Method("GET")
      * @Template()
-     * 
+     *
      * @param \AppBundle\Entity\FamilyLog $familylog FamilyLog item to display
      * @return array
      */
@@ -92,7 +92,7 @@ class FamilyLogController extends AbstractController
      * @Route("/create", name="familylog_create")
      * @Method("POST")
      * @Template("AppBundle:FamilyLog:new.html.twig")
-     * 
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
      */
