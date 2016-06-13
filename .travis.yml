@@ -65,4 +65,4 @@ branches:
   only:
     - master
     - developp
-    - #56
+    - /^(?i:issue)-.*$/
