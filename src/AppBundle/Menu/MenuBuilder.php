@@ -49,7 +49,7 @@ class MenuBuilder extends ContainerAware
             ->setAttribute('icon', 'fa fa-shopping-basket');
  
         $menu['manage']->addChild('inventory', array(
-            'label' => 'title',
+            'label' => 'title_short',
             'route' => 'inventory'
         ))
             ->setExtra('translation_domain', 'gs_inventories')

@@ -5,16 +5,59 @@
 {% endblock %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
+    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
     {{ 'gestock.home.title'|trans }}
 {% endblock body_title %}
 
 {% block glstock_body %}
-    <section id="alerts" class="col-md-4 pull-right">
-        <section class="panel panel-danger">
+    <section class="alerts col-md-3">
+        <div class="panel panel-primary">
             <header class="panel-heading">
-                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
-                {{ 'alerts.title'|trans({}, 'gs_articles') }}
+                <strong>
+                    <i class="fa fa-dashboard" aria-hidden="true"></i>
+                    {{ 'menu.management'|trans }}
+                </strong>
+            </header>
+            <div class="panel-body">
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">
+                        <a href="{#{ path('order') }#}">
+                            <span class="col-md-10">
+                                <i class="fa fa-shopping-cart"></i>
+                                {{ 'title'|trans({}, 'gs_orders') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{#{ path('delivery') }#}">
+                            <span class="col-md-10">
+                                <i class="fa fa-truck"></i>
+                                {{ 'title'|trans({}, 'gs_deliveries') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ path('inventory') }}">
+                            <span class="col-md-10">
+                                <i class="fa fa-tasks"></i>
+                                {{ 'title'|trans({}, 'gs_inventories') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="alerts col-md-3 pull-right">
+        <div class="panel panel-danger">
+            <header class="panel-heading">
+                <strong>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                    {{ 'alerts.title'|trans({}, 'gs_articles') }}
+                </strong>
             </header>
             <div class="panel-body">
                 {# Block alerts #}
@@ -25,7 +68,7 @@
             <footer class="panel-footer">
                 <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>
             </footer>
-        </section>
+        </div>
     </section>
 
 {% endblock glstock_body %}

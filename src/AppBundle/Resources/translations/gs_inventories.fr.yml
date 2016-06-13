@@ -1,6 +1,7 @@
 ## YAML Template.
 ---
-title: "Inventaires"
+title: "Gérer les inventaires"
+title_short: "Inventaires"
 return_list: 'Retour accueil inventaires'
 none: "Il n'y a pas encore d'inventaire"
 yet: "Il ne peut pas y avoir plus d'un inventaire en cours.\n Annuler ou Clôturer l'inventaire en cours, avant d'en créer un nouveau."
