@@ -1,3 +1,17 @@
+.dropdown>a:after {
+    display: inline-block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-top: 5px dashed;
+    border-right:5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-top: 5px;
+}
+
 .dropdown-submenu {
     position: relative;
 }
@@ -17,21 +31,21 @@
 }
 
 .dropdown-submenu>a:after {
-    display: block;
+    display: inline-block;
     content: " ";
     float: right;
     width: 0;
     height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-left: 5px dashed;
+    border-top:5px solid transparent;
+    border-bottom: 5px solid transparent;
     margin-top: 5px;
-    margin-right: -10px;
 }
 
 .dropdown-submenu:hover>a:after {
-    border-left-color: #fff;
+    border-left-color: #ccc;
 }
 
 .dropdown-submenu.pull-left {
