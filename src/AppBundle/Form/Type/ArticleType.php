@@ -47,7 +47,7 @@ class ArticleType extends AbstractType
                 'packaging',
                 'number',
                 array(
-                    'precision' => 3,
+                    'scale' => 3,
                     'grouping' => true,
                     'label' => 'settings.packaging',
                     'translation_domain' => 'gs_articles',
@@ -58,7 +58,7 @@ class ArticleType extends AbstractType
                 'price',
                 'money',
                 array(
-                    'precision' => 3,
+                    'scale' => 3,
                     'grouping' => true,
                     'currency' => 'EUR',
                     'label' => 'settings.price',
@@ -71,7 +71,7 @@ class ArticleType extends AbstractType
                 'minstock',
                 'number',
                 array(
-                    'precision' => 3,
+                    'scale' => 3,
                     'grouping' => true,
                     'label' => 'settings.stock_alert',
                     'translation_domain' => 'gs_articles',
