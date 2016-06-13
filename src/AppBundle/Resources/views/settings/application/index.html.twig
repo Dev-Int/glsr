@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
     {{ '%entity% list'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }}
 {% endblock %}
 
@@ -17,7 +17,7 @@
                 <th scope="col">{{ 'gestock.settings.settings.calculation'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.settings.first_inventory.title'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.settings.currency'|trans }}</th>
-                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +29,10 @@
                     <td>{{ settings.currency }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('settings_show', {id: settings.id}) }}">
-                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('settings_show', {id: settings.id}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('settings_edit', {id: settings.id}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('settings_edit', {id: settings.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -41,7 +41,7 @@
             {% endfor %}
         </tbody>
     </table>
-        <div class="new_entry list-unstyled">
+        <div class="btn-group">
             {% include 'homeButton.html.twig' %}
         {% if ctEntity < 1 %}
             <a class="btn btn-info btn-create" href="{{ path('settings_new') }}">

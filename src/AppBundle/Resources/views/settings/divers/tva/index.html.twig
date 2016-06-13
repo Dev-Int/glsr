@@ -23,10 +23,10 @@
                     <td><a href="{{ path('tva_show', {id: tva.id}) }}">{{ tva.name }}</a></td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('tva_show', {id: tva.id}) }}">
-                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('tva_show', {id: tva.id}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('tva_edit', {id: tva.id}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('tva_edit', {id: tva.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -38,8 +38,8 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('tva_new') }}">
-            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        <a class="btn btn-info btn-create" href="{{ path('tva_new') }}">
+            {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>
     

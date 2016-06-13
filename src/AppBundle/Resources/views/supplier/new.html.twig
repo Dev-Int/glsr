@@ -7,23 +7,17 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-barcode" aria-hidden="true"></i> 
+    <i class="fa fa-barcode" aria-hidden="true"></i>
     {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
         {% include 'AppBundle:supplier:form.html.twig' %}
-{#    {{ form_start(form, {action: path('supplier_create')}) }}
-        {{ form_widget(form) }}
-        <p>
-            <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
-        </p>
-    {{ form_end(form) }}#}
         
     <div class="btn-group record_actions">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('supplier') }}">
-            <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+        <a class="btn btn-info btn-list" href="{{ path('supplier') }}">
+            {{ 'gestock.return_list'|trans }}
         </a>
     </div>
 {% endblock %}

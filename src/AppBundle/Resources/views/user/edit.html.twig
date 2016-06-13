@@ -5,6 +5,7 @@
 {% block title %}{{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }} - {{ parent() }}{% endblock %}
 
 {% block body_title %}
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
     {{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }}
 {% endblock body_title %}
 
@@ -12,7 +13,9 @@
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <p>
-            <button class="btn btn-primary btn-edit" type="submit">{{ 'Edit'|trans({}, 'admin') }}</button>
+            <button class="btn btn-primary btn-edit" type="submit">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </button>
         </p>
     {{ form_end(edit_form) }}
 
@@ -21,11 +24,13 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('user') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            <a class="btn btn-info btn-list" href="{{ path('user') }}">
+                {{ 'gestock.return_list'|trans }}
             </a>
 
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
 
         </div>
 

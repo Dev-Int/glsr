@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-tower" aria-hidden="true"></span> 
+    <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
     {{ '%entity% list'|trans({'%entity%': 'gestock.settings.company.title'|trans}, 'admin') }}
 {% endblock %}
 
@@ -15,7 +15,7 @@
             <tr>
                 <th scope="col">{{ 'gestock.name'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.company.status'|trans }}</th>
-                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -25,10 +25,9 @@
                     <td>{{ company.status }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('company_show', {id: company.id}) }}">
-                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('company_show', {id: company.id}) }}">{{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('company_edit', {id: company.id}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('company_edit', {id: company.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -38,11 +37,11 @@
         </tbody>
     </table>
     
-    <div class="new_entry list-unstyled">
+    <div class="btn-group">
         {% include 'homeButton.html.twig' %}
         {% if ctEntity < 1 %}
-            <a class="btn btn-info" href="{{ path('company_new') }}">
-                <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+            <a class="btn btn-info btn-create" href="{{ path('company_new') }}">
+                {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
         {% endif %}
     </div>

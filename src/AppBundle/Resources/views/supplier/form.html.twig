@@ -17,7 +17,7 @@
                 {{ form_widget(form.name) }}
             </div>
             <div class="col-md-1 label label-default">
-                <i class="fa fa-phone"></i>&nbsp;
+                <i class="fa fa-phone"></i>
                 {{ form_label(form.phone) }}
             </div>
             <div class="col-md-5">
@@ -28,7 +28,7 @@
         </section>
         <section class="form-line">
             <div class="col-md-1 label label-default">
-                <i class="fa fa-map-marker"></i>&nbsp;
+                <i class="fa fa-map-marker"></i>
                 {{ form_label(form.address, 'gestock.address'|trans) }}
             </div>
             <div class="col-md-5">
@@ -47,7 +47,7 @@
             </div>
             <div class="col-md-5"></div>#}
             <div class="col-md-1 label label-default">
-                <i class="fa fa-fax"></i>&nbsp;
+                <i class="fa fa-fax"></i>
                 {{ form_label(form.fax) }}
             </div>
             <div class="col-md-5">
@@ -55,7 +55,7 @@
                 {{ form_widget(form.fax) }}
             </div>
             <div class="col-md-1 label label-default">
-                <i class="fa fa-envelope"></i>&nbsp;
+                <i class="fa fa-envelope"></i>
                 {{ form_label(form.mail) }}
             </div>
             <div class="col-md-5">
@@ -69,7 +69,7 @@
         <legend>{{ 'gestock.settings.commercial'|trans }}</legend>
         <section class="form-line">
             <div class="col-md-1 label label-default">
-                <i class="fa fa-user"></i>&nbsp;
+                <i class="fa fa-user"></i>
                 {{ form_label(form.contact) }}
             </div>
             <div class="col-md-5">
@@ -81,7 +81,7 @@
         </section>
         <section class="form-line">
             <div class="col-md-1 label label-default">
-                <i class="fa fa-mobile"></i>&nbsp;
+                <i class="fa fa-mobile"></i>
                 {{ form_label(form.gsm) }}
             </div>
             <div class="col-md-5">
@@ -89,7 +89,7 @@
                 {{ form_widget(form.gsm) }}
             </div>
             <div class="col-md-1 label label-default">
-                <i class="fa fa-envelope"></i>&nbsp;
+                <i class="fa fa-envelope"></i>
                 {{ 'gestock.mail'|trans }}
             </div>
             <div class="col-md-5">&nbsp;</div>
@@ -100,7 +100,7 @@
         <legend>{{ 'gestock.details'|trans }}</legend>
         <section class="form-line">
             <div class="col-md-2 label label-default">
-                <i class="fa fa-tags"></i>&nbsp;
+                <i class="fa fa-tags"></i>
                 {{ form_label(form.familyLog) }}
             </div>
             <div class="col-md-4">
@@ -108,7 +108,7 @@
                 {{ form_widget(form.familyLog) }}
             </div>
             <div class="col-md-2 label label-default">
-                <i class="fa fa-clock-o"></i>&nbsp;
+                <i class="fa fa-clock-o"></i>
                 {{ form_label(form.delaydeliv) }}
             </div>
             <div class="col-md-4">
@@ -150,15 +150,15 @@
     </fieldset>
 
     <p>
-        <button class="btn btn-primary" type="submit">
-            {% if edit_form is defined %}
-                <i class="fa fa-edit"></i>&nbsp;
+        {% if edit_form is defined %}
+            <button class="btn btn-primary btn-edit" type="submit">
                 {{ 'Edit'|trans({}, 'admin') }}
-            {% else %}
-                <i class="fa fa-plus"></i>&nbsp;
+            </button>
+        {% else %}
+            <button class="btn btn-primary btn-create" type="submit">
                 {{ 'Create'|trans({}, 'admin') }}
-            {% endif %}
-        </button>
+            </button>
+        {% endif %}
     </p>
 {{ form_end(form) }}
 <script type="text/javascript">

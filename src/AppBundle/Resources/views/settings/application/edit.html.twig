@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
+    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
     {{ '%entity% edit'|trans({'%entity%': 'gestock.settings.settings.title'|trans}, 'admin') }}
 {% endblock %}
 
@@ -26,11 +26,13 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('application') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            <a class="btn btn-info btn-list" href="{{ path('application') }}">
+                {{ 'gestock.return_list'|trans }}
             </a>
 
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
 
         </div>
 

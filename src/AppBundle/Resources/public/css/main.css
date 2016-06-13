@@ -2,6 +2,9 @@ body {
     padding-top: 70px;
 }
 
+h2, .h2 {
+    font-size: 166%!important;
+}
 fieldset > section.col-md-12 {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -54,7 +57,7 @@ i.danger {
 }
 
 .navbar-brand {
-    font-size: 20px !important;
+    font-size: 133% !important;
 }
 
 .btn-edit:before {
@@ -65,7 +68,7 @@ i.danger {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     content: '\f044';
-    margin-right: 4px;
+    margin-right: 4px!important;
 }
 .btn-create:before {
     display: inline-block;
@@ -75,7 +78,66 @@ i.danger {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     content: '\f067';
-    margin-right: 4px;
+    margin-right: 4px!important;
+}
+.btn-show:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f016';
+    margin-right: 4px!important;
+}
+.btn-list:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f03a';
+    margin-right: 4px!important;
+}
+.btn-delete:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f014';
+    margin-right: 4px!important;
+}
+.pagination > li > span.previous:before,
+.pagination > li > a > span.previous:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f100';
+    margin-right: 5px!important;
+}
+.pagination > li > span.next:after,
+.pagination > li > a > span.next:after {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f101';
+    margin-left: 5px!important;
+}
+span.glyphicon, i.glyphicon, span.fa, i.fa,
+li[icon^='fa '] {
+    margin-right: 4px!important;
+}
+button>i.fa {
+    margin-right: 0!important;
 }
 
 #article th {

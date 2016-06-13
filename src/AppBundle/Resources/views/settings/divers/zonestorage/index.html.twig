@@ -23,10 +23,10 @@
                     <td><a href="{{ path('zonestorage_show', {slug: zonestorage.slug}) }}">{{ zonestorage.name }}</a></td>
                     <td class="text-center">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('zonestorage_show', {slug: zonestorage.slug}) }}">
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('zonestorage_show', {slug: zonestorage.slug}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('zonestorage_edit', {slug: zonestorage.slug}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('zonestorage_edit', {slug: zonestorage.slug}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>

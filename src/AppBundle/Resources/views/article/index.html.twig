@@ -22,7 +22,7 @@
 {% from _self import thead %}
 
 {% block body_title %}
-    <i class="fa fa-shopping-basket" aria-hidden="true"></i> 
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
     {{ '%entity% list'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }}
 {% endblock %}
 
@@ -37,8 +37,7 @@
                     {{ thead('article', 'supplier', 'name', 'title'|trans({}, 'gs_suppliers')) }}
                 </th>
                 <th scope="col" class="col-md-1 text-center">
-                    <i class="fa fa-tags"></i> 
-                    {{ thead('article', 'familyLog', 'name', 'gestock.settings.diverse.familylog'|trans) }}
+                    {{ thead('article', 'familyLog', 'name', 'gestock.settings.diverse.family'|trans) }}
                 </th>
                 <th scope="col" class="col-md-1 text-center">{{ 'settings.price'|trans({}, 'gs_articles') }}</th>
                 <th scope="col" class="col-md-1 text-center">{{ 'settings.quantity'|trans({}, 'gs_articles') }}</th>
@@ -46,7 +45,7 @@
                     <i class="fa fa-map-marker"></i>
                     {{ thead('article', 'zoneStorages', 'name', 'gestock.settings.diverse.zonestorage'|trans) }}
                 </th>
-                <th scope="col" class="col-md-2 text-center">
+                <th scope="col" class="col-md-2 text-center no-print">
                     <i class="fa fa-hourglass-o"></i> 
                     {{ 'Actions'|trans({}, 'admin') }}
                 </th>
@@ -61,7 +60,7 @@
                     <td>{{ article.familylog }}</td>
                     <td class="text-right">{{ article.price }}€</td>
                     <td class="text-right">{{ article.quantity }}</td>
-                    <td class="text-right">
+                    <td>
                         {% set b = 0 %}
                         {% for zone in article.zonestorages %}
                             {% if b > 0 %}
@@ -72,13 +71,13 @@
                             {% set b = b + 1 %}
                         {% endfor %}
                     </td>
-                    <td class="text-center">
+                    <td class="text-center no-print">
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('article_show', {slug: article.slug}) }}">
-                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                            <a class="btn btn-default btn-xs btn-show" href="{{ path('article_show', {slug: article.slug}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
                             </a>
                             {% if is_granted('ROLE_ADMIN') %}
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('article_edit', {slug: article.slug}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('article_edit', {slug: article.slug}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                             {% endif %}
@@ -91,11 +90,11 @@
     
     <div class="text-center">{{ knp_pagination_render(paginator) }}</div>
     
-    <div class="new_entry list-unstyled">
+    <div class="btn-group">
         {% include 'homeButton.html.twig' %}
         {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-info" href="{{ path('article_new') }}">
-            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        <a class="btn btn-info btn-create" href="{{ path('article_new') }}">
+            {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
         {% endif %}
     </div>

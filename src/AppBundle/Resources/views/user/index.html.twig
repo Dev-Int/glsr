@@ -22,7 +22,7 @@
 {% from _self import thead %}
 
 {% block body_title %}
-    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
     {{ '%entity% list'|trans({'%entity%': 'menu.users'|trans}, 'admin') }}
 {% endblock body_title %}
 
@@ -36,7 +36,7 @@
                 <th scope="col">{{ thead('user', 'user', 'locked', 'Verrouillé') }}</th>
                 <th scope="col">{{ thead('user', 'groups', 'name', 'Group'|trans({}, 'admin')) }}</th>
                 <th scope="col">{{ thead('user', 'user', 'id', 'Identifiant') }}</th>
-                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
              </tr>
         </thead>
         <tbody>
@@ -48,11 +48,11 @@
                     <td>{{ user.groups|join(', ') }}</td>
                     <td>{{ user.id }}</td>
                     <td>
-                        <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('user_show', {id: user.id}) }}">
-                                <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                        <div class="btn-group text-center">
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('user_show', {id: user.id}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-info btn-edit btn-sm" href="{{ path('user_edit', {id: user.id}) }}">
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('user_edit', {id: user.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -66,8 +66,8 @@
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info" href="{{ path('user_new') }}">
-            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        <a class="btn btn-info btn-create" href="{{ path('user_new') }}">
+            {{ 'Create a new entry'|trans({}, 'admin') }}
         </a>
     </div>
     

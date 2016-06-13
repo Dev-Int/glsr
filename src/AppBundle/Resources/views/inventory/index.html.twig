@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-tasks" aria-hidden="true"></i> 
+    <i class="fa fa-tasks" aria-hidden="true"></i>
     {{ '%entity% list'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }}
 {% endblock %}
 
@@ -47,15 +47,15 @@
                         {% endif %}
                         <td class="text-center">
                             <div class="btn-group">
-                                <a class="btn btn-default btn-sm" href="{{ path('inventory_show', {id: inventory.id}) }}">
-                                    <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
+                                <a class="btn btn-default btn-show btn-xs" href="{{ path('inventory_show', {id: inventory.id}) }}">
+                                    {{ 'show'|trans({}, 'admin') }}
                                 </a>
                                     {% if inventory.status == 2 or inventory.status == 1 and is_granted('ROLE_ADMIN') %}{% set new = 0 %}
-                                <a class="btn btn-info btn-sm" href="{{ path('inventory_edit', {id: inventory.id}) }}">
-                                    <i class="fa fa-edit"></i> {{ 'seizure.title_short'|trans({}, 'gs_inventories') }}
+                                <a class="btn btn-info btn-edit btn-xs" href="{{ path('inventory_edit', {id: inventory.id}) }}">
+                                    {{ 'seizure.title_short'|trans({}, 'gs_inventories') }}
                                 </a>
-                                <a href="{{ path('inventory_valid', {id: inventory.id}) }}" class="btn btn-success btn-sm">
-                                    <i class="fa fa-check"></i> {{ 'close.submit_button'|trans({}, 'gs_inventories') }}
+                                <a class="btn btn-success btn-xs" href="{{ path('inventory_valid', {id: inventory.id}) }}">
+                                    <i class="fa fa-check"></i>{{ 'close.submit_button'|trans({}, 'gs_inventories') }}
                                 </a>
                                 {% endif %}
                             </div>
@@ -71,8 +71,8 @@
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
         {% if is_granted('ROLE_ADMIN') and new == 1 %}
-        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#create_confirm">
-            <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
+        <button class="btn btn-info btn-create" type="button" data-toggle="modal" data-target="#create_confirm">
+            {{ 'Create a new entry'|trans({}, 'admin') }}
         </button>
         {% endif %}
     </div>

@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-barcode" aria-hidden="true"></i> 
+    <i class="fa fa-barcode" aria-hidden="true"></i>
     {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }}
 {% endblock %}
 
@@ -74,8 +74,8 @@
                 {{ form_widget(delete_form) }}
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('inventory') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            <a class="btn btn-info btn-list" href="{{ path('inventory') }}">
+                {{ 'gestock.return_list'|trans }}
             </a>
             {% if inventory.status == 2 and is_granted('ROLE_ADMIN') %}
             <a href="{{ path('inventory_valid', {id: inventory.id}) }}" class="btn btn-success">
@@ -83,7 +83,9 @@
             </a>
             {% endif %}
 
-                <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'cancel.title'|trans({}, 'gs_inventories') }}</button>
+                <button class="btn btn-danger btn-delete" type="submit">
+                    {{ 'cancel.title'|trans({}, 'gs_inventories') }}
+                </button>
 
         </div>
                 <input name="modal" type="hidden" value="0">

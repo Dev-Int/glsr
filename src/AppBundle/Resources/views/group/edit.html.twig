@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-users"></i>&nbsp;
+    <i class="fa fa-users"></i>
     {{ '%entity% edit'|trans({'%entity%': 'menu.groups'|trans}, 'admin') }}
 {% endblock body_title %}
 
@@ -16,7 +16,9 @@
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <p>
-            <button class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+            <button class="btn btn-primary btn-edit" type="submit">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </button>
         </p>
     {{ form_end(edit_form) }}
 
@@ -25,11 +27,13 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('group') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            <a class="btn btn-info btn-list" href="{{ path('group') }}">
+                {{ 'gestock.return_list'|trans }}
             </a>
 
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
 
         </div>
 

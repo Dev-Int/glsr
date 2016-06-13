@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-shopping-basket" aria-hidden="true"></i> 
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
     <small>{{ "%06d"|format(article.id) }}</small> {{ article.name }}
 {% endblock %}
 
@@ -80,14 +80,16 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info" href="{{ path('article') }}">
-                <i class="fa fa-list"></i> {{ 'gestock.return_list'|trans }}
+            <a class="btn btn-info btn-list" href="{{ path('article') }}">
+                {{ 'gestock.return_list'|trans }}
             </a>
             {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary" href="{{ path('article_edit', {slug: article.slug}) }}">
-                <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
+            <a class="btn btn-primary btn-edit" href="{{ path('article_edit', {slug: article.slug}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
             </a>
-            <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
             {% endif %}
         </div>
 
