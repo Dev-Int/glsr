@@ -20,4 +20,10 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     locale:            fr
+    # If using Windows OS
     java_path: 'C:\Program Files (x86)\Java\jre7\bin\java.exe'
+    # If using Unix OS
+    #java_path: '/usr/bin/java'
+
+    # Knp_paginator parameters
+    item_per_page: 10

@@ -42,10 +42,11 @@ class SupplierController extends AbstractController
      */
     public function indexAction(Request $request)
     {
+        $item = $this->container->getParameter('knp_paginator.page_range');
         $etm = $this->getDoctrine()->getManager();
         $qbd = $etm->getRepository('AppBundle:Supplier')->getSuppliers();
         $this->addQueryBuilderSort($qbd, 'supplier');
-        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 20);
+        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
         
         return array('paginator' => $paginator,);
     }
@@ -98,7 +99,7 @@ class SupplierController extends AbstractController
     /**
      * Creates a new Supplier entity.
      *
-     * @Route("/create", name="supplier_create")
+     * @Route("/admin/create", name="supplier_create")
      * @Method("POST")
      * @Template("AppBundle:Supplier:new.html.twig")
      *

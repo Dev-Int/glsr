@@ -44,10 +44,11 @@ class ArticleController extends AbstractController
      */
     public function indexAction(Request $request)
     {
+        $item = $this->container->getParameter('knp_paginator.page_range');
         $etm = $this->getDoctrine()->getManager();
         $qbd = $etm->getRepository('AppBundle:Article')->getArticles();
         $this->addQueryBuilderSort($qbd, 'article');
-        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 5);
+        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
         
         return array(
             'paginator' => $paginator,
@@ -94,7 +95,7 @@ class ArticleController extends AbstractController
     /**
      * Creates a new Article entity.
      *
-     * @Route("/create", name="article_create")
+     * @Route("/admin/create", name="article_create")
      * @Method("POST")
      * @Template("AppBundle:Article:new.html.twig")
      *
@@ -174,12 +175,7 @@ class ArticleController extends AbstractController
         $reassignForm = $this->createForm(
             new ArticleReassignType(),
             $articles,
-            array(
-                'action' => $this->generateUrl(
-                    'article_change',
-                    array('slug' => $supplier->getSlug())
-                ),
-            )
+            array('action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),)
         );
 
         return array(
@@ -223,11 +219,11 @@ class ArticleController extends AbstractController
                 $etm->persist($newArticles);
             }
         }
-            $etm->flush();
-            $message = $this->get('translator')
-                ->trans('delete.reassign_ok', array('%supplier.name%' => $supplier->getName()), 'gs_suppliers');
-            $this->addFlash('info', $message);
-            return $this->redirectToRoute('supplier');
+        $etm->flush();
+        $message = $this->get('translator')
+            ->trans('delete.reassign_ok', array('%supplier.name%' => $supplier->getName()), 'gs_suppliers');
+        $this->addFlash('info', $message);
+        return $this->redirectToRoute('supplier');
     }
 
     /**
