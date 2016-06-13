@@ -41,7 +41,7 @@ class TvaController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Tva');
+        $return = $this->abstractIndexAction('Tva', null);
 
         return $return;
     }

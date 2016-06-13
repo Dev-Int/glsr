@@ -41,7 +41,7 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Settings');
+        $return = $this->abstractIndexAction('Settings', null);
     
         return $return;
     }

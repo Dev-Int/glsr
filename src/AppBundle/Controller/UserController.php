@@ -44,12 +44,9 @@ class UserController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $qbd = $etm->getRepository('AppBundle:User')->getUsers();
-        $this->addQueryBuilderSort($qbd, 'user');
-        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), 5);
+        $return = $this->abstractIndexAction('User', $request);
         
-        return array('paginator' => $paginator,);
+        return $return;
     }
 
     /**

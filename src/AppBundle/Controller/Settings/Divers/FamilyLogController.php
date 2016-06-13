@@ -41,12 +41,9 @@ class FamilyLogController extends AbstractController
      */
     public function indexAction()
     {
-        $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:FamilyLog')->childrenHierarchy();
+        $return = $this->abstractIndexAction('FamilyLog', null);
         
-        return array(
-            'entities'  => $entities,
-        );
+        return $return;
     }
 
     /**

@@ -44,15 +44,9 @@ class ArticleController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $item = $this->container->getParameter('knp_paginator.page_range');
-        $etm = $this->getDoctrine()->getManager();
-        $qbd = $etm->getRepository('AppBundle:Article')->getArticles();
-        $this->addQueryBuilderSort($qbd, 'article');
-        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
+        $return = $this->abstractIndexAction('Article', $request);
         
-        return array(
-            'paginator' => $paginator,
-        );
+        return $return;
     }
 
     /**

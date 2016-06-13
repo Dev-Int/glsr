@@ -42,7 +42,7 @@ class GroupController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Group');
+        $return = $this->abstractIndexAction('Group', null);
 
         return $return;
     }

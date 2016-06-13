@@ -41,7 +41,7 @@ class CompanyController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Company');
+        $return = $this->abstractIndexAction('Company', null);
     
         return $return;
     }

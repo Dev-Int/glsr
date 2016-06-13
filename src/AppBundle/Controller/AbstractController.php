@@ -30,17 +30,39 @@ abstract class AbstractController extends Controller
      * Lists all items entity.
      *
      * @param string $entityName Name of Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request Sort request
      * @return array
      */
-    public function abstractIndexAction($entityName)
+    public function abstractIndexAction($entityName, Request $request = null)
     {
         $etm = $this->getDoctrine()->getManager();
-        $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
+        $paginator = '';
+        switch ($entityName) {
+            case 'Article': 
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getArticles();
+                break;
+            case 'Supplier':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getSuppliers();
+                break;
+            case 'User':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();
+                break;
+            case 'FamilyLog':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
+                break;
+            case 'UnitStorage':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
+                break;
+            default:
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
+        }
+        if ($request !== null) {
+            $item = $this->container->getParameter('knp_paginator.page_range');
+            $this->addQueryBuilderSort($entities, strtolower($entityName));
+            $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
+        }
 
-        return array(
-            'entities'  => $entities,
-            'ctEntity' => count($entities),
-        );
+        return array('entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,);
     }
 
     /**
@@ -216,11 +238,7 @@ abstract class AbstractController extends Controller
     {
         $session = new Session();
 
-        $session->set('sort.'.$name, array(
-            'entity' => $entity,
-            'field' => $field,
-            'type' => $type
-        ));
+        $session->set('sort.'.$name, array('entity' => $entity, 'field' => $field, 'type' => $type));
     }
 
     /**
