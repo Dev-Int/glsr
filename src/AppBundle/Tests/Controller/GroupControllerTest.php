@@ -10,11 +10,10 @@ class GroupControllerTest extends WebTestCase {
         $client = static::createClient();
         $crawler = $client->request('GET', '/admin/groups/');
         $this->assertCount(0, $crawler->filter('table.records_list tbody tr'));
-        $crawler = $client->click($crawler->filter('.new_entry a')->link());
         $form = $crawler->filter('form button[type="submit"]')->form(array(
         ));
         $client->submit($form);
-        $crawler = $client->followRedirect();
+//        $crawler = $client->followRedirect();
         $crawler = $client->click($crawler->filter('.record_actions a')->link());
         $this->assertCount(1, $crawler->filter('table.records_list tbody tr'));
     }
