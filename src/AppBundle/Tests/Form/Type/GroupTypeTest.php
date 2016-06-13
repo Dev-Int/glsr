@@ -10,7 +10,7 @@ class GroupTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Doctrine\ORM\EntityManager
      */
-    private $_em;
+    private $_etm;
 
     /**
      * @var GroupType
@@ -25,7 +25,7 @@ class GroupTypeTest extends \PHPUnit_Framework_TestCase
         $this->object = new GroupType;
         $kernel = static::createKernel();
         $kernel->boot();
-        $this->_em = $kernel->getContainer()
+        $this->_etm = $kernel->getContainer()
             ->get('doctrine.orm.entity_manager');
     }
 
