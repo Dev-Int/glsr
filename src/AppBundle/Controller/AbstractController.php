@@ -38,7 +38,7 @@ abstract class AbstractController extends Controller
         $etm = $this->getDoctrine()->getManager();
         $paginator = '';
         switch ($entityName) {
-            case 'Article': 
+            case 'Article':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getArticles();
                 break;
             case 'Supplier':
