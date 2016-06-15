@@ -135,7 +135,7 @@ abstract class AbstractController extends Controller
             $this->addFlash('info', 'gestock.create.ok');
 
             $param = $this->testReturnParam($entityNew, strtolower($entity));
-            $return = $form->get('addmore')->isClicked() ? $entity.'_new' : $entity.'_show';
+            $return = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
 
             return $this->redirectToRoute($return, $param);
         }
