@@ -85,6 +85,10 @@ class ArticleType extends AbstractType
                 'entity',
                 array(
                     'class' => 'AppBundle:Supplier',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                            ->where('s.active = 1');
+                    },
                     'choice_label' => 'name',
                     'multiple' => false,
                     'placeholder' => 'form.choice_supplier',
