@@ -15,15 +15,17 @@
 namespace AppBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 /**
  * class MenuBuilder.
  *
  * @category   Menu
  */
-class MenuBuilder extends ContainerAware
+class MenuBuilder implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
     public function buildMainMenu(FactoryInterface $factory, array $options)
     {
         $menu = $factory->createItem('root');
@@ -63,7 +65,7 @@ class MenuBuilder extends ContainerAware
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
  
-        $context = $this->container->get('security.context');
+        $context = $this->container->get('security.authorization_checker');
         if ($context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             /*
              *  Menu Administration
