@@ -5,6 +5,7 @@ no_granted: 'Vous devez être connecté pour accéder à cette page.'
 copy: "GLSR &copy; 2014 and beyond."
 
 # Utility
+dashboard: "Tableau de bord"
 Next: Suivant
 Previous: Précédent
 
