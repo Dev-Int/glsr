@@ -52,7 +52,7 @@ abstract class AbstractController extends Controller
      * Get the entity
      *
      * @param string $entityName Name of Entity
-     * @param \Doctrine\Common\Persistence\ObjectManager[] $etm An array of ObjectManager instances
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
      * @return type
      */
     protected function getEntity($entityName, $etm)
