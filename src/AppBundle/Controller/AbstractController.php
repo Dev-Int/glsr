@@ -55,7 +55,8 @@ abstract class AbstractController extends Controller
      * @param \Doctrine\Common\Persistence\ObjectManager[] $etm An array of ObjectManager instances
      * @return type
      */
-    protected function getEntity($entityName, $etm) {
+    protected function getEntity($entityName, $etm)
+    {
         switch ($entityName) {
             case 'Article':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getArticles();
