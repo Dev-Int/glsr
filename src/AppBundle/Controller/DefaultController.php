@@ -45,7 +45,6 @@ class DefaultController extends Controller
             'AppBundle:Tva',
             'AppBundle:Supplier',
             'AppBundle:Article');
-
     }
 
     /**
