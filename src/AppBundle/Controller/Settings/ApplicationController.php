@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Settings;
+use AppBundle\Form\Type\SettingsType;
 
 /**
  * Application controller.
@@ -77,7 +78,7 @@ class ApplicationController extends AbstractController
         $return = $this->abstractNewAction(
             'Settings',
             'AppBundle\Entity\Settings',
-            'AppBundle\Form\Type\SettingsType'
+            SettingsType::class
         );
 
         return $return;
@@ -99,7 +100,7 @@ class ApplicationController extends AbstractController
             $request,
             'settings',
             'AppBundle\Entity\Settings',
-            'AppBundle\Form\Type\SettingsType'
+            SettingsType::class
         );
 
         return $return;
@@ -120,7 +121,7 @@ class ApplicationController extends AbstractController
         $return = $this->abstractEditAction(
             $settings,
             'settings',
-            'AppBundle\Form\Type\SettingsType'
+            SettingsType::class
         );
 
         return $return;
@@ -143,7 +144,7 @@ class ApplicationController extends AbstractController
             $settings,
             $request,
             'settings',
-            'AppBundle\Form\Type\SettingsType'
+            SettingsType::class
         );
 
         return $return;

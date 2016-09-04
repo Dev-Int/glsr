@@ -21,6 +21,9 @@ use Doctrine\ORM\EntityRepository;
 
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 /**
  * FamilyLogType Form properties.
  *
@@ -36,14 +39,14 @@ class FamilyLogType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.settings.diverse.family'
                 )
             )
             ->add(
                 'parent',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:FamilyLog',
                     'query_builder' => function (EntityRepository $er) {
@@ -71,7 +74,7 @@ class FamilyLogType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'familylog';
     }

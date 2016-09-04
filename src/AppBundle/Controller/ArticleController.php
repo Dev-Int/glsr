@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Supplier;
+use AppBundle\Form\Type\ArticleType;
 use AppBundle\Form\Type\ArticleReassignType;
 
 /**
@@ -80,7 +81,7 @@ class ArticleController extends AbstractController
         $return = $this->abstractNewAction(
             'Article',
             'AppBundle\Entity\Article',
-            'AppBundle\Form\Type\ArticleType'
+            ArticleType::class
         );
 
         return $return;
@@ -102,7 +103,7 @@ class ArticleController extends AbstractController
             $request,
             'Article',
             'AppBundle\Entity\Article',
-            'AppBundle\Form\Type\ArticleType'
+            ArticleType::class
         );
 
         return $return;
@@ -120,7 +121,7 @@ class ArticleController extends AbstractController
      */
     public function editAction(Article $article)
     {
-        $return = $this->abstractEditAction($article, 'article', 'AppBundle\Form\Type\ArticleType');
+        $return = $this->abstractEditAction($article, 'article', ArticleType::class);
 
         return $return;
     }
@@ -128,7 +129,7 @@ class ArticleController extends AbstractController
     /**
      * Edits an existing Article entity.
      *
-     * @Route("/{slug}/update", name="article_update")
+     * @Route("/admin/{slug}/update", name="article_update")
      * @Method("PUT")
      * @Template("AppBundle:Article:edit.html.twig")
      *
@@ -142,7 +143,7 @@ class ArticleController extends AbstractController
             $article,
             $request,
             'article',
-            'AppBundle\Form\Type\ArticleType'
+            ArticleType::class
         );
 
         return $return;
@@ -152,7 +153,7 @@ class ArticleController extends AbstractController
      * Réassigner les articles d'un fournisseur.
      *
      * @param Supplier $supplier Fournisseur à réassigner
-     * @Route("/{slug}/reassign", name="article_reassign")
+     * @Route("/admin/{slug}/reassign", name="article_reassign")
      * @Method("GET")
      * @Template()
      *
@@ -167,7 +168,7 @@ class ArticleController extends AbstractController
             ->getArticleFromSupplier($supplier->getId());
 
         $reassignForm = $this->createForm(
-            new ArticleReassignType(),
+            ArticleReassignType::class,
             $articles,
             array('action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),)
         );
@@ -182,7 +183,7 @@ class ArticleController extends AbstractController
     /**
      * Creates a new Article entity.
      *
-     * @Route("/{slug}/change", name="article_change")
+     * @Route("/admin/{slug}/change", name="article_change")
      * @Method("POST")
      * @Template("AppBundle:Article:reassign.html.twig")
      *
@@ -195,7 +196,7 @@ class ArticleController extends AbstractController
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
-        $reassignForm = $this->createForm(new ArticleReassignType(), $articles, array(
+        $reassignForm = $this->createForm(ArticleReassignType::class, $articles, array(
             'action' => $this->generateUrl('article_change', array('slug' => $supplier->getSlug())),
         ));
         $datas = $reassignForm->handleRequest($request);

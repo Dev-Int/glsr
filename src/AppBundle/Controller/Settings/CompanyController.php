@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Company;
+use AppBundle\Form\Type\CompanyType;
 
 /**
  * Company controller.
@@ -77,7 +78,7 @@ class CompanyController extends AbstractController
         $return = $this->abstractNewAction(
             'Company',
             'AppBundle\Entity\Company',
-            'AppBundle\Form\Type\CompanyType'
+            CompanyType::class
         );
 
         return $return;
@@ -99,7 +100,7 @@ class CompanyController extends AbstractController
             $request,
             'company',
             'AppBundle\Entity\Company',
-            'AppBundle\Form\Type\CompanyType'
+            CompanyType::class
         );
 
         return $return;
@@ -120,7 +121,7 @@ class CompanyController extends AbstractController
         $return = $this->abstractEditAction(
             $company,
             'company',
-            'AppBundle\Form\Type\CompanyType'
+            CompanyType::class
         );
 
         return $return;
@@ -143,7 +144,7 @@ class CompanyController extends AbstractController
             $company,
             $request,
             'company',
-            'AppBundle\Form\Type\CompanyType'
+            CompanyType::class
         );
 
         return $return;

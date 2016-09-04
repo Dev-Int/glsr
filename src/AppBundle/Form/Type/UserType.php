@@ -18,6 +18,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 /**
  * UserType Form properties.
  *
@@ -31,15 +36,15 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder ->add('username', null, array('label' => "Nom d'utilisateur"))
-            ->add('email', null, array('required' => false, 'label' => 'E-mail'))
-            ->add('plainPassword', 'repeated', array(
-                'type' => 'password',
+            ->add('email', EmailType::class, array('required' => false, 'label' => 'E-mail'))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'required' => $options['passwordRequired'],
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Répétez le mot de passe'),
             ))
-            ->add('groups', 'entity', array(
+            ->add('groups', EntityType::class, array(
                 'label' => 'Groupes',
                 'multiple' => true,
                 'expanded' => true,
@@ -67,7 +72,7 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'user';
     }

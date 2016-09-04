@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Group;
 use AppBundle\Form\Type\GroupType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Group controller.
@@ -76,7 +77,7 @@ class GroupController extends AbstractController
     public function newAction()
     {
         $group = new Group();
-        $form = $this->createForm(new GroupType(), $group);
+        $form = $this->createForm(GroupType::class, $group);
         $this->addRoles($form, $group);
 
         return array(
@@ -98,7 +99,7 @@ class GroupController extends AbstractController
     public function createAction(Request $request)
     {
         $group = new Group();
-        $form = $this->createForm(new GroupType(), $group);
+        $form = $this->createForm(GroupType::class, $group);
         $this->addRoles($form, $group);
 
         if ($form->handleRequest($request)->isValid()) {
@@ -128,7 +129,7 @@ class GroupController extends AbstractController
      */
     public function editAction(Group $group)
     {
-        $editForm = $this->createForm(new GroupType(), $group, array(
+        $editForm = $this->createForm(GroupType::class, $group, array(
             'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
             'method' => 'PUT',
         ));
@@ -156,7 +157,7 @@ class GroupController extends AbstractController
      */
     public function updateAction(Group $group, Request $request)
     {
-        $editForm = $this->createForm(new GroupType(), $group, array(
+        $editForm = $this->createForm(GroupType::class, $group, array(
             'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
             'method' => 'PUT',
         ));
@@ -235,8 +236,9 @@ class GroupController extends AbstractController
      */
     private function addRoles($form, $group)
     {
-        $form->add('roles', 'choice', array(
+        $form->add('roles', ChoiceType::class, array(
             'choices' => $this->getExistingRoles(),
+            'choices_as_values' => true,
             'data' => $group->getRoles(),
             'label' => 'Roles',
             'expanded' => true,

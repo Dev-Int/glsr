@@ -18,6 +18,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
+
 /**
  * SettingsType Form properties.
  *
@@ -33,7 +36,7 @@ class SettingsType extends AbstractType
         $builder
             ->add(
                 'inventory_style',
-                'choice',
+                ChoiceType::class,
                 array(
                     'choices' => array(
                         'global' => 'gestock.settings.settings.global',
@@ -46,7 +49,7 @@ class SettingsType extends AbstractType
             )
             ->add(
                 'calculation',
-                'choice',
+                ChoiceType::class,
                 array(
                     'choices' => array(
                         'fifo' => 'gestock.settings.settings.fifo',
@@ -59,7 +62,7 @@ class SettingsType extends AbstractType
             )
             ->add(
                 'currency',
-                'currency',
+                CurrencyType::class,
                 array(
                     'multiple' => false,
                     'expanded' => false,
@@ -82,7 +85,7 @@ class SettingsType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'application';
     }

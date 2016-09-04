@@ -80,7 +80,7 @@ class UserController extends AbstractController
         $return = $this->abstractNewAction(
             'User',
             'AppBundle\Entity\User',
-            'AppBundle\Form\Type\UserType'
+            UserType::class
         );
 
         return $return;
@@ -99,7 +99,7 @@ class UserController extends AbstractController
     public function createAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
         if ($form->handleRequest($request)->isValid()) {
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
@@ -123,7 +123,7 @@ class UserController extends AbstractController
      */
     public function editAction(User $user)
     {
-        $editForm = $this->createForm(new UserType(), $user, array(
+        $editForm = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
             'passwordRequired' => false,
@@ -151,7 +151,7 @@ class UserController extends AbstractController
      */
     public function updateAction(User $user, Request $request)
     {
-        $editForm = $this->createForm(new UserType(), $user, array(
+        $editForm = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
             'passwordRequired' => false,

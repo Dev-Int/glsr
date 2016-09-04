@@ -18,6 +18,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+
 /**
  * InventoryType Form properties.
  *
@@ -33,7 +36,7 @@ class InventoryType extends AbstractType
         $builder
             ->add(
                 'date',
-                'date',
+                DateType::class,
                 array(
                     'label' => 'gestock.date',
                     'widget' => 'single_text',
@@ -42,8 +45,8 @@ class InventoryType extends AbstractType
                     'input' => 'datetime',
                 )
             )
-            ->add('status', 'hidden')
-            ->add('amount', 'hidden')
+            ->add('status', HiddenType::class)
+            ->add('amount', HiddenType::class)
         ;
     }
 
@@ -60,7 +63,7 @@ class InventoryType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'inventory';
     }

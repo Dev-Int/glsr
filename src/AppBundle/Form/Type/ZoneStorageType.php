@@ -19,6 +19,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
  * ZoneStorageType Form properties.
  *
@@ -34,7 +36,7 @@ class ZoneStorageType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array('label' => 'gestock.settings.diverse.zonestorage')
             )
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
@@ -53,7 +55,7 @@ class ZoneStorageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'zonestorage';
     }

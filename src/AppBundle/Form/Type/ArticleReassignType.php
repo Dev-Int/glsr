@@ -21,6 +21,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityRepository;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 /**
  * ArticleReassignType Form properties.
  *
@@ -51,7 +53,7 @@ class ArticleReassignType extends AbstractType
                 foreach ($articles as $article) {
                     $form->add(
                         'supplier-'.$article->getId(),
-                        'entity',
+                        EntityType::class,
                         $formOptions
                     );
                 }
@@ -72,7 +74,7 @@ class ArticleReassignType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'article_reassign';
     }

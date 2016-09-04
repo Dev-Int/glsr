@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\ZoneStorage;
+use AppBundle\Form\Type\ZoneStorageType;
 
 /**
  * ZoneStorage controller.
@@ -77,7 +78,7 @@ class ZoneStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'ZoneStorage',
             'AppBundle\Entity\ZoneStorage',
-            'AppBundle\Form\Type\ZoneStorageType'
+            ZoneStorageType::class
         );
 
         return $return;
@@ -99,7 +100,7 @@ class ZoneStorageController extends AbstractController
             $request,
             'zonestorage',
             'AppBundle\Entity\ZoneStorage',
-            'AppBundle\Form\Type\ZoneStorageType'
+            ZoneStorageType::class
         );
 
         return $return;
@@ -120,7 +121,7 @@ class ZoneStorageController extends AbstractController
         $return = $this->abstractEditAction(
             $zonestorage,
             'zonestorage',
-            'AppBundle\Form\Type\ZoneStorageType'
+            ZoneStorageType::class
         );
 
         return $return;
@@ -143,7 +144,7 @@ class ZoneStorageController extends AbstractController
             $zonestorage,
             $request,
             'zonestorage',
-            'AppBundle\Form\Type\ZoneStorageType'
+            ZoneStorageType::class
         );
 
         return $return;

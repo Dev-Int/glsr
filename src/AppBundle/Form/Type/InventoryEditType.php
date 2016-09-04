@@ -17,6 +17,11 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use AppBundle\Form\Type\InventoryArticlesType;
+
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 /**
  * InventoryEditType Form properties.
  *
@@ -33,21 +38,21 @@ class InventoryEditType extends InventoryType
             ->remove('status')
             ->add(
                 'articles',
-                'collection',
-                array('type' => new InventoryArticlesType())
+                CollectionType::class,
+                array('entry_type' => InventoryArticlesType::class)
             )
             ->add(
                 'amount',
-                'money',
+                MoneyType::class,
                 array(
-                    'precision' => 3,
+                    'scale' => 3,
                     'grouping' => true,
                     'currency' => 'EUR',
-                    'read_only' => true,
                     'label' => 'seizure.totals',
                     'translation_domain' => 'gs_inventories',
                     'attr'=> array(
-                        'class' => 'inventory form-control'
+                        'class' => 'inventory form-control',
+                        'readonly' => true
                     )
                 )
             )
@@ -67,7 +72,7 @@ class InventoryEditType extends InventoryType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'inventory_edit';
     }

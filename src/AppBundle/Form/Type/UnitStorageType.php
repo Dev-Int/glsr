@@ -20,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
  * UnitStorageType Form properties.
  *
@@ -35,10 +37,10 @@ class UnitStorageType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array('label' => 'gestock.settings.diverse.unitstorage')
             )
-            ->add('abbr', 'text', array('label' => 'gestock.abbr'))
+            ->add('abbr', TextType::class, array('label' => 'gestock.abbr'))
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
     }
 
@@ -55,7 +57,7 @@ class UnitStorageType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'unitstorage';
     }

@@ -20,6 +20,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
 use Doctrine\ORM\EntityRepository;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
+
 /**
  * SupplierType Form properties.
  *
@@ -35,7 +42,7 @@ class SupplierType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.name',
                     'attr'  => array('class' => 'form-control')
@@ -43,7 +50,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'address',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.address',
                     'attr'  => array(
@@ -54,7 +61,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'zipcode',
-                'text',
+                TextType::class,
                 array(
                     'attr'  => array(
                         'placeholder' => 'gestock.zipcode',
@@ -64,7 +71,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'town',
-                'text',
+                TextType::class,
                 array(
                     'attr'  => array(
                         'placeholder' => 'gestock.town',
@@ -74,7 +81,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'phone',
-                'tel',
+                PhoneNumberType::class,
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
@@ -84,7 +91,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'fax',
-                'tel',
+                PhoneNumberType::class,
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
@@ -94,7 +101,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'mail',
-                'email',
+                EmailType::class,
                 array(
                     'label' => 'gestock.mail',
                     'attr'  => array('class' => 'form-control')
@@ -102,7 +109,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'contact',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.contact',
                     'attr'  => array('class' => 'form-control')
@@ -110,7 +117,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'gsm',
-                'tel',
+                PhoneNumberType::class,
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
@@ -122,14 +129,15 @@ class SupplierType extends AbstractType
             // (B, C, D, E) = jour de livraison
             ->add(
                 'delaydeliv',
-                'choice',
+                ChoiceType::class,
                 array(
                     'choices' => array(
-                        1 => 'form.atob',
-                        2 => 'form.atoc',
-                        3 => 'form.atod',
-                        4 => 'form.atoe',
+                        'form.atob' => 1,
+                        'form.atoc' => 2,
+                        'form.atod' => 3,
+                        'form.atoe' => 4,
                     ),
+                    'choices_as_values' => true,
                     'label' => 'settings.delay',
                     'translation_domain' => 'gs_suppliers',
                     'attr'  => array('class' => 'form-control half')
@@ -138,17 +146,18 @@ class SupplierType extends AbstractType
             // Choix du jour de la semaine pour les Cmdes
             ->add(
                 'orderdate',
-                'choice',
+                ChoiceType::class,
                 array(
                     'choices' => array(
-                        1 => 'Monday',
-                        2 => 'Tuesday',
-                        3 => 'Wednesday',
-                        4 => 'Thursday',
-                        5 => 'Friday',
-                        6 => 'Saturday',
-                        7 => 'Sunday',
+                        'Monday' => 1,
+                        'Tuesday' => 2,
+                        'Wednesday' => 3,
+                        'Thursday' => 4,
+                        'Friday' => 5,
+                        'Saturday' => 6,
+                        'Sunday' => 7,
                     ),
+                    'choices_as_values' => true,
                     'choice_translation_domain' => true,
                     'translation_domain' => 'messages',
                     'label' => 'day_order',
@@ -159,7 +168,7 @@ class SupplierType extends AbstractType
             )
             ->add(
                 'familyLog',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:FamilyLog',
                     'query_builder' => function (EntityRepository $er) {
@@ -174,7 +183,7 @@ class SupplierType extends AbstractType
                     'attr'  => array('class' => 'form-control half')
                 )
             )
-            ->add('active', 'hidden', array('data' => true));
+            ->add('active', HiddenType::class, array('data' => true));
     }
 
     /**
@@ -192,7 +201,7 @@ class SupplierType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'supplier';
     }

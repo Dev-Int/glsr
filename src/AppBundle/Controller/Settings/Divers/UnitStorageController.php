@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\UnitStorage;
+use AppBundle\Form\Type\UnitStorageType;
 
 /**
  * UnitStorage controller.
@@ -78,7 +79,7 @@ class UnitStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'UnitStorage',
             'AppBundle\Entity\UnitStorage',
-            'AppBundle\Form\Type\UnitStorageType'
+            UnitStorageType::class
         );
 
         return $return;
@@ -100,7 +101,7 @@ class UnitStorageController extends AbstractController
             $request,
             'unitstorage',
             'AppBundle\Entity\UnitStorage',
-            'AppBundle\Form\Type\UnitStorageType'
+            UnitStorageType::class
         );
 
         return $return;
@@ -121,7 +122,7 @@ class UnitStorageController extends AbstractController
         $return = $this->abstractEditAction(
             $unitstorage,
             'unitstorage',
-            'AppBundle\Form\Type\UnitStorageType'
+            UnitStorageType::class
         );
 
         return $return;
@@ -144,7 +145,7 @@ class UnitStorageController extends AbstractController
             $unitstorage,
             $request,
             'unitstorage',
-            'AppBundle\Form\Type\UnitStorageType'
+            UnitStorageType::class
         );
 
         return $return;

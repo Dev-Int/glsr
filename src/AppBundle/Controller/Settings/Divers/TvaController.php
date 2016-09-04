@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Tva;
+use AppBundle\Form\Type\TvaType;
 
 /**
  * Tva controller.
@@ -77,7 +78,7 @@ class TvaController extends AbstractController
         $return = $this->abstractNewAction(
             'Tva',
             'AppBundle\Entity\Tva',
-            'AppBundle\Form\Type\TvaType'
+            TvaType::class
         );
 
         return $return;
@@ -99,7 +100,7 @@ class TvaController extends AbstractController
             $request,
             'tva',
             'AppBundle\Entity\Tva',
-            'AppBundle\Form\Type\TvaType'
+            TvaType::class
         );
 
         return $return;
@@ -117,7 +118,7 @@ class TvaController extends AbstractController
      */
     public function editAction(Tva $tva)
     {
-        $return = $this->abstractEditAction($tva, 'tva', 'AppBundle\Form\Type\TvaType');
+        $return = $this->abstractEditAction($tva, 'tva', TvaType::class);
 
         return $return;
     }
@@ -135,7 +136,7 @@ class TvaController extends AbstractController
      */
     public function updateAction(Tva $tva, Request $request)
     {
-        $return = $this->abstractUpdateAction($tva, $request, 'tva', 'AppBundle\Form\Type\TvaType');
+        $return = $this->abstractUpdateAction($tva, $request, 'tva', TvaType::class);
 
         return $return;
     }

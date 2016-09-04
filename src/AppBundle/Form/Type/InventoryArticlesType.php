@@ -18,6 +18,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+
 /**
  * InventoryArticlesType Form properties.
  *
@@ -33,7 +37,7 @@ class InventoryArticlesType extends AbstractType
         $builder
             ->add(
                 'inventory',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:Inventory',
                     'choice_label' => 'id',
@@ -41,13 +45,14 @@ class InventoryArticlesType extends AbstractType
                     'translation_domain' => 'messages',
                     'empty_data' => null,
                     'attr'=> array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'article',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:Article',
                     'choice_label' => 'name',
@@ -55,13 +60,14 @@ class InventoryArticlesType extends AbstractType
                     'translation_domain' => 'gs_articles',
                     'empty_data' => null,
                     'attr'=> array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'quantity',
-                'number',
+                NumberType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
@@ -69,13 +75,14 @@ class InventoryArticlesType extends AbstractType
                     'label' => 'settings.quantity',
                     'translation_domain' => 'gs_articles',
                     'attr'=> array(
-                        'class' => 'inventory form-control'
+                        'class' => 'inventory form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'realstock',
-                'number',
+                NumberType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
@@ -89,60 +96,61 @@ class InventoryArticlesType extends AbstractType
             )
             ->add(
                 'unitStorage',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:UnitStorage',
                     'choice_label' => 'abbr',
                     'label' => 'gestock.settings.diverse.unitstorage',
                     'empty_data' => null,
                     'attr'=> array(
-                        'class' => 'form-control'
+                        'class' => 'form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'price',
-                'money',
+                MoneyType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
                     'currency' => 'EUR',
-                    'read_only' => true,
                     'label' => 'settings.price',
                     'translation_domain' => 'gs_articles',
                     'attr'=> array(
-                        'class' => 'inventory form-control'
+                        'class' => 'inventory form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'total',
-                'money',
+                MoneyType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
                     'currency' => 'EUR',
-                    'read_only' => true,
                     'label' => 'seizure.total',
                     'translation_domain' => 'gs_inventories',
                     'mapped' => false,
                     'attr'=> array(
-                        'class' => 'inventory form-control'
+                        'class' => 'inventory form-control',
+                        'readonly' => true
                     )
                 )
             )
             ->add(
                 'gap',
-                'number',
+                NumberType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
-                    'read_only' => true,
                     'label' => 'seizure.gap',
                     'translation_domain' => 'gs_inventories',
                     'mapped' => false,
                     'attr'=> array(
-                        'class' => 'inventory form-control'
+                        'class' => 'inventory form-control',
+                        'readonly' =>true
                     )
                 )
             )
@@ -162,7 +170,7 @@ class InventoryArticlesType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'inventoryarticles';
     }

@@ -21,6 +21,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 /**
  * ArticleType Form properties.
  *
@@ -37,7 +43,7 @@ class ArticleType extends AbstractType
         
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.title_item',
                     'attr'  => array('class' => 'form-control')
@@ -45,7 +51,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'packaging',
-                'number',
+                NumberType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
@@ -56,7 +62,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'price',
-                'money',
+                MoneyType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
@@ -66,10 +72,10 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('quantity', 'hidden', array('data' => 0))
+            ->add('quantity', HiddenType::class, array('data' => 0))
             ->add(
                 'minstock',
-                'number',
+                NumberType::class,
                 array(
                     'scale' => 3,
                     'grouping' => true,
@@ -78,11 +84,11 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('active', 'hidden', array('data' => true))
-            ->add('slug', 'hidden')
+            ->add('active', HiddenType::class, array('data' => true))
+            ->add('slug', HiddenType::class)
             ->add(
                 'supplier',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:Supplier',
                     'query_builder' => function (EntityRepository $er) {
@@ -100,7 +106,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'unitStorage',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:UnitStorage',
                     'choice_label' => 'name',
@@ -111,7 +117,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'zoneStorages',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:ZoneStorage',
                     'choice_label' => 'name',
@@ -123,7 +129,7 @@ class ArticleType extends AbstractType
             )
             ->add(
                 'familyLog',
-                'entity',
+                EntityType::class,
                 array(
                     'class' => 'AppBundle:FamilyLog',
                     'query_builder' => function (EntityRepository $er) {
@@ -155,7 +161,7 @@ class ArticleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'article';
     }

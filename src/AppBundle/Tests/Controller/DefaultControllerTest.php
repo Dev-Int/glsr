@@ -6,21 +6,45 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-   /**
+    /**
+     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+     */
+    public function getConnection() {
+        $pdo = new \PDO("DB_DNS", "DB_USER", "DB_PASSWD", "DB_DBNAME");
+    }
+    /**
      * PHPUnit's data providers allow to execute the same tests repeated times
      * using a different set of data each time.
-     * See http://symfony.com/doc/current/cookbook/form/unit_testing.html#testing-against-different-sets-of-data.
+     * See http://symfony.com/doc/2.8/form/unit_testing.html#testing-against-different-sets-of-data
      *
      * @dataProvider getPublicUrls
      */
     public function testPublicUrls($url)
     {
         $client = self::createClient();
-        $client->request('GET', $url);
-        $this->assertTrue(
-            $client->getResponse()->isSuccessful(),
-            sprintf('The "%s" public URL loads correctly.', $url)
-        );
+        if ($url === '/article/' or $url === '/supplier/') {
+            $stub = $this->getMockForAbstractClass('\AppBundle\Controller\AbstractController');
+            $stub->expects($this->any());
+
+            if ($url === '/article/') {
+                $this->assertTrue(
+                    $stub->abstractIndexAction('Article', null),
+                    sprintf('The "%s" public URL loads correctly.', $url)
+                );
+            }
+            if ($url === '/supplier/') {
+                $this->assertTrue(
+                    $stub->abstractIndexAction('Supplier', null),
+                    sprintf('The "%s" public URL loads correctly.', $url)
+                );
+            }
+        } else {
+            $client->request('GET', $url);
+            $this->assertTrue(
+                $client->getResponse()->isSuccessful(),
+                sprintf('The "%s" public URL loads correctly.', $url)
+            );
+        }
     }
 
     /**
@@ -36,7 +60,7 @@ class DefaultControllerTest extends WebTestCase
         $client->request('GET', $url);
         $this->assertTrue($client->getResponse()->isRedirect());
         $this->assertEquals(
-            'http://localhost/login',
+            'http://symfony2.local/login',
             $client->getResponse()->getTargetUrl(),
             sprintf('The "%s" secure URL redirects to the login form.', $url)
         );
@@ -46,10 +70,10 @@ class DefaultControllerTest extends WebTestCase
     {
         return array(
             array('/'),
+            array('/login'),
+            array('/inventory/'),
             array('/article/'),
             array('/supplier/'),
-            array('/inventory/'),
-            array('/login'),
         );
     }
 
@@ -70,7 +94,12 @@ class DefaultControllerTest extends WebTestCase
     }
 
     public function testIndex() {
-        $client = static::createClient();
+        $client = self::createClient(
+            array(),
+            array(
+               'HTTP_HOST' => 'symfony2.local',
+            )
+        );
 
         $crawler = $client->request('GET', '/');
 

@@ -19,6 +19,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 /**
  * CompanyType Form properties.
  *
@@ -34,35 +37,35 @@ class CompanyType extends AbstractType
         $builder
             ->add(
                 'name',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.settings.company.name'
                 )
             )
             ->add(
                 'status',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.settings.company.status'
                 )
             )
             ->add(
                 'address',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.address'
                 )
             )
             ->add(
                 'zipcode',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.zipcode'
                 )
             )
             ->add(
                 'town',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.town',
                     'attr' => array(
@@ -92,7 +95,7 @@ class CompanyType extends AbstractType
             )
             ->add(
                 'mail',
-                'email',
+                EmailType::class,
                 array(
                     'trim' => true,
                     'label' => 'gestock.mail'
@@ -100,7 +103,7 @@ class CompanyType extends AbstractType
             )
             ->add(
                 'contact',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'gestock.contact'
                 )
@@ -129,7 +132,7 @@ class CompanyType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'company';
     }

@@ -19,6 +19,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 /**
  * TvaType Form properties.
  *
@@ -32,7 +34,7 @@ class TvaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
+            ->add('name', TextType::class)
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
     }
 
@@ -49,7 +51,7 @@ class TvaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'tva';
     }

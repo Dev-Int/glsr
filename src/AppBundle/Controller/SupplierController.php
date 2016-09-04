@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Supplier;
+use AppBundle\Form\Type\SupplierType;
 
 /**
  * Supplier controller.
@@ -86,7 +87,7 @@ class SupplierController extends AbstractController
         $return = $this->abstractNewAction(
             'Supplier',
             'AppBundle\Entity\Supplier',
-            'AppBundle\Form\Type\SupplierType'
+            SupplierType::class
         );
 
         return $return;
@@ -108,7 +109,7 @@ class SupplierController extends AbstractController
             $request,
             'supplier',
             'AppBundle\Entity\Supplier',
-            'AppBundle\Form\Type\SupplierType'
+            SupplierType::class
         );
 
         return $return;
@@ -129,7 +130,7 @@ class SupplierController extends AbstractController
         $return = $this->abstractEditAction(
             $supplier,
             'supplier',
-            'AppBundle\Form\Type\SupplierType'
+            SupplierType::class
         );
 
         return $return;
@@ -152,7 +153,7 @@ class SupplierController extends AbstractController
             $supplier,
             $request,
             'supplier',
-            'AppBundle\Form\Type\SupplierType'
+            SupplierType::class
         );
 
         return $return;

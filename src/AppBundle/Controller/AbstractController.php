@@ -101,7 +101,7 @@ abstract class AbstractController extends Controller
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew, array(
+        $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
 
@@ -124,7 +124,7 @@ abstract class AbstractController extends Controller
         $param = array();
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm(new $typePath(), $entityNew, array(
+        $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
 
@@ -154,7 +154,7 @@ abstract class AbstractController extends Controller
     public function abstractEditAction($entity, $entityName, $typePath)
     {
         $param = $this->testReturnParam($entity, $entityName);
-        $editForm = $this->createForm(new $typePath(), $entity, array(
+        $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
@@ -179,7 +179,7 @@ abstract class AbstractController extends Controller
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
         $param = $this->testReturnParam($entity, $entityName);
-        $editForm = $this->createForm(new $typePath(), $entity, array(
+        $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));

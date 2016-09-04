@@ -20,6 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\FamilyLog;
+use AppBundle\Form\Type\FamilyLogType;
 
 /**
  * FamilyLog controller.
@@ -77,7 +78,7 @@ class FamilyLogController extends AbstractController
         $return = $this->abstractNewAction(
             'FamilyLog',
             'AppBundle\Entity\FamilyLog',
-            'AppBundle\Form\Type\FamilyLogType'
+            FamilyLogType::class
         );
 
         return $return;
@@ -99,7 +100,7 @@ class FamilyLogController extends AbstractController
             $request,
             'familylog',
             'AppBundle\Entity\FamilyLog',
-            'AppBundle\Form\Type\FamilyLogType'
+            FamilyLogType::class
         );
 
         return $return;
@@ -120,7 +121,7 @@ class FamilyLogController extends AbstractController
         $return = $this->abstractEditAction(
             $familylog,
             'familylog',
-            'AppBundle\Form\Type\FamilyLogType'
+            FamilyLogType::class
         );
 
         return $return;
@@ -143,7 +144,7 @@ class FamilyLogController extends AbstractController
             $familylog,
             $request,
             'familylog',
-            'AppBundle\Form\Type\FamilyLogType'
+            FamilyLogType::class
         );
 
         return $return;

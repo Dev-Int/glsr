@@ -98,7 +98,7 @@ class InventoryController extends AbstractController
     {
         $inventory = new Inventory();
         return $this->createForm(
-            new InventoryType(),
+            InventoryType::class,
             $inventory,
             array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
         );
@@ -107,7 +107,7 @@ class InventoryController extends AbstractController
     /**
      * Creates a new Inventory entity.
      *
-     * @Route("/create", name="inventory_create")
+     * @Route("/admin/create", name="inventory_create")
      * @Method("PUT")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -149,7 +149,7 @@ class InventoryController extends AbstractController
     /**
      * Displays a form to edit an existing Inventory entity.
      *
-     * @Route("/{id}/edit", name="inventory_edit", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/edit", name="inventory_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      *
@@ -158,7 +158,7 @@ class InventoryController extends AbstractController
      */
     public function editAction(Inventory $inventory)
     {
-        $editForm = $this->createForm(new InventoryEditType(), $inventory, array(
+        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
@@ -174,7 +174,7 @@ class InventoryController extends AbstractController
     /**
      * Edits an existing Inventory entity.
      *
-     * @Route("/{id}/update", name="inventory_update", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/update", name="inventory_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Inventory:edit.html.twig")
      *
@@ -184,7 +184,7 @@ class InventoryController extends AbstractController
      */
     public function updateAction(Inventory $inventory, Request $request)
     {
-        $editForm = $this->createForm(new InventoryEditType(), $inventory, array(
+        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
@@ -207,7 +207,7 @@ class InventoryController extends AbstractController
     /**
      * Displays a form to valid an existing Inventory entity.
      *
-     * @Route("/{id}/valid", name="inventory_valid", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/valid", name="inventory_valid", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      *
@@ -216,7 +216,7 @@ class InventoryController extends AbstractController
      */
     public function validAction(Inventory $inventory)
     {
-        $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
+        $validForm = $this->createForm(InventoryValidType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
@@ -232,7 +232,7 @@ class InventoryController extends AbstractController
     /**
      * Close an existing Inventory entity.
      *
-     * @Route("/{id}/close", name="inventory_close", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/close", name="inventory_close", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Inventory:valid.html.twig")
      *
@@ -245,7 +245,7 @@ class InventoryController extends AbstractController
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
         
-        $validForm = $this->createForm(new InventoryValidType(), $inventory, array(
+        $validForm = $this->createForm(InventoryValidType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
@@ -277,7 +277,7 @@ class InventoryController extends AbstractController
     /**
      * Deletes a Inventory entity.
      *
-     * @Route("/{id}/delete", name="inventory_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="inventory_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      *
      * @param \AppBundle\Entity\Inventory               $inventory Inventory item to delete

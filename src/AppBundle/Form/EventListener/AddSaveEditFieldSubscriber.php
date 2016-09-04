@@ -18,6 +18,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 /**
  * AddSaveEditFieldSubscriber EventListener.
  *
@@ -40,7 +42,7 @@ class AddSaveEditFieldSubscriber implements EventSubscriberInterface
         if (!$data || null === $data->getId()) {
             $form->add(
                 'save',
-                'submit',
+                SubmitType::class,
                 array(
                     'attr' => array(
                         'class' => 'btn btn-default btn-primary btn-create'
@@ -51,7 +53,7 @@ class AddSaveEditFieldSubscriber implements EventSubscriberInterface
             )
             ->add(
                 'addmore',
-                'submit',
+                SubmitType::class,
                 array(
                     'attr' => array(
                         'class' => 'btn btn-default btn-primary btn-create'
@@ -62,7 +64,7 @@ class AddSaveEditFieldSubscriber implements EventSubscriberInterface
         } else {
             $form->add(
                 'save',
-                'submit',
+                SubmitType::class,
                 array(
                     'attr' => array(
                         'class' => 'btn btn-default btn-primary btn-edit'

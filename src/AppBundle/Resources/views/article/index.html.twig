@@ -1,9 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% block title %}
-    {{ '%entity% list'|trans({'%entity%': 'title'|trans({}, 'gs_articles')}, 'admin') }} - {{ parent() }}
-{% endblock %}
-
 {% macro thead(name, entity, field, label) %}
     {% spaceless %}
         {% set sort = app.session.get('sort.' ~ name) %}
