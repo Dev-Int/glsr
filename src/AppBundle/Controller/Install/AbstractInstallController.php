@@ -46,7 +46,7 @@ abstract class AbstractInstallController extends Controller
         if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_int($number)) {
             $message = 'gestock.install.st'.$number.'.yet_exist';
         }
-        $form = $this->createForm(new $typePath(), $entityNew, array(
+        $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl('gs_install_st'.$number)
         ));
         if (is_int($number)) {

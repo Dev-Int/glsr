@@ -22,6 +22,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\UserType;
+use AppBundle\Form\Type\CompanyType;
+use AppBundle\Form\Type\SettingsType;
+use AppBundle\Form\Type\SupplierType;
+use AppBundle\Form\Type\ArticleType;
 
 /**
  * class InstallController
@@ -66,7 +70,7 @@ class InstallController extends AbstractInstallController
         if ($ctUser > 0 && $request->getMethod() == 'GET') {
             $message = 'gestock.install.st1.yet_exist';
         }
-        $form = $this->createForm(new UserType(), $user, array(
+        $form = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('gs_install_st1'),
         ));
     
@@ -101,7 +105,7 @@ class InstallController extends AbstractInstallController
             $request,
             'Company',
             '\AppBundle\Entity\Company',
-            '\AppBundle\Form\Type\CompanyType',
+            CompanyType::class,
             2
         );
         
@@ -127,7 +131,7 @@ class InstallController extends AbstractInstallController
             $request,
             'Settings',
             '\AppBundle\Entity\Settings',
-            '\AppBundle\Form\Type\SettingsType',
+            SettingsType::class,
             3
         );
         
@@ -168,7 +172,7 @@ class InstallController extends AbstractInstallController
             $request,
             'Supplier',
             '\AppBundle\Entity\Supplier',
-            '\AppBundle\Form\Type\SupplierType',
+            SupplierType::class,
             5
         );
         
@@ -194,7 +198,7 @@ class InstallController extends AbstractInstallController
             $request,
             'Article',
             '\AppBundle\Entity\Article',
-            '\AppBundle\Form\Type\ArticleType',
+            ArticleType::class,
             6
         );
         

@@ -37,6 +37,25 @@ abstract class AbstractController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $paginator = '';
+        $entities = $this->getEntity($entityName, $etm);
+        
+        if ($request !== null) {
+            $item = $this->container->getParameter('knp_paginator.page_range');
+            $this->addQueryBuilderSort($entities, strtolower($entityName));
+            $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
+        }
+
+        return array('entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,);
+    }
+
+    /**
+     * Get the entity
+     *
+     * @param string $entityName Name of Entity
+     * @param \Doctrine\Common\Persistence\ObjectManager[] $etm An array of ObjectManager instances
+     * @return type
+     */
+    protected function getEntity($entityName, $etm) {
         switch ($entityName) {
             case 'Article':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getArticles();
@@ -56,13 +75,7 @@ abstract class AbstractController extends Controller
             default:
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
         }
-        if ($request !== null) {
-            $item = $this->container->getParameter('knp_paginator.page_range');
-            $this->addQueryBuilderSort($entities, strtolower($entityName));
-            $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
-        }
-
-        return array('entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,);
+        return $entities;
     }
 
     /**
@@ -295,34 +308,6 @@ abstract class AbstractController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
-    }
-
-    /**
-     * Testing the installation inventory.
-     *
-     * @return string|null
-     */
-    protected function testInventory()
-    {
-        $url = null;
-        $etm = $this->getDoctrine()->getManager();
-        $inventories = $etm->getRepository('AppBundle:Inventory')->getInventory();
-
-        if (empty($inventories)) {
-            $url = 'gs_install_st7';
-        } else {
-            foreach ($inventories as $inventory) {
-                if ($inventory->getstatus() === 1 || $inventory->getStatus() === 2) {
-                    $message = $this->get('translator')
-                        ->trans('yet', array(), 'gs_inventories');
-                    $this->addFlash('danger', $message);
-                    $url = 'inventory';
-                    break;
-                }
-            }
-        }
-
-        return $url;
     }
 
     /**

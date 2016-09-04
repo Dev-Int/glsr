@@ -19,6 +19,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
+use AppBundle\Form\Type\FamilyLogType;
+use AppBundle\Form\Type\ZoneStorageType;
+use AppBundle\Form\Type\UnitStorageType;
+use AppBundle\Form\Type\TvaType;
+
 /**
  * class InstallController
  *
@@ -47,7 +52,7 @@ class Install4Controller extends InstallController
             $request,
             'FamilyLog',
             '\AppBundle\Entity\FamilyLog',
-            '\AppBundle\Form\Type\FamilyLogType',
+            FamilyLogType::class,
             '4_1'
         );
 
@@ -73,7 +78,7 @@ class Install4Controller extends InstallController
             $request,
             'ZoneStorage',
             '\AppBundle\Entity\ZoneStorage',
-            '\AppBundle\Form\Type\ZoneStorageType',
+            ZoneStorageType::class,
             '4_2'
         );
 
@@ -99,7 +104,7 @@ class Install4Controller extends InstallController
             $request,
             'UnitStorage',
             '\AppBundle\Entity\UnitStorage',
-            '\AppBundle\Form\Type\UnitStorageType',
+            UnitStorageType::class,
             '4_3'
         );
 
@@ -125,7 +130,7 @@ class Install4Controller extends InstallController
             $request,
             'Tva',
             '\AppBundle\Entity\Tva',
-            '\AppBundle\Form\Type\TvaType',
+            TvaType::class,
             '4_4'
         );
 
