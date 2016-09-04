@@ -7,15 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ArticleControllerTest extends WebTestCase
 {
     public function testIndex() {
-        $client = self::createClient(
-            array(),
-            array(
-               'HTTP_HOST' => 'symfony2.local',
-            )
-        );
+        $client = self::createClient();
 
         $crawler = $client->request('GET', '/article');
-        var_dump($crawler);
         $this->assertEquals(1, $crawler->filter('h2:contains("Articles - Liste")')->count());
 
 //        $this->assertContains('Articles - Liste', $crawler->filter('.container .row #content h2')->text());

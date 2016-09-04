@@ -7,12 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class DefaultControllerTest extends WebTestCase
 {
     /**
-     * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
-     */
-    public function getConnection() {
-        $pdo = new \PDO("DB_DNS", "DB_USER", "DB_PASSWD", "DB_DBNAME");
-    }
-    /**
      * PHPUnit's data providers allow to execute the same tests repeated times
      * using a different set of data each time.
      * See http://symfony.com/doc/2.8/form/unit_testing.html#testing-against-different-sets-of-data
