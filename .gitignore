@@ -12,4 +12,6 @@
 /app/phpunit.xml
 /vendor/
 /bin/
+!/bin/dbunit
+!/bin/dbunit.bat
 /composer.phar
