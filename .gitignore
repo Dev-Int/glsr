@@ -11,7 +11,9 @@
 /app/config/parameters.yml
 /app/phpunit.xml
 /vendor/
-/bin/
-!/bin/dbunit
-!/bin/dbunit.bat
 /composer.phar
+/bin/doctrine.bat
+/bin/doctrine.php
+/bin/doctrine.php.bat
+/bin/security-checker
+/bin/security-checker.bat
