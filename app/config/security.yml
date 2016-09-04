@@ -16,19 +16,25 @@ security:
             memory: ~
 
     firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
         main:
             pattern: ^/
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             form_login:
                 provider: fos_userbundle
-                #csrf_token_generator: security.csrf.token_manager
+                csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
                 #csrf_provider: form.csrf_provider
-                csrf_provider: security.csrf.token_manager
+                #csrf_provider: security.csrf.token_manager
 
             logout:       true
             anonymous:    true
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
             remember_me:
-                key:      %secret%
+                secret:      %secret%
                 lifetime: 604800 # 1 week in seconds
                 path:     /
                 domain:   ~ # Defaults to the current domain from $_SERVER
@@ -40,15 +46,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-#        main:
-#            anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
