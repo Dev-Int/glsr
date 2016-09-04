@@ -58,9 +58,6 @@ abstract class AbstractInstallController extends Controller
             );
         }
 
-        /**
-         * @todo Refactor handleRequest of Form
-         */
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
