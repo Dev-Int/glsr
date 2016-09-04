@@ -146,9 +146,10 @@ class MenuBuilder implements ContainerAwareInterface
         /*
          *  Menu Profile
          */
+        $context2 = $this->container->get('security.token_storage');
         if ($context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $menu->addChild('profile', array(
-                        'label' => $context->getToken()->getUser()->getUsername()))
+                        'label' => $context2->getToken()->getUser()->getUsername()))
                 ->setAttribute('dropdown', true)
                 ->setAttribute('icon', 'fa fa-user');
             
