@@ -40,6 +40,7 @@ class InstallController extends AbstractInstallController
      * Page d'accueil de l'installation.
      *
      * @Route("/", name="gs_install")
+     * @Method({"GET"})
      *
      * @return \Symfony\Component\HttpFoundation\Response Rendue de la page
      */
