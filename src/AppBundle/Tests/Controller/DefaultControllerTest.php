@@ -16,27 +16,27 @@ class DefaultControllerTest extends WebTestCase
     public function testPublicUrls($url)
     {
         $client = self::createClient();
-        if ($url === '/article/' or $url === '/supplier/') {
+        if ($url === '/article/' || $url === '/supplier/') {
             $stub = $this->getMockForAbstractClass('\AppBundle\Controller\AbstractController');
             $stub->expects($this->any());
 
             if ($url === '/article/') {
                 $this->assertTrue(
                     $stub->abstractIndexAction('Article', null),
-                    sprintf('The "%s" public URL loads correctly.', $url)
+                    sprintf('L\'URL public "%s" chargé correctement.', $url)
                 );
             }
             if ($url === '/supplier/') {
                 $this->assertTrue(
                     $stub->abstractIndexAction('Supplier', null),
-                    sprintf('The "%s" public URL loads correctly.', $url)
+                    sprintf('L\'URL public "%s" chargé correctement.', $url)
                 );
             }
         } else {
             $client->request('GET', $url);
             $this->assertTrue(
                 $client->getResponse()->isSuccessful(),
-                sprintf('The "%s" public URL loads correctly.', $url)
+                sprintf('L\'URL publique "%s" chargé correctement.', $url)
             );
         }
     }
@@ -56,7 +56,7 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(
             'http://symfony2.local/login',
             $client->getResponse()->getTargetUrl(),
-            sprintf('The "%s" secure URL redirects to the login form.', $url)
+            sprintf('L\'URL sécurisée "%s" redirige vers le formulaire de connexion.', $url)
         );
     }
 
