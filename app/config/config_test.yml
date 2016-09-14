@@ -18,6 +18,6 @@ swiftmailer:
 doctrine:
     dbal:
         host: localhost
-        dbname: glsr_test
-        user: root
-        password: null
+        dbname: %test_dbname%
+        user: %test_user%
+        password: %test_password%
