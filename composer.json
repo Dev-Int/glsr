@@ -5,7 +5,7 @@
     "homepage": "http://www.glsr.fr",
     "license": "MIT",
     "autoload": {
-        "psr-4": { "App\\": "src/AppBundle" },
+        "psr-4": { "": "src" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "authors":  [
