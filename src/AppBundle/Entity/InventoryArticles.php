@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\PersistentCollection;
+use AppBundle\Entity\ZoneStorage;
 
 /**
  * InventoryArticles
@@ -61,6 +64,13 @@ class InventoryArticles
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3, nullable=true)
      */
     private $price;
+
+    /**
+     * @var array $zoneStorage Zone(s) de stockage
+     *
+     * @ORM\Column(name="zoneStorage", type="array")
+     */
+    private $zoneStorages;
 
 
     /**
@@ -209,5 +219,28 @@ class InventoryArticles
     public function getUnitStorage()
     {
         return $this->unitStorage;
+    }
+
+    /**
+     * Add zoneStorage
+     *
+     * @param array $zoneStorage
+     * @return InventoryArticles
+     */
+    public function addZoneStorage($zoneStorage)
+    {
+        $this->zoneStorages[] = $zoneStorage;
+
+        return $this;
+    }
+
+    /**
+     * Get zoneStorages
+     *
+     * @return array
+     */
+    public function getZoneStorages()
+    {
+        return $this->zoneStorages;
     }
 }

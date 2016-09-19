@@ -137,6 +137,9 @@ class InventoryController extends AbstractController
                 $inventoryArticles->setQuantity($article->getQuantity());
                 $inventoryArticles->setRealstock(0);
                 $inventoryArticles->setUnitStorage($article->getUnitStorage());
+                foreach ($article->getZoneStorages()->getSnapshot() as $zoneStorage) {
+                    $inventoryArticles->addZoneStorage($zoneStorage->getName());
+                }
                 $inventoryArticles->setPrice($article->getPrice());
                 $etm->persist($inventoryArticles);
             }

@@ -77,48 +77,48 @@
                 margin-left:100px;
                 display: block;
                 clear: both;
-                page-break-after:auto;
+                page-break-before: always;
             }
         </style>
     </head>
     <body>
         {% for zstor in zonestorage %}
-        <div class="container">
-            <table class="table-bordered">
-                <thead>
-                    <tr>
-                        <th class="col-lg-4">{{ 'gestock.name'|trans }}</th>
-                        <th class="col-lg-2 center">price</th>
-                        <th class="col-lg-2 center">quantity</th>
-                        <th class="col-lg-2 center">unitstorage</th>
-                        <th class="col-lg-2 center">Inventaire</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% set index = 1 %}
-                    {% for article in articles %}
-                        {% for artzone in article.zonestorages %}
-                            {% if artzone.name == zstor.name %}
-                                {% if index == 1 %}
+            {% set index = 1 %}
+            {% for article in articles %}
+                {% for artzone in article.zonestorages if artzone.name == zstor.name %}
+                    {% if index == 1 %}
+                        <div class="container">
+                            <table class="table-bordered">
+                                <thead>
                                     <tr>
-                                        <th class="col-lg-12 center" colspan="5">{{ zstor.name }} </th>
+                                        <th class="col-lg-12 center" colspan="6">{{ zstor.name }} </th>
                                     </tr>
-                                {% endif %}
-                                <tr>
-                                    <td class="col-lg-4">{{ article.name }}</td>
-                                    <td class="col-lg-2 right">{{ article.price }} €</td>
-                                    <td class="col-lg-2 right">{{ article.quantity }}</td>
-                                    <td class="col-lg-2 center">{{ article.unitstorage }}</td>
-                                    <td class="col-lg-2"> </td>
-                                </tr>
-                                {% set index = 0 %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="page-break"></div>
+                                    <tr>
+                                        <th class="col-lg-1">{{ 'gestock.id'|trans }}</th>
+                                        <th class="col-lg-4">{{ 'gestock.name'|trans }}</th>
+                                        <th class="col-lg-1 center">{{ 'settings.price'|trans({}, 'gs_articles') }}</th>
+                                        <th class="col-lg-2 center">{{ 'settings.quantity'|trans({}, 'gs_articles') }}</th>
+                                        <th class="col-lg-2 center">{{ 'settings.packaging'|trans({}, 'gs_articles') }}</th>
+                                        <th class="col-lg-2 center">{{ 'title_short'|trans({}, 'gs_inventories') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    {% endif %}
+                    <tr>
+                        <td class="col-lg-1 center">{{ article.id }}</td>
+                        <td class="col-lg-4">{{ article.name }}</td>
+                        <td class="col-lg-1 right">{{ article.price|number_format(3, ',', ' ') }} € </td>
+                        <td class="col-lg-2 right">{{ article.quantity|number_format(3, ',', ' ') }}</td>
+                        <td class="col-lg-2 center">{{ article.unitstorage }}</td>
+                        <td class="col-lg-2"> </td>
+                    </tr>
+                    {% set index = 0 %}
+                {% endfor %}
+            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-break"></div>
         {% endfor %}
     </body>
 </html>
