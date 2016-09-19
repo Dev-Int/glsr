@@ -64,5 +64,5 @@ notification:
 branches:
   only:
     - master
-    - developp
+    - Developp
     - /^(?i:issue)-.*$/
