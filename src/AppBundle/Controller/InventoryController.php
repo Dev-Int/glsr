@@ -145,7 +145,7 @@ class InventoryController extends AbstractController
             }
             $etm->flush();
 
-            return $this->redirectToRoute('inventory_print_prepare', array('id' => $inventory->getId()));
+            return $this->redirectToRoute('inventory_print_prepare', array('id' => $inventory->getId(), 'inventoryStyle' =>$settings->getInventoryStyle()));
         }
     }
 
@@ -342,19 +342,26 @@ class InventoryController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Inventory $inventory
+     * @param \AppBundle\Entity\Inventory $inventory      Inventory to print
+     * @param string                      $inventoryStyle Style of inventory
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function prepareDataAction(Inventory $inventory)
+    public function prepareDataAction(Inventory $inventory, $inventoryStyle)
     {
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
         
-        $html = $this->renderView(
-            'AppBundle:Inventory:list.pdf.twig',
-            array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
-        );
+        if ($inventoryStyle == 'global') {
+            $html = $this->renderView('AppBundle:Inventory:list-global.pdf.twig', 
+                array('articles' => $articles, 'daydate' => $inventory->getDate(),)
+            );
+        } else {
+            $html = $this->renderView(
+                'AppBundle:Inventory:list-ordered.pdf.twig',
+                array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
+            );
+        }
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
                 $html,
