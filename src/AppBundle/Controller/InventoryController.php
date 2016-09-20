@@ -145,7 +145,10 @@ class InventoryController extends AbstractController
             }
             $etm->flush();
 
-            return $this->redirectToRoute('inventory_print_prepare', array('id' => $inventory->getId(), 'inventoryStyle' =>$settings->getInventoryStyle()));
+            return $this->redirectToRoute(
+                'inventory_print_prepare', 
+                array('id' => $inventory->getId(), 'inventoryStyle' =>$settings->getInventoryStyle())
+            );
         }
     }
 
@@ -291,7 +294,9 @@ class InventoryController extends AbstractController
     {
         $form = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
         $etm = $this->getDoctrine()->getManager();
-        $inventoryArticles = $etm->getRepository('AppBundle:InventoryArticles')->findBy(array('inventory' => $inventory->getId()));
+        $inventoryArticles = $etm->getRepository('AppBundle:InventoryArticles')->findBy(
+            array('inventory' => $inventory->getId())
+        );
         
         if ($form->handleRequest($request)->isValid()) {
             foreach ($inventoryArticles as $invent) {
@@ -353,7 +358,8 @@ class InventoryController extends AbstractController
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
         
         if ($inventoryStyle == 'global') {
-            $html = $this->renderView('AppBundle:Inventory:list-global.pdf.twig', 
+            $html = $this->renderView(
+                'AppBundle:Inventory:list-global.pdf.twig',
                 array('articles' => $articles, 'daydate' => $inventory->getDate(),)
             );
         } else {
