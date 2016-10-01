@@ -1,23 +1,28 @@
 image: php:5.6
 
-# Composer stores all downloaded packages in the vendor/ directory.
-# Do not use the following if the vendor/ directory is commited to
-# your git repository.
-cache:
-  paths:
-  - vendor/
-
 before_script:
-# Install git, the php image doesn't have installed
-- apt-get update -yqq
-- apt-get install git -yqq
-# Install mysql driver
-- docker-php-ext-install pdo_mysql
-# Install composer
-- curl -sS https://getcomposer.org/installer | php
-# Install all project dependencies
-- php composer.phar install
+    # Install git, the php image doesn't have installed
+    - apt-get update -yqq
+    - apt-get install git -yqq
+    # Install mysql driver
+    - docker-php-ext-install pdo_mysql
+    # Install composer
+    - curl -sS https://getcomposer.org/installer | php
+    # Install all project dependencies
+    - php composer.phar install
 
 services:
-- mysql
+    - mysql
 
+stages:
+    - build
+    - deploy
+
+build:app:
+    script:
+        - curl -s https://getcomposer.org/installer | php
+        - php composer.phar install
+        - rm -rf app/cache/*
+        - chmod -R 777 app/cache/ app/logs/
+    only:
+        - test
