@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-tag"></span>
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {{ form_start(form, {action: path('familylog_create')}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.parent) }}
+        <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-3">
+                <div class="btn-group record_actions">
+                    {{ form_widget(form.save) }} {{ form_widget(form.addmore) }}
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
+        
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('familylog') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+        </div>
+
+{% endblock %}

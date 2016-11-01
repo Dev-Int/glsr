@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-tag"></span>
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.familylog'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-hover records_list">
+        <thead class="thead-default">
+            <tr>
+                <th scope="col" class="col-md-10">{{ 'gestock.name'|trans }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for familylog in entities %}
+                <tr>
+                    <td>
+                        {% set key = loop.index %}
+                        {% if familylog.__children %}
+                            <button type="button" class="btn btn-xs" data-toggle="collapse" data-target="#collapseme_{{ key }}">
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        {% endif %}
+                        <a href="{{ path('familylog_show', {slug: familylog.slug}) }}">{{ familylog.name }}</a></td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('familylog_show', {slug: familylog.slug}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('familylog_edit', {slug: familylog.slug}) }}">
+                                {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="collapse out" id="collapseme_{{ key }}">
+                    <td colspan="2">
+                        <table class="table table-hover records_list">
+                {% for child in familylog.__children %}
+                    <tr>
+                        <td scope="col" class="col-md-9">
+                            <div class="col-md-1"></div>
+                            <i class="fa fa-angle-right"></i> <a href="{{ path('familylog_show', {slug: child.slug}) }}">{{ child.name }}</a>
+                        </td>
+                        <td scope="col" class="col-md-2 text-center">
+                            <div class="btn-group">
+                                <a class="btn btn-default btn-show btn-xs" href="{{ path('familylog_show', {slug: child.slug}) }}">
+                                    {{ 'show'|trans({}, 'admin') }}
+                                </a>
+                                <a class="btn btn-info btn-edit btn-xs" href="{{ path('familylog_edit', {slug: child.slug}) }}">
+                                    {{ 'edit'|trans({}, 'admin') }}
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="btn-group">
+        {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-create" href="{{ path('familylog_new') }}">
+                {{ 'Create a new entry'|trans({}, 'admin') }}
+            </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends "AppBundle:Inventory:edit.html.twig" %}
+
+{% block inventory_body %}
+    <div class="panel panel-default">
+        <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> {{ 'seizure.item'|trans({'%id%': inventory.id, '%date%': inventory.date|date('d/m/Y')}, 'gs_inventories') }}</header>
+<ul class="nav nav-tabs nav-justified" role="tablist">
+    {% for zone in zoneStorage %}
+        {% if loop.index == 1 %}
+            <li class="active"><a href="#{{ zone.slug }}" role="tab" id="{{ zone.slug }}_tab" data-toggle="tab">{{ zone.name }}</a></li>
+        {% else %}
+            <li class=""><a href="#{{ zone.slug }}" role="tab" id="{{ zone.slug }}_tab" data-toggle="tab">{{ zone.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<div class="tab-content">
+    {% for zone in zoneStorages %}
+        {% if loop.index == 1 %}
+            <div class="tab-pane fade active in" id="{{ zone.slug }}">
+        {% else %}
+            <div class="tab-pane fade" id="{{ zone.slug }}">
+        {% endif %}
+        <table class="table table-striped inventory">
+            <thead>
+                {% for item in edit_form.articles %}
+                    {% if item.zoneStorages.vars.value == zone.name %}
+                        {% if loop.index == 1 %}
+                            <tr>
+                                <th class="col-md-1">{{ form_label(item.inventory) }}</th>
+                                <th class="col-md-3">{{ form_label(item.article) }}</th>
+                                <th class="col-md-1">{{ form_label(item.quantity) }}</th>
+                                <th class="col-md-1">{{ form_label(item.realstock) }}</th>
+                                <th class="col-md-1">{{ form_label(item.unitStorage) }}</th>
+                                <th class="col-md-2">{{ form_label(item.price) }}</th>
+                                <th class="col-md-2">{{ form_label(item.total) }}</th>
+                                <th class="col-md-1">{{ form_label(item.gap) }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% endif %}
+
+                        <tr>
+                            <td>{{ form_widget(item.inventory) }}</td>
+                            <td>{{ form_widget(item.article) }}</td>
+                            <td>{{ form_widget(item.quantity) }}</td>
+                            <td>
+                                {% if loop.index == 1 %}
+                                {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                {% else %}
+                                {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                {% endif %}
+                            </td>
+                            <td>{{ form_widget(item.unitStorage) }}</td>
+                            <td>{{ form_widget(item.price) }}</td>
+                            <td>{{ form_widget(item.total) }}</td>
+                            <td>{{ form_widget(item.gap) }}</td>
+                        </tr>
+                        {% set lastloop = loop.index %}
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">{{ form_label(edit_form.amount) }}</td>
+                    <td>{{ form_widget(edit_form.amount) }}</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+    {% endfor %}
+        <footer class="panel-footer text-right">
+            <button tabindex="{{ lastloop + 1 }}" class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+        </footer>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function realstockCalcul(id){
+        var realstock = $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
+        var quantity = $('#{{ edit_form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
+        var price     = $('#{{ edit_form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
+        var total = realstock*price;
+        var gap = realstock-quantity;
+        var lastloop = {{ lastloop }}-1;
+
+        var total = total.toFixed(3);
+        var total = total.replace('.', ',');
+        $('#{{ edit_form.articles.vars.id }}_' + id + '_total').val(total);
+
+        if(realstock !== '') {
+            var realstock = realstock.replace('.', ',');
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').val(realstock);
+        }
+
+        var gap = gap.toFixed(3);
+
+        if(gap < 0) {
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').addClass('negative');
+        } else {
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').removeClass('negative');
+        }
+        var gap = gap.replace('.', ',');
+        $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').val(gap);
+
+        var totals = 0;
+        for (var iter = 0; iter <= lastloop; iter++) {
+            var total = $('#{{ edit_form.articles.vars.id }}_' + iter + '_total').val();
+            var total = total.replace(',', '.');
+            if(isNaN(total)) {
+                total = 0;
+            } else {
+                total = $('#{{ edit_form.articles.vars.id }}_' + iter + '_total').val();
+                var total = total.replace(',', '.');
+            }
+            totals = Number(totals) + Number(total);
+        }
+        var totals = totals.toFixed(3);
+        var totals = totals.replace('.', ',');
+        $('#{{ edit_form.amount.vars.id }}').val(totals);
+    }
+
+    function calculTotaux()
+    {
+        var lastloop = {{ lastloop }}-1;
+        for (var iter = 0; iter <= lastloop; iter++) {
+            realstockCalcul(iter);
+        }
+        selectOnFocus(0);
+    }
+
+    function selectOnFocus(id)
+    {
+        $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').select();
+    }
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href"); // activated tab
+        if ($(target).is(':empty')) {
+            $.ajax({
+                type: "GET",
+                url: "/article/",
+                error: function(data){
+                    alert("There was a problem");
+                },
+                success: function(data){
+                    $(target).html(data);
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

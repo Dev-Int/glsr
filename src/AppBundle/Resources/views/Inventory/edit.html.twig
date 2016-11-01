@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% form_theme edit_form 'form/fields.html.twig' %}
+{% set lastloop = 0 %}
+{% block title %}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_js %}
+    onload="calculTotaux();"
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-barcode" aria-hidden="true"></i>
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {{ form_start(edit_form) }}
+
+        {% block inventory_body %}{% endblock %}
+
+    {{ form_end(edit_form) }}
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('inventory') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+            {% if inventory.status == 2 and is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('inventory_valid', {id: inventory.id}) }}" class="btn btn-success">
+                <i class="fa fa-check"></i> {{ 'close.submit_button'|trans({}, 'gs_inventories') }}
+            </a>
+            {% endif %}
+
+                <button class="btn btn-danger btn-delete" type="submit">
+                    {{ 'cancel.title'|trans({}, 'gs_inventories') }}
+                </button>
+
+        </div>
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'AppBundle:Inventory:deleteform.html.twig' %}
+
+{% endblock %}

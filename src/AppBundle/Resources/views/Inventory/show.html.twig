@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inventory - {{ parent() }}{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-tasks" aria-hidden="true"></i>
+    {{ 'show.title'|trans({'%inventory.date%': inventory.date|date('d/m/Y')}, 'gs_inventories') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset class="well ">
+        <legend>{{ 'title'|trans({}, 'gs_articles') }}</legend>
+
+        <section class="row">
+            <div class="col-md-4 text-center">
+                <a href="{{ path('inventory_print', {id: inventory.id}) }}" class="btn btn-info">
+                    <i class="fa fa-print"></i>{{ 'seizure.print'|trans({}, 'gs_inventories') }}
+                </a>
+            </div>
+            <div class="col-md-4 col-md-offset-4 text-center">
+                <strong>{{ 'settings.status'|trans({}, 'gs_inventories') }}</strong> : 
+                {% if inventory.status == 1 or  inventory.status == 2 %}
+                    <p class="btn btn-info">{{ 'settings.in_progress'|trans({}, 'gs_inventories') }}</p>
+                {% elseif inventory.status == 3 %}
+                    <p class="btn btn-success">{{ 'settings.closed'|trans({}, 'gs_inventories') }}</p>
+                {% endif %}
+            </div>
+        </section>
+            <hr />
+        <section>
+            {% include 'AppBundle:Inventory:articles.html.twig' with {inventart: inventoryArticles} %}
+        </section>
+    </fieldset>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('inventory') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+                {% if inventory.status == 1 or inventory.status == 2 %}
+            <a class="btn btn-primary btn-edit" href="{{ path('inventory_edit', {id: inventory.id}) }}">
+                {{ 'seizure.title'|trans({}, 'gs_inventories') }}
+            </a>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'cancel.title'|trans({}, 'gs_inventories') }}
+            </button>
+            {% endif %}
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'AppBundle:Inventory:deleteform.html.twig' %}
+{% endblock %}
