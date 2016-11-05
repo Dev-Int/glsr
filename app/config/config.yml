@@ -127,11 +127,17 @@ fos_user:
 knp_snappy:
     pdf:
         enabled: true
-        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/bin/wkhtmltopdf.exe
+        # if you are using Windows
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltopdf.exe
+        # if you are using Unix
+        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltopdf
         options: []
     image:
         enabled: true
-        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/bin/wkhtmltoimage.exe
+        # if you are using Windows
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltoimage.exe
+        # if you are using Unix
+        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltoimage
         options: []
         
 # JMS_Security_Extra Configuration
