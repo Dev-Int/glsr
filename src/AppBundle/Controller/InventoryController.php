@@ -75,6 +75,11 @@ class InventoryController extends AbstractController
     public function showAction(Inventory $inventory)
     {
         $etm = $this->getDoctrine()->getManager();
+        $zoneStorages = null;
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
+        if ($settings->getInventoryStyle() == 'zonestorage') {
+            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
+        }
         $inventoryArticles = $etm
             ->getRepository('AppBundle:InventoryArticles')
             ->getArticlesFromInventory($inventory);
@@ -82,25 +87,10 @@ class InventoryController extends AbstractController
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
         
         return array(
-            'inventory' => $inventory,
+            'inventory'         => $inventory,
+            'zoneStorages'      => $zoneStorages,
             'inventoryArticles' => $inventoryArticles,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Create Create form.
-     *
-     * @param string $route Route of action form
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createCreateForm($route)
-    {
-        $inventory = new Inventory();
-        return $this->createForm(
-            InventoryType::class,
-            $inventory,
-            array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
+            'delete_form'       => $deleteForm->createView(),
         );
     }
 
@@ -146,7 +136,7 @@ class InventoryController extends AbstractController
             $etm->flush();
 
             return $this->redirectToRoute(
-                'inventory_print_prepare', 
+                'inventory_print_prepare',
                 array('id' => $inventory->getId(), 'inventoryStyle' =>$settings->getInventoryStyle())
             );
         }
@@ -309,6 +299,22 @@ class InventoryController extends AbstractController
         return $this->redirectToRoute('inventory');
     }
 
+
+    /**
+     * Create Create form.
+     *
+     * @param string $route Route of action form
+     * @return \Symfony\Component\Form\Form
+     */
+    protected function createCreateForm($route)
+    {
+        $inventory = new Inventory();
+        return $this->createForm(
+            InventoryType::class,
+            $inventory,
+            array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
+        );
+    }
     /**
      * Print the current inventory.<br />Creating a `PDF` file for viewing on paper
      *
