@@ -51,7 +51,7 @@
                                     <td>
                                         {{ form_widget(item.zoneStorage) }}
                                         {{ form_widget(item.inventory, { 'attr':{'class':'hidden'} }) }}
-                                        <input type="text" value="{{ item.article.vars.value }}" class="form-control text-right" readonly>
+                                        <input type="text" value="{{ item.article.vars.value }}" class="form-control text-right" tabindex="100" readonly>
                                     </td>
                                     <td>{{ form_widget(item.article) }}</td>
                                     <td>{{ form_widget(item.quantity) }}</td>
