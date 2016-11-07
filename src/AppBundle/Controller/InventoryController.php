@@ -25,6 +25,7 @@ use AppBundle\Entity\Inventory;
 use AppBundle\Form\Type\InventoryType;
 use AppBundle\Entity\InventoryArticles;
 use AppBundle\Form\Type\InventoryEditType;
+use AppBundle\Form\Type\InventoryEditZonesType;
 use AppBundle\Form\Type\InventoryValidType;
 
 /**
@@ -121,23 +122,23 @@ class InventoryController extends AbstractController
             }
             // Saving of articles in the inventory
             foreach ($articles as $article) {
-                $inventoryArticles = new InventoryArticles();
-                $inventoryArticles->setArticle($article);
-                $inventoryArticles->setInventory($inventory);
-                $inventoryArticles->setQuantity($article->getQuantity());
-                $inventoryArticles->setRealstock(0);
-                $inventoryArticles->setUnitStorage($article->getUnitStorage());
                 foreach ($article->getZoneStorages()->getSnapshot() as $zoneStorage) {
-                    $inventoryArticles->addZoneStorage($zoneStorage->getName());
+                    $inventoryArticles = new InventoryArticles();
+                    $inventoryArticles->setArticle($article);
+                    $inventoryArticles->setInventory($inventory);
+                    $inventoryArticles->setQuantity($article->getQuantity());
+                    $inventoryArticles->setRealstock(0);
+                    $inventoryArticles->setUnitStorage($article->getUnitStorage());
+                    $inventoryArticles->setPrice($article->getPrice());
+                    $inventoryArticles->setZoneStorage($zoneStorage->getName());
+                    $etm->persist($inventoryArticles);
                 }
-                $inventoryArticles->setPrice($article->getPrice());
-                $etm->persist($inventoryArticles);
             }
             $etm->flush();
 
             return $this->redirectToRoute(
                 'inventory_print_prepare',
-                array('id' => $inventory->getId(), 'inventoryStyle' =>$settings->getInventoryStyle())
+                array('id' => $inventory->getId(), 'inventoryStyle' => $settings->getInventoryStyle())
             );
         }
     }
@@ -154,14 +155,26 @@ class InventoryController extends AbstractController
      */
     public function editAction(Inventory $inventory)
     {
-        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-            'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-            'method' => 'PUT',
-        ));
+        $etm = $this->getDoctrine()->getManager();
+        $zoneStorages = null;
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
+        if ($settings->getInventoryStyle() == 'zonestorage') {
+            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
+            $editForm = $this->createForm(InventoryEditZonesType::class, $inventory, array(
+                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
+                'method' => 'PUT',
+            ));
+        } else {
+            $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
+                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
+                'method' => 'PUT',
+            ));
+        }
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
 
         return array(
             'inventory' => $inventory,
+            'zoneStorages' => $zoneStorages,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -349,7 +362,7 @@ class InventoryController extends AbstractController
     /**
      * Print the preparation of inventory.<br />Creating a `PDF` file for viewing on paper
      *
-     * @Route("/{id}/print/prepare", name="inventory_print_prepare", requirements={"id"="\d+"})
+     * @Route("/{id}/print/{inventoryStyle}/prepare", name="inventory_print_prepare", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      *

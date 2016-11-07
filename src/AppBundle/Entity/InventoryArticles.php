@@ -63,11 +63,11 @@ class InventoryArticles
     private $price;
 
     /**
-     * @var array $zoneStorage Zone(s) de stockage
+     * @var string $zoneStorage Zone de stockage
      *
-     * @ORM\Column(name="zoneStorage", type="array")
+     * @ORM\Column(name="zoneStorage", type="string", length=255, nullable=true)
      */
-    private $zoneStorages;
+    private $zoneStorage;
 
 
     /**
@@ -219,25 +219,25 @@ class InventoryArticles
     }
 
     /**
-     * Add zoneStorage
+     * Set zoneStorage
      *
-     * @param array $zoneStorage
+     * @param string $zoneStorage
      * @return InventoryArticles
      */
-    public function addZoneStorage($zoneStorage)
+    public function setZoneStorage($zoneStorage = null)
     {
-        $this->zoneStorages[] = $zoneStorage;
+        $this->zoneStorage = $zoneStorage;
 
         return $this;
     }
 
     /**
-     * Get zoneStorages
+     * Get zoneStorage
      *
-     * @return array
+     * @return string 
      */
-    public function getZoneStorages()
+    public function getZoneStorage()
     {
-        return $this->zoneStorages;
+        return $this->zoneStorage;
     }
 }

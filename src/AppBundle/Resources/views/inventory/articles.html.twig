@@ -26,7 +26,7 @@
         {% if zoneStorages %}
             {% for zone in zoneStorages %}
                 {% for inv in inventart %}
-                    {% if zone.name in inv.zoneStorages %}
+                    {% if zone.name in inv.zoneStorage %}
                         {% if loop.index == 1 or zone.name != nameZone %}
                             {% set nameZone = zone.name %}
                             <tr>
