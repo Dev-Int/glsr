@@ -193,21 +193,39 @@ class InventoryController extends AbstractController
      */
     public function updateAction(Inventory $inventory, Request $request)
     {
-        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-            'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-            'method' => 'PUT',
-        ));
+        $etm = $this->getDoctrine()->getManager();
+        $zoneStorages = null;
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
+        if ($settings->getInventoryStyle() == 'zonestorage') {
+            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
+            $editForm = $this->createForm(InventoryEditZonesType::class, $inventory, array(
+                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
+                'method' => 'PUT',
+            ));
+        } else {
+            $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
+                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
+                'method' => 'PUT',
+            ));
+        }
         if ($editForm->handleRequest($request)->isValid()) {
             $inventory->setStatus('2');
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('inventory_edit', array('id' => $inventory->getId()));
+            return $this->redirectToRoute(
+                'inventory_edit',
+                array(
+                    'id' => $inventory->getId(),
+                    'zoneStorages' => $zoneStorages,
+                )
+            );
         }
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
 
 
         return array(
             'inventory' => $inventory,
+            'zoneStorages' => $zoneStorages,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
