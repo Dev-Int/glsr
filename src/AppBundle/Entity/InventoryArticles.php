@@ -234,7 +234,7 @@ class InventoryArticles
     /**
      * Get zoneStorage
      *
-     * @return string 
+     * @return string
      */
     public function getZoneStorage()
     {
