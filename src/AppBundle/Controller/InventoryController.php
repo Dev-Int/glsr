@@ -448,7 +448,6 @@ class InventoryController extends AbstractController
             }
             $lineOk = 0;
         }
-                    var_dump($articleLine);
         return $articleLine;
     }
 }
