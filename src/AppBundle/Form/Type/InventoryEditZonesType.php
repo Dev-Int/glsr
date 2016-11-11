@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Type\InventoryArticlesZonesType;
 use AppBundle\Form\Type\InventoryEditType;
 
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 /**
