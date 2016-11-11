@@ -423,7 +423,8 @@ class InventoryController extends AbstractController
     }
     
     /**
-     * 
+     * Get Line Articles
+     *
      * @param array $articleLine
      * @param Inventory $inventory
      * @return array $articleLine
@@ -436,7 +437,7 @@ class InventoryController extends AbstractController
             foreach ($articleLine as $key => $art) {
                 if (!empty($articleLine) && $line->getArticle()->getName() === $art['article']) {
                     $art['realstock'] = $art['realstock'] + $line->getRealstock();
-                    $articleLine[$key]['realstock'] = strval(number_format($art['realstock'],3));
+                    $articleLine[$key]['realstock'] = strval(number_format($art['realstock'], 3));
                     $lineOk = 1;
                 }
             }
