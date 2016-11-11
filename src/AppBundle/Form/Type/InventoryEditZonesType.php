@@ -18,6 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use AppBundle\Form\Type\InventoryArticlesZonesType;
+use AppBundle\Form\Type\InventoryEditType;
 
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -27,36 +28,17 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
  *
  * @category   Form
  */
-class InventoryEditZonesType extends InventoryType
+class InventoryEditZonesType extends InventoryEditType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->remove('status')
-            ->add(
-                'articles',
-                CollectionType::class,
-                array('entry_type' => InventoryArticlesZonesType::class,)
-            )
-            ->add(
-                'amount',
-                MoneyType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'seizure.totals',
-                    'translation_domain' => 'gs_inventories',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true
-                    )
-                )
-            )
-        ;
+            ->remove('articles')
+            ->add('articles', CollectionType::class, ['entry_type' => InventoryArticlesZonesType::class,]);
     }
 
     /**

@@ -16,16 +16,13 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use AppBundle\Controller\AbstractInventoryController;
 use AppBundle\Entity\Inventory;
-use AppBundle\Form\Type\InventoryType;
 use AppBundle\Entity\InventoryArticles;
-use AppBundle\Form\Type\InventoryEditType;
-use AppBundle\Form\Type\InventoryEditZonesType;
 use AppBundle\Form\Type\InventoryValidType;
 
 /**
@@ -35,7 +32,7 @@ use AppBundle\Form\Type\InventoryValidType;
  *
  * @Route("/inventory")
  */
-class InventoryController extends AbstractController
+class InventoryController extends AbstractInventoryController
 {
     /**
      * Lists all Inventory entities.
@@ -155,29 +152,9 @@ class InventoryController extends AbstractController
      */
     public function editAction(Inventory $inventory)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $zoneStorages = null;
-        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
-        if ($settings->getInventoryStyle() == 'zonestorage') {
-            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
-            $editForm = $this->createForm(InventoryEditZonesType::class, $inventory, array(
-                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-                'method' => 'PUT',
-            ));
-        } else {
-            $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-                'method' => 'PUT',
-            ));
-        }
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-        return array(
-            'inventory' => $inventory,
-            'zoneStorages' => $zoneStorages,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        $return = $this->getInvetoryEditType($inventory);
+        
+        return $return;
     }
 
     /**
@@ -193,42 +170,18 @@ class InventoryController extends AbstractController
      */
     public function updateAction(Inventory $inventory, Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $zoneStorages = null;
-        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
-        if ($settings->getInventoryStyle() == 'zonestorage') {
-            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
-            $editForm = $this->createForm(InventoryEditZonesType::class, $inventory, array(
-                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-                'method' => 'PUT',
-            ));
-        } else {
-            $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-                'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-                'method' => 'PUT',
-            ));
-        }
-        if ($editForm->handleRequest($request)->isValid()) {
+        $return = $this->getInvetoryEditType($inventory);
+        
+        if ($return['editForm']->handleRequest($request)->isValid()) {
             $inventory->setStatus('2');
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute(
+            $return = $this->redirectToRoute(
                 'inventory_edit',
-                array(
-                    'id' => $inventory->getId(),
-                    'zoneStorages' => $zoneStorages,
-                )
+                array('id' => $inventory->getId(), 'zoneStorages' => $return['zoneStorages'],)
             );
         }
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-
-        return array(
-            'inventory' => $inventory,
-            'zoneStorages' => $zoneStorages,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -334,22 +287,6 @@ class InventoryController extends AbstractController
         return $this->redirectToRoute('inventory');
     }
 
-
-    /**
-     * Create Create form.
-     *
-     * @param string $route Route of action form
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createCreateForm($route)
-    {
-        $inventory = new Inventory();
-        return $this->createForm(
-            InventoryType::class,
-            $inventory,
-            array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
-        );
-    }
     /**
      * Print the current inventory.<br />Creating a `PDF` file for viewing on paper
      *
@@ -420,34 +357,5 @@ class InventoryController extends AbstractController
                 'Content-Disposition' => 'attachment; filename="prepare.pdf"'
             )
         );
-    }
-    
-    /**
-     * Get Line Articles
-     *
-     * @param array $articleLine
-     * @param Inventory $inventory
-     * @return array $articleLine
-     */
-    private function getLineArticles(array $articleLine, Inventory $inventory)
-    {
-        $inventoryArticles = array();
-        $lineOk = 0;
-        foreach ($inventory->getArticles() as $line) {
-            foreach ($articleLine as $key => $art) {
-                if (!empty($articleLine) && $line->getArticle()->getName() === $art['article']) {
-                    $art['realstock'] = $art['realstock'] + $line->getRealstock();
-                    $articleLine[$key]['realstock'] = strval(number_format($art['realstock'], 3));
-                    $lineOk = 1;
-                }
-            }
-            if ($lineOk === 0) {
-                $inventoryArticles['article'] = $line->getArticle()->getName();
-                $inventoryArticles['realstock'] = $line->getRealstock();
-                array_push($articleLine, $inventoryArticles);
-            }
-            $lineOk = 0;
-        }
-        return $articleLine;
     }
 }

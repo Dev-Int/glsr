@@ -1,6 +1,6 @@
 <?php
 /**
- * InventoryEditType Form properties.
+ * InventoryArticlesZonesType Form properties.
  *
  * PHP Version 5
  *
@@ -14,149 +14,26 @@
  */
 namespace AppBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use AppBundle\Form\Type\InventoryArticlesType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 /**
- * InventoryArticlesType Form properties.
+ * InventoryArticlesZonesType Form properties.
  *
  * @category   Form
  */
-class InventoryArticlesZonesType extends AbstractType
+class InventoryArticlesZonesType extends InventoryArticlesType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add(
-                'inventory',
-                EntityType::class,
-                array(
-                    'class' => 'AppBundle:Inventory',
-                    'choice_label' => 'id',
-                    'label' => 'gestock.id',
-                    'translation_domain' => 'messages',
-                    'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add(
-                'article',
-                EntityType::class,
-                array(
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'label' => 'title',
-                    'translation_domain' => 'gs_articles',
-                    'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add('zoneStorage', HiddenType::class)
-            ->add(
-                'quantity',
-                NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'empty_data' => '0,000',
-                    'label' => 'settings.quantity',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add(
-                'realstock',
-                NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'empty_data' => '0,000',
-                    'label' => 'seizure.realstock',
-                    'translation_domain' => 'gs_inventories',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                    ),
-                )
-            )
-            ->add(
-                'unitStorage',
-                EntityType::class,
-                array(
-                    'class' => 'AppBundle:UnitStorage',
-                    'choice_label' => 'abbr',
-                    'label' => 'gestock.settings.diverse.unitstorage',
-                    'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add(
-                'price',
-                MoneyType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'settings.price',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add(
-                'total',
-                MoneyType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'seizure.total',
-                    'translation_domain' => 'gs_inventories',
-                    'mapped' => false,
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true,
-                    ),
-                )
-            )
-            ->add(
-                'gap',
-                NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'label' => 'seizure.gap',
-                    'translation_domain' => 'gs_inventories',
-                    'mapped' => false,
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' =>true,
-                    ),
-                )
-            )
-        ;
+        parent::buildForm($builder, $options);
+        $builder->add('zoneStorage', HiddenType::class);
     }
 
     /**
