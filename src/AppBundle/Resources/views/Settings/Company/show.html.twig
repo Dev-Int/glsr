@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'gestock.settings.company.title'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
+    {{ 'gestock.settings.company.title'|trans }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-hover record_properties">
+        <tbody>
+            <tr>
+                <th scope="row">{{ 'gestock.name'|trans }}</th>
+                <td>{{ company.name }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.settings.company.status'|trans }}</th>
+                <td>{{ company.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('company') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <a class="btn btn-primary btn-edit" href="{{ path('company_edit', {id: company.id}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'deleteForm.html.twig' %}
+{% endblock %}

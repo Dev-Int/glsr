@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.unitstorage'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-cubes"></i>
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.unitstorage'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    <table class="table table-striped table-hover table-bordered records_list">
+        <thead>
+            <tr>
+                <th scope="col" class="col-md-7">{{ 'gestock.name'|trans }}</th>
+                <th scope="col" class="col-md-3">{{ 'gestock.abbr'|trans }}</th>
+                <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unitstorage in paginator %}
+                <tr>
+                    <td><a href="{{ path('unitstorage_show', {slug: unitstorage.slug}) }}">{{ unitstorage.name }}</a></td>
+                    <td>{{ unitstorage.abbr }}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-default btn-show btn-xs" href="{{ path('unitstorage_show', {slug: unitstorage.slug}) }}">
+                                {{ 'show'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-info btn-edit btn-xs" href="{{ path('unitstorage_edit', {slug: unitstorage.slug}) }}">
+                                {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    {{ knp_pagination_render(paginator) }}
+    
+    <div class="btn-group">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info btn-create" href="{{ path('unitstorage_new') }}">
+            {{ 'Create a new entry'|trans({}, 'admin') }}
+        </a>
+    </div>
+    
+{% endblock %}

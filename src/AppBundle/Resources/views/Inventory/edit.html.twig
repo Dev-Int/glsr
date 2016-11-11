@@ -1,0 +1,208 @@
+{% extends "base.html.twig" %}
+{% form_theme edit_form 'form/fields.html.twig' %}
+{% set lastloop = 0 %}
+{% block title %}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_js %}
+    onload="calculTotaux();"
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-barcode" aria-hidden="true"></i>
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+    {% set nameZone ="" %}
+    {{ form_start(edit_form) }}
+    <div class="panel panel-default">
+        <header class="panel-heading"><i class="glyphicon glyphicon-list"></i> {{ 'seizure.item'|trans({'%id%': inventory.id, '%date%': inventory.date|date('d/m/Y')}, 'gs_inventories') }}</header>
+    
+        <table class="table table-striped inventory">
+            <thead>
+                {% if zoneStorages %}
+                    {% for zone in zoneStorages %}
+                        {% set loopindex = loop.index %}
+                        {% for item in edit_form.articles %}
+                            {% if loopindex == 1 and loop.index == 1 %}
+                                    <tr>
+                                        <th class="col-md-1">{{ form_label(item.inventory) }}</th>
+                                        <th class="col-md-3">{{ form_label(item.article) }}</th>
+                                        <th class="col-md-1">{{ form_label(item.quantity) }}</th>
+                                        <th class="col-md-1">{{ form_label(item.realstock) }}</th>
+                                        <th class="col-md-1">{{ form_label(item.unitStorage) }}</th>
+                                        <th class="col-md-2">{{ form_label(item.price) }}</th>
+                                        <th class="col-md-2">{{ form_label(item.total) }}</th>
+                                        <th class="col-md-1">{{ form_label(item.gap) }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                            {% endif %}
+                            {% if zone.name in item.zoneStorage.vars.value %}
+                                {% if zone.name != nameZone and zone.name !="" %}
+                                    {% set nameZone = zone.name %}
+                                    <tr>
+                                        <th colspan="8" class="text-center">{{ zone.name }}</th>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>
+                                        {{ form_widget(item.zoneStorage) }}
+                                        {{ form_widget(item.inventory, { 'attr':{'class':'hidden'} }) }}
+                                        <input type="text" value="{{ item.article.vars.value }}" class="form-control text-right" tabindex="100" readonly>
+                                    </td>
+                                    <td>{{ form_widget(item.article) }}</td>
+                                    <td>{{ form_widget(item.quantity) }}</td>
+                                    <td>
+                                        {% if loop.index == 1 %}
+                                        {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                        {% else %}
+                                        {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ form_widget(item.unitStorage) }}</td>
+                                    <td>{{ form_widget(item.price) }}</td>
+                                    <td>{{ form_widget(item.total) }}</td>
+                                    <td>{{ form_widget(item.gap) }}</td>
+                                </tr>
+                            {% endif %}
+                            {% set lastloop = loop.index %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for item in edit_form.articles %}
+                        {% if loop.index == 1 %}
+                                <tr>
+                                    <th class="col-md-1">{{ form_label(item.inventory) }}</th>
+                                    <th class="col-md-3">{{ form_label(item.article) }}</th>
+                                    <th class="col-md-1">{{ form_label(item.quantity) }}</th>
+                                    <th class="col-md-1">{{ form_label(item.realstock) }}</th>
+                                    <th class="col-md-1">{{ form_label(item.unitStorage) }}</th>
+                                    <th class="col-md-2">{{ form_label(item.price) }}</th>
+                                    <th class="col-md-2">{{ form_label(item.total) }}</th>
+                                    <th class="col-md-1">{{ form_label(item.gap) }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                        {% endif %}
+                        <tr>
+                            <td>{{ form_widget(item.inventory) }}</td>
+                            <td>{{ form_widget(item.article) }}</td>
+                            <td>{{ form_widget(item.quantity) }}</td>
+                            <td>
+                                {% if loop.index == 1 %}
+                                {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                {% else %}
+                                {{ form_widget(item.realstock, { 'attr':{'onChange':'realstockCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}
+                                {% endif %}
+                            </td>
+                            <td>{{ form_widget(item.unitStorage) }}</td>
+                            <td>{{ form_widget(item.price) }}</td>
+                            <td>{{ form_widget(item.total) }}</td>
+                            <td>{{ form_widget(item.gap) }}</td>
+                        </tr>
+                        {% set lastloop = loop.index %}
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">{{ form_label(edit_form.amount) }}</td>
+                    <td>{{ form_widget(edit_form.amount) }}</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tfoot>
+        </table>
+        <footer class="panel-footer text-right">
+            <button tabindex="{{ lastloop + 1 }}" class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+        </footer>
+    </div>
+    {{ form_end(edit_form) }}
+
+
+            {{ form_start(delete_form) }}
+                {{ form_widget(delete_form) }}
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('inventory') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+            {% if inventory.status == 2 and is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('inventory_valid', {id: inventory.id}) }}" class="btn btn-success">
+                <i class="fa fa-check"></i> {{ 'close.submit_button'|trans({}, 'gs_inventories') }}
+            </a>
+            {% endif %}
+
+                <button class="btn btn-danger btn-delete" type="submit">
+                    {{ 'cancel.title'|trans({}, 'gs_inventories') }}
+                </button>
+
+        </div>
+                <input name="modal" type="hidden" value="0">
+            {{ form_end(delete_form) }}
+
+
+    {% include 'AppBundle:inventory:deleteform.html.twig' %}
+
+    <script type="text/javascript">
+        function realstockCalcul(id){
+            var realstock = $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').val().replace(',', '.');
+            var quantity = $('#{{ edit_form.articles.vars.id }}_' + id + '_quantity').val().replace(',', '.');
+            var price     = $('#{{ edit_form.articles.vars.id }}_' + id + '_price').val().replace(',', '.');
+            var total = realstock*price;
+            var gap = realstock-quantity;
+            var lastloop = {{ lastloop }}-1;
+
+            var total = total.toFixed(3);
+            var total = total.replace('.', ',');
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_total').val(total);
+
+            if(realstock !== '') {
+                var realstock = realstock.replace('.', ',');
+                $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').val(realstock);
+            }
+
+            var gap = gap.toFixed(3);
+
+            if(gap < 0) {
+                $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').addClass('negative');
+            } else {
+                $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').removeClass('negative');
+            }
+            var gap = gap.replace('.', ',');
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_gap').val(gap);
+            
+            var totals = 0;
+            for (var iter = 0; iter <= lastloop; iter++) {
+                var total = $('#{{ edit_form.articles.vars.id }}_' + iter + '_total').val();
+                var total = total.replace(',', '.');
+                if(isNaN(total)) {
+                    total = 0;
+                } else {
+                    total = $('#{{ edit_form.articles.vars.id }}_' + iter + '_total').val();
+                    var total = total.replace(',', '.');
+                }
+                totals = Number(totals) + Number(total);
+            }
+            var totals = totals.toFixed(3);
+            var totals = totals.replace('.', ',');
+            $('#{{ edit_form.amount.vars.id }}').val(totals);
+        }
+         
+        function calculTotaux()
+        {
+            var lastloop = {{ lastloop }}-1;
+            for (var iter = 0; iter <= lastloop; iter++) {
+                realstockCalcul(iter);
+            }
+            selectOnFocus(0);
+        }
+        
+        function selectOnFocus(id)
+        {
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_realstock').select();
+        }
+    </script>
+{% endblock %}

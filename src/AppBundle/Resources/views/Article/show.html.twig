@@ -1,0 +1,100 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'title'|trans({}, 'gs_articles') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    <small>{{ "%06d"|format(article.id) }}</small> {{ article.name }}
+{% endblock %}
+
+{% block glstock_body %}
+    <fieldset class="well"><legend>{{ 'settings.information'|trans({}, 'gs_articles') }}</legend>
+        <section class="form-line">
+            <div class="col-md-1 label label-default">
+                {{ 'title'|trans({}, 'gs_suppliers') }}
+            </div>
+            <div class="col-md-3">
+                <a href="{{ path('supplier_show', {slug: article.supplier.slug}) }}">
+                    {{ article.supplier }}
+                </a>
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ 'gestock.settings.diverse.zonestorage'|trans }}
+            </div>
+            <div class="col-md-2">
+                {% set b = 0 %}
+                {% for zone in article.zonestorages %}
+                    {% if b > 0 %}
+                        , {{ zone.name }}
+                    {% else %}
+                        {{ zone.name }}
+                    {% endif %}
+                    {% set b = b + 1 %}
+                {% endfor %}
+            </div>
+            <div class="col-md-2 label label-default">
+                    {{ 'gestock.settings.diverse.familylog'|trans }}
+            </div>
+            <div class="col-md-2">
+                {{ article.familyLog }}
+            </div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+    <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
+         <section class="form-line">
+            <div class="col-md-1 label label-default">
+                {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+            </div>
+            <div class="col-md-1">
+                {{ article.quantity }}
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ 'gestock.settings.diverse.unitstorage'|trans }}
+            </div>
+            <div class="col-md-1">
+                {{ article.unitStorage }}
+            </div>
+            <div class="col-md-1 label label-default">
+                    {{ 'settings.price'|trans({}, 'gs_articles') }}
+            </div>
+            <div class="col-md-1">
+                {{ article.price }} €
+            </div>
+            <div class="col-md-1 label label-default">
+                    {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
+            </div>
+                    <div class="col-md-1
+                         {% if article.quantity < article.minstock %} negative{% endif %}
+                    ">
+                {{ article.minstock }}
+            </div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('article') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary btn-edit" href="{{ path('article_edit', {slug: article.slug}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+            {% endif %}
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'deleteForm.html.twig' %}
+{% endblock %}
