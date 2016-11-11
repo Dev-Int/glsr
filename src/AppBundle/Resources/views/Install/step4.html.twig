@@ -1,4 +1,4 @@
-{% extends 'AppBundle:install:layout.html.twig' %}
+{% extends 'AppBundle:Install:layout.html.twig' %}
 
 {% block install_title %}
     <span class="badge">4</span>&nbsp;
@@ -35,16 +35,16 @@
             </ul>
             <div class="well-lg">
                 {% if familylog is defined %}
-                    {{ include('AppBundle:settings/divers/familylog:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Divers/FamilyLog:form.html.twig') }}
                 {% endif %}
                 {% if zonestorage is defined %}
-                    {{ include('AppBundle:settings/divers/zonestorage:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Divers/ZoneStorage:form.html.twig') }}
                 {% endif %}
                 {% if unitstorage is defined %}
-                    {{ include('AppBundle:settings/divers/unitstorage:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Divers/UnitStorage:form.html.twig') }}
                 {% endif %}
                 {% if tva is defined %}
-                    {{ include('AppBundle:settings/divers/tva:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Divers/Tva:form.html.twig') }}
                 {% endif %}
                 <div class="alert alert-info">
                     {{ 'gestock.install.st4.info'|trans|nl2br }}

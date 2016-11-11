@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th scope="row">{{ 'gestock.settings.settings.first_inventory.title'|trans }}</th>
-                <td>{{ settings.firstInventory is empty ? "" : settings.firstInventory|date('Y-m-d H:i:s') }}</td>
+                <td>{{ settings.firstInventory is empty ? "" : settings.firstInventory|date('d-m-Y H:i:s') }}</td>
             </tr>
             <tr>
                 <th scope="row">{{ 'gestock.settings.settings.currency'|trans }}</th>

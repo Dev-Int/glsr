@@ -3,20 +3,20 @@
     <thead>
         <tr>
             <th class="text-center col-md-1">{{ 'gestock.id'|trans }}</th>
-            <th class="col-md-6">{{ 'gestock.title_item'|trans }}</th>
+            <th class="col-md-3">{{ 'gestock.title_item'|trans }}</th>
             <th class="text-center col-md-1">
                 {{ 'settings.quantity'|trans({}, 'gs_articles') }}
             </th>
-            <th class="text-center col-md-2">
+            <th class="text-center col-md-1">
                 {{ 'seizure.realstock'|trans({}, 'gs_inventories') }}
             </th>
             <th class="text-center col-md-1">
                 {{ 'gestock.settings.diverse.unitstorage'|trans }}
             </th>
-            <th class="text-center col-md-1">
+            <th class="text-center col-md-2">
                 {{ 'settings.price'|trans({}, 'gs_articles') }}
             </th>
-            <th class="text-center col-md-1">{{ 'gestock.amount'|trans }}</th>
+            <th class="text-center col-md-2">{{ 'gestock.amount'|trans }}</th>
             <th class="text-center col-md-1">
                 {{ 'seizure.gap'|trans({}, 'gs_inventories') }}
             </th>
@@ -25,32 +25,32 @@
     <tbody>
         {% if zoneStorages %}
             {% for zone in zoneStorages %}
-                {% for inv in inventart %}
+        {% for inv in inventart %}
                     {% if zone.name in inv.zoneStorage %}
                         {% if loop.index == 1 or zone.name != nameZone %}
                             {% set nameZone = zone.name %}
-                            <tr>
+        <tr>
                                 <th colspan="8" class="text-center">{{ zone.name }}</th>
                             </tr>
                         {% endif %}
                         <tr>
                             <td class="text-center">{{ inv.article.id }}</td>
-                            <td>{{ inv.article.name }}</td>
+            <td>{{ inv.article.name }}</td>
                             <td class="text-right">{{ inv.quantity|number_format(3, ',', ' ') }}</td>
-                            <td class="text-right">
+            <td class="text-right">
                                    {{ inv.realstock|number_format(3, ',', ' ') }}
-                            </td>
-                            <td class="text-center">{{ inv.unitstorage }}</td>
+            </td>
+            <td class="text-center">{{ inv.unitstorage }}</td>
                             <td class="text-right">{{ inv.price|number_format(3, ',', ' ') }} €</td>
-                            <td class="text-right">{{ (inv.realstock * inv.price)|number_format(3, ',', ' ') }} €</td>
-                            {% if (inv.realstock - inv.quantity) >= 0 %}
-                                <td class="text-right">{{ (inv.realstock - inv.quantity)|number_format(3, ',', ' ') }}</td>
-                            {% else %}
-                                <td class="text-right negative">{{ (inv.realstock - inv.quantity)|number_format(3, ',', ' ') }}</td>
-                            {% endif %}
-                        </tr>
+            <td class="text-right">{{ (inv.realstock * inv.price)|number_format(3, ',', ' ') }} €</td>
+            {% if (inv.realstock - inv.quantity) >= 0 %}
+            <td class="text-right">{{ (inv.realstock - inv.quantity)|number_format(3, ',', ' ') }}</td>
+            {% else %}
+            <td class="text-right negative">{{ (inv.realstock - inv.quantity)|number_format(3, ',', ' ') }}</td>
+            {% endif %}
+        </tr>
                     {% endif %}
-                {% endfor %}
+        {% endfor %}
             {% endfor %}                
         {% else %}
             {% for inv in inventart %}

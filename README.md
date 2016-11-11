@@ -30,4 +30,4 @@ With Composer, of course:
 
 ## And enjoy!
 
-- See more at: http://wiki.glsr.fr/
+- See the [wiki](https://github.com/Dev-Int/glsr/wiki) for more, or in [french](http://wiki.glsr.fr/).
