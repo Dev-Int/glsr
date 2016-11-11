@@ -271,34 +271,38 @@ class InventoryController extends AbstractController
     {
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
-        
+
         $validForm = $this->createForm(InventoryValidType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
+        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
+
+        $return = array(
+            'inventory' => $inventory,
+            'valid_form'   => $validForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+
         if ($validForm->handleRequest($request)->isValid()) {
             $inventory->setStatus(3);
             $etm->persist($inventory);
-            foreach ($inventory->getArticles() as $line) {
-                foreach ($articles as $article) {
-                    if ($article->getId() === $line->getArticle()->getId()) {
-                        $article->setQuantity($line->getRealstock());
+            $articleLine = array();
+            $articleLine = $this->getLineArticles($articleLine, $inventory);
+            foreach ($articles as $article) {
+                foreach ($articleLine as $line) {
+                    if ($article->getName() === $line['article']) {
+                        $article->setQuantity($line['realstock']);
                         $etm->persist($article);
                     }
                 }
             }
             $etm->flush();
 
-            return $this->redirectToRoute('inventory');
+            $return = $this->redirectToRoute('inventory');
         }
 
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-        return array(
-            'inventory' => $inventory,
-            'valid_form'   => $validForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -416,5 +420,34 @@ class InventoryController extends AbstractController
                 'Content-Disposition' => 'attachment; filename="prepare.pdf"'
             )
         );
+    }
+    
+    /**
+     * 
+     * @param array $articleLine
+     * @param Inventory $inventory
+     * @return array $articleLine
+     */
+    private function getLineArticles(array $articleLine, Inventory $inventory)
+    {
+        $inventoryArticles = array();
+        $lineOk = 0;
+        foreach ($inventory->getArticles() as $line) {
+            foreach ($articleLine as $key => $art) {
+                if (!empty($articleLine) && $line->getArticle()->getName() === $art['article']) {
+                    $art['realstock'] = $art['realstock'] + $line->getRealstock();
+                    $articleLine[$key]['realstock'] = strval(number_format($art['realstock'],3));
+                    $lineOk = 1;
+                }
+            }
+            if ($lineOk === 0) {
+                $inventoryArticles['article'] = $line->getArticle()->getName();
+                $inventoryArticles['realstock'] = $line->getRealstock();
+                array_push($articleLine, $inventoryArticles);
+            }
+            $lineOk = 0;
+        }
+                    var_dump($articleLine);
+        return $articleLine;
     }
 }
