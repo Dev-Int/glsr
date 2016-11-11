@@ -44,8 +44,8 @@ class AbstractInventoryController extends AbstractController
         } else {
             $typeClass = InventoryEditType::class;
         }
-        $editForm = $this->createForm($typeClass, $inventory,
-            ['action' => $this->generateUrl('inventory_update', ['id' => $inventory->getId()]),
+        $editForm = $this->createForm($typeClass, $inventory, [
+            'action' => $this->generateUrl('inventory_update', ['id' => $inventory->getId()]),
             'method' => 'PUT',]
         );
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
