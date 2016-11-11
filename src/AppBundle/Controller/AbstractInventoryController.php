@@ -33,7 +33,7 @@ class AbstractInventoryController extends AbstractController
      * @param \AppBundle\Controller\Inventory $inventory Inventaire à éditer
      * @return array
      */
-    public function getInvetoryEditType(Inventory $inventory)
+    protected function getInvetoryEditType(Inventory $inventory)
     {
         $etm = $this->getDoctrine()->getManager();
         $zoneStorages = null;
@@ -64,7 +64,7 @@ class AbstractInventoryController extends AbstractController
      * @param string $route Route of action form
      * @return \Symfony\Component\Form\Form
      */
-    public function createCreateForm($route)
+    protected function createCreateForm($route)
     {
         $inventory = new Inventory();
         return $this->createForm(
@@ -81,7 +81,7 @@ class AbstractInventoryController extends AbstractController
      * @param Inventory $inventory
      * @return array $articleLine
      */
-    public function getLineArticles(array $articleLine, Inventory $inventory)
+    protected function getLineArticles(array $articleLine, Inventory $inventory)
     {
         $inventoryArticles = array();
         $lineOk = 0;
