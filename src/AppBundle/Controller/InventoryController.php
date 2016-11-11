@@ -16,15 +16,13 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use AppBundle\Controller\AbstractInventoryController;
 use AppBundle\Entity\Inventory;
-use AppBundle\Form\Type\InventoryType;
 use AppBundle\Entity\InventoryArticles;
-use AppBundle\Form\Type\InventoryEditType;
 use AppBundle\Form\Type\InventoryValidType;
 
 /**
@@ -34,7 +32,7 @@ use AppBundle\Form\Type\InventoryValidType;
  *
  * @Route("/inventory")
  */
-class InventoryController extends AbstractController
+class InventoryController extends AbstractInventoryController
 {
     /**
      * Lists all Inventory entities.
@@ -75,6 +73,11 @@ class InventoryController extends AbstractController
     public function showAction(Inventory $inventory)
     {
         $etm = $this->getDoctrine()->getManager();
+        $zoneStorages = null;
+        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
+        if ($settings->getInventoryStyle() == 'zonestorage') {
+            $zoneStorages = $etm->getRepository('AppBundle:ZoneStorage')->findAll();
+        }
         $inventoryArticles = $etm
             ->getRepository('AppBundle:InventoryArticles')
             ->getArticlesFromInventory($inventory);
@@ -82,25 +85,10 @@ class InventoryController extends AbstractController
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
         
         return array(
-            'inventory' => $inventory,
+            'inventory'         => $inventory,
+            'zoneStorages'      => $zoneStorages,
             'inventoryArticles' => $inventoryArticles,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
-    /**
-     * Create Create form.
-     *
-     * @param string $route Route of action form
-     * @return \Symfony\Component\Form\Form
-     */
-    protected function createCreateForm($route)
-    {
-        $inventory = new Inventory();
-        return $this->createForm(
-            InventoryType::class,
-            $inventory,
-            array('attr' => array('id' => 'create'), 'action' => $this->generateUrl($route), 'method' => 'PUT',)
+            'delete_form'       => $deleteForm->createView(),
         );
     }
 
@@ -131,18 +119,24 @@ class InventoryController extends AbstractController
             }
             // Saving of articles in the inventory
             foreach ($articles as $article) {
-                $inventoryArticles = new InventoryArticles();
-                $inventoryArticles->setArticle($article);
-                $inventoryArticles->setInventory($inventory);
-                $inventoryArticles->setQuantity($article->getQuantity());
-                $inventoryArticles->setRealstock(0);
-                $inventoryArticles->setUnitStorage($article->getUnitStorage());
-                $inventoryArticles->setPrice($article->getPrice());
-                $etm->persist($inventoryArticles);
+                foreach ($article->getZoneStorages()->getSnapshot() as $zoneStorage) {
+                    $inventoryArticles = new InventoryArticles();
+                    $inventoryArticles->setArticle($article);
+                    $inventoryArticles->setInventory($inventory);
+                    $inventoryArticles->setQuantity($article->getQuantity());
+                    $inventoryArticles->setRealstock(0);
+                    $inventoryArticles->setUnitStorage($article->getUnitStorage());
+                    $inventoryArticles->setPrice($article->getPrice());
+                    $inventoryArticles->setZoneStorage($zoneStorage->getName());
+                    $etm->persist($inventoryArticles);
+                }
             }
             $etm->flush();
 
-            return $this->redirectToRoute('inventory_print_prepare', array('id' => $inventory->getId()));
+            return $this->redirectToRoute(
+                'inventory_print_prepare',
+                array('id' => $inventory->getId(), 'inventoryStyle' => $settings->getInventoryStyle())
+            );
         }
     }
 
@@ -158,17 +152,9 @@ class InventoryController extends AbstractController
      */
     public function editAction(Inventory $inventory)
     {
-        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-            'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-            'method' => 'PUT',
-        ));
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-        return array(
-            'inventory' => $inventory,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        $return = $this->getInvetoryEditType($inventory);
+        
+        return $return;
     }
 
     /**
@@ -184,24 +170,18 @@ class InventoryController extends AbstractController
      */
     public function updateAction(Inventory $inventory, Request $request)
     {
-        $editForm = $this->createForm(InventoryEditType::class, $inventory, array(
-            'action' => $this->generateUrl('inventory_update', array('id' => $inventory->getId())),
-            'method' => 'PUT',
-        ));
-        if ($editForm->handleRequest($request)->isValid()) {
+        $return = $this->getInvetoryEditType($inventory);
+        
+        if ($return['editForm']->handleRequest($request)->isValid()) {
             $inventory->setStatus('2');
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('inventory_edit', array('id' => $inventory->getId()));
+            $return = $this->redirectToRoute(
+                'inventory_edit',
+                array('id' => $inventory->getId(), 'zoneStorages' => $return['zoneStorages'],)
+            );
         }
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-
-        return array(
-            'inventory' => $inventory,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -244,34 +224,38 @@ class InventoryController extends AbstractController
     {
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
-        
+
         $validForm = $this->createForm(InventoryValidType::class, $inventory, array(
             'action' => $this->generateUrl('inventory_close', array('id' => $inventory->getId())),
             'method' => 'PUT',
         ));
+        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
+
+        $return = array(
+            'inventory' => $inventory,
+            'valid_form'   => $validForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        );
+
         if ($validForm->handleRequest($request)->isValid()) {
             $inventory->setStatus(3);
             $etm->persist($inventory);
-            foreach ($inventory->getArticles() as $line) {
-                foreach ($articles as $article) {
-                    if ($article->getId() === $line->getArticle()->getId()) {
-                        $article->setQuantity($line->getRealstock());
+            $articleLine = array();
+            $articleLine = $this->getLineArticles($articleLine, $inventory);
+            foreach ($articles as $article) {
+                foreach ($articleLine as $line) {
+                    if ($article->getName() === $line['article']) {
+                        $article->setQuantity($line['realstock']);
                         $etm->persist($article);
                     }
                 }
             }
             $etm->flush();
 
-            return $this->redirectToRoute('inventory');
+            $return = $this->redirectToRoute('inventory');
         }
 
-        $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-
-        return array(
-            'inventory' => $inventory,
-            'valid_form'   => $validForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -287,10 +271,16 @@ class InventoryController extends AbstractController
     public function deleteAction(Inventory $inventory, Request $request)
     {
         $form = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
+        $etm = $this->getDoctrine()->getManager();
+        $inventoryArticles = $etm->getRepository('AppBundle:InventoryArticles')->findBy(
+            array('inventory' => $inventory->getId())
+        );
+        
         if ($form->handleRequest($request)->isValid()) {
-            $etm = $this->getDoctrine()->getManager();
-            $inventory->setStatus(0);
-            $etm->persist($inventory);
+            foreach ($inventoryArticles as $invent) {
+                $etm->remove($invent);
+            }
+            $etm->remove($inventory);
             $etm->flush();
         }
 
@@ -331,23 +321,31 @@ class InventoryController extends AbstractController
     /**
      * Print the preparation of inventory.<br />Creating a `PDF` file for viewing on paper
      *
-     * @Route("/{id}/print/prepare", name="inventory_print_prepare", requirements={"id"="\d+"})
+     * @Route("/{id}/print/{inventoryStyle}/prepare", name="inventory_print_prepare", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Inventory $inventory
+     * @param \AppBundle\Entity\Inventory $inventory      Inventory to print
+     * @param string                      $inventoryStyle Style of inventory
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function prepareDataAction(Inventory $inventory)
+    public function prepareDataAction(Inventory $inventory, $inventoryStyle)
     {
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
         
-        $html = $this->renderView(
-            'AppBundle:Inventory:list.pdf.twig',
-            array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
-        );
+        if ($inventoryStyle == 'global') {
+            $html = $this->renderView(
+                'AppBundle:Inventory:list-global.pdf.twig',
+                array('articles' => $articles, 'daydate' => $inventory->getDate(),)
+            );
+        } else {
+            $html = $this->renderView(
+                'AppBundle:Inventory:list-ordered.pdf.twig',
+                array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
+            );
+        }
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
                 $html,

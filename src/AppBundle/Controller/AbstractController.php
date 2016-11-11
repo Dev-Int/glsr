@@ -315,7 +315,7 @@ abstract class AbstractController extends Controller
      * Array of file (`pdf`) layout.
      *
      * @param string $date File date
-     * @param string $title Tile title
+     * @param string $title File title
      * @return array<string,integer|string|boolean>
      */
     protected function getArray($date, $title)

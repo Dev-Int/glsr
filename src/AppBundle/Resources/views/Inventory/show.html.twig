@@ -3,12 +3,12 @@
 {% block title %}Inventory - {{ parent() }}{% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-tasks" aria-hidden="true"></i>
-    {{ 'show.title'|trans({'%inventory.date%': inventory.date|date('d/m/Y')}, 'gs_inventories') }}
+    <i class="fa fa-barcode" aria-hidden="true"></i>
+    {{ 'seizure.item'|trans({'%id%': inventory.id, '%date%': inventory.date|date('d/m/Y')}, 'gs_inventories') }}
 {% endblock %}
 
 {% block glstock_body %}
-    <fieldset class="well ">
+    <fieldset>
         <legend>{{ 'title'|trans({}, 'gs_articles') }}</legend>
 
         <section class="row">

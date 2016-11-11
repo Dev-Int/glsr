@@ -2287,6 +2287,11 @@ th {
   vertical-align: middle;
   border-bottom: 2px solid #dddddd;
 }
+.table > tfoot > tr:first-child > th,
+.table > tfoot > tr:first-child > td {
+  /*vertical-align: middle !important;*/
+  border-top: 2px solid #dddddd !important;
+}
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
 .table > thead:first-child > tr:first-child > th,

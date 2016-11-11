@@ -44,10 +44,7 @@ class InventoryArticlesType extends AbstractType
                     'label' => 'gestock.id',
                     'translation_domain' => 'messages',
                     'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'form-control', 'readonly' => true,],
                 )
             )
             ->add(
@@ -59,10 +56,7 @@ class InventoryArticlesType extends AbstractType
                     'label' => 'title',
                     'translation_domain' => 'gs_articles',
                     'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -74,10 +68,7 @@ class InventoryArticlesType extends AbstractType
                     'empty_data' => '0,000',
                     'label' => 'settings.quantity',
                     'translation_domain' => 'gs_articles',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'inventory form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -89,9 +80,7 @@ class InventoryArticlesType extends AbstractType
                     'empty_data' => '0,000',
                     'label' => 'seizure.realstock',
                     'translation_domain' => 'gs_inventories',
-                    'attr'=> array(
-                        'class' => 'inventory form-control'
-                    )
+                    'attr'=> ['class' => 'inventory form-control',]
                 )
             )
             ->add(
@@ -102,10 +91,7 @@ class InventoryArticlesType extends AbstractType
                     'choice_label' => 'abbr',
                     'label' => 'gestock.settings.diverse.unitstorage',
                     'empty_data' => null,
-                    'attr'=> array(
-                        'class' => 'form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -117,10 +103,7 @@ class InventoryArticlesType extends AbstractType
                     'currency' => 'EUR',
                     'label' => 'settings.price',
                     'translation_domain' => 'gs_articles',
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'inventory form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -133,10 +116,7 @@ class InventoryArticlesType extends AbstractType
                     'label' => 'seizure.total',
                     'translation_domain' => 'gs_inventories',
                     'mapped' => false,
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' => true
-                    )
+                    'attr'=> ['class' => 'inventory form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -148,10 +128,7 @@ class InventoryArticlesType extends AbstractType
                     'label' => 'seizure.gap',
                     'translation_domain' => 'gs_inventories',
                     'mapped' => false,
-                    'attr'=> array(
-                        'class' => 'inventory form-control',
-                        'readonly' =>true
-                    )
+                    'attr'=> ['class' => 'inventory form-control', 'readonly' =>true]
                 )
             )
         ;

@@ -36,11 +36,7 @@ class InventoryEditType extends InventoryType
     {
         $builder
             ->remove('status')
-            ->add(
-                'articles',
-                CollectionType::class,
-                array('entry_type' => InventoryArticlesType::class)
-            )
+            ->add('articles', CollectionType::class, ['entry_type' => InventoryArticlesType::class])
             ->add(
                 'amount',
                 MoneyType::class,

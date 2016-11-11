@@ -62,6 +62,13 @@ class InventoryArticles
      */
     private $price;
 
+    /**
+     * @var string $zoneStorage Zone de stockage
+     *
+     * @ORM\Column(name="zoneStorage", type="string", length=255, nullable=true)
+     */
+    private $zoneStorage;
+
 
     /**
      * Get id
@@ -209,5 +216,28 @@ class InventoryArticles
     public function getUnitStorage()
     {
         return $this->unitStorage;
+    }
+
+    /**
+     * Set zoneStorage
+     *
+     * @param string $zoneStorage
+     * @return InventoryArticles
+     */
+    public function setZoneStorage($zoneStorage = null)
+    {
+        $this->zoneStorage = $zoneStorage;
+
+        return $this;
+    }
+
+    /**
+     * Get zoneStorage
+     *
+     * @return string
+     */
+    public function getZoneStorage()
+    {
+        return $this->zoneStorage;
     }
 }

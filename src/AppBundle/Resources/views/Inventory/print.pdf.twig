@@ -22,10 +22,19 @@
                 color: #333;
                 background-color: #fff;
             }
+            header:after {
+                clear: both;
+            }
 
             .container {
                 margin: 20mm 0;
                 min-width: 200mm;
+            }
+            .container > header {
+                padding-bottom: 10px;
+            }
+            .container > section.row {
+                padding-top: 10px;
             }
             .container .col-lg-12 {
                 width: 200mm;
@@ -109,6 +118,12 @@
                 clear: both;
                 page-break-after:auto;
             }
+            .clearfix:before,
+            .clearfix:after {
+                clear: both;
+                content: " ";
+                display: table;
+            }
         </style>
     </head>
     <body>
@@ -121,18 +136,20 @@
                     {{ 'gestock.amount'|trans }} : {{ inventory.amount }}€
                 </div>
             </header>
+            <div class="clearfix"></div>
             <section class="row">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="col-lg-3">{{ 'gestock.name'|trans }}</th>
+                            <th class="col-lg-1">{{ 'gestock.id'|trans }}</th>
+                            <th class="col-lg-4">{{ 'gestock.name'|trans }}</th>
                             <th class="col-lg-2">
                                 {{ 'settings.price'|trans({}, 'gs_articles') }}
                             </th>
-                            <th class="col-lg-2">
+                            <th class="col-lg-1">
                                 {{ 'settings.quantity'|trans({}, 'gs_articles') }}
                             </th>
-                            <th class="col-lg-2">
+                            <th class="col-lg-1">
                                 {{ 'seizure.realstock'|trans({}, 'gs_inventories') }}
                             </th>
                             <th class="col-lg-1">
@@ -146,6 +163,7 @@
                     <tbody>
                         {% for article in articles %}
                             <tr>
+                                <td class="center">{{ article.id }}</td>
                                 <td>{{ article.article }}</td>
                                 <td class="right">{{ article.price }} €</td>
                                 <td class="right">{{ article.quantity }}</td>
