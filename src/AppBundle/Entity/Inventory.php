@@ -60,13 +60,6 @@ class Inventory
     private $amount;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="file", type="text", nullable=true)
-     */
-    private $file;
-
-    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\InventoryArticles", mappedBy="inventory")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -111,29 +104,6 @@ class Inventory
     public function getDate()
     {
         return $this->date;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return Inventory
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return string
-     */
-    public function getFile()
-    {
-        return $this->file;
     }
 
     /**
