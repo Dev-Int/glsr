@@ -198,19 +198,23 @@ abstract class AbstractController extends Controller
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.edit.ok');
 
-            return $this->redirectToRoute($entityName.'_edit', $param);
-        }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
-        return array(
+        $return = array(
             $entityName => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+
+        if ($editForm->handleRequest($request)->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.edit.ok');
+
+            $return = $this->redirectToRoute($entityName.'_edit', $param);
+        }
+
+        return $return;
     }
 
     /**
@@ -241,6 +245,7 @@ abstract class AbstractController extends Controller
 
         return $param;
     }
+
     /**
      * SetOrder for the SortAction in views.
      *
