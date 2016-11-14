@@ -46,9 +46,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-
     access_control:
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/settings, roles: ROLE_SUPER_ADMIN }
         - { path: /admin, roles: ROLE_ADMIN }
