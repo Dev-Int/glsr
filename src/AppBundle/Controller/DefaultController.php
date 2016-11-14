@@ -149,6 +149,7 @@ class DefaultController extends Controller
      */
     public function getFamilyLogAction(Request $request)
     {
+        $return = new Response('Error');
         $etm = $this->getDoctrine()->getManager();
         if ($request->isXmlHttpRequest()) {
             $familyLog = array();
@@ -162,9 +163,9 @@ class DefaultController extends Controller
                 $data = json_encode($familyLog);
                 $response->headers->set('Content-Type', 'application/json');
                 $response->setContent($data);
-                return $response;
+                $return = $response;
             }
         }
-        return new Response('Error');
+        return $return;
     }
 }

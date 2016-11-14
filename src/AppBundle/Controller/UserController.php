@@ -100,15 +100,19 @@ class UserController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
+        $return = ['user' => $user, 'form'   => $form->createView(),];
+
         if ($form->handleRequest($request)->isValid()) {
+            $group = $this->getDoctrine()->getManager()->getRepository('AppBundle:Group')->findBy(array('id' => $user->getGroup()));
+            $user->setRoles($group->getRoles());
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirectToRoute('user_show', array('id', $user->getId()));
+            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
         }
 
-        return array('user' => $user, 'form'   => $form->createView(),);
+        return $return;
     }
 
     /**
@@ -157,19 +161,20 @@ class UserController extends AbstractController
             'passwordRequired' => false,
             'lockedRequired' => true
         ));
+        $deleteForm = $this->createDeleteForm($user->getId(), 'user_delete');
+
+        $return = ['user' => $user,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),];
+
         if ($editForm->handleRequest($request)->isValid()) {
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            $return = $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
-        $deleteForm = $this->createDeleteForm($user->getId(), 'user_delete');
 
-        return array(
-            'user' => $user,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
 

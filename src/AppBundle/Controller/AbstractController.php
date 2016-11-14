@@ -141,6 +141,7 @@ abstract class AbstractController extends Controller
         $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
+        $return = [$entity => $entityNew, 'form' => $form->createView(),];
 
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
@@ -149,12 +150,12 @@ abstract class AbstractController extends Controller
             $this->addFlash('info', 'gestock.create.ok');
 
             $param = $this->testReturnParam($entityNew, strtolower($entity));
-            $return = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
+            $route = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
 
-            return $this->redirectToRoute($return, $param);
+            $return = $this->redirectToRoute($route, $param);
         }
 
-        return array($entity => $entityNew, 'form' => $form->createView(),);
+        return $return;
     }
 
     /**

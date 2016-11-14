@@ -192,15 +192,17 @@ class SupplierController extends AbstractController
         $etm = $this->getDoctrine()->getManager();
         // Test if there is no articles with this supplier.
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier);
+        $this->abstractDeleteAction($supplier, $request, 'supplier');
+
+        $return = $this->redirectToRoute('supplier');
+
         if (!empty($articles)) {
             $message = $this->get('translator')
                 ->trans('delete.reassign_wrong', array(), 'gs_suppliers');
             $this->addFlash('danger', $message);
-            return $this->redirectToRoute('article_reassign', array('slug' => $supplier->getSlug()));
+            $return = $this->redirectToRoute('article_reassign', array('slug' => $supplier->getSlug()));
         }
 
-        $this->abstractDeleteAction($supplier, $request, 'supplier');
-
-        return $this->redirectToRoute('supplier');
+        return $return;
     }
 }

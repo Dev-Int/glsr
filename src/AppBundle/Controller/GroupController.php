@@ -101,6 +101,7 @@ class GroupController extends AbstractController
         $group = new Group();
         $form = $this->createForm(GroupType::class, $group);
         $this->addRoles($form, $group);
+        $return = ['group' => $group, 'form' => $form->createView(),];
 
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
@@ -108,13 +109,10 @@ class GroupController extends AbstractController
             $etm->flush();
             $this->addFlash('info', 'gestock.create.ok');
 
-            return $this->redirectToRoute('group_show', array('id' => $group->getId()));
+            $return = $this->redirectToRoute('group_show', array('id' => $group->getId()));
         }
 
-        return array(
-            'group' => $group,
-            'form'   => $form->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -163,19 +161,22 @@ class GroupController extends AbstractController
         ));
         $this->addRoles($editForm, $group);
 
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.edit.ok');
-
-            return $this->redirectToRoute('group_edit', array('id' => $group->getId()));
-        }
         $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
 
-        return array(
+        $return = array(
             'group' => $group,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+
+        if ($editForm->handleRequest($request)->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('info', 'gestock.edit.ok');
+
+            $return = $this->redirectToRoute('group_edit', array('id' => $group->getId()));
+        }
+
+        return $return;
     }
 
     /**
