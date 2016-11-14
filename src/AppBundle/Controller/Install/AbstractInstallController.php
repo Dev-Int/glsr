@@ -63,9 +63,9 @@ abstract class AbstractInstallController extends Controller
             $etm->persist($entityNew);
             $etm->flush();
 
-            if ($form->get('save')->isSubmitted()) {
+            if ($form->get('save')->isClicked()) {
                 $return = $this->redirect($this->generateUrl('gs_install_st4'));
-            } elseif ($form->get('addmore')->isSubmitted()) {
+            } elseif ($form->get('addmore')->isClicked()) {
                 $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
             } else {
                 $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
