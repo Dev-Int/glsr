@@ -37,8 +37,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->roles = $options['roles'];
-        $builder ->add('username', null, array('label' => "Nom d'utilisateur", 'attr'  => array('class' => 'form-control'),))
-            ->add('email', EmailType::class, array('required' => false, 'label' => 'E-mail', 'attr'  => array('class' => 'form-control'),))
+        $builder ->add('username', null, ['label' => "Nom d'utilisateur", 'attr'  => ['class' => 'form-control'],])
+            ->add('email', EmailType::class, array(
+                'required' => false,
+                'label' => 'E-mail',
+                'attr'  => ['class' => 'form-control'],
+            ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
