@@ -17,6 +17,7 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -35,21 +36,29 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder ->add('username', null, array('label' => "Nom d'utilisateur"))
-            ->add('email', EmailType::class, array('required' => false, 'label' => 'E-mail'))
+        $this->roles = $options['roles'];
+        $builder ->add('username', null, array('label' => "Nom d'utilisateur", 'attr'  => array('class' => 'form-control'),))
+            ->add('email', EmailType::class, array('required' => false, 'label' => 'E-mail', 'attr'  => array('class' => 'form-control'),))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe doivent être identiques.',
                 'required' => $options['passwordRequired'],
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Répétez le mot de passe'),
+                'attr'  => array('class' => 'form-control'),
             ))
             ->add('groups', EntityType::class, array(
+                'class' => 'AppBundle:Group',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('g')
+                        ->where("REGEXP(g.roles, :roles) = 1")
+                        ->setParameter('roles', $this->roles);
+                },
                 'label' => 'Groupes',
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
-                'class' => 'AppBundle\Entity\Group'))
+            ))
         ;
         if ($options['lockedRequired']) {
             $builder->add('locked', null, array('required' => false,
@@ -66,6 +75,7 @@ class UserType extends AbstractType
             'data_class' => 'AppBundle\Entity\User',
             'passwordRequired' => true,
             'lockedRequired' => false,
+            'roles' => null,
         ));
     }
 

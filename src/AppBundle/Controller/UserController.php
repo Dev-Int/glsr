@@ -77,10 +77,20 @@ class UserController extends AbstractController
      */
     public function newAction()
     {
+        $roles = $this->getUser()->getRoles();
+        switch ($roles[0]) {
+            case 'ROLE_SUPER_ADMIN' :
+                $digit['roles'] = 'ROLE_SUPER_ADMIN|ROLE_ADMIN|ROLE_USER';
+                break;
+            default :
+                $digit['roles'] = 'ROLE_USER';
+        }
+
         $return = $this->abstractNewAction(
             'User',
             'AppBundle\Entity\User',
-            UserType::class
+            UserType::class,
+            $digit
         );
 
         return $return;
@@ -103,13 +113,17 @@ class UserController extends AbstractController
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
         if ($form->handleRequest($request)->isValid()) {
-            $group = $this->getDoctrine()->getManager()->getRepository('AppBundle:Group')->findBy(array('id' => $user->getGroup()));
-            $user->setRoles($group->getRoles());
+//            $group = $this->getDoctrine()
+//                ->getManager()
+//                ->getRepository('AppBundle:Group')
+//                ->findBy(array('id' => $user->getGroups()));
+            var_dump($user->getGroups());
+//            $user->setRoles($group->getRoles());
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
+//            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
         }
 
         return $return;
@@ -168,6 +182,13 @@ class UserController extends AbstractController
             'delete_form' => $deleteForm->createView(),];
 
         if ($editForm->handleRequest($request)->isValid()) {
+            foreach ($user->getGroups() as $key => $group) {
+                if ($key === 0) {
+                    $roles = $group->getRoles();
+                }
+            }
+            
+            $user->setRoles($roles);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 

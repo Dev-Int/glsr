@@ -99,12 +99,13 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
-     * @param string $entity     Entity
-     * @param string $entityPath Path of Entity
-     * @param string $typePath   Path of FormType
+     * @param string      $entity     Entity
+     * @param string      $entityPath Path of Entity
+     * @param string      $typePath   Path of FormType
+     * @param string|null $options    Options of Form
      * @return array
      */
-    public function abstractNewAction($entity, $entityPath, $typePath)
+    public function abstractNewAction($entity, $entityPath, $typePath, $options = null)
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
@@ -115,10 +116,17 @@ abstract class AbstractController extends Controller
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl(strtolower($entity).'_create'),
-        ));
-
+        if ($entity === 'User') {
+            $form = $this->createForm($typePath, $entityNew, array(
+                'action' => $this->generateUrl(strtolower($entity).'_create'),
+                'roles' => $options['roles'],
+            ));
+            
+        } else {
+            $form = $this->createForm($typePath, $entityNew, array(
+                'action' => $this->generateUrl(strtolower($entity).'_create'),
+            ));
+        }
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
         return $return;
