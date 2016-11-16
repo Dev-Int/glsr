@@ -113,17 +113,11 @@ class UserController extends AbstractController
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
         if ($form->handleRequest($request)->isValid()) {
-//            $group = $this->getDoctrine()
-//                ->getManager()
-//                ->getRepository('AppBundle:Group')
-//                ->findBy(array('id' => $user->getGroups()));
-            var_dump($user->getGroups());
-//            $user->setRoles($group->getRoles());
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-//            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
+            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
         }
 
         return $return;
