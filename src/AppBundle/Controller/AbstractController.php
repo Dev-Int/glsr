@@ -121,7 +121,6 @@ abstract class AbstractController extends Controller
                 'action' => $this->generateUrl(strtolower($entity).'_create'),
                 'roles' => $options['roles'],
             ));
-            
         } else {
             $form = $this->createForm($typePath, $entityNew, array(
                 'action' => $this->generateUrl(strtolower($entity).'_create'),
