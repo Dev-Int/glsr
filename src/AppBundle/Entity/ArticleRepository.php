@@ -29,6 +29,26 @@ class ArticleRepository extends EntityRepository
      *
      * @return QueryBuilder Requête DQL
      */
+    public function getAllArticles()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->join('a.supplier', 's')
+            ->addSelect('s')
+            ->where('s.active = 1')
+            ->join('a.familyLog', 'fl')
+            ->addSelect('fl')
+            ->join('a.zoneStorages', 'z')
+            ->addSelect('z')
+        ;
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les articles actifs.
+     *
+     * @return QueryBuilder Requête DQL
+     */
     public function getArticles()
     {
         $query = $this->createQueryBuilder('a')
