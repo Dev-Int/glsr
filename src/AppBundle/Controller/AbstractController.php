@@ -148,9 +148,10 @@ abstract class AbstractController extends Controller
         $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
+        $form->handleRequest($request);
         $return = [$entity => $entityNew, 'form' => $form->createView(),];
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();

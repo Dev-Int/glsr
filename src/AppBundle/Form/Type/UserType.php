@@ -53,11 +53,11 @@ class UserType extends AbstractType
             ))
             ->add('groups', EntityType::class, array(
                 'class' => 'AppBundle:Group',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('g')
-                        ->where("REGEXP(g.roles, :roles) = 1")
-                        ->setParameter('roles', $this->roles);
-                },
+//                'query_builder' => function (EntityRepository $er) {
+//                    return $er->createQueryBuilder('g')
+//                        ->where("REGEXP(g.roles, :roles) = 1")
+//                        ->setParameter('roles', $this->roles);
+//                },
                 'label' => 'Groupes',
                 'multiple' => true,
                 'expanded' => true,

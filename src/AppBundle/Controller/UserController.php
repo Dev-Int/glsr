@@ -77,20 +77,10 @@ class UserController extends AbstractController
      */
     public function newAction()
     {
-        $roles = $this->getUser()->getRoles();
-        switch ($roles[0]) {
-            case 'ROLE_SUPER_ADMIN' :
-                $digit['roles'] = 'ROLE_SUPER_ADMIN|ROLE_ADMIN|ROLE_USER';
-                break;
-            default :
-                $digit['roles'] = 'ROLE_USER';
-        }
-
         $return = $this->abstractNewAction(
             'User',
             'AppBundle\Entity\User',
-            UserType::class,
-            $digit
+            UserType::class
         );
 
         return $return;
@@ -109,15 +99,16 @@ class UserController extends AbstractController
     public function createAction(Request $request)
     {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['action' => $this->generateUrl('user_create'),]);
+        $form->handleRequest($request);
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isValid()) {
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
 
-            $return = $this->redirectToRoute('user_show', ['id', $user->getId()]);
+            $return = $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
 
         return $return;
