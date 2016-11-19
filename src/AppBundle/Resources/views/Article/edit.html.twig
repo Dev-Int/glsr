@@ -12,8 +12,10 @@
 {% block glstock_body %}
     {% include 'AppBundle:article:form.html.twig' %}
 
-    {{ form_start(delete_form) }}
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        {{ form_start(delete_form) }}
         {{ form_widget(delete_form) }}
+    {% endif %}
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
@@ -21,9 +23,11 @@
                 {{ 'gestock.return_list'|trans }}
             </a>
 
-            <button class="btn btn-danger btn-delete" type="submit">
-                {{ 'Delete'|trans({}, 'admin') }}
-            </button>
+            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                <button class="btn btn-danger btn-delete" type="submit">
+                    {{ 'Delete'|trans({}, 'admin') }}
+                </button>
+            {% endif %}
 
         </div>
 
