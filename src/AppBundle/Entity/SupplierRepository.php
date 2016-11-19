@@ -29,6 +29,22 @@ class SupplierRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Requête DQL
      */
+    public function getAllSuppliers()
+    {
+        $query = $this->createQueryBuilder('s')
+            ->join('s.familyLog', 'fl')
+            ->addSelect('fl')
+        ;
+        
+        return $query;
+    }
+
+
+    /**
+     * Affiche les fournisseurs actifs.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Requête DQL
+     */
     public function getSuppliers()
     {
         $query = $this->createQueryBuilder('s')

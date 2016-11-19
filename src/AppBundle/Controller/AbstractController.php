@@ -69,7 +69,11 @@ abstract class AbstractController extends Controller
                 }
                 break;
             case 'Supplier':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getSuppliers();
+                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
+                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllSuppliers();
+                } else {
+                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getSuppliers();
+                }
                 break;
             case 'User':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();

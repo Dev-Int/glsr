@@ -217,8 +217,10 @@
         {% endif %}
     </fieldset>
     {% endif %}
-    {{ form_start(delete_form) }}
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        {{ form_start(delete_form) }}
         {{ form_widget(delete_form) }}
+    {% endif %}
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
@@ -229,9 +231,11 @@
                 <a class="btn btn-primary btn-edit" href="{{ path('supplier_edit', {slug: supplier.slug}) }}">
                     {{ 'Edit'|trans({}, 'admin') }}
                 </a>
-                <button class="btn btn-danger btn-delete" type="submit">
-                    {{ 'Delete'|trans({}, 'admin') }}
-                </button>
+                {% if is_granted("ROLE_SUPER_ADMIN") %}
+                    <button class="btn btn-danger btn-delete" type="submit">
+                        {{ 'Delete'|trans({}, 'admin') }}
+                    </button>
+                {% endif %}
             {% endif %}
         </div>
 

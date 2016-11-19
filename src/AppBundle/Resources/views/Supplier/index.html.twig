@@ -52,7 +52,11 @@
         </thead>
         <tbody>
             {% for supplier in paginator %}
-                <tr>
+                {% if supplier.active == 0 %}
+                    <tr class="alert alert-danger">
+                {% else %}
+                    <tr>
+                {% endif %}
                     <td>{{ "%06d"|format(supplier.id) }}</td>
                     <td><a href="{{ path('supplier_show', {slug: supplier.slug}) }}">{{ supplier.name }}</a></td>
                     <td>{{ supplier.address }}<br />
@@ -74,6 +78,11 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            <p class="alert alert-danger">Fournisseurs supprimés.</p>
+        </div>
+    {% endif %}
     
     <div class="text-center">{{ knp_pagination_render(paginator) }}</div>
     
