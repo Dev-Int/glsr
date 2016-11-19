@@ -39,8 +39,10 @@
                             </div>
                             <div class="panel-body">
                                 {% for child in form.zoneStorages %}
-                                    <div class="col-md-3 text-center">{{ form_widget(child) }}</div>
-                                    <div class="col-md-9">{{ form_label(child) }}</div>
+                                    <div class="row">
+                                        <div class="col-md-3 text-center">{{ form_widget(child) }}</div>
+                                        <div class="col-md-9">{{ form_label(child) }}</div>
+                                    </div>
                                 {% endfor %}
                             </div>
                         </div>
