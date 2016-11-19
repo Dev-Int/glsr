@@ -21,7 +21,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Group;
 use AppBundle\Form\Type\GroupType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Group controller.
@@ -129,19 +128,6 @@ class GroupController extends AbstractController
     public function editAction(Group $group)
     {
         $return = $this->abstractEditAction($group, 'group', GroupType::class);
-//        $editForm = $this->createForm(GroupType::class, $group, array(
-//            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
-//            'method' => 'PUT',
-//        ));
-//        $this->addRoles($editForm, $group);
-//
-//        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
-//
-//        return array(
-//            'group' => $group,
-//            'edit_form'   => $editForm->createView(),
-//            'delete_form' => $deleteForm->createView(),
-//        );
 
         return $return;
     }
@@ -165,27 +151,6 @@ class GroupController extends AbstractController
             'group',
             GroupType::class
         );
-
-//        $editForm = $this->createForm(GroupType::class, $group, array(
-//            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
-//            'method' => 'PUT',
-//        ));
-//        $this->addRoles($editForm, $group);
-//
-//        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
-//
-//        $return = array(
-//            'group' => $group,
-//            'edit_form'   => $editForm->createView(),
-//            'delete_form' => $deleteForm->createView(),
-//        );
-//
-//        if ($editForm->handleRequest($request)->isValid()) {
-//            $this->getDoctrine()->getManager()->flush();
-//            $this->addFlash('info', 'gestock.edit.ok');
-//
-//            $return = $this->redirectToRoute('group_edit', array('id' => $group->getId()));
-//        }
 
         return $return;
     }
