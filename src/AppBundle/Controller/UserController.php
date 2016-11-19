@@ -154,7 +154,7 @@ class UserController extends AbstractController
      */
     public function updateAction(User $user, Request $request)
     {
-        $roles = "";
+        $roles = '';
         $editForm = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
