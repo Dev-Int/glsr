@@ -85,8 +85,10 @@ class SupplierType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
+                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
+                    'preferred_country_choices' => array('FR'),
                     'label' => 'gestock.phone',
-                    'attr'  => array('class' => 'form-control')
                 )
             )
             ->add(
@@ -95,6 +97,9 @@ class SupplierType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
+                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
+                    'preferred_country_choices' => array('FR'),
                     'label' => 'gestock.fax',
                     'attr'  => array('class' => 'form-control')
                 )
@@ -121,6 +126,9 @@ class SupplierType extends AbstractType
                 array(
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
+                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
+                    'preferred_country_choices' => array('FR'),
                     'label' => 'gestock.gsm',
                     'attr'  => array('class' => 'form-control')
                 )

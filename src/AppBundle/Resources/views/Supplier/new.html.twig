@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{#{% form_theme form 'AppBundle:Form:bootstrap_3_layout.html.twig' %}#}
+{% form_theme form 'form/tel_bootstrap.html.twig' %}
 
 {% block title %}
     {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }} - {{ parent() }}

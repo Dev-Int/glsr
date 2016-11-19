@@ -1,5 +1,7 @@
 {% extends "base.html.twig" %}
 
+{% form_theme edit_form 'form/tel_bootstrap.html.twig' %}
+
 {% block title %}
     {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }} - {{ parent() }}
 {% endblock %}
