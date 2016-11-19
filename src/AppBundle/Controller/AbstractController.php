@@ -62,7 +62,7 @@ abstract class AbstractController extends Controller
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
             case 'Article':
-                if($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
+                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllArticles();
                 } else {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getArticles();
