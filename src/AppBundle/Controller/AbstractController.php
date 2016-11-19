@@ -19,6 +19,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\QueryBuilder;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 /**
  * Abstract controller.
  *
@@ -181,6 +183,9 @@ abstract class AbstractController extends Controller
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
+        if ($entityName === 'group') {
+            $this->addRoles($editForm, $entity);
+        }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
         return array(
@@ -206,6 +211,9 @@ abstract class AbstractController extends Controller
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
         ));
+        if ($entityName === 'group') {
+            $this->addRoles($editForm, $entity);
+        }
 
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
@@ -245,7 +253,8 @@ abstract class AbstractController extends Controller
 
     private function testReturnParam($entity, $entityName)
     {
-        if ($entityName === 'company' || $entityName === 'settings' || $entityName === 'tva') {
+        $entityArray = ['company', 'settings', 'group', 'tva'];
+        if (in_array($entityName, $entityArray, true)) {
             $param = array('id' => $entity->getId());
         } else {
             $param = array('slug' => $entity->getSlug());
@@ -350,5 +359,44 @@ abstract class AbstractController extends Controller
             'footer-line' => true,
         );
         return $array;
+    }
+
+    /**
+     * Get the existing roles
+     *
+     * @return array Array of roles
+     */
+    private function getExistingRoles()
+    {
+        $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
+        $roles = array_keys($roleHierarchy);
+        $theRoles = array();
+
+        foreach ($roles as $role) {
+            $theRoles[$role] = $role;
+        }
+        return $theRoles;
+    }
+
+    /**
+     * Add roles to form
+     *
+     * @param \Symfony\Component\Form\Form  $form  The form in which to insert the roles
+     * @param \AppBundle\Entity\Group       $group The entity to deal
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function addRoles($form, $group)
+    {
+        $form->add('roles', ChoiceType::class, array(
+            'choices' => $this->getExistingRoles(),
+            'choices_as_values' => true,
+            'data' => $group->getRoles(),
+            'label' => 'Roles',
+            'expanded' => true,
+            'multiple' => true,
+            'mapped' => true,
+        ));
+
+        return $form;
     }
 }

@@ -101,9 +101,10 @@ class GroupController extends AbstractController
         $group = new Group();
         $form = $this->createForm(GroupType::class, $group);
         $this->addRoles($form, $group);
+        $form->handleRequest($request);
         $return = ['group' => $group, 'form' => $form->createView(),];
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($group);
             $etm->flush();
@@ -127,19 +128,22 @@ class GroupController extends AbstractController
      */
     public function editAction(Group $group)
     {
-        $editForm = $this->createForm(GroupType::class, $group, array(
-            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
-            'method' => 'PUT',
-        ));
-        $this->addRoles($editForm, $group);
+        $return = $this->abstractEditAction($group, 'group', GroupType::class);
+//        $editForm = $this->createForm(GroupType::class, $group, array(
+//            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
+//            'method' => 'PUT',
+//        ));
+//        $this->addRoles($editForm, $group);
+//
+//        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
+//
+//        return array(
+//            'group' => $group,
+//            'edit_form'   => $editForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
+//        );
 
-        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
-
-        return array(
-            'group' => $group,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return $return;
     }
 
     /**
@@ -155,26 +159,33 @@ class GroupController extends AbstractController
      */
     public function updateAction(Group $group, Request $request)
     {
-        $editForm = $this->createForm(GroupType::class, $group, array(
-            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
-            'method' => 'PUT',
-        ));
-        $this->addRoles($editForm, $group);
-
-        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
-
-        $return = array(
-            'group' => $group,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $group,
+            $request,
+            'group',
+            GroupType::class
         );
 
-        if ($editForm->handleRequest($request)->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('info', 'gestock.edit.ok');
-
-            $return = $this->redirectToRoute('group_edit', array('id' => $group->getId()));
-        }
+//        $editForm = $this->createForm(GroupType::class, $group, array(
+//            'action' => $this->generateUrl('group_update', array('id' => $group->getId())),
+//            'method' => 'PUT',
+//        ));
+//        $this->addRoles($editForm, $group);
+//
+//        $deleteForm = $this->createDeleteForm($group->getId(), 'group_delete');
+//
+//        $return = array(
+//            'group' => $group,
+//            'edit_form'   => $editForm->createView(),
+//            'delete_form' => $deleteForm->createView(),
+//        );
+//
+//        if ($editForm->handleRequest($request)->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+//            $this->addFlash('info', 'gestock.edit.ok');
+//
+//            $return = $this->redirectToRoute('group_edit', array('id' => $group->getId()));
+//        }
 
         return $return;
     }
@@ -209,44 +220,5 @@ class GroupController extends AbstractController
         }
 
         return $this->redirectToRoute('group');
-    }
-
-    /**
-     * Get the existing roles
-     *
-     * @return array Array of roles
-     */
-    private function getExistingRoles()
-    {
-        $roleHierarchy = $this->container->getParameter('security.role_hierarchy.roles');
-        $roles = array_keys($roleHierarchy);
-        $theRoles = array();
-
-        foreach ($roles as $role) {
-            $theRoles[$role] = $role;
-        }
-        return $theRoles;
-    }
-
-    /**
-     * Add roles to form
-     *
-     * @param \Symfony\Component\Form\Form  $form  The form in which to insert the roles
-     * @param \AppBundle\Entity\Group       $group The entity to deal
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function addRoles($form, $group)
-    {
-        $form->add('roles', ChoiceType::class, array(
-            'choices' => $this->getExistingRoles(),
-            'choices_as_values' => true,
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
-
-        return $form;
     }
 }

@@ -19,6 +19,7 @@
         </thead>
         <tbody>
             {% for group in entities %}
+                {% set group_list %}
                 <tr>
                     <td><a href="{{ path('group_show', {id: group.id}) }}">{{ group.name }}</a></td>
                     <td class="text-center">
@@ -32,15 +33,21 @@
                         </div>
                     </td>
                 </tr>
+                {% endset %}
+                {% if is_granted(group.roles[0]) %}
+                    {{ group_list }}
+                {% endif %}
             {% endfor %}
         </tbody>
     </table>
     
     <div class="btn-group">
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info btn-create" href="{{ path('group_new') }}">
-            {{ 'Create a new entry'|trans({}, 'admin') }}
-        </a>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <a class="btn btn-info btn-create" href="{{ path('group_new') }}">
+                {{ 'Create a new entry'|trans({}, 'admin') }}
+            </a>
+        {% endif %}
     </div>
     
 {% endblock glstock_body %}
