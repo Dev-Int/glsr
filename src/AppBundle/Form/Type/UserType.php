@@ -35,7 +35,6 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->roles = $options['roles'];
         $builder ->add('username', null, ['label' => "Nom d'utilisateur", 'attr'  => ['class' => 'form-control'],])
             ->add('email', EmailType::class, array(
                 'required' => false,
@@ -73,7 +72,6 @@ class UserType extends AbstractType
             'data_class' => 'AppBundle\Entity\User',
             'passwordRequired' => true,
             'lockedRequired' => false,
-            'roles' => null,
         ));
     }
 
