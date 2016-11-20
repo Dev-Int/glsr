@@ -46,7 +46,8 @@
         "knplabs/knp-paginator-bundle":"2.5.*",
         "knplabs/knp-menu-bundle": "^2.0",
         "lexik/form-filter-bundle": "~5.0",
-        "misd/phone-number-bundle": "~1.0"
+        "misd/phone-number-bundle": "~1.0",
+        "beberlei/DoctrineExtensions": "1.0.11"
     },
     "require-dev": {
         "pugx/generator-bundle":"2.4.*@dev",
