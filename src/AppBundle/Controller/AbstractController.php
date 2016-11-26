@@ -137,6 +137,9 @@ abstract class AbstractController extends Controller
                 'action' => $this->generateUrl(strtolower($entity).'_create'),
             ));
         }
+        if ($entity === 'Group') {
+            $this->addRoles($form, $entityNew);
+        }
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
         return $return;
@@ -159,6 +162,9 @@ abstract class AbstractController extends Controller
         $form = $this->createForm($typePath, $entityNew, array(
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
+        if ($entity === 'Group') {
+            $this->addRoles($form, $entityNew);
+        }
         $form->handleRequest($request);
         $return = [$entity => $entityNew, 'form' => $form->createView(),];
 
@@ -394,7 +400,7 @@ abstract class AbstractController extends Controller
      * @param \AppBundle\Entity\Group       $group The entity to deal
      * @return \Symfony\Component\Form\Form The form
      */
-    private function addRoles($form, $group)
+    public function addRoles($form, $group)
     {
         $form->add('roles', ChoiceType::class, array(
             'choices' => $this->getExistingRoles(),

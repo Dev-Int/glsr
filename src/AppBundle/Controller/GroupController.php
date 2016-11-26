@@ -75,14 +75,13 @@ class GroupController extends AbstractController
      */
     public function newAction()
     {
-        $group = new Group();
-        $form = $this->createForm(GroupType::class, $group);
-        $this->addRoles($form, $group);
-
-        return array(
-            'group' => $group,
-            'form'   => $form->createView(),
+        $return = $this->abstractNewAction(
+            'Group',
+            'AppBundle\Entity\Group',
+            GroupType::class
         );
+
+        return $return;
     }
 
     /**
@@ -99,7 +98,7 @@ class GroupController extends AbstractController
     {
         $group = new Group();
         $form = $this->createForm(GroupType::class, $group);
-        $this->addRoles($form, $group);
+        AbstractController::addRoles($form, $group);
         $form->handleRequest($request);
         $return = ['group' => $group, 'form' => $form->createView(),];
 
