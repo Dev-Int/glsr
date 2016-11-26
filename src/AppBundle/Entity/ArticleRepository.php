@@ -34,7 +34,6 @@ class ArticleRepository extends EntityRepository
         $query = $this->createQueryBuilder('a')
             ->join('a.supplier', 's')
             ->addSelect('s')
-            ->where('s.active = 1')
             ->join('a.familyLog', 'fl')
             ->addSelect('fl')
             ->join('a.zoneStorages', 'z')
