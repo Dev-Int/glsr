@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 
 /**
  * TvaType Form properties.
@@ -34,7 +34,11 @@ class TvaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add(
+                'rate',
+                PercentType::class,
+                ['scale' => 2, 'type' => 'fractional', 'label' => 'gestock.settings.diverse.vat',]
+            )
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
     }
 
