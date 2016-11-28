@@ -229,7 +229,7 @@ abstract class AbstractController extends Controller
         if ($entityName === 'group') {
             $this->addRoles($editForm, $entity);
         }
-
+        $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
         $return = array(
@@ -238,7 +238,7 @@ abstract class AbstractController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
 
-        if ($editForm->handleRequest($request)->isValid()) {
+        if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.edit.ok');
 
