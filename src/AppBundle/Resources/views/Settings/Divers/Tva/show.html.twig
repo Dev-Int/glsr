@@ -17,8 +17,12 @@
                 <td class="col-md-8">{{ tva.id }}</td>
             </tr>
             <tr>
+                <th scope="row">{{ 'gestock.name'|trans }}</th>
+                <td>{{ tva.name }}</td>
+            </tr>
+            <tr>
                 <th scope="row">{{ 'gestock.settings.diverse.vat'|trans }}</th>
-                <td>{{ tva.rate * 100 }} %</td>
+                <td>{{ tva.rate }} </td>
             </tr>
         </tbody>
     </table>
