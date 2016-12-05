@@ -459,7 +459,7 @@ class Article
     /**
      * Get tva
      *
-     * @return \AppBundle\Entity\Tva 
+     * @return \AppBundle\Entity\Tva
      */
     public function getTva()
     {

@@ -99,7 +99,7 @@ class Tva
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

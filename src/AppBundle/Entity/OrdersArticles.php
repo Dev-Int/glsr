@@ -57,7 +57,7 @@ class OrdersArticles
     private $price;
 
     /**
-     * @var string|\AppBundle\Entity\Tva TVA 
+     * @var string|\AppBundle\Entity\Tva TVA
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tva")
      * @ORM\JoinColumn(nullable=false)
@@ -73,7 +73,7 @@ class OrdersArticles
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,7 +96,7 @@ class OrdersArticles
     /**
      * Get quantity
      *
-     * @return string 
+     * @return string
      */
     public function getQuantity()
     {
@@ -119,7 +119,7 @@ class OrdersArticles
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -165,7 +165,7 @@ class OrdersArticles
     /**
      * Get article
      *
-     * @return \AppBundle\Entity\Article 
+     * @return \AppBundle\Entity\Article
      */
     public function getArticle()
     {
@@ -188,7 +188,7 @@ class OrdersArticles
     /**
      * Get unitStorage
      *
-     * @return \AppBundle\Entity\UnitStorage 
+     * @return \AppBundle\Entity\UnitStorage
      */
     public function getUnitStorage()
     {
@@ -211,7 +211,7 @@ class OrdersArticles
     /**
      * Get tva
      *
-     * @return \AppBundle\Entity\Tva 
+     * @return \AppBundle\Entity\Tva
      */
     public function getTva()
     {

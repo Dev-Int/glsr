@@ -89,7 +89,7 @@ class Orders
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -112,7 +112,7 @@ class Orders
     /**
      * Get orderdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOrderdate()
     {
@@ -135,7 +135,7 @@ class Orders
     /**
      * Get delivdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDelivdate()
     {
@@ -158,7 +158,7 @@ class Orders
     /**
      * Get amount
      *
-     * @return string 
+     * @return string
      */
     public function getAmount()
     {
@@ -181,7 +181,7 @@ class Orders
     /**
      * Get tva
      *
-     * @return string 
+     * @return string
      */
     public function getTva()
     {
@@ -204,7 +204,7 @@ class Orders
     /**
      * Get status
      *
-     * @return integer 
+     * @return integer
      */
     public function getStatus()
     {
@@ -227,7 +227,7 @@ class Orders
     /**
      * Get supplier
      *
-     * @return \AppBundle\Entity\Supplier 
+     * @return \AppBundle\Entity\Supplier
      */
     public function getSupplier()
     {
@@ -260,7 +260,7 @@ class Orders
     /**
      * Get articles
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getArticles()
     {
