@@ -58,7 +58,8 @@ class OrdersEditType extends OrdersType
                     'attr'  => ['class' => 'form-control', 'readonly' => true,],
                 )
             )
-            ->add('orderdate',
+            ->add(
+                'orderdate',
                 DateType::class,
                 array(
                     'required' => false,
