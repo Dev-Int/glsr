@@ -1,5 +1,14 @@
 ## YAML Template.
 ---
 title: "Gérer les commandes"
+title_short: "Commandes"
 form:
-    date_order: Date de commande
+    order_date: Date de commande
+    deliv_date: Date de livraison
+settings:
+    vat: TVA
+seizure:
+    item: "Commande du %date%"
+    total: "Montant"
+    totals: "Total de la commande"
+    vat: "Total de la TVA"

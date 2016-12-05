@@ -1,0 +1,94 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'title_short'|trans({}, 'gs_orders') }} - {{ parent() }}{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    {{ 'title_short'|trans({}, 'gs_orders') }} <small>{{ "%06d"|format(orders.id) }}</small>
+{% endblock %}
+
+{% block glstock_body %}
+    <div class="panel panel-default">
+        <header class="panel-heading">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-4">{{ 'title'|trans({}, 'gs_suppliers') }} :</div>
+                    <div class="col-md-8 text-bold">{{ orders.supplier }}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-4">{{ 'form.order_date'|trans({}, 'gs_orders') }} :</div>
+                    <div class="col-md-8 text-bold">{{ orders.orderdate|localizeddate('full', 'none') }}</div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-4">{{ 'form.deliv_date'|trans({}, 'gs_orders') }} :</div>
+                    <div class="col-md-8 text-bold">{{ orders.delivdate|localizeddate('full', 'none') }}</div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </header>
+        <table class="table table-striped">
+            <thead>
+                {% for item in orders.articles %}
+                    {% if loop.index == 1 %}
+                        <tr>
+                            <th class="col-md-1 text-center">{{ 'gestock.id'|trans }}</th>
+                            <th class="col-md-3 text-center">{{ 'title'|trans({}, 'gs_articles') }}</th>
+                            <th class="col-md-1 text-center">{{ 'settings.quantity'|trans({}, 'gs_articles') }}</th>
+                            <th class="col-md-1 text-center">{{ 'gestock.settings.diverse.unitstorage'|trans }}</th>
+                            <th class="col-md-1 text-center">{{ 'settings.price'|trans({}, 'gs_articles') }}</th>
+                            <th class="col-md-1 text-center">{{ 'gestock.settings.diverse.vat'|trans }}</th>
+                            <th class="col-md-1 text-center">{{ 'seizure.total'|trans({}, 'gs_orders') }}</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% endif %}
+                    <tr>
+                        <td class="text-center">{{ "%06d"|format(item.article.id) }}</td>
+                        <td>{{ item.article }}</td>
+                        <td class="text-right">{{ item.quantity }}</td>
+                        <td class="text-center">{{ item.unitStorage }}</td>
+                        <td class="text-right">{{ item.price|localizedcurrency('EUR') }}</td>
+                        <td class="text-right">
+                            {% set total = (item.quantity * item.price) %}
+                            {% set tva = (total * item.tva.rate) %}
+                            {{ tva|localizedcurrency('EUR') }}
+                        </td>
+                        <td class="text-right">{{ total|localizedcurrency('EUR') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">{{ 'seizure.totals'|trans({}, 'gs_orders') }}</th>
+                    <td class="text-right text-bold">{{ orders.tva|localizedcurrency('EUR') }}</td>
+                    <td class="text-right text-bold">{{ orders.amount|localizedcurrency('EUR') }}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('orders') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <a class="btn btn-primary btn-edit" href="{{ path('orders_edit', {id: orders.id}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'deleteform.html.twig' %}
+
+{% endblock %}
