@@ -117,15 +117,6 @@ class OrdersController extends AbstractOrdersController
                 $etm->persist($orders);
                 // Saving articles of supplier in order
                 $this->saveOrdersArticles($articles, $orders, $etm);
-//                foreach ($articles as $article) {
-//                    $ordersArticles = new OrdersArticles();
-//                    $ordersArticles->setOrders($orders);
-//                    $ordersArticles->setArticle($article);
-//                    $ordersArticles->setUnitStorage($article->getUnitStorage());
-//                    $ordersArticles->setPrice($article->getPrice());
-//                    $ordersArticles->setTva($article->getTva());
-//                    $etm->persist($ordersArticles);
-//                }
 
                 $etm->flush();
 
