@@ -2,6 +2,8 @@
 ---
 title: "Gérer les commandes"
 title_short: "Commandes"
+create:
+    supplier_yet_order: "Ce fournisseur a déjà une commande en cours !"
 form:
     order_date: Date de commande
     deliv_date: Date de livraison
