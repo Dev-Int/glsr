@@ -21,6 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\Orders;
+use AppBundle\Entity\Supplier;
 use AppBundle\Form\Type\OrdersType;
 use AppBundle\Form\Type\OrdersEditType;
 use AppBundle\Entity\OrdersArticles;
@@ -92,7 +93,7 @@ class OrdersController extends AbstractOrdersController
     /**
      * Creates a new Orders entity.
      *
-     * @Route("/create", name="orders_create")
+     * @Route("/admin/create", name="orders_create")
      * @Method("POST")
      * @Template("AppBundle:Orders:new.html.twig")
      */
@@ -129,7 +130,7 @@ class OrdersController extends AbstractOrdersController
     /**
      * Displays a form to edit an existing Orders entity.
      *
-     * @Route("/{id}/edit", name="orders_edit", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/edit", name="orders_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -151,7 +152,7 @@ class OrdersController extends AbstractOrdersController
     /**
      * Edits an existing Orders entity.
      *
-     * @Route("/{id}/update", name="orders_update", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/update", name="orders_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("AppBundle:Orders:edit.html.twig")
      */
@@ -183,7 +184,7 @@ class OrdersController extends AbstractOrdersController
     /**
      * Deletes a Orders entity.
      *
-     * @Route("/{id}/delete", name="orders_delete", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/delete", name="orders_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Orders $orders, Request $request)
@@ -203,23 +204,43 @@ class OrdersController extends AbstractOrdersController
         return $this->redirect($this->generateUrl('orders'));
     }
 
+    /**
+     * Tests of creation conditions.
+     *
+     * @param array                      $articles Liste des articles
+     * @param \AppBundle\Entity\Supplier $supplier Le fournisseur concerné
+     * @return boolean
+     */
     private function testCreate($articles, $supplier)
     {
+        $return = true;
         $etm = $this->getDoctrine()->getManager();
         $orders = $etm->getRepository('AppBundle:Orders')->findAll();
+        // This provider already has an order in progress!
         foreach ($orders as $order) {
             if ($order->getSupplier() === $supplier) {
-                $this->addFlash('danger', 'Ce fournisseur a déjà une commande en cours !');
+                $message = $this->get('translator')->trans('create.supplier_yet_order', array(), 'gs_orders');
+                $this->addFlash('danger', $message);
+                $return = false;
             }
         }
+        // This supplier has no articles!
         if (count($articles) < 1) {
             $message = $this->get('translator')->trans('settings.no_articles', array(), 'gs_suppliers');
             $this->addFlash('danger', $message);
+            $return = false;
         }
-        return false;
+        return $return;
     }
 
-    private function setDates($orders, $supplier)
+    /**
+     * Set order Dates.
+     *
+     * @param \AppBundle\Entity\Orders   $orders   La commande à traiter
+     * @param \AppBundle\Entity\Supplier $supplier Le fournisseur concerné
+     * @return \AppBundle\Entity\Orders            La commande modifiée
+     */
+    private function setDates(Orders $orders, Supplier $supplier)
     {
         $orderDate = $supplier->getOrderdate();
         foreach ($orderDate as $date) {
@@ -236,6 +257,13 @@ class OrdersController extends AbstractOrdersController
         return $orders;
     }
 
+    /**
+     * Save OrdersArticles.
+     *
+     * @param array                      $articles Liste des articles
+     * @param \AppBundle\Entity\Orders   $orders   La commande à traiter
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
+     */
     private function saveOrdersArticles($articles, $orders, $etm)
     {
         foreach ($articles as $article) {
