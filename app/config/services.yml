@@ -17,6 +17,9 @@ services:
         tags:
             - { name: 'knp_menu.voter' }
 
+    app.helper.controller:
+        class: 'AppBundle\Helper\ControllerHelper'
+
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
