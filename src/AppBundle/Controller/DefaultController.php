@@ -89,6 +89,13 @@ class DefaultController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $listArticles = $etm->getRepository('AppBundle:Article')->getStockAlert($number);
+        // Tester la liste si un fournisseur à déjà une commande en cours
+        $helper = $this->get('app.helper.controller');
+        foreach ($listArticles as $key => $article) {
+            if ($helper->testCreate($article, $etm)) {
+                unset($listArticles[$key]);
+            }
+        }
 
         return array('listArticles' => $listArticles);
     }
@@ -164,6 +171,25 @@ class DefaultController extends Controller
                 $response->headers->set('Content-Type', 'application/json');
                 $response->setContent($data);
                 $return = $response;
+            }
+        }
+        return $return;
+    }
+
+    /**
+     * Tests of creation conditions.
+     *
+     * @param array $article Articles à tester
+     * @return boolean
+     */
+    public function testCreate($article, $etm)
+    {
+        $return = false;
+        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
+        // This provider already has an order in progress!
+        foreach ($orders as $order) {
+            if ($order->getSupplier() === $article->getSupplier()) {
+                $return = true;
             }
         }
         return $return;

@@ -75,19 +75,28 @@ class OrdersController extends AbstractOrdersController
     /**
      * Displays a form to create a new Orders entity.
      *
-     * @Route("/new", name="orders_new")
+     * @Route("/new/{supplier}", name="orders_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction(Supplier $supplier)
     {
-        $orders = new Orders();
-        $form = $this->createForm(OrdersType::class, $orders);
+        $etm = $this->getDoctrine()->getManager();
 
-        return array(
-            'orders' => $orders,
-            'form'   => $form->createView(),
-        );
+        $orders = new Orders();
+        $orders->setSupplier($supplier);
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
+
+        // Set Orders dates (order and delivery)
+        $orders = $this->setDates($orders, $supplier);
+
+        $etm->persist($orders);
+        // Saving articles of supplier in order
+        $this->saveOrdersArticles($articles, $orders, $etm);
+
+        $etm->flush();
+
+        return $this->redirect($this->generateUrl('orders_edit', array('id' => $orders->getId())));
     }
 
     /**
@@ -107,7 +116,9 @@ class OrdersController extends AbstractOrdersController
         $form->handleRequest($request);
         $supplier = $orders->getSupplier();
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
-        $test = $this->testCreate($articles, $supplier);
+        // Tester la liste si un fournisseur à déjà une commande en cours
+        $helper = $this->get('app.helper.controller');
+        $test = $helper->testCreate($articles, $etm);
         if ($test === false) {
             $return = $this->redirectToRoute('orders');
         } else {
@@ -271,6 +282,9 @@ class OrdersController extends AbstractOrdersController
             $ordersArticles->setOrders($orders);
             $ordersArticles->setArticle($article);
             $ordersArticles->setUnitStorage($article->getUnitStorage());
+            if ($article->getMinstock() > $article->getQuantity()) {
+                $ordersArticles->setQuantity($article->getMinstock() - $article->getQuantity());
+            }
             $ordersArticles->setPrice($article->getPrice());
             $ordersArticles->setTva($article->getTva());
             $etm->persist($ordersArticles);
