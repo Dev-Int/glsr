@@ -37,8 +37,6 @@ class OrdersEditType extends OrdersType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->remove('amount')
-            ->remove('tva')
             ->add(
                 'supplier',
                 EntityType::class,

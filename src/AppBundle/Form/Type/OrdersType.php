@@ -20,7 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 /**
  * OrdersType Form properties.
@@ -53,9 +52,6 @@ class OrdersType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
-            ->add('amount', HiddenType::class)
-            ->add('tva', HiddenType::class)
-            ->add('status', HiddenType::class)
         ;
     }
 
