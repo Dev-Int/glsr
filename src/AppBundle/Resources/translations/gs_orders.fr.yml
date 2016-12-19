@@ -14,3 +14,10 @@ seizure:
     total: "Montant"
     totals: "Total de la commande"
     vat: "Total de la TVA"
+print:
+    title: "Commande n° %id%"
+    supplier: "Distributeur : %supplier%"
+    company: "Restaurant : %company%"
+    date: "Du %date%"
+    delivery: "Date de livraison : %date%"
+    family: "Famille logistique : %family%"

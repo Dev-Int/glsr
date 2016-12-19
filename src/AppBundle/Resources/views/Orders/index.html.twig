@@ -29,7 +29,7 @@
         <tbody>
             {% for orders in paginator %}
                 <tr>
-                    <td><a href="{{ path('orders_show', {id: orders.id}) }}">{{ orders.id }}</a></td>
+                    <td><a href="{{ path('orders_show', {id: orders.id}) }}">{{ "%06d"|format(orders.id) }}</a></td>
                     <td><a href="{{ path('supplier_show', {slug: orders.supplier.slug}) }}">{{ orders.supplier }}</a></td>
                     <td class="text-center">
                         {% if orders.orderdate %}{{ orders.orderdate|localizeddate('full', 'none') }}{% endif %}
@@ -46,6 +46,10 @@
                             </a>
                             <a class="btn btn-info btn-edit btn-xs" href="{{ path('orders_edit', {id: orders.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
+                            </a>
+                            <a class="btn btn-default btn-xs" href="{{ path('orders_print', {id: orders.id}) }}">
+                                <i class="fa fa-print" aria-hidden="true"></i>
+                                {{ 'gestock.print'|trans }}
                             </a>
                         </div>
                     </td>
