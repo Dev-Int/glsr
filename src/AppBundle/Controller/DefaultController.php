@@ -175,23 +175,4 @@ class DefaultController extends Controller
         }
         return $return;
     }
-
-    /**
-     * Tests of creation conditions.
-     *
-     * @param array $article Articles à tester
-     * @return boolean
-     */
-    public function testCreate($article, $etm)
-    {
-        $return = false;
-        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
-        // This provider already has an order in progress!
-        foreach ($orders as $order) {
-            if ($order->getSupplier() === $article->getSupplier()) {
-                $return = true;
-            }
-        }
-        return $return;
-    }
 }
