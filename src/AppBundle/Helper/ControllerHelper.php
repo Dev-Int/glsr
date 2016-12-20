@@ -15,6 +15,7 @@
 namespace AppBundle\Helper;
 
 use AppBundle\Entity\Article;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Controller helper.
@@ -30,7 +31,7 @@ class ControllerHelper
      * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
      * @return boolean
      */
-    public function testCreate(Article $articles, $etm)
+    public function testCreate(Article $articles, ObjectManager $etm)
     {
         $return = false;
         $orders = $etm->getRepository('AppBundle:Orders')->findAll();
