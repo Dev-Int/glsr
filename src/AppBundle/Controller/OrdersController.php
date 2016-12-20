@@ -216,35 +216,6 @@ class OrdersController extends AbstractOrdersController
     }
 
     /**
-     * Tests of creation conditions.
-     *
-     * @param array                      $articles Liste des articles
-     * @param \AppBundle\Entity\Supplier $supplier Le fournisseur concerné
-     * @return boolean
-     */
-    private function testCreate($articles, $supplier)
-    {
-        $return = true;
-        $etm = $this->getDoctrine()->getManager();
-        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
-        // This provider already has an order in progress!
-        foreach ($orders as $order) {
-            if ($order->getSupplier() === $supplier) {
-                $message = $this->get('translator')->trans('create.supplier_yet_order', array(), 'gs_orders');
-                $this->addFlash('danger', $message);
-                $return = false;
-            }
-        }
-        // This supplier has no articles!
-        if (count($articles) < 1) {
-            $message = $this->get('translator')->trans('settings.no_articles', array(), 'gs_suppliers');
-            $this->addFlash('danger', $message);
-            $return = false;
-        }
-        return $return;
-    }
-
-    /**
      * Set order Dates.
      *
      * @param \AppBundle\Entity\Orders   $orders   La commande à traiter
