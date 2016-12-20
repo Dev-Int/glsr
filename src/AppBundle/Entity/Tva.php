@@ -39,7 +39,14 @@ class Tva
     /**
      * @var decimal Taux de TVA
      *
-     * @ORM\Column(name="name", type="decimal", precision=5, scale=3)
+     * @ORM\Column(name="rate", type="decimal", precision=4, scale=3)
+     */
+    private $rate;
+
+    /**
+     * @var decimal Nom du taux de TVA
+     *
+     * @ORM\Column(name="name", type="decimal", precision=3, scale=1)
      */
     private $name;
 
@@ -54,23 +61,45 @@ class Tva
     }
 
     /**
-     * Set name.
+     * Set rate.
      *
-     * @param decimal $name Taux de TVA
+     * @param decimal $rate Taux de TVA
      *
      * @return tva
      */
-    public function setName($name)
+    public function setRate($rate)
     {
-        $this->name = $name;
+        $this->rate = $rate;
 
         return $this;
     }
 
     /**
-     * Get name.
+     * Get rate.
      *
      * @return decimal
+     */
+    public function getRate()
+    {
+        return $this->rate;
+    }
+
+    /**
+     * Set name
+     *
+     * @return Tva
+     */
+    public function setName()
+    {
+        $this->name = $this->getRate() * 100;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
      */
     public function getName()
     {

@@ -56,8 +56,15 @@ class MenuBuilder implements ContainerAwareInterface
         ))
             ->setExtra('translation_domain', 'gs_inventories')
             ->setAttribute('icon', 'fa fa-tasks');
+ 
+        $menu['manage']->addChild('orders', array(
+            'label' => 'title_short',
+            'route' => 'orders'
+        ))
+            ->setExtra('translation_domain', 'gs_orders')
+            ->setAttribute('icon', 'fa fa-shopping-cart');
 
-            return $menu;
+        return $menu;
     }
  
     public function buildUserMenu(FactoryInterface $factory, array $options)

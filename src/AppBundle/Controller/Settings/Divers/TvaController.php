@@ -89,7 +89,7 @@ class TvaController extends AbstractController
      *
      * @Route("/create", name="tva_create")
      * @Method("POST")
-     * @Template("AppBundle:Tva:new.html.twig")
+     * @Template("AppBundle:Settings/Divers/Tva:new.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
@@ -128,7 +128,7 @@ class TvaController extends AbstractController
      *
      * @Route("/{id}/update", name="tva_update", requirements={"id"="\d+"})
      * @Method("PUT")
-     * @Template("AppBundle:Tva:edit.html.twig")
+     * @Template("AppBundle:Settings/Divers/Tva:edit.html.twig")
      *
      * @param \AppBundle\Entity\Tva                     $tva     Tva item to update
      * @param \Symfony\Component\HttpFoundation\Request $request Form request

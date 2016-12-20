@@ -8,14 +8,14 @@
     {%- set divider_prepend = attributes.divider_prepend|default(false) %}
     {%- set divider_append = attributes.divider_append|default(false) %}
 
-{# unset bootstrap specific attributes #}
+    {# unset bootstrap specific attributes #}
     {%- set attributes = attributes|merge({'dropdown': null, 'divider_prepend': null, 'divider_append': null }) %}
 
     {%- if divider_prepend %}
         {{ block('dividerElement') }}
     {%- endif %}
 
-{# building the class of the item #}
+    {# building the class of the item #}
     {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
     {%- if matcher.isCurrent(item) %}
         {%- set classes = classes|merge([options.currentClass]) %}
@@ -29,23 +29,23 @@
         {%- set classes = classes|merge([options.lastClass]) %}
     {%- endif %}
 
-{# building the class of the children #}
+    {# building the class of the children #}
     {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
     {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
 
-{# adding classes for dropdown #}
+    {# adding classes for dropdown #}
     {%- if is_dropdown %}
         {%- set classes = classes|merge(['dropdown']) %}
         {%- set childrenClasses = childrenClasses|merge(['dropdown-menu']) %}
     {%- endif %}
 
-{# putting classes together #}
+    {# putting classes together #}
     {%- if classes is not empty %}
         {%- set attributes = attributes|merge({'class': classes|join(' ')}) %}
     {%- endif %}
     {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
 
-{# displaying the item #}
+    {# displaying the item #}
     <li{{ macros.attributes(attributes) }}>
         {%- if is_dropdown %}
             {{ block('dropdownElement') }}
@@ -54,7 +54,7 @@
         {%- else %}
             {{ block('spanElement') }}
         {%- endif %}
-{# render the list of children#}
+        {# render the list of children#}
         {{ block('list') }}
     </li>
 
@@ -73,6 +73,7 @@
 {% endblock %}
 
 {% block linkElement %}
+    {% import "knp_menu.html.twig" as macros %}
 	<a href="{{ item.uri }}"{{ macros.attributes(item.linkAttributes) }}>
 		{% if item.attribute('icon') is not empty  %}
     		<i class="{{ item.attribute('icon') }}"></i> 
@@ -82,6 +83,7 @@
 {% endblock %}
 
 {% block spanElement %}
+    {% import "knp_menu.html.twig" as macros %}
 	<span>{{ macros.attributes(item.labelAttributes) }}
 		{% if item.attribute('icon') is not empty  %}
     		<i class="{{ item.attribute('icon') }}"></i> 
@@ -91,6 +93,7 @@
 {% endblock %}
 
 {% block dropdownElement %}
+    {% import "knp_menu.html.twig" as macros %}
     {%- set classes = item.linkAttribute('class') is not empty ? [item.linkAttribute('class')] : [] %}
     {%- set classes = classes|merge(['dropdown-toggle']) %}
     {%- set attributes = item.linkAttributes %}

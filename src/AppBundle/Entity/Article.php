@@ -92,6 +92,13 @@ class Article
     private $price;
 
     /**
+     * @var string|\AppBundle\Entity\Tva Taux de TVA
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Tva")
+     */
+    private $tva;
+
+    /**
      * @var double Quantité en stock
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
@@ -434,5 +441,28 @@ class Article
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * Set tva
+     *
+     * @param \AppBundle\Entity\Tva $tva
+     * @return Article
+     */
+    public function setTva(\AppBundle\Entity\Tva $tva = null)
+    {
+        $this->tva = $tva;
+
+        return $this;
+    }
+
+    /**
+     * Get tva
+     *
+     * @return \AppBundle\Entity\Tva
+     */
+    public function getTva()
+    {
+        return $this->tva;
     }
 }

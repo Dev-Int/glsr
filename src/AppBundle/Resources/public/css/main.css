@@ -10,6 +10,10 @@ fieldset > section.col-md-12 {
     margin-bottom: 10px;
 }
 
+.text-bold {
+    font-weight: bold;
+}
+
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
 .table-bordered > tfoot > tr > th {

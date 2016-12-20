@@ -138,7 +138,7 @@ abstract class AbstractController extends Controller
             ));
         }
         if ($entity === 'Group') {
-            $this->addRoles($form, $entityNew);
+            $this->addRolesAction($form, $entityNew);
         }
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
@@ -163,7 +163,7 @@ abstract class AbstractController extends Controller
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
         if ($entity === 'Group') {
-            $this->addRoles($form, $entityNew);
+            $this->addRolesAction($form, $entityNew);
         }
         $form->handleRequest($request);
         $return = [$entity => $entityNew, 'form' => $form->createView(),];
@@ -199,7 +199,7 @@ abstract class AbstractController extends Controller
             'method' => 'PUT',
         ));
         if ($entityName === 'group') {
-            $this->addRoles($editForm, $entity);
+            $this->addRolesAction($editForm, $entity);
         }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
@@ -227,9 +227,9 @@ abstract class AbstractController extends Controller
             'method' => 'PUT',
         ));
         if ($entityName === 'group') {
-            $this->addRoles($editForm, $entity);
+            $this->addRolesAction($editForm, $entity);
         }
-
+        $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
         $return = array(
@@ -238,7 +238,7 @@ abstract class AbstractController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
 
-        if ($editForm->handleRequest($request)->isValid()) {
+        if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.edit.ok');
 
@@ -400,7 +400,7 @@ abstract class AbstractController extends Controller
      * @param \AppBundle\Entity\Group       $group The entity to deal
      * @return \Symfony\Component\Form\Form The form
      */
-    public function addRoles($form, $group)
+    public function addRolesAction($form, $group)
     {
         $form->add('roles', ChoiceType::class, array(
             'choices' => $this->getExistingRoles(),

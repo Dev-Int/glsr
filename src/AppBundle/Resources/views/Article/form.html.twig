@@ -65,20 +65,30 @@
     </fieldset>
     <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
         <section class="form-line">
-            <div class="col-md-2 col-md-offset-1 label label-default">
+            <div class="col-md-2 label label-default">
                 <i class="fa fa-cubes"></i>&nbsp;
                 {{ form_label(form.unitStorage) }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span class="text-danger">{{ form_errors(form.unitStorage) }}</span>
                 {{ form_widget(form.unitStorage) }}
             </div>
-            <div class="col-md-2 label label-default">
+            <div class="col-md-1 label label-default">
                 {{ form_label(form.price) }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span class="text-danger">{{ form_errors(form.price) }}</span>
                 {{ form_widget(form.price) }}
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ form_label(form.tva) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.tva) }}</span>
+                <div class="input-group">
+                    {{ form_widget(form.tva, { 'attr':{'aria-describedby':'percent-addon'} } ) }}
+                    <span class="input-group-addon" id="percent-addon">%</span>
+                </div>
             </div>
             <div class="clear"></div>
         </section>

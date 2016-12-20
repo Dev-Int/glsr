@@ -89,6 +89,13 @@ class DefaultController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $listArticles = $etm->getRepository('AppBundle:Article')->getStockAlert($number);
+        // Tester la liste si un fournisseur à déjà une commande en cours
+        $helper = $this->get('app.helper.controller');
+        foreach ($listArticles as $key => $article) {
+            if ($helper->testCreate($article, $etm)) {
+                unset($listArticles[$key]);
+            }
+        }
 
         return array('listArticles' => $listArticles);
     }

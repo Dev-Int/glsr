@@ -72,6 +72,17 @@ class ArticleType extends AbstractType
                     'attr'  => array('class' => 'form-control')
                 )
             )
+            ->add(
+                'tva',
+                EntityType::class,
+                array(
+                    'class' => 'AppBundle:Tva',
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'label' => 'gestock.settings.diverse.vat',
+                    'attr'  => array('class' => 'form-control')
+                )
+            )
             ->add('quantity', HiddenType::class, array('data' => 0))
             ->add(
                 'minstock',

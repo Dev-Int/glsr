@@ -1,5 +1,23 @@
 ## YAML Template.
 ---
 title: "Gérer les commandes"
+title_short: "Commandes"
+create:
+    supplier_yet_order: "Ce fournisseur a déjà une commande en cours !"
 form:
-    date_order: Date de commande
+    order_date: Date de commande
+    deliv_date: Date de livraison
+settings:
+    vat: TVA
+seizure:
+    item: "Commande du %date%"
+    total: "Montant"
+    totals: "Total de la commande"
+    vat: "Total de la TVA"
+print:
+    title: "Commande n° %id%"
+    supplier: "Distributeur : %supplier%"
+    company: "Restaurant : %company%"
+    date: "Du %date%"
+    delivery: "Date de livraison : %date%"
+    family: "Famille logistique : %family%"
