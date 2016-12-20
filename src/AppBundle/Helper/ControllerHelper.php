@@ -14,6 +14,8 @@
  */
 namespace AppBundle\Helper;
 
+use AppBundle\Entity\Article;
+
 /**
  * Controller helper.
  *
@@ -24,19 +26,28 @@ class ControllerHelper
     /**
      * Tests of creation conditions.
      *
-     * @param array $article Articles à tester
+     * @param \AppBundle\Entity\Article $articles Articles à tester
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
      * @return boolean
      */
-    public function testCreate($article, $etm)
+    public function testCreate(Article $articles, $etm)
     {
         $return = false;
         $orders = $etm->getRepository('AppBundle:Orders')->findAll();
         // This provider already has an order in progress!
         foreach ($orders as $order) {
-            if ($order->getSupplier() === $article->getSupplier()) {
+            if ($order->getSupplier() === $articles->getSupplier()) {
                 $return = true;
             }
         }
+
+        // This supplier has no articles!
+        if (count($articles) < 1) {
+            $message = $this->get('translator')->trans('settings.no_articles', array(), 'gs_suppliers');
+            $this->addFlash('danger', $message);
+            $return = false;
+        }
+
         return $return;
     }
 }
