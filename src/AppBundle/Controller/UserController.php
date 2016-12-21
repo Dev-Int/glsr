@@ -98,15 +98,24 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
+        $roles = '';
         $user = new User();
         $form = $this->createForm(UserType::class, $user, ['action' => $this->generateUrl('user_create'),]);
         $form->handleRequest($request);
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
         if ($form->isValid()) {
+            foreach ($user->getGroups() as $key => $group) {
+                if ($key === 0) {
+                    $roles = $group->getRoles();
+                }
+            }
+            
+            $user->setRoles($roles);
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
+            $this->addFlash('info', 'gestock.create.ok');
 
             $return = $this->redirectToRoute('user_show', ['id' => $user->getId()]);
         }
@@ -163,11 +172,12 @@ class UserController extends AbstractController
         ));
         $deleteForm = $this->createDeleteForm($user->getId(), 'user_delete');
 
+        $editForm->handleRequest($request);
         $return = ['user' => $user,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),];
 
-        if ($editForm->handleRequest($request)->isValid()) {
+        if ($editForm->isValid()) {
             foreach ($user->getGroups() as $key => $group) {
                 if ($key === 0) {
                     $roles = $group->getRoles();
@@ -177,6 +187,7 @@ class UserController extends AbstractController
             $user->setRoles($roles);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
+            $this->addFlash('info', 'gestock.edit.ok');
 
             $return = $this->redirectToRoute('user_edit', array('id' => $user->getId()));
         }
