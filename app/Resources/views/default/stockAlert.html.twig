@@ -1,3 +1,4 @@
+{% if listArticles %}
 <h4 class="text-danger">{{ 'alerts.sub_title1'|trans({}, 'gs_articles') }}</h4>
 <ul class="list-group">
     {% for article in listArticles %}
@@ -12,3 +13,4 @@
         </li>
     {% endfor %}
 </ul>
+{% endif %}
