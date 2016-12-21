@@ -113,10 +113,9 @@ abstract class AbstractController extends Controller
      * @param string      $entity     Entity
      * @param string      $entityPath Path of Entity
      * @param string      $typePath   Path of FormType
-     * @param string|null $options    Options of Form
      * @return array
      */
-    public function abstractNewAction($entity, $entityPath, $typePath, $options = null)
+    public function abstractNewAction($entity, $entityPath, $typePath)
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
@@ -127,16 +126,10 @@ abstract class AbstractController extends Controller
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        if ($entity === 'User') {
-            $form = $this->createForm($typePath, $entityNew, array(
-                'action' => $this->generateUrl(strtolower($entity).'_create'),
-                'roles' => $options['roles'],
-            ));
-        } else {
-            $form = $this->createForm($typePath, $entityNew, array(
-                'action' => $this->generateUrl(strtolower($entity).'_create'),
-            ));
-        }
+        $form = $this->createForm($typePath, $entityNew, array(
+            'action' => $this->generateUrl(strtolower($entity).'_create'),
+        ));
+
         if ($entity === 'Group') {
             $this->addRolesAction($form, $entityNew);
         }
@@ -172,7 +165,6 @@ abstract class AbstractController extends Controller
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();
-            $this->addFlash('info', 'gestock.create.ok');
 
             $param = $this->testReturnParam($entityNew, strtolower($entity));
             $route = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
@@ -235,8 +227,7 @@ abstract class AbstractController extends Controller
         $return = array(
             $entityName => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+            'delete_form' => $deleteForm->createView(),);
 
         if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
