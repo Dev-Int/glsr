@@ -1,6 +1,6 @@
 <?php
 /**
- * ControllerHelper controller de l'application GLSR.
+ * ControllerHelper Helpers de l'application GLSR.
  *
  * PHP Version 5
  *
@@ -27,12 +27,12 @@ class ControllerHelper
     /**
      * Tests of creation conditions.
      *
-     * @param \AppBundle\Entity\Article $articles Articles à tester
+     * @param array Articles à tester
      * @return boolean
      */
-    public function testSupplierHasArticle(Article $articles)
+    public function testSupplierHasArticle(array $articles)
     {
-        $return = false;
+        $return = true;
 
         // This supplier has no articles!
         if (count($articles) < 1) {
@@ -61,5 +61,6 @@ class ControllerHelper
                 $return = true;
             }
         }
+        return $return;
     }
 }
