@@ -13,6 +13,15 @@ fieldset > section.col-md-12 {
 .text-bold {
     font-weight: bold;
 }
+div[class$='-letters'] {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+}
+div.text-5-letters { width: 15%; }
+div.text-15-letters { width: 35%; }
+div.text-20-letters { width: 50%; }
 
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -91,7 +100,7 @@ i.danger {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    content: '\f016';
+    content: '\f06e';
     margin-right: 4px!important;
 }
 .btn-list:before {
@@ -114,6 +123,17 @@ i.danger {
     content: '\f014';
     margin-right: 4px!important;
 }
+.btn-print:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f02f';
+    margin-right: 4px!important;
+}
+
 .pagination > li > span.previous:before,
 .pagination > li > a > span.previous:before {
     display: inline-block;
@@ -239,4 +259,15 @@ section.alerts .panel:after
   transform: rotate(5deg);
   right: 10px;
   left: auto;
+}
+
+/*
+ * Form Control ReadOnly
+ */
+input.form-control[readonly],
+select.form-control[readonly],
+.input-group-addon.readonly {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
