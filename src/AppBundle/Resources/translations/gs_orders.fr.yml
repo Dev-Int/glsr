@@ -2,6 +2,7 @@
 ---
 title: "Gérer les commandes"
 title_short: "Commandes"
+inprogress: "Commande en cours pour ce fournisseur !"
 create:
     supplier_yet_order: "Ce fournisseur a déjà une commande en cours !"
 form:
