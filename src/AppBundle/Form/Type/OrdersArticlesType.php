@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -45,7 +46,6 @@ class OrdersArticlesType extends AbstractType
                     'label' => 'gestock.id',
                     'translation_domain' => 'messages',
                     'empty_data' => null,
-                    'attr'=> ['class' => 'form-control', 'readonly' => true,],
                 )
             )
             ->add(
@@ -58,7 +58,6 @@ class OrdersArticlesType extends AbstractType
                     'label' => 'title',
                     'translation_domain' => 'gs_articles',
                     'empty_data' => null,
-                    'attr'=> ['class' => 'form-control', 'readonly' => true]
                 )
             )
             ->add(
@@ -82,7 +81,6 @@ class OrdersArticlesType extends AbstractType
                     'choice_label' => 'abbr',
                     'label' => 'gestock.settings.diverse.unitstorage',
                     'empty_data' => null,
-                    'attr'=> ['class' => 'form-control text-center', 'readonly' => true]
                 )
             )
             ->add(
@@ -108,7 +106,6 @@ class OrdersArticlesType extends AbstractType
                     'choice_value' => 'rate',
                     'label' => 'gestock.settings.diverse.vat',
                     'empty_data' => null,
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true]
                 )
             )
             ->add(

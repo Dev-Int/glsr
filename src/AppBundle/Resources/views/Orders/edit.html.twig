@@ -23,7 +23,10 @@
             <div class="row">
                 <div class="col-md-4 row">
                     <div class="col-md-4">{{ form_label(edit_form.supplier) }}</div>
-                    <div class="col-md-8">{{ form_widget(edit_form.supplier) }}</div>
+                    <div class="col-md-8">
+                        {{ form_widget(edit_form.supplier, { 'attr':{'class':'hidden'} }) }}
+                        {{ edit_form.supplier.vars.data.name }}
+                    </div>
                 </div>
                 <div class="col-md-4 row">
                     <div class="col-md-4">{{ form_label(edit_form.orderdate) }}</div>
@@ -54,18 +57,25 @@
                 <tbody>
                     {% endif %}
                     <tr>
-                        <td>
+                        <td class="text-center">
                             {{ form_widget(item.orders, { 'attr':{'class':'hidden'} }) }}
-                            <input type="text" value="{{ "%06d"|format(item.article.vars.value) }}" class="form-control text-center" tabindex="100" readonly>
+                            {{ "%06d"|format(item.article.vars.value) }}
                         </td>
-                        <td>{{ form_widget(item.article) }}</td>
+                        <td>
+                            {{ form_widget(item.article, { 'attr':{'class':'hidden'} }) }}
+                            {{ item.article.vars.data.name }}
+                        </td>
                         <td>{{ form_widget(item.quantity, { 'attr':{'onChange':'ordersCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}</td>
-                        <td>{{ form_widget(item.unitStorage) }}</td>
+                        <td class="text-center">
+                            {{ form_widget(item.unitStorage, { 'attr':{'class':'hidden'} }) }}
+                            {{ item.article.vars.data.unitStorage }}
+                        </td>
                         <td>{{ form_widget(item.price) }}</td>
                         <td>
                             <div class="input-group">
-                                {{ form_widget(item.tva, { 'attr':{'aria-describedby':'percent-addon'} } ) }}
-                                <span class="input-group-addon" id="percent-addon">%</span>
+                                {{ form_widget(item.tva, { 'attr':{'class':'hidden'} } ) }}
+                                <input type="text" value="{{ item.article.vars.data.tva.name }}" aria-describedby="percent-addon" readonly="readonly" class="form-control text-right readonly">
+                                <span class="input-group-addon readonly" id="percent-addon">%</span>
                             </div>
                         </td>
                         <td>{{ form_widget(item.total) }}</td>
