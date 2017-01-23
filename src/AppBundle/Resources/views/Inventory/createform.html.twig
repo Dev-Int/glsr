@@ -1,3 +1,5 @@
+{% form_theme create_form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
+
 <div id="create_confirm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -6,6 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="modalLabel">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
                     {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_inventories')}, 'admin') }}
                 </h4>
             </div>
@@ -14,8 +17,7 @@
                 <div class="col-md-6">
                     {{ form_row(create_form.date) }}
                 </div>
-                <button class="col-md-offset-1 col-md-5 btn btn-primary" type="submit" onclick="closeReload();">
-                    <i class="fa fa-print" aria-hidden="true"></i>
+                <button class="col-md-offset-1 col-md-5 btn btn-print btn-primary" type="submit" onclick="closeReload();">
                     {{ 'prepare.title'|trans({}, 'gs_inventories') }}
                 </button>
                 {{ form_end(create_form) }}
