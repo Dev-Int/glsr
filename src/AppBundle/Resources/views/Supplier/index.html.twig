@@ -31,12 +31,12 @@
         <thead>
             <tr>
                 <th scope="col" class="col-md-1 text-center">{{ thead('supplier', 'supplier', 'id', 'gestock.id'|trans) }}</th>
-                <th scope="col" class="col-md-2">{{ thead('supplier', 'supplier', 'name', 'gestock.name'|trans) }}</th>
-                <th scope="col" class="col-md-3">
+                <th scope="col" class="col-md-2 text-center">{{ thead('supplier', 'supplier', 'name', 'gestock.name'|trans) }}</th>
+                <th scope="col" class="col-md-3 text-center">
                     <i class="fa fa-map-marker"></i> 
                     {{ 'gestock.address'|trans }}
                 </th>
-                <th scope="col" class="col-md-2">
+                <th scope="col" class="col-md-2 text-center">
                     <i class="fa fa-phone"></i> 
                     {{ 'gestock.phone'|trans }}
                 </th>
@@ -57,12 +57,11 @@
                 {% else %}
                     <tr>
                 {% endif %}
-                    <td>{{ "%06d"|format(supplier.id) }}</td>
+                    <td class="text-center">{{ "%06d"|format(supplier.id) }}</td>
                     <td><a href="{{ path('supplier_show', {slug: supplier.slug}) }}">{{ supplier.name }}</a></td>
-                    <td>{{ supplier.address }}<br />
-                        {{ supplier.zipcode }} {{ supplier.town }}</td>
-                    <td>{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
-                    <td>{{ supplier.familylog }}</td>
+                    <td><div class="text-20-letters">{{ supplier.address }}</div><div class="text-5-letters">{{ supplier.zipcode }}</div><div class="text-15-letters">{{ supplier.town }}</div></td>
+                    <td class="text-center">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
+                    <td class="text-center">{{ supplier.familylog }}</td>
                     <td class="text-center">
                         <div class="btn-group">
                             <a class="btn btn-default btn-show btn-sm" href="{{ path('supplier_show', {slug: supplier.slug}) }}">
