@@ -28,19 +28,11 @@ class ControllerHelper
      * Tests of creation conditions.
      *
      * @param \AppBundle\Entity\Article $articles Articles à tester
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
      * @return boolean
      */
-    public function testCreate(Article $articles, ObjectManager $etm)
+    public function testSupplierHasArticle(Article $articles)
     {
         $return = false;
-        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
-        // This provider already has an order in progress!
-        foreach ($orders as $order) {
-            if ($order->getSupplier() === $articles->getSupplier()) {
-                $return = true;
-            }
-        }
 
         // This supplier has no articles!
         if (count($articles) < 1) {
@@ -50,5 +42,24 @@ class ControllerHelper
         }
 
         return $return;
+    }
+
+    /**
+     * Tests Order in progress for a supplier.
+     *
+     * @param \AppBundle\Entity\Article $articles Articles to test
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
+     * @return boolean
+     */
+    public function testOrderInProgress(Article $articles, ObjectManager $etm)
+    {
+        $return = false;
+        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
+        // This provider already has an order in progress!
+        foreach ($orders as $order) {
+            if ($order->getSupplier() === $articles->getSupplier()) {
+                $return = true;
+            }
+        }
     }
 }

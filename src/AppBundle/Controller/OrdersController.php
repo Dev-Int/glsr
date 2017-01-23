@@ -118,7 +118,7 @@ class OrdersController extends AbstractOrdersController
         $supplier = $orders->getSupplier();
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
         // Tester la liste si un fournisseur à déjà une commande en cours
-        $test = $this->get('app.helper.controller')->testCreate($articles, $etm);
+        $test = $this->get('app.helper.controller')->testSupplierHasArticle($articles);
         if ($test === false) {
             $return = $this->redirectToRoute('orders');
         } else {
