@@ -119,6 +119,24 @@ class DefaultController extends Controller
     }
 
     /**
+     * Get the latest orders.
+     *
+     * @Route("/alert", name="lastorders")
+     * @Method("GET")
+     * @Template("default/lastorder.html.twig")
+     *
+     * @param integer $number Number of orders to display
+     * @return array|null
+     */
+    public function lastOrdersAction($number)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $listOrders = $etm->getRepository('AppBundle:Orders')->getLastOrder($number);
+
+        return array('listOrders' => $listOrders);
+    }
+
+    /**
      * Test entities.
      *
      * @return string|null

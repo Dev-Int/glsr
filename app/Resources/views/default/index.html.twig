@@ -27,6 +27,8 @@
                                 {{ 'title'|trans({}, 'gs_orders') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block orders #}
+                                {{ render(controller('AppBundle:default:lastOrders', {'number': 3})) }}
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -45,6 +47,8 @@
                                 {{ 'title'|trans({}, 'gs_inventories') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block inventory #}
+                                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
                         </a>
                     </li>
                 </ul>
@@ -78,8 +82,6 @@
             <div class="panel-body">
                 {# Block alerts #}
                 {{ render(controller('AppBundle:default:stockAlert', {'number': 3})) }}
-                {# Block inventory #}
-                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
             </div>
             <footer class="panel-footer">
                 <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>
