@@ -84,6 +84,9 @@
                     {{ 'Delete'|trans({}, 'admin') }}
                 </button>
             {% endif %}
+            <a class="btn btn-default btn-print" href="{{ path('orders_print', {id: orders.id}) }}">
+                {{ 'gestock.print'|trans }}
+            </a>
         </div>
 
         <input name="modal" type="hidden" value="0">
