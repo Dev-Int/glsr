@@ -35,7 +35,7 @@ class OrdersArticles
     private $article;
 
     /**
-     * @var decimal Quantité de la commande
+     * @var string Quantité de la commande
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
      */
@@ -50,7 +50,7 @@ class OrdersArticles
     private $unitStorage;
 
     /**
-     * @var decimal Prix de l'article
+     * @var string Prix de l'article
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3, nullable=true)
      */
@@ -67,7 +67,7 @@ class OrdersArticles
 
     public function __construct()
     {
-        $this->quantity = 0;
+        $this->quantity = "0,000";
     }
 
     /**
