@@ -27,9 +27,9 @@
                                 {{ 'title'|trans({}, 'gs_orders') }}
                             </span>
                             <div class="clearfix"></div>
-                                {# Block orders #}
-                                {{ render(controller('AppBundle:default:lastOrders', {'number': 3})) }}
                         </a>
+                        {# Block orders #}
+                        {{ render(controller('AppBundle:default:lastOrders', {'number': 3})) }}
                     </li>
                     <li class="list-group-item">
                         <a href="{{ path('deliveries') }}">
@@ -38,9 +38,9 @@
                                 {{ 'title'|trans({}, 'gs_deliveries') }}
                             </span>
                             <div class="clearfix"></div>
-                                {# Block deliveries #}
-                                {{ render(controller('AppBundle:default:lastDeliveries', {'number': 3})) }}
                         </a>
+                        {# Block deliveries #}
+                        {{ render(controller('AppBundle:default:lastDeliveries', {'number': 3})) }}
                     </li>
                     <li class="list-group-item">
                         <a href="{{ path('inventory') }}">
@@ -49,9 +49,9 @@
                                 {{ 'title'|trans({}, 'gs_inventories') }}
                             </span>
                             <div class="clearfix"></div>
-                                {# Block inventory #}
-                                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
                         </a>
+                        {# Block inventory #}
+                        {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
                     </li>
                 </ul>
             </div>
