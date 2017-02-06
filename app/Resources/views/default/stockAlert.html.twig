@@ -1,3 +1,10 @@
+{% if listArticles is not defined or listArticles is empty %}
+    <h5 class="text-center">
+        <small>
+            {{ 'alerts.no_alerts'|trans({}, 'gs_articles') }}
+        </small>
+    </h5>
+{% else %}
 <h5 class="text-danger text-center">{{ 'alerts.stock_title'|trans({}, 'gs_articles') }}</h5>
 <ul class="list-group">
     {% for article in listArticles %}
@@ -12,3 +19,4 @@
         </li>
     {% endfor %}
 </ul>
+{% endif %}
