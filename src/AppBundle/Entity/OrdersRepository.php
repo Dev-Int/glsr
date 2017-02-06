@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrdersRepository extends EntityRepository
 {
+    protected function getLast($count) {
+        $query = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'DESC')
+            ->setMaxResults($count);
+        
+        return $query;
+    }
     /**
      * Renvoi les dernières commandes.
      *
@@ -20,11 +27,9 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastOrder($count)
     {
-        $query = $this->createQueryBuilder('o')
-            ->where('o.status = 1')
-            ->andWhere('o.delivdate < ' . date('d-m-Y'))
-            ->orderBy('o.id', 'DESC')
-            ->setMaxResults($count)
+        $query = $this->getLast($count)
+            ->where('o.orderdate < ' . date('d-m-Y'))
+            ->andWhere('o.status = 1')
             ->getQuery();
 
         return $query->getResult();
@@ -38,11 +43,9 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastDelivery($count)
     {
-        $query = $this->createQueryBuilder('o')
-            ->where('o.status = 1')
-            ->andWhere('o.delivdate >= ' . date('d-m-Y'))
-            ->orderBy('o.id', 'DESC')
-            ->setMaxResults($count)
+        $query = $this->getLast($count)
+            ->where('o.delivdate >= ' . date('d-m-Y'))
+            ->andWhere('o.status = 1')
             ->getQuery();
 
         return $query->getResult();
