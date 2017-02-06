@@ -13,3 +13,4 @@
 /vendor/
 /composer.phar
 /bin/
+/doc/*
