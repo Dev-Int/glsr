@@ -1,3 +1,9 @@
 ## YAML Template.
 ---
 title: "Gérer les réceptions"
+title_short: "Réceptions"
+alerts:
+    delivery_title: "Dernières réceptions"
+    no_deliveries: "Pas de livraison en attente..."
+print:
+    title: "Livraison n° %id%"

@@ -32,12 +32,14 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{#{ path('delivery') }#}">
+                        <a href="{{ path('deliveries') }}">
                             <span class="col-md-10">
                                 <i class="fa fa-truck"></i>
                                 {{ 'title'|trans({}, 'gs_deliveries') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block deliveries #}
+                                {{ render(controller('AppBundle:default:lastDeliveries', {'number': 3})) }}
                         </a>
                     </li>
                     <li class="list-group-item">
