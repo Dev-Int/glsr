@@ -44,7 +44,7 @@ class Tva
     private $rate;
 
     /**
-     * @var decimal Nom du taux de TVA
+     * @var double Nom du taux de TVA
      *
      * @ORM\Column(name="name", type="decimal", precision=3, scale=1)
      */
