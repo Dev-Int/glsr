@@ -113,34 +113,9 @@ class User extends BaseUser
         return $this->firstLogin;
     }
  
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
-    }
- 
-    public function getLocked()
-    {
-        return $this->locked;
-    }
- 
-    public function getExpired()
-    {
-        return $this->expired;
-    }
- 
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
- 
-    public function getCredentialsExpired()
-    {
-        return $this->credentialsExpired;
-    }
- 
-    public function getCredentialsExpireAt()
-    {
-        return $this->credentialsExpireAt;
     }
  
     public function setSalt($salt)

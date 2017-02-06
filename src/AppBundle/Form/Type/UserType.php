@@ -58,8 +58,8 @@ class UserType extends AbstractType
             ))
         ;
         if ($options['lockedRequired']) {
-            $builder->add('locked', null, array('required' => false,
-                'label' => 'Vérouiller le compte'));
+            $builder->add('enabled', null, array('required' => false,
+                'label' => 'Activer le compte'));
         }
     }
 

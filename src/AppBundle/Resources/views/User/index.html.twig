@@ -34,7 +34,7 @@
                 <th scope="col">{{ thead('user', 'user', 'id', 'gestock.id'|trans) }}</th>
                 <th scope="col">{{ thead('user', 'user', 'username', "Nom d'utilisateur") }}</th>
                 <th scope="col">{{ thead('user', 'user', 'email', 'E-mail') }}</th>
-                <th scope="col">{{ thead('user', 'user', 'locked', 'Verrouillé') }}</th>
+                <th scope="col">{{ thead('user', 'user', 'enabled', 'Actif') }}</th>
                 <th scope="col">{{ thead('user', 'groups', 'name', 'Group'|trans({}, 'admin')) }}</th>
                 <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
              </tr>
@@ -46,7 +46,7 @@
                         <td class="text-right">{{ user.id }}</td>
                         <td><a href="{{ path('user_show', {id: user.id}) }}">{{ user.username }}</a></td>
                         <td>{{ user.email }}</td>
-                        <td class="text-center">{% if user.locked %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
+                        <td class="text-center">{% if user.enabled %}<i class="fa fa-check-square-o"></i>{% else %}<i class="fa fa-square-o"></i>{% endif %}</td>
                         <td class="text-center">{{ user.groups|join(', ') }}</td>
                         <td class="text-center">
                             <div class="btn-group">

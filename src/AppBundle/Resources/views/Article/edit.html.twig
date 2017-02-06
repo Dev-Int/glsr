@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block glstock_body %}
-    {% include 'AppBundle:article:form.html.twig' %}
+    {% include 'AppBundle:Article:form.html.twig' %}
 
     {% if is_granted("ROLE_SUPER_ADMIN") %}
         {{ form_start(delete_form) }}
