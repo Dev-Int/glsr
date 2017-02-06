@@ -277,23 +277,5 @@ class OrdersController extends AbstractOrdersController
         $return = $this->abstractPrintAction($orders, 'Orders');
         
         return $return;
-//        $file = 'order-' . $orders->getId() . '.pdf';
-//        $company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find(1);
-//        // Create and save the PDF file to print
-//        $html = $this->renderView(
-//            'AppBundle:Orders:print.pdf.twig',
-//            ['articles' => $orders->getArticles(), 'orders' => $orders, 'company' => $company, ]
-//        );
-//        return new Response(
-//            $this->get('knp_snappy.pdf')->getOutputFromHtml(
-//                $html,
-//                $this->getArray((string)date('d/m/y - H:i:s'), '')
-//            ),
-//            200,
-//            array(
-//                'Content-Type' => 'application/pdf',
-//                'Content-Disposition' => 'attachment; filename="' . $file . '"'
-//            )
-//        );
     }
 }
