@@ -89,10 +89,10 @@ class DefaultController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $listArticles = $etm->getRepository('AppBundle:Article')->getStockAlert($number);
-        // Tester la liste si un fournisseur à déjà une commande en cours
         $helper = $this->get('app.helper.controller');
         foreach ($listArticles as $key => $article) {
-            if ($helper->testCreate($article, $etm)) {
+            // Tester la liste si un fournisseur à déjà une commande en cours
+            if ($helper->testOrderInProgress($article, $etm)) {
                 unset($listArticles[$key]);
             }
         }
@@ -116,6 +116,42 @@ class DefaultController extends Controller
         $listInventories = $etm->getRepository('AppBundle:Inventory')->getLastInventory($number);
 
         return array('listInventory' => $listInventories);
+    }
+
+    /**
+     * Get the latest orders.
+     *
+     * @Route("/alert", name="lastorders")
+     * @Method("GET")
+     * @Template("default/lastorder.html.twig")
+     *
+     * @param integer $number Number of orders to display
+     * @return array|null
+     */
+    public function lastOrdersAction($number)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $listOrders = $etm->getRepository('AppBundle:Orders')->getLastOrder($number);
+
+        return array('listOrders' => $listOrders);
+    }
+
+    /**
+     * Get the latest orders.
+     *
+     * @Route("/alert", name="lastorders")
+     * @Method("GET")
+     * @Template("default/lastDelivery.html.twig")
+     *
+     * @param integer $number Number of orders to display
+     * @return array|null
+     */
+    public function lastDeliveriesAction($number)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $listDeliveries = $etm->getRepository('AppBundle:Orders')->getLastDelivery($number);
+
+        return array('listDeliveries' => $listDeliveries);
     }
 
     /**

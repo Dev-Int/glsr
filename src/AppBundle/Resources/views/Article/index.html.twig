@@ -26,7 +26,7 @@
     <table class="table table-striped table-hover table-bordered records_list">
         <thead>
             <tr>
-                <th scope="col" class="col-md-1">{{ thead('article', 'article', 'id', 'gestock.id'|trans) }}</th>
+                <th scope="col" class="col-md-1 text-center">{{ thead('article', 'article', 'id', 'gestock.id'|trans) }}</th>
                 <th scope="col" class="col-md-2">{{ thead('article', 'article', 'name', 'gestock.name'|trans) }}</th>
                 <th scope="col" class="col-md-2">
                     <i class="fa fa-barcode"></i> 
@@ -54,12 +54,12 @@
                 {% else %}
                     <tr>
                 {% endif %}
-                    <td>{{ "%06d"|format(article.id) }}</td>
+                    <td class="text-center">{{ "%06d"|format(article.id) }}</td>
                     <td><a href="{{ path('article_show', {slug: article.slug}) }}">{{ article.name }}</a></td>
                     <td><a href="{{ path('supplier_show', {slug: article.supplier.slug}) }}">{{ article.supplier.name }}</a></td>
-                    <td>{{ article.familylog }}</td>
+                    <td class="text-center">{{ article.familylog }}</td>
                     <td class="text-right">{{ article.price }}€</td>
-                    <td class="text-right">{{ article.quantity }}</td>
+                    <td class="text-right">{{ article.quantity }} {{ article.unitstorage }}</td>
                     <td>
                         {% set b = 0 %}
                         {% for zone in article.zonestorages %}

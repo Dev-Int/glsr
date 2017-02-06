@@ -1,10 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ 'title_short'|trans({}, 'gs_orders') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'title_short'|trans({}, 'gs_deliveries') }} - {{ parent() }}{% endblock %}
 
 {% block body_title %}
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    {{ 'title_short'|trans({}, 'gs_orders') }} <small>{{ "%06d"|format(orders.id) }}</small>
+    {{ 'title_short'|trans({}, 'gs_deliveries') }} <small>{{ "%06d"|format(orders.id) }}</small>
 {% endblock %}
 
 {% block glstock_body %}
@@ -67,31 +67,22 @@
         </table>
     </div>
 
-    {{ form_start(delete_form) }}
-        {{ form_widget(delete_form) }}
+    <div class="btn-group record_actions">
 
-        <div class="btn-group record_actions">
-
-            {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info btn-list" href="{{ path('orders') }}">
-                {{ 'gestock.return_list'|trans }}
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info btn-list" href="{{ path('deliveries') }}">
+            {{ 'gestock.return_list'|trans }}
+        </a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary btn-edit" href="{{ path('deliveries_edit', {id: orders.id}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
             </a>
-            {% if is_granted('ROLE_ADMIN') and orders.orderdate<"now"|date("d/m/Y") %}
-                <a class="btn btn-primary btn-edit" href="{{ path('orders_edit', {id: orders.id}) }}">
-                    {{ 'Edit'|trans({}, 'admin') }}
-                </a>
-                <button class="btn btn-danger btn-delete" type="submit">
-                    {{ 'Delete'|trans({}, 'admin') }}
-                </button>
-            {% endif %}
-            <a class="btn btn-default btn-print" href="{{ path('orders_print', {id: orders.id}) }}">
-                {{ 'gestock.print'|trans }}
-            </a>
-        </div>
+        {% endif %}
+        <a class="btn btn-default btn-print" href="{{ path('deliveries_print', {id: orders.id}) }}">
+            {{ 'gestock.print'|trans }}
+        </a>
+    </div>
 
-        <input name="modal" type="hidden" value="0">
-    {{ form_end(delete_form) }}
-
-    {% include 'deleteform.html.twig' %}
+    <input name="modal" type="hidden" value="0">
 
 {% endblock %}

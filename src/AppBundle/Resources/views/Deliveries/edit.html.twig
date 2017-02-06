@@ -4,7 +4,7 @@
 {% set lastloop = 0 %}
 
 {% block title %}
-    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_orders')}, 'admin') }} - {{ parent() }}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_deliveries')}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_js %}
@@ -13,7 +13,7 @@
 
 {% block body_title %}
     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-    {{ '%entity% edit'|trans({'%entity%': 'title_short'|trans({}, 'gs_orders')}, 'admin') }}
+    {{ '%entity% edit'|trans({'%entity%': 'title_short'|trans({}, 'gs_deliveries')}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -92,35 +92,24 @@
             </tfoot>
         </table>
         <footer class="panel-footer text-right">
-            <button tabindex="{{ lastloop + 1 }}" class="btn btn-primary" type="submit"><i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}</button>
+            <button tabindex="{{ lastloop + 1 }}" class="btn btn-success" type="submit"><i class="fa fa-check"></i> {{ 'gestock.validate'|trans }}</button>
         </footer>
     </div>
     {{ form_end(edit_form) }}
 
-    {{ form_start(delete_form) }}
-        {{ form_widget(delete_form) }}
+    <div class="btn-group record_actions">
 
-        <div class="btn-group record_actions">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info btn-list" href="{{ path('deliveries') }}">
+            {{ 'gestock.return_list'|trans }}
+        </a>
+        <a class="btn btn-default btn-print" href="{{ path('deliveries_print', {id: edit_form.vars.value.id}) }}">
+            {{ 'gestock.print'|trans }}
+        </a>
 
-            {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info btn-list" href="{{ path('orders') }}">
-                {{ 'gestock.return_list'|trans }}
-            </a>
-            <a class="btn btn-default btn-print" href="{{ path('orders_print', {id: edit_form.vars.value.id}) }}">
-                {{ 'gestock.print'|trans }}
-            </a>
+    </div>
 
-            <button class="btn btn-danger btn-delete" type="submit">
-                {{ 'Delete'|trans({}, 'admin') }}
-            </button>
-
-        </div>
-
-        <input name="modal" type="hidden" value="0">
-    {{ form_end(delete_form) }}
-
-
-    {% include 'deleteform.html.twig' %}
+    <input name="modal" type="hidden" value="0">
 
     <script type="text/javascript">
         function ordersCalcul(id){

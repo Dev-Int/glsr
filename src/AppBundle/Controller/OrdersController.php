@@ -46,6 +46,7 @@ class OrdersController extends AbstractOrdersController
         $em = $this->getDoctrine()->getManager();
         $item = $this->container->getParameter('knp_paginator.page_range');
         $qb = $em->getRepository('AppBundle:Orders')->createQueryBuilder('o');
+        $qb->where('o.orderdate < ' . date('Y-m-d'));
         
         $createForm = $this->createCreateForm('orders_create');
 
@@ -118,7 +119,7 @@ class OrdersController extends AbstractOrdersController
         $supplier = $orders->getSupplier();
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
         // Tester la liste si un fournisseur à déjà une commande en cours
-        $test = $this->get('app.helper.controller')->testCreate($articles, $etm);
+        $test = $this->get('app.helper.controller')->testSupplierHasArticle($articles);
         if ($test === false) {
             $return = $this->redirectToRoute('orders');
         } else {

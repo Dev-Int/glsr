@@ -63,6 +63,13 @@ class MenuBuilder implements ContainerAwareInterface
         ))
             ->setExtra('translation_domain', 'gs_orders')
             ->setAttribute('icon', 'fa fa-shopping-cart');
+ 
+        $menu['manage']->addChild('deliveries', array(
+            'label' => 'title_short',
+            'route' => 'deliveries'
+        ))
+            ->setExtra('translation_domain', 'gs_deliveries')
+            ->setAttribute('icon', 'fa fa-truck');
 
         return $menu;
     }

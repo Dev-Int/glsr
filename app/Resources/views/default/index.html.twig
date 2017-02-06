@@ -27,15 +27,19 @@
                                 {{ 'title'|trans({}, 'gs_orders') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block orders #}
+                                {{ render(controller('AppBundle:default:lastOrders', {'number': 3})) }}
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="{#{ path('delivery') }#}">
+                        <a href="{{ path('deliveries') }}">
                             <span class="col-md-10">
                                 <i class="fa fa-truck"></i>
                                 {{ 'title'|trans({}, 'gs_deliveries') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block deliveries #}
+                                {{ render(controller('AppBundle:default:lastDeliveries', {'number': 3})) }}
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -45,13 +49,15 @@
                                 {{ 'title'|trans({}, 'gs_inventories') }}
                             </span>
                             <div class="clearfix"></div>
+                                {# Block inventory #}
+                                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
     </section>
-    <section class="alerts col-md-6">
+    <section class="col-md-6">
         <div class="panel panel-success">
             <header class="panel-heading">
                 <strong>
@@ -78,8 +84,6 @@
             <div class="panel-body">
                 {# Block alerts #}
                 {{ render(controller('AppBundle:default:stockAlert', {'number': 3})) }}
-                {# Block inventory #}
-                {{ render(controller('AppBundle:default:lastInventory', {'number': 3})) }}
             </div>
             <footer class="panel-footer">
                 <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>

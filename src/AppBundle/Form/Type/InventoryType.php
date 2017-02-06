@@ -43,6 +43,7 @@ class InventoryType extends AbstractType
                     'format' => 'dd MMM yyyy',
                     'html5' => false,
                     'input' => 'datetime',
+                    'attr'  => ['class' => 'form-control',],
                 )
             )
             ->add('status', HiddenType::class)
