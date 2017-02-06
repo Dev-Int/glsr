@@ -16,7 +16,6 @@ namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\AbstractOrdersController;
-use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -270,28 +269,31 @@ class OrdersController extends AbstractOrdersController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Inventory $orders Inventory item to print
+     * @param \AppBundle\Entity\Orders $orders Order item to print
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function printAction(Orders $orders)
     {
-        $file = 'order-' . $orders->getId() . '.pdf';
-        $company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find(1);
-        // Create and save the PDF file to print
-        $html = $this->renderView(
-            'AppBundle:Orders:print.pdf.twig',
-            ['articles' => $orders->getArticles(), 'orders' => $orders, 'company' => $company, ]
-        );
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml(
-                $html,
-                $this->getArray((string)date('d/m/y - H:i:s'), '')
-            ),
-            200,
-            array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="' . $file . '"'
-            )
-        );
+        $return = $this->abstractPrintAction($orders, 'Orders');
+        
+        return $return;
+//        $file = 'order-' . $orders->getId() . '.pdf';
+//        $company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find(1);
+//        // Create and save the PDF file to print
+//        $html = $this->renderView(
+//            'AppBundle:Orders:print.pdf.twig',
+//            ['articles' => $orders->getArticles(), 'orders' => $orders, 'company' => $company, ]
+//        );
+//        return new Response(
+//            $this->get('knp_snappy.pdf')->getOutputFromHtml(
+//                $html,
+//                $this->getArray((string)date('d/m/y - H:i:s'), '')
+//            ),
+//            200,
+//            array(
+//                'Content-Type' => 'application/pdf',
+//                'Content-Disposition' => 'attachment; filename="' . $file . '"'
+//            )
+//        );
     }
 }
