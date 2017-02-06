@@ -51,5 +51,6 @@ reassign:
 alerts:
     title: "Alertes"
     stock_title: "Commandes urgentes"
+    no_alerts: "Pas de commandes urgentes..."
     inventory_title: "Derniers inventaires"
     txt: "Sélectionnez un élément pour agir."
