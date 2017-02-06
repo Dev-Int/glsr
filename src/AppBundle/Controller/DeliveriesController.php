@@ -159,7 +159,8 @@ class DeliveriesController extends AbstractOrdersController
      * @param \AppBundle\Entity\Orders   $orders   Articles de la commande à traiter
      * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
      */
-    private function updateArticles(Orders $orders, $etm) {
+    private function updateArticles(Orders $orders, $etm)
+    {
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
         foreach ($orders->getArticles() as $line) {
             foreach ($articles as $art) {
