@@ -150,7 +150,7 @@ class Orders
      */
     public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = (double)$amount;
 
         return $this;
     }
@@ -173,7 +173,7 @@ class Orders
      */
     public function setTva($tva)
     {
-        $this->tva = $tva;
+        $this->tva = (double)$tva;
 
         return $this;
     }
@@ -265,19 +265,5 @@ class Orders
     public function getArticles()
     {
         return $this->articles;
-    }
-
-    /**
-     * Cette méthode permet de faire "echo $orders".
-     * <p>Ainsi, pour "afficher" $orders,
-     * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $orders"
-     * est équivalent à "echo $orders->getName()".</p>
-     *
-     * @return string name
-     */
-    public function __toString()
-    {
-        return $this->name;
     }
 }
