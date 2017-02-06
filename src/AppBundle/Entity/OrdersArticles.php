@@ -67,7 +67,7 @@ class OrdersArticles
 
     public function __construct()
     {
-        $this->quantity = "0,000";
+        $this->quantity = '0,000';
     }
 
     /**
