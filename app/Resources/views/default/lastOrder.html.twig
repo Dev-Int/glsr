@@ -1,6 +1,11 @@
-{% if listOrders is empty %}
+{% if listOrders is not defined or listOrders is empty %}
+    <h5 class="text-center">
+        <small>
+            {{ 'alerts.no_orders'|trans({}, 'gs_orders') }}
+        </small>
+    </h5>
 {% else %}
-<h5 class="text-success text-center">{{ 'alerts.order_title'|trans({}, 'gs_articles') }}</h5>
+<h5 class="text-success text-center">{{ 'alerts.order_title'|trans({}, 'gs_orders') }}</h5>
 <ul class="list-group">
     {% for order in listOrders %}
         <li class="list-group-item">
