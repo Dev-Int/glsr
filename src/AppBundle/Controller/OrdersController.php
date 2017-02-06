@@ -202,7 +202,7 @@ class OrdersController extends AbstractOrdersController
     {
         $etm = $this->getDoctrine()->getManager();
         $form = $this->createDeleteForm($orders->getId(), 'orders_delete');
-        $ordersArticles = $etm->getRepository('AppBundle:OrdersArticles')->findByOrders($orders->getId());
+        $ordersArticles = $etm->getRepository('AppBundle:OrdersArticles')->findBy(['orders' => $orders->getId()]);
 
         if ($form->handleRequest($request)->isValid()) {
             foreach ($ordersArticles as $order) {
