@@ -12,7 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrdersRepository extends EntityRepository
 {
-    protected function getLast($count) {
+    protected function getLast($count)
+    {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')
             ->setMaxResults($count);
