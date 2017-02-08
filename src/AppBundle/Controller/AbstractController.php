@@ -257,6 +257,33 @@ abstract class AbstractController extends Controller
         }
     }
 
+    /**
+     * Deletes a item entity with Articles.
+     *
+     * @param Object $entity     Entity
+     * @param Request $request   Request in progress
+     * @param string $entityName Name of Entity
+     * @return array
+     */
+    public function abstractDeleteWithArticlesAction($entity, Request $request, $entityName)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $form = $this->createDeleteForm($entity->getId(), $entityName . '_delete');
+        $entityArticles = $etm
+            ->getRepository('AppBundle:' .  ucfirst($entityName) . 'Articles')
+            ->findBy([$entityName => $entity->getId()]);
+
+        if ($form->handleRequest($request)->isValid()) {
+            foreach ($entityArticles as $article) {
+                $etm->remove($article);
+            }
+            $etm->remove($entity);
+            $etm->flush();
+        }
+
+        return $this->redirect($this->generateUrl($entityName));
+    }
+
     private function testReturnParam($entity, $entityName)
     {
         $entityArray = ['company', 'settings', 'group', 'tva'];

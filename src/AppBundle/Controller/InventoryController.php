@@ -270,21 +270,9 @@ class InventoryController extends AbstractInventoryController
      */
     public function deleteAction(Inventory $inventory, Request $request)
     {
-        $form = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-        $etm = $this->getDoctrine()->getManager();
-        $inventoryArticles = $etm->getRepository('AppBundle:InventoryArticles')->findBy(
-            array('inventory' => $inventory->getId())
-        );
+        $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'inventory');
         
-        if ($form->handleRequest($request)->isValid()) {
-            foreach ($inventoryArticles as $invent) {
-                $etm->remove($invent);
-            }
-            $etm->remove($inventory);
-            $etm->flush();
-        }
-
-        return $this->redirectToRoute('inventory');
+        return $return;
     }
 
     /**

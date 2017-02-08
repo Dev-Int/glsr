@@ -200,19 +200,9 @@ class OrdersController extends AbstractOrdersController
      */
     public function deleteAction(Orders $orders, Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $form = $this->createDeleteForm($orders->getId(), 'orders_delete');
-        $ordersArticles = $etm->getRepository('AppBundle:OrdersArticles')->findBy(['orders' => $orders->getId()]);
-
-        if ($form->handleRequest($request)->isValid()) {
-            foreach ($ordersArticles as $order) {
-                $etm->remove($order);
-            }
-            $etm->remove($orders);
-            $etm->flush();
-        }
-
-        return $this->redirect($this->generateUrl('orders'));
+        $return = $this->abstractDeleteWithArticlesAction($orders, $request, 'orders');
+        
+        return $return;
     }
 
     /**
