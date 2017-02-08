@@ -42,14 +42,14 @@ class OrdersController extends AbstractOrdersController
      */
     public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $etm = $this->getDoctrine()->getManager();
         $item = $this->container->getParameter('knp_paginator.page_range');
-        $qb = $em->getRepository('AppBundle:Orders')->createQueryBuilder('o');
-        $qb->where('o.orderdate < ' . date('Y-m-d'));
+        $qbd = $etm->getRepository('AppBundle:Orders')->createQueryBuilder('o');
+        $qbd->where('o.orderdate < ' . date('Y-m-d'));
         
         $createForm = $this->createCreateForm('orders_create');
 
-        $paginator = $this->get('knp_paginator')->paginate($qb, $request->query->get('page', 1), $item);
+        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
         return array(
             'create_form' => $createForm->createView(),
             'paginator' => $paginator,
