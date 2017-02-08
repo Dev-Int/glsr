@@ -29,7 +29,7 @@ class SupplierRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Requête DQL
      */
-    public function getAllSuppliers()
+    public function getAllItems()
     {
         $query = $this->createQueryBuilder('s')
             ->join('s.familyLog', 'fl')
@@ -45,7 +45,7 @@ class SupplierRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder Requête DQL
      */
-    public function getSuppliers()
+    public function getItems()
     {
         $query = $this->createQueryBuilder('s')
             ->join('s.familyLog', 'fl')

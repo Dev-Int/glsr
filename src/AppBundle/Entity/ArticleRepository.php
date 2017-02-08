@@ -29,7 +29,7 @@ class ArticleRepository extends EntityRepository
      *
      * @return QueryBuilder Requête DQL
      */
-    public function getAllArticles()
+    public function getAllItems()
     {
         $query = $this->createQueryBuilder('a')
             ->join('a.supplier', 's')
@@ -48,7 +48,7 @@ class ArticleRepository extends EntityRepository
      *
      * @return QueryBuilder Requête DQL
      */
-    public function getArticles()
+    public function getItems()
     {
         $query = $this->createQueryBuilder('a')
             ->join('a.supplier', 's')
@@ -71,7 +71,7 @@ class ArticleRepository extends EntityRepository
      */
     public function getResultArticles()
     {
-        $query = $this->getArticles()->getQuery();
+        $query = $this->getItems()->getQuery();
         
         return $query->getResult();
     }
