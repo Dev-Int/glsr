@@ -98,20 +98,13 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $roles = '';
         $user = new User();
         $form = $this->createForm(UserType::class, $user, ['action' => $this->generateUrl('user_create'),]);
         $form->handleRequest($request);
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
         if ($form->isValid()) {
-            foreach ($user->getGroups() as $key => $group) {
-                if ($key === 0) {
-                    $roles = $group->getRoles();
-                }
-            }
-            
-            $user->setRoles($roles);
+            $user = $this->getRoles($user);
             $user->setEnabled(true);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
@@ -163,7 +156,6 @@ class UserController extends AbstractController
      */
     public function updateAction(User $user, Request $request)
     {
-        $roles = '';
         $editForm = $this->createForm(UserType::class, $user, array(
             'action' => $this->generateUrl('user_update', array('id' => $user->getId())),
             'method' => 'PUT',
@@ -178,13 +170,7 @@ class UserController extends AbstractController
             'delete_form' => $deleteForm->createView(),];
 
         if ($editForm->isValid()) {
-            foreach ($user->getGroups() as $key => $group) {
-                if ($key === 0) {
-                    $roles = $group->getRoles();
-                }
-            }
-            
-            $user->setRoles($roles);
+            $user = $this->getRoles($user);
             $userManager = $this->get('fos_user.user_manager');
             $userManager->updateUser($user);
             $this->addFlash('info', 'gestock.edit.ok');
@@ -194,7 +180,6 @@ class UserController extends AbstractController
 
         return $return;
     }
-
 
     /**
      * Save order.
@@ -229,5 +214,19 @@ class UserController extends AbstractController
         $this->abstractDeleteAction($user, $request, 'user');
 
         return $this->redirectToRoute('user');
+    }
+
+    private function getRoles(User $user)
+    {
+        $roles = '';
+        foreach ($user->getGroups() as $key => $group) {
+            if ($key === 0) {
+                $roles = $group->getRoles();
+            }
+        }
+
+        $user->setRoles($roles);
+        
+        return $user;
     }
 }
