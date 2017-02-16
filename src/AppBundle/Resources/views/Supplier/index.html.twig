@@ -60,7 +60,7 @@
                     <td class="text-center">{{ "%06d"|format(supplier.id) }}</td>
                     <td><a href="{{ path('supplier_show', {slug: supplier.slug}) }}">{{ supplier.name }}</a></td>
                     <td><div class="text-20-letters">{{ supplier.address }}</div><div class="text-5-letters">{{ supplier.zipcode }}</div><div class="text-15-letters">{{ supplier.town }}</div></td>
-                    <td class="text-center">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</td>
+                    <td class="text-center">{{ supplier.phone|phone_number_format('NATIONAL') }}</td>
                     <td class="text-center">{{ supplier.familylog }}</td>
                     <td class="text-center">
                         <div class="btn-group">

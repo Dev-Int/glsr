@@ -35,12 +35,12 @@
                 <i class="fa fa-mobile"></i>
                 {{ 'gestock.phone'|trans }}
         </div>
-        <div class="col-md-4">{{ phone_number_format(supplier.gsm, 'NATIONAL') }}</div>
+        <div class="col-md-4">{{ supplier.gsm|phone_number_format('NATIONAL') }}</div>
         <div class="col-md-1 label label-default">
                 <i class="fa fa-fax"></i>
                 {{ 'gestock.fax'|trans }}
         </div>
-        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-3">{{ supplier.fax|phone_number_format('NATIONAL') }}</div><br />
         <div class="col-md-2 label label-default">
                 <i class="fa fa-envelope"></i>
                 {{ 'gestock.mail'|trans }}
@@ -57,12 +57,12 @@
                 <i class="fa fa-phone"></i>
                 {{ 'gestock.phone'|trans }}
         </div>
-        <div class="col-md-4">{{ phone_number_format(supplier.phone, 'NATIONAL') }}</div>
+        <div class="col-md-4">{{ supplier.phone|phone_number_format('NATIONAL') }}</div>
         <div class="col-md-1 label label-default">
                 <i class="fa fa-fax"></i>
                 {{ 'gestock.fax'|trans }}
         </div>
-        <div class="col-md-3">{{ phone_number_format(supplier.fax, 'NATIONAL') }}</div><br />
+        <div class="col-md-3">{{ supplier.fax|phone_number_format('NATIONAL') }}</div><br />
         <div class="col-md-2 label label-default">
                 <i class="fa fa-envelope"></i>
                 {{ 'gestock.mail'|trans }}
