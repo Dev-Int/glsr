@@ -85,11 +85,9 @@ class ArticleRepository extends EntityRepository
      */
     public function getArticleFromSupplier($supplier)
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.active = true')
+        $query = $this->getQueryActiveASC()
             ->andWhere('a.supplier = :id')
             ->setParameter('id', $supplier)
-            ->orderBy('a.name', 'ASC')
             ->getQuery();
 
         return $query->getResult();
@@ -103,13 +101,20 @@ class ArticleRepository extends EntityRepository
      */
     public function getStockAlert($count)
     {
-        $query = $this->createQueryBuilder('a')
-            ->where('a.active = true')
+        $query = $this->getQueryActiveASC()
             ->andWhere('a.quantity < a.minstock')
-            ->orderBy('a.name', 'ASC')
             ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    private function getQueryActiveASC()
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.active = true')
+            ->orderBy('a.name', 'ASC');
+
+        return $query;
     }
 }
