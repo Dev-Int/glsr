@@ -208,7 +208,7 @@ div.panel.panel-default > div.panel-body > div.col-md-9 > label {
 }
 
 .addon-phone {
-    padding: 4px 12px !important;
+    padding: 0 !important;
 }
 
 section.alerts .panel {
