@@ -121,7 +121,7 @@
         <div class="col-md-12">
         {% block choice_widget_expanded %}
             {% spaceless %}
-            <div {{ block('widget_container_attributes') }}>
+            <div {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
                 <table class="panel panel-default">
                     <thead class="panel-heading">
                         <tr>
