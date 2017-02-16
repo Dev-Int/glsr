@@ -16,6 +16,7 @@ class OrdersRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')
+            ->andWhere('o.status = 1')
             ->setMaxResults($count);
         
         return $query;
@@ -30,7 +31,6 @@ class OrdersRepository extends EntityRepository
     {
         $query = $this->getLast($count)
             ->where('o.orderdate < ' . date('d-m-Y'))
-            ->andWhere('o.status = 1')
             ->getQuery();
 
         return $query->getResult();
@@ -46,7 +46,6 @@ class OrdersRepository extends EntityRepository
     {
         $query = $this->getLast($count)
             ->where('o.delivdate >= ' . date('d-m-Y'))
-            ->andWhere('o.status = 1')
             ->getQuery();
 
         return $query->getResult();
