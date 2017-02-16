@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 class MenuBuilder implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
-    public function buildMainMenu(FactoryInterface $factory, array $options)
+    public function buildMainMenu(FactoryInterface $factory)
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
@@ -74,7 +74,7 @@ class MenuBuilder implements ContainerAwareInterface
         return $menu;
     }
  
-    public function buildUserMenu(FactoryInterface $factory, array $options)
+    public function buildUserMenu(FactoryInterface $factory)
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
