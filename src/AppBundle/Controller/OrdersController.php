@@ -224,7 +224,7 @@ class OrdersController extends AbstractOrdersController
                 $delivDate = date('Y-m-d H:i:s', mktime(0, 0, 0, date('n'), date('j')+$diffDeliv, date('Y')));
                 $setOrderDate = \DateTime::createFromFormat('Y-m-d H:i:s', $dateOrder);
                 $setDelivDate = \DateTime::createFromFormat('Y-m-d H:i:s', $delivDate);
-                if ($setOrderDate !== false && $setDelivDate !== false){
+                if ($setOrderDate !== false && $setDelivDate !== false) {
                     $orders->setOrderDate($setOrderDate);
                     $orders->setDelivDate($setDelivDate);
                     break;
