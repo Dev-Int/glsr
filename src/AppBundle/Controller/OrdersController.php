@@ -222,9 +222,13 @@ class OrdersController extends AbstractOrdersController
                 $diffDeliv = $diffOrder + $supplier->getDelaydeliv();
                 $dateOrder = date('Y-m-d H:i:s', mktime(0, 0, 0, date('n'), date('j')+$diffOrder, date('Y')));
                 $delivDate = date('Y-m-d H:i:s', mktime(0, 0, 0, date('n'), date('j')+$diffDeliv, date('Y')));
-                $orders->setOrderDate(\DateTime::createFromFormat('Y-m-d H:i:s', $dateOrder));
-                $orders->setDelivDate(\DateTime::createFromFormat('Y-m-d H:i:s', $delivDate));
-                break;
+                $setOrderDate = \DateTime::createFromFormat('Y-m-d H:i:s', $dateOrder);
+                $setDelivDate = \DateTime::createFromFormat('Y-m-d H:i:s', $delivDate);
+                if ($setOrderDate !== false && $setDelivDate !== false){
+                    $orders->setOrderDate($setOrderDate);
+                    $orders->setDelivDate($setDelivDate);
+                    break;
+                }
             }
         }
         return $orders;
