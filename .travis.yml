@@ -2,10 +2,17 @@ language: php
 php:
   - '5.5'
   - '5.6'
+  - '7.1'
 
 env:
   global:
     secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
+
+group: 'stable'
+dist: 'precise'
+os: 
+  - 'linux'
+  - 'windows'
 
 before_install:
  - sudo apt-get update && sudo apt-get install graphviz
