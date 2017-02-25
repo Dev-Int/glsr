@@ -45,7 +45,8 @@ class OrdersController extends AbstractOrdersController
         $etm = $this->getDoctrine()->getManager();
         $item = $this->container->getParameter('knp_paginator.page_range');
         $qbd = $etm->getRepository('AppBundle:Orders')->createQueryBuilder('o');
-        $qbd->where('o.orderdate < ' . date('Y-m-d'));
+        $qbd->where('o.delivdate > ' . date('Y-m-d'));
+        $qbd->andWhere('o.status = 1');
         
         $createForm = $this->createCreateForm('orders_create');
 
