@@ -61,9 +61,9 @@ class TimeHelper
     {
         $aBankHolidays = ['1_1', '1_5', '8_5', '14_7', '15_8', '1_11', '11_11', '25_12', ];
         if (function_exists('easter_date')) {
-            $pEaster = easter_date((int)date('Y'), $pDate);
+            $pEaster = easter_date((int)date('Y', $pDate));
         } else {
-            $pEaster = $this->getEaster((int)date('Y'), $pDate);
+            $pEaster = $this->getEaster((int)date('Y', $pDate));
         }
         $aBankHolidays[] = date('j_n', $pEaster);
         $aBankHolidays[] = date('j_n', $pEaster + (86400*39));
