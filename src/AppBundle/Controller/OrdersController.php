@@ -125,7 +125,10 @@ class OrdersController extends AbstractOrdersController
             $return = $this->redirectToRoute('orders');
         } else {
             // Set Orders dates (order and delivery)
-            $orders = $this->setDates($orders, $supplier);
+            $orderDate = $supplier->getOrderdate();
+            foreach ($orderDate as $date) {
+                $orders = $this->setDates($date, $orders, $supplier);
+            }
 
             if ($form->isValid() && $return !== $this->redirectToRoute('orders')) {
                 $etm->persist($orders);
