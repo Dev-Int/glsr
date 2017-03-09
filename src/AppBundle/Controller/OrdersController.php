@@ -224,7 +224,7 @@ class OrdersController extends AbstractOrdersController
             $diffDeliv = $this->get('app.helper.time')
                 ->getNextOpenDay($setOrderDate->getTimestamp(), $supplier->getDelaydeliv());
 
-            $setDelivDate = new \DateTime(date('Y-m-d',$setOrderDate->getTimestamp()));
+            $setDelivDate = new \DateTime(date('Y-m-d', $setOrderDate->getTimestamp()));
             $setDelivDate->add(new \DateInterval('P'.$diffDeliv.'D'));
 
             $orders->setOrderdate($setOrderDate);
