@@ -47,7 +47,8 @@ class OrdersRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findOrders() {
+    public function findOrders()
+    {
         $query = $this->findActive()
             ->andWhere('o.delivdate > :date')
             ->setParameter('date', date('Y-m-d'));
@@ -60,7 +61,8 @@ class OrdersRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findDeliveries() {
+    public function findDeliveries()
+    {
         $query = $this->findActive()
             ->andWhere('o.delivdate <= :date')
             ->setParameter('date', date('Y-m-d'));
@@ -68,7 +70,8 @@ class OrdersRepository extends EntityRepository
         return $query;
     }
 
-    private function findActive() {
+    private function findActive()
+    {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')
             ->where('o.status = 1');
