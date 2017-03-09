@@ -88,7 +88,10 @@ class OrdersController extends AbstractOrdersController
         $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
 
         // Set Orders dates (order and delivery)
-        $orders = $this->setDates($orders, $supplier);
+        $orderDate = $supplier->getOrderdate();
+        foreach ($orderDate as $date) {
+            $orders = $this->setDates($date, $orders, $supplier);
+        }
 
         $etm->persist($orders);
         // Saving articles of supplier in order
@@ -207,27 +210,25 @@ class OrdersController extends AbstractOrdersController
     /**
      * Set order Dates.
      *
+     * @param integer                    $date     Jour de la commande
      * @param \AppBundle\Entity\Orders   $orders   La commande à traiter
      * @param \AppBundle\Entity\Supplier $supplier Le fournisseur concerné
      * @return \AppBundle\Entity\Orders            La commande modifiée
      */
-    private function setDates(Orders $orders, Supplier $supplier)
+    private function setDates($date, Orders $orders, Supplier $supplier)
     {
-        $orderDate = $supplier->getOrderdate();
-        foreach ($orderDate as $date) {
-            if ($date >= date('w')) {
-                $diffOrder = $date - date('w');
-                $diffDeliv = $diffOrder + $supplier->getDelaydeliv();
-                $dateOrder = date('Y-m-d H:i:s', mktime(0, 0, 0, date('n'), date('j')+$diffOrder, date('Y')));
-                $delivDate = date('Y-m-d H:i:s', mktime(0, 0, 0, date('n'), date('j')+$diffDeliv, date('Y')));
-                $setOrderDate = \DateTime::createFromFormat('Y-m-d H:i:s', $dateOrder);
-                $setDelivDate = \DateTime::createFromFormat('Y-m-d H:i:s', $delivDate);
-                if ($setOrderDate !== false && $setDelivDate !== false) {
-                    $orders->setOrderDate($setOrderDate);
-                    $orders->setDelivDate($setDelivDate);
-                    break;
-                }
-            }
+        $setOrderDate = new \DateTime(date('Y-m-d'));
+        if ($date >= date('w')) {
+            $diffOrder = $date - date('w');
+            $setOrderDate->add(new \DateInterval('P'.$diffOrder.'DT18H'));
+            $diffDeliv = $this->get('app.helper.time')
+                ->getNextOpenDay($setOrderDate->getTimestamp(), $supplier->getDelaydeliv());
+
+            $setDelivDate = new \DateTime(date('Y-m-d',$setOrderDate->getTimestamp()));
+            $setDelivDate->add(new \DateInterval('P'.$diffDeliv.'D'));
+
+            $orders->setOrderdate($setOrderDate);
+            $orders->setDelivdate($setDelivDate);
         }
         return $orders;
     }
