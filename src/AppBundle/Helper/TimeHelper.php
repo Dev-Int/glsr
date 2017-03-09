@@ -69,7 +69,6 @@ class TimeHelper
         $aBankHolidays[] = date('j_n', $pEaster + (86400*39));
         $aBankHolidays[] = date('j_n', $pEaster + (86400*49));
 
-        
         $pEnd = strtotime('+' . $pDays . ' day', $pDate);
         $idn = 0;
         while ($idn < $pEnd) {
