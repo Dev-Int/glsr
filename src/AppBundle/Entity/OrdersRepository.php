@@ -12,15 +12,6 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrdersRepository extends EntityRepository
 {
-    protected function getLast($count)
-    {
-        $query = $this->createQueryBuilder('o')
-            ->orderBy('o.id', 'DESC')
-            ->andWhere('o.status = 1')
-            ->setMaxResults($count);
-        
-        return $query;
-    }
     /**
      * Renvoi les dernières commandes.
      *
@@ -29,8 +20,8 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastOrder($count)
     {
-        $query = $this->getLast($count)
-            ->where('o.orderdate < ' . date('d-m-Y'))
+        $query = $this->findOrders()
+            ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();
@@ -44,10 +35,47 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastDelivery($count)
     {
-        $query = $this->getLast($count)
-            ->where('o.delivdate >= ' . date('d-m-Y'))
+        $query = $this->findDeliveries()
+            ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    /**
+     * Find Orders before delivering.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findOrders()
+    {
+        $query = $this->findActive()
+            ->andWhere('o.delivdate > :date')
+            ->setParameter('date', date('Y-m-d'));
+
+        return $query;
+    }
+
+    /**
+     * Find Orders for delivering.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findDeliveries()
+    {
+        $query = $this->findActive()
+            ->andWhere('o.delivdate <= :date')
+            ->setParameter('date', date('Y-m-d'));
+
+        return $query;
+    }
+
+    private function findActive()
+    {
+        $query = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'DESC')
+            ->where('o.status = 1');
+
+        return $query;
     }
 }

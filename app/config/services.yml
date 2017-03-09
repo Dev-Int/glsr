@@ -19,6 +19,8 @@ services:
 
     app.helper.controller:
         class: 'AppBundle\Helper\ControllerHelper'
+    app.helper.time:
+        class: 'AppBundle\Helper\TimeHelper'
 
 #    service_name:
 #        class: AppBundle\Directory\ClassName

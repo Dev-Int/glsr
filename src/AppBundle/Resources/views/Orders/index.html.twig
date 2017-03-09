@@ -44,14 +44,14 @@
                             <a class="btn btn-default btn-xs btn-show" href="{{ path('orders_show', {id: orders.id}) }}">
                                 {{ 'show'|trans({}, 'admin') }}
                             </a>
-                                {% if is_granted('ROLE_ADMIN') and orders.orderdate<"now"|date("d/m/Y") %}
+                            <a class="btn btn-default btn-print btn-xs" href="{{ path('orders_print', {id: orders.id}) }}">
+                                {{ 'gestock.print'|trans }}
+                            </a>
+                            {% if is_granted('ROLE_ADMIN') and orders.delivdate > "now"|date("d/m/Y") %}
                             <a class="btn btn-info btn-edit btn-xs" href="{{ path('orders_edit', {id: orders.id}) }}">
                                 {{ 'edit'|trans({}, 'admin') }}
                             </a>
                             {% endif %}
-                            <a class="btn btn-default btn-print btn-xs" href="{{ path('orders_print', {id: orders.id}) }}">
-                                {{ 'gestock.print'|trans }}
-                            </a>
                         </div>
                     </td>
                 </tr>

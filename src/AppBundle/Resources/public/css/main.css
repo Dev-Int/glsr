@@ -178,6 +178,10 @@ select.half {
     display: block;
     margin-bottom: 10px;
 }
+.form-line.col-md-6 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 .form-line > .clear {
   clear: both;
   height: 0; overflow: hidden; /* Précaution pour IE 7 */

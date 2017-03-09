@@ -92,7 +92,7 @@ class DefaultController extends Controller
         $helper = $this->get('app.helper.controller');
         foreach ($listArticles as $key => $article) {
             // Tester la liste si un fournisseur à déjà une commande en cours
-            if ($helper->testOrderInProgress($article, $etm)) {
+            if ($helper->isOrderInProgress($article, $etm)) {
                 unset($listArticles[$key]);
             }
         }

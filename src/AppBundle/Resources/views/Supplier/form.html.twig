@@ -26,12 +26,12 @@
             </div>
             <div class="clear"></div>
         </section>
-        <section class="form-line">
-            <div class="col-md-1 label label-default">
+        <section class="form-line col-md-6">
+            <div class="col-md-2 label label-default">
                 <i class="fa fa-map-marker"></i>
                 {{ form_label(form.address, 'gestock.address'|trans) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-10">
                 <span class="text-danger">{{ form_errors(form.address) }}</span>
                 <span class="text-danger">{{ form_errors(form.zipcode) }}</span>
                 <span class="text-danger">{{ form_errors(form.town) }}</span>
@@ -42,23 +42,27 @@
                     'onKeyup':'this.value=this.value.toUpperCase();'
                 } }) }}
             </div>
+        </section>
+        <section class="form-line col-md-6">
             {#<div class="col-md-1 label label-default">
                 {{ 'settings.country'|trans({}, 'gs_suppliers') }}
             </div>
             <div class="col-md-5"></div>#}
-            <div class="col-md-1 label label-default">
+            <div class="col-md-2 label label-default">
                 <i class="fa fa-fax"></i>
                 {{ form_label(form.fax) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-10">
                 <span class="text-danger">{{ form_errors(form.fax) }}</span>
                 {{ form_widget(form.fax) }}
             </div>
-            <div class="col-md-1 label label-default">
+        </section>
+        <section class="form-line col-md-6">
+            <div class="col-md-2 label label-default">
                 <i class="fa fa-envelope"></i>
                 {{ form_label(form.mail) }}
             </div>
-            <div class="col-md-5">
+            <div class="col-md-10">
                 <span class="text-danger">{{ form_errors(form.mail) }}</span>
                 {{ form_widget(form.mail) }}
             </div>

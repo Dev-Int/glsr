@@ -1,6 +1,6 @@
 <?php
 /**
- * ControllerHelper Helpers de l'application GLSR.
+ * ControllerHelper Helpers des Controller de l'application GLSR.
  *
  * PHP Version 5
  *
@@ -30,7 +30,7 @@ class ControllerHelper
      * @param array Articles à tester
      * @return boolean
      */
-    public function testSupplierHasArticle(array $articles)
+    public function hasSupplierArticles(array $articles)
     {
         $return = true;
 
@@ -51,7 +51,7 @@ class ControllerHelper
      * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
      * @return boolean
      */
-    public function testOrderInProgress(Article $articles, ObjectManager $etm)
+    public function isOrderInProgress(Article $articles, ObjectManager $etm)
     {
         $return = false;
         $orders = $etm->getRepository('AppBundle:Orders')->findAll();
