@@ -43,41 +43,25 @@ class SupplierType extends AbstractType
             ->add(
                 'name',
                 TextType::class,
-                array(
-                    'label' => 'gestock.name',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['label' => 'gestock.name', 'attr'  => ['class' => 'form-control',],]
             )
             ->add(
                 'address',
                 TextType::class,
                 array(
                     'label' => 'gestock.address',
-                    'attr'  => array(
-                        'placeholder' => 'gestock.address',
-                        'class' => 'form-control'
-                    )
+                    'attr'  => ['placeholder' => 'gestock.address', 'class' => 'form-control',],
                 )
             )
             ->add(
                 'zipcode',
                 TextType::class,
-                array(
-                    'attr'  => array(
-                        'placeholder' => 'gestock.zipcode',
-                        'class' => 'form-control half'
-                    )
-                )
+                ['attr'  => ['placeholder' => 'gestock.zipcode', 'class' => 'form-control half',],]
             )
             ->add(
                 'town',
                 TextType::class,
-                array(
-                    'attr'  => array(
-                        'placeholder' => 'gestock.town',
-                        'class' => 'form-control half'
-                    )
-                )
+                ['attr'  => ['placeholder' => 'gestock.town', 'class' => 'form-control half',],]
             )
             ->add(
                 'phone',
@@ -86,8 +70,8 @@ class SupplierType extends AbstractType
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
                     'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
-                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
-                    'preferred_country_choices' => array('FR'),
+                    'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',],
                     'label' => 'gestock.phone',
                 )
             )
@@ -98,27 +82,21 @@ class SupplierType extends AbstractType
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
                     'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
-                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
-                    'preferred_country_choices' => array('FR'),
+                    'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',],
                     'label' => 'gestock.fax',
-                    'attr'  => array('class' => 'form-control')
+                    'attr'  => ['class' => 'form-control',]
                 )
             )
             ->add(
                 'mail',
                 EmailType::class,
-                array(
-                    'label' => 'gestock.mail',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['label' => 'gestock.mail', 'attr'  => ['class' => 'form-control',]]
             )
             ->add(
                 'contact',
                 TextType::class,
-                array(
-                    'label' => 'gestock.contact',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['label' => 'gestock.contact', 'attr'  => ['class' => 'form-control',],]
             )
             ->add(
                 'gsm',
@@ -127,31 +105,31 @@ class SupplierType extends AbstractType
                     'default_region' => 'FR',
                     'format' => PhoneNumberFormat::NATIONAL,
                     'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
-                    'country_choices' => array('FR', 'GB', 'DE', 'IT'),
-                    'preferred_country_choices' => array('FR'),
+                    'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',],
                     'label' => 'gestock.gsm',
-                    'attr'  => array('class' => 'form-control')
+                    'attr'  => ['class' => 'form-control',]
                 )
             )
-            // Délai de livraison A = jour de Cmde,
-            // (B, C, D, E) = jour de livraison
+            /**
+             * Délai de livraison A = jour de Cmde,
+             * (B, C, D, E) = jour de livraison
+             */
             ->add(
                 'delaydeliv',
                 ChoiceType::class,
                 array(
-                    'choices' => array(
-                        'form.atob' => 1,
-                        'form.atoc' => 2,
-                        'form.atod' => 3,
-                        'form.atoe' => 4,
-                    ),
+                    'choices' => ['form.atob' => 1, 'form.atoc' => 2, 'form.atod' => 3, 'form.atoe' => 4,],
                     'choices_as_values' => true,
                     'label' => 'settings.delay',
                     'translation_domain' => 'gs_suppliers',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => ['class' => 'form-control half',]
                 )
             )
-            // Choix du jour de la semaine pour les Cmdes
+            /**
+             * Choix du jour de la semaine pour les Cmdes
+             * Numérotation voir http://php.net/manual/fr/function.date.php format 'N'
+             */
             ->add(
                 'orderdate',
                 ChoiceType::class,
@@ -169,7 +147,7 @@ class SupplierType extends AbstractType
                     'choice_translation_domain' => true,
                     'translation_domain' => 'messages',
                     'label' => 'day_order',
-                    'attr'  => array('class' => 'form-control'),
+                    'attr'  => ['class' => 'form-control',],
                     'expanded' => true,
                     'multiple' => true,
                 )
@@ -188,10 +166,10 @@ class SupplierType extends AbstractType
                     'placeholder' => 'gestock.settings.diverse.choice_family',
                     'empty_data' => null,
                     'label' => 'gestock.settings.diverse.familylog',
-                    'attr'  => array('class' => 'form-control half')
+                    'attr'  => ['class' => 'form-control half',]
                 )
             )
-            ->add('active', HiddenType::class, array('data' => true));
+            ->add('active', HiddenType::class, ['data' => true,]);
     }
 
     /**
@@ -199,11 +177,7 @@ class SupplierType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => 'AppBundle\Entity\Supplier',
-            )
-        );
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Supplier',]);
     }
 
     /**
