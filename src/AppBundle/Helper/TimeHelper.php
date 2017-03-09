@@ -69,14 +69,15 @@ class TimeHelper
         $aBankHolidays[] = date('j_n', $pEaster + (86400*39));
         $aBankHolidays[] = date('j_n', $pEaster + (86400*49));
 
-        $pEnd = $pDays * 86400;
+        
+        $pEnd = strtotime('+' . $pDays . ' day', $pDate);
         $idn = 0;
         while ($idn < $pEnd) {
-            $idn = strtotime('+1 day', $idn);
-            if (in_array(date('w', $pDate+$idn), array(0, 6)) || in_array(date('j_n', $pDate+$idn), $aBankHolidays)) {
+            if (in_array(date('w', $pEnd), array(0, 6)) || in_array(date('j_n', $pEnd), $aBankHolidays)) {
                 $pEnd = strtotime('+1 day', $pEnd);
                 $pDays ++;
             }
+            $idn = strtotime('+1 day', $idn);
         }
         return $pDays;
     }
