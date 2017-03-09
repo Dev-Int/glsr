@@ -1,6 +1,6 @@
 <?php
 /**
- * ControllerHelper Helpers de l'application GLSR.
+ * ControllerHelper Helpers des Controller de l'application GLSR.
  *
  * PHP Version 5
  *
