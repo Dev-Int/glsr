@@ -40,7 +40,7 @@ class ControllerHelper
      * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
      * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
      */
-    protected function getEntity($entityName, $etm)
+    protected function getEntity($entityName, ObjectManager $etm)
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
