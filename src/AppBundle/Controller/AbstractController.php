@@ -206,7 +206,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
-        $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
+        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
         $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
