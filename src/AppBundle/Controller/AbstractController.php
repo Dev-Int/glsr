@@ -40,7 +40,7 @@ abstract class AbstractController extends Controller
         $paginator = '';
         $entities = $this->getEntity($entityName, $etm);
         
-        if ($request !== null) {
+        if ($request !== null && is_array($entities) === false && $entities !== null) {
             $item = $this->container->getParameter('knp_paginator.page_range');
             $this->addQueryBuilderSort($entities, strtolower($entityName));
             $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
