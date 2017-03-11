@@ -54,7 +54,7 @@ abstract class AbstractController extends Controller
      *
      * @param string $entityName Name of Entity
      * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
-     * @return array|QueryBuilder|null Entity elements
+     * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
      */
     protected function getEntity($entityName, $etm)
     {
@@ -178,7 +178,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
-        $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
+        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
         $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
