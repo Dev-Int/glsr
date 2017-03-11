@@ -25,6 +25,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class ControllerHelper
 {
+    public $translator;
+    public $session;
     public function __construct($translator, $session)
     {
         $this->translator = $translator;
