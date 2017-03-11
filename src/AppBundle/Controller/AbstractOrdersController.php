@@ -62,7 +62,7 @@ class AbstractOrdersController extends AbstractController
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
                 $html,
-                $this->getArray((string)date('d/m/y - H:i:s'), '')
+                $this->get('app.helper.controller')->getArray((string)date('d/m/y - H:i:s'), '')
             ),
             200,
             array(

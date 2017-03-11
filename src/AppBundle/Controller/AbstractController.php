@@ -38,7 +38,7 @@ abstract class AbstractController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $paginator = '';
-        $entities = $this->getEntity($entityName, $etm);
+        $entities = $this->get('app.helper.controller')->getEntity($entityName, $etm);
         
         if ($request !== null && is_array($entities) === false && $entities !== null) {
             $item = $this->container->getParameter('knp_paginator.page_range');
@@ -47,40 +47,6 @@ abstract class AbstractController extends Controller
         }
 
         return array('entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,);
-    }
-
-    /**
-     * Get the entity
-     *
-     * @param string $entityName Name of Entity
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
-     * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
-     */
-    protected function getEntity($entityName, $etm)
-    {
-        $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
-        switch ($entityName) {
-            case 'Article':
-            case 'Supplier':
-                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
-                } else {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
-                }
-                break;
-            case 'User':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();
-                break;
-            case 'FamilyLog':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
-                break;
-            case 'UnitStorage':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
-                break;
-            default:
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
-        }
-        return $entities;
     }
 
     /**
@@ -317,33 +283,6 @@ abstract class AbstractController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
-    }
-
-    /**
-     * Array of file (`pdf`) layout.
-     *
-     * @param string $date File date
-     * @param string $title File title
-     * @return array<string,integer|string|boolean>
-     */
-    protected function getArray($date, $title)
-    {
-        $array = array(
-            'margin-top' => 15,
-            'header-spacing' => 5,
-            'header-font-size' => 8,
-            'header-left' => 'G.L.S.R.',
-            'header-center' => $title,
-            'header-right' => $date,
-            'header-line' => true,
-            'margin-bottom' => 15,
-            'footer-spacing' => 5,
-            'footer-font-size' => 8,
-            'footer-left' => 'GLSR &copy 2014 and beyond.',
-            'footer-right' => 'Page [page]/[toPage]',
-            'footer-line' => true,
-        );
-        return $array;
     }
 
     /**

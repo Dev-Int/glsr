@@ -296,13 +296,11 @@ class InventoryController extends AbstractInventoryController
         return new Response(
             $this->get('knp_snappy.pdf')->getOutputFromHtml(
                 $html,
-                $this->getArray((string) $inventory->getDate()->format('d/m/Y'), '- Inventaire -')
+                $this->get('app.helper.controller')
+                    ->getArray((string) $inventory->getDate()->format('d/m/Y'), '- Inventaire -')
             ),
             200,
-            array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="' . $file . '"'
-            )
+            ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'attachment; filename="' . $file . '"',]
         );
     }
 
@@ -319,6 +317,29 @@ class InventoryController extends AbstractInventoryController
      */
     public function prepareDataAction(Inventory $inventory, $inventoryStyle)
     {
+        $html = $this->getHtml($inventory, $inventoryStyle);
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml(
+                $html,
+                $this->get('app.helper.controller')
+                    ->getArray((string) $inventory->getDate()->format('d/m/Y'), '- Inventaire -')
+            ),
+            200,
+            ['Content-Type' => 'application/pdf', 'Content-Disposition' => 'attachment; filename="prepare.pdf"',]
+        );
+    }
+
+    /**
+     * get Html for PDF file.
+     *
+     * @param \AppBundle\Entity\Inventory $inventory      Inventory entity
+     * @param string                      $inventoryStyle Style of inventory
+     * @return string The rendered view
+     */
+    private function getHtml(Inventory $inventory, $inventoryStyle)
+    {
+        $html = '';
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
@@ -334,16 +355,6 @@ class InventoryController extends AbstractInventoryController
                 array('articles' => $articles, 'zonestorage' => $zoneStorages, 'daydate' => $inventory->getDate(),)
             );
         }
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml(
-                $html,
-                $this->getArray((string) $inventory->getDate()->format('d/m/Y'), '- Inventaire -')
-            ),
-            200,
-            array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="prepare.pdf"'
-            )
-        );
+        return $html;
     }
 }
