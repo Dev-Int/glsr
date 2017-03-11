@@ -233,7 +233,7 @@ class ArticleController extends AbstractController
      */
     public function sortAction($entity, $field, $type)
     {
-        $this->setOrder('article', $entity, $field, $type);
+        $this->get('app.helper.controller')->setOrder('article', $entity, $field, $type);
 
         return $this->redirect($this->generateUrl('article'));
     }

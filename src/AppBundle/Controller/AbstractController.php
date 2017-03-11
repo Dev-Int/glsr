@@ -55,7 +55,7 @@ abstract class AbstractController extends Controller
      *
      * @param string $entityName Name of Entity
      * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
-     * @return type
+     * @return array|QueryBuilder|null Entity elements
      */
     protected function getEntity($entityName, $etm)
     {
@@ -160,7 +160,7 @@ abstract class AbstractController extends Controller
             $etm->persist($entityNew);
             $etm->flush();
 
-            $param = $this->testReturnParam($entityNew, strtolower($entity));
+            $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
             $route = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
 
             $return = $this->redirectToRoute($route, $param);
@@ -179,7 +179,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractEditAction($entity, $entityName, $typePath)
     {
-        $param = $this->testReturnParam($entity, $entityName);
+        $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
         $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
@@ -207,7 +207,7 @@ abstract class AbstractController extends Controller
      */
     public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
     {
-        $param = $this->testReturnParam($entity, $entityName);
+        $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
         $editForm = $this->createForm($typePath, $entity, array(
             'action' => $this->generateUrl($entityName.'_update', $param),
             'method' => 'PUT',
@@ -278,47 +278,6 @@ abstract class AbstractController extends Controller
         return $this->redirect($this->generateUrl($entityName));
     }
 
-    private function testReturnParam($entity, $entityName)
-    {
-        $entityArray = ['company', 'settings', 'group', 'tva'];
-        if (in_array($entityName, $entityArray, true)) {
-            $param = array('id' => $entity->getId());
-        } else {
-            $param = array('slug' => $entity->getSlug());
-        }
-
-        return $param;
-    }
-
-    /**
-     * SetOrder for the SortAction in views.
-     *
-     * @param string $name   session name
-     * @param string $entity entity name
-     * @param string $field  field name
-     * @param string $type   sort type ("ASC"/"DESC")
-     */
-    protected function setOrder($name, $entity, $field, $type = 'ASC')
-    {
-        $session = new Session();
-
-        $session->set('sort.'.$name, array('entity' => $entity, 'field' => $field, 'type' => $type));
-    }
-
-    /**
-     * GetOrder for the SortAction in views.
-     *
-     * @param string $name session name
-     *
-     * @return array
-     */
-    protected function getOrder($name)
-    {
-        $session = new Session();
-
-        return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
-    }
-
     /**
      * AddQueryBuilderSort for the SortAction in views.
      *
@@ -328,7 +287,7 @@ abstract class AbstractController extends Controller
     protected function addQueryBuilderSort(QueryBuilder $qbd, $name)
     {
         $alias = '';
-        if (is_array($order = $this->getOrder($name))) {
+        if (is_array($order = $this->get('app.helper.controller')->getOrder($name))) {
             if ($name !== $order['entity']) {
                 $rootAlias = current($qbd->getDQLPart('from'))->getAlias();
                 $join = current($qbd->getDQLPart('join'));

@@ -68,4 +68,52 @@ class ControllerHelper
         }
         return $return;
     }
+
+    /**
+     * test paramters to return
+     *
+     * @param object $entity     Entity to return
+     * @param string $entityName Entity name to test
+     * @return array             Parameters to return
+     */
+    protected function testReturnParam($entity, $entityName)
+    {
+        $entityArray = ['company', 'settings', 'group', 'tva'];
+        if (in_array($entityName, $entityArray, true)) {
+            $param = ['id' => $entity->getId()];
+        } else {
+            $param = ['slug' => $entity->getSlug()];
+        }
+
+        return $param;
+    }
+
+    /**
+     * SetOrder for the SortAction in views.
+     *
+     * @param string $name   session name
+     * @param string $entity entity name
+     * @param string $field  field name
+     * @param string $type   sort type ("ASC"/"DESC")
+     */
+    protected function setOrder($name, $entity, $field, $type = 'ASC')
+    {
+        $session = new Session();
+
+        $session->set('sort.'.$name, array('entity' => $entity, 'field' => $field, 'type' => $type));
+    }
+
+    /**
+     * GetOrder for the SortAction in views.
+     *
+     * @param string $name session name
+     *
+     * @return array
+     */
+    protected function getOrder($name)
+    {
+        $session = new Session();
+
+        return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
+    }
 }

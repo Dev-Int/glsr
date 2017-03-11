@@ -193,7 +193,7 @@ class UserController extends AbstractController
      */
     public function sortAction($entity, $field, $type)
     {
-        $this->setOrder('user', $entity, $field, $type);
+        $this->get('app.helper.controller')->setOrder('article', $entity, $field, $type);
 
         return $this->redirectToRoute('user');
     }
