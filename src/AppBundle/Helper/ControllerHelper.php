@@ -24,6 +24,11 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class ControllerHelper
 {
+    public function __construct($translator, $session)
+    {
+        $this->translator = $translator;
+        $this->session = $session;
+    }
     /**
      * Tests of creation conditions.
      *
@@ -36,8 +41,8 @@ class ControllerHelper
 
         // This supplier has no articles!
         if (count($articles) < 1) {
-            $message = $this->get('translator')->trans('settings.no_articles', array(), 'gs_suppliers');
-            $this->addFlash('danger', $message);
+            $message = $this->translator->trans('settings.no_articles', array(), 'gs_suppliers');
+            $this->session->getFlashBag()->add('danger', $message);
             $return = false;
         }
 
