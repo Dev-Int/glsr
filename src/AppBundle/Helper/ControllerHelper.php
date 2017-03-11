@@ -16,6 +16,7 @@ namespace AppBundle\Helper;
 
 use AppBundle\Entity\Article;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Controller helper.
@@ -72,7 +73,7 @@ class ControllerHelper
     /**
      * test paramters to return
      *
-     * @param object $entity     Entity to return
+     * @param Object $entity     Entity to return
      * @param string $entityName Entity name to test
      * @return array             Parameters to return
      */
