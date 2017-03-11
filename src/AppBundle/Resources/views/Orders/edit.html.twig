@@ -19,27 +19,27 @@
 {% block glstock_body %}
     {{ form_start(edit_form) }}
     <div class="panel panel-default">
-        <header class="panel-heading">
+        <header class="panel-heading order">
             <div class="row">
-                <div class="col-md-4 row">
-                    <div class="col-md-4">{{ form_label(edit_form.supplier) }}</div>
-                    <div class="col-md-8">
+                <div class="col-md-4">
+                    <div class="col-md-5">{{ form_label(edit_form.supplier) }}</div>
+                    <div class="col-md-7">
                         {{ form_widget(edit_form.supplier, { 'attr':{'class':'hidden'} }) }}
                         {{ edit_form.supplier.vars.data.name }}
                     </div>
                 </div>
-                <div class="col-md-4 row">
-                    <div class="col-md-4">{{ form_label(edit_form.orderdate) }}</div>
-                    <div class="col-md-8">{{ form_widget(edit_form.orderdate) }}</div>
+                <div class="col-md-4">
+                    <div class="col-md-5">{{ form_label(edit_form.orderdate) }}</div>
+                    <div class="col-md-7">{{ form_widget(edit_form.orderdate) }}</div>
                 </div>
-                <div class="col-md-4 row">
-                    <div class="col-md-4">{{ form_label(edit_form.delivdate) }}</div>
-                    <div class="col-md-8">{{ form_widget(edit_form.delivdate) }}</div>
+                <div class="col-md-4">
+                    <div class="col-md-5">{{ form_label(edit_form.delivdate) }}</div>
+                    <div class="col-md-7">{{ form_widget(edit_form.delivdate) }}</div>
                 </div>
             </div>
         </header>
     
-        <table class="table table-striped">
+        <table class="table table-striped order">
             <thead>
                 {% for item in edit_form.articles %}
                     {% set loopindex = loop.index %}

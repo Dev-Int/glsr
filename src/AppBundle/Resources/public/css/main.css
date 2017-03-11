@@ -216,10 +216,7 @@ div.panel.panel-default > div.panel-body > div.col-md-9 > label {
 }
 
 section.alerts .panel {
-    /*border: none !important;*/
     border-radius: 0 !important;
-/*    -webkit-box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.7) !important;
-    box-shadow: 8px 8px 12px rgba(0, 0, 0, 0.7) !important;*/
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
 }
@@ -274,4 +271,12 @@ select.form-control[readonly],
     background-color: transparent !important;
     border: none !important;
     box-shadow: none !important;
+}
+
+/*======
+ * Order
+ * ====*/
+header.order label,
+table.order label {
+    padding-right: 0;
 }
