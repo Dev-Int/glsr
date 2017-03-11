@@ -19,6 +19,7 @@ services:
 
     app.helper.controller:
         class: 'AppBundle\Helper\ControllerHelper'
+        arguments: [@translator, @session]
     app.helper.time:
         class: 'AppBundle\Helper\TimeHelper'
 
