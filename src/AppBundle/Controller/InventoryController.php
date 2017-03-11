@@ -339,7 +339,6 @@ class InventoryController extends AbstractInventoryController
      */
     private function getHtml(Inventory $inventory, $inventoryStyle)
     {
-        $html = '';
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
