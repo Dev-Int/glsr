@@ -25,8 +25,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
  */
 class ControllerHelper
 {
-    public $translator;
-    public $session;
+    private $translator;
+    private $session;
     public function __construct($translator, $session)
     {
         $this->translator = $translator;
@@ -40,7 +40,7 @@ class ControllerHelper
      * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
      * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
      */
-    protected function getEntity($entityName, ObjectManager $etm)
+    public function getEntity($entityName, ObjectManager $etm)
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
