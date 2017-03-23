@@ -19,7 +19,7 @@ services:
 
     app.helper.controller:
         class: 'AppBundle\Helper\ControllerHelper'
-        arguments: [@translator, @session]
+        arguments: ['@translator', '@session', '@security.token_storage']
     app.helper.time:
         class: 'AppBundle\Helper\TimeHelper'
 

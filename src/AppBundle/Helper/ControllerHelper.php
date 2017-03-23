@@ -14,6 +14,7 @@
  */
 namespace AppBundle\Helper;
 
+use AppBundle\Helper\Entity;
 use AppBundle\Entity\Article;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -23,14 +24,17 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @category Helper
  */
-class ControllerHelper
+class ControllerHelper extends Entity
 {
     private $translator;
     private $session;
-    public function __construct($translator, $session)
+    private $security;
+
+    public function __construct($translator, $session, $security)
     {
         $this->translator = $translator;
         $this->session = $session;
+        $this->security = $security;
     }
 
     /**
@@ -46,7 +50,8 @@ class ControllerHelper
         switch ($entityName) {
             case 'Article':
             case 'Supplier':
-                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
+                if ($this->security->getToken()->getUser() !== null &&
+                    in_array($this->security->getToken()->getUser()->getRoles()[0], $roles)) {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
                 } else {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
