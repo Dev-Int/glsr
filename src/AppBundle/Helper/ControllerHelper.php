@@ -14,7 +14,7 @@
  */
 namespace AppBundle\Helper;
 
-use AppBundle\Helper\Entity;
+use AppBundle\Helper\AbstractEntity;
 use AppBundle\Entity\Article;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @category Helper
  */
-class ControllerHelper extends Entity
+class ControllerHelper extends AbstractEntity
 {
     private $translator;
     private $session;
@@ -140,13 +140,13 @@ class ControllerHelper extends Entity
     }
 
     /**
-     * test paramters to return
+     * Test paramters to return.
      *
-     * @param \AppBundle\Helper\Entity $entity      Entity to return
-     * @param string $entityName       Entity name to test
-     * @return array                   Parameters to return
+     * @param \AppBundle\Helper\AbstractEntity $entity     Entity to return
+     * @param string                           $entityName Entity name to test
+     * @return array Parameters to return
      */
-    protected function testReturnParam(Entity $entity, $entityName)
+    protected function testReturnParam(AbstractEntity $entity, $entityName)
     {
         $entityArray = ['company', 'settings', 'group', 'tva'];
         if (in_array($entityName, $entityArray, true)) {
