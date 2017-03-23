@@ -16,4 +16,6 @@ namespace AppBundle\Helper;
 abstract class Entity
 {
     abstract protected function testReturnParam(Entity $entity, $entityName);
+    abstract public function getId();
+    abstract public function getSlug();
 }
