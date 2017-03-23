@@ -142,11 +142,11 @@ class ControllerHelper extends Entity
     /**
      * test paramters to return
      *
-     * @param Object $entity     Entity to return
-     * @param string $entityName Entity name to test
-     * @return array             Parameters to return
+     * @param \AppBundle\Helper\Entity $entity      Entity to return
+     * @param string $entityName       Entity name to test
+     * @return array                   Parameters to return
      */
-    protected function testReturnParam($entity, $entityName)
+    protected function testReturnParam(Entity $entity, $entityName)
     {
         $entityArray = ['company', 'settings', 'group', 'tva'];
         if (in_array($entityName, $entityArray, true)) {
