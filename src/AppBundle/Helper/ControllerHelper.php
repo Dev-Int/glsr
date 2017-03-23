@@ -180,7 +180,7 @@ class ControllerHelper extends Entity
      *
      * @return array
      */
-    protected function getOrder($name)
+    public function getOrder($name)
     {
         $session = new Session();
 
