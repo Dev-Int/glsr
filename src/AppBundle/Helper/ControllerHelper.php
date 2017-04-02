@@ -129,7 +129,7 @@ class ControllerHelper extends AbstractEntity
      * @param string $field  field name
      * @param string $type   sort type ("ASC"/"DESC")
      */
-    protected function setOrder($name, $entity, $field, $type = 'ASC')
+    public function setOrder($name, $entity, $field, $type = 'ASC')
     {
         $session = new Session();
 
