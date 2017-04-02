@@ -98,7 +98,7 @@ class GroupController extends AbstractController
     {
         $group = new Group();
         $form = $this->createForm(GroupType::class, $group);
-        AbstractController::addRolesAction($form, $group);
+        AbstractController::addRoles($form, $group);
         $form->handleRequest($request);
         $return = ['group' => $group, 'form' => $form->createView(),];
 
