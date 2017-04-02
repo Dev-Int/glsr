@@ -127,7 +127,7 @@ class DeliveriesController extends AbstractOrdersController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Inventory $orders Inventory item to print
+     * @param \AppBundle\Entity\Orders $orders Order item to print
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function printAction(Orders $orders)
