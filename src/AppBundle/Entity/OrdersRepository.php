@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 
 /**
  * OrdersRepository
@@ -49,9 +51,11 @@ class OrdersRepository extends EntityRepository
      */
     public function findOrders()
     {
-        $query = $this->findActive()
-            ->andWhere('o.delivdate > :date')
-            ->setParameter('date', date('Y-m-d'));
+        $query = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'DESC')
+            ->where('o.delivdate > :date')
+            ->andWhere('o.status = :status')
+            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
 
         return $query;
     }
@@ -63,18 +67,27 @@ class OrdersRepository extends EntityRepository
      */
     public function findDeliveries()
     {
-        $query = $this->findActive()
-            ->andWhere('o.delivdate <= :date')
-            ->setParameter('date', date('Y-m-d'));
+        $query = $this->createQueryBuilder('o')
+            ->orderBy('o.id', 'DESC')
+            ->where('o.delivdate <= :date')
+            ->andWhere('o.status = :status')
+            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
 
         return $query;
     }
 
-    private function findActive()
+    /**
+     * Find Orders for billing.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findInvoices()
     {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')
-            ->where('o.status = 1');
+            ->where('o.delivdate < :date')
+            ->andWhere('o.status > :status')
+            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
 
         return $query;
     }
