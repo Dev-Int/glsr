@@ -109,7 +109,7 @@ class ControllerHelper extends AbstractEntity
      * @param string                           $entityName Entity name to test
      * @return array Parameters to return
      */
-    protected function testReturnParam(AbstractEntity $entity, $entityName)
+    public function testReturnParam(AbstractEntity $entity, $entityName)
     {
         $entityArray = ['company', 'settings', 'group', 'tva'];
         if (in_array($entityName, $entityArray, true)) {
