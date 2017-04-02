@@ -43,13 +43,14 @@ class OrdersType extends AbstractType
                         return $er->createQueryBuilder('s')
                             ->where('s.active = 1');
                     },
+                    'required' => false,
                     'choice_label' => 'name',
                     'multiple' => false,
                     'placeholder' => 'form.choice_supplier',
                     'label' => 'title',
                     'translation_domain' => 'gs_suppliers',
                     'empty_data' => null,
-                    'attr'  => array('class' => 'form-control')
+                    'attr'  => ['class' => 'form-control', ]
                 )
             )
         ;
