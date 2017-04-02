@@ -28,48 +28,11 @@ class ControllerHelper extends AbstractEntity
 {
     private $translator;
     private $session;
-    private $security;
 
-    public function __construct($translator, $session, $security)
+    public function __construct($translator, $session)
     {
         $this->translator = $translator;
         $this->session = $session;
-        $this->security = $security;
-    }
-
-    /**
-     * Get the entity
-     *
-     * @param string $entityName Name of Entity
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm ObjectManager instances
-     * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
-     */
-    public function getEntity($entityName, ObjectManager $etm)
-    {
-        $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
-        switch ($entityName) {
-            case 'Article':
-            case 'Supplier':
-                if ($this->security->getToken()->getUser() !== null &&
-                    in_array($this->security->getToken()->getUser()->getRoles()[0], $roles)) {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
-                } else {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
-                }
-                break;
-            case 'User':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();
-                break;
-            case 'FamilyLog':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
-                break;
-            case 'UnitStorage':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
-                break;
-            default:
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
-        }
-        return $entities;
     }
 
     /**
@@ -185,5 +148,15 @@ class ControllerHelper extends AbstractEntity
         $session = new Session();
 
         return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
+    }
+
+    public function getId()
+    {
+        
+    }
+
+    public function getSlug()
+    {
+        
     }
 }
