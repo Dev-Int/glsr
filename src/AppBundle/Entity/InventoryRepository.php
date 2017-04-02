@@ -19,9 +19,7 @@ class InventoryRepository extends EntityRepository
      */
     public function getInventory()
     {
-        $query = $this->createQueryBuilder('i')
-            ->where('i.status > 0')
-            ->orderBy('i.id', 'DESC')
+        $query = $this->findActive()
             ->getQuery();
         
         return $query->getResult();
@@ -35,12 +33,19 @@ class InventoryRepository extends EntityRepository
      */
     public function getLastInventory($count)
     {
-        $query = $this->createQueryBuilder('i')
-            ->where('i.status > 0')
-            ->orderBy('i.id', 'DESC')
+        $query = $this->findActive()
             ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();
+    }
+
+    private function findActive()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->where('i.status > 0')
+            ->orderBy('i.id', 'DESC');
+
+        return $query;
     }
 }
