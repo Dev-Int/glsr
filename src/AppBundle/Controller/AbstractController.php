@@ -332,7 +332,7 @@ abstract class AbstractController extends Controller
      * @param \Doctrine\Common\Persistence\ObjectManager $etm        ObjectManager instances
      * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
      */
-    public function getEntity($entityName, ObjectManager $etm)
+    private function getEntity($entityName, ObjectManager $etm)
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
