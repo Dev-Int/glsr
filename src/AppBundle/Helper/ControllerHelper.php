@@ -82,7 +82,7 @@ class ControllerHelper extends AbstractEntity
      * @param string $title File title
      * @return array
      */
-    protected function getArray($date, $title)
+    public function getArray($date, $title)
     {
         $array = array(
             'margin-top' => 15,
