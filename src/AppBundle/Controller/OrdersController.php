@@ -42,17 +42,12 @@ class OrdersController extends AbstractOrdersController
      */
     public function indexAction(Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-        $item = $this->container->getParameter('knp_paginator.page_range');
-        $qbd = $etm->getRepository('AppBundle:Orders')->findOrders();
-        
-        $createForm = $this->createCreateForm('orders_create');
+        $return = $this->abstractIndexAction('Orders', $request);
 
-        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
-        return array(
-            'create_form' => $createForm->createView(),
-            'paginator' => $paginator,
-        );
+        $createForm = $this->createCreateForm('orders_create');
+        $return['create_form'] = $createForm->createView();
+
+        return $return;
     }
 
     /**

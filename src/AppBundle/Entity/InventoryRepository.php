@@ -19,10 +19,9 @@ class InventoryRepository extends EntityRepository
      */
     public function getInventory()
     {
-        $query = $this->findActive()
-            ->getQuery();
+        $query = $this->findActive();
         
-        return $query->getResult();
+        return $query;
     }
 
     /**

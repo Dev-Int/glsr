@@ -91,7 +91,7 @@ abstract class AbstractController extends Controller
         ));
 
         if ($entity === 'Group') {
-            $this->addRolesAction($form, $entityNew);
+            $this->addRoles($form, $entityNew);
         }
         $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
 
@@ -116,7 +116,7 @@ abstract class AbstractController extends Controller
             'action' => $this->generateUrl(strtolower($entity).'_create'),
         ));
         if ($entity === 'Group') {
-            $this->addRolesAction($form, $entityNew);
+            $this->addRoles($form, $entityNew);
         }
         $form->handleRequest($request);
         $return = [$entity => $entityNew, 'form' => $form->createView(),];
@@ -151,7 +151,7 @@ abstract class AbstractController extends Controller
             'method' => 'PUT',
         ));
         if ($entityName === 'group') {
-            $this->addRolesAction($editForm, $entity);
+            $this->addRoles($editForm, $entity);
         }
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
 
@@ -179,7 +179,7 @@ abstract class AbstractController extends Controller
             'method' => 'PUT',
         ));
         if ($entityName === 'group') {
-            $this->addRolesAction($editForm, $entity);
+            $this->addRoles($editForm, $entity);
         }
         $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
@@ -310,7 +310,7 @@ abstract class AbstractController extends Controller
      * @param \AppBundle\Entity\Group       $group The entity to deal
      * @return \Symfony\Component\Form\Form The form
      */
-    public function addRolesAction($form, $group)
+    private function addRoles($form, $group)
     {
         $form->add('roles', ChoiceType::class, array(
             'choices' => $this->getExistingRoles(),
@@ -353,6 +353,12 @@ abstract class AbstractController extends Controller
                 break;
             case 'UnitStorage':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
+                break;
+            case 'Orders':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->findOrders();
+                break;
+            case 'Inventory':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getInventory();
                 break;
             default:
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
