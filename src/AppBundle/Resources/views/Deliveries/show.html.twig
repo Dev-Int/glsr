@@ -3,7 +3,7 @@
 {% block title %}{{ 'title_short'|trans({}, 'gs_deliveries') }} - {{ parent() }}{% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    <i class="fa fa-truck" aria-hidden="true"></i>
     {{ 'title_short'|trans({}, 'gs_deliveries') }} <small>{{ "%06d"|format(orders.id) }}</small>
 {% endblock %}
 
