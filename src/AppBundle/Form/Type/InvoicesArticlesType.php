@@ -14,11 +14,10 @@
  */
 namespace AppBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Form\Type\OrdersArticlesType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
@@ -27,38 +26,17 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
  *
  * @category   Form
  */
-class InvoicesArticlesType extends AbstractType
+class InvoicesArticlesType extends OrdersArticlesType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+        $builder->remove('quantity');
+        $builder->remove('price');
         $builder
-            ->add(
-                'orders',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Orders',
-                    'choice_label' => 'id',
-                    'label' => 'gestock.id',
-                    'translation_domain' => 'messages',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'article',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'label' => 'title',
-                    'translation_domain' => 'gs_articles',
-                    'empty_data' => null,
-                )
-            )
             ->add(
                 'quantity',
                 NumberType::class,
@@ -73,17 +51,6 @@ class InvoicesArticlesType extends AbstractType
                 )
             )
             ->add(
-                'unitStorage',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:UnitStorage',
-                    'choice_label' => 'abbr',
-                    'label' => 'gestock.settings.diverse.unitstorage',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
                 'price',
                 MoneyType::class,
                 array(
@@ -94,32 +61,6 @@ class InvoicesArticlesType extends AbstractType
                     'label' => 'settings.price',
                     'translation_domain' => 'gs_articles',
                     'attr'=> ['class' => 'form-control text-right', ]
-                )
-            )
-            ->add(
-                'tva',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Tva',
-                    'choice_label' => 'name',
-                    'choice_value' => 'rate',
-                    'label' => 'gestock.settings.diverse.vat',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'total',
-                MoneyType::class,
-                array(
-                    'required' => false,
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'seizure.total',
-                    'translation_domain' => 'gs_orders',
-                    'mapped' => false,
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true, ]
                 )
             )
         ;
