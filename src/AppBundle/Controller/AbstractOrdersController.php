@@ -28,6 +28,28 @@ use AppBundle\Form\Type\OrdersType;
 class AbstractOrdersController extends AbstractController
 {
     /**
+     * Displays a form to edit an existing item entity.
+     *
+     * @param Object $entity     Entity
+     * @param string $entityName Name of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
+     */
+    public function abstractEditAction($entity, $entityName, $typePath)
+    {
+        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $editForm = $this->createForm($typePath, $entity, array(
+            'action' => $this->generateUrl($entityName.'_update', $param),
+            'method' => 'PUT',
+        ));
+        if ($entityName === 'group') {
+            $this->addRolesAction($editForm, $entity);
+        }
+
+        return [$entityName => $entity, 'edit_form' => $editForm->createView(),];
+    }
+
+    /**
      * Create CreateForm.
      *
      * @param string $route Route of action form

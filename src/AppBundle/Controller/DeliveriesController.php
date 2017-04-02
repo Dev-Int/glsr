@@ -74,15 +74,9 @@ class DeliveriesController extends AbstractOrdersController
      */
     public function editAction(Orders $orders)
     {
-        $editForm = $this->createForm(OrdersEditType::class, $orders, array(
-            'action' => $this->generateUrl('deliveries_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
+        $return = $this->abstractEditAction($orders, 'deliveries', OrdersEditType::class);
 
-        return array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
-        );
+        return $return;
     }
 
     /**

@@ -72,15 +72,9 @@ class InvoicesController extends AbstractOrdersController
      */
     public function editAction(Orders $orders)
     {
-        $editForm = $this->createForm(InvoicesEditType::class, $orders, array(
-            'action' => $this->generateUrl('invoices_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
+        $return = $this->abstractEditAction($orders, 'invoices', InvoicesEditType::class);
 
-        return array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
-        );
+        return $return;
     }
 
     /**
