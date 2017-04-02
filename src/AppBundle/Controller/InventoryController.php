@@ -47,19 +47,10 @@ class InventoryController extends AbstractInventoryController
     public function indexAction(Request $request)
     {
         $return = $this->abstractIndexAction('Inventory', $request);
-//        $item = $this->container->getParameter('knp_paginator.page_range');
-//        $etm = $this->getDoctrine()->getManager();
-//        $qbd = $etm->getRepository('AppBundle:Inventory')->getInventory();
-        
+
         $createForm = $this->createCreateForm('inventory_create');
         $return['create_form'] = $createForm->createView();
 
-//        $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
-//
-//        return array(
-//            'paginator' => $paginator,
-//            'create_form' => $createForm->createView(),
-//        );
         return $return;
     }
 
