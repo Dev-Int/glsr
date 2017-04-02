@@ -24,7 +24,7 @@ use AppBundle\Entity\Orders;
 use AppBundle\Form\Type\OrdersEditType;
 
 /**
- * Orders controller.
+ * Deliveries controller.
  *
  * @Route("/deliveries")
  */
