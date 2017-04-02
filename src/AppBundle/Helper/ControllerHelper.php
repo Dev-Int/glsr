@@ -152,11 +152,9 @@ class ControllerHelper extends AbstractEntity
 
     public function getId()
     {
-        
     }
 
     public function getSlug()
     {
-        
     }
 }
