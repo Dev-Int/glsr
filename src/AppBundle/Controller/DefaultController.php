@@ -65,18 +65,12 @@ class DefaultController extends Controller
         } else {
             $url = $this->redirectToRoute($url);
         }
-        
-        /**
-         * Affichage du dernier inventaire.
-         */
-        /**
-         * Affichage des stocks d'alerte.
-         */
+
         return $url;
     }
 
     /**
-     * Get Alerts.
+     * Get stock alerts.
      *
      * @Route("/alert", name="stockalert")
      * @Method("GET")
@@ -137,7 +131,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Get the latest orders.
+     * Get the latest deliveries.
      *
      * @Route("/alert", name="lastorders")
      * @Method("GET")
@@ -152,6 +146,24 @@ class DefaultController extends Controller
         $listDeliveries = $etm->getRepository('AppBundle:Orders')->getLastDelivery($number);
 
         return array('listDeliveries' => $listDeliveries);
+    }
+
+    /**
+     * Get the latest invoices.
+     *
+     * @Route("/alert", name="lastorders")
+     * @Method("GET")
+     * @Template("default/lastInvoice.html.twig")
+     *
+     * @param integer $number Number of orders to display
+     * @return array|null
+     */
+    public function lastInvoicesAction($number)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $listInvoices = $etm->getRepository('AppBundle:Orders')->getLastInvoice($number);
+
+        return ['listInvoices' => $listInvoices];
     }
 
     /**
