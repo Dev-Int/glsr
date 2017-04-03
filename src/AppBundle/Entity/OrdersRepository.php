@@ -3,8 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query\Parameter;
 
 /**
  * OrdersRepository
@@ -52,9 +50,9 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastInvoice($count)
     {
-        $query = $this->findInvoices()
+        $query = $this->findItem()
             ->setMaxResults($count)
-            ->andWhere('o.status = 2')
+            ->where('o.status = 2')
             ->getQuery();
 
         return $query->getResult();
@@ -67,11 +65,9 @@ class OrdersRepository extends EntityRepository
      */
     public function findOrders()
     {
-        $query = $this->createQueryBuilder('o')
-            ->orderBy('o.id', 'DESC')
+        $query = $this->findItem()
             ->where('o.delivdate > :date')
-            ->andWhere('o.status = :status')
-            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
+            ->setParameter('date', date('Y-m-d'));
 
         return $query;
     }
@@ -83,11 +79,10 @@ class OrdersRepository extends EntityRepository
      */
     public function findDeliveries()
     {
-        $query = $this->createQueryBuilder('o')
-            ->orderBy('o.id', 'DESC')
+        $query = $this->findItem()
             ->where('o.delivdate <= :date')
-            ->andWhere('o.status = :status')
-            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
+            ->setParameter('date', date('Y-m-d'))
+            ->andWhere('o.status = 1');
 
         return $query;
     }
@@ -99,11 +94,19 @@ class OrdersRepository extends EntityRepository
      */
     public function findInvoices()
     {
+        $query = $this->findItem()
+            ->where('o.delivdate < :date')
+            ->setParameter('date', date('Y-m-d'))
+            ->andWhere('o.status > 1');
+
+        return $query;
+    }
+
+    private function findItem()
+    {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')
-            ->where('o.delivdate < :date')
-            ->andWhere('o.status > :status')
-            ->setParameters(new ArrayCollection([new Parameter('date', date('Y-m-d')), new Parameter('status', 1)]));
+            ->where('o.status = 1');
 
         return $query;
     }
