@@ -101,7 +101,7 @@ abstract class AbstractController extends Controller
     /**
      * Creates a new item entity.
      *
-     * @param Request $request   Request in progress
+     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
      * @param string $entity     Entity <i>First letter Upper</i>
      * @param string $entityPath Path of Entity
      * @param string $typePath   Path of FormType
@@ -166,7 +166,7 @@ abstract class AbstractController extends Controller
      * Edits an existing item entity.
      *
      * @param Object $entity     Entity
-     * @param Request $request   Request in progress
+     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
      * @param string $entityName Name of Entity
      * @param string $typePath   Path of FormType
      * @return array
@@ -203,7 +203,7 @@ abstract class AbstractController extends Controller
      * Deletes an item entity.
      *
      * @param Object $entity     Entity
-     * @param Request $request   Request in progress
+     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
      * @param string $entityName Name of Entity
      * @return array
      */
@@ -221,7 +221,7 @@ abstract class AbstractController extends Controller
      * Deletes a item entity with Articles.
      *
      * @param Object $entity     Entity
-     * @param Request $request   Request in progress
+     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
      * @param string $entityName Name of Entity
      * @return array
      */
