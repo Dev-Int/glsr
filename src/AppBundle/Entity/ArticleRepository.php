@@ -50,14 +50,8 @@ class ArticleRepository extends EntityRepository
      */
     public function getItems()
     {
-        $query = $this->createQueryBuilder('a')
-            ->join('a.supplier', 's')
-            ->addSelect('s')
+        $query = $this->getAllItems()
             ->where('s.active = 1')
-            ->join('a.familyLog', 'fl')
-            ->addSelect('fl')
-            ->join('a.zoneStorages', 'z')
-            ->addSelect('z')
             ->where('a.active = 1')
         ;
         
