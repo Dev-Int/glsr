@@ -82,8 +82,16 @@
                 </strong>
             </header>
             <div class="panel-body">
-                {# Block alerts #}
-                {{ render(controller('AppBundle:default:stockAlert', {'number': 3})) }}
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">
+                        {# Block alerts #}
+                        {{ render(controller('AppBundle:default:stockAlert', {'number': 3})) }}
+                    </li>
+                    <li class="list-group-item">
+                        {# Block invoices #}
+                        {{ render(controller('AppBundle:default:lastInvoices', {'number': 3})) }}
+                    </li>
+                </ul>
             </div>
             <footer class="panel-footer">
                 <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>

@@ -14,7 +14,6 @@
  */
 namespace AppBundle\Helper;
 
-use AppBundle\Helper\AbstractEntity;
 use AppBundle\Entity\Article;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -24,7 +23,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
  *
  * @category Helper
  */
-class ControllerHelper extends AbstractEntity
+class ControllerHelper
 {
     private $translator;
     private $session;
@@ -82,7 +81,7 @@ class ControllerHelper extends AbstractEntity
      * @param string $title File title
      * @return array
      */
-    protected function getArray($date, $title)
+    public function getArray($date, $title)
     {
         $array = array(
             'margin-top' => 15,
@@ -105,17 +104,17 @@ class ControllerHelper extends AbstractEntity
     /**
      * Test paramters to return.
      *
-     * @param \AppBundle\Helper\AbstractEntity $entity     Entity to return
-     * @param string                           $entityName Entity name to test
+     * @param Object $entity     Entity to return
+     * @param string $entityName Entity name to test
      * @return array Parameters to return
      */
-    protected function testReturnParam(AbstractEntity $entity, $entityName)
+    public function testReturnParam($entity, $entityName)
     {
-        $entityArray = ['company', 'settings', 'group', 'tva'];
+        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', ];
         if (in_array($entityName, $entityArray, true)) {
-            $param = ['id' => $entity->getId()];
-        } else {
             $param = ['slug' => $entity->getSlug()];
+        } else {
+            $param = ['id' => $entity->getId()];
         }
 
         return $param;
@@ -129,7 +128,7 @@ class ControllerHelper extends AbstractEntity
      * @param string $field  field name
      * @param string $type   sort type ("ASC"/"DESC")
      */
-    protected function setOrder($name, $entity, $field, $type = 'ASC')
+    public function setOrder($name, $entity, $field, $type = 'ASC')
     {
         $session = new Session();
 
@@ -148,13 +147,5 @@ class ControllerHelper extends AbstractEntity
         $session = new Session();
 
         return $session->has('sort.' . $name) ? $session->get('sort.' . $name) : null;
-    }
-
-    public function getId()
-    {
-    }
-
-    public function getSlug()
-    {
     }
 }

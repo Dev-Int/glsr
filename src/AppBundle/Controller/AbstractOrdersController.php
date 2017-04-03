@@ -14,6 +14,7 @@
  */
 namespace AppBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -44,6 +45,70 @@ class AbstractOrdersController extends AbstractController
     }
 
     /**
+     * Displays a form to edit an existing item entity.
+     *
+     * @param Object $entity     Entity
+     * @param string $entityName Name of Entity
+     * @param string $typePath   Path of FormType
+     * @return array
+     */
+    public function abstractEditAction($entity, $entityName, $typePath)
+    {
+        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $editForm = $this->createForm($typePath, $entity, array(
+            'action' => $this->generateUrl($entityName.'_update', $param),
+            'method' => 'PUT',
+        ));
+        if ($entityName === 'group') {
+            $this->addRolesAction($editForm, $entity);
+        }
+
+        return [$entityName => $entity, 'edit_form' => $editForm->createView(),];
+    }
+
+    /**
+     * Edits an existing item entity.
+     *
+     * @param Object                                    $entity     Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request    Request in progress
+     * @param string                                    $entityName Name of Entity
+     * @param string                                    $typePath   Path of FormType
+     * @return array
+     */
+    public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
+    {
+        $etm = $this->getDoctrine()->getManager();
+        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $editForm = $this->createForm($typePath, $entity, array(
+            'action' => $this->generateUrl($entityName.'_update', $param),
+            'method' => 'PUT',
+        ));
+
+        $editForm->handleRequest($request);
+
+        $return = [$entityName => $entity, 'edit_form'   => $editForm->createView(), ];
+
+        if ($editForm->isValid()) {
+            if ($entityName === 'deliveries') {
+                $entity->setStatus(2);
+                $this->updateDeliveryArticles($entity, $etm);
+            }
+            if ($entityName === 'invoices') {
+                $entity->setStatus(3);
+                $this->updateInvoiceArticles($entity, $etm);
+            }
+            $etm->persist($entity);
+            $etm->flush();
+
+            $this->addFlash('info', 'gestock.edit.ok');
+
+            $return = $this->redirectToRoute('_home');
+        }
+
+        return $return;
+    }
+
+    /**
      * Print a document.<br />Creating a `PDF` file for viewing on paper
      *
      * @param \AppBundle\Entity\Orders $orders Order item to print
@@ -70,5 +135,46 @@ class AbstractOrdersController extends AbstractController
                 'Content-Disposition' => 'attachment; filename="' . $file . '"'
             )
         );
+    }
+
+    /**
+     * Update Articles for deliveries.
+     *
+     * @param \AppBundle\Entity\Orders $orders Articles de la commande à traiter
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
+     */
+    private function updateDeliveryArticles(Orders $orders, $etm)
+    {
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
+        foreach ($orders->getArticles() as $line) {
+            foreach ($articles as $art) {
+                if ($art->getId() === $line->getArticle()->getId()) {
+                    $art->setQuantity($line->getQuantity() + $art->getQuantity());
+                    $etm->persist($art);
+                }
+            }
+        }
+    }
+
+    /**
+     * Update Articles for invoices.
+     *
+     * @param \AppBundle\Entity\Orders $orders Articles de la commande à traiter
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
+     */
+    private function updateInvoiceArticles(Orders $orders, $etm)
+    {
+        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
+        foreach ($orders->getArticles() as $line) {
+            foreach ($articles as $art) {
+                if ($art->getId() === $line->getArticle()->getId() && $art->getPrice() !== $line->getPrice()) {
+                    $stockAmount = ($art->getQuantity() - $line->getQuantity()) * $art->getPrice();
+                    $orderAmount = $line->getQuantity() * $line->getPrice();
+                    $newPrice = ($stockAmount + $orderAmount) / $art->getQuantity();
+                    $art->setPrice($newPrice);
+                    $etm->persist($art);
+                }
+            }
+        }
     }
 }

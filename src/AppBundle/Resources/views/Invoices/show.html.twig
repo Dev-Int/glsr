@@ -1,10 +1,10 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ 'title_short'|trans({}, 'gs_deliveries') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'title_short'|trans({}, 'gs_invoices') }} - {{ parent() }}{% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-truck" aria-hidden="true"></i>
-    {{ 'title_short'|trans({}, 'gs_deliveries') }} <small>{{ "%06d"|format(orders.id) }}</small>
+    <i class="fa fa-calculator" aria-hidden="true"></i>
+    {{ 'title_short'|trans({}, 'gs_invoices') }} <small>{{ "%06d"|format(orders.id) }}</small>
 {% endblock %}
 
 {% block glstock_body %}
@@ -70,15 +70,15 @@
     <div class="btn-group record_actions">
 
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info btn-list" href="{{ path('deliveries') }}">
+        <a class="btn btn-info btn-list" href="{{ path('invoices') }}">
             {{ 'gestock.return_list'|trans }}
         </a>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a class="btn btn-primary btn-edit" href="{{ path('deliveries_edit', {id: orders.id}) }}">
+            {% if is_granted('ROLE_ADMIN') and orders.status == 2 %}
+            <a class="btn btn-primary btn-edit" href="{{ path('invoices_edit', {id: orders.id}) }}">
                 {{ 'Edit'|trans({}, 'admin') }}
             </a>
         {% endif %}
-        <a class="btn btn-default btn-print" href="{{ path('deliveries_print', {id: orders.id}) }}">
+        <a class="btn btn-default btn-print" href="{{ path('invoices_print', {id: orders.id}) }}">
             {{ 'gestock.print'|trans }}
         </a>
     </div>

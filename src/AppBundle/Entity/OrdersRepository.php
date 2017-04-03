@@ -43,14 +43,30 @@ class OrdersRepository extends EntityRepository
     }
 
     /**
+     * Renvoi les dernières commandes.
+     *
+     * @param integer $count Nombre d'élément à afficher
+     * @return array Query result
+     */
+    public function getLastInvoice($count)
+    {
+        $query = $this->findItem()
+            ->setMaxResults($count)
+            ->where('o.status = 2')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * Find Orders before delivering.
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function findOrders()
     {
-        $query = $this->findActive()
-            ->andWhere('o.delivdate > :date')
+        $query = $this->findItem()
+            ->where('o.delivdate > :date')
             ->setParameter('date', date('Y-m-d'));
 
         return $query;
@@ -63,14 +79,30 @@ class OrdersRepository extends EntityRepository
      */
     public function findDeliveries()
     {
-        $query = $this->findActive()
-            ->andWhere('o.delivdate <= :date')
-            ->setParameter('date', date('Y-m-d'));
+        $query = $this->findItem()
+            ->where('o.delivdate <= :date')
+            ->setParameter('date', date('Y-m-d'))
+            ->andWhere('o.status = 1');
 
         return $query;
     }
 
-    private function findActive()
+    /**
+     * Find Orders for billing.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findInvoices()
+    {
+        $query = $this->findItem()
+            ->where('o.delivdate < :date')
+            ->setParameter('date', date('Y-m-d'))
+            ->andWhere('o.status > 1');
+
+        return $query;
+    }
+
+    private function findItem()
     {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')

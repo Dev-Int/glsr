@@ -1,6 +1,6 @@
 <?php
 /**
- * DeliveriesController controller des livraisons.
+ * InvoicesController controller de la facturation.
  *
  * PHP Version 5
  *
@@ -21,19 +21,19 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\Orders;
-use AppBundle\Form\Type\OrdersEditType;
+use AppBundle\Form\Type\InvoicesEditType;
 
 /**
- * Deliveries controller.
+ * Invoices controller.
  *
- * @Route("/deliveries")
+ * @Route("/invoices")
  */
-class DeliveriesController extends AbstractOrdersController
+class InvoicesController extends AbstractOrdersController
 {
     /**
      * Lists all Orders entities.
      *
-     * @Route("/", name="deliveries")
+     * @Route("/", name="invoices")
      * @Method("GET")
      * @Template()
      */
@@ -41,9 +41,7 @@ class DeliveriesController extends AbstractOrdersController
     {
         $etm = $this->getDoctrine()->getManager();
         $item = $this->container->getParameter('knp_paginator.page_range');
-        $qbd = $etm->getRepository('AppBundle:Orders')->createQueryBuilder('o');
-        $qbd->where('o.delivdate <= ' . date('Y-m-d'));
-        $qbd->andWhere('o.status = 1');
+        $qbd = $etm->getRepository('AppBundle:Orders')->findInvoices();
         
         $paginator = $this->get('knp_paginator')->paginate($qbd, $request->query->get('page', 1), $item);
         return array(
@@ -54,7 +52,7 @@ class DeliveriesController extends AbstractOrdersController
     /**
      * Finds and displays a Orders entity.
      *
-     * @Route("/{id}/show", name="deliveries_show", requirements={"id"="\d+"})
+     * @Route("/{id}/show", name="invoices_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -68,13 +66,13 @@ class DeliveriesController extends AbstractOrdersController
     /**
      * Displays a form to edit an existing Orders entity.
      *
-     * @Route("/admin/{id}/edit", name="deliveries_edit", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/edit", name="invoices_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Orders $orders)
     {
-        $return = $this->abstractEditAction($orders, 'deliveries', OrdersEditType::class);
+        $return = $this->abstractEditAction($orders, 'invoices', InvoicesEditType::class);
 
         return $return;
     }
@@ -82,26 +80,26 @@ class DeliveriesController extends AbstractOrdersController
     /**
      * Edits an existing Orders entity.
      *
-     * @Route("/admin/{id}/update", name="deliveries_update", requirements={"id"="\d+"})
+     * @Route("/admin/{id}/update", name="invoices_update", requirements={"id"="\d+"})
      * @Method("PUT")
-     * @Template("AppBundle:Deliveries:edit.html.twig")
+     * @Template("AppBundle:Invoices:edit.html.twig")
      */
     public function updateAction(Orders $orders, Request $request)
     {
         $return = $this->abstractUpdateAction(
             $orders,
             $request,
-            'deliveries',
-            OrdersEditType::class
+            'invoices',
+            InvoicesEditType::class
         );
 
         return $return;
     }
 
     /**
-     * Print the current delivery.<br />Creating a `PDF` file for viewing on paper
+     * Print the current invoice.<br />Creating a `PDF` file for viewing on paper
      *
-     * @Route("/{id}/print/", name="deliveries_print", requirements={"id"="\d+"})
+     * @Route("/{id}/print/", name="invoices_print", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      *
@@ -110,7 +108,7 @@ class DeliveriesController extends AbstractOrdersController
      */
     public function printAction(Orders $orders)
     {
-        $return = $this->abstractPrintAction($orders, 'Deliveries');
+        $return = $this->abstractPrintAction($orders, 'Invoices');
         
         return $return;
     }

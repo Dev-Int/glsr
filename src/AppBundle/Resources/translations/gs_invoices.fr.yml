@@ -1,0 +1,9 @@
+## YAML Template.
+---
+title: "Gérer les factures"
+title_short: "Facturation"
+alerts:
+    invoice_title: "Dernières factures"
+    no_invoices: "Pas de facture en attente..."
+print:
+    title: "Facture n° %id%"

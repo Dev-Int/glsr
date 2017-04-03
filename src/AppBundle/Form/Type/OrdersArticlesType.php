@@ -92,7 +92,7 @@ class OrdersArticlesType extends AbstractType
                     'currency' => 'EUR',
                     'label' => 'settings.price',
                     'translation_domain' => 'gs_articles',
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true]
+                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true,],
                 )
             )
             ->add(
@@ -118,7 +118,7 @@ class OrdersArticlesType extends AbstractType
                     'label' => 'seizure.total',
                     'translation_domain' => 'gs_orders',
                     'mapped' => false,
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true]
+                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true,]
                 )
             )
         ;

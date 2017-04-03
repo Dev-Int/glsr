@@ -4,7 +4,7 @@
 {% set lastloop = 0 %}
 
 {% block title %}
-    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_deliveries')}, 'admin') }} - {{ parent() }}
+    {{ '%entity% edit'|trans({'%entity%': 'title'|trans({}, 'gs_invoices')}, 'admin') }} - {{ parent() }}
 {% endblock %}
 
 {% block body_js %}
@@ -12,8 +12,8 @@
 {% endblock %}
 
 {% block body_title %}
-    <i class="fa fa-truck" aria-hidden="true"></i>
-    {{ '%entity% edit'|trans({'%entity%': 'title_short'|trans({}, 'gs_deliveries')}, 'admin') }}
+    <i class="fa fa-calculator" aria-hidden="true"></i>
+    {{ '%entity% edit'|trans({'%entity%': 'title_short'|trans({}, 'gs_invoices')}, 'admin') }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -65,12 +65,12 @@
                             {{ form_widget(item.article, { 'attr':{'class':'hidden'} }) }}
                             {{ item.article.vars.data.name }}
                         </td>
-                        <td>{{ form_widget(item.quantity, { 'attr':{'onChange':'ordersCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}</td>
+                        <td>{{ form_widget(item.quantity) }}</td>
                         <td class="text-center">
                             {{ form_widget(item.unitStorage, { 'attr':{'class':'hidden'} }) }}
                             {{ item.article.vars.data.unitStorage }}
                         </td>
-                        <td>{{ form_widget(item.price) }}</td>
+                        <td>{{ form_widget(item.price, { 'attr':{'onChange':'ordersCalcul('~(loop.index-1)~')', 'tabindex':loop.index} }) }}</td>
                         <td>
                             <div class="input-group">
                                 {{ form_widget(item.tva, { 'attr':{'class':'hidden'} } ) }}
@@ -100,10 +100,10 @@
     <div class="btn-group record_actions">
 
         {% include 'homeButton.html.twig' %}
-        <a class="btn btn-info btn-list" href="{{ path('deliveries') }}">
+        <a class="btn btn-info btn-list" href="{{ path('invoices') }}">
             {{ 'gestock.return_list'|trans }}
         </a>
-        <a class="btn btn-default btn-print" href="{{ path('deliveries_print', {id: edit_form.vars.value.id}) }}">
+        <a class="btn btn-default btn-print" href="{#{ path('invoices_print', {id: edit_form.vars.value.id}) }#}">
             {{ 'gestock.print'|trans }}
         </a>
 
@@ -178,7 +178,7 @@
         
         function selectOnFocus(id)
         {
-            $('#{{ edit_form.articles.vars.id }}_' + id + '_quantity').select();
+            $('#{{ edit_form.articles.vars.id }}_' + id + '_price').select();
         }
     </script>
 {% endblock %}

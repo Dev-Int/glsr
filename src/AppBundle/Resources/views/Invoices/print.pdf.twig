@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ 'title'|trans({}, 'gs_invoices') }} - {{ 'title_page'|trans }}</title>
+        <style type="text/css">
+            * {
+                -webkit-box-sizing: border-box;
+                   -moz-box-sizing: border-box;
+                        box-sizing: border-box;
+            }
+            *:before,
+            *:after {
+                -webkit-box-sizing: border-box;
+                   -moz-box-sizing: border-box;
+                        box-sizing: border-box;
+            }
+            body {
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #333;
+                background-color: #fff;
+            }
+            header:after {
+                clear: both;
+            }
+
+            .container {
+                margin: 20mm 0;
+                min-width: 200mm;
+            }
+            .container > header {
+{#                padding-bottom: 10px;#}
+            }
+            .container > section.row {
+                padding-top: 10px;
+            }
+            .container .col-lg-12 {
+                width: 200mm;
+            }
+
+            div.col-lg-4 {
+                float: left;
+            }
+            .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5 {
+                min-height: 20px;
+                padding-right: 15px;
+                padding-left: 15px;
+            }
+
+            .col-lg-12 {
+                width: 210mm;
+            }
+            .col-lg-8 {
+                width: 66.66666667%;
+            }
+            .col-lg-6 {
+                width: 105mm;
+            }
+            .col-lg-5 {
+                width: 41.66666667%;
+            }
+            .col-lg-4 {
+                width: 33.33333333%;
+            }
+            .col-lg-3 {
+                width: 25%;
+            }
+            .col-lg-2 {
+                width: 16.66666667%;
+            }
+            .col-lg-1 {
+                width: 8.33333333%;
+            }
+            .col-lg-offset-3 {
+                margin-left: 25%;
+            }
+            .col-lg-offset-4 {
+                margin-left: 33.33333333%;
+            }
+            .col-lg-offset-2 {
+                margin-left: 16.66666667%;
+            }
+            .right {
+                text-align: right;
+            }
+            .center {
+                text-align: center;
+            }
+
+            .well {
+                min-height: 15px;
+                padding: 10px 20px;
+                margin-bottom: 20px;
+                background-color: #f5f5f5;
+                border: 1px solid #e3e3e3;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            }
+
+            .table {
+                border-spacing: 0;
+                border-collapse: collapse;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 14px;
+            }
+            .table > tbody > tr > th,
+            .table > tbody > tr > td {
+                padding: 8px;
+                line-height: 1.22448979;
+                vertical-align: top;
+            }
+            .table-bordered th,
+            .table-bordered td {
+                border: 1px solid #ddd !important;
+            }
+            .table-bordered > thead th,
+            .table-bordered > thead td {
+                border-bottom-width: 2px !important;
+            }
+
+            .table-bordered th {
+                line-height: 1.5em;
+            }
+            .page-break{
+                margin-left:100px;
+                display: block;
+                clear: both;
+                page-break-after:auto;
+            }
+            .clearfix:before,
+            .clearfix:after {
+                clear: both;
+                content: " ";
+                display: table;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h2 class="col-lg-8 col-lg-offset-2 well center">
+                    {{ 'print.title'|trans({'%id%': "%06d"|format(orders.id)}, 'gs_invoices') }}
+                </h2>
+                <table class="table table-bordered">
+                    <tr>
+                        <td class="col-lg-6 center">
+                            <p>{{ 'print.supplier'|trans({'%supplier%': orders.supplier}, 'gs_orders') }}</p>
+                            <p>{{ orders.supplier.address }}</p>
+                            <p>{{ orders.supplier.zipcode }} {{ orders.supplier.town }}</p>
+                        </td>
+                        <td class="col-lg-6 center">
+                            <p>{{ 'print.company'|trans({'%company%': company.name}, 'gs_orders') }}</p>
+                            <p>{{ company.address }}</p>
+                            <p>{{ company.zipcode }} {{ company.town }}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="col-lg-4">
+                                {{ 'print.family'|trans({'%family%': orders.supplier.familylog}, 'gs_orders') }}</div>
+                            <div class="col-lg-4">
+                                {{ 'print.delivery'|trans({'%date%': orders.delivdate|date('d M Y')}, 'gs_orders') }}</div>
+                            <div class="col-lg-4 right">{{ 'gestock.amount'|trans }} : {{ orders.amount|localizedcurrency('EUR') }}</div>
+                        </td>
+                    </tr>
+                </table>
+            </header>
+            <section class="row">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="col-lg-1">{{ 'gestock.id'|trans }}</th>
+                            <th class="col-lg-4">{{ 'gestock.name'|trans }}</th>
+                            <th class="col-lg-1">
+                                {{ 'gestock.settings.diverse.unitstorage'|trans }}
+                            </th>
+                            <th class="col-lg-1">
+                                {{ 'settings.quantity'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-lg-2">
+                                {{ 'settings.price'|trans({}, 'gs_articles') }}
+                            </th>
+                            <th class="col-lg-2">
+                                {{ 'seizure.total'|trans({}, 'gs_orders') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                            <tr>
+                                <td class="center">{{ "%06d"|format(article.id) }}</td>
+                                <td>{{ article.article }}</td>
+                                <td class="center">{{ article.unitstorage }}</td>
+                                <td class="right">{{ article.quantity }}</td>
+                                <td class="right">{{ article.price|localizedcurrency('EUR') }}</td>
+                                <td class="right">{{ (article.quantity * article.price)|localizedcurrency('EUR') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div class="page-break"></div>
+    </body>
+</html>
