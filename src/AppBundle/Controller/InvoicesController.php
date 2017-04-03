@@ -82,32 +82,16 @@ class InvoicesController extends AbstractOrdersController
      *
      * @Route("/admin/{id}/update", name="invoices_update", requirements={"id"="\d+"})
      * @Method("PUT")
-     * @Template("AppBundle:Deliveries:edit.html.twig")
+     * @Template("AppBundle:Invoices:edit.html.twig")
      */
     public function updateAction(Orders $orders, Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-
-        $editForm = $this->createForm(InvoicesEditType::class, $orders, array(
-            'action' => $this->generateUrl('invoices_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
-        $editForm->handleRequest($request);
-
-        $return = array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $orders,
+            $request,
+            'invoices',
+            InvoicesEditType::class
         );
-        
-        if ($editForm->isValid()) {
-            $orders->setStatus(3);
-            $etm->persist($orders);
-            $this->updateArticles($orders, $etm);
-            $this->addFlash('info', 'gestock.edit.ok');
-            $etm->flush();
-
-            $return = $this->redirect($this->generateUrl('_home'));
-        }
 
         return $return;
     }
@@ -127,27 +111,5 @@ class InvoicesController extends AbstractOrdersController
         $return = $this->abstractPrintAction($orders, 'Invoices');
         
         return $return;
-    }
-
-    /**
-     * Update Articles.
-     *
-     * @param \AppBundle\Entity\Orders   $orders   Articles de la commande à traiter
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
-     */
-    private function updateArticles(Orders $orders, $etm)
-    {
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
-        foreach ($orders->getArticles() as $line) {
-            foreach ($articles as $art) {
-                if ($art->getId() === $line->getArticle()->getId() && $art->getPrice() !== $line->getPrice()) {
-                    $stockAmount = ($art->getQuantity() - $line->getQuantity()) * $art->getPrice();
-                    $orderAmount = $line->getQuantity() * $line->getPrice();
-                    $newPrice = ($stockAmount + $orderAmount) / $art->getQuantity();
-                    $art->setPrice($newPrice);
-                    $etm->persist($art);
-                }
-            }
-        }
     }
 }

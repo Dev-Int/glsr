@@ -88,28 +88,12 @@ class DeliveriesController extends AbstractOrdersController
      */
     public function updateAction(Orders $orders, Request $request)
     {
-        $etm = $this->getDoctrine()->getManager();
-
-        $editForm = $this->createForm(OrdersEditType::class, $orders, array(
-            'action' => $this->generateUrl('deliveries_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
-        $editForm->handleRequest($request);
-
-        $return = array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
+        $return = $this->abstractUpdateAction(
+            $orders,
+            $request,
+            'deliveries',
+            OrdersEditType::class
         );
-        
-        if ($editForm->isValid()) {
-            $orders->setStatus(2);
-            $etm->persist($orders);
-            $this->updateArticles($orders, $etm);
-            $this->addFlash('info', 'gestock.edit.ok');
-            $etm->flush();
-
-            $return = $this->redirect($this->generateUrl('_home'));
-        }
 
         return $return;
     }
@@ -129,24 +113,5 @@ class DeliveriesController extends AbstractOrdersController
         $return = $this->abstractPrintAction($orders, 'Deliveries');
         
         return $return;
-    }
-
-    /**
-     * Update Articles.
-     *
-     * @param \AppBundle\Entity\Orders   $orders   Articles de la commande à traiter
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm Entity Manager
-     */
-    private function updateArticles(Orders $orders, $etm)
-    {
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
-        foreach ($orders->getArticles() as $line) {
-            foreach ($articles as $art) {
-                if ($art->getId() === $line->getArticle()->getId()) {
-                    $art->setQuantity($line->getQuantity() + $art->getQuantity());
-                    $etm->persist($art);
-                }
-            }
-        }
     }
 }
