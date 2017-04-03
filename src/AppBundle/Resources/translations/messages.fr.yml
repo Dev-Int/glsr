@@ -24,6 +24,7 @@ menu:
     configuration: Configuration
     groups: Groupes
     management: Gestion
+    stockmanagement: Gestion des stocks
     other_login: "Se connecter sous un autre profil"
     users: Utilisateurs
 
