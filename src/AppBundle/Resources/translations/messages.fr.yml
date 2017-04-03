@@ -23,9 +23,11 @@ menu:
     administration: Administration
     configuration: Configuration
     groups: Groupes
-    management: Gestion
-    stockmanagement: Gestion des stocks
+    order: Commandes
     other_login: "Se connecter sous un autre profil"
+    staf: Personnel
+    stock: "Inventaires/Stocks"
+    stockmanagement: Gestion des stocks
     users: Utilisateurs
 
 gestock:

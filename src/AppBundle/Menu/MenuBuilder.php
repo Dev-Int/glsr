@@ -26,142 +26,119 @@ use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 class MenuBuilder implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
-    public function buildMainMenu(FactoryInterface $factory)
+    public function buildOrderMenu(FactoryInterface $factory)
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
-        
-        $menu->addChild('manage', array('label' => 'menu.management'))
+
+        $menu->addChild('order', array('label' => 'menu.order'))
             ->setExtra('translation_domain', 'messages')
             ->setAttribute('dropdown', true)
-            ->setAttribute('icon', 'fa fa-dashboard');
-        
-        $menu['manage']->addChild('suppliers', array(
-            'label' => 'title',
-            'route' => 'supplier'
-        ))
-            ->setExtra('translation_domain', 'gs_suppliers')
-            ->setAttribute('icon', 'fa fa-barcode');
- 
-        $menu['manage']->addChild('article', array(
-            'label' => 'title',
-            'route' => 'article'
-        ))
-            ->setExtra('translation_domain', 'gs_articles')
-            ->setAttribute('icon', 'fa fa-shopping-basket');
- 
-        $menu['manage']->addChild('inventory', array(
-            'label' => 'title_short',
-            'route' => 'inventory'
-        ))
-            ->setExtra('translation_domain', 'gs_inventories')
-            ->setAttribute('icon', 'fa fa-tasks');
- 
-        $menu['manage']->addChild('orders', array(
-            'label' => 'title_short',
-            'route' => 'orders'
-        ))
+            ->setAttribute('icon', 'fa fa-shopping-cart');
+
+        $menu['order']->addChild('orders', ['label' => 'title_short', 'route' => 'orders', ])
             ->setExtra('translation_domain', 'gs_orders')
             ->setAttribute('icon', 'fa fa-shopping-cart');
- 
-        $menu['manage']->addChild('deliveries', array(
-            'label' => 'title_short',
-            'route' => 'deliveries'
-        ))
+
+        $menu['order']->addChild('deliveries', ['label' => 'title_short', 'route' => 'deliveries', ])
             ->setExtra('translation_domain', 'gs_deliveries')
             ->setAttribute('icon', 'fa fa-truck');
- 
-        $menu['manage']->addChild('invoices', array(
-            'label' => 'title_short',
-            'route' => 'invoices'
-        ))
+
+        $menu['order']->addChild('invoices', ['label' => 'title_short', 'route' => 'invoices', ])
             ->setExtra('translation_domain', 'gs_invoices')
             ->setAttribute('icon', 'fa fa-calculator');
 
         return $menu;
     }
- 
+
+    public function buildStockMenu(FactoryInterface $factory)
+    {
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav navbar-nav');
+
+        $menu->addChild('stock', array('label' => 'menu.stock'))
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('dropdown', true)
+            ->setAttribute('icon', 'fa fa-dashboard');
+
+        $menu['stock']->addChild('inventory', ['label' => 'title_short', 'route' => 'inventory', ])
+            ->setExtra('translation_domain', 'gs_inventories')
+            ->setAttribute('icon', 'fa fa-tasks');
+
+        $menu['stock']->addChild('articles', ['label' => 'menu.articles', 'route' => 'article', ])
+            ->setExtra('translation_domain', 'gs_articles')
+            ->setAttribute('icon', 'fa fa-list');
+
+        return $menu;
+    }
+
+    public function buildConfigMenu(FactoryInterface $factory)
+    {
+        $menu = $factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav navbar-nav');
+
+        $menu->addChild('config', array('label' => 'menu.configuration'))
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('dropdown', true)
+            ->setAttribute('icon', 'fa fa-cog');
+
+        $menu['config']->addChild('suppliers', ['label' => 'title', 'route' => 'supplier', ])
+            ->setExtra('translation_domain', 'gs_suppliers')
+            ->setAttribute('icon', 'fa fa-barcode');
+
+        $menu['config']->addChild('article', ['label' => 'title', 'route' => 'article', ])
+            ->setExtra('translation_domain', 'gs_articles')
+            ->setAttribute('icon', 'fa fa-shopping-basket');
+
+        $menu['config']->addChild('company', ['route' => 'company', 'label' => 'gestock.settings.company.title', ])
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('icon', 'glyphicon glyphicon-tower');
+
+        $menu['config']->addChild('applcation', ['route' => 'application', 'label' => 'gestock.settings.settings.title', ])
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('icon', 'glyphicon glyphicon-wrench');
+
+        $divers = $menu['config']->addChild('divers', ['label' => 'gestock.settings.diverse.title', ])
+            ->setExtra('translation_domain', 'messages')
+            ->setAttribute('dropdown', true)
+            ->setAttribute('class', 'dropdown-submenu')
+            ->setAttribute('icon', 'glyphicon glyphicon-info-sign');
+
+        $divers->addChild('familylog', ['route' => 'familylog', 'label' => 'gestock.settings.diverse.familylog', ])
+            ->setAttribute('icon', 'glyphicon glyphicon-tag');
+
+        $divers->addChild('zonestorage', ['route' => 'zonestorage', 'label' => 'gestock.settings.diverse.zonestorage', ])
+            ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
+
+        $divers->addChild('unitstorage', ['route' => 'unitstorage', 'label' => 'gestock.settings.diverse.unitstorage', ])
+            ->setAttribute('icon', 'fa fa-cubes');
+
+        $divers->addChild('tva', ['route' => 'tva', 'label' => 'gestock.settings.diverse.vat', ])
+            ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
+
+        return $menu;
+    }
+
     public function buildUserMenu(FactoryInterface $factory)
     {
         $menu = $factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav navbar-nav navbar-right');
- 
+
         $context = $this->container->get('security.authorization_checker');
         if ($context->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             /*
              *  Menu Administration
              */
-            $menu->addChild('entities', array('label' => 'menu.configuration'))
+            $menu->addChild('entities', ['label' => 'menu.staf'])
                 ->setExtra('translation_domain', 'messages')
                 ->setAttribute('dropdown', true)
                 ->setAttribute('class', 'multi-level')
                 ->setAttribute('icon', 'glyphicon glyphicon-cog');
 
-            $menu['entities']
-                ->addChild('company', array(
-                    'route' => 'company',
-                    'label' => 'gestock.settings.company.title'
-                ))
-                ->setExtra('translation_domain', 'messages')
-                ->setAttribute('icon', 'glyphicon glyphicon-tower');
-
-            $menu['entities']
-                ->addChild('applcation', array(
-                    'route' => 'application',
-                    'label' => 'gestock.settings.settings.title'
-                ))
-                ->setExtra('translation_domain', 'messages')
-                ->setAttribute('icon', 'glyphicon glyphicon-wrench');
-
-            $divers = $menu['entities']
-                ->addChild('divers', array('label' => 'gestock.settings.diverse.title'))
-                ->setExtra('translation_domain', 'messages')
-                ->setAttribute('dropdown', true)
-                ->setAttribute('class', 'dropdown-submenu')
-                ->setAttribute('icon', 'glyphicon glyphicon-info-sign');
-            
-            $divers
-                ->addChild('familylog', array(
-                    'route' => 'familylog',
-                    'label' => 'gestock.settings.diverse.familylog'
-                ))
-                ->setAttribute('icon', 'glyphicon glyphicon-tag');
-
-            $divers
-                ->addChild('zonestorage', array(
-                    'route' => 'zonestorage',
-                    'label' => 'gestock.settings.diverse.zonestorage'
-                ))
-                ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
-
-            $divers
-                ->addChild('unitstorage', array(
-                    'route' => 'unitstorage',
-                    'label' => 'gestock.settings.diverse.unitstorage'
-                ))
-                ->setAttribute('icon', 'fa fa-cubes');
-
-            $divers
-                ->addChild('tva', array(
-                    'route' => 'tva',
-                    'label' => 'gestock.settings.diverse.vat'
-                ))
-                ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
-
-            $menu['entities']
-                ->addChild('divider')
-                ->setAttribute('class', 'divider');
-
-            $menu['entities']
-                ->addChild('users', array(
-                    'route' => 'user',
-                    'label' => 'menu.users'))
+            $menu['entities']->addChild('users', ['route' => 'user', 'label' => 'menu.users', ])
                 ->setAttribute('icon', 'glyphicon glyphicon-user');
 
-            $menu['entities']
-                ->addChild('groups', array(
-                    'route' => 'group',
-                    'label' => 'menu.groups'))
+            $menu['entities']->addChild('groups', ['route' => 'group', 'label' => 'menu.groups', ])
                 ->setAttribute('icon', 'fa fa-users');
         }
         /*
@@ -174,18 +151,16 @@ class MenuBuilder implements ContainerAwareInterface
                 ->setAttribute('dropdown', true)
                 ->setAttribute('icon', 'fa fa-user');
             
-            $menu['profile']->addChild('layout.logout', array('route' => 'fos_user_security_logout'))
+            $menu['profile']->addChild('layout.logout', ['route' => 'fos_user_security_logout', ])
                 ->setExtra('translation_domain', 'FOSUserBundle')
                 ->setAttribute('icon', 'fa fa-unlink');
         } else {
-            $menu->addChild('profile', array(
-                        'label' => 'menu.administration'
-                ))
+            $menu->addChild('profile', ['label' => 'menu.administration', ])
                 ->setExtra('translation_domain', 'messages')
                 ->setAttribute('dropdown', true)
                 ->setAttribute('icon', 'fa fa-user');
         }
-        $menu['profile']->addChild('menu.other_login', array('route' => 'fos_user_security_login'))
+        $menu['profile']->addChild('menu.other_login', ['route' => 'fos_user_security_login', ])
             ->setAttribute('icon', 'fa fa-link');
  
         return $menu;
