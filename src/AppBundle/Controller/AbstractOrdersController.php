@@ -89,10 +89,10 @@ class AbstractOrdersController extends AbstractController
         $return = [$entityName => $entity, 'edit_form'   => $editForm->createView(), ];
 
         if ($editForm->isValid()) {
-            if ($entityName === 'deliveries'){
+            if ($entityName === 'deliveries') {
                 $entity->setStatus(2);
                 $this->updateDeliveryArticles($entity, $etm);
-            } 
+            }
             if ($entityName === 'invoices') {
                 $entity->setStatus(3);
                 $this->updateInvoiceArticles($entity, $etm);
