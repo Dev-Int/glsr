@@ -94,7 +94,8 @@ class MenuBuilder implements ContainerAwareInterface
             ->setExtra('translation_domain', 'messages')
             ->setAttribute('icon', 'glyphicon glyphicon-tower');
 
-        $menu['config']->addChild('applcation', ['route' => 'application', 'label' => 'gestock.settings.settings.title', ])
+        $menu['config']
+            ->addChild('applcation', ['route' => 'application', 'label' => 'gestock.settings.settings.title', ])
             ->setExtra('translation_domain', 'messages')
             ->setAttribute('icon', 'glyphicon glyphicon-wrench');
 
@@ -107,10 +108,12 @@ class MenuBuilder implements ContainerAwareInterface
         $divers->addChild('familylog', ['route' => 'familylog', 'label' => 'gestock.settings.diverse.familylog', ])
             ->setAttribute('icon', 'glyphicon glyphicon-tag');
 
-        $divers->addChild('zonestorage', ['route' => 'zonestorage', 'label' => 'gestock.settings.diverse.zonestorage', ])
+        $divers
+            ->addChild('zonestorage', ['route' => 'zonestorage', 'label' => 'gestock.settings.diverse.zonestorage', ])
             ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
 
-        $divers->addChild('unitstorage', ['route' => 'unitstorage', 'label' => 'gestock.settings.diverse.unitstorage', ])
+        $divers
+            ->addChild('unitstorage', ['route' => 'unitstorage', 'label' => 'gestock.settings.diverse.unitstorage', ])
             ->setAttribute('icon', 'fa fa-cubes');
 
         $divers->addChild('tva', ['route' => 'tva', 'label' => 'gestock.settings.diverse.vat', ])
