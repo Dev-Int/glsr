@@ -45,6 +45,22 @@ class OrdersRepository extends EntityRepository
     }
 
     /**
+     * Renvoi les dernières commandes.
+     *
+     * @param integer $count Nombre d'élément à afficher
+     * @return array Query result
+     */
+    public function getLastInvoice($count)
+    {
+        $query = $this->findInvoices()
+            ->setMaxResults($count)
+            ->andWhere('o.status = 2')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
+    /**
      * Find Orders before delivering.
      *
      * @return \Doctrine\ORM\QueryBuilder
