@@ -104,13 +104,7 @@ class UserController extends AbstractController
         $return = ['user' => $user, 'form'   => $form->createView(),];
 
         if ($form->isValid()) {
-            $user = $this->getRoles($user);
-            $user->setEnabled(true);
-            $userManager = $this->get('fos_user.user_manager');
-            $userManager->updateUser($user);
-            $this->addFlash('info', 'gestock.create.ok');
-
-            $return = $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+            $return = $this->validUser($user, 'create');
         }
 
         return $return;
@@ -170,12 +164,7 @@ class UserController extends AbstractController
             'delete_form' => $deleteForm->createView(),];
 
         if ($editForm->isValid()) {
-            $user = $this->getRoles($user);
-            $userManager = $this->get('fos_user.user_manager');
-            $userManager->updateUser($user);
-            $this->addFlash('info', 'gestock.edit.ok');
-
-            $return = $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            $return = $this->validUser($user, 'edit');
         }
 
         return $return;
@@ -216,6 +205,12 @@ class UserController extends AbstractController
         return $this->redirectToRoute('user');
     }
 
+    /**
+     * Get user roles.
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return \AppBundle\Entity\User
+     */
     private function getRoles(User $user)
     {
         $roles = '';
@@ -228,5 +223,32 @@ class UserController extends AbstractController
         $user->setRoles($roles);
         
         return $user;
+    }
+
+    /**
+     * Valid the user.
+     *
+     * @param \AppBundle\Entity\User $user
+     * @param string                 $action
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    private function validUser(User $user, $action)
+    {
+        $user = $this->getRoles($user);
+        if ($action === 'create') {
+            $user->setEnabled(true);
+        }
+        $userManager = $this->get('fos_user.user_manager');
+        $userManager->updateUser($user);
+        $this->addFlash('info', 'gestock.' . $action . '.ok');
+
+        if ($action === 'create') {
+            $return = $this->redirectToRoute('user_show', ['id' => $user->getId()]);
+        }
+        if ($action === 'edit') {
+            $return = $this->redirectToRoute('user_edit', ['id' => $user->getId()]);
+        }
+
+        return $return;
     }
 }
