@@ -20,6 +20,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 use AppBundle\Controller\AbstractInventoryController;
 use AppBundle\Entity\Inventory;
 use AppBundle\Entity\InventoryArticles;
@@ -112,19 +114,8 @@ class InventoryController extends AbstractInventoryController
                 $etm->persist($settings);
             }
             // Saving of articles in the inventory
-            foreach ($articles as $article) {
-                foreach ($article->getZoneStorages()->getSnapshot() as $zoneStorage) {
-                    $inventoryArticles = new InventoryArticles();
-                    $inventoryArticles->setArticle($article);
-                    $inventoryArticles->setInventory($inventory);
-                    $inventoryArticles->setQuantity($article->getQuantity());
-                    $inventoryArticles->setRealstock(0);
-                    $inventoryArticles->setUnitStorage($article->getUnitStorage());
-                    $inventoryArticles->setPrice($article->getPrice());
-                    $inventoryArticles->setZoneStorage($zoneStorage->getName());
-                    $etm->persist($inventoryArticles);
-                }
-            }
+            $this->saveInventoryArticles($articles, $inventory, $etm);
+
             $etm->flush();
 
             return $this->redirectToRoute(
@@ -234,16 +225,7 @@ class InventoryController extends AbstractInventoryController
         if ($validForm->handleRequest($request)->isValid()) {
             $inventory->setStatus(3);
             $etm->persist($inventory);
-            $articleLine = array();
-            $articleLine = $this->getLineArticles($articleLine, $inventory);
-            foreach ($articles as $article) {
-                foreach ($articleLine as $line) {
-                    if ($article->getName() === $line['article']) {
-                        $article->setQuantity($line['realstock']);
-                        $etm->persist($article);
-                    }
-                }
-            }
+            $this->updateArticles($articles, $etm, $inventory);
             $etm->flush();
 
             $return = $this->redirectToRoute('inventory');
@@ -334,7 +316,7 @@ class InventoryController extends AbstractInventoryController
     private function getHtml(Inventory $inventory, $inventoryStyle)
     {
         $etm = $this->getDoctrine()->getManager();
-        $articles = $etm->getRepository('AppBundle:Article')->getArticles()->getQuery()->getResult();
+        $articles = $etm->getRepository('AppBundle:Article')->getResultArticles();
         $zoneStorages = $etm->getRepository('AppBundle:Zonestorage')->findAll();
         
         if ($inventoryStyle == 'global') {
@@ -349,5 +331,33 @@ class InventoryController extends AbstractInventoryController
             );
         }
         return $html;
+    }
+
+    /**
+     * Save the articles of inventory.
+     *
+     * @param array $articles
+     * @param \AppBundle\Entity\Inventory $inventory
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm
+     */
+    private function saveInventoryArticles(array $articles, Inventory $inventory, ObjectManager $etm)
+    {
+        foreach ($articles as $article) {
+            foreach ($article->getZoneStorages()->getSnapshot() as $zoneStorage) {
+                $inventoryArticles = new InventoryArticles();
+                $inventoryArticles->setArticle($article);
+                $inventoryArticles->setInventory($inventory);
+                $inventoryArticles->setQuantity($article->getQuantity());
+                $inventoryArticles->setRealstock(0);
+                $inventoryArticles->setUnitStorage($article->getUnitStorage());
+                $inventoryArticles->setPrice($article->getPrice());
+                $inventoryArticles->setZoneStorage($zoneStorage->getName());
+                $etm->persist($inventoryArticles);
+            }
+        }
+    }
+
+    private function closeInventoryArticles($param) {
+        
     }
 }

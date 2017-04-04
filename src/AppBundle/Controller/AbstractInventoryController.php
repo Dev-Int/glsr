@@ -20,6 +20,8 @@ use AppBundle\Form\Type\InventoryType;
 use AppBundle\Form\Type\InventoryEditType;
 use AppBundle\Form\Type\InventoryEditZonesType;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 /**
  * Abstract controller.
  *
@@ -77,11 +79,11 @@ class AbstractInventoryController extends AbstractController
     }
     
     /**
-     * Get Line Articles
+     * Update Articles
      *
-     * @param array $articleLine
-     * @param Inventory $inventory
-     * @return array $articleLine
+     * @param array $articleLine tableau
+     * @param Inventory $inventory Inventaire traité
+     * @param array $articles Articles actifs
      */
     protected function getLineArticles(array $articleLine, Inventory $inventory)
     {
@@ -103,5 +105,20 @@ class AbstractInventoryController extends AbstractController
             $lineOk = 0;
         }
         return $articleLine;
+    }
+
+    public function updateArticles(array $articles, ObjectManager $etm, Inventory $inventory)
+    {
+        $articleLine = array();
+        $articleLine = $this->getLineArticles($articleLine, $inventory);
+        
+        foreach ($articles as $article) {
+            foreach ($articleLine as $line) {
+                if ($article->getName() === $line['article']) {
+                    $article->setQuantity($line['realstock']);
+                    $etm->persist($article);
+                }
+            }
+        }        
     }
 }
