@@ -30,10 +30,10 @@
                     </a>
                 </div><!-- /.navbar-header -->
                 <div id="navbar" class="navbar-collapse collapse">
-                    {{ knp_menu_render('AppBundle:MenuBuilder:buildOrderMenu', {'currentClass': 'active', 'template': 'Menu/knp_menu.html.twig'}) }}
-                    {{ knp_menu_render('AppBundle:MenuBuilder:buildStockMenu', {'currentClass': 'active', 'template': 'Menu/knp_menu.html.twig'}) }}
-                    {{ knp_menu_render('AppBundle:MenuBuilder:buildConfigMenu', {'currentClass': 'active', 'template': 'Menu/knp_menu.html.twig'}) }}
-                    {{ knp_menu_render('AppBundle:MenuBuilder:buildUserMenu', {'currentClass': 'active', 'template': 'Menu/knp_menu.html.twig'}) }}
+                    {{ knp_menu_render('AppBundle:MenuBuilder:buildOrderMenu', {'currentClass': 'active'}) }}
+                    {{ knp_menu_render('AppBundle:MenuBuilder:buildStockMenu', {'currentClass': 'active'}) }}
+                    {{ knp_menu_render('AppBundle:MenuBuilder:buildConfigMenu', {'currentClass': 'active'}) }}
+                    {{ knp_menu_render('AppBundle:MenuBuilder:buildUserMenu', {'currentClass': 'active'}) }}
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->
         </nav>

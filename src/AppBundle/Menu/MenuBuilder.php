@@ -82,14 +82,6 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute('dropdown', true)
             ->setAttribute('icon', 'fa fa-cog');
 
-        $menu['config']->addChild('suppliers', ['label' => 'title', 'route' => 'supplier', ])
-            ->setExtra('translation_domain', 'gs_suppliers')
-            ->setAttribute('icon', 'fa fa-barcode');
-
-        $menu['config']->addChild('article', ['label' => 'title', 'route' => 'article', ])
-            ->setExtra('translation_domain', 'gs_articles')
-            ->setAttribute('icon', 'fa fa-shopping-basket');
-
         $menu['config']->addChild('company', ['route' => 'company', 'label' => 'gestock.settings.company.title', ])
             ->setExtra('translation_domain', 'messages')
             ->setAttribute('icon', 'glyphicon glyphicon-tower');
@@ -97,7 +89,16 @@ class MenuBuilder implements ContainerAwareInterface
         $menu['config']
             ->addChild('applcation', ['route' => 'application', 'label' => 'gestock.settings.settings.title', ])
             ->setExtra('translation_domain', 'messages')
-            ->setAttribute('icon', 'glyphicon glyphicon-wrench');
+            ->setAttribute('icon', 'glyphicon glyphicon-wrench')
+            ->setAttribute('divider_append', true);
+
+        $menu['config']->addChild('suppliers', ['label' => 'title', 'route' => 'supplier', ])
+            ->setExtra('translation_domain', 'gs_suppliers')
+            ->setAttribute('icon', 'fa fa-barcode');
+
+        $menu['config']->addChild('article', ['label' => 'title', 'route' => 'article', ])
+            ->setExtra('translation_domain', 'gs_articles')
+            ->setAttribute('icon', 'fa fa-shopping-basket');
 
         $divers = $menu['config']->addChild('divers', ['label' => 'gestock.settings.diverse.title', ])
             ->setExtra('translation_domain', 'messages')
