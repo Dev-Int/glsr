@@ -107,7 +107,7 @@ class AbstractInventoryController extends AbstractController
         return $articleLine;
     }
 
-    public function updateArticles(array $articles, ObjectManager $etm, Inventory $inventory)
+    protected function updateArticles(array $articles, ObjectManager $etm, Inventory $inventory)
     {
         $articleLine = array();
         $articleLine = $this->getLineArticles($articleLine, $inventory);
@@ -119,6 +119,6 @@ class AbstractInventoryController extends AbstractController
                     $etm->persist($article);
                 }
             }
-        }        
+        }
     }
 }
