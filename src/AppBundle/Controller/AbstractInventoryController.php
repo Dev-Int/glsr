@@ -79,11 +79,11 @@ class AbstractInventoryController extends AbstractController
     }
     
     /**
-     * Update Articles
+     * Get LineArticles.
      *
      * @param array $articleLine tableau
      * @param Inventory $inventory Inventaire traité
-     * @param array $articles Articles actifs
+     * @return array
      */
     protected function getLineArticles(array $articleLine, Inventory $inventory)
     {
