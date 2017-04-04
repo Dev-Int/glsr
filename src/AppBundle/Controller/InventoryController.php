@@ -356,8 +356,4 @@ class InventoryController extends AbstractInventoryController
             }
         }
     }
-
-    private function closeInventoryArticles($param) {
-        
-    }
 }
