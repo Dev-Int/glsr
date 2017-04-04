@@ -234,6 +234,7 @@ class UserController extends AbstractController
      */
     private function validUser(User $user, $action)
     {
+        $return = '';
         $user = $this->getRoles($user);
         if ($action === 'create') {
             $user->setEnabled(true);
