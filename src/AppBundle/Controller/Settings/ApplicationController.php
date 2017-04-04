@@ -8,7 +8,7 @@
  * @copyright 2014 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version   since 1.0.0
+ * @version GIT: <git_id>
  *
  * @link      https://github.com/Dev-Int/glsr
  */
@@ -25,7 +25,7 @@ use AppBundle\Form\Type\SettingsType;
 /**
  * Application controller.
  *
- * @category   Controller
+ * @category Controller
  *
  * @Route("/admin/settings/application")
  */

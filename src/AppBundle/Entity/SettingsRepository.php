@@ -5,13 +5,13 @@
  *
  * PHP Version 5
  *
- * @author     Quétier Laurent <lq@dev-int.net>
- * @copyright  2014 Dev-Int GLSR
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @author    Quétier Laurent <lq@dev-int.net>
+ * @copyright 2014 Dev-Int GLSR
+ * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    since 1.0.0
+ * @version GIT: <git_id>
  *
- * @link       https://github.com/Dev-Int/glsr
+ * @link https://github.com/Dev-Int/glsr
  */
 namespace AppBundle\Entity;
 
@@ -20,7 +20,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * SettingsRepository Entité Settings.
  *
- * @category   Entity
+ * @category Entity
  */
 class SettingsRepository extends EntityRepository
 {

@@ -4,13 +4,13 @@
  *
  * PHP Version 5
  *
- * @author     Quétier Laurent <lq@dev-int.net>
- * @copyright  2014 Dev-Int GLSR
- * @license    http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @author    Quétier Laurent <lq@dev-int.net>
+ * @copyright 2014 Dev-Int GLSR
+ * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version    since 1.0.0
+ * @version GIT: <git_id>
  *
- * @link       https://github.com/Dev-Int/glsr
+ * @link https://github.com/Dev-Int/glsr
  */
 namespace AppBundle\Form\Type;
 
@@ -27,7 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 /**
  * OrdersEditType Form properties.
  *
- * @category   Form
+ * @category Form
  */
 class OrdersEditType extends OrdersType
 {
