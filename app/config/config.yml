@@ -125,6 +125,9 @@ fos_user:
             #type: AppBundle\Form\RegistrationType
             # if you are using Symfony < 2.8 you should use the type name instead
             type:    app_user_registration
+    from_email:
+        address: "noreply@yourcompany.com"
+        sender_name: "No Reply"
             
 # Knplabs\KnpSnappyBundle
 knp_snappy:
