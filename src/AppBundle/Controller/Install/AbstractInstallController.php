@@ -54,7 +54,7 @@ abstract class AbstractInstallController extends Controller
         }
 
         if ($form->handleRequest($request)->isValid()) {
-            $return = $this->validInstall($form, $etm, $number);
+            $return = $this->validInstall($entityNew, $form, $etm, $number);
 
             $this->addFlash('info', 'gestock.install.st'.$number.'.flash');
         }
