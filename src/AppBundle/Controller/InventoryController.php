@@ -246,7 +246,7 @@ class InventoryController extends AbstractInventoryController
      */
     public function deleteAction(Inventory $inventory, Request $request)
     {
-        $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'inventory');
+        $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'Inventory', 'inventory');
         
         return $return;
     }
