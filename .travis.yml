@@ -70,5 +70,5 @@ branches:
   only:
     - master
     - Developp
-    - Order
+    - Recipes
     - /^(?i:issue)-.*$/
