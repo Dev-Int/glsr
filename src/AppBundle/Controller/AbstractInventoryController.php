@@ -54,9 +54,7 @@ class AbstractInventoryController extends AbstractController
         );
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
 
-        $return = ['editForm' => $editForm,
-            'inventory' => $inventory,
-            'zoneStorages' => $zoneStorages,
+        $return = ['editForm' => $editForm, 'inventory' => $inventory, 'zoneStorages' => $zoneStorages,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),];
         return $return;
