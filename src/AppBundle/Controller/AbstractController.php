@@ -32,10 +32,11 @@ abstract class AbstractController extends Controller
      * Lists all items entity.
      *
      * @param string $entityName Name of Entity
+     * @param string $prefixRoute  prefix_route
      * @param \Symfony\Component\HttpFoundation\Request $request Sort request
      * @return array
      */
-    public function abstractIndexAction($entityName, Request $request = null)
+    public function abstractIndexAction($entityName, $prefixRoute, Request $request = null)
     {
         $etm = $this->getDoctrine()->getManager();
         $paginator = '';
@@ -43,7 +44,7 @@ abstract class AbstractController extends Controller
         
         if ($request !== null && is_array($entities) === false && $entities !== null) {
             $item = $this->container->getParameter('knp_paginator.page_range');
-            $this->addQueryBuilderSort($entities, strtolower($entityName));
+            $this->addQueryBuilderSort($entities, $prefixRoute);
             $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
         }
 
@@ -53,16 +54,16 @@ abstract class AbstractController extends Controller
     /**
      * Finds and displays an item entity.
      *
-     * @param Object $entity     Entity
-     * @param string $entityName Name of Entity
+     * @param Object $entity      Entity
+     * @param string $prefixRoute prefix_route
      * @return array
      */
-    public function abstractShowAction($entity, $entityName)
+    public function abstractShowAction($entity, $prefixRoute)
     {
-        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+        $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
         return array(
-            $entityName => $entity,
+            $prefixRoute => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -70,30 +71,30 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
-     * @param string      $entity     Entity
-     * @param string      $entityPath Path of Entity
-     * @param string      $typePath   Path of FormType
+     * @param string $entityName Name of Entity
+     * @param string $entityPath Path of Entity
+     * @param string $typePath   Path of FormType
      * @return array
      */
-    public function abstractNewAction($entity, $entityPath, $typePath)
+    public function abstractNewAction($entityName, $entityPath, $typePath)
     {
         $etm = $this->getDoctrine()->getManager();
-        $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
+        $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         
-        if ($entity === 'Company' || $entity === 'Settings' && $ctEntity >= 1) {
+        if ($entityName === 'Company' || $entityName === 'Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
-            $this->addFlash('danger', 'gestock.settings.'.strtolower($entity).'.add2');
+            $this->addFlash('danger', 'gestock.settings.'.strtolower($entityName).'.add2');
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl(strtolower($entity).'_create'),
+            'action' => $this->generateUrl(strtolower($entityName).'_create'),
         ));
 
-        if ($entity === 'Group') {
+        if ($entityName === 'Group') {
             $this->addRolesAction($form, $entityNew);
         }
-        $return = array(strtolower($entity) => $entityNew, 'form'   => $form->createView(),);
+        $return = array(strtolower($entityName) => $entityNew, 'form'   => $form->createView(),);
 
         return $return;
     }
@@ -102,32 +103,33 @@ abstract class AbstractController extends Controller
      * Creates a new item entity.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
-     * @param string $entity     Entity <i>First letter Upper</i>
-     * @param string $entityPath Path of Entity
-     * @param string $typePath   Path of FormType
+     * @param string $entityName  Entity name <i>First letter Upper</i>
+     * @param string $entityPath  Path of Entity
+     * @param string $typePath    Path of FormType
+     * @param string $prefixRoute Prefix of route
      * @return array
      */
-    public function abstractCreateAction(Request $request, $entity, $entityPath, $typePath)
+    public function abstractCreateAction(Request $request, $entityName, $entityPath, $typePath, $prefixRoute)
     {
         $param = array();
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl(strtolower($entity).'_create'),
+            'action' => $this->generateUrl($prefixRoute.'_create'),
         ));
-        if ($entity === 'Group') {
+        if ($entityName === 'Group') {
             $this->addRolesAction($form, $entityNew);
         }
         $form->handleRequest($request);
-        $return = [$entity => $entityNew, 'form' => $form->createView(),];
+        $return = [$entityName => $entityNew, 'form' => $form->createView(),];
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->persist($entityNew);
             $etm->flush();
 
-            $param = $this->get('app.helper.controller')->testReturnParam($entityNew, strtolower($entity));
-            $route = $form->get('addmore')->isClicked() ? strtolower($entity).'_new' : strtolower($entity).'_show';
+            $param = $this->testReturnParam($entityNew, $prefixRoute);
+            $route = $form->get('addmore')->isClicked() ? $prefixRoute.'_new' : $prefixRoute.'_show';
 
             $return = $this->redirectToRoute($route, $param);
         }
@@ -138,25 +140,25 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to edit an existing item entity.
      *
-     * @param Object $entity     Entity
-     * @param string $entityName Name of Entity
-     * @param string $typePath   Path of FormType
+     * @param Object $entity      Entity
+     * @param string $prefixRoute Prefix of Route
+     * @param string $typePath    Path of FormType
      * @return array
      */
-    public function abstractEditAction($entity, $entityName, $typePath)
+    public function abstractEditAction($entity, $prefixRoute, $typePath)
     {
-        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', $param),
+            'action' => $this->generateUrl($prefixRoute.'_update', $param),
             'method' => 'PUT',
         ));
-        if ($entityName === 'group') {
+        if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
         }
-        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+        $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
         return array(
-            $entityName => $entity,
+            $prefixRoute => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
@@ -165,27 +167,27 @@ abstract class AbstractController extends Controller
     /**
      * Edits an existing item entity.
      *
-     * @param Object $entity     Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
-     * @param string $entityName Name of Entity
-     * @param string $typePath   Path of FormType
+     * @param Object $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request Request in progress
+     * @param string $prefixRoute Prefix of Route
+     * @param string $typePath    Path of FormType
      * @return array
      */
-    public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
+    public function abstractUpdateAction($entity, Request $request, $prefixRoute, $typePath)
     {
-        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', $param),
+            'action' => $this->generateUrl($prefixRoute.'_update', $param),
             'method' => 'PUT',
         ));
-        if ($entityName === 'group') {
+        if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
         }
         $editForm->handleRequest($request);
-        $deleteForm = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+        $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
         $return = array(
-            $entityName => $entity,
+            $prefixRoute => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),);
 
@@ -193,7 +195,7 @@ abstract class AbstractController extends Controller
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('info', 'gestock.edit.ok');
 
-            $return = $this->redirectToRoute($entityName.'_edit', $param);
+            $return = $this->redirectToRoute($prefixRoute.'_edit', $param);
         }
 
         return $return;
@@ -202,14 +204,14 @@ abstract class AbstractController extends Controller
     /**
      * Deletes an item entity.
      *
-     * @param Object $entity     Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
-     * @param string $entityName Name of Entity
+     * @param Object $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request Request in progress
+     * @param string $prefixRoute Prefix of Route
      * @return array
      */
-    public function abstractDeleteAction($entity, Request $request, $entityName)
+    public function abstractDeleteAction($entity, Request $request, $prefixRoute)
     {
-        $form = $this->createDeleteForm($entity->getId(), $entityName.'_delete');
+        $form = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
         if ($form->handleRequest($request)->isValid()) {
             $etm = $this->getDoctrine()->getManager();
             $etm->remove($entity);
@@ -223,15 +225,16 @@ abstract class AbstractController extends Controller
      * @param Object $entity     Entity
      * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
      * @param string $entityName Name of Entity
+     * @param string $prefixRoute Prefix of Route
      * @return array
      */
-    public function abstractDeleteWithArticlesAction($entity, Request $request, $entityName)
+    public function abstractDeleteWithArticlesAction($entity, Request $request, $entityName, $prefixRoute)
     {
         $etm = $this->getDoctrine()->getManager();
-        $form = $this->createDeleteForm($entity->getId(), $entityName . '_delete');
+        $form = $this->createDeleteForm($entity->getId(), $prefixRoute . '_delete');
         $entityArticles = $etm
-            ->getRepository('AppBundle:' .  ucfirst($entityName) . 'Articles')
-            ->findBy([$entityName => $entity->getId()]);
+            ->getRepository('AppBundle:' .  $entityName . 'Articles')
+            ->findBy([$prefixRoute => $entity->getId()]);
 
         if ($form->handleRequest($request)->isValid()) {
             foreach ($entityArticles as $article) {
@@ -241,7 +244,7 @@ abstract class AbstractController extends Controller
             $etm->flush();
         }
 
-        return $this->redirect($this->generateUrl($entityName));
+        return $this->redirect($this->generateUrl($prefixRoute));
     }
 
     /**
@@ -284,6 +287,25 @@ abstract class AbstractController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Test paramters to return.
+     *
+     * @param object $entity     Entity to return
+     * @param string $entityName Entity name to test
+     * @return array Parameters to return
+     */
+    private function testReturnParam($entity, $entityName)
+    {
+        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', ];
+        if (in_array($entityName, $entityArray, true)) {
+            $param = ['slug' => $entity->getSlug()];
+        } else {
+            $param = ['id' => $entity->getId()];
+        }
+
+        return $param;
     }
 
     /**
@@ -336,6 +358,7 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
+            case 'Config/Material':
             case 'Article':
             case 'Supplier':
                 if ($this->getUser() !== null &&

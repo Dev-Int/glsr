@@ -45,7 +45,7 @@ class ArticleController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('Article', $request);
+        $return = $this->abstractIndexAction('Article', 'article', $request);
         
         return $return;
     }
@@ -103,7 +103,8 @@ class ArticleController extends AbstractController
             $request,
             'Article',
             'AppBundle\Entity\Article',
-            ArticleType::class
+            ArticleType::class,
+            'article'
         );
 
         return $return;

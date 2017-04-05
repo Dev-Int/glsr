@@ -102,25 +102,6 @@ class ControllerHelper
     }
 
     /**
-     * Test paramters to return.
-     *
-     * @param Object $entity     Entity to return
-     * @param string $entityName Entity name to test
-     * @return array Parameters to return
-     */
-    public function testReturnParam($entity, $entityName)
-    {
-        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', ];
-        if (in_array($entityName, $entityArray, true)) {
-            $param = ['slug' => $entity->getSlug()];
-        } else {
-            $param = ['id' => $entity->getId()];
-        }
-
-        return $param;
-    }
-
-    /**
      * SetOrder for the SortAction in views.
      *
      * @param string $name   session name

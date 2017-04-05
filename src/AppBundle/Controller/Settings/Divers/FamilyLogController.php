@@ -42,7 +42,7 @@ class FamilyLogController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('FamilyLog', null);
+        $return = $this->abstractIndexAction('FamilyLog', 'familylog', null);
         
         return $return;
     }
@@ -98,9 +98,10 @@ class FamilyLogController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'familylog',
+            'Familylog',
             'AppBundle\Entity\FamilyLog',
-            FamilyLogType::class
+            FamilyLogType::class,
+            'familylog'
         );
 
         return $return;

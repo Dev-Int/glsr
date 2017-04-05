@@ -23,6 +23,7 @@ menu:
     administration: Administration
     configuration: Configuration
     groups: Groupes
+    material: Matières
     order: Commandes
     other_login: "Se connecter sous un autre profil"
     staf: Personnel

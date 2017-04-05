@@ -43,7 +43,7 @@ class SupplierController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('Supplier', $request);
+        $return = $this->abstractIndexAction('Supplier', 'supplier', $request);
         
         return $return;
     }
@@ -107,9 +107,10 @@ class SupplierController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'supplier',
+            'Supplier',
             'AppBundle\Entity\Supplier',
-            SupplierType::class
+            SupplierType::class,
+            'supplier'
         );
 
         return $return;
