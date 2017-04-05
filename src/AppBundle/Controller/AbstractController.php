@@ -296,7 +296,7 @@ abstract class AbstractController extends Controller
      * @param string $entityName Entity name to test
      * @return array Parameters to return
      */
-    private function testReturnParam($entity, $entityName)
+    protected function testReturnParam($entity, $entityName)
     {
         $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', ];
         if (in_array($entityName, $entityArray, true)) {
@@ -358,7 +358,6 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
-            case 'Config/Material':
             case 'Article':
             case 'Supplier':
                 if ($this->getUser() !== null &&
@@ -374,6 +373,7 @@ abstract class AbstractController extends Controller
             case 'FamilyLog':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
                 break;
+            case 'Config/Material':
             case 'UnitStorage':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
                 break;
