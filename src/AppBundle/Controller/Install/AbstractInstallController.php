@@ -16,6 +16,7 @@ namespace AppBundle\Controller\Install;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * AbstractInstall controller
