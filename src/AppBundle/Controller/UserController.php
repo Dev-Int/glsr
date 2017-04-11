@@ -80,7 +80,8 @@ class UserController extends AbstractController
         $return = $this->abstractNewAction(
             'User',
             'AppBundle\Entity\User',
-            UserType::class
+            UserType::class,
+            'user'
         );
 
         return $return;

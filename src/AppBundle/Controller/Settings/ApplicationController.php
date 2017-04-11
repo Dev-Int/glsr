@@ -78,7 +78,8 @@ class ApplicationController extends AbstractController
         $return = $this->abstractNewAction(
             'Settings',
             'AppBundle\Entity\Settings',
-            SettingsType::class
+            SettingsType::class,
+            'settings'
         );
 
         return $return;

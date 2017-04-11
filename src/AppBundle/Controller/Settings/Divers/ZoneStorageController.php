@@ -78,7 +78,8 @@ class ZoneStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'ZoneStorage',
             'AppBundle\Entity\ZoneStorage',
-            ZoneStorageType::class
+            ZoneStorageType::class,
+            'zonestorage'
         );
 
         return $return;

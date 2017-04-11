@@ -81,7 +81,8 @@ class ArticleController extends AbstractController
         $return = $this->abstractNewAction(
             'Article',
             'AppBundle\Entity\Article',
-            ArticleType::class
+            ArticleType::class,
+            'article'
         );
 
         return $return;

@@ -71,24 +71,25 @@ abstract class AbstractController extends Controller
     /**
      * Displays a form to create a new item entity.
      *
-     * @param string $entityName Name of Entity
-     * @param string $entityPath Path of Entity
-     * @param string $typePath   Path of FormType
+     * @param string $entityName  Name of Entity
+     * @param string $entityPath  Path of Entity
+     * @param string $typePath    Path of FormType
+     * @param string $prefixRoute Prefix of Route
      * @return array
      */
-    public function abstractNewAction($entityName, $entityPath, $typePath)
+    public function abstractNewAction($entityName, $entityPath, $typePath, $prefixRoute)
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         
         if ($entityName === 'Company' || $entityName === 'Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
-            $this->addFlash('danger', 'gestock.settings.'.strtolower($entityName).'.add2');
+            $this->addFlash('danger', 'gestock.settings.'.$prefixRoute.'.add2');
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl(strtolower($entityName).'_create'),
+            'action' => $this->generateUrl($prefixRoute.'_create'),
         ));
 
         if ($entityName === 'Group') {
@@ -293,13 +294,13 @@ abstract class AbstractController extends Controller
      * Test paramters to return.
      *
      * @param object $entity     Entity to return
-     * @param string $entityName Entity name to test
+     * @param string $prefixRoute Entity name to test
      * @return array Parameters to return
      */
-    protected function testReturnParam($entity, $entityName)
+    protected function testReturnParam($entity, $prefixRoute)
     {
-        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', ];
-        if (in_array($entityName, $entityArray, true)) {
+        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', 'material',];
+        if (in_array($prefixRoute, $entityArray, true)) {
             $param = ['slug' => $entity->getSlug()];
         } else {
             $param = ['id' => $entity->getId()];
@@ -358,6 +359,7 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
+            case 'Config\Material':
             case 'Article':
             case 'Supplier':
                 if ($this->getUser() !== null &&
@@ -373,7 +375,6 @@ abstract class AbstractController extends Controller
             case 'FamilyLog':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
                 break;
-            case 'Config/Material':
             case 'UnitStorage':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
                 break;

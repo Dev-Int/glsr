@@ -87,7 +87,8 @@ class SupplierController extends AbstractController
         $return = $this->abstractNewAction(
             'Supplier',
             'AppBundle\Entity\Supplier',
-            SupplierType::class
+            SupplierType::class,
+            'supplier'
         );
 
         return $return;

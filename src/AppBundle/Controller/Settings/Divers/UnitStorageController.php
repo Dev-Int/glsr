@@ -79,7 +79,8 @@ class UnitStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'UnitStorage',
             'AppBundle\Entity\UnitStorage',
-            UnitStorageType::class
+            UnitStorageType::class,
+            'unitstorage'
         );
 
         return $return;

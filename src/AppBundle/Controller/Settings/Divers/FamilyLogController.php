@@ -78,7 +78,8 @@ class FamilyLogController extends AbstractController
         $return = $this->abstractNewAction(
             'FamilyLog',
             'AppBundle\Entity\FamilyLog',
-            FamilyLogType::class
+            FamilyLogType::class,
+            'familylog'
         );
 
         return $return;

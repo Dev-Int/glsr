@@ -78,7 +78,8 @@ class CompanyController extends AbstractController
         $return = $this->abstractNewAction(
             'Company',
             'AppBundle\Entity\Company',
-            CompanyType::class
+            CompanyType::class,
+            'company'
         );
 
         return $return;

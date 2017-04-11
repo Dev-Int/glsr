@@ -78,7 +78,8 @@ class GroupController extends AbstractController
         $return = $this->abstractNewAction(
             'Group',
             'AppBundle\Entity\Group',
-            GroupType::class
+            GroupType::class,
+            'group'
         );
 
         return $return;
