@@ -22,7 +22,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\Config\Material;
 use AppBundle\Form\Type\Config\MaterialType;
-use AppBundle\Entity\Article;
 
 /**
  * Config\Material controller.
