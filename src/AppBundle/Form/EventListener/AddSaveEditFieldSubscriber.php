@@ -43,35 +43,21 @@ class AddSaveEditFieldSubscriber implements EventSubscriberInterface
             $form->add(
                 'save',
                 SubmitType::class,
-                array(
-                    'attr' => array(
-                        'class' => 'btn btn-default btn-primary btn-create'
-                    ),
-                    'label' => 'Create',
-                    'translation_domain' => 'admin'
-                )
+                ['attr' => ['class' => 'btn btn-default btn-primary btn-create',], 'label' => 'Create',
+                    'translation_domain' => 'admin',]
             )
             ->add(
                 'addmore',
                 SubmitType::class,
-                array(
-                    'attr' => array(
-                        'class' => 'btn btn-default btn-primary btn-create'
-                    ),
-                    'label' => 'gestock.settings.form.save&more'
-                )
+                ['attr' => ['class' => 'btn btn-default btn-info btn-create'],
+                    'label' => 'gestock.settings.form.save&more']
             );
         } else {
             $form->add(
                 'save',
                 SubmitType::class,
-                array(
-                    'attr' => array(
-                        'class' => 'btn btn-default btn-primary btn-edit'
-                    ),
-                    'label' => 'Edit',
-                    'translation_domain' => 'admin'
-                )
+                ['attr' => ['class' => 'btn btn-default btn-primary btn-edit',], 'label' => 'Edit',
+                    'translation_domain' => 'admin',]
             );
         }
     }
