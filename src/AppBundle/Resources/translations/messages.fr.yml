@@ -46,6 +46,7 @@ gestock:
     gsm: Mobile
     id: ID
     mail: Courriel
+    multiple: Multiple
     name: Nom
     next: Suivant
     phone: Téléphone

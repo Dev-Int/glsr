@@ -31,6 +31,7 @@ edit:
     no: "Article pas modifié"
 form:
     info: 'Information Article'
+    choice_article: "Choisissez un article"
 show:
     title: "Lecture d'un article"
     edit_button: "Editer l'article"
