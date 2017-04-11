@@ -120,6 +120,9 @@ class MenuBuilder implements ContainerAwareInterface
         $divers->addChild('tva', ['route' => 'tva', 'label' => 'gestock.settings.diverse.vat', ])
             ->setAttribute('icon', 'glyphicon glyphicon-piggy-bank');
 
+        $divers->addChild('material', ['route' => 'material', 'label' => 'menu.material', ])
+            ->setAttribute('icon', 'fa fa-pie-chart');
+
         return $menu;
     }
 

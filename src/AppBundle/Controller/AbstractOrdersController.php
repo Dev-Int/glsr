@@ -47,53 +47,53 @@ class AbstractOrdersController extends AbstractController
     /**
      * Displays a form to edit an existing item entity.
      *
-     * @param Object $entity     Entity
-     * @param string $entityName Name of Entity
-     * @param string $typePath   Path of FormType
+     * @param Object $entity      Entity
+     * @param string $prefixRoute Prefix of Route
+     * @param string $typePath    Path of FormType
      * @return array
      */
-    public function abstractEditAction($entity, $entityName, $typePath)
+    public function abstractEditAction($entity, $prefixRoute, $typePath)
     {
-        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', $param),
+            'action' => $this->generateUrl($prefixRoute.'_update', $param),
             'method' => 'PUT',
         ));
-        if ($entityName === 'group') {
+        if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
         }
 
-        return [$entityName => $entity, 'edit_form' => $editForm->createView(),];
+        return [$prefixRoute => $entity, 'edit_form' => $editForm->createView(),];
     }
 
     /**
      * Edits an existing item entity.
      *
-     * @param Object                                    $entity     Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request    Request in progress
-     * @param string                                    $entityName Name of Entity
-     * @param string                                    $typePath   Path of FormType
+     * @param Object                                    $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request     Request in progress
+     * @param string                                    $prefixRoute Prefix of Route
+     * @param string                                    $typePath    Path of FormType
      * @return array
      */
-    public function abstractUpdateAction($entity, Request $request, $entityName, $typePath)
+    public function abstractUpdateAction($entity, Request $request, $prefixRoute, $typePath)
     {
         $etm = $this->getDoctrine()->getManager();
-        $param = $this->get('app.helper.controller')->testReturnParam($entity, $entityName);
+        $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($entityName.'_update', $param),
+            'action' => $this->generateUrl($prefixRoute.'_update', $param),
             'method' => 'PUT',
         ));
 
         $editForm->handleRequest($request);
 
-        $return = [$entityName => $entity, 'edit_form'   => $editForm->createView(), ];
+        $return = [$prefixRoute => $entity, 'edit_form'   => $editForm->createView(), ];
 
         if ($editForm->isValid()) {
-            if ($entityName === 'deliveries') {
+            if ($prefixRoute === 'deliveries') {
                 $entity->setStatus(2);
                 $this->updateDeliveryArticles($entity, $etm);
             }
-            if ($entityName === 'invoices') {
+            if ($prefixRoute === 'invoices') {
                 $entity->setStatus(3);
                 $this->updateInvoiceArticles($entity, $etm);
             }

@@ -42,7 +42,7 @@ class ZoneStorageController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('ZoneStorage', null);
+        $return = $this->abstractIndexAction('ZoneStorage', 'zonestorage', null);
 
         return $return;
     }
@@ -78,7 +78,8 @@ class ZoneStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'ZoneStorage',
             'AppBundle\Entity\ZoneStorage',
-            ZoneStorageType::class
+            ZoneStorageType::class,
+            'zonestorage'
         );
 
         return $return;
@@ -98,9 +99,10 @@ class ZoneStorageController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'zonestorage',
+            'Zonestorage',
             'AppBundle\Entity\ZoneStorage',
-            ZoneStorageType::class
+            ZoneStorageType::class,
+            'zonestorage'
         );
 
         return $return;

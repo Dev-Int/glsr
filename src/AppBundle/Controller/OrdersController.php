@@ -42,7 +42,7 @@ class OrdersController extends AbstractOrdersController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('Orders', $request);
+        $return = $this->abstractIndexAction('Orders', 'orders', $request);
 
         $createForm = $this->createCreateForm('orders_create');
         $return['create_form'] = $createForm->createView();
@@ -200,7 +200,7 @@ class OrdersController extends AbstractOrdersController
      */
     public function deleteAction(Orders $orders, Request $request)
     {
-        $return = $this->abstractDeleteWithArticlesAction($orders, $request, 'orders');
+        $return = $this->abstractDeleteWithArticlesAction($orders, $request, 'Orders', 'orders');
         
         return $return;
     }

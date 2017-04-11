@@ -48,7 +48,7 @@ class InventoryController extends AbstractInventoryController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('Inventory', $request);
+        $return = $this->abstractIndexAction('Inventory', 'inventory', $request);
 
         $createForm = $this->createCreateForm('inventory_create');
         $return['create_form'] = $createForm->createView();
@@ -246,7 +246,7 @@ class InventoryController extends AbstractInventoryController
      */
     public function deleteAction(Inventory $inventory, Request $request)
     {
-        $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'inventory');
+        $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'Inventory', 'inventory');
         
         return $return;
     }

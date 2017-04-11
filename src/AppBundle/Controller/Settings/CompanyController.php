@@ -42,7 +42,7 @@ class CompanyController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Company', null);
+        $return = $this->abstractIndexAction('Company', 'company', null);
     
         return $return;
     }
@@ -78,7 +78,8 @@ class CompanyController extends AbstractController
         $return = $this->abstractNewAction(
             'Company',
             'AppBundle\Entity\Company',
-            CompanyType::class
+            CompanyType::class,
+            'company'
         );
 
         return $return;
@@ -98,9 +99,10 @@ class CompanyController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'company',
+            'Company',
             'AppBundle\Entity\Company',
-            CompanyType::class
+            CompanyType::class,
+            'company'
         );
 
         return $return;

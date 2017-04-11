@@ -44,7 +44,7 @@ class UserController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('User', $request);
+        $return = $this->abstractIndexAction('User', 'user', $request);
         
         return $return;
     }
@@ -80,7 +80,8 @@ class UserController extends AbstractController
         $return = $this->abstractNewAction(
             'User',
             'AppBundle\Entity\User',
-            UserType::class
+            UserType::class,
+            'user'
         );
 
         return $return;

@@ -43,7 +43,7 @@ class UnitStorageController extends AbstractController
      */
     public function indexAction(Request $request)
     {
-        $return = $this->abstractIndexAction('UnitStorage', $request);
+        $return = $this->abstractIndexAction('UnitStorage', 'unitstorage', $request);
 
         return $return;
     }
@@ -79,7 +79,8 @@ class UnitStorageController extends AbstractController
         $return = $this->abstractNewAction(
             'UnitStorage',
             'AppBundle\Entity\UnitStorage',
-            UnitStorageType::class
+            UnitStorageType::class,
+            'unitstorage'
         );
 
         return $return;
@@ -99,9 +100,10 @@ class UnitStorageController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'unitstorage',
+            'Unitstorage',
             'AppBundle\Entity\UnitStorage',
-            UnitStorageType::class
+            UnitStorageType::class,
+            'unitstorage'
         );
 
         return $return;

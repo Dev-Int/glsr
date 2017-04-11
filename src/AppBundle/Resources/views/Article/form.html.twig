@@ -31,7 +31,7 @@
                 <span class="text-danger">{{ form_errors(form.zoneStorages) }}</span>
                 {% block choice_widget_expanded %}
                     {% spaceless %}
-                    <div {{ block('widget_container_attributes') }}>
+                        <div {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
                         <div class="panel panel-default">
                             <div class="panel-heading label label-default">
                                     <i class="fa fa-map-marker"></i>&nbsp;

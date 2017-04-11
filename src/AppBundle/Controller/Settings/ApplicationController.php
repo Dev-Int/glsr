@@ -42,7 +42,7 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Settings', null);
+        $return = $this->abstractIndexAction('Settings', 'settings', null);
     
         return $return;
     }
@@ -78,7 +78,8 @@ class ApplicationController extends AbstractController
         $return = $this->abstractNewAction(
             'Settings',
             'AppBundle\Entity\Settings',
-            SettingsType::class
+            SettingsType::class,
+            'settings'
         );
 
         return $return;
@@ -98,9 +99,10 @@ class ApplicationController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'settings',
+            'Settings',
             'AppBundle\Entity\Settings',
-            SettingsType::class
+            SettingsType::class,
+            'settings'
         );
 
         return $return;

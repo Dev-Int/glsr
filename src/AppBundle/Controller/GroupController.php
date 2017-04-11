@@ -42,7 +42,7 @@ class GroupController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Group', null);
+        $return = $this->abstractIndexAction('Group', 'group', null);
 
         return $return;
     }
@@ -78,7 +78,8 @@ class GroupController extends AbstractController
         $return = $this->abstractNewAction(
             'Group',
             'AppBundle\Entity\Group',
-            GroupType::class
+            GroupType::class,
+            'group'
         );
 
         return $return;

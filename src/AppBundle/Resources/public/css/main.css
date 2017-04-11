@@ -9,6 +9,9 @@ fieldset > section.col-md-12 {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+input[type="checkbox"] {
+    margin-top: 0!important;
+}
 
 .text-bold {
     font-weight: bold;
@@ -58,7 +61,7 @@ input[type='text'].inventory {
     position: relative;
 }
 .left-inner-addon input {
-    padding-left: 30px;    
+    padding-left: 30px;
 }
 .left-inner-addon i {
     position: absolute;
@@ -135,16 +138,7 @@ i.danger {
 }
 
 .pagination > li > span.previous:before,
-.pagination > li > a > span.previous:before {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    content: '\f100';
-    margin-right: 5px!important;
-}
+.pagination > li > a > span.previous:before,
 .pagination > li > span.next:after,
 .pagination > li > a > span.next:after {
     display: inline-block;
@@ -153,6 +147,14 @@ i.danger {
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+.pagination > li > span.previous:before,
+.pagination > li > a > span.previous:before {
+    content: '\f100';
+    margin-right: 5px!important;
+}
+.pagination > li > span.next:after,
+.pagination > li > a > span.next:after {
     content: '\f101';
     margin-left: 5px!important;
 }
@@ -169,7 +171,7 @@ button>i.fa {
 }
 
 input[type='text'].half,
-select.half {
+select.half, ul.form-control.half {
     width: 50%!important;
     display: inline-block!important;
 }
@@ -279,4 +281,23 @@ select.form-control[readonly],
 header.order label,
 table.order label {
     padding-right: 0;
+}
+
+/*=========
+ * Material
+ * =======*/
+.height150 {
+    min-height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    
+}
+.height150>.form-group {
+    margin-bottom: 0;
+    padding: 3px 6px!important;
+/*    margin-left: 15px;
+    margin-right: 15px;*/
+}
+.height150 li {
+    border-bottom: dotted 1px #dddddd;
 }
