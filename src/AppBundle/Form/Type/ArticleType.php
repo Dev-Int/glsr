@@ -44,58 +44,34 @@ class ArticleType extends AbstractType
             ->add(
                 'name',
                 TextType::class,
-                array(
-                    'label' => 'gestock.title_item',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['label' => 'gestock.title_item', 'attr'  => ['class' => 'form-control'],]
             )
             ->add(
                 'packaging',
                 NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'label' => 'settings.packaging',
-                    'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['scale' => 3, 'grouping' => true, 'label' => 'settings.packaging',
+                    'translation_domain' => 'gs_articles', 'attr'  => ['class' => 'form-control'],]
             )
             ->add(
                 'price',
                 MoneyType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'settings.price',
-                    'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['scale' => 3, 'grouping' => true, 'currency' => 'EUR', 'label' => 'settings.price',
+                    'translation_domain' => 'gs_articles', 'attr'  => ['class' => 'form-control'],]
             )
             ->add(
                 'tva',
                 EntityType::class,
-                array(
-                    'class' => 'AppBundle:Tva',
-                    'choice_label' => 'name',
-                    'multiple' => false,
-                    'label' => 'gestock.settings.diverse.vat',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['class' => 'AppBundle:Tva', 'choice_label' => 'name', 'multiple' => false,
+                    'label' => 'gestock.settings.diverse.vat', 'attr'  => ['class' => 'form-control'],]
             )
-            ->add('quantity', HiddenType::class, array('data' => 0))
+            ->add('quantity', HiddenType::class, ['data' => 0])
             ->add(
                 'minstock',
                 NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'label' => 'settings.stock_alert',
-                    'translation_domain' => 'gs_articles',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['scale' => 3, 'grouping' => true, 'label' => 'settings.stock_alert',
+                    'translation_domain' => 'gs_articles', 'attr'  => ['class' => 'form-control'],]
             )
-            ->add('active', HiddenType::class, array('data' => true))
+            ->add('active', HiddenType::class, ['data' => true])
             ->add('slug', HiddenType::class)
             ->add(
                 'supplier',
@@ -112,36 +88,25 @@ class ArticleType extends AbstractType
                     'label' => 'title',
                     'translation_domain' => 'gs_suppliers',
                     'empty_data' => null,
-                    'attr'  => array('class' => 'form-control')
+                    'attr'  => ['class' => 'form-control'],
                 )
             )
             ->add(
                 'unitStorage',
                 EntityType::class,
-                array(
-                    'class' => 'AppBundle:UnitStorage',
-                    'choice_label' => 'name',
-                    'multiple' => false,
-                    'label' => 'gestock.settings.diverse.unitstorage',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['class' => 'AppBundle:UnitStorage', 'choice_label' => 'name', 'multiple' => false,
+                    'label' => 'gestock.settings.diverse.unitstorage', 'attr'  => ['class' => 'form-control'],]
             )
             ->add(
                 'zoneStorages',
                 EntityType::class,
-                array(
-                    'class' => 'AppBundle:ZoneStorage',
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    'expanded' => true,
-                    'label' => 'gestock.settings.diverse.zonestorage',
-                    'attr'  => array('class' => 'form-control')
-                )
+                ['class' => 'AppBundle:ZoneStorage', 'choice_label' => 'name', 'multiple' => true, 'expanded' => true,
+                    'label' => 'gestock.settings.diverse.zonestorage', 'attr'  => ['class' => 'form-control'],]
             )
             ->add(
                 'familyLog',
                 EntityType::class,
-                array(
+                [
                     'class' => 'AppBundle:FamilyLog',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('f')
@@ -152,8 +117,8 @@ class ArticleType extends AbstractType
                     'placeholder' => 'gestock.settings.diverse.choice_family',
                     'empty_data' => null,
                     'label' => 'gestock.settings.diverse.familylog',
-                    'attr'  => array('class' => 'form-control')
-                )
+                    'attr'  => ['class' => 'form-control']
+                ]
             )
             ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
@@ -164,9 +129,7 @@ class ArticleType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Article',
-        ));
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Article',]);
     }
 
     /**
