@@ -37,13 +37,7 @@ class FamilyLogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'name',
-                TextType::class,
-                array(
-                    'label' => 'gestock.settings.diverse.family'
-                )
-            )
+            ->add('name', TextType::class, ['label' => 'gestock.settings.diverse.family',])
             ->add(
                 'parent',
                 EntityType::class,
