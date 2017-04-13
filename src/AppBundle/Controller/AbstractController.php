@@ -317,7 +317,7 @@ abstract class AbstractController extends Controller
      * Add roles to form
      *
      * @param \Symfony\Component\Form\Form  $form  The form in which to insert the roles
-     * @param \AppBundle\Entity\Group       $group The entity to deal
+     * @param \AppBundle\Entity\Staff\Group $group The entity to deal
      * @return \Symfony\Component\Form\Form The form
      */
     public function addRolesAction($form, $group)
