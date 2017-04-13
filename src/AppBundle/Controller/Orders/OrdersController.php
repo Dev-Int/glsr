@@ -208,10 +208,10 @@ class OrdersController extends AbstractOrdersController
     /**
      * Set order Dates.
      *
-     * @param integer                           $date     Jour de la commande
-     * @param \AppBundle\Entity\Orders\Orders   $orders   La commande à traiter
-     * @param \AppBundle\Entity\Supplier        $supplier Le fournisseur concerné
-     * @return \AppBundle\Entity\Orders\Orders            La commande modifiée
+     * @param integer                             $date     Jour de la commande
+     * @param \AppBundle\Entity\Orders\Orders     $orders   La commande à traiter
+     * @param \AppBundle\Entity\Settings\Supplier $supplier Le fournisseur concerné
+     * @return \AppBundle\Entity\Orders\Orders La commande modifiée
      */
     private function setDates($date, Orders $orders, Supplier $supplier)
     {
