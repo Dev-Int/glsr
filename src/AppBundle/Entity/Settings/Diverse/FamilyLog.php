@@ -77,11 +77,6 @@ class FamilyLog
      */
     private $children;
 
-    /**
-     * propoerty used in hierarchy display, like selectbox
-     */
-    private $indentedName;
-
 
     /**
      * Get id.
