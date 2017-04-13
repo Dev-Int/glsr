@@ -33,12 +33,37 @@ class UserRepository extends EntityRepository
      */
     public function getUsers()
     {
+        $query = $this->getItems();
+        
+        return $query;
+    }
+
+    /**
+     * Affiche toutes les configurations.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
         $query = $this->createQueryBuilder('u')
             ->join('u.groups', 'g')
             ->addSelect('g')
-            ->where('u.enabled = 1')
         ;
         
+        return $query;
+    }
+
+    /**
+     * Affiche les configurations actives.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems()
+            ->where('u.enabled = 1')
+        ;
+
         return $query;
     }
 }

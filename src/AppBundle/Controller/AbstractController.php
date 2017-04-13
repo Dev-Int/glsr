@@ -340,32 +340,15 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
-            case 'Settings\Diverse\Material':
-            case 'Settings\Article':
-            case 'Settings\Supplier':
+            case 'Settings\Diverse\FamilyLog':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
+                break;
+            default:
                 if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
                 } else {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
                 }
-                break;
-            case 'Staff\User':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();
-                break;
-            case 'Settings\Diverse\FamilyLog':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
-                break;
-            case 'Settings\Diverse\UnitStorage':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
-                break;
-            case 'Orders\Orders':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->findOrders();
-                break;
-            case 'Stocks\Inventory':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getInventory();
-                break;
-            default:
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->findAll();
         }
         return $entities;
     }

@@ -32,7 +32,7 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastOrder($count)
     {
-        $query = $this->findOrders()
+        $query = $this->getAllItems()
             ->setMaxResults($count)
             ->getQuery();
 
@@ -62,7 +62,7 @@ class OrdersRepository extends EntityRepository
      */
     public function getLastInvoice($count)
     {
-        $query = $this->findItem()
+        $query = $this->getItems()
             ->setMaxResults($count)
             ->where('o.status = 2')
             ->getQuery();
@@ -75,9 +75,9 @@ class OrdersRepository extends EntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function findOrders()
+    public function getAllItems()
     {
-        $query = $this->findItem()
+        $query = $this->getItems()
             ->where('o.delivdate > :date')
             ->setParameter('date', date('Y-m-d'));
 
@@ -91,7 +91,7 @@ class OrdersRepository extends EntityRepository
      */
     public function findDeliveries()
     {
-        $query = $this->findItem()
+        $query = $this->getItems()
             ->where('o.delivdate <= :date')
             ->setParameter('date', date('Y-m-d'))
             ->andWhere('o.status = 1');
@@ -106,7 +106,7 @@ class OrdersRepository extends EntityRepository
      */
     public function findInvoices()
     {
-        $query = $this->findItem()
+        $query = $this->getItems()
             ->where('o.delivdate < :date')
             ->setParameter('date', date('Y-m-d'))
             ->andWhere('o.status > 1');
@@ -114,7 +114,12 @@ class OrdersRepository extends EntityRepository
         return $query;
     }
 
-    private function findItem()
+    /**
+     * Find Orders before delivering.
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getItems()
     {
         $query = $this->createQueryBuilder('o')
             ->orderBy('o.id', 'DESC')

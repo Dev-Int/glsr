@@ -25,14 +25,28 @@ use Doctrine\ORM\EntityRepository;
 class InventoryRepository extends EntityRepository
 {
     /**
+     * Affiche tous les inventaires.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('i')
+            ->orderBy('i.id', 'DESC');
+        
+        return $query;
+    }
+
+    /**
      * Affiche les inventaires actifs.
      *
      * @return QueryBuilder Requête DQL
      */
-    public function getInventory()
+    public function getItems()
     {
-        $query = $this->findActive();
-        
+        $query = $this->getAllItems()
+            ->where('i.status > 0');
+
         return $query;
     }
 
@@ -44,19 +58,10 @@ class InventoryRepository extends EntityRepository
      */
     public function getLastInventory($count)
     {
-        $query = $this->findActive()
+        $query = $this->getItems()
             ->setMaxResults($count)
             ->getQuery();
 
         return $query->getResult();
-    }
-
-    private function findActive()
-    {
-        $query = $this->createQueryBuilder('i')
-            ->where('i.status > 0')
-            ->orderBy('i.id', 'DESC');
-
-        return $query;
     }
 }

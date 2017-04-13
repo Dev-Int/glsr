@@ -24,4 +24,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class SettingsRepository extends EntityRepository
 {
+    /**
+     * Affiche toutes les configurations.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('s')
+            ->getQuery()->getResult();
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les configurations actives.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems();
+
+        return $query;
+    }
 }

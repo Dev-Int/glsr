@@ -24,4 +24,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class ZoneStorageRepository extends EntityRepository
 {
+    /**
+     * Affiche toutes les zones.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('z')
+            ->orderBy('z.name', 'ASC')
+            ->getQuery()->getResult();
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les zones actives.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems();
+
+        return $query;
+    }
 }

@@ -47,9 +47,7 @@ class SupplierRepository extends EntityRepository
      */
     public function getItems()
     {
-        $query = $this->createQueryBuilder('s')
-            ->join('s.familyLog', 'fl')
-            ->addSelect('fl')
+        $query = $this->getAllItems()
             ->where('s.active = 1')
         ;
         
@@ -66,8 +64,7 @@ class SupplierRepository extends EntityRepository
      */
     public function getSupplierForReassign($supplier)
     {
-        $query = $this->createQueryBuilder('s');
-        $query
+        $query = $this->createQueryBuilder('s')
             ->select('s')
             ->where($query->expr()->neq('s.name', ':idname'))
             ->andWhere('s.familyLog = :flname')

@@ -24,4 +24,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class TvaRepository extends EntityRepository
 {
+    /**
+     * Affiche tous les taux.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('t')
+            ->orderBy('t.name', 'ASC')
+            ->getQuery()->getResult();
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les taux actifs.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems();
+
+        return $query;
+    }
 }

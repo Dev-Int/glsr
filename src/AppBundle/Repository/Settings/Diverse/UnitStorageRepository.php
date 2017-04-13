@@ -26,4 +26,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class UnitStorageRepository extends EntityRepository
 {
+    /**
+     * Affiche toutes les unités.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.name', 'ASC');
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les unités actifs.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems();
+
+        return $query;
+    }
 }

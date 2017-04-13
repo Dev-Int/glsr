@@ -23,6 +23,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @category Entity
  *
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Staff\GroupRepository")
  * @ORM\Table(name="fos_group")
  */
 class Group extends BaseGroup

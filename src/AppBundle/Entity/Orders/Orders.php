@@ -18,7 +18,7 @@ namespace AppBundle\Entity\Orders;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Entity\Supplier;
+use AppBundle\Entity\Settings\Supplier;
 use AppBundle\Entity\Orders\OrdersArticles;
 
 /**

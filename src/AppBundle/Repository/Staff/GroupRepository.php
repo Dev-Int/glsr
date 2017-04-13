@@ -26,4 +26,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class GroupRepository extends EntityRepository
 {
+    /**
+     * Affiche toutes les configurations.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getAllItems()
+    {
+        $query = $this->createQueryBuilder('g')
+            ->getQuery()->getResult();
+        
+        return $query;
+    }
+
+    /**
+     * Affiche les configurations actives.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function getItems()
+    {
+        $query = $this->getAllItems();
+
+        return $query;
+    }
 }
