@@ -118,7 +118,7 @@ class AbstractOrdersController extends AbstractController
     protected function abstractPrintAction(Orders $orders, $from)
     {
         $file = $from . '-' . $orders->getId() . '.pdf';
-        $company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Company')->find(1);
+        $company = $this->getDoctrine()->getManager()->getRepository('AppBundle:Settings\Company')->find(1);
         // Create and save the PDF file to print
         $html = $this->renderView(
             'AppBundle:Orders/' . $from . ':print.pdf.twig',
@@ -145,7 +145,8 @@ class AbstractOrdersController extends AbstractController
      */
     private function updateDeliveryArticles(Orders $orders, $etm)
     {
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
+        $articles = $etm->getRepository('AppBundle:Settings\Article')
+            ->getArticleFromSupplier($orders->getSupplier()->getId());
         foreach ($orders->getArticles() as $line) {
             foreach ($articles as $art) {
                 if ($art->getId() === $line->getArticle()->getId()) {
@@ -164,7 +165,8 @@ class AbstractOrdersController extends AbstractController
      */
     private function updateInvoiceArticles(Orders $orders, $etm)
     {
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($orders->getSupplier()->getId());
+        $articles = $etm->getRepository('AppBundle:Settings\Article')
+            ->getArticleFromSupplier($orders->getSupplier()->getId());
         foreach ($orders->getArticles() as $line) {
             foreach ($articles as $art) {
                 if ($art->getId() === $line->getArticle()->getId() && $art->getPrice() !== $line->getPrice()) {

@@ -80,7 +80,7 @@ class OrdersController extends AbstractOrdersController
 
         $orders = new Orders();
         $orders->setSupplier($supplier);
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
+        $articles = $etm->getRepository('AppBundle:Settings\Article')->getArticleFromSupplier($supplier->getId());
 
         // Set Orders dates (order and delivery)
         $orderDate = $supplier->getOrderdate();
@@ -113,7 +113,7 @@ class OrdersController extends AbstractOrdersController
         $return = ['orders' => $orders, 'form' => $form->createView(),];
         $form->handleRequest($request);
         $supplier = $orders->getSupplier();
-        $articles = $etm->getRepository('AppBundle:Article')->getArticleFromSupplier($supplier->getId());
+        $articles = $etm->getRepository('AppBundle:Settings\Article')->getArticleFromSupplier($supplier->getId());
         // Tester la liste si un fournisseur à déjà une commande en cours
         $test = $this->get('app.helper.controller')->hasSupplierArticles($articles);
         if ($test === false) {
