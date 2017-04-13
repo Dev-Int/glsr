@@ -107,7 +107,7 @@ class DefaultController extends Controller
     public function lastInventoryAction($number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $listInventories = $etm->getRepository('AppBundle:Inventory')->getLastInventory($number);
+        $listInventories = $etm->getRepository('AppBundle:Stocks\Inventory')->getLastInventory($number);
 
         return array('listInventory' => $listInventories);
     }
