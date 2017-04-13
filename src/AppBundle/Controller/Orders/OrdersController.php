@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use AppBundle\Entity\Orders\Orders;
-use AppBundle\Entity\Supplier;
+use AppBundle\Entity\Settings\Supplier;
 use AppBundle\Form\Type\Orders\OrdersType;
 use AppBundle\Form\Type\Orders\OrdersEditType;
 use AppBundle\Entity\Orders\OrdersArticles;
