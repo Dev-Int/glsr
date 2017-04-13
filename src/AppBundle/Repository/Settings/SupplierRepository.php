@@ -64,17 +64,13 @@ class SupplierRepository extends EntityRepository
      */
     public function getSupplierForReassign($supplier)
     {
-        $query = $this->createQueryBuilder('s')
+        $query = $this->createQueryBuilder('s');
+        $query
             ->select('s')
             ->where($query->expr()->neq('s.name', ':idname'))
             ->andWhere('s.familyLog = :flname')
             ->andWhere('s.active = true')
-            ->setParameters(
-                array(
-                    'idname' => $supplier->getName(),
-                    'flname' => $supplier->getFamilyLog(),
-                )
-            )
+            ->setParameters(['idname' => $supplier->getName(), 'flname' => $supplier->getFamilyLog(),])
             ->orderBy('s.name', 'ASC');
 
         return $query;
