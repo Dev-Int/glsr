@@ -45,6 +45,9 @@ label.required:before {
     content: "* ";
     font-weight: bold;
 }
+section.form-line>div.col-md-6 {
+    padding-left: 0!important;
+}
 input[type='text'].inventory {
     text-align: right;
 }

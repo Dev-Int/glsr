@@ -36,15 +36,15 @@ class DefaultController extends Controller
     {
         // Tableau des entitées
         $this->entities = array(
-            'AppBundle:User',
-            'AppBundle:Company',
-            'AppBundle:Settings',
-            'AppBundle:FamilyLog',
-            'AppBundle:ZoneStorage',
-            'AppBundle:UnitStorage',
-            'AppBundle:Tva',
-            'AppBundle:Supplier',
-            'AppBundle:Article');
+            'AppBundle:Staff\User',
+            'AppBundle:Settings\Company',
+            'AppBundle:Settings\Settings',
+            'AppBundle:Settings\Diverse\FamilyLog',
+            'AppBundle:Settings\Diverse\ZoneStorage',
+            'AppBundle:Settings\Diverse\UnitStorage',
+            'AppBundle:Settings\Diverse\Tva',
+            'AppBundle:Settings\Supplier',
+            'AppBundle:Settings\Article');
     }
 
     /**
@@ -82,7 +82,7 @@ class DefaultController extends Controller
     public function stockAlertAction($number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $listArticles = $etm->getRepository('AppBundle:Article')->getStockAlert($number);
+        $listArticles = $etm->getRepository('AppBundle:Settings\Article')->getStockAlert($number);
         $helper = $this->get('app.helper.controller');
         foreach ($listArticles as $key => $article) {
             // Tester la liste si un fournisseur à déjà une commande en cours
@@ -125,7 +125,7 @@ class DefaultController extends Controller
     public function lastOrdersAction($number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $listOrders = $etm->getRepository('AppBundle:Orders')->getLastOrder($number);
+        $listOrders = $etm->getRepository('AppBundle:Orders\Orders')->getLastOrder($number);
 
         return array('listOrders' => $listOrders);
     }
@@ -143,7 +143,7 @@ class DefaultController extends Controller
     public function lastDeliveriesAction($number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $listDeliveries = $etm->getRepository('AppBundle:Orders')->getLastDelivery($number);
+        $listDeliveries = $etm->getRepository('AppBundle:Orders\Orders')->getLastDelivery($number);
 
         return array('listDeliveries' => $listDeliveries);
     }
@@ -161,7 +161,7 @@ class DefaultController extends Controller
     public function lastInvoicesAction($number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $listInvoices = $etm->getRepository('AppBundle:Orders')->getLastInvoice($number);
+        $listInvoices = $etm->getRepository('AppBundle:Orders\Orders')->getLastInvoice($number);
 
         return ['listInvoices' => $listInvoices];
     }
@@ -211,7 +211,7 @@ class DefaultController extends Controller
             $id = $request->get('id');
             if ($id != '') {
                 $supplier = $etm
-                    ->getRepository('AppBundle:Supplier')
+                    ->getRepository('AppBundle:Settings\Supplier')
                     ->find($id);
                 $familyLog['familylog'] = $supplier->getFamilyLog()->getId();
                 $response = new Response();

@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'form/tel_bootstrap.html.twig' %}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-barcode" aria-hidden="true"></i>
+    {{ '%entity% creation'|trans({'%entity%': 'title'|trans({}, 'gs_suppliers')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    {% include 'AppBundle:Settings/Supplier:form.html.twig' %}
+        
+    <div class="btn-group record_actions">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info btn-list" href="{{ path('supplier') }}">
+            {{ 'gestock.return_list'|trans }}
+        </a>
+    </div>
+{% endblock %}

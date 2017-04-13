@@ -14,6 +14,9 @@
         <thead>
             <tr>
                 <th scope="col">{{ 'gestock.name'|trans }}</th>
+                <th scope="col"><i class="fa fa-map-marker" aria-hidden="true"></i>{{ 'gestock.address'|trans }}</th>
+                <th scope="col"><i class="fa fa-phone" aria-hidden="true"></i>{{ 'gestock.phone'|trans }}</th>
+                <th scope="col"><i class="fa fa-mobile" aria-hidden="true"></i>{{ 'gestock.gsm'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.company.status'|trans }}</th>
                 <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
@@ -22,6 +25,9 @@
             {% for company in entities %}
                 <tr>
                     <td><a href="{{ path('company_show', {id: company.id}) }}">{{ company.name }}</a></td>
+                    <td>{{ company.address }}<br />{{ company.zipcode }} {{ company.town }}</td>
+                    <td>{{ company.phone|phone_number_format('NATIONAL') }}</td>
+                    <td>{{ company.gsm|phone_number_format('NATIONAL') }}</td>
                     <td>{{ company.status }}</td>
                     <td>
                         <div class="btn-group">

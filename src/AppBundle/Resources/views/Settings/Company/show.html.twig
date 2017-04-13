@@ -6,15 +6,38 @@
 
 {% block body_title %}
     <span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
-    {{ 'gestock.settings.company.title'|trans }}
+    {{ 'gestock.settings.company.title'|trans }} - <small>{{ company.name }}</small>
 {% endblock %}
 
 {% block glstock_body %}
     <table class="table table-hover record_properties">
         <tbody>
             <tr>
-                <th scope="row">{{ 'gestock.name'|trans }}</th>
-                <td>{{ company.name }}</td>
+                <th scope="row" class="col-md-2">{{ 'gestock.address'|trans }}</th>
+                <td>
+                    {{ company.address }}<br />
+                    {{ company.zipcode }} {{ company.town }}
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.phone'|trans }}</th>
+                <td>{{ company.phone|phone_number_format('NATIONAL') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.fax'|trans }}</th>
+                <td>{{ company.fax|phone_number_format('NATIONAL') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.gsm'|trans }}</th>
+                <td>{{ company.gsm|phone_number_format('NATIONAL') }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.mail'|trans }}</th>
+                <td>{{ company.mail }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'gestock.contact'|trans }}</th>
+                <td>{{ company.contact }}</td>
             </tr>
             <tr>
                 <th scope="row">{{ 'gestock.settings.company.status'|trans }}</th>

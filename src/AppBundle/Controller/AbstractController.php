@@ -48,7 +48,7 @@ abstract class AbstractController extends Controller
             $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
         }
 
-        return array('entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,);
+        return ['entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,];
     }
 
     /**
@@ -62,10 +62,7 @@ abstract class AbstractController extends Controller
     {
         $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
-        return array(
-            $prefixRoute => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [$prefixRoute => $entity, 'delete_form' => $deleteForm->createView(),];
     }
 
     /**
@@ -82,20 +79,18 @@ abstract class AbstractController extends Controller
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         
-        if ($entityName === 'Company' || $entityName === 'Settings' && $ctEntity >= 1) {
+        if ($entityName === 'Settings\Company' || $entityName === 'Settings\Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
             $this->addFlash('danger', 'gestock.settings.'.$prefixRoute.'.add2');
         }
 
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl($prefixRoute.'_create'),
-        ));
+        $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
 
         if ($entityName === 'Group') {
             $this->addRolesAction($form, $entityNew);
         }
-        $return = array(strtolower($entityName) => $entityNew, 'form'   => $form->createView(),);
+        $return = [strtolower($entityName) => $entityNew, 'form'   => $form->createView(),];
 
         return $return;
     }
@@ -112,13 +107,11 @@ abstract class AbstractController extends Controller
      */
     public function abstractCreateAction(Request $request, $entityName, $entityPath, $typePath, $prefixRoute)
     {
-        $param = array();
+        $param = [];
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm($typePath, $entityNew, array(
-            'action' => $this->generateUrl($prefixRoute.'_create'),
-        ));
-        if ($entityName === 'Group') {
+        $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
+        if ($entityName === 'Staff\Group') {
             $this->addRolesAction($form, $entityNew);
         }
         $form->handleRequest($request);
@@ -158,11 +151,8 @@ abstract class AbstractController extends Controller
         }
         $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
-        return array(
-            $prefixRoute => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return [$prefixRoute => $entity, 'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),];
     }
 
     /**
@@ -187,10 +177,8 @@ abstract class AbstractController extends Controller
         $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($entity->getId(), $prefixRoute.'_delete');
 
-        $return = array(
-            $prefixRoute => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),);
+        $return = [$prefixRoute => $entity, 'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),];
 
         if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
@@ -283,8 +271,8 @@ abstract class AbstractController extends Controller
      */
     protected function createDeleteForm($id, $route)
     {
-        return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
-            ->setAction($this->generateUrl($route, array('id' => $id)))
+        return $this->createFormBuilder(null, ['attr' => ['id' => 'delete']])
+            ->setAction($this->generateUrl($route, ['id' => $id]))
             ->setMethod('DELETE')
             ->getForm()
         ;
@@ -335,15 +323,9 @@ abstract class AbstractController extends Controller
      */
     public function addRolesAction($form, $group)
     {
-        $form->add('roles', ChoiceType::class, array(
-            'choices' => $this->getExistingRoles(),
-            'choices_as_values' => true,
-            'data' => $group->getRoles(),
-            'label' => 'Roles',
-            'expanded' => true,
-            'multiple' => true,
-            'mapped' => true,
-        ));
+        $form->add('roles', ChoiceType::class, ['choices' => $this->getExistingRoles(), 'choices_as_values' => true,
+            'data' => $group->getRoles(), 'label' => 'Roles', 'expanded' => true, 'multiple' => true, 'mapped' => true,
+        ]);
 
         return $form;
     }
@@ -359,29 +341,28 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
-            case 'Config\Material':
-            case 'Article':
-            case 'Supplier':
-                if ($this->getUser() !== null &&
-                    in_array($this->getUser()->getRoles()[0], $roles)) {
+            case 'Settings\Diverse\Material':
+            case 'Settings\Article':
+            case 'Settings\Supplier':
+                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
                 } else {
                     $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
                 }
                 break;
-            case 'User':
+            case 'Staff\User':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getUsers();
                 break;
-            case 'FamilyLog':
+            case 'Settings\Diverse\FamilyLog':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
                 break;
-            case 'UnitStorage':
+            case 'Settings\Diverse\UnitStorage':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->createQueryBuilder('u');
                 break;
-            case 'Orders':
+            case 'Orders\Orders':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->findOrders();
                 break;
-            case 'Inventory':
+            case 'Stocks\Inventory':
                 $entities = $etm->getRepository('AppBundle:'.$entityName)->getInventory();
                 break;
             default:

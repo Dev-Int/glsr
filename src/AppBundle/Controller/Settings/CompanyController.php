@@ -19,8 +19,8 @@ use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Company;
-use AppBundle\Form\Type\CompanyType;
+use AppBundle\Entity\Settings\Company;
+use AppBundle\Form\Type\Settings\CompanyType;
 
 /**
  * Company controller.
@@ -42,7 +42,7 @@ class CompanyController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Company', 'company', null);
+        $return = $this->abstractIndexAction('Settings\Company', 'company', null);
     
         return $return;
     }
@@ -54,7 +54,7 @@ class CompanyController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Company $company Company item to display
+     * @param \AppBundle\Entity\Settings\Company $company Company item to display
      * @return array
      */
     public function showAction(Company $company)
@@ -76,8 +76,8 @@ class CompanyController extends AbstractController
     public function newAction()
     {
         $return = $this->abstractNewAction(
-            'Company',
-            'AppBundle\Entity\Company',
+            'Settings\Company',
+            'AppBundle\Entity\Settings\Company',
             CompanyType::class,
             'company'
         );
@@ -99,8 +99,8 @@ class CompanyController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'Company',
-            'AppBundle\Entity\Company',
+            'Settings\Company',
+            'AppBundle\Entity\Settings\Company',
             CompanyType::class,
             'company'
         );
@@ -115,7 +115,7 @@ class CompanyController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Company $company Company item to edit
+     * @param \AppBundle\Entity\Settings\Company $company Company item to edit
      * @return array
      */
     public function editAction(Company $company)
@@ -134,9 +134,9 @@ class CompanyController extends AbstractController
      *
      * @Route("/{id}/update", name="company_update", requirements={"id"="\d+"})
      * @Method("PUT")
-     * @Template("AppBundle:Company:edit.html.twig")
+     * @Template("AppBundle:Settings/Company:edit.html.twig")
      *
-     * @param \AppBundle\Entity\Company                 $company Company item to update
+     * @param \AppBundle\Entity\Settings\Company        $company Company item to update
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
      */
@@ -158,7 +158,7 @@ class CompanyController extends AbstractController
      * @Route("/{id}/delete", name="company_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      *
-     * @param \AppBundle\Entity\Company                 $company Company item to delete
+     * @param \AppBundle\Entity\Settings\Company        $company Company item to delete
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
      */

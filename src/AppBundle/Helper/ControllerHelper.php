@@ -14,7 +14,7 @@
  */
 namespace AppBundle\Helper;
 
-use AppBundle\Entity\Article;
+use AppBundle\Entity\Settings\Article;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -57,14 +57,14 @@ class ControllerHelper
     /**
      * Tests Order in progress for a supplier.
      *
-     * @param \AppBundle\Entity\Article $articles Articles to test
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm Named object manager
+     * @param \AppBundle\Entity\Settings\Article         $articles Articles to test
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm      Named object manager
      * @return boolean
      */
     public function isOrderInProgress(Article $articles, ObjectManager $etm)
     {
         $return = false;
-        $orders = $etm->getRepository('AppBundle:Orders')->findAll();
+        $orders = $etm->getRepository('AppBundle:Orders\Orders')->findAll();
         // This provider already has an order in progress!
         foreach ($orders as $order) {
             if ($order->getSupplier() === $articles->getSupplier()) {

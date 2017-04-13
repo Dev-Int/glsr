@@ -115,9 +115,9 @@ services:
 fos_user:
     db_driver:       orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name:   main
-    user_class:      AppBundle\Entity\User
+    user_class:      AppBundle\Entity\Staff\User
     group:
-        group_class: AppBundle\Entity\Group
+        group_class: AppBundle\Entity\Staff\Group
         form:
             type:    app_user_group
     registration:

@@ -12,15 +12,8 @@
 {% endblock %}
 
 {% block glstock_body %}
-    {{ form_start(form, {action: path('settings_create')}) }}
-        {{ form_widget(form) }}
-        <p>
-            <button class="btn btn-primary btn-create" type="submit">
-                {{ 'Create'|trans({}, 'admin') }}
-            </button>
-        </p>
-    {{ form_end(form) }}
-
+    
+    {% include 'AppBundle:Settings/Application:form.html.twig' %}
         
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}

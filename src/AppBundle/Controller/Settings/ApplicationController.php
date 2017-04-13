@@ -19,8 +19,8 @@ use AppBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use AppBundle\Entity\Settings;
-use AppBundle\Form\Type\SettingsType;
+use AppBundle\Entity\Settings\Settings;
+use AppBundle\Form\Type\Settings\SettingsType;
 
 /**
  * Application controller.
@@ -42,7 +42,7 @@ class ApplicationController extends AbstractController
      */
     public function indexAction()
     {
-        $return = $this->abstractIndexAction('Settings', 'settings', null);
+        $return = $this->abstractIndexAction('Settings\Settings', 'settings', null);
     
         return $return;
     }
@@ -54,7 +54,7 @@ class ApplicationController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Settings $settings Settings item to display
+     * @param \AppBundle\Entity\Settings\Settings $settings Settings item to display
      * @return array
      */
     public function showAction(Settings $settings)
@@ -76,8 +76,8 @@ class ApplicationController extends AbstractController
     public function newAction()
     {
         $return = $this->abstractNewAction(
-            'Settings',
-            'AppBundle\Entity\Settings',
+            'Settings\Settings',
+            'AppBundle\Entity\Settings\Settings',
             SettingsType::class,
             'settings'
         );
@@ -90,7 +90,7 @@ class ApplicationController extends AbstractController
      *
      * @Route("/create", name="settings_create")
      * @Method("POST")
-     * @Template("AppBundle:Application:new.html.twig")
+     * @Template("AppBundle:Settings/Application:new.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
@@ -99,8 +99,8 @@ class ApplicationController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'Settings',
-            'AppBundle\Entity\Settings',
+            'Settings\Settings',
+            'AppBundle\Entity\Settings\Settings',
             SettingsType::class,
             'settings'
         );
@@ -115,7 +115,7 @@ class ApplicationController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Settings $settings Settings item to edit
+     * @param \AppBundle\Entity\Settings\Settings $settings Settings item to edit
      * @return array
      */
     public function editAction(Settings $settings)
@@ -134,9 +134,9 @@ class ApplicationController extends AbstractController
      *
      * @Route("/{id}/update", name="settings_update", requirements={"id"="\d+"})
      * @Method("PUT")
-     * @Template("AppBundle:Application:edit.html.twig")
+     * @Template("AppBundle:Settings/Application:edit.html.twig")
      *
-     * @param \AppBundle\Entity\Settings                $settings Settings item to update
+     * @param \AppBundle\Entity\Settings\Settings                $settings Settings item to update
      * @param \Symfony\Component\HttpFoundation\Request $request  Form request
      * @return array
      */
@@ -158,7 +158,7 @@ class ApplicationController extends AbstractController
      * @Route("/{id}/delete", name="settings_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      *
-     * @param \AppBundle\Entity\Settings                $settings Settings item to delete
+     * @param \AppBundle\Entity\Settings\Settings                $settings Settings item to delete
      * @param \Symfony\Component\HttpFoundation\Request $request  Form request
      * @return array
      */
