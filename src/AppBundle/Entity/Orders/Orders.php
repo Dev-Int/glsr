@@ -39,7 +39,7 @@ class Orders
     private $id;
 
     /**
-     * @var string|\AppBundle\Entity\Supplier Nom du fournisseur
+     * @var string|\AppBundle\Entity\Settings\Supplier Nom du fournisseur
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Supplier")
      */
