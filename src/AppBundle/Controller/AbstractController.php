@@ -107,7 +107,6 @@ abstract class AbstractController extends Controller
      */
     public function abstractCreateAction(Request $request, $entityName, $entityPath, $typePath, $prefixRoute)
     {
-        $param = [];
         $etm = $this->getDoctrine()->getManager();
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
