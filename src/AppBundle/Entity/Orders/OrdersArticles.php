@@ -191,7 +191,7 @@ class OrdersArticles
      * @param \AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage
      * @return OrdersArticles
      */
-    public function setUnitStorage(\AppBundle\Entity\UnitStorage $unitStorage)
+    public function setUnitStorage(\AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage)
     {
         $this->unitStorage = $unitStorage;
 
@@ -214,7 +214,7 @@ class OrdersArticles
      * @param \AppBundle\Entity\Settings\Diverse\Tva $tva
      * @return OrdersArticles
      */
-    public function setTva(\AppBundle\Entity\Tva $tva)
+    public function setTva(\AppBundle\Entity\Settings\Diverse\Tva $tva)
     {
         $this->tva = $tva;
 
