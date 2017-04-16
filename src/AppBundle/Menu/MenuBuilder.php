@@ -114,7 +114,7 @@ class MenuBuilder implements ContainerAwareInterface
             ->setAttribute('icon', 'glyphicon glyphicon-map-marker');
 
         $divers
-            ->addChild('unitstorage', ['route' => 'unitstorage', 'label' => 'gestock.settings.diverse.unitstorage', ])
+            ->addChild('unit', ['route' => 'unit', 'label' => 'gestock.settings.diverse.unit', ])
             ->setAttribute('icon', 'fa fa-cubes');
 
         $divers->addChild('tva', ['route' => 'tva', 'label' => 'gestock.settings.diverse.vat', ])

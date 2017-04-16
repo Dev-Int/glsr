@@ -1,12 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    {{ 'gestock.settings.diverse.unitstorage'|trans }} - {{ parent() }}
+    {{ 'gestock.settings.diverse.unit'|trans }} - {{ parent() }}
 {% endblock %}
 
 {% block body_title %}
     <i class="fa fa-cubes"></i>
-    {{ 'gestock.settings.diverse.unitstorage'|trans }}
+    {{ 'gestock.settings.diverse.unit'|trans }}
 {% endblock %}
 
 {% block glstock_body %}
@@ -14,11 +14,11 @@
         <tbody>
             <tr>
                 <th scope="row" class="col-md-4">{{ 'gestock.name'|trans }}</th>
-                <td class="col-md-8">{{ unitstorage.name }}</td>
+                <td class="col-md-8">{{ unit.name }}</td>
             </tr>
             <tr>
                 <th scope="row">{{ 'gestock.abbreviation'|trans }}</th>
-                <td>{{ unitstorage.abbr }}</td>
+                <td>{{ unit.abbr }}</td>
             </tr>
         </tbody>
     </table>
@@ -28,11 +28,11 @@
 
         <div class="btn-group record_actions">
             {% include 'homeButton.html.twig' %}
-            <a class="btn btn-info btn-list" href="{{ path('unitstorage') }}">
+            <a class="btn btn-info btn-list" href="{{ path('unit') }}">
                 {{ 'gestock.return_list'|trans }}
             </a>
 
-            <a class="btn btn-primary btn-edit" href="{{ path('unitstorage_edit', {slug: unitstorage.slug}) }}">
+            <a class="btn btn-primary btn-edit" href="{{ path('unit_edit', {slug: unit.slug}) }}">
                 {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger btn-delete" type="submit">

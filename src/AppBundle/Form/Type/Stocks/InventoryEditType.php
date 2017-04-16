@@ -36,10 +36,10 @@ class InventoryEditType extends InventoryType
     {
         $builder
             ->remove('status')
-            ->add('articles', CollectionType::class, ['entry_type' => InventoryArticlesType::class])
+            ->add('articles', CollectionType::class, ['entry_type' => InventoryArticlesType::class,])
             ->add('amount', MoneyType::class, ['scale' => 3, 'grouping' => true, 'currency' => 'EUR',
                 'label' => 'seizure.totals', 'translation_domain' => 'gs_inventories',
-                'attr'=> ['class' => 'inventory form-control', 'readonly' => true]]);
+                'attr'=> ['class' => 'inventory form-control', 'readonly' => true,],]);
     }
 
     /**

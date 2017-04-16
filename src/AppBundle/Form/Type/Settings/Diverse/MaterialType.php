@@ -40,8 +40,8 @@ class MaterialType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['label' => 'gestock.name', 'attr'  => ['class' => 'half'],])
-            ->add('unitStorage', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\UnitStorage',
-                'choice_label' => 'name', 'multiple' => false, 'label' => 'gestock.settings.diverse.unitstorage',
+            ->add('unitWorking', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\Unit',
+                'choice_label' => 'name', 'multiple' => false, 'label' => 'gestock.settings.diverse.unitworking',
                 'attr'  => ['class' => 'half',],])
             ->add('active', CheckboxType::class, ['required' => false, 'label' => 'gestock.actif',])
             ->add('multiple', CheckboxType::class, ['required' => false, 'label' => 'gestock.multiple',])
@@ -52,6 +52,7 @@ class MaterialType extends AbstractType
                         'translation_domain' => 'gs_articles',])
             ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
+        empty($_POST);
     }
 
     /**

@@ -34,7 +34,7 @@ class MaterialRepository extends EntityRepository
         $query = $this->createQueryBuilder('m')
             ->join('m.articles', 'a')
             ->addSelect('a')
-            ->join('m.unitStorage', 'u')
+            ->join('m.unitWorking', 'u')
             ->addSelect('u')
         ;
         

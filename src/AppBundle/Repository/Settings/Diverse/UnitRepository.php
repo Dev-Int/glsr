@@ -18,13 +18,13 @@ namespace AppBundle\Repository\Settings\Diverse;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * UnitStorageRepository Entité UnitStorage.
+ * UnitRepository Entité Unit.
  *
  * PHP Version 5
  *
  * @category Entity
  */
-class UnitStorageRepository extends EntityRepository
+class UnitRepository extends EntityRepository
 {
     /**
      * Affiche toutes les unités.

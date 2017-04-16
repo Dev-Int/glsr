@@ -20,11 +20,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
@@ -49,11 +52,10 @@ class ArticleType extends AbstractType
             ->add('tva', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\Tva', 'choice_label' => 'name',
                 'multiple' => false, 'label' => 'gestock.settings.diverse.vat',
                 'attr'  => ['class' => 'form-control',],])
-            ->add('quantity', HiddenType::class, ['data' => 0,])
+            ->add('quantity', HiddenType::class)
             ->add('minstock', NumberType::class, ['scale' => 3, 'grouping' => true, 'label' => 'settings.stock_alert',
                 'translation_domain' => 'gs_articles', 'attr'  => ['class' => 'form-control',],])
-            ->add('active', HiddenType::class, ['data' => true,])
-            ->add('slug', HiddenType::class)
+            ->add('active', CheckboxType::class, ['required' => false, 'label' => 'gestock.actif',])
             ->add('supplier', EntityType::class, ['class' => 'AppBundle:Settings\Supplier',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('s')
@@ -61,8 +63,11 @@ class ArticleType extends AbstractType
                     }, 'choice_label' => 'name', 'multiple' => false, 'placeholder' => 'form.choice_supplier',
                     'label' => 'title', 'translation_domain' => 'gs_suppliers', 'empty_data' => null,
                     'attr'  => ['class' => 'form-control',],])
-            ->add('unitStorage', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\UnitStorage',
+            ->add('unitStorage', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\Unit',
                 'choice_label' => 'name', 'multiple' => false, 'label' => 'gestock.settings.diverse.unitstorage',
+                'attr'  => ['class' => 'form-control',],])
+            ->add('unitWorking', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\Unit',
+                'choice_label' => 'name', 'multiple' => false, 'label' => 'gestock.settings.diverse.unitworking',
                 'attr'  => ['class' => 'form-control',],])
             ->add('zoneStorages', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\ZoneStorage',
                 'choice_label' => 'name', 'multiple' => true, 'expanded' => true,

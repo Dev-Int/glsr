@@ -55,9 +55,9 @@ class OrdersArticles
     private $quantity;
 
     /**
-     * @var string|\AppBundle\Entity\Settings\Diverse\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\Settings\Diverse\Unit Unité de stockage
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\UnitStorage")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\Unit")
      * @ORM\JoinColumn(nullable=false)
      */
     private $unitStorage;
@@ -188,10 +188,10 @@ class OrdersArticles
     /**
      * Set unitStorage
      *
-     * @param \AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage
+     * @param \AppBundle\Entity\Settings\Diverse\Unit $unitStorage
      * @return OrdersArticles
      */
-    public function setUnitStorage(\AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage)
+    public function setUnitStorage(\AppBundle\Entity\Settings\Diverse\Unit $unitStorage)
     {
         $this->unitStorage = $unitStorage;
 
@@ -201,7 +201,7 @@ class OrdersArticles
     /**
      * Get unitStorage
      *
-     * @return \AppBundle\Entity\Settings\Diverse\UnitStorage
+     * @return \AppBundle\Entity\Settings\Diverse\Unit
      */
     public function getUnitStorage()
     {

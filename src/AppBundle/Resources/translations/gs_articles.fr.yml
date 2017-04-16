@@ -9,7 +9,7 @@ none: "Pas (encore !) d'article.\n Pour le bon fonctionnement de l'application, 
 lastest: 'Les derniers articles'
 return: "Retour à l'article"
 settings:
-    packaging: "Unité de facturation"
+    packaging: "Unité de commande"
     price: Prix
     quantity: Quantité
     stock_alert: "Stock alerte"

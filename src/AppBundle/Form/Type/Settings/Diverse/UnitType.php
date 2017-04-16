@@ -27,7 +27,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  *
  * @category Form
  */
-class UnitStorageType extends AbstractType
+class UnitType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -35,12 +35,9 @@ class UnitStorageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'name',
-                TextType::class,
-                array('label' => 'gestock.settings.diverse.unitstorage')
-            )
-            ->add('abbr', TextType::class, array('label' => 'gestock.abbr'))
+            ->add('name', TextType::class, ['label' => 'gestock.settings.diverse.unitstorage',
+                'attr' => ['class' => 'half',],])
+            ->add('abbr', TextType::class, ['label' => 'gestock.abbr', 'attr' => ['class' => 'half',],])
             ->addEventSubscriber(new AddSaveEditFieldSubscriber());
     }
 
@@ -49,9 +46,7 @@ class UnitStorageType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Settings\Diverse\UnitStorage',
-        ));
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Settings\Diverse\Unit',]);
     }
 
     /**
@@ -59,6 +54,6 @@ class UnitStorageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'unitstorage';
+        return 'unit';
     }
 }

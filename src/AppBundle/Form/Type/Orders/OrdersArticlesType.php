@@ -35,92 +35,26 @@ class OrdersArticlesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'orders',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Orders',
-                    'choice_label' => 'id',
-                    'label' => 'gestock.id',
-                    'translation_domain' => 'messages',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'article',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'label' => 'title',
-                    'translation_domain' => 'gs_articles',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'quantity',
-                NumberType::class,
-                array(
-                    'scale' => 3,
-                    'grouping' => true,
-                    'empty_data' => '0,000',
-                    'label' => 'settings.quantity',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> ['class' => 'form-control text-right',],
-                )
-            )
-            ->add(
-                'unitStorage',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:UnitStorage',
-                    'choice_label' => 'abbr',
-                    'label' => 'gestock.settings.diverse.unitstorage',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'price',
-                MoneyType::class,
-                array(
-                    'required' => false,
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'settings.price',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true,],
-                )
-            )
-            ->add(
-                'tva',
-                EntityType::class,
-                array(
-                    'required' => false,
-                    'class' => 'AppBundle:Tva',
-                    'choice_label' => 'name',
-                    'choice_value' => 'rate',
-                    'label' => 'gestock.settings.diverse.vat',
-                    'empty_data' => null,
-                )
-            )
-            ->add(
-                'total',
-                MoneyType::class,
-                array(
-                    'required' => false,
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'seizure.total',
-                    'translation_domain' => 'gs_orders',
-                    'mapped' => false,
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true,]
-                )
-            )
+            ->add('orders', EntityType::class, ['required' => false, 'class' => 'AppBundle:Orders\Orders',
+                'choice_label' => 'id', 'label' => 'gestock.id', 'translation_domain' => 'messages',
+                'empty_data' => null,])
+            ->add('article', EntityType::class, ['required' => false, 'class' => 'AppBundle:Settings\Article',
+                'choice_label' => 'name', 'label' => 'title', 'translation_domain' => 'gs_articles',
+                'empty_data' => null,])
+            ->add('quantity', NumberType::class, ['scale' => 3, 'grouping' => true, 'empty_data' => '0,000',
+                'label' => 'settings.quantity', 'translation_domain' => 'gs_articles',
+                'attr'=> ['class' => 'form-control text-right',],])
+            ->add('unitStorage', EntityType::class, ['required' => false, 'class' => 'AppBundle:Settings\Diverse\Unit',
+                'choice_label' => 'abbr', 'label' => 'gestock.settings.diverse.unitstorage', 'empty_data' => null,])
+            ->add('price', MoneyType::class, ['required' => false, 'scale' => 3, 'grouping' => true,
+                'currency' => 'EUR', 'label' => 'settings.price', 'translation_domain' => 'gs_articles',
+                'attr'=> ['class' => 'form-control text-right', 'readonly' => true,],])
+            ->add('tva', EntityType::class, ['required' => false, 'class' => 'AppBundle:Settings\Diverse\Tva',
+                'choice_label' => 'name', 'choice_value' => 'rate', 'label' => 'gestock.settings.diverse.vat',
+                'empty_data' => null,])
+            ->add('total', MoneyType::class, ['required' => false, 'scale' => 3, 'grouping' => true,
+                'currency' => 'EUR', 'label' => 'seizure.total', 'translation_domain' => 'gs_orders',
+                'mapped' => false, 'attr'=> ['class' => 'form-control text-right', 'readonly' => true,],])
         ;
     }
 
@@ -129,9 +63,7 @@ class OrdersArticlesType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Orders\OrdersArticles'
-        ));
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Orders\OrdersArticles']);
     }
 
     /**
@@ -139,6 +71,6 @@ class OrdersArticlesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ordersarticles';
+        return 'orders_articles';
     }
 }

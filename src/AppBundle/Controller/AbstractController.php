@@ -78,7 +78,8 @@ abstract class AbstractController extends Controller
     {
         $etm = $this->getDoctrine()->getManager();
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
-        
+
+        // Only ONE record in these entity
         if ($entityName === 'Settings\Company' || $entityName === 'Settings\Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
             $this->addFlash('danger', 'gestock.settings.'.$prefixRoute.'.add2');
@@ -87,7 +88,7 @@ abstract class AbstractController extends Controller
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
 
-        if ($entityName === 'Group') {
+        if ($entityName === 'Staff\Group') {
             $this->addRolesAction($form, $entityNew);
         }
         $return = [strtolower($entityName) => $entityNew, 'form'   => $form->createView(),];
@@ -118,6 +119,9 @@ abstract class AbstractController extends Controller
 
         if ($form->isValid()) {
             $etm = $this->getDoctrine()->getManager();
+            if ($entityName === 'Settings\Article') {
+                $entityNew->setQuantity(0.000);
+            }
             $etm->persist($entityNew);
             $etm->flush();
 
@@ -286,7 +290,7 @@ abstract class AbstractController extends Controller
      */
     protected function testReturnParam($entity, $prefixRoute)
     {
-        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unitstorage', 'material',];
+        $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unit', 'material',];
         if (in_array($prefixRoute, $entityArray, true)) {
             $param = ['slug' => $entity->getSlug()];
         } else {

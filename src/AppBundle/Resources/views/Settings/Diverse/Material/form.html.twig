@@ -21,7 +21,7 @@
                             <li class="row">
                                 <div class="col-sm-6">{{- form_widget(child, { 'attr':{'onClick':'isMultiple('~lastloop~')'} }) -}}</div>
                                 <div class="col-sm-6">
-                                    <input type="hidden" id="material_articles_unit_{{ lastloop }}" value="{{ article.unitStorage.id }}">
+                                    <input type="hidden" id="material_articles_unit_{{ lastloop }}" value="{{ article.unitWorking.id }}">
                                     {{ article.unitStorage.name }}
                                 </div>
                             </li>
@@ -35,7 +35,7 @@
     </div>
 
     {{ form_row(form.multiple) }}
-    {{ form_row(form.unitStorage) }}
+    {{ form_row(form.unitWorking) }}
     {{ form_row(form.active) }}
 
     <div class="form-group">

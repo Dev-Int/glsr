@@ -22,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Entity\Settings\Supplier;
-use AppBundle\Entity\Settings\Diverse\UnitStorage;
+use AppBundle\Entity\Settings\Diverse\Unit;
 use AppBundle\Entity\Settings\Diverse\ZoneStorage;
 use AppBundle\Entity\Settings\Diverse\FamilyLog;
 
@@ -68,11 +68,18 @@ class Article
     private $supplier;
 
     /**
-     * @var string|\AppBundle\Entity\Settings\Diverse\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\Settings\Diverse\Unit Unité de stockage
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\UnitStorage")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\Unit")
      */
     private $unitStorage;
+
+    /**
+     * @var string|\AppBundle\Entity\Settings\Diverse\Unit Unité d'exploitation
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\Unit")
+     */
+    private $unitWorking;
 
     /**
      * @var double Conditionement (quantité)
@@ -102,7 +109,7 @@ class Article
     /**
      * @var double Quantité en stock
      *
-     * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
+     * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3, options={"default":0})
      * @Assert\Type(type="numeric",
      * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      */
@@ -314,11 +321,11 @@ class Article
     /**
      * Set unitStorage.
      *
-     * @param null|\AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage Unité de stockage
+     * @param null|\AppBundle\Entity\Settings\Diverse\Unit $unitStorage Unité de stockage
      *
      * @return Article
      */
-    public function setUnitStorage(UnitStorage $unitStorage = null)
+    public function setUnitStorage(Unit $unitStorage = null)
     {
         $this->unitStorage = $unitStorage;
 
@@ -328,7 +335,7 @@ class Article
     /**
      * Get unitStorage.
      *
-     * @return string|\AppBundle\Entity\Settings\Diverse\UnitStorage
+     * @return string|\AppBundle\Entity\Settings\Diverse\Unit
      */
     public function getUnitStorage()
     {
@@ -370,6 +377,29 @@ class Article
     public function getZoneStorages()
     {
         return $this->zoneStorages;
+    }
+
+    /**
+     * Set unitWorking
+     *
+     * @param \AppBundle\Entity\Settings\Diverse\Unit $unitWorking
+     * @return Article
+     */
+    public function setUnitWorking(Unit $unitWorking = null)
+    {
+        $this->unitWorking = $unitWorking;
+
+        return $this;
+    }
+
+    /**
+     * Get unitWorking
+     *
+     * @return \AppBundle\Entity\Settings\Diverse\UnitWorking
+     */
+    public function getUnitWorking()
+    {
+        return $this->unitWorking;
     }
 
     /**

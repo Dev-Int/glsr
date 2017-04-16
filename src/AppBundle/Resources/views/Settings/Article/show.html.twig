@@ -45,7 +45,7 @@
     </fieldset>
     <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
          <section class="form-line">
-            <div class="col-md-1 label label-default">
+            <div class="col-md-2 col-md-offset-1 label label-default">
                 {{ 'settings.quantity'|trans({}, 'gs_articles') }}
             </div>
             <div class="col-md-1">
@@ -69,7 +69,22 @@
             <div class="col-md-1">
                 {{ article.tva.name }} %
             </div>
-            <div class="col-md-1 label label-default">
+            <div class="clear"></div>
+         </section>
+         <section class="form-line">
+            <div class="col-md-2 col-md-offset-1 label label-default">
+                    {{ 'settings.packaging'|trans({}, 'gs_articles') }}
+            </div>
+                    <div class="col-md-1">
+                {{ article.packaging }}
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ 'gestock.settings.diverse.unitworking'|trans }}
+            </div>
+            <div class="col-md-1">
+                {{ article.unitWorking }}
+            </div>
+            <div class="col-md-1 col-md-offset-2 label label-default">
                     {{ 'settings.stock_alert'|trans({}, 'gs_articles') }}
             </div>
                     <div class="col-md-1

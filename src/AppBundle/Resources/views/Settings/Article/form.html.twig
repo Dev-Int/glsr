@@ -62,6 +62,13 @@
                 <span class="text-danger">{{ form_errors(form.familyLog) }}</span>
                 {{ form_widget(form.familyLog, { 'attr' : { 'onChange':'setHiddenFlog();' } }) }}
                 <input id="hidden_flog" name="article[familyLog]" type="hidden" value="{% if form.familyLog.vars.value is defined %}{{ form.familyLog.vars.value }}{% endif %}" />
+            </div><br /><br /><br />
+            <div class="col-md-2 label label-default">
+                {{ form_label(form.active) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.active) }}</span>
+                {{ form_widget(form.active) }}
             </div>
             <div class="clear"></div>
         </section>
@@ -76,7 +83,7 @@
                 <span class="text-danger">{{ form_errors(form.unitStorage) }}</span>
                 {{ form_widget(form.unitStorage) }}
             </div>
-            <div class="col-md-1 label label-default">
+            <div class="col-md-1 col-md-offset-1 label label-default">
                 {{ form_label(form.price) }}
             </div>
             <div class="col-md-2">
@@ -96,17 +103,24 @@
             <div class="clear"></div>
         </section>
         <section class="form-line">
-           <div class="col-md-2 col-md-offset-1 label label-default">
+           <div class="col-md-2 label label-default">
+                {{ form_label(form.unitWorking) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.unitWorking) }}</span>
+                {{ form_widget(form.unitWorking) }}
+            </div>
+           <div class="col-md-2 label label-default">
                 {{ form_label(form.packaging) }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span class="text-danger">{{ form_errors(form.packaging) }}</span>
                 {{ form_widget(form.packaging) }}
             </div>
            <div class="col-md-2 label label-default">
                 {{ form_label(form.minstock) }}
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <span class="text-danger">{{ form_errors(form.minstock) }}</span>
                 {{ form_widget(form.minstock) }}
             </div>

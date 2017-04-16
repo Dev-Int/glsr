@@ -61,9 +61,9 @@ class InventoryArticles
     private $realstock;
 
     /**
-     * @var string|\AppBundle\Entity\Settings\Diverse\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\Settings\Diverse\Unit Unité de stockage
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\UnitStorage")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\Unit")
      * @ORM\JoinColumn(nullable=false)
      */
     private $unitStorage;
@@ -211,10 +211,10 @@ class InventoryArticles
     /**
      * Set unitStorage
      *
-     * @param null|\AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage
+     * @param null|\AppBundle\Entity\Settings\Diverse\Unit $unitStorage
      * @return InventoryArticles
      */
-    public function setUnitStorage(\AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage = null)
+    public function setUnitStorage(\AppBundle\Entity\Settings\Diverse\Unit $unitStorage = null)
     {
         $this->unitStorage = $unitStorage;
 
@@ -224,7 +224,7 @@ class InventoryArticles
     /**
      * Get unitStorage
      *
-     * @return string|\AppBundle\Entity\Settings\Diverse\UnitStorage
+     * @return string|\AppBundle\Entity\Settings\Diverse\Unit
      */
     public function getUnitStorage()
     {

@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
-use AppBundle\Entity\Settings\Diverse\UnitStorage;
+use AppBundle\Entity\Settings\Diverse\Unit;
 use AppBundle\Entity\Settings\Article;
 
 /**
@@ -47,11 +47,11 @@ class Material
     private $name;
 
     /**
-     * @var string|\AppBundle\Entity\Settings\Diverse\UnitStorage Unité de stockage
+     * @var string|\AppBundle\Entity\Settings\Diverse\Unit Unité de stockage
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\UnitStorage")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Settings\Diverse\Unit")
      */
-    private $unitStorage;
+    private $unitWorking;
 
     /**
      * @var bool
@@ -173,24 +173,24 @@ class Material
     /**
      * Set unitStorage
      *
-     * @param \AppBundle\Entity\Settings\Diverse\UnitStorage $unitStorage
+     * @param \AppBundle\Entity\Settings\Diverse\Unit $unitWorking
      * @return Material
      */
-    public function setUnitStorage(UnitStorage $unitStorage = null)
+    public function setUnitWorking(Unit $unitWorking = null)
     {
-        $this->unitStorage = $unitStorage;
+        $this->unitWorking = $unitWorking;
 
         return $this;
     }
 
     /**
-     * Get unitStorage
+     * Get unitWorking
      *
-     * @return \AppBundle\Entity\Settings\Diverse\UnitStorage
+     * @return \AppBundle\Entity\Settings\Diverse\Units
      */
-    public function getUnitStorage()
+    public function getUnitWorking()
     {
-        return $this->unitStorage;
+        return $this->unitWorking;
     }
 
     /**

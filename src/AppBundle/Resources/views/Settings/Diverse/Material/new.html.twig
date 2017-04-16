@@ -28,7 +28,7 @@
             var articlesCount = {{ form.articles|length }} + 1;
 
             var unit = $('#material_articles_unit_' + id).val();
-            $('#{{ form.unitStorage.vars.id }}').val(unit);
+            $('#{{ form.unitWorking.vars.id }}').val(unit);
 
             for (var iter = 1; iter <= articlesCount; iter++) {
                 if ($('#{{ form.articles.vars.id }}_' + iter).is(':checked')) {

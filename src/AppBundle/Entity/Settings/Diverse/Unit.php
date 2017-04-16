@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Entité UnitStorage.
+ * Entité Unit.
  *
  * PHP Version 5
  *
@@ -19,19 +19,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * UnitStorage Entité UnitStorage.
- *
- * PHP Version 5
+ * Unit Entité.
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_unitstorage")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Settings\Diverse\UnitStorageRepository")
+ * @ORM\Table(name="gs_unit")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Settings\Diverse\UnitRepository")
  */
-class UnitStorage
+class Unit
 {
     /**
-     * @var int Id de l'unité de stockage
+     * @var int Id de l'unité
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,14 +38,14 @@ class UnitStorage
     private $id;
 
     /**
-     * @var string Nom de l'unité de stockage
+     * @var string Nom de l'unité
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string Abbréviation de l'unité de stockage
+     * @var string Abbréviation de l'unité
      *
      * @ORM\Column(name="abbr", type="string", length=50)
      */
@@ -61,9 +59,9 @@ class UnitStorage
     private $slug;
 
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer 
      */
     public function getId()
     {
@@ -71,11 +69,10 @@ class UnitStorage
     }
 
     /**
-     * Set name.
+     * Set name
      *
-     * @param string $name Nom de l'unité de stockage
-     *
-     * @return Settings\Diverse\UnitStorage
+     * @param string $name
+     * @return Unit
      */
     public function setName($name)
     {
@@ -85,9 +82,9 @@ class UnitStorage
     }
 
     /**
-     * Get name.
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -95,11 +92,10 @@ class UnitStorage
     }
 
     /**
-     * Set abbr.
+     * Set abbr
      *
-     * @param string $abbr Abbréviation de l'unité de stockage
-     *
-     * @return Settings\Diverse\UnitStorage
+     * @param string $abbr
+     * @return Unit
      */
     public function setAbbr($abbr)
     {
@@ -109,9 +105,9 @@ class UnitStorage
     }
 
     /**
-     * Get abbr.
+     * Get abbr
      *
-     * @return string
+     * @return string 
      */
     public function getAbbr()
     {
@@ -119,39 +115,26 @@ class UnitStorage
     }
 
     /**
-     * Cette méthode permet de faire "echo $unitStorage".
-     * <p>Ainsi, pour "afficher" $unitStorage,
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Cette méthode permet de faire "echo $unit".
+     * <p>Ainsi, pour "afficher" $unit,
      * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $unitStorage"
-     * est équivalent à "echo $unitStorage->getName()"</p>.
+     * Ici, le nom, donc "echo $unit"
+     * est équivalent à "echo $unit->getName()"</p>.
      *
      * @return string name
      */
     public function __toString()
     {
         return $this->abbr;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Settings\Diverse\UnitStorage
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 }
