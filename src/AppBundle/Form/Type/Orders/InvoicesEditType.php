@@ -43,9 +43,7 @@ class InvoicesEditType extends OrdersEditType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Orders\Orders',
-        ));
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Orders\Orders',]);
     }
 
     /**
@@ -53,6 +51,6 @@ class InvoicesEditType extends OrdersEditType
      */
     public function getBlockPrefix()
     {
-        return 'invoices';
+        return 'invoices_edit';
     }
 }
