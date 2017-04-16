@@ -49,6 +49,6 @@ class InventoryArticlesZonesType extends InventoryArticlesType
      */
     public function getBlockPrefix()
     {
-        return 'inventoryarticles';
+        return 'inventory_articles';
     }
 }
