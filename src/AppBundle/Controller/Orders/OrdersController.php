@@ -147,17 +147,12 @@ class OrdersController extends AbstractOrdersController
      */
     public function editAction(Orders $orders)
     {
-        $editForm = $this->createForm(OrdersEditType::class, $orders, array(
-            'action' => $this->generateUrl('orders_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(OrdersEditType::class, $orders, ['action' => $this
+            ->generateUrl('orders_update', ['id' => $orders->getId()]), 'method' => 'PUT',]);
         $deleteForm = $this->createDeleteForm($orders->getId(), 'orders_delete');
 
-        return array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return ['orders' => $orders, 'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),];
     }
 
     /**
@@ -169,18 +164,13 @@ class OrdersController extends AbstractOrdersController
      */
     public function updateAction(Orders $orders, Request $request)
     {
-        $editForm = $this->createForm(OrdersEditType::class, $orders, array(
-            'action' => $this->generateUrl('orders_update', array('id' => $orders->getId())),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(OrdersEditType::class, $orders, ['action' => $this
+            ->generateUrl('orders_update', ['id' => $orders->getId()]), 'method' => 'PUT',]);
         $deleteForm = $this->createDeleteForm($orders->getId(), 'orders_delete');
         $editForm->handleRequest($request);
 
-        $return = array(
-            'orders' => $orders,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        $return = ['orders' => $orders, 'edit_form'   => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),];
         
         if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
