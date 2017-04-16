@@ -37,32 +37,12 @@ class InvoicesArticlesType extends OrdersArticlesType
         $builder->remove('quantity');
         $builder->remove('price');
         $builder
-            ->add(
-                'quantity',
-                NumberType::class,
-                array(
-                    'required' => false,
-                    'scale' => 3,
-                    'grouping' => true,
-                    'empty_data' => '0,000',
-                    'label' => 'settings.quantity',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> ['class' => 'form-control text-right', 'readonly' => true, ],
-                )
-            )
-            ->add(
-                'price',
-                MoneyType::class,
-                array(
-                    'required' => true,
-                    'scale' => 3,
-                    'grouping' => true,
-                    'currency' => 'EUR',
-                    'label' => 'settings.price',
-                    'translation_domain' => 'gs_articles',
-                    'attr'=> ['class' => 'form-control text-right', ]
-                )
-            )
+            ->add('quantity', NumberType::class, ['required' => false, 'scale' => 3, 'grouping' => true,
+                'empty_data' => '0,000', 'label' => 'settings.quantity', 'translation_domain' => 'gs_articles',
+                'attr'=> ['class' => 'form-control text-right', 'readonly' => true, ],])
+            ->add('price', MoneyType::class, ['required' => true, 'scale' => 3, 'grouping' => true,
+                'currency' => 'EUR', 'label' => 'settings.price', 'translation_domain' => 'gs_articles',
+                'attr'=> ['class' => 'form-control text-right', ]])
         ;
     }
 
@@ -71,9 +51,7 @@ class InvoicesArticlesType extends OrdersArticlesType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Orders\OrdersArticles'
-        ));
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Orders\OrdersArticles']);
     }
 
     /**
@@ -81,6 +59,6 @@ class InvoicesArticlesType extends OrdersArticlesType
      */
     public function getBlockPrefix()
     {
-        return 'invoicesarticles';
+        return 'invoices_articles';
     }
 }
