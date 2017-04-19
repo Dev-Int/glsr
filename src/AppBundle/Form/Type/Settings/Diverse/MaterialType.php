@@ -52,7 +52,6 @@ class MaterialType extends AbstractType
                         'translation_domain' => 'gs_articles',])
             ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
-        empty($_POST);
     }
 
     /**
