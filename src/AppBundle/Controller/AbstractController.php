@@ -83,15 +83,15 @@ abstract class AbstractController extends Controller
         if ($entityName === 'Settings\Company' || $entityName === 'Settings\Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
             $this->addFlash('danger', 'gestock.settings.'.$prefixRoute.'.add2');
-        }
+        } else {
+            $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
+            $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
 
-        $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
-        $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
-
-        if ($entityName === 'Staff\Group') {
-            $this->addRolesAction($form, $entityNew);
+            if ($entityName === 'Staff\Group') {
+                $this->addRolesAction($form, $entityNew);
+            }
+            $return = [strtolower($entityName) => $entityNew, 'form'   => $form->createView(),];
         }
-        $return = [strtolower($entityName) => $entityNew, 'form'   => $form->createView(),];
 
         return $return;
     }
