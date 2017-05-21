@@ -19,10 +19,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
-use AppBundle\Form\Type\FamilyLogType;
-use AppBundle\Form\Type\ZoneStorageType;
-use AppBundle\Form\Type\UnitStorageType;
-use AppBundle\Form\Type\TvaType;
+use AppBundle\Form\Type\Settings\Diverse\FamilyLogType;
+use AppBundle\Form\Type\Settings\Diverse\ZoneStorageType;
+use AppBundle\Form\Type\Settings\Diverse\UnitType;
+use AppBundle\Form\Type\Settings\Diverse\TvaType;
 
 /**
  * class InstallController
@@ -39,7 +39,7 @@ class Install4Controller extends InstallController
      *
      * @Route("/1", name="gs_install_st4_1")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step4.html.twig")
+     * @Template("AppBundle:Install:step4.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -50,8 +50,8 @@ class Install4Controller extends InstallController
     {
         $return = $this->stepAction(
             $request,
-            'FamilyLog',
-            '\AppBundle\Entity\FamilyLog',
+            'Settings\Diverse\FamilyLog',
+            '\AppBundle\Entity\Settings\Diverse\FamilyLog',
             FamilyLogType::class,
             '4_1'
         );
@@ -65,7 +65,7 @@ class Install4Controller extends InstallController
      *
      * @Route("/2", name="gs_install_st4_2")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step4.html.twig")
+     * @Template("AppBundle:Install:step4.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -76,8 +76,8 @@ class Install4Controller extends InstallController
     {
         $return = $this->stepAction(
             $request,
-            'ZoneStorage',
-            '\AppBundle\Entity\ZoneStorage',
+            'Settings\Diverse\ZoneStorage',
+            '\AppBundle\Entity\Settings\Diverse\ZoneStorage',
             ZoneStorageType::class,
             '4_2'
         );
@@ -91,7 +91,7 @@ class Install4Controller extends InstallController
      *
      * @Route("/3", name="gs_install_st4_3")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step4.html.twig")
+     * @Template("AppBundle:Install:step4.html.twig")
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -102,9 +102,9 @@ class Install4Controller extends InstallController
     {
         $return = $this->stepAction(
             $request,
-            'UnitStorage',
-            '\AppBundle\Entity\UnitStorage',
-            UnitStorageType::class,
+            'Settings\Diverse\Unit',
+            '\AppBundle\Entity\Settings\Diverse\Unit',
+            UnitType::class,
             '4_3'
         );
 
@@ -117,7 +117,7 @@ class Install4Controller extends InstallController
      *
      * @Route("/4", name="gs_install_st4_4")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step4.html.twig")
+     * @Template("AppBundle:Install:step4.html.twig")
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -128,8 +128,8 @@ class Install4Controller extends InstallController
     {
         $return = $this->stepAction(
             $request,
-            'Tva',
-            '\AppBundle\Entity\Tva',
+            'Settings\Diverse\Tva',
+            '\AppBundle\Entity\Settings\Diverse\Tva',
             TvaType::class,
             '4_4'
         );

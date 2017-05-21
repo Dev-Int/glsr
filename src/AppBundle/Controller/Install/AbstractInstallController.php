@@ -51,7 +51,7 @@ abstract class AbstractInstallController extends Controller
         if (is_int($number)) {
             $return = ['message' => $message, 'form' => $form->createView(),];
         } else {
-            $return = [strtolower($entity) => $entityNew, 'form' => $form->createView(),];
+            $return = [$this->nameToVariable($entity) => $entityNew, 'form' => $form->createView(),];
         }
 
         if ($form->handleRequest($request)->isValid()) {
@@ -69,7 +69,7 @@ abstract class AbstractInstallController extends Controller
      * @param object                                     $entityNew Entity
      * @param \Symfony\Component\Form\Form               $form      Form of Entity
      * @param \Doctrine\Common\Persistence\ObjectManager $etm       Entity Manager
-     * @param integer                                     $number   Number of step install
+     * @param integer                                    $number    Number of step install
      * @return array Route after valid or not
      */
     private function validInstall($entityNew, $form, ObjectManager $etm, $number)
@@ -77,14 +77,25 @@ abstract class AbstractInstallController extends Controller
         $etm->persist($entityNew);
         $etm->flush();
 
-        if ($form->get('save')->isClicked()) {
-            $return = $this->redirect($this->generateUrl('gs_install_st4'));
-        } elseif ($form->get('addmore')->isClicked()) {
-            $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
+        if (null !== $form->get('save') || null !== $form->get('addmore')) {
+            if ($form->get('save')->isClicked()) {
+                $return = $this->redirect($this->generateUrl('gs_install_st4'));
+            } elseif ($form->get('addmore')->isClicked()) {
+                $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
+            }
         } else {
             $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
         }
 
+        return $return;
+    }
+
+    private function nameToVariable($name)
+    {
+        
+        $array = explode('\\', $name);
+        $return = strtolower(end($array));
+    
         return $return;
     }
 }

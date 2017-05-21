@@ -75,7 +75,7 @@ class SupplierType extends AbstractType
                 'Thursday' => 4, 'Friday' => 5, 'Saturday' => 6, 'Sunday' => 7,], 'choices_as_values' => true,
                 'choice_translation_domain' => true, 'translation_domain' => 'messages', 'label' => 'day_order',
                 'attr'  => ['class' => 'form-control',], 'expanded' => true, 'multiple' => true,])
-            ->add('familyLog', EntityType::class, ['class' => 'AppBundle:Settings/Diverse/FamilyLog',
+            ->add('familyLog', EntityType::class, ['class' => 'AppBundle:Settings\Diverse\FamilyLog',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('f')
                             ->orderBy('f.path', 'ASC');

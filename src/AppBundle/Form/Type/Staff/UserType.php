@@ -12,7 +12,7 @@
  *
  * @link https://github.com/Dev-Int/glsr
  */
-namespace AppBundle\Form\Type;
+namespace AppBundle\Form\Type\Staff;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
 /**
  * UserType Form properties.
@@ -50,12 +51,13 @@ class UserType extends AbstractType
                 'attr'  => array('class' => 'form-control'),
             ))
             ->add('groups', EntityType::class, array(
-                'class' => 'AppBundle:Group',
+                'class' => 'AppBundle:Staff\Group',
                 'label' => 'Groupes',
                 'multiple' => true,
                 'expanded' => true,
                 'required' => false,
             ))
+            ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
         if ($options['lockedRequired']) {
             $builder->add('enabled', null, array('required' => false,
@@ -69,7 +71,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User',
+            'data_class' => 'AppBundle\Entity\Staff\User',
             'passwordRequired' => true,
             'lockedRequired' => false,
         ));

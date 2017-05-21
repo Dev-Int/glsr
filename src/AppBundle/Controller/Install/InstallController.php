@@ -20,12 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use AppBundle\Entity\User;
-use AppBundle\Form\Type\UserType;
-use AppBundle\Form\Type\CompanyType;
-use AppBundle\Form\Type\SettingsType;
-use AppBundle\Form\Type\SupplierType;
-use AppBundle\Form\Type\ArticleType;
+use AppBundle\Entity\Staff\User;
+use AppBundle\Form\Type\Staff\UserType;
+use AppBundle\Form\Type\Settings\CompanyType;
+use AppBundle\Form\Type\Settings\SettingsType;
+use AppBundle\Form\Type\Settings\SupplierType;
+use AppBundle\Form\Type\Settings\ArticleType;
 
 /**
  * class InstallController
@@ -46,7 +46,7 @@ class InstallController extends AbstractInstallController
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:install:index.html.twig');
+        return $this->render('AppBundle:Install:index.html.twig');
     }
     
     /**
@@ -55,7 +55,7 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step1", name="gs_install_st1")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step1.html.twig")
+     * @Template("AppBundle:Install:step1.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -64,7 +64,7 @@ class InstallController extends AbstractInstallController
     public function step1Action(Request $request)
     {
         $etm = $this->getDoctrine()->getManager();
-        $ctUser = count($etm->getRepository('AppBundle:User')->findAll());
+        $ctUser = count($etm->getRepository('AppBundle:Staff\User')->findAll());
         $user = new User();
         $message = null;
         
@@ -94,7 +94,7 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step2", name="gs_install_st2")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step2.html.twig")
+     * @Template("AppBundle:Install:step2.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -104,8 +104,8 @@ class InstallController extends AbstractInstallController
     {
         $return = $this->stepAction(
             $request,
-            'Company',
-            '\AppBundle\Entity\Company',
+            'Settings\Company',
+            '\AppBundle\Entity\Settings\Company',
             CompanyType::class,
             2
         );
@@ -119,7 +119,7 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step3", name="gs_install_st3")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step3.html.twig")
+     * @Template("AppBundle:Install:step3.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -130,8 +130,8 @@ class InstallController extends AbstractInstallController
     {
         $return = $this->stepAction(
             $request,
-            'Settings',
-            '\AppBundle\Entity\Settings',
+            'Settings\Settings',
+            '\AppBundle\Entity\Settings\Settings',
             SettingsType::class,
             3
         );
@@ -145,13 +145,13 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step4", name="gs_install_st4")
      * @Method({"GET"})
-     * @Template("AppBundle:install:step4.html.twig")
+     * @Template("AppBundle:Install:step4.html.twig")
      *
      * @return \Symfony\Component\HttpFoundation\Response Rendue de la page
      */
     public function step4Action()
     {
-        return $this->render('AppBundle:install:step4.html.twig');
+        return $this->render('AppBundle:Install:step4.html.twig');
     }
 
     /**
@@ -160,7 +160,7 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step5", name="gs_install_st5")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step5.html.twig")
+     * @Template("AppBundle:Install:step5.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -171,8 +171,8 @@ class InstallController extends AbstractInstallController
     {
         $return = $this->stepAction(
             $request,
-            'Supplier',
-            '\AppBundle\Entity\Supplier',
+            'Settings\Supplier',
+            '\AppBundle\Entity\Settings\Supplier',
             SupplierType::class,
             5
         );
@@ -186,7 +186,7 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step6", name="gs_install_st6")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:install:step6.html.twig")
+     * @Template("AppBundle:Install:step6.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
@@ -197,8 +197,8 @@ class InstallController extends AbstractInstallController
     {
         $return = $this->stepAction(
             $request,
-            'Article',
-            '\AppBundle\Entity\Article',
+            'Settings\Article',
+            '\AppBundle\Entity\Settings\Article',
             ArticleType::class,
             6
         );
@@ -212,14 +212,14 @@ class InstallController extends AbstractInstallController
      *
      * @Route("/step7", name="gs_install_st7")
      * @Method({"GET"})
-     * @Template("AppBundle:install:step7.html.twig")
+     * @Template("AppBundle:Install:step7.html.twig")
      *
      * @return array Rendue de la page
      */
     public function step7Action()
     {
         $etm = $this->getDoctrine()->getManager();
-        $settings = $etm->getRepository('AppBundle:Settings')->find(1);
+        $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
         $message = null;
 
         if ($settings->getFirstInventory() !== null) {

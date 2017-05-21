@@ -35,17 +35,18 @@
             </ul>
             <div class="well-lg">
                 {% if familylog is defined %}
-                    {{ include('AppBundle:Settings/Divers/FamilyLog:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Diverse/FamilyLog:form.html.twig') }}
                 {% endif %}
                 {% if zonestorage is defined %}
-                    {{ include('AppBundle:Settings/Divers/ZoneStorage:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Diverse/ZoneStorage:form.html.twig') }}
                 {% endif %}
-                {% if unitstorage is defined %}
-                    {{ include('AppBundle:Settings/Divers/UnitStorage:form.html.twig') }}
+                {% if unit is defined %}
+                    {{ include('AppBundle:Settings/Diverse/Unit:form.html.twig') }}
                 {% endif %}
                 {% if tva is defined %}
-                    {{ include('AppBundle:Settings/Divers/Tva:form.html.twig') }}
+                    {{ include('AppBundle:Settings/Diverse/Tva:form.html.twig') }}
                 {% endif %}
+                <div class="clearfix"></div>
                 <div class="alert alert-info">
                     {{ 'gestock.install.st4.info'|trans|nl2br }}
                 </div>

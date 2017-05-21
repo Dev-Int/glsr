@@ -2,9 +2,13 @@
 
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <p>
-        <button class="btn btn-primary btn-create" type="submit">
-            {{ 'Create'|trans({}, 'admin') }}
-        </button>
-    </p>
+    <div class="form-group">
+        <div class="btn-group record_actions">
+        {% if edit_form is defined %}
+            {{ form_widget(form.save) }}
+        {% else %}
+            {{ form_widget(form.save) }} {{ form_widget(form.addmore, { 'attr':{'hidden':'true'} } ) }}
+        {% endif %}
+        </div>
+    </div>
 {{ form_end(form) }}
