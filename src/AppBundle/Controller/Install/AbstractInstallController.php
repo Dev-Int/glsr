@@ -74,6 +74,7 @@ abstract class AbstractInstallController extends Controller
      */
     private function validInstall($entityNew, $form, ObjectManager $etm, $number)
     {
+        $return = '';
         $etm->persist($entityNew);
         $etm->flush();
 
