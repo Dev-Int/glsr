@@ -36,10 +36,12 @@ class SettingsType extends AbstractType
     {
         $builder
             ->add('inventory_style', ChoiceType::class, ['choices' => ['gestock.settings.settings.global' => 'global',
-                'gestock.settings.settings.zone_storage' => 'zonestorage',], 'choices_as_values' => true, 'expanded' => true, 'multiple' => false,
+                'gestock.settings.settings.zone_storage' => 'zonestorage',], 'choices_as_values' => true,
+                'expanded' => true, 'multiple' => false,
                 'label' => 'gestock.settings.settings.style_inventory',])
             ->add('calculation', ChoiceType::class, ['choices' => ['gestock.settings.settings.fifo' => 'fifo',
-                'gestock.settings.settings.weighted' => 'weighted',], 'choices_as_values' => true, 'expanded' => true, 'multiple' => false,
+                'gestock.settings.settings.weighted' => 'weighted',], 'choices_as_values' => true,
+                'expanded' => true, 'multiple' => false,
                 'label' => 'gestock.settings.settings.calculation',])
             ->add('currency', CurrencyType::class, ['multiple' => false, 'expanded' => false,
                 'preferred_choices' => ['EUR'], 'label' => 'gestock.settings.settings.currency',])
