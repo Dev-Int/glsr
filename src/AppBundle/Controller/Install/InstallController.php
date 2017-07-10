@@ -47,7 +47,8 @@ class InstallController extends AbstractInstallController
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Install:index.html.twig');
+        $step = filter_input(INPUT_GET, 'step');
+        return $this->render('AppBundle:Install:index.html.twig', ['step' => $step]);
     }
     
     /**

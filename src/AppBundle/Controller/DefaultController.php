@@ -36,15 +36,17 @@ class DefaultController extends Controller
     {
         // Tableau des entitées
         $this->entities = array(
-            'AppBundle:Staff\User',
-            'AppBundle:Settings\Company',
-            'AppBundle:Settings\Settings',
-            'AppBundle:Settings\Diverse\FamilyLog',
-            'AppBundle:Settings\Diverse\ZoneStorage',
-            'AppBundle:Settings\Diverse\UnitStorage',
-            'AppBundle:Settings\Diverse\Tva',
-            'AppBundle:Settings\Supplier',
-            'AppBundle:Settings\Article');
+            ['1', 'AppBundle:Staff\Group'],
+            ['2', 'AppBundle:Staff\User'],
+            ['3','AppBundle:Settings\Company'],
+            ['4', 'AppBundle:Settings\Settings'],
+            ['5_1', 'AppBundle:Settings\Diverse\FamilyLog'],
+            ['5_2','AppBundle:Settings\Diverse\ZoneStorage'],
+            ['5_3', 'AppBundle:Settings\Diverse\Unit'],
+            ['5_4', 'AppBundle:Settings\Diverse\Tva'],
+            ['6', 'AppBundle:Settings\Supplier'],
+            ['7', 'AppBundle:Settings\Article'],
+            ['8', 'AppBundle:Stock\Inventory'],);
     }
 
     /**
@@ -60,13 +62,14 @@ class DefaultController extends Controller
          * Test d'installation.
          */
         $url = $this->testEntities();
+
         if (empty($url)) {
-            $url = $this->render('default/index.html.twig');
+            $redirect = $this->render('default/index.html.twig');
         } else {
-            $url = $this->redirectToRoute($url);
+            $redirect = $this->redirectToRoute($url[0], ['step' => $url[1]]);
         }
 
-        return $url;
+        return $redirect;
     }
 
     /**
@@ -178,12 +181,12 @@ class DefaultController extends Controller
         // vérifie que les Entitées ne sont pas vides
         $nbEntities = count($this->entities);
         for ($index = 0; $index < $nbEntities; $index++) {
-            $entity = $etm->getRepository($this->entities[$index]);
-            $entityData = $entity->find(1);
+            $entity = $etm->getRepository($this->entities[$index][1]);
+            $entityData = $entity->findAll();
 
             if (empty($entityData)) {
                 $message = 'gestock.install.none';
-                $url = 'gs_install';
+                $url = ['gs_install', $this->entities[$index][0]];
                 break;
             }
         }
