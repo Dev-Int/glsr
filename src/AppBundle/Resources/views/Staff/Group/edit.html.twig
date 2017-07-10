@@ -13,14 +13,7 @@
 
 {% block glstock_body %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <p>
-            <button class="btn btn-primary btn-edit" type="submit">
-                {{ 'Edit'|trans({}, 'admin') }}
-            </button>
-        </p>
-    {{ form_end(edit_form) }}
+    {% include 'AppBundle:Staff/Group:form.html.twig' %}
 
     {{ form_start(delete_form) }}
         {{ form_widget(delete_form) }}

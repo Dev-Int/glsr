@@ -1,3 +1,10 @@
+{% if edit_form is defined %}
+    {% set form = edit_form %}
+    {{ form_start(form) }}
+{% else %}
+    {{ form_start(form) }}
+{% endif %}
+
 {% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
 {{ form_start(form) }}

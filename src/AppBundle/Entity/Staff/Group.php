@@ -82,6 +82,20 @@ class Group extends BaseGroup
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function hasRole($role)
+    {
+        if (is_array($this->roles)) {
+            $return = in_array(strtoupper($role), $this->roles, true);
+        } else {
+            $return = false;
+        }
+
+        return $return;
+    }
+
+    /**
      * Remove users
      *
      * @param \AppBundle\Entity\Staff\User $users

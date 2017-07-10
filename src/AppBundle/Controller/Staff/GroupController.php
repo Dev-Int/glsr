@@ -97,7 +97,9 @@ class GroupController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        $group = new Group();
+        $name = filter_input(INPUT_POST, 'name');
+        $roles = filter_input(INPUT_POST, 'roles');
+        $group = new Group($name, $roles);
         $form = $this->createForm(GroupType::class, $group);
         AbstractController::addRolesAction($form, $group);
         $form->handleRequest($request);
