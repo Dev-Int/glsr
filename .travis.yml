@@ -1,16 +1,13 @@
 language: php
 php:
   - '5.6'
-  - '7.1'
+  - '7.0'
 
 env:
   global:
     secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
 
-group: 'stable'
 dist: 'precise'
-os: 
-  - 'windows'
 
 before_install:
  - sudo apt-get update && sudo apt-get install graphviz
@@ -30,7 +27,7 @@ before_script:
 
   - sudo add-apt-repository -y ppa:moti-p/cc
   - sudo apt-get update
-  - sudo apt-get -y --reinstall install imagemagick
+  - sudo apt-get install imagemagick
   - printf "\n" | pecl install imagick-beta
 
   - pear channel-discover pear.phpmd.org
@@ -61,7 +58,7 @@ script:
   ## PHPLOC
   - php phploc.phar src/
 
-notification:
+notifications:
   email:
     lq@dev-int.net
 
