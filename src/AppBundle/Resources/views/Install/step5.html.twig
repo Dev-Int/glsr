@@ -34,23 +34,25 @@
                 </li>
             </ul>
             <div class="well-lg">
-                {% if message is empty %}
-                    {% if familylog is defined %}
-                        {{ include('AppBundle:Settings/Diverse/FamilyLog:form.html.twig') }}
+                {% if message is defined %}
+                    {% if message is empty %}
+                        {% if familylog is defined %}
+                            {{ include('AppBundle:Settings/Diverse/FamilyLog:form.html.twig') }}
+                        {% endif %}
+                        {% if zonestorage is defined %}
+                            {{ include('AppBundle:Settings/Diverse/ZoneStorage:form.html.twig') }}
+                        {% endif %}
+                        {% if unit is defined %}
+                            {{ include('AppBundle:Settings/Diverse/Unit:form.html.twig') }}
+                        {% endif %}
+                        {% if tva is defined %}
+                            {{ include('AppBundle:Settings/Diverse/Tva:form.html.twig') }}
+                        {% endif %}
+                    {% else %}
+                        <div class="col-lg-12">
+                            <p class="alert alert-info">{{ message|trans|nl2br }}</p>
+                        </div>
                     {% endif %}
-                    {% if zonestorage is defined %}
-                        {{ include('AppBundle:Settings/Diverse/ZoneStorage:form.html.twig') }}
-                    {% endif %}
-                    {% if unit is defined %}
-                        {{ include('AppBundle:Settings/Diverse/Unit:form.html.twig') }}
-                    {% endif %}
-                    {% if tva is defined %}
-                        {{ include('AppBundle:Settings/Diverse/Tva:form.html.twig') }}
-                    {% endif %}
-                {% else %}
-                    <div class="col-lg-12">
-                        <p class="alert alert-info">{{ message|trans|nl2br }}</p>
-                    </div>
                 {% endif %}
                 <div class="clearfix"></div>
             </div>
