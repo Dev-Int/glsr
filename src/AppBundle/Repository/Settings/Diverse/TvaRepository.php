@@ -32,7 +32,7 @@ class TvaRepository extends EntityRepository
     public function getAllItems()
     {
         $query = $this->createQueryBuilder('t')
-            ->orderBy('t.name', 'ASC')
+            ->orderBy('t.rate', 'ASC')
             ->getQuery()->getResult();
         
         return $query;

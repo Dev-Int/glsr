@@ -44,13 +44,6 @@ class Tva
     private $rate;
 
     /**
-     * @var double|integer Nom du taux de TVA
-     *
-     * @ORM\Column(name="name", type="decimal", precision=3, scale=1)
-     */
-    private $name;
-
-    /**
      * Get id.
      *
      * @return int
@@ -85,24 +78,12 @@ class Tva
     }
 
     /**
-     * Set name
-     *
-     * @return Settings\Diverse\Tva
-     */
-    public function setName()
-    {
-        $this->name = $this->getRate() * 100;
-
-        return $this;
-    }
-
-    /**
      * Get name
      *
      * @return string
      */
     public function getName()
     {
-        return $this->name;
+        return $this->getRate() * 100;
     }
 }
