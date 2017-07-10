@@ -174,7 +174,7 @@ class GroupController extends AbstractController
         $etm = $this->getDoctrine()->getManager();
         $users = $group->getUsers();
         foreach ($users as $user) {
-            $user->getGroups()->removeGroup($group);
+            $user->getGroups()->removeElement($group);
         }
         $etm->flush();
 
