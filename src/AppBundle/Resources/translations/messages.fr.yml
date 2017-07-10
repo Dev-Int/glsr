@@ -148,6 +148,8 @@ gestock:
             titles: "Liste des groupes"
             new: "Nouveau groupe"
             none: "Pas (encore !) de groupe.\n Pour le bon fonctionnement de l'application, vous devez créer des groupes."
+            delete: "Vous êtes sur le point de supprimer un groupe, cette procédure est irréversible."
+            delete2: "Les utilisateurs de ce groupe seront supprimés pendant la procédure."
         company:
             title: Etablissement
             subtitle: "Paramètres de la société utilisant le logiciel."
