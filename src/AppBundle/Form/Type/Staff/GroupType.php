@@ -17,6 +17,7 @@ namespace AppBundle\Form\Type\Staff;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
 /**
  * GroupType Form properties.
@@ -31,7 +32,9 @@ class GroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', null, ['label' => 'form.group_name', 'translation_domain' => 'FOSUserBundle',]);
+            ->add('name', null, ['label' => 'form.group_name', 'translation_domain' => 'FOSUserBundle',])
+            ->addEventSubscriber(new AddSaveEditFieldSubscriber())
+        ;
     }
 
     /**
