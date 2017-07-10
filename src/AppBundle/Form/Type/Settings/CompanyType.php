@@ -21,6 +21,7 @@ use libphonenumber\PhoneNumberFormat;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 
 /**
  * CompanyType Form properties.
@@ -43,13 +44,13 @@ class CompanyType extends AbstractType
                 'onBlur' => 'this.value=this.value.toUpperCase();',
                 'onFocus' => 'this.value=this.value.toUpperCase();',
                 'onKeyup' => 'this.value=this.value.toUpperCase();',]])
-            ->add('phone', 'tel', ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
+            ->add('phone', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
                 'label' => 'gestock.phone',])
-            ->add('fax', 'tel', ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
+            ->add('fax', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
                 'label' => 'gestock.fax',])
             ->add('mail', EmailType::class, ['trim' => true, 'label' => 'gestock.mail',])
             ->add('contact', TextType::class, ['label' => 'gestock.contact',])
-            ->add('gsm', 'tel', ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
+            ->add('gsm', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
                 'label' => 'gestock.gsm']);
     }
 
