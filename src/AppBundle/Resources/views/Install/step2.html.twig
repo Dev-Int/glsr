@@ -8,11 +8,11 @@
 {% block install_body %}
     {% if message is empty %}
         <div class="col-lg-8">
-            {{ include('AppBundle:Settings/Company:form.html.twig') }}
+            {{ include('AppBundle:Staff/User:form.html.twig') }}
         </div>
         <div class="col-lg-4">
             <p class="alert alert-warning">
-                {{ 'gestock.settings.company.add'|trans|nl2br }}
+                {{ 'gestock.install.st2.txt'|trans|nl2br }}
             </p>
         </div>
     {% else %}

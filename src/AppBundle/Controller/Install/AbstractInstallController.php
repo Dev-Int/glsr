@@ -14,7 +14,7 @@
  */
 namespace AppBundle\Controller\Install;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,41 +23,44 @@ use Doctrine\Common\Persistence\ObjectManager;
  *
  * @category Controller
  */
-abstract class AbstractInstallController extends Controller
+abstract class AbstractInstallController extends AbstractController
 {
     /**
      * Etape X de l'installation.
      * Fonction adaptable aux différentes étapes de l'installation.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request    Form request
-     * @param string                                    $entity     Entity name
+     * @param string                                    $entityName Entity name
      * @param string                                    $entityPath Entity Namespace
      * @param string                                    $typePath   Type of Namespace
-     * @param int|string                                $number     Step number
+     * @param integer|string                            $number     Step number
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|
      *     array<string,string|null|Settings|\Symfony\Component\Form\FormView> Rendered view
      */
-    public function stepAction(Request $request, $entity, $entityPath, $typePath, $number)
+    public function stepAction(Request $request, $entityName, $entityPath, $typePath, $number)
     {
         $etm = $this->getDoctrine()->getManager();
-        $ctEntity = count($etm->getRepository('AppBundle:'.$entity)->findAll());
+        $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
         
-        if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_int($number)) {
+        if ($ctEntity > 0 && $request->getMethod() == 'GET') {
             $message = 'gestock.install.st'.$number.'.yet_exist';
         }
         $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl('gs_install_st'.$number),]);
+        if ($entityName === 'Staff\Group') {
+            $this->addRolesAction($form, $entityNew);
+        }
         if (is_int($number)) {
             $return = ['message' => $message, 'form' => $form->createView(),];
         } else {
-            $return = [$this->nameToVariable($entity) => $entityNew, 'form' => $form->createView(),];
+            $return = ['message' => $message,
+                $this->nameToVariable($entityName) => $entityNew,
+                'form' => $form->createView(),];
         }
 
         if ($form->handleRequest($request)->isValid()) {
             $return = $this->validInstall($entityNew, $form, $etm, $number);
-
-            $this->addFlash('info', 'gestock.install.st'.$number.'.flash');
         }
         
         return $return;
@@ -69,7 +72,7 @@ abstract class AbstractInstallController extends Controller
      * @param object                                     $entityNew Entity
      * @param \Symfony\Component\Form\Form               $form      Form of Entity
      * @param \Doctrine\Common\Persistence\ObjectManager $etm       Entity Manager
-     * @param integer                                    $number    Number of step install
+     * @param integer|string                             $number    Number of step install
      * @return array Route after valid or not
      */
     private function validInstall($entityNew, $form, ObjectManager $etm, $number)
@@ -77,10 +80,15 @@ abstract class AbstractInstallController extends Controller
         $return = '';
         $etm->persist($entityNew);
         $etm->flush();
+        if (is_numeric($number)) {
+            $this->addFlash('info', 'gestock.install.st'.$number.'.flash');
+        } else {
+            $this->addFlash('info', 'gestock.install.st5.flash');
+        }
 
         if (null !== $form->get('save') || null !== $form->get('addmore')) {
             if ($form->get('save')->isClicked()) {
-                $return = $this->redirect($this->generateUrl('gs_install_st4'));
+                $return = $this->redirect($this->generateUrl('gs_install_st5'));
             } elseif ($form->get('addmore')->isClicked()) {
                 $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
             }

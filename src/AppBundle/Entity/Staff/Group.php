@@ -15,6 +15,7 @@
 namespace AppBundle\Entity\Staff;
 
 use FOS\UserBundle\Model\Group as BaseGroup;
+use AppBundle\Entity\Staff\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,21 +37,26 @@ class Group extends BaseGroup
     protected $id;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var array
+     */
+    protected $roles;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Staff\User", mappedBy="groups")
      *
      */
     protected $users;
 
-    public function __construct($name = '', $roles = array())
-    {
-        $this->name = $name;
-        $this->roles = $roles;
-    }
-
     public function __toString()
     {
         return $this->getName();
     }
+
 
     /**
      * Get Users
@@ -60,5 +66,28 @@ class Group extends BaseGroup
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \AppBundle\Entity\Staff\User $users
+     * @return Group
+     */
+    public function addUser(User $users)
+    {
+        $this->users[] = $users;
+
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \AppBundle\Entity\Staff\User $users
+     */
+    public function removeUser(User $users)
+    {
+        $this->users->removeElement($users);
     }
 }

@@ -7,14 +7,7 @@
 
 {% block install_body %}
     {% if message is empty %}
-        <div class="col-lg-8">
-            {{ include('AppBundle:Staff/User:form.html.twig') }}
-        </div>
-        <div class="col-lg-4">
-            <p class="alert alert-warning">
-                {{ 'gestock.install.st1.txt'|trans|nl2br }}
-            </p>
-        </div>
+        {{ include('AppBundle:Staff/Group:form.html.twig') }}
     {% else %}
         <div class="col-lg-12">
             <p class="alert alert-info">{{ message|trans|nl2br }}</p>

@@ -1,14 +1,16 @@
 {% extends 'AppBundle:Install:layout.html.twig' %}
 
 {% block install_title %}
-    <span class="badge">7</span>&nbsp;
-    {{ 'gestock.install.st7.title'|trans }}
+    <span class="badge">8</span>&nbsp;
+    {{ 'gestock.install.st8.title'|trans }}
 {% endblock install_title %}
 
 {% block install_body %}
     {% if message is empty %}
         <div class="col-lg-12">
-            {{ include('AppBundle:Settings/Article:form.html.twig') }}
+            <p class="alert alert-info">
+                {{ 'gestock.install.st8.txt'|trans|nl2br }}
+            </p>
         </div>
     {% else %}
         <div class="col-lg-12">
@@ -19,15 +21,21 @@
 
 {% block install_footer %}
 <footer class="panel-footer">
-    <div class="col-lg-6 text-left">
-        <a href="{{ path('gs_install_st6') }}" class="btn btn-primary" role="button">
+    <div class="col-lg-4 text-left">
+        <a href="{{ path('gs_install_st7') }}" class="btn btn-primary" role="button">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             {{ 'gestock.previous'|trans }}
         </a>
     </div>
-    <div class="col-lg-6 text-right">
-        <a href="{{ path('gs_install_st8') }}" class="btn btn-primary" role="button">
-            {{ 'gestock.next'|trans }}&nbsp;
+    <div class="col-lg-4 text-center">
+        <a href="{{ path('_home') }}" class="btn btn-primary" role="button">
+            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            &nbsp;{{ 'gestock.home.title'|trans }}
+        </a>
+    </div>
+    <div class="col-lg-4 text-right">
+        <a href="{{ path('inventory') }}" class="btn btn-primary" role="button">
+            {{ 'gestock.install.st8.title'|trans }}&nbsp;
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         </a>
     </div>

@@ -1,0 +1,15 @@
+{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.roles) }}
+    <div class="form-group">
+        <div class="btn-group record_actions col-sm-8 col-sm-offset-3">
+        {% if edit_form is defined %}
+            {{ form_widget(form.save) }}
+        {% else %}
+            {{ form_widget(form.save) }} {{ form_widget(form.addmore) }}
+        {% endif %}
+        </div>
+    </div>
+{{ form_end(form) }}

@@ -29,109 +29,109 @@ use AppBundle\Form\Type\Settings\Diverse\TvaType;
  *
  * @category Controller
  *
- * @Route("/install/step4")
+ * @Route("/install/step5")
  */
-class Install4Controller extends InstallController
+class Install5Controller extends InstallController
 {
     /**
-     * Etape 4.1 de l'installation.
+     * Etape 5.1 de l'installation.
      * Cronfiguration de l'application (Famille logistique).
      *
-     * @Route("/1", name="gs_install_st4_1")
+     * @Route("/1", name="gs_install_st5_1")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:Install:step4.html.twig")
+     * @Template("AppBundle:Install:step5.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|string|array
      * <string,FamilyLog|\Symfony\Component\Form\FormView> Rendue de la page
      */
-    public function step41Action(Request $request)
+    public function step51Action(Request $request)
     {
         $return = $this->stepAction(
             $request,
             'Settings\Diverse\FamilyLog',
             '\AppBundle\Entity\Settings\Diverse\FamilyLog',
             FamilyLogType::class,
-            '4_1'
+            '5_1'
         );
 
         return $return;
     }
 
     /**
-     * Etape 4.2 de l'installation.
+     * Etape 5.2 de l'installation.
      * Cronfiguration de l'application (Zone de stockage).
      *
-     * @Route("/2", name="gs_install_st4_2")
+     * @Route("/2", name="gs_install_st5_2")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:Install:step4.html.twig")
+     * @Template("AppBundle:Install:step5.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|string|array
      * <string,ZoneStorage|\Symfony\Component\Form\FormView> Rendue de la page
      */
-    public function step42Action(Request $request)
+    public function step52Action(Request $request)
     {
         $return = $this->stepAction(
             $request,
             'Settings\Diverse\ZoneStorage',
             '\AppBundle\Entity\Settings\Diverse\ZoneStorage',
             ZoneStorageType::class,
-            '4_2'
+            '5_2'
         );
 
         return $return;
     }
 
     /**
-     * Etape 4.3 de l'installation.
+     * Etape 5.3 de l'installation.
      * Cronfiguration de l'application (Unité de stockage).
      *
-     * @Route("/3", name="gs_install_st4_3")
+     * @Route("/3", name="gs_install_st5_3")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:Install:step4.html.twig")
+     * @Template("AppBundle:Install:step5.html.twig")
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|string|array
      * <string,UnitStorage|\Symfony\Component\Form\FormView> Rendue de la page
      */
-    public function step43Action(Request $request)
+    public function step53Action(Request $request)
     {
         $return = $this->stepAction(
             $request,
             'Settings\Diverse\Unit',
             '\AppBundle\Entity\Settings\Diverse\Unit',
             UnitType::class,
-            '4_3'
+            '5_3'
         );
 
         return $return;
     }
 
     /**
-     * Etape 4.4 de l'installation.
+     * Etape 5.4 de l'installation.
      * Cronfiguration de l'application (Taux de T.V.A.).
      *
-     * @Route("/4", name="gs_install_st4_4")
+     * @Route("/4", name="gs_install_st5_4")
      * @Method({"POST","GET"})
-     * @Template("AppBundle:Install:step4.html.twig")
+     * @Template("AppBundle:Install:step5.html.twig")
      *
      * @param Symfony\Component\HttpFoundation\Request $request Requète du formulaire
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|string|array
      * <string,Tva|\Symfony\Component\Form\FormView> Rendue de la page
      */
-    public function step44Action(Request $request)
+    public function step54Action(Request $request)
     {
         $return = $this->stepAction(
             $request,
             'Settings\Diverse\Tva',
             '\AppBundle\Entity\Settings\Diverse\Tva',
             TvaType::class,
-            '4_4'
+            '5_4'
         );
 
         return $return;

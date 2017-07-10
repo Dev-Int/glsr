@@ -13,7 +13,7 @@
  * @link https://github.com/Dev-Int/glsr
  */
 namespace AppBundle\Entity\Staff;
- 
+
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;

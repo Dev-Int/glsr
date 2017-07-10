@@ -6,15 +6,58 @@
 {% endblock install_title %}
 
 {% block install_body %}
-    {% if message is empty %}
         <div class="col-lg-12">
-            {{ include('AppBundle:Settings/Supplier:form.html.twig') }}
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                <li {% if app.request.attributes.get('_route') == 'gs_install_st5_1' %} class="active"{% endif %}>
+                    <a href="{{ path('gs_install_st5_1') }}">
+                        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                        {{ 'gestock.settings.diverse.familylog'|trans }}
+                    </a>
+                </li>
+                <li {% if app.request.attributes.get('_route') == 'gs_install_st5_2' %} class="active"{% endif %}>
+                    <a href="{{ path('gs_install_st5_2') }}">
+                        <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                        {{ 'gestock.settings.diverse.zonestorage'|trans }}
+                    </a>
+                </li>
+                <li {% if app.request.attributes.get('_route') == 'gs_install_st5_3' %} class="active"{% endif %}>
+                    <a href="{{ path('gs_install_st5_3') }}">
+                        <i class="fa fa-cubes" aria-hidden="true"></i>
+                        {{ 'gestock.settings.diverse.unitstorage'|trans }}
+                    </a>
+                </li>
+                <li {% if app.request.attributes.get('_route') == 'gs_install_st5_4' %} class="active"{% endif %}>
+                    <a href="{{ path('gs_install_st5_4') }}">
+                        <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
+                        {{ 'gestock.settings.diverse.vat'|trans }}
+                    </a>
+                </li>
+            </ul>
+            <div class="well-lg">
+                {% if message is empty %}
+                    {% if familylog is defined %}
+                        {{ include('AppBundle:Settings/Diverse/FamilyLog:form.html.twig') }}
+                    {% endif %}
+                    {% if zonestorage is defined %}
+                        {{ include('AppBundle:Settings/Diverse/ZoneStorage:form.html.twig') }}
+                    {% endif %}
+                    {% if unit is defined %}
+                        {{ include('AppBundle:Settings/Diverse/Unit:form.html.twig') }}
+                    {% endif %}
+                    {% if tva is defined %}
+                        {{ include('AppBundle:Settings/Diverse/Tva:form.html.twig') }}
+                    {% endif %}
+                {% else %}
+                    <div class="col-lg-12">
+                        <p class="alert alert-info">{{ message|trans|nl2br }}</p>
+                    </div>
+                {% endif %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="alert alert-info">
+                {{ 'gestock.install.st5.info'|trans|nl2br }}
+            </div>
         </div>
-    {% else %}
-        <div class="col-lg-12">
-            <p class="alert alert-info">{{ message|trans|nl2br }}</p>
-        </div>
-    {% endif %}  
 {% endblock install_body %}
 
 {% block install_footer %}
