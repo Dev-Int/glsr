@@ -76,7 +76,7 @@ class TvaController extends AbstractController
     public function newAction()
     {
         $return = $this->abstractNewAction(
-            'Tva',
+            'Settings\Diverse\Tva',
             'AppBundle\Entity\Settings\Diverse\Tva',
             TvaType::class,
             'tva'
@@ -99,7 +99,7 @@ class TvaController extends AbstractController
     {
         $return = $this->abstractCreateAction(
             $request,
-            'Tva',
+            'Settings\Diverse\Tva',
             'AppBundle\Entity\Settings\Diverse\Tva',
             TvaType::class,
             'tva'
