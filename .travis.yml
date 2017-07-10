@@ -26,8 +26,8 @@ before_script:
   - pear config-set preferred_state beta
 
   - sudo add-apt-repository -y ppa:moti-p/cc
-  - sudo apt-get update
-  - sudo apt-get install imagemagick
+  - sudo apt-get update && sudo apt-get upgrade
+#  - sudo apt-get -y --reinstall install imagemagick
   - printf "\n" | pecl install imagick-beta
 
   - pear channel-discover pear.phpmd.org
