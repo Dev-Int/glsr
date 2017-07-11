@@ -120,7 +120,7 @@ class DefaultController extends Controller
      *
      * @Route("/alert", name="lastorders")
      * @Method("GET")
-     * @Template("default/lastorder.html.twig")
+     * @Template("default/lastOrder.html.twig")
      *
      * @param integer $number Number of orders to display
      * @return array|null
