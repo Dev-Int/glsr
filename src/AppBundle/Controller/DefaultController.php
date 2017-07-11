@@ -46,7 +46,7 @@ class DefaultController extends Controller
             ['5_4', 'AppBundle:Settings\Diverse\Tva'],
             ['6', 'AppBundle:Settings\Supplier'],
             ['7', 'AppBundle:Settings\Article'],
-            ['8', 'AppBundle:Stock\Inventory'],);
+            ['8', 'AppBundle:Stocks\Inventory'],);
     }
 
     /**
