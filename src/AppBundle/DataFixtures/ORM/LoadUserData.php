@@ -20,6 +20,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use AppBundle\Entity\Staff\User;
+use AppBundle\Entity\Staff\Group;
 
 /**
  * LoadUser Data.
@@ -42,14 +43,18 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     {
         $userAdmin = new User();
         $userAdmin->setUsername('Admin');
+        $userAdmin->setEmail('admin@localhost');
+        $userAdmin->setEnabled(true);
         $userAdmin->setSalt(md5(uniqid()));
         
         // the 'security.password_encoder' service requires Symfony 2.6 or higher
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($userAdmin, 'admin');
         $userAdmin->setPassword($password);
-        
-        $userAdmin->setGroups('admin');
+
+        $group = new Group('admin', 'ROLE_SUPER_ADMIN');
+        var_dump($group);
+        $userAdmin->setGroups($group->getId(1));
 
         $manager->persist($userAdmin);
         $manager->flush();
