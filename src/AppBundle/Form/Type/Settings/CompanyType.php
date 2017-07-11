@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
+use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -51,7 +52,9 @@ class CompanyType extends AbstractType
             ->add('mail', EmailType::class, ['trim' => true, 'label' => 'gestock.mail',])
             ->add('contact', TextType::class, ['label' => 'gestock.contact',])
             ->add('gsm', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
-                'label' => 'gestock.gsm']);
+                'label' => 'gestock.gsm'])
+            ->addEventSubscriber(new AddSaveEditFieldSubscriber())
+        ;
     }
 
     /**

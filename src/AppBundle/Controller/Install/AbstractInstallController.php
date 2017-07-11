@@ -88,7 +88,12 @@ abstract class AbstractInstallController extends AbstractController
 
         if (null !== $form->get('save') || null !== $form->get('addmore')) {
             if ($form->get('save')->isClicked()) {
-                $return = $this->redirect($this->generateUrl('gs_install_st5'));
+                if (is_numeric($number)) {
+                    $numberNext = $number++;
+                    $return = $this->redirect($this->generateUrl('gs_install_st'.$numberNext));
+                } else {
+                    $return = $this->redirect($this->generateUrl('gs_install_st5'));
+                }
             } elseif ($form->get('addmore')->isClicked()) {
                 $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
             }
