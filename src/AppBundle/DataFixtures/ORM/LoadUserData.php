@@ -53,7 +53,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $userAdmin->setPassword($password);
 
         $group = new Group('admin', 'ROLE_SUPER_ADMIN');
-        var_dump($group);
         $userAdmin->setGroups($group->getId(1));
 
         $manager->persist($userAdmin);
