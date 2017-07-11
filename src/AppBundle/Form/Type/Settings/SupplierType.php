@@ -52,14 +52,12 @@ class SupplierType extends AbstractType
                     'preferred_country_choices' => ['FR',], 'label' => 'gestock.phone',])
             ->add('fax', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
                     'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE, 'country_choices' => ['FR', 'GB', 'DE', 'IT',],
-                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.fax',
-                    'attr'  => ['class' => 'form-control',]])
+                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.fax',])
             ->add('mail', EmailType::class, ['label' => 'gestock.mail', 'attr'  => ['class' => 'form-control',]])
             ->add('contact', TextType::class, ['label' => 'gestock.contact', 'attr'  => ['class' => 'form-control',],])
             ->add('gsm', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
                     'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE, 'country_choices' => ['FR', 'GB', 'DE', 'IT',],
-                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.gsm',
-                'attr'  => ['class' => 'form-control',]])
+                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.gsm',])
             /**
              * Délai de livraison A = jour de Cmde,
              * (B, C, D, E) = jour de livraison
