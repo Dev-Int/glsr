@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use libphonenumber\PhoneNumberFormat;
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Form\EventListener\AddSaveEditFieldSubscriber;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -80,7 +81,9 @@ class SupplierType extends AbstractType
                     }, 'choice_label' => 'indentedName', 'multiple' => false,
                     'placeholder' => 'gestock.settings.diverse.choice_family', 'empty_data' => null,
                     'label' => 'gestock.settings.diverse.familylog', 'attr'  => ['class' => 'form-control half',]])
-            ->add('active', HiddenType::class, ['data' => true,]);
+            ->add('active', HiddenType::class, ['data' => true,])
+            ->addEventSubscriber(new AddSaveEditFieldSubscriber())
+        ;
     }
 
     /**

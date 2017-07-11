@@ -154,17 +154,15 @@
         </div>
     </fieldset>
 
-    <p>
+    <div class="form-group">
+        <div class="btn-group record_actions">
         {% if edit_form is defined %}
-            <button class="btn btn-primary btn-edit" type="submit">
-                {{ 'Edit'|trans({}, 'admin') }}
-            </button>
+            {{ form_widget(form.save) }}
         {% else %}
-            <button class="btn btn-primary btn-create" type="submit">
-                {{ 'Create'|trans({}, 'admin') }}
-            </button>
+            {{ form_widget(form.save) }} {{ form_widget(form.addmore) }}
         {% endif %}
-    </p>
+        </div>
+    </div>
 {{ form_end(form) }}
 <script type="text/javascript">
 function upperCase(){
