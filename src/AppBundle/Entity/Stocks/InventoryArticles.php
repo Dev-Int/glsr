@@ -49,7 +49,7 @@ class InventoryArticles
     /**
      * @var decimal Quantité en stock
      *
-     * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3)
+     * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3, nullable=true, options={"default":0})
      */
     private $quantity;
 
