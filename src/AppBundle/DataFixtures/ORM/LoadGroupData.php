@@ -26,13 +26,21 @@ use AppBundle\Entity\Staff\Group;
  */
 class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
 {
+    private $datas = [
+        ['admin', 'ROLE_SUPER_ADMIN'],
+        ['assistant','ROLE_ADMIN'],
+        ['user', 'ROLE_USER']
+    ];
+
     public function load(ObjectManager $manager)
     {
-        $groupAdmin = new Group();
-        $groupAdmin->setName('admin');
-        $groupAdmin->setRoles(['ROLE_SUPER_ADMIN']);
+        foreach ($this->datas as $data) {
+            $groupAdmin = new Group();
+            $groupAdmin->setName($data[0]);
+            $groupAdmin->setRoles([$data[1]]);
 
-        $manager->persist($groupAdmin);
+            $manager->persist($groupAdmin);
+        }
         $manager->flush();
 
         $this->addReference('admin-group', $groupAdmin);
