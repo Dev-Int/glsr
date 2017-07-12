@@ -168,7 +168,7 @@ class OrdersArticles
      * @param \AppBundle\Entity\Settings\Article $article
      * @return OrdersArticles
      */
-    public function setArticle(\AppBundle\Entity\Article $article)
+    public function setArticle(\AppBundle\Entity\Settings\Article $article)
     {
         $this->article = $article;
 
