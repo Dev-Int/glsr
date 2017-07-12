@@ -37,6 +37,13 @@
                 </tr>
             </thead>
             <tbody>
+                {% if paginator.items is empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <h2>{{ 'none'|trans({}, 'gs_inventories') }}</h2>
+                        </td>
+                    </tr>
+                {% else %}
                 {% for inventory in paginator %}
                     <tr>
                         <td class="text-right">{{ inventory.id }}</td>
@@ -68,6 +75,7 @@
                         </td>
                     </tr>
                 {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>
