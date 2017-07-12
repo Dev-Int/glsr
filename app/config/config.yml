@@ -39,12 +39,13 @@ twig:
     form_theme:
 #        resources:
         - LexikFormFilterBundle/Form/form_div_layout.html.twig
+        - form/tel_bootstrap.html.twig
 
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'AppBundle' ]
     java: %java_path%
     filters:
         cssrewrite: ~
@@ -134,16 +135,16 @@ knp_snappy:
     pdf:
         enabled: true
         # if you are using Windows
-        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltopdf.exe
+        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltopdf.exe
         # if you are using Unix
-        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltopdf
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltopdf
         options: []
     image:
         enabled: true
         # if you are using Windows
-        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltoimage.exe
+        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/windows/bin/wkhtmltoimage.exe
         # if you are using Unix
-        # binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltoimage
+        binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltoimage
         options: []
         
 # JMS_Security_Extra Configuration
