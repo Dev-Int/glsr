@@ -46,13 +46,16 @@ class CompanyType extends AbstractType
                 'onFocus' => 'this.value=this.value.toUpperCase();',
                 'onKeyup' => 'this.value=this.value.toUpperCase();',]])
             ->add('phone', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
-                'label' => 'gestock.phone',])
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE, 'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.phone',])
             ->add('fax', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
-                'label' => 'gestock.fax',])
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE, 'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.fax',])
             ->add('mail', EmailType::class, ['trim' => true, 'label' => 'gestock.mail',])
             ->add('contact', TextType::class, ['label' => 'gestock.contact',])
             ->add('gsm', PhoneNumberType::class, ['default_region' => 'FR', 'format' => PhoneNumberFormat::NATIONAL,
-                'label' => 'gestock.gsm'])
+                    'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE, 'country_choices' => ['FR', 'GB', 'DE', 'IT',],
+                    'preferred_country_choices' => ['FR',], 'label' => 'gestock.gsm',])
             ->addEventSubscriber(new AddSaveEditFieldSubscriber())
         ;
     }
