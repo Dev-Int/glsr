@@ -41,7 +41,7 @@ class OrdersEditType extends OrdersType
                 'supplier',
                 EntityType::class,
                 array(
-                    'class' => 'AppBundle:Supplier',
+                    'class' => 'AppBundle:Settings\Supplier',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('s')
                             ->where('s.active = 1');

@@ -127,6 +127,10 @@ gestock:
             flash: "Article bien ajouté"
             yet_exist: "Des articles sont déjà créés.\n Pour les modifier : Menu Configuration -> Articles.\n \n Vous pouvez passer à l'étape suivante."
         st8:
+            title: "Création des matières"
+            flash: "Matières bien ajouté"
+            yet_exist: "Des matières sont déjà créés.\n Pour les modifier : Menu Configuration -> Divers -> Matières.\n \n Vous pouvez passer à l'étape suivante."
+        st9:
             title: "Inventaire d'installation"
             txt: "Tout est prêt !\n Vous pouvez maintenant faire l'inventaire d'installation, afin de bien démarrer l'utilisation de l'application."
             yet_exist: "L'inventaire d'installation est déjà fait.\n Pour les prochains : Menu Inventaires/Stocks -> Inventaires.\n \n L'installation est terminée. Vous pouvez continuer l'utilisation normalement."

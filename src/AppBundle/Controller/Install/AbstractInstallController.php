@@ -43,8 +43,9 @@ abstract class AbstractInstallController extends AbstractController
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
+        $articles = null;
         
-        if ($ctEntity > 0 && $request->getMethod() == 'GET') {
+        if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_numeric($number) && $number < 5) {
             $message = 'gestock.install.st'.$number.'.yet_exist';
         }
         $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl('gs_install_st'.$number),]);
@@ -61,6 +62,10 @@ abstract class AbstractInstallController extends AbstractController
 
         if ($form->handleRequest($request)->isValid()) {
             $return = $this->validInstall($entityNew, $form, $etm, $number);
+        }
+        if ($entityName === 'Settings\Diverse\Material') {
+            $articles = $etm->getRepository('AppBundle:Settings\Article')->findAll();
+            $return['articles'] = $articles;
         }
         
         return $return;
@@ -87,13 +92,11 @@ abstract class AbstractInstallController extends AbstractController
         }
 
         if (null !== $form->get('save') || null !== $form->get('addmore')) {
-            if ($form->get('save')->isClicked()) {
-                if (is_numeric($number)) {
-                    $numberNext = $number++;
-                    $return = $this->redirect($this->generateUrl('gs_install_st'.$numberNext));
-                } else {
-                    $return = $this->redirect($this->generateUrl('gs_install_st5'));
-                }
+            if ($form->get('save')->isClicked() && is_numeric($number)) {
+                $numberNext = $number++;
+                $return = $this->redirect($this->generateUrl('gs_install_st'.$numberNext));
+            } elseif ($form->get('save')->isClicked() && !is_numeric($number)) {
+                $return = $this->redirect($this->generateUrl('gs_install_st5'));
             } elseif ($form->get('addmore')->isClicked()) {
                 $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
             }

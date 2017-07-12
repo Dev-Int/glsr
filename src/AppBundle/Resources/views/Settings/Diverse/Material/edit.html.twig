@@ -1,7 +1,4 @@
 {% extends "base.html.twig" %}
-{% set lastloop = 0 %}
-
-{% form_theme edit_form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block title %}
     {{ '%entity% edit'|trans({'%entity%': 'menu.material'|trans({}, 'messages')}, 'admin') }} - {{ parent() }}
@@ -38,25 +35,4 @@
 
     {% include 'deleteForm.html.twig' %}
 
-    <script type="text/javascript">
-        function isMultiple(id){
-            var multiple = 0;
-            var articlesCount = {{ edit_form.articles|length }} + 1;
-
-            var unit = $('#material_articles_unit_' + id).val();
-            $('#{{ edit_form.unitWorking.vars.id }}').val(unit);
-
-            for (var iter = 1; iter <= articlesCount; iter++) {
-                if ($('#{{ edit_form.articles.vars.id }}_' + iter).is(':checked')) {
-                    multiple++;
-                }
-            }
-
-            if (multiple > 1) {
-                $('#{{ edit_form.multiple.vars.id }}').prop('checked', true);
-            } else {
-                $('#{{ edit_form.multiple.vars.id }}').prop('checked', false);
-            }
-        }
-    </script>
 {% endblock %}

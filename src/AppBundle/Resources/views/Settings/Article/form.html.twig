@@ -63,7 +63,7 @@
                 {{ form_widget(form.familyLog, { 'attr' : { 'onChange':'setHiddenFlog();' } }) }}
                 <input id="hidden_flog" name="article[familyLog]" type="hidden" value="{% if form.familyLog.vars.value is defined %}{{ form.familyLog.vars.value }}{% endif %}" />
             </div><br /><br /><br />
-            <div class="col-md-2 label label-default">
+            <div class="col-md-1 col-md-offset-1 label label-default">
                 {{ form_label(form.active) }}
             </div>
             <div class="col-md-4">

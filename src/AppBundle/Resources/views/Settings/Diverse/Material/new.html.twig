@@ -1,7 +1,5 @@
 {% extends "base.html.twig" %}
 
-{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
-
 {% block title %}
     {{ '%entity% creation'|trans({'%entity%': 'menu.material'|trans({}, 'messages')}, 'admin') }} - {{ parent() }}
 {% endblock %}
@@ -22,25 +20,4 @@
         </a>
     </div>
 
-    <script type="text/javascript">
-        function isMultiple(id){
-            var multiple = 0;
-            var articlesCount = {{ form.articles|length }} + 1;
-
-            var unit = $('#material_articles_unit_' + id).val();
-            $('#{{ form.unitWorking.vars.id }}').val(unit);
-
-            for (var iter = 1; iter <= articlesCount; iter++) {
-                if ($('#{{ form.articles.vars.id }}_' + iter).is(':checked')) {
-                    multiple++;
-                }
-            }
-
-            if (multiple > 1) {
-                $('#{{ form.multiple.vars.id }}').prop('checked', true);
-            } else {
-                $('#{{ form.multiple.vars.id }}').prop('checked', false);
-            }
-        }
-    </script>
 {% endblock %}

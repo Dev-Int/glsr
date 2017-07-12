@@ -27,6 +27,7 @@ use AppBundle\Form\Type\Settings\CompanyType;
 use AppBundle\Form\Type\Settings\SettingsType;
 use AppBundle\Form\Type\Settings\SupplierType;
 use AppBundle\Form\Type\Settings\ArticleType;
+use AppBundle\Form\Type\Settings\Diverse\MaterialType;
 
 /**
  * class InstallController
@@ -232,18 +233,44 @@ class InstallController extends AbstractInstallController
         
         return $return;
     }
-    
+
     /**
      * Etape 8 de l'installation.
-     * Inventaire d'installation.
+     * Création des articles.
      *
      * @Route("/step8", name="gs_install_st8")
-     * @Method({"GET"})
+     * @Method({"POST","GET"})
      * @Template("AppBundle:Install:step8.html.twig")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request Requète du formulaire
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|
+     *     array<string,string|null|Article|\Symfony\Component\Form\FormView> Rendue de la page
+     */
+    public function step8Action(Request $request)
+    {
+        $return = $this->stepAction(
+            $request,
+            'Settings\Diverse\Material',
+            '\AppBundle\Entity\Settings\Diverse\Material',
+            MaterialType::class,
+            8
+        );
+        
+        return $return;
+    }
+    
+    /**
+     * Etape 9 de l'installation.
+     * Inventaire d'installation.
+     *
+     * @Route("/step9", name="gs_install_st9")
+     * @Method({"GET"})
+     * @Template("AppBundle:Install:step9.html.twig")
      *
      * @return array Rendue de la page
      */
-    public function step8Action()
+    public function step9Action()
     {
         $etm = $this->getDoctrine()->getManager();
         $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
