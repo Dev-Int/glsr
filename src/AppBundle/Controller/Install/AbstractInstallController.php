@@ -43,7 +43,6 @@ abstract class AbstractInstallController extends AbstractController
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
-        $articles = null;
         
         if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_numeric($number) && $number < 5) {
             $message = 'gestock.install.st'.$number.'.yet_exist';
