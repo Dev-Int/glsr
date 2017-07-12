@@ -24,6 +24,13 @@
             </tr>
         </thead>
         <tbody>
+            {% if paginator.items is empty %}
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <h2>{{ 'alerts.no_invoices'|trans({}, 'gs_invoices') }}</h2>
+                    </td>
+                </tr>
+            {% else %}
             {% for orders in paginator %}
                 <tr>
                     <td class="text-center"><a href="{{ path('invoices_show', {id: orders.id}) }}">{{ "%06d"|format(orders.id) }}</a></td>
@@ -51,6 +58,7 @@
                     </td>
                 </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
     

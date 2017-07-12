@@ -27,6 +27,13 @@
             </tr>
         </thead>
         <tbody>
+            {% if paginator.items is empty %}
+                <tr>
+                    <td colspan="7" class="text-center">
+                        <h2>{{ 'alerts.no_deliveries'|trans({}, 'gs_deliveries') }}</h2>
+                    </td>
+                </tr>
+            {% else %}
             {% for orders in paginator %}
                 <tr>
                     <td class="text-center"><a href="{{ path('deliveries_show', {id: orders.id}) }}">{{ "%06d"|format(orders.id) }}</a></td>
@@ -57,9 +64,10 @@
                     </td>
                 </tr>
             {% endfor %}
+            {% endif %}
         </tbody>
     </table>
-    
+
     {{ knp_pagination_render(paginator) }}
     
     <div class="btn-group">
