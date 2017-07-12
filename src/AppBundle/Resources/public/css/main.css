@@ -218,6 +218,12 @@ div.panel.panel-default > div.panel-body > div.col-md-9 > label {
 
 .addon-phone {
     padding: 0 !important;
+    width: 16.66666667% !important;
+}
+.addon-phone>select,
+select.form-control {
+    padding: 1px 3px !important;
+    font-size: 10px !important;
 }
 
 section.alerts .panel {
