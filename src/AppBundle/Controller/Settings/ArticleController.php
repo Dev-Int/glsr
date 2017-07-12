@@ -57,7 +57,7 @@ class ArticleController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Article $article Article item to display
+     * @param \AppBundle\Entity\Settings\Article $article Article item to display
      * @return array
      */
     public function showAction(Article $article)
@@ -93,7 +93,7 @@ class ArticleController extends AbstractController
      *
      * @Route("/admin/create", name="article_create")
      * @Method("POST")
-     * @Template("AppBundle:Article:new.html.twig")
+     * @Template("AppBundle:Settings\Article:new.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
@@ -118,7 +118,7 @@ class ArticleController extends AbstractController
      * @Method("GET")
      * @Template()
      *
-     * @param \AppBundle\Entity\Article $article Article item to edit
+     * @param \AppBundle\Entity\Settings\Article $article Article item to edit
      * @return array
      */
     public function editAction(Article $article)
@@ -133,9 +133,9 @@ class ArticleController extends AbstractController
      *
      * @Route("/admin/{slug}/update", name="article_update")
      * @Method("PUT")
-     * @Template("AppBundle:Article:edit.html.twig")
+     * @Template("AppBundle:Settings\Article:edit.html.twig")
      *
-     * @param \AppBundle\Entity\Article                 $article Article item to update
+     * @param \AppBundle\Entity\Settings\Article                 $article Article item to update
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return array
      */
@@ -187,7 +187,7 @@ class ArticleController extends AbstractController
      *
      * @Route("/admin/{slug}/change", name="article_change")
      * @Method("POST")
-     * @Template("AppBundle:Article:reassign.html.twig")
+     * @Template("AppBundle:Settings\Article:reassign.html.twig")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request  Form request
      * @param \AppBundle\Entity\Supplier                $supplier Supplier to desactivate
@@ -245,7 +245,7 @@ class ArticleController extends AbstractController
      * @Route("/admin/{id}/delete", name="article_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      *
-     * @param \AppBundle\Entity\Article                 $article Article item to delete
+     * @param \AppBundle\Entity\Settings\Article                 $article Article item to delete
      * @param \Symfony\Component\HttpFoundation\Request $request Form request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
