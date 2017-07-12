@@ -80,7 +80,10 @@ gestock:
         none: "Votre application n'est pas encore configurée.\n Vous devez suivre les étapes d'installation"
         present: 
             title: Présentation
-            txt: "<p>Bienvenue dans G.L.S.R.</p><p>Laissez-vous guider pour suivre les différentes étapes de l'installation.</p><p>Chaque point est important pour le fonctionnement de l'application.</p>"
+            txt:
+                title: "Bienvenue dans G.L.S.R."
+                1: "Laissez-vous guider pour suivre les différentes étapes de l'installation."
+                2: "Chaque point est important pour le fonctionnement de l'application."
         subtitle: "&Eacute;tapes d'installation"
         st1:
             title: "Création des groupes"

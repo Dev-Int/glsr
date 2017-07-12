@@ -11,7 +11,13 @@
 {% endblock install_title %}
 
 {% block install_body %}
-    {{ 'gestock.install.present.txt'|trans|raw }}
+    <h3>{{ 'gestock.install.present.txt.title'|trans }}</h3>
+    <hr />
+    <p>&nbsp;</p>
+    <h4>{{ 'gestock.install.present.txt.1'|trans }}</h4>
+    <p>&nbsp;</p>
+    <h4 class="text-bold text-danger">{{ 'gestock.install.present.txt.2'|trans }}</h4>
+    <p>&nbsp;</p>
 {% endblock install_body %}
 
 {% block install_footer %}
