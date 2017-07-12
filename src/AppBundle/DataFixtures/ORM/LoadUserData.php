@@ -19,8 +19,8 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Staff\User;
-use AppBundle\Entity\Staff\Group;
 
 /**
  * LoadUser Data.
@@ -51,9 +51,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($userAdmin, 'admin');
         $userAdmin->setPassword($password);
+        $userAdmin->setRoles(['ROLE_SUPER_ADMIN']);
 
-        $group = new Group('admin', 'ROLE_SUPER_ADMIN');
-        $userAdmin->setGroups($group->getId(1));
+        $group = new ArrayCollection([$this->getReference('admin-group1')]);
+        $userAdmin->setGroups($group);
 
         $manager->persist($userAdmin);
         $manager->flush();
