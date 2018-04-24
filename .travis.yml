@@ -1,0 +1,70 @@
+language: php
+php:
+  - '7.1'
+
+env:
+  global:
+    secure: "FuDtiMTKON+YsTs2YADHqUldCJmGYQxrlk4+Lg7D/vX6LFFLDi50lfAk9BskkqKGv9hJXHW3Pmo/86DSmKHhq0G8MCbOncLmDZ/ISa2zZsIOIMwz7cYS0kw6Q7Rs6BDdzWzUf5AwbSHcUQJbgPVrZ6UXXoq8b1zvPt/hy+aIkB4="
+
+dist: 'precise'
+
+before_install:
+ - sudo apt-get update && sudo apt-get install graphviz
+
+before_script: 
+  ## Composer 
+  - composer install -n
+  ## Composer : Mise à jour et Installation des pre-requis
+  - composer selfupdate --quiet
+  ## PHP_CodeSniffer
+  - pear install pear/PHP_CodeSniffer
+  - phpenv rehash
+  ## PHP Copy/Paste Detector
+  - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
+  ## PHP Mess Detector
+  - pear config-set preferred_state beta
+
+  - sudo add-apt-repository -y ppa:moti-p/cc
+  - sudo apt-get update
+  - printf "\n" | pecl install imagick-beta
+
+  - pear channel-discover pear.phpmd.org
+  - pear channel-discover pear.pdepend.org
+  - pear install --alldeps phpmd/PHP_PMD
+  - phpenv rehash
+  ## PHPLOC
+  - curl -o phploc.phar https://phar.phpunit.de/phploc.phar
+  ## PHPDoc
+  - pear install Image_GraphViz
+  ## PHPUnit/DbUnit
+  #- pear channel-discover pear.phpunit.de
+  #- pyrus channel-discover pear.symfony.com
+  #- pyrus install --force phpunit/DbUnit
+  - composer install --dev --prefer-source
+
+script: 
+  ## PHPUnit
+  #- phpunit -c app
+  #- phpunit --coverage-text
+  ## PHP Mess Detector
+  - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
+  ## PHP_CodeSniffer
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/* --standard=PSR1 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/* --standard=PSR2 src/
+  ## PHP Copy/Paste Detector
+  - php phpcpd.phar --verbose src/
+  ## PHPLOC
+  - php phploc.phar src/
+
+notifications:
+  email:
+    lq@dev-int.net
+
+# whitelist
+branches:
+  only:
+    - master
+    - Developp
+    - Recipes
+    - SF4
+    - /^(?i:issue)-.*$/
