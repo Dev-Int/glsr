@@ -1,11 +1,11 @@
- global_exclude_dirs:
-    - vendor
-    - vendors
-    - test
-    - tests
-    - Tests
+# global_exclude_dirs:
+#    - vendor
+#    - vendors
+#    - test
+#    - tests
+#    - Tests
 #    - lib/vendor
-    - bin
+#    - bin
 
 # exclude_patterns:
 #    - app/check.php
