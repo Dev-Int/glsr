@@ -1,16 +1,24 @@
-/web/bundles/
-/web/js/
-/web/css/
-/web/pdf/
-/app/bootstrap.php.cache
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-/app/sessions/*
-/app/config/parameters.yml
-/app/phpunit.xml
+
+###> symfony/framework-bundle ###
+/.env
+/public/bundles/
+/var/
 /vendor/
-/composer.phar
-/bin/
-/doc/*
+###< symfony/framework-bundle ###
+
+###> symfony/webpack-encore-pack ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-pack ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+/nbproject/private/
