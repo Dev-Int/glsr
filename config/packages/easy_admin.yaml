@@ -1,0 +1,23 @@
+easy_admin:
+    design:
+        assets:
+            css:
+                - 'build/app.css'
+        menu:
+            - { entity: 'User', icon:  'user' }
+
+    site_name: <i class='icon-GLSR'></i> | Admin
+    translation_domain: messages
+
+    entities:
+        User:
+            class: App\Entity\User
+            controller: App\Controller\UserController
+            form:
+                fields: 
+                    - username
+                    - password
+                    - email
+#        # List the entity class name you want to manage
+#        - App\Entity\Product
+#        - App\Entity\Category
