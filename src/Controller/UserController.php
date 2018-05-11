@@ -32,13 +32,13 @@ class UserController extends BaseAdminController
 
         // transform the role hierarchy in a single unique list
         $roles = array();
-        array_walk_recursive($hierarchy, function($role) use (&$roles) {
+        array_walk_recursive($hierarchy, function ($role) use (&$roles) {
             $roles[$role] = $role;
         });
 
         $formBuilder = parent::createEntityFormBuilder($entity, $view);
         $formBuilder->
-            add('roles', ChoiceType::class,[
+            add('roles', ChoiceType::class, [
                 'expanded' => true,
                 'multiple' => true,
                 'placeholder' => 'Choice a role',
