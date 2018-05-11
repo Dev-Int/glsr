@@ -49,8 +49,8 @@ script:
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
-  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/* --standard=PSR1 src/
-  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/* --standard=PSR2 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/*,*/Migrations/Version*.php --standard=PSR1 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/tests/*,*/Migrations/Version*.php --standard=PSR2 src/
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC

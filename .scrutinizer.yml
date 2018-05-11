@@ -3,3 +3,4 @@ filter:
         - 'src/*'
     excluded_paths:
         - tests/*
+        - Migrations/*
