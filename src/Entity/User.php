@@ -162,12 +162,7 @@ class User implements AdvancedUserInterface, \Serializable
         return $this;
     }
 
-    public function getIsActive(): ?bool
-    {
-        return $this->isActive;
-    }
-
-    public function setIsActive(bool $isActive): self
+    public function setEnabled(bool $isActive): self
     {
         $this->isActive = $isActive;
 
