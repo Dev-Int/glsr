@@ -18,6 +18,7 @@ easy_admin:
                     - username
                     - password
                     - email
+                    - enabled
 #        # List the entity class name you want to manage
 #        - App\Entity\Product
 #        - App\Entity\Category
