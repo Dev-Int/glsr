@@ -36,7 +36,7 @@ class UserController extends BaseAdminController
             $roles[$role] = $role;
         });
 
-        $formBuilder = parent::createEntityFormBuilder($entity, $view);
+        $formBuilder = $this->createEntityFormBuilder($entity, $view);
         $formBuilder->
             add('roles', ChoiceType::class, [
                 'expanded' => true,
