@@ -15,5 +15,4 @@
         "watch": "encore dev --watch",
         "build": "encore production"
     }
-    "browserslist": [ "last 2 versions", "ios >= 8" ]
 }
