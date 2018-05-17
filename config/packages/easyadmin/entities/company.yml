@@ -5,12 +5,11 @@ easy_admin:
         Company:
             class: App\Entity\Settings\Company
             list:
-                # Implement sortfield FALSE
                 fields:
-                    - name
+                    - { property: 'name', sortable: false }
                     - { property: 'completeAddress', type: 'raw', label: 'Address' }
-                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig' }
-                    - status
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig', sortable: false }
+                    - { property: 'status', sortable: false }
                     
             show:
                 fields:
