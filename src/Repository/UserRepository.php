@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * Entity User.
+ *
+ * PHP Version 7
+ *
+ * @author    Quétier Laurent <lq@dev-int.net>
+ * @copyright 2018 Dev-Int GLSR
+ * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version GIT: $Id$
+ *
+ * @link https://github.com/Dev-Int/glsr
+ */
+
 namespace App\Repository;
 
 use App\Entity\User;
@@ -8,6 +22,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
+ * User Repository Entity.
+ *
+ * @category Entity
+ *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
  * @method User[]    findAll()

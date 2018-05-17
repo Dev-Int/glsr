@@ -24,28 +24,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class CompanyRepository extends EntityRepository
 {
-    /**
-     * Displays all companies.
-     *
-     * @return QueryBuilder Requête DQL
-     */
-    public function getAllItems()
-    {
-        $query = $this->createQueryBuilder('t')
-            ->getQuery()->getResult();
-        
-        return $query;
-    }
-
-    /**
-     * Displays active companies.
-     *
-     * @return QueryBuilder Requête DQL
-     */
-    public function getItems()
-    {
-        $query = $this->getAllItems();
-
-        return $query;
-    }
 }

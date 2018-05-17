@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Entité Company.
+ * Entity Company.
  *
  * PHP Version 7
  *
