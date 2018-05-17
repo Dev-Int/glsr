@@ -18,8 +18,8 @@ Edit: Modifier
 Delete: Supprimer
 
 # Menu
-Staff: Equipe
-Settings: Configurations
+menu.staff: Equipe
+menu.settings: Configurations
 
 # User
 User: Utilisateur
@@ -34,3 +34,15 @@ Company: Etablissement
 Name: Nom de l'entreprise
 Contact: Contact
 Status: Statut juridique
+
+# Settings
+Settings: Paramètres
+Inventory style: Style d'inventaire
+Calculation: Mode de calcul
+First inventory: Inventaire initial
+Currency: Monnaie
+settings:
+    global: Global
+    zone: Zone de stockage
+    fifo: F.I.F.O.
+    weighted: Pondéré

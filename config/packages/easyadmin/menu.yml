@@ -3,10 +3,11 @@
 easy_admin:
     design:
         menu:
-            - { label: 'Staff' }
+            - { label: 'menu.staff' }
             - { entity: 'User', icon: 'user' }
-            - label: 'Settings'
+            - label: 'menu.settings'
               icon: 'cogs'
               children:
-                - { entity: 'Company', icon: 'building ', params: { sortField: false } }
+                - { entity: 'Company', icon: 'building' }
+                - { entity: 'Settings', icon: 'cog' }
             - { label: 'Env: %env(APP_ENV)%' }
