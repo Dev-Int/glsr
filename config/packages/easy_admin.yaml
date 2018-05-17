@@ -1,24 +1,21 @@
+imports:
+    - { resource: easyadmin/ }
+
 easy_admin:
     design:
         assets:
             css:
                 - 'build/app.css'
-        menu:
-            - { entity: 'User', icon:  'user' }
+        form_theme: 
+            - 'horizontal'
+            - 'easy_admin/bootstrap_3_horizontal_layout.html.twig'
 
     site_name: <i class='icon-GLSR'></i> | Admin
     translation_domain: messages
 
-    entities:
-        User:
-            class: App\Entity\User
-            controller: App\Controller\UserController
-            form:
-                fields: 
-                    - username
-                    - password
-                    - email
-                    - enabled
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
+    list:
+        actions:
+            - { name: 'show', icon: 'search', title: 'Show', label: false }
+            - { name: 'edit', icon: 'pencil', title: 'Edit', label: false }
+            - { name: 'delete', icon: 'times', title: 'Delete', label: false }
+

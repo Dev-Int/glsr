@@ -1,0 +1,12 @@
+{#{{ dump() }}#}
+{#{% if field_options.property is same as('fax') %}
+    {{ phone_number_format(field_options.property.fax, 'INTERNATIONAL') }}
+{% endif %}
+{% if field_options.property is same as('gsm') %}
+    {{ phone_number_format(field_options.property.gsm, 'INTERNATIONAL') }}
+{% endif %}
+{% if field_options.property is same as('phone') %}
+{#    {{ phone_number_format(field_options.property.phone, 'INTERNATIONAL') }}
+{% endif %}#}
+
+{{ value|phone_number_format('NATIONAL') }}

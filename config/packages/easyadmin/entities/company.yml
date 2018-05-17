@@ -1,0 +1,39 @@
+## EASY_ADMIN Company Entity
+---
+easy_admin:
+    entities:
+        Company:
+            class: App\Entity\Settings\Company
+            list:
+                # Implement sortfield FALSE
+                fields:
+                    - name
+                    - { property: 'completeAddress', type: 'raw', label: 'Address' }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig' }
+                    - status
+                    
+            show:
+                fields:
+                    - { property: 'name' }
+                    - { property: 'completeAddress', type: 'raw', label: 'Address' }
+                    - { property: 'status' }
+                    - { property: 'contact' }
+                    - { property: 'email', type: email }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig' }
+                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig' }
+                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig' }
+                    
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Basic information' }
+                    - name
+                    - address
+                    - zipcode
+                    - town
+                    - { type: 'group', css_class: 'col-sm-6', label: 'Contact information', icon: 'phone' }
+                    - contact
+                    - { property: 'email', type: 'email' }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
+                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
+                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
+

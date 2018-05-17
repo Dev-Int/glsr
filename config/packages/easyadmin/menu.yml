@@ -1,0 +1,12 @@
+## EASY_ADMIN Menu template.
+---
+easy_admin:
+    design:
+        menu:
+            - { label: 'Staff' }
+            - { entity: 'User', icon: 'user' }
+            - label: 'Settings'
+              icon: 'cogs'
+              children:
+                - { entity: 'Company', icon: 'building ', params: { sortField: false } }
+            - { label: 'Env: %env(APP_ENV)%' }

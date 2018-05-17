@@ -1,6 +1,26 @@
 ## Admin translation
 ---
 
+# Global
+Enabled: Actif
+Actions: Actions
+ID: Id
+Address: Adresse
+Zipcode: Code postale
+Town: Ville
+Phone: Téléphone
+Fax: Télécopie
+Gsm: Mobile
+
+# Actions
+Show: Voir
+Edit: Modifier
+Delete: Supprimer
+
+# Menu
+Staff: Equipe
+Settings: Configurations
+
 # User
 User: Utilisateur
 Username: Nom d'utilisateur
@@ -9,7 +29,8 @@ Email: Courriel
 Roles: Roles
 Choice a role: Choisir un role
 
-# Global
-Enabled: Actif
-Actions: Actions
-ID: Id
+# Company
+Company: Etablissement
+Name: Nom de l'entreprise
+Contact: Contact
+Status: Statut juridique
