@@ -319,6 +319,6 @@ class Contact
      */
     public function getCompleteAddress()
     {
-        return $this->address . "<br>" . $this->zipcode . ' ' . $this->town;
+        return $this->address . '<br>' . $this->zipcode . ' ' . $this->town;
     }
 }
