@@ -10,4 +10,7 @@ easy_admin:
               children:
                 - { entity: 'Company', icon: 'building' }
                 - { entity: 'Settings', icon: 'cog' }
+                - { label: 'menu.diverse', icon: 'info-circle' }
+                - { entity: 'FamilyLog', icon: 'sitemap' }
+                #, params: { sortField: 'parent', sortDirection: 'ASC' } }
             - { label: 'Env: %env(APP_ENV)%' }

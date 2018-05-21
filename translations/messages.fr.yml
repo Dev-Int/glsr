@@ -20,6 +20,7 @@ Delete: Supprimer
 # Menu
 menu.staff: Equipe
 menu.settings: Configurations
+menu.diverse: Divers
 
 # User
 User: Utilisateur
@@ -31,12 +32,12 @@ Choice a role: Choisir un role
 
 # Company
 Company: Etablissement
-Name: Nom de l'entreprise
+Company.name: Nom de l'entreprise
 Contact: Contact
 Status: Statut juridique
 
 # Settings
-Settings: Paramètres
+Settings: Application
 Inventory style: Style d'inventaire
 Calculation: Mode de calcul
 First inventory: Inventaire initial
@@ -46,3 +47,8 @@ settings:
     zone: Zone de stockage
     fifo: F.I.F.O.
     weighted: Pondéré
+
+# FamilyLog
+FamilyLog: Familles logistiques
+FamilyLog.name: Intitulé
+Parent: Parent
