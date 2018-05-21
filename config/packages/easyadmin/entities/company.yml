@@ -6,14 +6,14 @@ easy_admin:
             class: App\Entity\Settings\Company
             list:
                 fields:
-                    - { property: 'name', sortable: false }
+                    - { property: 'name', sortable: false, label: 'Company.name' }
                     - { property: 'completeAddress', type: 'raw', label: 'Address' }
                     - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'easy_admin/field_tel.html.twig', sortable: false }
                     - { property: 'status', sortable: false }
                     
             show:
                 fields:
-                    - { property: 'name' }
+                    - { property: 'name', label: 'Company.name' }
                     - { property: 'completeAddress', type: 'raw', label: 'Address' }
                     - { property: 'status' }
                     - { property: 'contact' }
@@ -25,7 +25,7 @@ easy_admin:
             form:
                 fields:
                     - { type: 'group', css_class: 'col-sm-6', label: 'Basic information' }
-                    - name
+                    - { property: 'name', label: 'Company.name' }
                     - address
                     - zipcode
                     - town
