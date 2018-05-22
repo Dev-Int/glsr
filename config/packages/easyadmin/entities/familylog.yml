@@ -5,11 +5,9 @@ easy_admin:
         FamilyLog:
             class: App\Entity\Settings\Diverse\FamilyLog
             list:
-                template: 'easy_admin/list.html.twig'
+                templates: 'easy_admin/FamilyLog/list.html.twig'
                 fields:
-#                    - { property: 'parent' }
                     - { property: 'name', label: 'FamilyLog.name' }
-#                    - { property: 'children' }
             show:
                 fields:
                     - { property: 'name', label: 'FamilyLog.name' }
