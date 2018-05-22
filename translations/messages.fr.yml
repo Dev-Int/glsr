@@ -18,9 +18,10 @@ Edit: Modifier
 Delete: Supprimer
 
 # Menu
-menu.staff: Equipe
-menu.settings: Configurations
-menu.diverse: Divers
+menu:
+    staff: Equipe
+    settings: Configurations
+    diverse: Divers
 
 # User
 User: Utilisateur
@@ -52,3 +53,9 @@ settings:
 FamilyLog: Familles logistiques
 FamilyLog.name: Intitulé
 Parent: Parent
+
+# Unit
+Unit: Unités
+unit:
+    name: Intitulé
+    abbr: Abréviation

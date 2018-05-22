@@ -5,12 +5,10 @@ easy_admin:
         menu:
             - { label: 'menu.staff' }
             - { entity: 'User', icon: 'user' }
-            - label: 'menu.settings'
-              icon: 'cogs'
-              children:
-                - { entity: 'Company', icon: 'building' }
-                - { entity: 'Settings', icon: 'cog' }
-                - { label: 'menu.diverse', icon: 'info-circle' }
-                - { entity: 'FamilyLog', icon: 'sitemap' }
-                #, params: { sortField: 'parent', sortDirection: 'ASC' } }
+            - { label: 'menu.settings' }
+            - { entity: 'Company', icon: 'building' }
+            - { entity: 'Settings', icon: 'cog' }
+            - { label: 'menu.diverse', icon: 'info-circle' }
+            - { entity: 'FamilyLog', icon: 'sitemap' }
+            - { entity: 'Unit', icon: 'cubes' }
             - { label: 'Env: %env(APP_ENV)%' }
