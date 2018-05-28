@@ -7,14 +7,14 @@ easy_admin:
             list:
                 templates: 'easy_admin/FamilyLog/list.html.twig'
                 fields:
-                    - { property: 'name', label: 'FamilyLog.name' }
+                    - 'name'
             show:
                 fields:
-                    - { property: 'name', label: 'FamilyLog.name' }
+                    - 'name'
                     - { property: 'parent' }
                     - { property: 'children' }
                     
             form:
                 fields:
-                    - { property: 'name', label: 'FamilyLog.name' }
+                    - 'name'
                     - { property: 'parent', type: 'entity', type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName' } }

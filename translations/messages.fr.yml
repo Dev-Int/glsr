@@ -11,6 +11,7 @@ Town: Ville
 Phone: Téléphone
 Fax: Télécopie
 Gsm: Mobile
+Name: Intitulé
 
 # Actions
 Show: Voir
@@ -51,11 +52,12 @@ settings:
 
 # FamilyLog
 FamilyLog: Familles logistiques
-FamilyLog.name: Intitulé
 Parent: Parent
 
 # Unit
 Unit: Unités
 unit:
-    name: Intitulé
     abbr: Abréviation
+
+# ZoneStorage
+ZoneStorage: Zone de stockage

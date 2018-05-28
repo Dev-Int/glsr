@@ -6,9 +6,9 @@ easy_admin:
             class: App\Entity\Settings\Diverse\Unit
             list:
                 fields:
-                    - { property: 'name', label: 'unit.name', sortable: false }
+                    - { property: 'name', sortable: false }
                     - { property: 'abbr', label: 'unit.abbr', sortable: false }
             form:
                 fields:
-                    - { property: 'name', label: 'unit.name' }
+                    - 'name'
                     - { property: 'abbr', label: 'unit.abbr' }
