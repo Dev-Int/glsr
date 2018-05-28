@@ -1,0 +1,12 @@
+## EASY_ADMIN Tva Entity
+---
+easy_admin:
+    entities:
+        Tva:
+            class: App\Entity\Settings\Diverse\Tva
+            list:
+                fields:
+                    - { property: 'name', label: 'tva.rate', sortField: 'name', sortDirection: 'ASC' }
+            form:
+                fields:
+                    - { property: 'rate', type: 'percent', label: 'tva.rate' }

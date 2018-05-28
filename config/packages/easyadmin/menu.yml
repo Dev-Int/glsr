@@ -12,4 +12,5 @@ easy_admin:
             - { entity: 'FamilyLog', icon: 'sitemap' }
             - { entity: 'Unit', icon: 'cubes' }
             - { entity: 'ZoneStorage', icon: 'map-marker', sortField: 'id', sortDirection: 'ASC' }
+            - { entity: 'Tva', icon: 'percent' }
             - { label: 'Env: %env(APP_ENV)%' }

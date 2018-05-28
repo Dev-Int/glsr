@@ -61,3 +61,7 @@ unit:
 
 # ZoneStorage
 ZoneStorage: Zone de stockage
+
+# Tva
+Tva: T.V.A.
+tva.rate: Taux de T.V.A.
