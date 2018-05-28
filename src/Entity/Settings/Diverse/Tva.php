@@ -84,6 +84,6 @@ class Tva
      */
     public function getName()
     {
-        return ($this->getRate() * 100) . ' %';
+        return (number_format($this->getRate() * 100, 1)) . ' %';
     }
 }
