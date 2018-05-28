@@ -1,0 +1,12 @@
+## EASY_ADMIN ZoneStorage Entity
+---
+easy_admin:
+    entities:
+        ZoneStorage:
+            class: App\Entity\Settings\Diverse\ZoneStorage
+            list:
+                fields:
+                    - 'name'
+            form:
+                fields:
+                    - 'name'
