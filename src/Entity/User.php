@@ -17,7 +17,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+//use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User Entity.
@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements AdvancedUserInterface, \Serializable
+class User implements \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -178,5 +178,19 @@ class User implements AdvancedUserInterface, \Serializable
         $this->roles = $roles;
 
         return $this;
+    }
+
+    /**
+     * This method lets you do "echo $user".
+     * <p> So, to "show" $user,
+     * PHP will actually show the return of this method. <br />
+     * Here, the name, so "echo $user"
+     * is equivalent to "echo $user->getUsername()" </p>.
+     *
+     * @return string username
+     */
+    public function __toString(): string
+    {
+        return $this->getUsername();
     }
 }
