@@ -49,6 +49,20 @@
 {% endspaceless %}
 {%- endblock form_row %}
 
+{%- block tel_widget -%}
+    {% if widget is constant('Misd\\PhoneNumberBundle\\Form\\Type\\PhoneNumberType::WIDGET_COUNTRY_CHOICE') %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+            <div class="input-group" {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
+                <span class="input-group-addon addon-phone" id="basic-addon1">{{- form_widget(form.country, { 'attr':{'class':'form-control'} }) -}}</span>
+
+                {{- form_widget(form.number, { 'attr':{'aria-describedby':'basic-addon1', 'class':'form-control'} }) -}}
+            </div>
+        
+    {%- else -%}
+        {{- block('form_widget_simple') -}}
+    {%- endif %}
+{%- endblock tel_widget -%}
+
 {% block checkbox_row -%}
     {{- block('checkbox_radio_row') -}}
 {%- endblock checkbox_row %}
