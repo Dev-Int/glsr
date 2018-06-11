@@ -18,4 +18,8 @@ easy_admin:
             - { name: 'show', icon: 'search', title: 'Show', label: false }
             - { name: 'edit', icon: 'pencil', title: 'Edit', label: false }
             - { name: 'delete', icon: 'times', title: 'Delete', label: false }
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y - H:i:s'
 

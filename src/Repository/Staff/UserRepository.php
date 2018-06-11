@@ -14,9 +14,9 @@
  * @link https://github.com/Dev-Int/glsr
  */
 
-namespace App\Repository;
+namespace App\Repository\Staff;
 
-use App\Entity\User;
+use App\Entity\Staff\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;

@@ -1,36 +1,41 @@
 security:
     encoders:
-        App\Entity\User:
+        FOS\UserBundle\Model\UserInterface:
             algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        glsr_provider:
-            entity:
-                class: App\Entity\User
-                # if you're using multiple entity managers
-                # manager_name: customer
+        fos_userbundle:
+            id: fos_user.user_provider.username
+            # if you're using multiple entity managers
+            # manager_name: customer
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: ~
             pattern: ^/
             # activate different ways to authenticate
             
             http_basic: ~
-            provider: glsr_provider
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
             form_login:
-                login_path: login
-                check_path: login
+                check_path: /login_check
+                login_path: /login
+                provider: fos_userbundle
+#                csrf_provider: form.csrf_provider
             # https://symfony.com/doc/current/security/form_login_setup.html
 
+            logout: #      true
+                path: /logout
+                target: /login
+            anonymous:    true
+
     role_hierarchy:
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_USER]
+        ROLE_ADMIN:       [ROLE_ADMIN, ROLE_USER]
         ROLE_USER:        ROLE_USER
 
     # Easy way to control access for large sections of your site

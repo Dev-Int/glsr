@@ -98,6 +98,9 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "friendsofsymfony/user-bundle": {
+        "version": "v2.1.2"
+    },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.35"
     },
@@ -124,6 +127,9 @@
     },
     "pagerfanta/pagerfanta": {
         "version": "v1.0.5"
+    },
+    "paragonie/random_compat": {
+        "version": "v2.0.12"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
