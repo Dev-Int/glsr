@@ -32,7 +32,7 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-6', label: 'Contact information', icon: 'phone' }
                     - contact
                     - { property: 'email', type: 'email' }
-                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
-                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
-                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice' } }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'FR','GB','DE' ], default_region: 'FR' }, block_name: 'custom_tel' }
+                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'FR','GB','DE' ] }, block_name: 'custom_tel' }
+                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'FR','GB','DE' ] }, block_name: 'custom_tel' }
 
