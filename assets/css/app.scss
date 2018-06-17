@@ -5,6 +5,7 @@
 
 @import "icomoon.scss";
 
+/* phone type */
 .addon-phone {
     padding: 0 !important;
     width: 16.66666667% !important;
@@ -15,6 +16,12 @@ select.form-control {
     font-size: 10px !important;
 }
 
+/* text */
 .stronger {
     font-weight: bold;
+}
+
+/* Field town */
+input[id *= '_town'] {
+    text-transform: uppercase;
 }
