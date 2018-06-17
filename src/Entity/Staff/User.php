@@ -27,7 +27,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Table(name="fos_users")
  * @ORM\Entity(repositoryClass="App\Repository\Staff\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements \Symfony\Component\Security\Core\User\UserInterface, \Symfony\Component\Security\Core\User\EquatableInterface
 {
     /**
      * @ORM\Id
