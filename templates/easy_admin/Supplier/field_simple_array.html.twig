@@ -1,0 +1,29 @@
+{% if view == 'show' %}
+    {% if value|length > 0 %}
+        <ul class="orderday">
+            {% for element in value %}
+                {% if element == 1 %}
+                    <li>{{ 'Monday'|trans }}</li>
+                {% elseif element == 2 %}
+                    <li>{{ 'Tuesday'|trans }}</li>
+                {% elseif element == 3 %}
+                    <li>{{ 'Wednesday'|trans }}</li>
+                {% elseif element == 4 %}
+                    <li>{{ 'Thursday'|trans }}</li>
+                {% elseif element == 5 %}
+                    <li>{{ 'Friday'|trans }}</li>
+                {% elseif element == 6 %}
+                    <li>{{ 'Saturday'|trans }}</li>
+                {% elseif element == 7 %}
+                    <li>{{ 'Sunday'|trans }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="empty collection-empty">
+            {{ include(entity_config.templates.label_empty) }}
+        </div>
+    {% endif %}
+{% else %}
+    {{ value|join(', ')|easyadmin_truncate }}
+{% endif %}

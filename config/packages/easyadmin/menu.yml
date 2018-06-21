@@ -8,6 +8,7 @@ easy_admin:
             - { label: 'menu.settings' }
             - { entity: 'Company', icon: 'building' }
             - { entity: 'Settings', icon: 'cog' }
+            - { entity: 'Supplier', icon: 'barcode' }
             - { label: 'menu.diverse', icon: 'info-circle' }
             - { entity: 'FamilyLog', icon: 'sitemap' }
             - { entity: 'Unit', icon: 'cubes' }

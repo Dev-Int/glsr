@@ -25,3 +25,23 @@ select.form-control {
 input[id *= '_town'] {
     text-transform: uppercase;
 }
+
+/* Field orderdate */
+div[id *= '_orderdate'] .checkbox {
+    display: inline-block;
+    width: calc(100% / 7);
+    text-align: center;
+}
+input[type="checkbox"][id *= '_orderdate'] {
+    position: relative;
+    margin: 5px;
+}
+ul.orderday {
+    margin: 0;
+}
+ul.orderday li {
+    display: inline-block;
+    border-right: #000 1px solid;
+    padding: 0 15px;
+    margin: 0;
+}

@@ -50,6 +50,15 @@ settings:
     fifo: F.I.F.O.
     weighted: Pondéré
 
+# Dates
+Monday: Lun.
+Tuesday: Mar.
+Wednesday: Mer.
+Thursday: Jeu.
+Friday: Vend.
+Saturday: Sam.
+Sunday: Dim.
+
 # FamilyLog
 FamilyLog: Familles logistiques
 Parent: Parent
@@ -65,3 +74,17 @@ ZoneStorage: Zone de stockage
 # Tva
 Tva: T.V.A.
 tva.rate: Taux de T.V.A.
+
+# Supplier
+Supplier: Fournisseur
+supplier:
+    name: Nom du fournisseur
+    delayliv: Délai de livraison
+    orderdate: Date de commande
+    orderday: Jour de commande
+Logistics Information: Informations logistiques
+This supplier name is already used in the system: "Ce nom de fournisseur est déjà utilisé dans le système."
+AtoB: A pour B (1 jour)
+AtoC: A pour C (2 jours)
+AtoD: A pour D (3 jours)
+AtoE: A pour E (4 jours)
