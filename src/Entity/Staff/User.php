@@ -18,6 +18,8 @@ namespace App\Entity\Staff;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * User Entity.
@@ -27,7 +29,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Table(name="fos_users")
  * @ORM\Entity(repositoryClass="App\Repository\Staff\UserRepository")
  */
-class User extends BaseUser implements \Symfony\Component\Security\Core\User\UserInterface, \Symfony\Component\Security\Core\User\EquatableInterface
+class User extends BaseUser implements UserInterface, EquatableInterface
 {
     /**
      * @ORM\Id
