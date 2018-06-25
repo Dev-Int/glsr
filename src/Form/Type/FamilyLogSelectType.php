@@ -35,7 +35,7 @@ class FamilyLogSelectType extends AbstractType
                     return $er->createQueryBuilder('f')
                         ->orderBy('f.path', 'ASC');
                 }]
-            );
+        );
     }
 
     public function getParent()
