@@ -31,10 +31,9 @@ class FamilyLogSelectType extends AbstractType
     {
         $resolver->setDefaults(['class' => 'App:Settings\Diverse\FamilyLog',
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('f')
-                        ->orderBy('f.path', 'ASC');
-                    }
-                ]
+                return $er->createQueryBuilder('f')
+                    ->orderBy('f.path', 'ASC');
+                }]
             );
     }
 
