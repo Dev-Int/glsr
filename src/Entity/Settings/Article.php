@@ -572,7 +572,7 @@ class Article
 
     public function setDeleteAt(\DateTimeInterface $deleteAt = null): self
     {
-        if ($deleteAt == null) {
+        if ($deleteAt === null) {
             $this->deleteAt = new \DateTime();
             date_date_set($this->deleteAt, date('Y') + 4, 12, 31);
         } else {
