@@ -27,10 +27,10 @@ easy_admin:
                     - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'FR','GB','DE' ] }, preferred_choices: 'FR' }
                     - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'FR','GB','DE' ] }, preferred_choices: 'FR' }
                     - { type: 'group', css_class: 'col-sm-6', label: 'Logistics Information', icon: 'truck' }
-                    - { property: 'familylog', type: 'App\Form\Type\FamilyLogSelectType', type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName', multiple: false }, label: 'FamilyLog' }
+                    - { property: 'familylog', type: 'App\Form\Type\FamilyLogSelectType', type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName', multiple: false, attr: { data-widget: 'select2' } }, label: 'FamilyLog' }
                     # Délai de livraison A = jour de Cmde,
                     # (B, C, D, E) = jour de livraison
-                    - { property: 'delaydeliv', type: 'choice', type_options: { choices: { 'AtoB': 1,'AtoC': 2,'AtoD': 3,'AtoE': 4 }, expanded: false, multiple: false }, label: 'supplier.delayliv' }
+                    - { property: 'delaydeliv', type: 'choice', type_options: { choices: { 'AtoB': 1,'AtoC': 2,'AtoD': 3,'AtoE': 4 }, expanded: false, multiple: false, attr: { data-widget: 'select2' } }, label: 'supplier.delayliv' }
                     # Choix du jour de la semaine pour les Cmdes
                     # Numérotation voir http://php.net/manual/fr/function.date.php format 'N'
                     - { property: 'orderdate', type: 'choice', type_options: { choices: { 'Monday': 1,'Tuesday': 2,'Wednesday': 3,'Thursday': 4,'Friday': 5,'Saturday': 6,'Sunday': 7 }, expanded: true, multiple: true }, block_name: 'supplier_choice', label: 'supplier.orderday' }
