@@ -15,8 +15,6 @@
  */
 namespace App\Entity\Settings;
 
-use App\Entity\Settings\Diverse\Tva;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -25,8 +23,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use App\Entity\Settings\Supplier;
 use App\Entity\Settings\Diverse\Unit;
-use App\Entity\Settings\Diverse\ZoneStorage;
+use App\Entity\Settings\Diverse\Tva;
 use App\Entity\Settings\Diverse\FamilyLog;
+use App\Entity\Settings\Diverse\ZoneStorage;
 
 /**
  * Article.
@@ -455,7 +454,7 @@ class Article
      * @param \App\Entity\Settings\Diverse\Tva $tva
      * @return Article
      */
-    public function setTva(\App\Entity\Settings\Diverse\Tva $tva = null)
+    public function setTva(Tva $tva = null)
     {
         $this->tva = $tva;
 
