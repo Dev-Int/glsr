@@ -1,0 +1,23 @@
+{% extends "@EasyAdmin/default/edit.html.twig" %}
+
+{% block body_javascript %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        function getFamilyLog(){
+            var id_select = $('#article_supplier').val();
+
+            $.ajax({
+                url: "{{ path('getfamilylog') }}",
+                type: 'POST',
+                data: {'id': id_select},
+                dataType: 'json',
+                success: function(json){
+                    alert(json.familylog);
+                    $('#article_familylog option:selected').removeAttr('selected');
+                    $('#article_familylog option[value="' + json.familylog + '"').attr('selected', 'selected');
+                }
+            });
+        }
+    </script>
+{% endblock %}

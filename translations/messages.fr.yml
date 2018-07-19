@@ -8,6 +8,7 @@ ID: Id
 Address: Adresse
 Zipcode: Code postale
 Town: Ville
+Other: Autre
 Phone: Téléphone
 Fax: Télécopie
 Gsm: Mobile
@@ -59,6 +60,26 @@ Friday: Vend.
 Saturday: Sam.
 Sunday: Dim.
 
+# Form
+form:
+    article:
+        choice: "Choisissez un article"
+        info: 'Information Article'
+        complement: "Informations complémentaires"
+    feature: Caractéristiques
+    familyLog:
+        choice: "Choisissez une famille"
+    supplier:
+        choice: "Choisissez un fournisseur"
+    tva:
+        choice: "Choisissez un taux"
+    zoneStorage:
+        choice: "Choisissez une zone de stockage"
+    unitStorage:
+        choice: "Choisissez une unité de stockage"
+    unitWorking:
+        choice: "Choisissez une unité d'exploitation"
+
 # FamilyLog
 FamilyLog: Familles logistiques
 Parent: Parent
@@ -88,3 +109,17 @@ AtoB: A pour B (1 jour)
 AtoC: A pour C (2 jours)
 AtoD: A pour D (3 jours)
 AtoE: A pour E (4 jours)
+
+# Article
+Article: Articles
+article:
+    settings:
+        createAt: "Créé le"
+        deleteAt: "Supprimé le"
+        minstock: "Stock minimum"
+        packaging: "Unité de commande"
+        price: Prix
+        quantity: "Quantité"
+        unitWorking: "Unité d'exploitation"
+        updateAt: "Modifié le"
+UnitStorage: "Unité de stockage"

@@ -86,4 +86,18 @@ class Tva
     {
         return (number_format($this->getRate() * 100, 1)) . ' %';
     }
+
+    /**
+     * This method allows to make "echo $tva".
+     * <p> So, to "show" $tva,
+     * PHP will actually show the return of this method. <br />
+     * Here, the name, so "echo $tva"
+     * is equivalent to "echo $tva->getName()". </p>
+     *
+     * @return string name
+     */
+    public function __toString()
+    {
+        return (string)$this->getName();
+    }
 }

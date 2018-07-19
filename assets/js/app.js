@@ -1,1 +1,2 @@
 require('../css/app.scss');
+include('jquery-1.12.4.min.js');

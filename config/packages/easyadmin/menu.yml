@@ -9,6 +9,7 @@ easy_admin:
             - { entity: 'Company', icon: 'building' }
             - { entity: 'Settings', icon: 'cog' }
             - { entity: 'Supplier', icon: 'barcode' }
+            - { entity: 'Article', icon: 'shopping-basket' }
             - { label: 'menu.diverse', icon: 'info-circle' }
             - { entity: 'FamilyLog', icon: 'sitemap' }
             - { entity: 'Unit', icon: 'cubes' }

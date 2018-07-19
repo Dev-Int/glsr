@@ -45,3 +45,9 @@ ul.orderday li {
     padding: 0 15px;
     margin: 0;
 }
+
+/* Field zoneStorages */
+div[id*='zoneStorage']>.checkbox {
+    display: inline-block;
+    width: 45%;
+}
