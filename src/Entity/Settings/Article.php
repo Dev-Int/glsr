@@ -156,19 +156,19 @@ class Article
     private $slug;
 
     /**
-     * @var \DateTime Created date
+     * @var \DateTimeInterface Created date
      * @ORM\Column(name="create_at", type="datetime")
      */
     private $createAt;
 
     /**
-     * @var \DateTime Updated date
+     * @var \DateTimeInterface Updated date
      * @ORM\Column(name="update_at", type="datetime")
      */
     private $updateAt;
 
     /**
-     * @var \DateTime Deleted date
+     * @var \DateTimeInterface Deleted date
      * @ORM\Column(name="delete_at", type="datetime", nullable=true)
      */
     private $deleteAt;
