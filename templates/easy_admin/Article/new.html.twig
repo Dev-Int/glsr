@@ -13,7 +13,6 @@
                 data: {'id': id_select},
                 dataType: 'json',
                 success: function(json){
-                    alert(json.familylog);
                     $('#article_familylog option:selected').removeAttr('selected');
                     $('#article_familylog option[value="' + json.familylog + '"').attr('selected', 'selected');
                 }
