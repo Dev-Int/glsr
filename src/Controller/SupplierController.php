@@ -25,7 +25,7 @@ class SupplierController
      */
     protected function removeSupplierEntity(Supplier $supplier)
     {
-        $supplier->setActive(0);
+        $supplier->setActive(false);
         $this->em->persist($supplier);
         $this->em->flush();
     }
