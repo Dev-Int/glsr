@@ -1,7 +1,7 @@
 Glsr
 ====
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ca90c215-74f5-49f9-9c22-5dd2230bfcb2/mini.png)](https://insight.sensiolabs.com/projects/ca90c215-74f5-49f9-9c22-5dd2230bfcb2)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/de223fd6-2d6b-4433-a70a-08e09fa68510/mini.png)](https://insight.sensiolabs.com/projects/de223fd6-2d6b-4433-a70a-08e09fa68510)
 [![Build Status](https://travis-ci.org/Dev-Int/glsr.svg?branch=SF4)](https://travis-ci.org/Dev-Int/glsr)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Dev-Int/glsr/badges/quality-score.png?b=SF4)](https://scrutinizer-ci.com/g/Dev-Int/glsr/?branch=SF4)
 
