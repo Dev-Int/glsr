@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AdminController Controller d'administration.
+ * UserController Controller of User entity.
  *
  * PHP Version 7
  *
@@ -20,7 +20,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminContr
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
- * Admin Controller override EasyAdminBundle::AdminController
+ * User Controller override EasyAdminBundle::AdminController
  *
  * @category Controller
  */
