@@ -5,6 +5,7 @@ easy_admin:
         Supplier:
             class: App\Entity\Settings\Supplier
             list:
+                dql_filter: 'entity.active = 1'
                 fields:
                     - name
                     - { property: 'completeAddress', type: 'raw', label: 'Address', sortable: false }
