@@ -53,7 +53,7 @@ class DefaultController extends Controller
             $id = $request->get('id');
             if ($id != '') {
                 // Add directs childrens of $familyLog
-                $familyLog = $this->testLevel($familyLog, $id);
+                $familyLog = $this->getSubFamily($familyLog, $id);
 
                 $response = new Response();
                 $data = json_encode($familyLog);
