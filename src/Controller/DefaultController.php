@@ -46,14 +46,24 @@ class DefaultController extends Controller
      */
     public function getFamilyLogAction(Request $request)
     {
+        // Get all datas
+        $etm = $this->getDoctrine()->getManager();
+
+        $familyLogs = $etm->getRepository('App:Settings\Diverse\FamilyLog')->findAll();
+
+
         $return = new Response('Error');
 
         if ($request->isXmlHttpRequest()) {
             $familyLog = array();
             $id = $request->get('id');
+
+            // First return data needed
+            $supplier = $etm->getRepository('App:Settings\Supplier')->find($id);
+            $familyLog['id'] = $supplier->getFamilyLog()->getId();
             if ($id != '') {
                 // Add directs childrens of $familyLog
-                $familyLog = $this->getSubFamily($familyLog, $id);
+                $familyLog = $this->getSubFamily($familyLogs, $familyLog);
 
                 $response = new Response();
                 $data = json_encode($familyLog);
@@ -68,18 +78,11 @@ class DefaultController extends Controller
     /**
      * Get the SubFamily of Supplier.
      *
-     * @param array $familyLog
-     * @param int   $id
+     * @param object[] $familyLogs
+     * @param array    $familyLog
      */
-    protected function getSubFamily(array $familyLog, $id)
+    protected function getSubFamily($familyLogs, array $familyLog)
     {
-        // Get all datas
-        $etm = $this->getDoctrine()->getManager();
-        $supplier = $etm->getRepository('App:Settings\Supplier')->find($id);
-        $familyLogs = $etm->getRepository('App:Settings\Diverse\FamilyLog')->findAll();
-
-        // First return data needed
-        $familyLog['id'] = $supplier->getFamilyLog()->getId();
         $testFamily = '';
         foreach ($familyLogs as $family) {
             if ($family->getId() === $familyLog['id']) {
