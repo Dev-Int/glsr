@@ -4,9 +4,11 @@ easy_admin:
     entities:
         Article:
             class: App\Entity\Settings\Article
+            controller: App\Controller\ArticleController
             list:
+                dql_filter: 'entity.active = 1'
                 fields:
-                    - id
+                    - { property: 'id', type: 'number', format: '%06d' }
                     - { property: 'name', label: 'Name' }
                     - supplier
                     - { property: 'familylog', sortable: true }
@@ -26,25 +28,19 @@ easy_admin:
                     - { type: 'divider' }
                     - { property: 'unitWorking', type: 'entity', type_options: { class: 'App:Settings\Diverse\Unit', choice_label: 'name', multiple: false, placeholder: 'form.unitWorking.choice' }, label: 'article.settings.unitWorking' }
                     - { property: 'minstock', type: 'number', type_options: { scale: 3, grouping: true }, label: 'article.settings.minstock' }
-            edit:
-                fields:
-                    - { type: 'group', css_class: 'col-sm-12', label: 'form.article.complement', icon: 'file' }
-                    - { property: 'createAt', type: 'date', label: 'article.settings.createAt' }
-                    - { property: 'updateAt', type: 'date', label: 'article.settings.updateAt' }
-                    - { property: 'deleteAt', type: 'date', label: 'article.settings.deleteAt' }
             show:
                 fields:
-                    - id
+                    - { property: 'id', type: 'number', format: '%06d' }
                     - { property: 'name', label: 'Name' }
                     - supplier
                     - familylog
                     - zoneStorages
                     - { property: 'packaging', label: 'article.settings.packaging' }
                     - { property: 'unitStorage', label: 'UnitStorage' }
-                    - { property: 'price', type: 'decimal', label: 'article.settings.price' }
+                    - { property: 'price', format: '%01.3f', label: 'article.settings.price' }
                     - { property: 'tva', label: 'tva.rate' }
                     - { property: 'unitWorking', label: 'article.settings.unitWorking' }
                     - { property: 'minstock', label: 'article.settings.minstock' }
-                    - { property: 'createAt', type: 'date', label: 'article.settings.createAt' }
-                    - { property: 'updateAt', type: 'date', label: 'article.settings.updateAt' }
-                    - { property: 'deleteAt', type: 'date', label: 'article.settings.deleteAt' }
+                    - { property: 'createAt', label: 'article.settings.createAt' }
+                    - { property: 'updateAt', label: 'article.settings.updateAt' }
+                    - { property: 'deleteAt', label: 'article.settings.deleteAt' }

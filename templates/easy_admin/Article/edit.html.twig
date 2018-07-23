@@ -13,8 +13,19 @@
                 data: {'id': id_select},
                 dataType: 'json',
                 success: function(json){
-                    $('#article_familylog option:selected').removeAttr('selected');
-                    $('#article_familylog option[value="' + json.familylog + '"').attr('selected', 'selected');
+                    $('#article_familylog').children('option:not(:first)').remove();
+                    $('#article_familylog')
+                        .append($("<option></option>")
+                        .attr("value",json.family.id)
+                        .text(json.family.name));
+                    
+                    $.each(json.family, function(i, item) {
+                        $('#article_familylog')
+                            .append($("<option></option>")
+                            .attr("value",json.family[i].id)
+                            .text(json.family[i].name));
+                    });
+                    $('#article_familylog option[value="' + json.id + '"').attr('selected', 'selected');
                 }
             });
         }
