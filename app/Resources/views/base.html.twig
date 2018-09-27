@@ -4,11 +4,11 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{{ 'title_page'|trans }}{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?yui_css' 
+            {% stylesheets filter='cssrewrite, ?yui_css'
                 'bundles/app/css/*' %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
             {% endstylesheets %}
-            {% javascripts 'bundles/app/js/jquery-1.11.1.js' filter='?yui_js' %}
+            {% javascripts 'bundles/app/js/jquery-1.12.4.min.js' filter='?yui_js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
@@ -67,7 +67,7 @@
         </footer>
         {% block javascripts %}
             {# Tous nos javascripts avec Assetic #}
-            {% javascripts 'bundles/app/js/jquery-1.11.1.js' 'bundles/app/js/*' filter='?yui_js' %}
+            {% javascripts 'bundles/app/js/jquery-1.12.4.min.js' 'bundles/app/js/*' filter='?yui_js' %}
                 <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
             {% block js_function %}{% endblock %}
