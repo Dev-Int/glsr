@@ -32,6 +32,11 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
         ['user', 'ROLE_USER']
     ];
 
+    /**
+     * Load data fixtures with the passed EntityManager
+     *
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         foreach ($this->datas as $key => $data) {
@@ -46,6 +51,11 @@ class LoadGroupData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
     public function getOrder()
     {
         return 1;

@@ -39,6 +39,11 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->container = $container;
     }
 
+    /**
+     * Load data fixtures with the passed EntityManager
+     *
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $userAdmin = new User();
@@ -46,7 +51,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $userAdmin->setEmail('admin@localhost');
         $userAdmin->setEnabled(true);
         $userAdmin->setSalt(md5(uniqid()));
-        
+
         // the 'security.password_encoder' service requires Symfony 2.6 or higher
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($userAdmin, 'admin');
@@ -62,6 +67,11 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('admin-user', $userAdmin);
     }
 
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
     public function getOrder()
     {
         return 2;
