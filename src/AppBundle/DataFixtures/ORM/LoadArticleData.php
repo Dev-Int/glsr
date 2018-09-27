@@ -126,11 +126,6 @@ class LoadArticleData extends AbstractFixture implements OrderedFixtureInterface
             'unitStorage' => $bouteille, 'unitWorking' => $bouteille,
             'price' => 5.11, 'packaging' => 6, 'tva' => $tvaReduit, 'minStock' => 3],
         ];
-        // INSERT INTO `article` (`id`, `name`, `supplier_id`, `familylog_id`, `subfamilylog_id`, `unitstorage_id`, `quantity`, `unit_fact`, `price`, `minima`, `zonestorage_id`, `tva_id`, `is_active`) VALUES
-        // (8, 'CREME ANGLAISE 1L', 5, 1, 4, 2, '0.000', '6.000', '1.500', '2.000', 1, 1, 1),
-        // (9, 'CREME LEGERE UHT 12%', 5, 1, 4, 2, '0.000', '6.000', '2.440', '3.000', 1, 1, 1),
-        // (10, 'CREME BOMBE UHT 10%', 5, 1, 4, 3, '0.000', '6.000', '5.960', '3.000', 1, 1, 1),
-        // (11, 'F.BRIE 50%MG 2.7KG', 5, 1, 4, 1, '0.000', '2.700', '4.830', '1.000', 1, 1, 1);
 
         foreach ($datas as $key => $data) {
             $article = new Article();

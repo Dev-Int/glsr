@@ -156,10 +156,9 @@ abstract class AbstractController extends Controller
     {
         $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm(
-            $typePath, $entity, array(
-                'action' => $this->generateUrl($prefixRoute.'_update', $param),
-                'method' => 'PUT',
-            )
+            $typePath,
+            $entity,
+            ['action' => $this->generateUrl($prefixRoute.'_update', $param), 'method' => 'PUT',]
         );
         if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
@@ -184,10 +183,9 @@ abstract class AbstractController extends Controller
     {
         $param = $this->testReturnParam($entity, $prefixRoute);
         $editForm = $this->createForm(
-            $typePath, $entity, array(
-                'action' => $this->generateUrl($prefixRoute.'_update', $param),
-                'method' => 'PUT',
-            )
+            $typePath,
+            $entity,
+            ['action' => $this->generateUrl($prefixRoute.'_update', $param), 'method' => 'PUT',]
         );
         if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
@@ -347,7 +345,8 @@ abstract class AbstractController extends Controller
     public function addRolesAction($form, $group)
     {
         $form->add(
-            'roles', ChoiceType::class, [
+            'roles',
+            ChoiceType::class, [
                 'choices' => $this->getExistingRoles(),
                 'choices_as_values' => true,
                 'data' => $group->getRoles(),
@@ -373,15 +372,15 @@ abstract class AbstractController extends Controller
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
-        case 'Settings\Diverse\FamilyLog':
-            $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
-            break;
-        default:
-            if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
-            } else {
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
-            }
+            case 'Settings\Diverse\FamilyLog':
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
+                break;
+            default:
+                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
+                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
+                } else {
+                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
+                }
         }
         return $entities;
     }
