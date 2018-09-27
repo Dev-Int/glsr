@@ -284,6 +284,13 @@ select.form-control[readonly],
     box-shadow: none !important;
 }
 
+/*===========
+ * FamilyLog
+ * =========*/
+.collapse .table {
+    margin-bottom: 0;
+}
+
 /*======
  * Order
  * ====*/
@@ -299,7 +306,7 @@ table.order label {
     min-height: 150px;
     overflow-y: scroll;
     overflow-x: hidden;
-    
+
 }
 .height150>.form-group {
     margin-bottom: 0;
@@ -309,4 +316,47 @@ table.order label {
 }
 .height150 li {
     border-bottom: dotted 1px #dddddd;
+}
+
+/*========
+ * Recipes
+ * ======*/
+ul.materials {
+    border: solid 1px #dddddd;
+    background-color: #ffffff;
+}
+ul.materials > li {
+    border-bottom: solid 1px #dddddd;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+ul.materials > li:last-child {
+    border-bottom: none;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+.list-striped > li:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.list-hover > li:hover {
+  background-color: #f5f5f5;
+}
+
+div[id^='recipes_materials_'] {
+    display: block !important;
+    clear: both !important;
+
+}
+div[id^='recipes_materials_']>.form-group {
+    display: table-cell !important;
+    width: 16.66666667% !important;
+}
+div[id^='recipes_materials_']>.form-group>label,
+div[id^='recipes_materials_']>.form-group>div.col-sm-8 {
+    display: block !important;
+    clear: both !important;
+    width: 100% !important;
+}
+div[id^='recipes_materials_']>.form-group>label {
+    text-align: center !important;
 }
