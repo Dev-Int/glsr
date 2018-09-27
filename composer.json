@@ -2,7 +2,7 @@
     "name": "dev_int/glsr",
     "type": "project",
     "description": "The GLSR Application, managing a restaurant stocks",
-    "homepage": "http://www.glsr.fr",
+    "homepage": "https://www.glsr.fr",
     "license": "MIT",
     "autoload": {
         "psr-4": { "": "src" },
@@ -29,6 +29,7 @@
         "symfony/polyfill-iconv": "~1.0",
         "symfony/polyfill-php56": "~1.0",
         "symfony/polyfill-php71": "~1.0",
+        "symfony/polyfill-php72": "~1.0",
         "symfony/translation": "2.4.*",
         "symfony/config": "~2.7",
         "symfony/monolog-bundle": "~2.7",
