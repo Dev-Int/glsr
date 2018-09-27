@@ -346,7 +346,8 @@ abstract class AbstractController extends Controller
     {
         $form->add(
             'roles',
-            ChoiceType::class, [
+            ChoiceType::class,
+            [
                 'choices' => $this->getExistingRoles(),
                 'choices_as_values' => true,
                 'data' => $group->getRoles(),
