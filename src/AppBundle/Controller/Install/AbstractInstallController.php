@@ -43,7 +43,7 @@ abstract class AbstractInstallController extends AbstractController
         $ctEntity = count($etm->getRepository('AppBundle:'.$entityName)->findAll());
         $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
         $message = null;
-        
+
         if ($ctEntity > 0 && $request->getMethod() == 'GET' && is_numeric($number) && $number < 5) {
             $message = 'gestock.install.st'.$number.'.yet_exist';
         }
@@ -58,29 +58,36 @@ abstract class AbstractInstallController extends AbstractController
                 $this->nameToVariable($entityName) => $entityNew,
                 'form' => $form->createView(),];
         }
-
-        if ($form->handleRequest($request)->isValid()) {
-            $return = $this->validInstall($entityNew, $form, $etm, $number);
-        }
         if ($entityName === 'Settings\Diverse\Material') {
             $articles = $etm->getRepository('AppBundle:Settings\Article')->findAll();
             $return['articles'] = $articles;
         }
-        
+
+        if ($form->handleRequest($request)->isValid()) {
+            $return = $this->validInstall($entityNew, $form, $etm, $number, $entityName);
+        }
+
         return $return;
     }
 
     /**
      * Valid install step.
      *
-     * @param object                                     $entityNew Entity
-     * @param \Symfony\Component\Form\Form               $form      Form of Entity
-     * @param \Doctrine\Common\Persistence\ObjectManager $etm       Entity Manager
-     * @param integer|string                             $number    Number of step install
+     * @param object                                     $entityNew  Entity
+     * @param \Symfony\Component\Form\Form               $form       Form of Entity
+     * @param \Doctrine\Common\Persistence\ObjectManager $etm        Entity Manager
+     * @param integer|string                             $number     Number of step install
+     * @param string                                     $entityName Entity name
+     *
      * @return array Route after valid or not
      */
-    private function validInstall($entityNew, $form, ObjectManager $etm, $number)
+    private function validInstall($entityNew, $form, ObjectManager $etm, $number, $entityName)
     {
+        $options = [];
+        if ($entityName === 'Settings\Diverse\Material') {
+            $articles = $etm->getRepository('AppBundle:Settings\Article')->findAll();
+            $options = ['articles' => $articles];
+        }
         $return = '';
         $etm->persist($entityNew);
         $etm->flush();
@@ -93,14 +100,14 @@ abstract class AbstractInstallController extends AbstractController
         if (null !== $form->get('save') || null !== $form->get('addmore')) {
             if ($form->get('save')->isClicked() && is_numeric($number)) {
                 $numberNext = $number++;
-                $return = $this->redirect($this->generateUrl('gs_install_st'.$numberNext));
+                $return = $this->redirect($this->generateUrl('gs_install_st'.$numberNext, $options));
             } elseif ($form->get('save')->isClicked() && !is_numeric($number)) {
                 $return = $this->redirect($this->generateUrl('gs_install_st5'));
             } elseif ($form->get('addmore')->isClicked()) {
-                $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
+                $return = $this->redirect($this->generateUrl('gs_install_st'.$number, $options));
             }
         } else {
-            $return = $this->redirect($this->generateUrl('gs_install_st'.$number));
+            $return = $this->redirect($this->generateUrl('gs_install_st'.$number, $options));
         }
 
         return $return;
@@ -108,10 +115,10 @@ abstract class AbstractInstallController extends AbstractController
 
     private function nameToVariable($name)
     {
-        
+
         $array = explode('\\', $name);
         $return = strtolower(end($array));
-    
+
         return $return;
     }
 }
