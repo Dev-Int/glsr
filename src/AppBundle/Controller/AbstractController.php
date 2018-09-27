@@ -31,9 +31,10 @@ abstract class AbstractController extends Controller
     /**
      * Lists all items entity.
      *
-     * @param string $entityName Name of Entity
-     * @param string $prefixRoute  prefix_route
-     * @param \Symfony\Component\HttpFoundation\Request $request Sort request
+     * @param string                                    $entityName  Name of Entity
+     * @param string                                    $prefixRoute prefix_route
+     * @param \Symfony\Component\HttpFoundation\Request $request     Sort request
+     *
      * @return array
      */
     public function abstractIndexAction($entityName, $prefixRoute, Request $request = null)
@@ -41,14 +42,18 @@ abstract class AbstractController extends Controller
         $etm = $this->getDoctrine()->getManager();
         $paginator = '';
         $entities = $this->getEntity($entityName, $etm);
-        
+        $qbd = $etm->createQueryBuilder();
+        $qbd->select('count(entity.id)');
+        $qbd->from('AppBundle:' . $entityName, 'entity');
+        $ctEntity = $qbd->getQuery()->getSingleScalarResult();
+
         if ($request !== null && is_array($entities) === false && $entities !== null) {
             $item = $this->container->getParameter('knp_paginator.page_range');
             $this->addQueryBuilderSort($entities, $prefixRoute);
             $paginator = $this->get('knp_paginator')->paginate($entities, $request->query->get('page', 1), $item);
         }
 
-        return ['entities'  => $entities, 'ctEntity' => count($entities), 'paginator' => $paginator,];
+        return ['entities' => $entities, 'ctEntity' => $ctEntity, 'paginator' => $paginator,];
     }
 
     /**
@@ -56,6 +61,7 @@ abstract class AbstractController extends Controller
      *
      * @param Object $entity      Entity
      * @param string $prefixRoute prefix_route
+     *
      * @return array
      */
     public function abstractShowAction($entity, $prefixRoute)
@@ -72,6 +78,7 @@ abstract class AbstractController extends Controller
      * @param string $entityPath  Path of Entity
      * @param string $typePath    Path of FormType
      * @param string $prefixRoute Prefix of Route
+     *
      * @return array
      */
     public function abstractNewAction($entityName, $entityPath, $typePath, $prefixRoute)
@@ -83,7 +90,8 @@ abstract class AbstractController extends Controller
         if ($entityName === 'Settings\Company' || $entityName === 'Settings\Settings' && $ctEntity >= 1) {
             $return = $this->redirectToRoute('_home');
             $this->addFlash('danger', 'gestock.settings.'.$prefixRoute.'.add2');
-        } else {
+        }
+        if ($entityName !== 'Settings\Company' || $entityName !== 'Settings\Settings') {
             $entityNew = $etm->getClassMetadata($entityPath)->newInstance();
             $form = $this->createForm($typePath, $entityNew, ['action' => $this->generateUrl($prefixRoute.'_create'),]);
 
@@ -104,6 +112,7 @@ abstract class AbstractController extends Controller
      * @param string $entityPath  Path of Entity
      * @param string $typePath    Path of FormType
      * @param string $prefixRoute Prefix of route
+     *
      * @return array
      */
     public function abstractCreateAction(Request $request, $entityName, $entityPath, $typePath, $prefixRoute)
@@ -140,15 +149,18 @@ abstract class AbstractController extends Controller
      * @param Object $entity      Entity
      * @param string $prefixRoute Prefix of Route
      * @param string $typePath    Path of FormType
+     *
      * @return array
      */
     public function abstractEditAction($entity, $prefixRoute, $typePath)
     {
         $param = $this->testReturnParam($entity, $prefixRoute);
-        $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($prefixRoute.'_update', $param),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(
+            $typePath, $entity, array(
+                'action' => $this->generateUrl($prefixRoute.'_update', $param),
+                'method' => 'PUT',
+            )
+        );
         if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
         }
@@ -161,19 +173,22 @@ abstract class AbstractController extends Controller
     /**
      * Edits an existing item entity.
      *
-     * @param Object $entity      Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request Request in progress
-     * @param string $prefixRoute Prefix of Route
-     * @param string $typePath    Path of FormType
+     * @param Object                                    $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request     Request in progress
+     * @param string                                    $prefixRoute Prefix of Route
+     * @param string                                    $typePath    Path of FormType
+     *
      * @return array
      */
     public function abstractUpdateAction($entity, Request $request, $prefixRoute, $typePath)
     {
         $param = $this->testReturnParam($entity, $prefixRoute);
-        $editForm = $this->createForm($typePath, $entity, array(
-            'action' => $this->generateUrl($prefixRoute.'_update', $param),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(
+            $typePath, $entity, array(
+                'action' => $this->generateUrl($prefixRoute.'_update', $param),
+                'method' => 'PUT',
+            )
+        );
         if ($prefixRoute === 'group') {
             $this->addRolesAction($editForm, $entity);
         }
@@ -196,9 +211,10 @@ abstract class AbstractController extends Controller
     /**
      * Deletes an item entity.
      *
-     * @param Object $entity      Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request Request in progress
-     * @param string $prefixRoute Prefix of Route
+     * @param Object                                    $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request     Request in progress
+     * @param string                                    $prefixRoute Prefix of Route
+     *
      * @return array
      */
     public function abstractDeleteAction($entity, Request $request, $prefixRoute)
@@ -214,10 +230,11 @@ abstract class AbstractController extends Controller
     /**
      * Deletes a item entity with Articles.
      *
-     * @param Object $entity     Entity
-     * @param \Symfony\Component\HttpFoundation\Request $request   Request in progress
-     * @param string $entityName Name of Entity
-     * @param string $prefixRoute Prefix of Route
+     * @param Object                                    $entity      Entity
+     * @param \Symfony\Component\HttpFoundation\Request $request     Request in progress
+     * @param string                                    $entityName  Name of Entity
+     * @param string                                    $prefixRoute Prefix of Route
+     *
      * @return array
      */
     public function abstractDeleteWithArticlesAction($entity, Request $request, $entityName, $prefixRoute)
@@ -242,8 +259,8 @@ abstract class AbstractController extends Controller
     /**
      * AddQueryBuilderSort for the SortAction in views.
      *
-     * @param QueryBuilder $qbd
-     * @param string       $name
+     * @param QueryBuilder $qbd  QueryBuilder
+     * @param string       $name Order name
      */
     protected function addQueryBuilderSort(QueryBuilder $qbd, $name)
     {
@@ -257,7 +274,8 @@ abstract class AbstractController extends Controller
                         $alias = $item->getAlias();
                     }
                 }
-            } else {
+            }
+            if ($name === $order['entity']) {
                 $alias = current($qbd->getDQLPart('from'))->getAlias();
             }
             $qbd->orderBy($alias . '.' . $order['field'], $order['type']);
@@ -277,15 +295,15 @@ abstract class AbstractController extends Controller
         return $this->createFormBuilder(null, ['attr' => ['id' => 'delete']])
             ->setAction($this->generateUrl($route, ['id' => $id]))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
      * Test paramters to return.
      *
-     * @param object $entity     Entity to return
+     * @param object $entity      Entity to return
      * @param string $prefixRoute Entity name to test
+     *
      * @return array Parameters to return
      */
     protected function testReturnParam($entity, $prefixRoute)
@@ -293,7 +311,8 @@ abstract class AbstractController extends Controller
         $entityArray = ['article', 'supplier', 'familylog', 'zonestorage', 'unit', 'material',];
         if (in_array($prefixRoute, $entityArray, true)) {
             $param = ['slug' => $entity->getSlug()];
-        } else {
+        }
+        if (!in_array($prefixRoute, $entityArray, true)) {
             $param = ['id' => $entity->getId()];
         }
 
@@ -322,13 +341,22 @@ abstract class AbstractController extends Controller
      *
      * @param \Symfony\Component\Form\Form  $form  The form in which to insert the roles
      * @param \AppBundle\Entity\Staff\Group $group The entity to deal
+     *
      * @return \Symfony\Component\Form\Form The form
      */
     public function addRolesAction($form, $group)
     {
-        $form->add('roles', ChoiceType::class, ['choices' => $this->getExistingRoles(), 'choices_as_values' => true,
-            'data' => $group->getRoles(), 'label' => 'Roles', 'expanded' => true, 'multiple' => true, 'mapped' => true,
-        ]);
+        $form->add(
+            'roles', ChoiceType::class, [
+                'choices' => $this->getExistingRoles(),
+                'choices_as_values' => true,
+                'data' => $group->getRoles(),
+                'label' => 'Roles',
+                'expanded' => true,
+                'multiple' => true,
+                'mapped' => true,
+            ]
+        );
 
         return $form;
     }
@@ -338,21 +366,22 @@ abstract class AbstractController extends Controller
      *
      * @param string                                     $entityName Name of Entity
      * @param \Doctrine\Common\Persistence\ObjectManager $etm        ObjectManager instances
+     *
      * @return array|\Doctrine\ORM\QueryBuilder|null Entity elements
      */
     private function getEntity($entityName, ObjectManager $etm)
     {
         $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
         switch ($entityName) {
-            case 'Settings\Diverse\FamilyLog':
-                $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
-                break;
-            default:
-                if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
-                } else {
-                    $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
-                }
+        case 'Settings\Diverse\FamilyLog':
+            $entities = $etm->getRepository('AppBundle:'.$entityName)->childrenHierarchy();
+            break;
+        default:
+            if ($this->getUser() !== null && in_array($this->getUser()->getRoles()[0], $roles)) {
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getAllItems();
+            } else {
+                $entities = $etm->getRepository('AppBundle:'.$entityName)->getItems();
+            }
         }
         return $entities;
     }
