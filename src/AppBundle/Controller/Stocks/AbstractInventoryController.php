@@ -39,7 +39,8 @@ class AbstractInventoryController extends AbstractController
     {
         $etm = $this->getDoctrine()->getManager();
         $zoneStorages = null;
-        $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
+        $settings = $etm->getRepository('AppBundle:Settings\Settings')->findFirst();
+
         if ($settings->getInventoryStyle() == 'zonestorage') {
             $zoneStorages = $etm->getRepository('AppBundle:Settings\Diverse\ZoneStorage')->findAll();
             $typeClass = InventoryEditZonesType::class;
@@ -75,7 +76,7 @@ class AbstractInventoryController extends AbstractController
             ['attr' => ['id' => 'create'], 'action' => $this->generateUrl($route), 'method' => 'PUT',]
         );
     }
-    
+
     /**
      * Get LineArticles.
      *
@@ -109,7 +110,7 @@ class AbstractInventoryController extends AbstractController
     {
         $articleLine = array();
         $articleLine = $this->getLineArticles($articleLine, $inventory);
-        
+
         foreach ($articles as $article) {
             foreach ($articleLine as $line) {
                 if ($article->getName() === $line['article']) {

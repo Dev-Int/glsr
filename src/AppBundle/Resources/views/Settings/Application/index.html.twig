@@ -15,7 +15,6 @@
             <tr>
                 <th scope="col">{{ 'gestock.settings.settings.style_inventory'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.settings.calculation'|trans }}</th>
-                <th scope="col">{{ 'gestock.settings.settings.first_inventory.title'|trans }}</th>
                 <th scope="col">{{ 'gestock.settings.settings.currency'|trans }}</th>
                 <th scope="col" class="col-md-2 text-center">{{ 'Actions'|trans({}, 'admin') }}</th>
             </tr>
@@ -25,7 +24,6 @@
                 <tr>
                     <td>{{ settings.inventoryStyle }}</td>
                     <td>{{ settings.calculation }}</td>
-                    <td>{% if settings.firstInventory %}{{ settings.firstInventory|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ settings.currency }}</td>
                     <td>
                         <div class="btn-group">
@@ -49,5 +47,5 @@
             </a>
         {% endif %}
         </div>
-    
+
 {% endblock %}

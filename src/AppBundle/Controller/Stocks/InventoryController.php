@@ -70,7 +70,7 @@ class InventoryController extends AbstractInventoryController
     {
         $etm = $this->getDoctrine()->getManager();
         $zoneStorages = null;
-        $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
+        $settings = $etm->getRepository('AppBundle:Settings\Settings')->findFirst();
         if ($settings->getInventoryStyle() == 'zonestorage') {
             $zoneStorages = $etm->getRepository('AppBundle:Settings\Diverse\ZoneStorage')->findAll();
         }
@@ -79,7 +79,7 @@ class InventoryController extends AbstractInventoryController
             ->getArticlesFromInventory($inventory);
 
         $deleteForm = $this->createDeleteForm($inventory->getId(), 'inventory_delete');
-        
+
         return ['inventory' => $inventory, 'zoneStorages' => $zoneStorages, 'inventoryArticles' => $inventoryArticles,
             'delete_form' => $deleteForm->createView(),];
     }
@@ -97,18 +97,13 @@ class InventoryController extends AbstractInventoryController
     {
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Settings\Article')->getResultArticles();
-        $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
+        $settings = $etm->getRepository('AppBundle:Settings\Settings')->findFirst();
 
         $inventory = new Inventory();
         $form = $this->createCreateForm('inventory_create');
         if ($form->handleRequest($request)->isValid()) {
             $etm->persist($inventory);
 
-            // Saving the first inventory
-            if (empty($settings->getFirstInventory)) {
-                $settings->setFirstInventory($inventory->getDate());
-                $etm->persist($settings);
-            }
             // Saving of articles in the inventory
             $this->saveInventoryArticles($articles, $inventory, $etm);
 
@@ -134,7 +129,7 @@ class InventoryController extends AbstractInventoryController
     public function editAction(Inventory $inventory)
     {
         $return = $this->getInvetoryEditType($inventory);
-        
+
         return $return;
     }
 
@@ -152,7 +147,7 @@ class InventoryController extends AbstractInventoryController
     public function updateAction(Inventory $inventory, Request $request)
     {
         $return = $this->getInvetoryEditType($inventory);
-        
+
         if ($return['editForm']->handleRequest($request)->isValid()) {
             $inventory->setStatus('2');
             $this->getDoctrine()->getManager()->flush();
@@ -235,7 +230,7 @@ class InventoryController extends AbstractInventoryController
     public function deleteAction(Inventory $inventory, Request $request)
     {
         $return = $this->abstractDeleteWithArticlesAction($inventory, $request, 'Stocks\Inventory', 'inventory');
-        
+
         return $return;
     }
 
@@ -306,7 +301,7 @@ class InventoryController extends AbstractInventoryController
         $etm = $this->getDoctrine()->getManager();
         $articles = $etm->getRepository('AppBundle:Settings\Article')->getResultArticles();
         $zoneStorages = $etm->getRepository('AppBundle:Settings\Diverse\Zonestorage')->findAll();
-        
+
         if ($inventoryStyle == 'global') {
             $html = $this->renderView(
                 'AppBundle:Stocks/Inventory:list-global.pdf.twig',

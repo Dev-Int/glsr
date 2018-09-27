@@ -51,13 +51,6 @@ class Settings
     private $calculation;
 
     /**
-     * @var \DateTime the first inventory's date
-     *
-     * @ORM\Column(name="first_inventory", type="datetime", nullable=true)
-     */
-    private $firstInventory;
-
-    /**
      * @var string currency's choice
      *
      * @ORM\Column(name="currency", type="string", length=50)
@@ -123,30 +116,6 @@ class Settings
     public function getCalculation()
     {
         return $this->calculation;
-    }
-
-    /**
-     * Set first_inventory.
-     *
-     * @param \DateTime $firstInventory Date du premier inventaire
-     *
-     * @return Settings
-     */
-    public function setFirstInventory(\DateTime $firstInventory)
-    {
-        $this->firstInventory = $firstInventory;
-
-        return $this;
-    }
-
-    /**
-     * Get first_inventory.
-     *
-     * @return \DateTime Date du premier inventaire
-     */
-    public function getFirstInventory()
-    {
-        return $this->firstInventory;
     }
 
     /**

@@ -30,7 +30,7 @@ use AppBundle\Form\Type\Settings\ArticleType;
 use AppBundle\Form\Type\Settings\Diverse\MaterialType;
 
 /**
- * class InstallController
+ * Class InstallController
  *
  * @category Controller
  *
@@ -273,11 +273,11 @@ class InstallController extends AbstractInstallController
     public function step9Action()
     {
         $etm = $this->getDoctrine()->getManager();
-        $settings = $etm->getRepository('AppBundle:Settings\Settings')->find(1);
+        $inventory = $etm->getRepository('AppBundle:Stocks\Inventory')->findAll();
         $message = null;
 
-        if ($settings->getFirstInventory() !== null) {
-            $message = 'gestock.install.st8.yet_exist';
+        if (!empty($inventory)) {
+            $message = 'gestock.install.st9.yet_exist';
         }
 
         return array('message' => $message);

@@ -33,7 +33,7 @@ class SettingsRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder('s')
             ->getQuery()->getResult();
-        
+
         return $query;
     }
 
@@ -47,5 +47,20 @@ class SettingsRepository extends EntityRepository
         $query = $this->getAllItems();
 
         return $query;
+    }
+
+    /**
+     * Affiche le premier enregistrement.
+     *
+     * @return QueryBuilder Requête DQL
+     */
+    public function findFirst()
+    {
+        $query = $this->createQueryBuilder('s')
+            ->setMaxResults(1)
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()->getSingleResult();
+
+            return $query;
     }
 }
