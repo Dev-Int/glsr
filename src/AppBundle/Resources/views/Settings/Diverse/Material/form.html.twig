@@ -1,11 +1,11 @@
-{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
-
 {% if edit_form is defined %}
     {% set form = edit_form %}
-    {{ form_start(form) }}
-{% else %}
-    {{ form_start(form) }}
 {% endif %}
+
+{% form_theme form 'AppBundle:Form:bootstrap_3_horizontal_layout.html.twig' %}
+
+    {{ form_start(form) }}
+
 {% set lastloop = 0 %}
 
     {{ form_row(form.name) }}
@@ -21,8 +21,8 @@
                     {% for article in articles %}
                         {% if child.vars.value == article.id %}
                             <li class="row">
-                                <div class="col-sm-6">{{- form_widget(child, { 'attr':{'onClick':'isMultiple('~lastloop~')'} }) -}}</div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">{{- form_widget(child, { 'attr':{'onClick':'isMultiple('~lastloop~')'} }) -}}</div>
+                                <div class="col-sm-4">
                                     <input type="hidden" id="material_articles_unit_{{ lastloop }}" value="{{ article.unitWorking.id }}">
                                     {{ article.unitStorage.name }}
                                 </div>
