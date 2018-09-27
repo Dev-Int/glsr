@@ -19,7 +19,25 @@
             {% if familylog.parent %}
             <tr>
                 <th scope="row" class="col-md-4">{{ 'gestock.settings.diverse.parent_fam'|trans }}</th>
-                <td class="col-md-8">{{ familylog.parent }}</td>
+                <td class="col-md-8">
+                    <a href="{{ path('familylog_show', {slug: familylog.parent.slug}) }}">{{ familylog.parent }}</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% if familylog.children %}
+            <tr>
+                <th scope="row" class="col-md-4">{{ 'gestock.settings.diverse.child_fam'|trans }}</th>
+                <td class="col-md-8">
+                    <table class="table table-hovertable-bordered record_properties">
+                    {% for child in familylog.children %}
+                        <tr>
+                            <td>
+                                <a href="{{ path('familylog_show', {slug: child.slug}) }}">{{ child.name }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </td>
             </tr>
             {% endif %}
         </tbody>

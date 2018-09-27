@@ -51,7 +51,7 @@ class FamilyLog
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @var string Slug name
      * @Gedmo\Slug(fields={"name"})
@@ -244,7 +244,7 @@ class FamilyLog
     {
         return $this->level;
     }
-    
+
     /**
      * Allows hierachy display.
      *
@@ -252,10 +252,14 @@ class FamilyLog
      */
     public function getIndentedName()
     {
+        $return = '';
         if ($this->parent !== null) {
-            $return = '|-- '.$this->name;
+            for ($i=2; $i <= $this->level; $i++) {
+                $return .= '|- -';
+            }
+            $return .= $this->name;
         } else {
-            $return = '- '.$this->name;
+            $return = '|- '.$this->name;
         }
 
         return $return;

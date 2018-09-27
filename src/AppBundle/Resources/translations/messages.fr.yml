@@ -78,7 +78,7 @@ gestock:
     install:
         title: Installation
         none: "Votre application n'est pas encore configurée.\n Vous devez suivre les étapes d'installation"
-        present: 
+        present:
             title: Présentation
             txt:
                 title: "Bienvenue dans G.L.S.R."
@@ -177,7 +177,7 @@ gestock:
             style_inventory: "Style d'inventaire"
             weighted: "Pondéré "
             zone_storage: "Zone de stockage"
-            first_inventory: 
+            first_inventory:
                 title: "Inventaire d'installation"
                 none: "Pas (encore !) d'inventaire.\n Pour le bon fonctionnement de l'application, vous devez créer un inventaire."
             currency: "Monnaie "
@@ -192,6 +192,7 @@ gestock:
             family_add: "Ajouter une famille"
             family_edit: "Modifier la famille"
             parent_fam: "Famille parente"
+            child_fam: "Famille.s enfant.s"
             delete:
                 title: 'Supprimer un élément de configuration'
                 title_button: "Supprimer l'élément"
