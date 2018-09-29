@@ -30,18 +30,20 @@
     display: block !important;
 }
 
+.dropdown-menu>li>a {
+    white-space: normal;
+}
 .dropdown-submenu>a:after {
-    display: inline-block;
+    display: block;
     content: " ";
     float: right;
     width: 0;
     height: 0;
-    margin-left: 5px;
-    vertical-align: middle;
+    margin-left:0;
     border-left: 5px dashed;
     border-top:5px solid transparent;
     border-bottom: 5px solid transparent;
-    margin-top: 5px;
+    margin-top: 2px;
 }
 
 .dropdown-submenu:hover>a:after {
@@ -59,4 +61,3 @@
     -moz-border-radius: 4px 0 4px 4px;
     border-radius: 4px 0 4px 4px;
 }
-

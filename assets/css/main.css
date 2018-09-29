@@ -360,3 +360,24 @@ div[id^='recipes_materials_']>.form-group>div.col-sm-8 {
 div[id^='recipes_materials_']>.form-group>label {
     text-align: center !important;
 }
+
+/* NavBar */
+.navbar-default {
+    background-color: #205081;
+    border-color: #337AB7;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus,
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:focus {
+    color: #fff;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    background-color: #337AB7;
+}

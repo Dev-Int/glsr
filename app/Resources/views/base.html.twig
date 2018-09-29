@@ -4,13 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{{ 'title_page'|trans }}{% endblock %}</title>
         {% block stylesheets %}
-            {% stylesheets filter='cssrewrite, ?yui_css'
-                'bundles/app/css/*' %}
-                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-            {% endstylesheets %}
-            {% javascripts 'bundles/app/js/jquery-1.12.4.min.js' filter='?yui_js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+            <link rel="stylesheet" href="{{ asset('build/app.css') }}" type="text/css" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -67,9 +61,7 @@
         </footer>
         {% block javascripts %}
             {# Tous nos javascripts avec Assetic #}
-            {% javascripts 'bundles/app/js/jquery-1.12.4.min.js' 'bundles/app/js/*' filter='?yui_js' %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
+                <script type="text/javascript" src="{{ asset('build/app.js') }}"></script>
             {% block js_function %}{% endblock %}
         {% endblock %}
     </body>
