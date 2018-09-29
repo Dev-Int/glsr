@@ -24,7 +24,6 @@
         "doctrine/orm": "^2.4.8",
         "doctrine/dbal": "<2.5",
         "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/polyfill-iconv": "~1.0",
         "symfony/polyfill-php56": "~1.0",
@@ -54,7 +53,6 @@
     },
     "require-dev": {
         "pugx/generator-bundle":"2.4.*@dev",
-        "willdurand/faker-bundle": "@stable",
         "phpunit/phpunit": "5.4.*",
         "phpunit/dbunit": "2.0.1",
         "symfony/phpunit-bridge": "~2.7"

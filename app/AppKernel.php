@@ -37,10 +37,6 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new PUGX\GeneratorBundle\PUGXGeneratorBundle();
-            $bundles[] = new Bazinga\Bundle\FakerBundle\BazingaFakerBundle();
-            $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle();
-            $bundles[] = new Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
-            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
         }
 
         return $bundles;

@@ -2,6 +2,7 @@
 /web/js/
 /web/css/
 /web/pdf/
+/web/build/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
@@ -14,3 +15,5 @@
 /composer.phar
 /bin/
 /doc/*
+/node_modules/*
+*.log
