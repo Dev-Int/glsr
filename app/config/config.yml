@@ -41,21 +41,6 @@ twig:
         - LexikFormFilterBundle/Form/form_div_layout.html.twig
         - form/tel_bootstrap.html.twig
 
-# Assetic Configuration
-assetic:
-    debug:          "%kernel.debug%"
-    use_controller: false
-    bundles:        [ 'AppBundle' ]
-    java: %java_path%
-    filters:
-        cssrewrite: ~
-        closure:
-            jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        yui_css:
-            jar: "%kernel.root_dir%/Resources/java/yuicompressor.jar"
-        yui_js:
-            jar: %kernel.root_dir%/Resources/java/yuicompressor.jar
-
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -129,7 +114,7 @@ fos_user:
     from_email:
         address: "noreply@yourcompany.com"
         sender_name: "No Reply"
-            
+
 # Knplabs\KnpSnappyBundle
 knp_snappy:
     pdf:
@@ -146,7 +131,7 @@ knp_snappy:
         # if you are using Unix
         binary:  %kernel.root_dir%/Resources/pdf/wkhtmltopdf/linux/bin/wkhtmltoimage
         options: []
-        
+
 # JMS_Security_Extra Configuration
 jms_security_extra:
     # Whether you want to secure all services (true), or only secure specific
@@ -190,7 +175,7 @@ knp_paginator:
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
-        pagination: AppBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig 
+        pagination: AppBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
 # Knp_Menu Configuration
