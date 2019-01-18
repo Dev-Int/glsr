@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_tva")
+ * @ORM\Table(name="app_tva")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\TvaRepository")
  */
 class Tva
