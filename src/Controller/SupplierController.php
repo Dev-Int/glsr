@@ -1,21 +1,30 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * SupplierController Controller of Supplier entity.
+ *
+ * PHP Version 7
+ *
+ * @author    Quétier Laurent <lq@dev-int.net>
+ * @copyright 2018 Dev-Int GLSR
+ * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
+ *
+ * @version GIT: $Id$
+ *
+ * @link https://github.com/Dev-Int/glsr
  */
 
 namespace App\Controller;
 
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use App\Entity\Settings\Supplier;
 
 /**
  * Description of SupplierController
  *
- * @author dev-int
+ * @category Controller
  */
-class SupplierController
+class SupplierController extends BaseAdminController
 {
     /**
      * Allows applications to modify the entity associated with the item being

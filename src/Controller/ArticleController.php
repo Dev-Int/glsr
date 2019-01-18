@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * ArticleController Controller of Article entity.
  *
@@ -17,7 +16,7 @@
 
 namespace App\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use App\Entity\Settings\Article;
 
 /**
