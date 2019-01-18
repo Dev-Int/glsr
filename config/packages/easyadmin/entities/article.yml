@@ -14,13 +14,13 @@ easy_admin:
                     - { property: 'familylog', sortable: true }
             form:
                 fields:
-                    - { type: 'group', css_class: 'col-sm-6', label: 'form.article.info', icon: 'info-circle ' }
+                    - { type: 'group', columns: 6, label: 'form.article.info', icon: 'info-circle ' }
                     - { property: 'name', label: 'Name' }
                     - { property: 'supplier', type: 'entity', type_options: { class: 'App:Settings\Supplier', choice_label: 'name', multiple: false, placeholder: 'form.supplier.choice', attr: { onChange: 'getFamilyLog();' } }, label: 'supplier.name' }
                     - { type: 'divider' }
                     - { property: 'zoneStorages', type: 'entity', type_options: { class: 'App:Settings\Diverse\ZoneStorage', choice_label: 'name', multiple: true, expanded: true, placeholder: 'form.zoneStorage.choice' }, label: 'ZoneStorage' }
                     - { property: 'familylog', type: 'App\Form\Type\FamilyLogSelectType', type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName', multiple: false, placeholder: 'form.familyLog.choice' }, label: 'FamilyLog' }
-                    - { type: 'group', css_class: 'col-sm-6', label: 'form.feature', icon: 'cog' }
+                    - { type: 'group', columns: 6, label: 'form.feature', icon: 'cog' }
                     - { property: 'packaging', type: 'number', type_options: { scale: 3, grouping: true }, label: 'article.settings.packaging' }
                     - { property: 'unitStorage', type: 'entity', type_options: { class: 'App:Settings\Diverse\Unit', choice_label: 'name', multiple: false, placeholder: 'form.unitStorage.choice' }, label: 'UnitStorage' }
                     - { property: 'price', type: 'money', type_options: { scale: 3, grouping: true, currency: 'EUR' }, label: 'article.settings.price' }
