@@ -1,14 +1,14 @@
 security:
     encoders:
-        FOS\UserBundle\Model\UserInterface:
+        App\Entity\Staff\User2:
             algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
-            # if you're using multiple entity managers
-            # manager_name: customer
+        in_database:
+            entity:
+                class: App\Entity\Staff\User2
+                property: email
 
     firewalls:
         dev:
@@ -16,21 +16,23 @@ security:
             security: false
         main:
             pattern: ^/
+
+            provider: in_database
+
             # activate different ways to authenticate
-            
+
             http_basic: ~
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            form_login:
-                check_path: /login_check
-                login_path: /login
-                provider: fos_userbundle
-#                csrf_provider: form.csrf_provider
             # https://symfony.com/doc/current/security/form_login_setup.html
+            form_login:
+                login_path: securityLogin
+                check_path: securityLogin
 
-            logout: #      true
-                path: /logout
-                target: /login
+            logout:
+                path: securityLogout
+                target: home
+
             anonymous:    true
 
     role_hierarchy:
