@@ -107,9 +107,6 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
-    "friendsofsymfony/user-bundle": {
-        "version": "v2.1.2"
-    },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.35"
     },
@@ -136,9 +133,6 @@
     },
     "pagerfanta/pagerfanta": {
         "version": "v1.0.5"
-    },
-    "paragonie/random_compat": {
-        "version": "v2.0.12"
     },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
@@ -224,6 +218,9 @@
             "ref": "e3868d2f4a5104f19f844fe551099a00c6562527"
         }
     },
+    "symfony/contracts": {
+        "version": "v1.0.2"
+    },
     "symfony/css-selector": {
         "version": "v4.0.8"
     },
@@ -299,9 +296,6 @@
     "symfony/intl": {
         "version": "v4.0.8"
     },
-    "symfony/lts": {
-        "version": "4-dev"
-    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -371,9 +365,6 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
-    "symfony/security": {
-        "version": "v4.0.8"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -382,6 +373,18 @@
             "version": "3.3",
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
+    },
+    "symfony/security-core": {
+        "version": "v4.2.2"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.2.2"
+    },
+    "symfony/security-guard": {
+        "version": "v4.2.2"
+    },
+    "symfony/security-http": {
+        "version": "v4.2.2"
     },
     "symfony/serializer": {
         "version": "v4.0.8"
@@ -431,6 +434,9 @@
     "symfony/var-dumper": {
         "version": "v4.0.8"
     },
+    "symfony/var-exporter": {
+        "version": "v4.2.2"
+    },
     "symfony/web-link": {
         "version": "v4.0.8"
     },
@@ -452,13 +458,13 @@
             "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
         }
     },
-    "symfony/webpack-encore-pack": {
+    "symfony/webpack-encore-bundle": {
         "version": "1.0",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.0",
-            "ref": "0e8ef1deeaef761e1defbec0be694237660ab13a"
+            "ref": "248c29c070dcd79e8333c676b0c5e284e3b365b5"
         }
     },
     "symfony/yaml": {
