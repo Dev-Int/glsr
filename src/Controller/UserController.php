@@ -16,7 +16,7 @@
 
 namespace App\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AdminController as BaseAdminController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
@@ -28,7 +28,7 @@ class UserController extends BaseAdminController
 {
     public function createUserEntityFormBuilder($entity, $view)
     {
-        $hierarchy = $this->container->getParameter('security.role_hierarchy.roles');
+        $hierarchy = $this->getParameter('security.role_hierarchy.roles');
 
         // transform the role hierarchy in a single unique list
         $roles = array();
@@ -46,11 +46,5 @@ class UserController extends BaseAdminController
             ]);
 
         return $formBuilder;
-    }
-
-    public function updateUserEntity($user)
-    {
-        $this->get('fos_user.user_manager')->updateUser($user, false);
-        parent::updateEntity($user);
     }
 }

@@ -3,12 +3,15 @@ imports:
 
 easy_admin:
     design:
+        brand_color: '#0a50a1'
         assets:
             css:
                 - 'build/app.css'
-        form_theme: 
-            - 'horizontal'
-            - 'easy_admin/bootstrap_3_horizontal_layout.html.twig'
+                # - 'bundles/easyadmin/bootstrap-all.css'
+            # js:
+                # - 'bundles/easyadmin/bootstrap-all.js'
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
 
     site_name: <i class='icon-GLSR'></i> | Admin
     translation_domain: messages
@@ -22,4 +25,3 @@ easy_admin:
         date:     'd/m/Y'
         time:     'H:i'
         datetime: 'd/m/Y - H:i:s'
-
