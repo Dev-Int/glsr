@@ -21,6 +21,7 @@ Delete: Supprimer
 
 # Menu
 menu:
+    home: Accueil
     staff: Equipe
     settings: Configurations
     diverse: Divers
