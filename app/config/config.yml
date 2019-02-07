@@ -64,7 +64,7 @@ doctrine:
         mapping_types:
             enum: string
         # Fix SensioLabsInsight : A Symfony application should be bootable
-        server_version: 5.6
+        server_version: 7.1
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore

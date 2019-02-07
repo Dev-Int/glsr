@@ -19,26 +19,27 @@
         }
     ],
     "require": {
-        "php": ">=5.6.15",
-        "symfony/symfony": "2.8.*",
-        "doctrine/orm": "^2.4.8",
-        "doctrine/dbal": "<2.5",
-        "doctrine/doctrine-bundle": "~1.4",
+        "php": "^7.1",
+        "symfony/symfony": "3.4.*",
+        "doctrine/orm": "~2.4,>=2.4.5",
+        "doctrine/dbal": "~2.5",
+        "doctrine/doctrine-bundle": "~1.5",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/polyfill-iconv": "~1.0",
         "symfony/polyfill-php56": "~1.0",
         "symfony/polyfill-php71": "~1.0",
         "symfony/polyfill-php72": "~1.0",
-        "symfony/translation": "2.4.*",
-        "symfony/config": "~2.7",
-        "symfony/monolog-bundle": "~2.7",
-        "sensio/distribution-bundle": "~5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
+        "symfony/translation": "3.4.*",
+        "symfony/config": "3.4.*",
+        "symfony/monolog-bundle": "^3.1.0",
+        "sensio/distribution-bundle": "^5.0.19",
+        "sensio/framework-extra-bundle": "~3.0",
+        "symfony/assetic-bundle": "~2.8",
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "2.3.*",
         "doctrine/data-fixtures": "1.1.*",
         "twig/extensions": "1.3.*",
-        "symfony/intl": "2.7.*",
+        "symfony/intl": "3.4.*",
         "jms/security-extra-bundle": "1.6.*",
         "stof/doctrine-extensions-bundle": "1.2.*",
         "gedmo/doctrine-extensions": "^2.3.1",
@@ -53,8 +54,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "5.4.*",
-        "phpunit/dbunit": "2.0.1",
-        "symfony/phpunit-bridge": "~2.7"
+        "symfony/phpunit-bridge": "3.4.*"
     },
     "scripts": {
         "symfony-scripts": [
@@ -78,7 +78,7 @@
     "config": {
         "bin-dir": "bin",
         "platform": {
-            "php": "5.6.15"
+            "php": "7.1"
         }
     },
     "extra": {
@@ -89,7 +89,7 @@
             "file": "app/config/parameters.yml"
         },
         "branch-alias": {
-            "dev-master": "2.8-dev"
+            "dev-master": "3.4-dev"
         }
     }
 }
