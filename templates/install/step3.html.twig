@@ -1,0 +1,41 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block install_title %}
+    <span class="badge">3</span>&nbsp;
+    {{ 'gestock.install.st3.title'|trans }}
+{% endblock install_title %}
+
+{% block install_body %}
+    {% if message is empty %}
+        <div class="col-lg-8">
+            {{ include('settings/company/form.html.twig') }}
+        </div>
+        <div class="col-lg-4">
+            <p class="alert alert-warning">
+                {{ 'gestock.settings.company.add'|trans|nl2br }}
+            </p>
+        </div>
+    {% else %}
+        <div class="col-lg-12">
+            <p class="alert alert-info">{{ message|trans|nl2br }}</p>
+        </div>
+    {% endif %}  
+{% endblock install_body %}
+
+{% block install_footer %}
+<footer class="panel-footer">
+    <div class="col-lg-6 text-left">
+        <a href="{{ path('gs_install_st2') }}" class="btn btn-primary" role="button">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            {{ 'gestock.previous'|trans }}
+        </a>
+    </div>
+    <div class="col-lg-6 text-right">
+        <a href="{{ path('gs_install_st4') }}" class="btn btn-primary" role="button">
+            {{ 'gestock.next'|trans }}&nbsp;
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+    <span class="clearfix"></span>
+</footer>
+{% endblock install_footer %}

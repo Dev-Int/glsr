@@ -1,0 +1,29 @@
+{% if edit_form is defined %}
+    {% set form = edit_form %}
+    {{ form_start(form) }}
+{% else %}
+    {{ form_start(form) }}
+{% endif %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_row(form.username) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    {% if edit_form is defined %}
+        {{ form_row(form.enabled) }}
+    {% endif %}
+    {{ form_row(form.groups) }}
+    <div class="form-group">
+        <div class="col-sm-8 col-sm-offset-3">
+            <div class="btn-group record_actions">
+                {% if edit_form is defined %}
+                    {{ form_widget(form.save) }}
+                {% else %}
+                    {{ form_widget(form.save) }} {{ form_widget(form.addmore) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+    {{ 'gestock.home.title'|trans }}
+{% endblock body_title %}
+
+{% block glstock_body %}
+    <section class="alerts col-md-3">
+        <div class="panel panel-primary">
+            <header class="panel-heading">
+                <strong>
+                    <i class="fa fa-dashboard" aria-hidden="true"></i>
+                    {{ 'menu.stockmanagement'|trans }}
+                </strong>
+            </header>
+            <div class="panel-body">
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">
+                        <a href="{{ path('orders') }}">
+                            <span class="col-md-10">
+                                <i class="fa fa-shopping-cart"></i>
+                                {{ 'title'|trans({}, 'gs_orders') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                        {# Block orders #}
+                        {{ render(controller('App:default:lastOrders', {'number': 3})) }}
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ path('deliveries') }}">
+                            <span class="col-md-10">
+                                <i class="fa fa-truck"></i>
+                                {{ 'title'|trans({}, 'gs_deliveries') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                        {# Block deliveries #}
+                        {{ render(controller('App:default:lastDeliveries', {'number': 3})) }}
+                    </li>
+                </ul>
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">
+                        <a href="{{ path('inventory') }}">
+                            <span class="col-md-10">
+                                <i class="fa fa-tasks"></i>
+                                {{ 'title'|trans({}, 'gs_inventories') }}
+                            </span>
+                            <div class="clearfix"></div>
+                        </a>
+                        {# Block inventory #}
+                        {{ render(controller('App:default:lastInventory', {'number': 3})) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="col-md-6">
+        <div class="panel panel-success">
+            <header class="panel-heading">
+                <strong>
+                    <i class="fa fa-dashboard" aria-hidden="true"></i>
+                    {{ 'dashboard'|trans }}
+                </strong>
+            </header>
+            <div class="panel-body">
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">&nbsp;
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="alerts col-md-3 pull-right">
+        <div class="panel panel-danger">
+            <header class="panel-heading">
+                <strong>
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 
+                    {{ 'alerts.title'|trans({}, 'gs_articles') }}
+                </strong>
+            </header>
+            <div class="panel-body">
+                <ul class="list-unstyled list-group">
+                    <li class="list-group-item">
+                        {# Block alerts #}
+                        {{ render(controller('App:default:stockAlert', {'number': 3})) }}
+                    </li>
+                    <li class="list-group-item">
+                        {# Block invoices #}
+                        {{ render(controller('App:default:lastInvoices', {'number': 3})) }}
+                    </li>
+                </ul>
+            </div>
+            <footer class="panel-footer">
+                <small>{{ 'alerts.txt'|trans({}, 'gs_articles') }}</small>
+            </footer>
+        </div>
+    </section>
+
+{% endblock glstock_body %}

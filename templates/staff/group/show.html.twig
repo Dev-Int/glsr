@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ 'menu.groups'|trans }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-users" aria-hidden="true"></i>
+    {{ 'menu.groups'|trans }}
+{% endblock body_title %}
+
+{% block glstock_body %}
+    <table class="table table-hover table-bordered record_properties">
+        <tbody>
+            <tr>
+                <th scope="row">{{ 'form.group_name'|trans({}, 'FOSUserBundle') }}</th>
+                <td>{{ group.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('group') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <a class="btn btn-primary btn-edit" href="{{ path('group_edit', {id: group.id}) }}">
+                {{ 'Edit'|trans({}, 'admin') }}
+            </a>
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'App/Staff/Group/deleteForm.html.twig' %}
+{% endblock glstock_body %}

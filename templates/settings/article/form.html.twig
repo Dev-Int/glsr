@@ -1,0 +1,162 @@
+{% if edit_form is defined %}
+    {% set form = edit_form %}
+    {{ form_start(form) }}
+{% else %}
+    {{ form_start(form) }}
+{% endif %}
+{% form_theme form 'Form/fields.html.twig' %}
+
+    <fieldset class="well">
+        {{ form_errors(form) }}
+        <legend>{{ 'form.info'|trans({}, 'gs_articles') }}</legend>
+        <section class="form-line">
+            <div class="col-md-2 label label-default">
+                {{ form_label(form.name) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.name) }}</span>
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ form_label(form.supplier) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.supplier) }}</span>
+                {{ form_widget(form.supplier, { 'attr' : { 'onChange':'getFamilyLog();' } }) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section class="form-line">
+            <div class="col-md-6">
+                <span class="text-danger">{{ form_errors(form.zoneStorages) }}</span>
+                {% block choice_widget_expanded %}
+                    {% spaceless %}
+                        <div class="panel panel-default" {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
+                            <div class="panel-heading label label-default">
+                                    <i class="fa fa-map-marker"></i>&nbsp;
+                                    {{ form_label(form.zoneStorages) }}
+                            </div>
+                            <div class="panel-body">
+                                {% for child in form.zoneStorages %}
+                                    {% if loop.index is divisible by(2) %}
+                                            <div class="col-md-1 text-center">{{ form_widget(child) }}</div>
+                                            <div class="col-md-5">{{ form_label(child) }}</div>
+                                        </div>
+                                    {% else %}
+                                        <div class="row">
+                                            <div class="col-md-1 text-center">{{ form_widget(child) }}</div>
+                                            <div class="col-md-5">{{ form_label(child) }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endspaceless %}
+                {% endblock choice_widget_expanded %}
+                {{ form_widget(form.zoneStorages) }}
+            </div>
+            <div class="col-md-2 label label-default">
+                <i class="fa fa-tags"></i>&nbsp;
+                {{ form_label(form.familyLog) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.familyLog) }}</span>
+                {{ form_widget(form.familyLog, { 'attr' : { 'onChange':'setHiddenFlog();' } }) }}
+                <input id="hidden_flog" name="article[familyLog]" type="hidden" value="{% if form.familyLog.vars.value is defined %}{{ form.familyLog.vars.value }}{% endif %}" />
+            </div><br /><br /><br />
+            <div class="col-md-1 col-md-offset-1 label label-default">
+                {{ form_label(form.active) }}
+            </div>
+            <div class="col-md-4">
+                <span class="text-danger">{{ form_errors(form.active) }}</span>
+                {{ form_widget(form.active) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+    <fieldset class="well"><legend>{{ 'settings.feature'|trans({}, 'gs_articles') }}</legend>
+        <section class="form-line">
+            <div class="col-md-2 label label-default">
+                <i class="fa fa-cubes"></i>&nbsp;
+                {{ form_label(form.unitStorage) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.unitStorage) }}</span>
+                {{ form_widget(form.unitStorage) }}
+            </div>
+            <div class="col-md-1 col-md-offset-1 label label-default">
+                {{ form_label(form.price) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.price) }}</span>
+                {{ form_widget(form.price) }}
+            </div>
+            <div class="col-md-2 label label-default">
+                {{ form_label(form.tva) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.tva) }}</span>
+                <div class="input-group">
+                    {{ form_widget(form.tva, { 'attr':{'aria-describedby':'percent-addon'} } ) }}
+                    <span class="input-group-addon" id="percent-addon">%</span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <section class="form-line">
+           <div class="col-md-2 label label-default">
+                {{ form_label(form.unitWorking) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.unitWorking) }}</span>
+                {{ form_widget(form.unitWorking) }}
+            </div>
+           <div class="col-md-2 label label-default">
+                {{ form_label(form.packaging) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.packaging) }}</span>
+                {{ form_widget(form.packaging) }}
+            </div>
+           <div class="col-md-2 label label-default">
+                {{ form_label(form.minstock) }}
+            </div>
+            <div class="col-md-2">
+                <span class="text-danger">{{ form_errors(form.minstock) }}</span>
+                {{ form_widget(form.minstock) }}
+            </div>
+            <div class="clear"></div>
+        </section>
+    </fieldset>
+
+    <div class="form-group">
+        <div class="btn-group record_actions">
+        {% if edit_form is defined %}
+            {{ form_widget(form.save) }}
+        {% else %}
+            {{ form_widget(form.save) }} {{ form_widget(form.addmore) }}
+        {% endif %}
+        </div>
+    </div>
+{{ form_end(form) }}
+
+<script type="text/javascript">
+    function setHiddenFlog(){
+        var id_select = $('#article_familyLog').val();
+        $('#hidden_flog').val( id_select );
+    }
+
+    function getFamilyLog(){
+        var id_select = $('#article_supplier').val();
+        $.ajax({
+            url: "{{ path('getfamilylog') }}",
+            type: 'POST',
+            data: {'id': id_select},
+            dataType: 'json',
+            success: function(json){
+                $('#article_familyLog option:selected').removeAttr('selected');
+                $('#article_familyLog option[value="' + json.familylog + '"').attr('selected', 'selected');
+                $('#hidden_flog').val( json.familylog );
+            }
+        });
+    }
+</script>

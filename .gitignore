@@ -1,19 +1,20 @@
-/web/bundles/
-/web/js/
-/web/css/
-/web/pdf/
-/web/build/
-/app/bootstrap.php.cache
-/app/cache/*
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-/app/sessions/*
-/app/config/parameters.yml
-/app/phpunit.xml
-/vendor/
-/composer.phar
+### Directories
 /bin/
 /doc/*
-/node_modules/*
-*.log
+/public/pdf/
+/public/build/
+/src/sessions/*
+/var/*
+/vendor/
+
+### Files
+.env.local
+phpunit.xml
+/config/bootstrap.php
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

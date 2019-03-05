@@ -1,0 +1,15 @@
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' 'Form/tel_bootstrap.html.twig' %}
+
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="form-group">
+        <div class="btn-group record_actions">
+        {% if edit_form is defined %}
+            {{ form_widget(form.save) }}
+        {% else %}
+            {{ form_widget(form.save) }} <div style="display:none">{{ form_widget(form.addmore) }}</div>
+        {% endif %}
+        </div>
+    </div>
+{{ form_end(form) }}

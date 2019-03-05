@@ -1,0 +1,21 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    default_locale: '%locale%'
+    csrf_protection: true
+    http_method_override: true
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        name:        glsr_%locale%
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/sessions"
+
+    #esi: true
+    fragments: ~
+    php_errors:
+        log: true
+
+    templating:
+        engines: ['twig']

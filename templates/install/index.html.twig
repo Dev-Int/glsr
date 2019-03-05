@@ -1,0 +1,39 @@
+{% extends 'install/layout.html.twig' %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-import" aria-hidden="true"></span>
+    {{ 'gestock.install.title'|trans }}
+{% endblock %}
+
+{% block install_title %}
+    <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>
+    {{ 'gestock.install.present.title'|trans }}
+{% endblock install_title %}
+
+{% block install_body %}
+    <h3>{{ 'gestock.install.present.txt.title'|trans }}</h3>
+    <hr />
+    <p>&nbsp;</p>
+    <h4>{{ 'gestock.install.present.txt.1'|trans }}</h4>
+    <p>&nbsp;</p>
+    <h4 class="text-bold text-danger">{{ 'gestock.install.present.txt.2'|trans }}</h4>
+    <p>&nbsp;</p>
+{% endblock install_body %}
+
+{% block install_footer %}
+<footer class="panel-footer">
+    <div class="col-lg-6 text-left">
+        <a href="" class="btn btn-primary disabled" role="button">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            {{ 'gestock.previous'|trans }}
+        </a>
+    </div>
+    <div class="col-lg-6 text-right">
+        <a href="{{ path('gs_install_st'~step) }}" class="btn btn-primary" role="button">
+            {{ 'gestock.next'|trans }}&nbsp;
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        </a>
+    </div>
+    <span class="clearfix"></span>
+</footer>
+{% endblock install_footer %}

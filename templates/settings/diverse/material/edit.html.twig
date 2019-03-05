@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    {{ '%entity% edit'|trans({'%entity%': 'menu.material'|trans({}, 'messages')}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-pie-chart"></i>
+    {{ '%entity% edit'|trans({'%entity%': 'menu.material'|trans({}, 'messages')}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    {% include 'App/Settings/Diverse/Material/form.html.twig' %}
+
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+    {% endif %}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('material') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'deleteForm.html.twig' %}
+
+{% endblock %}

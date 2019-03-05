@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block title %}
+    {{ '%entity% creation'|trans({'%entity%': 'gestock.settings.diverse.unit'|trans}, 'admin') }} - {{ parent() }}
+{% endblock %}
+
+{% block body_title %}
+    <i class="fa fa-cubes"></i>
+    {{ '%entity% list'|trans({'%entity%': 'gestock.settings.diverse.unit'|trans}, 'admin') }}
+{% endblock %}
+
+{% block glstock_body %}
+
+    {% include 'App/Settings/Diverse/Unit/form.html.twig' %}
+
+    <div class="btn-group record_actions">
+        {% include 'homeButton.html.twig' %}
+        <a class="btn btn-info btn-list" href="{{ path('unit') }}">
+            {{ 'gestock.return_list'|trans }}
+        </a>
+    </div>
+
+{% endblock %}

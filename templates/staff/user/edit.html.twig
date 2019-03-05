@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% form_theme edit_form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block title %}{{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }} - {{ parent() }}{% endblock %}
+
+{% block body_title %}
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+    {{ '%entity% edit'|trans({'%entity%': 'menu.users'|trans}, 'admin') }}
+{% endblock body_title %}
+
+{% block glstock_body %}
+    {% include 'App/Staff/User/form.html.twig' %}
+
+    {{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+
+        <div class="btn-group record_actions">
+            {% include 'homeButton.html.twig' %}
+            <a class="btn btn-info btn-list" href="{{ path('user') }}">
+                {{ 'gestock.return_list'|trans }}
+            </a>
+
+            <button class="btn btn-danger btn-delete" type="submit">
+                {{ 'Delete'|trans({}, 'admin') }}
+            </button>
+
+        </div>
+
+        <input name="modal" type="hidden" value="0">
+    {{ form_end(delete_form) }}
+
+    {% include 'deleteForm.html.twig' %}
+{% endblock glstock_body %}
