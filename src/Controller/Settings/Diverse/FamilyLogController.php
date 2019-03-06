@@ -15,7 +15,7 @@
 namespace App\Controller\Settings\Diverse;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Controller\AbstractController;
+use App\Controller\AbstractAppController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -29,7 +29,7 @@ use App\Form\Type\Settings\Diverse\FamilyLogType;
  *
  * @Route("/admin/settings/diverse/familylog")
  */
-class FamilyLogController extends AbstractController
+class FamilyLogController extends AbstractAppController
 {
     /**
      * Lists all FamilyLog entities.

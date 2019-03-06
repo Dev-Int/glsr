@@ -15,7 +15,7 @@
 namespace App\Controller\Settings\Diverse;
 
 use Symfony\Component\HttpFoundation\Request;
-use App\Controller\AbstractController;
+use App\Controller\AbstractAppController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -26,9 +26,9 @@ use App\Form\Type\Settings\Diverse\MaterialType;
 /**
  * Material controller.
  *
- * @Route("/material")
+ * @Route("/admin/settings/diverse/material")
  */
-class MaterialController extends AbstractController
+class MaterialController extends AbstractAppController
 {
     /**
      * Lists all Material entities.
