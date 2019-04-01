@@ -1,0 +1,14 @@
+## EASY_ADMIN Unit Entity
+---
+easy_admin:
+    entities:
+        Unit:
+            class: App\Entity\Settings\Diverse\Unit
+            list:
+                fields:
+                    - { property: 'name', sortable: false }
+                    - { property: 'abbr', label: 'unit.abbr', sortable: false }
+            form:
+                fields:
+                    - 'name'
+                    - { property: 'abbr', label: 'unit.abbr' }

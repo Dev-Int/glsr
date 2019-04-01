@@ -1,0 +1,26 @@
+{%- block _supplier_choice_widget -%}
+    {% if view == 'show' %}
+        {% if value|length > 0 %}
+            <ul class="orderday">
+                {% for i in 1..7 %}
+                    <li>
+                        {% if i == 1 %}{{ 'Monday'|trans }}{% endif %}
+                        {% if i == 2 %}{{ 'Tuesday'|trans }}{% endif %}
+                        {% if i== 3 %}{{ 'Wednesday'|trans }}{% endif %}
+                        {% if i== 4 %}{{ 'Thursday'|trans }}{% endif %}
+                        {% if i== 5 %}{{ 'Friday'|trans }}{% endif %}
+                        {% if i== 6 %}{{ 'Saturday'|trans }}{% endif %}
+                        {% if i== 7 %}{{ 'Sunday'|trans }}{% endif %}
+                        <span class="fa fa-check {% if i in value %}success{% else %}invisible{% endif %}"></span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <div class="empty collection-empty">
+                {{ include(entity_config.templates.label_empty) }}
+            </div>
+        {% endif %}
+    {% else %}
+        {{ value|join(', ')|easyadmin_truncate }}
+    {% endif %}
+{% endblock %}

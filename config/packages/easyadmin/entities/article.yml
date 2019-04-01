@@ -1,0 +1,49 @@
+## EASY_ADMIN Article Entity
+---
+easy_admin:
+    entities:
+        Article:
+            class: App\Entity\Settings\Article
+            controller: App\Controller\ArticleController
+            templates:
+                new: 'admin/Article/new.html.twig'
+                edit: 'admin/Article/edit.html.twig'
+            list:
+                dql_filter: 'entity.active = 1'
+                fields:
+                    - { property: 'id', type: 'number', format: '%06d' }
+                    - { property: 'name', label: 'Name' }
+                    - supplier
+                    - { property: 'familylog', sortable: true }
+            form:
+                fields:
+                    - { type: 'group', columns: 6, label: 'form.article.info', icon: 'info-circle ' }
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'supplier', type: 'entity', columns: 6, type_options: { class: 'App:Settings\Supplier', choice_label: 'name', multiple: false, placeholder: 'form.supplier.choice', attr: { onChange: 'getFamilyLog();' } }, label: 'supplier.name' }
+                    - { property: 'familylog', type: 'App\Form\Type\FamilyLogSelectType', columns: 6, type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName', multiple: false, placeholder: 'form.familyLog.choice' }, label: 'FamilyLog' }
+                    - { type: 'section', label: 'Storage' }
+                    - { property: 'zoneStorages', type: 'entity', type_options: { class: 'App:Settings\Diverse\ZoneStorage', choice_label: 'name', multiple: true, expanded: true, placeholder: 'form.zoneStorage.choice', label_attr: { class: 'checkbox-inline px-3' } }, label: 'ZoneStorage' }
+                    - { type: 'group', columns: 6, label: 'form.feature', icon: 'cog' }
+                    - { property: 'packaging', type: 'number', columns: 6, type_options: { scale: 3, grouping: true }, label: 'article.settings.packaging' }
+                    - { property: 'unitStorage', type: 'entity', columns: 6, type_options: { class: 'App:Settings\Diverse\Unit', choice_label: 'name', multiple: false, placeholder: 'form.unitStorage.choice' }, label: 'UnitStorage' }
+                    - { property: 'unitWorking', type: 'entity', columns: 6, type_options: { class: 'App:Settings\Diverse\Unit', choice_label: 'name', multiple: false, placeholder: 'form.unitWorking.choice' }, label: 'article.settings.unitWorking' }
+                    - { property: 'minstock', type: 'number', columns: 6, type_options: { scale: 3, grouping: true }, label: 'article.settings.minstock' }
+                    - { type: 'section', label: 'Money' }
+                    - { property: 'price', type: 'money', columns: 6, type_options: { scale: 3, grouping: true, currency: 'EUR' }, label: 'article.settings.price' }
+                    - { property: 'tva', type: 'entity', columns: 6, type_options: { class: 'App:Settings\Diverse\Tva', choice_label: 'name', multiple: false, placeholder: 'form.tva.choice' }, label: 'tva.rate' }
+            show:
+                fields:
+                    - { property: 'id', type: 'number', format: '%06d' }
+                    - { property: 'name', label: 'Name' }
+                    - supplier
+                    - familylog
+                    - zoneStorages
+                    - { property: 'packaging', label: 'article.settings.packaging' }
+                    - { property: 'unitStorage', label: 'UnitStorage' }
+                    - { property: 'price', format: '%01.3f', label: 'article.settings.price' }
+                    - { property: 'tva', label: 'tva.rate' }
+                    - { property: 'unitWorking', label: 'article.settings.unitWorking' }
+                    - { property: 'minstock', label: 'article.settings.minstock' }
+                    - { property: 'createAt', label: 'article.settings.createAt' }
+                    - { property: 'updateAt', label: 'article.settings.updateAt' }
+                    - { property: 'deleteAt', label: 'article.settings.deleteAt' }

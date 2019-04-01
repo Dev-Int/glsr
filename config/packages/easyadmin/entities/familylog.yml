@@ -1,0 +1,21 @@
+## EASY_ADMIN FamilyLog Entity
+---
+easy_admin:
+    entities:
+        FamilyLog:
+            class: App\Entity\Settings\Diverse\FamilyLog
+            templates:
+                list: 'admin/family_log/list.html.twig'
+            list:
+                fields:
+                    - { property: 'name', sortable: false }
+            show:
+                fields:
+                    - 'name'
+                    - { property: 'parent' }
+                    - { property: 'children' }
+                    
+            form:
+                fields:
+                    - 'name'
+                    - { property: 'parent', type: 'entity', type_options: { class: 'App:Settings\Diverse\FamilyLog', choice_label: 'indentedName' } }

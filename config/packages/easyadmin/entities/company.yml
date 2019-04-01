@@ -1,0 +1,38 @@
+## EASY_ADMIN Company Entity
+---
+easy_admin:
+    entities:
+        Company:
+            class: App\Entity\Settings\Company
+            list:
+                fields:
+                    - { property: 'name', sortable: false, label: 'Company.name' }
+                    - { property: 'completeAddress', type: 'raw', label: 'Address' }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'admin/field_tel.html.twig', sortable: false }
+                    - { property: 'status', sortable: false }
+
+            show:
+                fields:
+                    - { property: 'name', label: 'Company.name' }
+                    - { property: 'completeAddress', type: 'raw', label: 'Address' }
+                    - { property: 'status' }
+                    - { property: 'contact' }
+                    - { property: 'email', type: email }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'admin/field_tel.html.twig' }
+                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'admin/field_tel.html.twig' }
+                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', template: 'admin/field_tel.html.twig' }
+
+            form:
+                fields:
+                    - { type: 'group', columns: 6, label: 'Basic information', icon: 'building' }
+                    - { property: 'name', label: 'Company.name' }
+                    - { property: 'address' }
+                    - { property: 'zipcode' }
+                    - { property: 'town', type_options: { attr: { 'onBlur': 'this.value.toUpperCase()', 'onFocus': 'this.value.toUpperCase()', 'onKeyup': 'this.value.toUpperCase()' } } }
+                    - { type: 'group', columns: 6, label: 'Contact information', icon: 'phone' }
+                    - { property: 'contact' }
+                    - { property: 'email', type: 'email' }
+                    - { property: 'phone', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'GB', 'DE', 'FR' ], preferred_country_choices: [ 'FR' ], block_name: 'custom_tel' } }
+                    - { property: 'fax', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'GB', 'DE', 'FR' ], preferred_country_choices: [ 'FR' ], block_name: 'custom_tel' } }
+                    - { property: 'gsm', type: 'Misd\PhoneNumberBundle\Form\Type\PhoneNumberType', type_options: { widget: 'country_choice', country_choices: [ 'GB', 'DE', 'FR' ], preferred_country_choices: [ 'FR' ], block_name: 'custom_tel' } }
+                    - { property: 'status' }

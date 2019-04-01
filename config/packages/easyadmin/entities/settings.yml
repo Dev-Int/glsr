@@ -1,0 +1,18 @@
+## EASY_ADMIN Settings Entity
+---
+easy_admin:
+    entities:
+        Settings:
+            class: App\Entity\Settings\Settings
+            list:
+                fields:
+                - { property: 'inventoryStyle', sortable: false }
+                - { property: 'calculation', sortable: false }
+                - { property: 'firstInventory', sortable: false }
+                - { property: 'currency', sortable: false }
+            form:
+                fields:
+                - { property: 'inventoryStyle', type: 'choice', type_options: { choices: { 'settings.global': 'global', 'settings.zone': 'zone' }, expanded: true, multiple: false } }
+                - { property: 'calculation', type: 'choice', type_options: { choices: { 'settings.fifo': 'fifo', 'settings.weighted': 'weighted' }, expanded: true, multiple: false } }
+                - { property: 'currency', type: 'currency', type_options: { preferred_choices: ['EUR'], expanded: false, multiple: false } }
+                

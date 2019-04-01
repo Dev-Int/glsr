@@ -1,0 +1,42 @@
+imports:
+  - { resource: easyadmin/ }
+
+easy_admin:
+    site_name: '<span class="icon-GLSR"></span> | Admin'
+    design:
+        brand_color: '#127BA3'
+        assets:
+            css:
+                - '/css/icomoon.css'
+                - '/build/admin.css'
+            js:
+                - '/build/admin.js'
+        form_theme:
+            - '@EasyAdmin/form/bootstrap_4.html.twig'
+            - 'admin/form/form.html.twig'
+        menu:
+            - label: 'menu.staff'
+            - { entity: 'User', icon: 'user' }
+            - label: 'Settings'
+            - { entity: 'Company', icon: 'building' }
+            - { entity: 'Settings', icon: 'cog' }
+            - { entity: 'Supplier', icon: 'barcode' }
+            - { entity: 'Article', icon: 'shopping-basket' }
+            - { entity: 'Materials', icon: 'flask' } # eyedropper
+            - { label: 'menu.diverse', icon: 'info-circle' }
+            - { entity: 'FamilyLog', icon: 'sitemap' }
+            - { entity: 'Unit', icon: 'cubes', sortField: 'name', sortDirection: 'ASC' }
+            - { entity: 'ZoneStorage', icon: 'map-marker', sortField: 'id', sortDirection: 'ASC' }
+            - { entity: 'Tva', icon: 'percent' }
+            - label: 'Env: %env(APP_ENV)%'
+
+    list:
+        actions:
+            - { name: 'show', icon: 'search', title: 'Show', label: false }
+            - { name: 'edit', icon: 'pencil', title: 'Edit', label: false }
+            - { name: 'delete', icon: 'times', title: 'Delete', label: false }
+
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y - H:i:s'
