@@ -5,12 +5,12 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
 namespace App\Form\EventListener;
 
@@ -22,8 +22,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * AddSaveEditFieldSubscriber EventListener.
- *  When you create a new entity, you can create just one, or one and more...
- *  So, this subscriber creates a button to register just one or more entities.
  *
  * @category Listener
  */

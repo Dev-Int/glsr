@@ -1,20 +1,19 @@
 <?php
-
 /**
  * SuperClass Entity Contact.
  *
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
  * @see https://github.com/Dev-Int/glsr
  */
 
-namespace  App\Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
@@ -30,35 +29,35 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Contact
 {
     /**
-     * @var string Company Name
+     * @var string name nom de l'entreprise
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string Company address
+     * @var string Addresse de l'entreprise
      *
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
 
     /**
-     * @var string Zip code
+     * @var string Code postal
      *
      * @ORM\Column(name="zipcode", type="string", length=5)
      */
     private $zipcode;
 
     /**
-     * @var string Town
+     * @var string Ville
      *
      * @ORM\Column(name="town", type="string", length=255)
      */
     private $town;
 
     /**
-     * @var phone_number Company phone
+     * @var phone_number Téléphone de l'entreprise
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -67,7 +66,7 @@ class Contact
     private $phone;
 
     /**
-     * @var phone_number Company Fax
+     * @var phone_number Fax de l'entreprise
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
@@ -76,7 +75,7 @@ class Contact
     private $fax;
 
     /**
-     * @var string Company email
+     * @var string email de l'entreprise
      *
      * @ORM\Column(name="mail", type="string", length=255)
      * @Assert\NotBlank()
@@ -85,17 +84,17 @@ class Contact
      *     checkMX = true
      * )
      */
-    private $mail;
+    private $email;
 
     /**
-     * @var string Company contact
+     * @var string Contact de l'entreprise
      *
      * @ORM\Column(name="contact", type="string", length=255)
      */
     private $contact;
 
     /**
-     * @var phone_number GSM of the company
+     * @var phone_number Gsm de l'entreprise
      *
      * @ORM\Column(name="gsm", type="phone_number")
      * @Assert\NotBlank()
@@ -160,7 +159,7 @@ class Contact
      */
     public function setTown($town)
     {
-        $this->town = $town;
+        $this->town = strtoupper($town);
 
         return $this;
     }
@@ -224,27 +223,27 @@ class Contact
     }
 
     /**
-     * Set mail.
+     * Set email.
      *
-     * @param string $mail
+     * @param string $email
      *
      * @return Contact
      */
-    public function setMail($mail)
+    public function setEmail($email)
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get mail.
+     * Get email.
      *
      * @return string
      */
-    public function getMail()
+    public function getEmail()
     {
-        return $this->mail;
+        return $this->email;
     }
 
     /**
@@ -317,5 +316,15 @@ class Contact
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get complete address.
+     *
+     * @return string
+     */
+    public function getCompleteAddress()
+    {
+        return $this->address.'<br>'.$this->zipcode.' '.$this->town;
     }
 }

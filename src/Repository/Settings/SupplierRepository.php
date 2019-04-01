@@ -6,13 +6,14 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
+
 namespace App\Repository\Settings;
 
 use Doctrine\ORM\EntityRepository;
@@ -25,41 +26,12 @@ use Doctrine\ORM\EntityRepository;
 class SupplierRepository extends EntityRepository
 {
     /**
-     * Displays all suppliers.
-     *
-     * @return \Doctrine\ORM\QueryBuilder Requête DQL
-     */
-    public function getAllItems()
-    {
-        $query = $this->createQueryBuilder('s')
-            ->join('s.familyLog', 'fl')
-            ->addSelect('fl')
-        ;
-        
-        return $query;
-    }
-
-
-    /**
-     * Displays active suppliers.
-     *
-     * @return \Doctrine\ORM\QueryBuilder Requête DQL
-     */
-    public function getItems()
-    {
-        $query = $this->getAllItems()
-            ->where('s.active = 1')
-        ;
-        
-        return $query;
-    }
-
-    /**
-     * Returns the active suppliers matching logistic family of the article in parameter.
+     * Returns the active providers corresponding to the logistic family
+     * of the article in parameter.
      *
      * @param App\Entity\Settings\Supplier $supplier Selected supplier
      *
-     * @return \Doctrine\ORM\QueryBuilder Requête DQL
+     * @return \Doctrine\ORM\QueryBuilder DQL query
      */
     public function getSupplierForReassign($supplier)
     {
@@ -69,7 +41,7 @@ class SupplierRepository extends EntityRepository
             ->where($query->expr()->neq('s.name', ':idname'))
             ->andWhere('s.familyLog = :flname')
             ->andWhere('s.active = true')
-            ->setParameters(['idname' => $supplier->getName(), 'flname' => $supplier->getFamilyLog(),])
+            ->setParameters(['idname' => $supplier->getName(), 'flname' => $supplier->getFamilyLog()])
             ->orderBy('s.name', 'ASC');
 
         return $query;

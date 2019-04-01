@@ -7,11 +7,5 @@ services:
     # Uncomment any lines below to activate that Twig extension
     #Twig\Extensions\ArrayExtension: ~
     #Twig\Extensions\DateExtension: ~
-
-    # Activation de l'extension Twig intl
-    Twig\Extensions\IntlExtension:
-        class: Twig_Extensions_Extension_Intl
-        tags:
-            - { name: twig.extension }
-
+    #Twig\Extensions\IntlExtension: ~
     #Twig\Extensions\TextExtension: ~

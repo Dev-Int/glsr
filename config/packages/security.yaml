@@ -1,60 +1,40 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
 security:
-    encoders:
-        FOS\UserBundle\Model\UserInterface: bcrypt
-        # App\Entity\User: bcrypt
-
     role_hierarchy:
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_USER:        ROLE_USER
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        fos_userbundle:
-            id: fos_user.user_provider.username
-        # database_users:
-        #     entity: { class: App:User, property: username }
-        in_memory: { memory: ~ }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: username
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # disables authentication for assets and the profiler, adapt it according to your needs
         main:
-            pattern: ^/
-            # http://symfony.com/doc/current/security/form_login_setup.html
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-                # if you are using Symfony < 2.8, use the following config instead:
-                #csrf_provider: form.csrf_provider
-                #csrf_provider: security.csrf.token_manager
+            anonymous: true
+            logout:
+                path: app_logout
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
 
-            logout:       true
-                # path: security_logout
-                # target: homepage
-            anonymous:    true
             # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-            remember_me:
-                secret:   '%env(APP_SECRET)%'
-                lifetime: 604800 # 1 week in seconds
-                path:     /
-                domain:   ~ # Defaults to the current domain from $_SERVER
-#                secure:   true
-                httponly: true
-    
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/settings, roles: ROLE_SUPER_ADMIN }
-        - { path: ^/admin/(user|group)/new, roles: ROLE_SUPER_ADMIN }
-        - { path: /admin, roles: ROLE_ADMIN }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }

@@ -1,19 +1,19 @@
 <?php
-
 /**
  * Entity Company.
  *
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
-namespace  App\Entity\Settings;
+
+namespace App\Entity\Settings;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Contact;
@@ -23,41 +23,41 @@ use App\Entity\Contact;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_company")
- * @ORM\Entity(repositoryClass="App\Repository\Settings\CompanyRepository")
+ * @ORM\Table(name="app_company")
+ * @ORM\Entity(repositoryClass="App\Repository\CompanyRepository")
  */
 class Company extends Contact
 {
     /**
-     * @var int $cpId company ID
+     * @var int Id of company
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $cpId;
+    private $id;
 
     /**
-     * @var string $status Status of the company
+     * @var string Status of company
      *
      * @ORM\Column(name="status", type="string", length=255)
      */
     private $status;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
-        return $this->cpId;
+        return $this->id;
     }
 
     /**
      * Set status.
      *
-     * @param string $status Statut juridique
+     * @param string $status Legal status
      *
      * @return Company
      */

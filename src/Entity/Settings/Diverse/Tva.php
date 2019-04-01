@@ -6,14 +6,15 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
-namespace  App\Entity\Settings\Diverse;
+
+namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,22 +23,22 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_tva")
+ * @ORM\Table(name="app_tva")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\TvaRepository")
  */
 class Tva
 {
     /**
-     * @var int $tvaId Id of the VAT rate
+     * @var int Id of the VAT rate
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $tvaId;
+    private $id;
 
     /**
-     * @var decimal $rate VAT rate
+     * @var decimal VAT rate
      *
      * @ORM\Column(name="rate", type="decimal", precision=4, scale=3)
      */
@@ -50,13 +51,13 @@ class Tva
      */
     public function getId()
     {
-        return $this->tvaId;
+        return $this->id;
     }
 
     /**
      * Set rate.
      *
-     * @param decimal $rate Taux de TVA
+     * @param decimal $rate VAT rate
      *
      * @return Settings\Diverse\Tva
      */
@@ -78,12 +79,26 @@ class Tva
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
     public function getName()
     {
-        return $this->getRate() * 100;
+        return (number_format($this->getRate() * 100, 1)).' %';
+    }
+
+    /**
+     * This method allows to make "echo $tva".
+     * <p> So, to "show" $tva,
+     * PHP will actually show the return of this method. <br />
+     * Here, the name, so "echo $tva"
+     * is equivalent to "echo $tva->getName()". </p>.
+     *
+     * @return string name
+     */
+    public function __toString()
+    {
+        return (string) $this->getName();
     }
 }

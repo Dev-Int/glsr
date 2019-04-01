@@ -6,69 +6,69 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
  * @see https://github.com/Dev-Int/glsr
  */
-
-namespace  App\Entity\Settings\Diverse;
+namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Settings\Diverse\Unit;
 use App\Entity\Settings\Article;
 
 /**
  * Material entity.
  *
- * @ORM\Table(name="gs_material")
+ * @ORM\Table(name="app_material")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\MaterialRepository")
  */
 class Material
 {
     /**
-     * @var int $mtId Id of the material
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $mtId;
+    private $id;
 
     /**
-     * @var string $name Name of the material
+     * @var string
      *
-     * @ORM\Column(name="name", length=128, type="string", unique=true)
+     * @ORM\Column(name="name", type="string", length=128, unique=true)
      */
     private $name;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Unit $unitWorking Storage unit
+     * @var string|\App\Entity\Settings\Diverse\Unit Storage unit
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Unit")
      */
     private $unitWorking;
 
     /**
-     * @var bool $active
+     * @var bool
      *
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
-     * @var bool $multiple
+     * @var bool
      *
      * @ORM\Column(name="multiple", type="boolean")
      */
     private $multiple;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $articles Article(s)
+     * @var \Doctrine\Common\Collections\ArrayCollection Article(s)
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Settings\Article")
      * @ORM\JoinTable(name="gs_material_article")
@@ -77,11 +77,11 @@ class Material
     private $articles;
 
     /**
-     * @var string $slug
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
 
     /**
      * Constructor.
@@ -92,20 +92,19 @@ class Material
     }
 
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
-        return $this->mtId;
+        return $this->id;
     }
 
     /**
-     * Set name.
+     * Set name
      *
      * @param string $name
-     *
      * @return Material
      */
     public function setName($name)
@@ -116,7 +115,7 @@ class Material
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
@@ -126,10 +125,9 @@ class Material
     }
 
     /**
-     * Set active.
+     * Set active
      *
-     * @param bool $active
-     *
+     * @param boolean $active
      * @return Material
      */
     public function setActive($active)
@@ -140,9 +138,9 @@ class Material
     }
 
     /**
-     * Get active.
+     * Get active
      *
-     * @return bool
+     * @return boolean
      */
     public function isActive()
     {
@@ -150,10 +148,9 @@ class Material
     }
 
     /**
-     * Set multiple.
+     * Set multiple
      *
-     * @param bool $multiple
-     *
+     * @param boolean $multiple
      * @return Material
      */
     public function setMultiple($multiple)
@@ -164,9 +161,9 @@ class Material
     }
 
     /**
-     * Get multiple.
+     * Get multiple
      *
-     * @return bool
+     * @return boolean
      */
     public function isMultiple()
     {
@@ -174,10 +171,9 @@ class Material
     }
 
     /**
-     * Set unitStorage.
+     * Set unitStorage
      *
      * @param \App\Entity\Settings\Diverse\Unit $unitWorking
-     *
      * @return Material
      */
     public function setUnitWorking(Unit $unitWorking = null)
@@ -188,7 +184,7 @@ class Material
     }
 
     /**
-     * Get unitWorking.
+     * Get unitWorking
      *
      * @return \App\Entity\Settings\Diverse\Units
      */
@@ -198,10 +194,9 @@ class Material
     }
 
     /**
-     * Add articles.
+     * Add articles
      *
      * @param \App\Entity\Settings\Article $articles
-     *
      * @return Material
      */
     public function addArticle(Article $articles)
@@ -212,7 +207,7 @@ class Material
     }
 
     /**
-     * Remove articles.
+     * Remove articles
      *
      * @param \App\Entity\Settings\Article $articles
      */
@@ -222,7 +217,7 @@ class Material
     }
 
     /**
-     * Get articles.
+     * Get articles
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -232,7 +227,7 @@ class Material
     }
 
     /**
-     * Get slug.
+     * Get slug
      *
      * @return string
      */

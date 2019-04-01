@@ -6,15 +6,15 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
  * @see https://github.com/Dev-Int/glsr
  */
 
-namespace  App\Entity\Settings\Diverse;
+namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -24,48 +24,38 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_familylog")
+ * @ORM\Table(name="app_familylog")
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  * @Gedmo\Tree(type="materializedPath")
  */
 class FamilyLog
 {
     /**
-     * @var int Logistic family id
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $flId;
+    private $id;
 
     /**
-     * @var string Tree path
-     *
      * @Gedmo\TreePath
      * @ORM\Column(length=3000, nullable=true)
      */
     private $path;
 
     /**
-     * @var string Name of the logistic family
-     *
      * @Gedmo\TreePathSource
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string Slug name
-     *
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
 
     /**
-     * @var int Parent id
-     *
      * @Gedmo\TreeParent
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\FamilyLog", inversedBy="children")
      * @ORM\JoinColumn(referencedColumnName="id", onDelete="CASCADE")
@@ -73,8 +63,6 @@ class FamilyLog
     private $parent;
 
     /**
-     * @var int Level in the tree
-     *
      * @Gedmo\TreeLevel
      * @ORM\Column(type="integer", nullable=true)
      */
@@ -92,13 +80,13 @@ class FamilyLog
      */
     public function getId()
     {
-        return $this->flId;
+        return $this->id;
     }
 
     /**
      * Set name.
      *
-     * @param string $name Désignation
+     * @param string $name Designation
      *
      * @return FamilyLog
      */
@@ -120,11 +108,11 @@ class FamilyLog
     }
 
     /**
-     * Cette méthode permet de faire "echo $familyLog".
-     * <p>Ainsi, pour "afficher" $familyLog,
-     * PHP affichera en réalité le retour de cette méthode.<br />
-     * Ici, le nom, donc "echo $familyLog"
-     * est équivalent à "echo $familyLog->getName()"</p>.
+     * This method allows to do "echo $familyLog".
+     * <p> So, to "show" $familyLog,
+     * PHP will actually show the return of this method.<br />
+     * Here, the name, so "echo $ familyLog"
+     * is equivalent to "echo $familyLog->getName ()"</p>.
      *
      * @return string name
      */
@@ -146,7 +134,7 @@ class FamilyLog
     /**
      * Set parent.
      *
-     * @param \|null App\Entity\Settings\Diverse\FamilyLog $parent
+     * @param \App\Entity\Settings\Diverse\FamilyLog|null $parent
      *
      * @return FamilyLog
      */
@@ -266,12 +254,13 @@ class FamilyLog
     {
         $return = '';
         if (null !== $this->parent) {
-            for ($i = 2; $i <= $this->level; ++$i) {
-                $return .= '|- -';
+            if (2 == $this->level) {
+                $return = '|-- '.$this->name;
+            } elseif (3 == $this->level) {
+                $return = '|-- |-- '.$this->name;
             }
-            $return .= $this->name;
         } else {
-            $return = '|- '.$this->name;
+            $return = '| '.$this->name;
         }
 
         return $return;

@@ -6,135 +6,135 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
-namespace  App\Entity\Settings;
+
+namespace App\Entity\Settings;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-
-use App\Entity\Settings\Supplier;
 use App\Entity\Settings\Diverse\Unit;
-use App\Entity\Settings\Diverse\ZoneStorage;
+use App\Entity\Settings\Diverse\Tva;
 use App\Entity\Settings\Diverse\FamilyLog;
+use App\Entity\Settings\Diverse\ZoneStorage;
 
 /**
- * Article entity.
+ * Article.
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_article")
+ * @ORM\Table(name="app_article")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\ArticleRepository")
- * @UniqueEntity(fields="name", message="Ce nom d'article est déjà utilisé.")
+ * @UniqueEntity(fields="name", message="This article name is already used.")
  * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
     /**
-     * @var int $artId Id of the article
+     * @var int Id of the article
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $artId;
+    private $id;
 
     /**
-     * @var string $name title of the article
+     * @var string title of the article
      *
      * @ORM\Column(name="name", type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="'^\w+[^/]'",
-     *     message="L'intitulé ne peut contenir que des lettres,
-     *     chiffres et _ ou -"
+     *     message="The title can only contain letters,
+     * digits and _ or -"
      * )
      */
     private $name;
 
     /**
-     * @var string|\App\Entity\Settings\Supplier $supplier Name of supplier
+     * @var string|\App\Entity\Settings\Supplier Name of supplier
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Supplier")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Supplier", inversedBy="articles")
      */
     private $supplier;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Unit $unitStorage Storage unit
+     * @var string|\App\Entity\Settings\Diverse\Unit Storage unit
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Unit")
      */
     private $unitStorage;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Unit $unitWorking Working unit
+     * @var string|\App\Entity\Settings\Diverse\Unit Working unit
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Unit")
      */
     private $unitWorking;
 
     /**
-     * @var double $packaging Conditioning (quantity)
+     * @var float Packaging (quantity)
      *
      * @ORM\Column(name="packaging", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
-     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * message="The value {{value}} is not a valid type {{type}}.")
      */
     private $packaging;
 
     /**
-     * @var double $price price of the article
+     * @var float price of the article
      *
      * @ORM\Column(name="price", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
-     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * message="The value {{value}} is not a valid type {{type}}.")
      */
     private $price;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Tva $tva VAT rate
+     * @var string|\App\Entity\Settings\Diverse\Tva VAT rate
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Tva")
      */
     private $tva;
 
     /**
-     * @var double $quantity Quantity in stock
+     * @var float Quantity in stock
      *
      * @ORM\Column(name="quantity", type="decimal", precision=7, scale=3, nullable=true, options={"default":0})
      * @Assert\Type(type="numeric",
-     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * message="The value {{value}} is not a valid type {{type}}.")
      */
     private $quantity;
 
     /**
-     * @var double $minstock Minimum stock
+     * @var float Minimum stock
      *
      * @ORM\Column(name="minstock", type="decimal", precision=7, scale=3)
      * @Assert\Type(type="numeric",
-     * message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     * message="The value {{value}} is not a valid type {{type}}.")
      */
     private $minstock;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection $zoneStorages Storage area(s)
+     * @var \Doctrine\Common\Collections\ArrayCollection Storage area (s)
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Settings\Diverse\ZoneStorage")
-     * @ORM\JoinTable(name="gs_article_zonestorage")
+     * @ORM\JoinTable(name="app_article_zonestorage")
      * @Assert\NotBlank()
      */
     private $zoneStorages;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\FamilyLog $familyLog Logistic family
+     * @var string|\App\Entity\Settings\Diverse\FamilyLog Logistic family
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\FamilyLog")
      * @Assert\NotBlank()
@@ -142,18 +142,35 @@ class Article
     private $familyLog;
 
     /**
-     * @var bool On/Off
+     * @var bool On / Off
      *
      * @ORM\Column(name="active", type="boolean")
      */
     private $active;
 
     /**
-     * @var string $slug
      * @Gedmo\Slug(fields={"name"}, updatable=false)
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
+
+    /**
+     * @var \DateTimeInterface Created date
+     * @ORM\Column(name="create_at", type="datetime")
+     */
+    private $createAt;
+
+    /**
+     * @var \DateTimeInterface|null Updated date
+     * @ORM\Column(name="update_at", type="datetime", nullable=true)
+     */
+    private $updateAt;
+
+    /**
+     * @var \DateTimeInterface|null Deleted date
+     * @ORM\Column(name="delete_at", type="datetime", nullable=true)
+     */
+    private $deleteAt;
 
     /**
      * Constructor.
@@ -163,6 +180,8 @@ class Article
         $this->zoneStorages = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
+        $this->createAt = new \DateTime();
+        $this->deleteAt = new \DateTime('3000-12-31');
     }
 
     /**
@@ -172,13 +191,13 @@ class Article
      */
     public function getId()
     {
-        return $this->artId;
+        return $this->id;
     }
 
     /**
      * Set name.
      *
-     * @param string $name Name of article
+     * @param string $name Article name
      *
      * @return Article
      */
@@ -202,7 +221,7 @@ class Article
     /**
      * Set packaging.
      *
-     * @param double $packaging Conditioning (quantity)
+     * @param float $packaging Packaging (quantity)
      *
      * @return Article
      */
@@ -216,7 +235,7 @@ class Article
     /**
      * Get packaging.
      *
-     * @return double
+     * @return float
      */
     public function getPackaging()
     {
@@ -226,7 +245,7 @@ class Article
     /**
      * Set price.
      *
-     * @param double $price price of the article
+     * @param float $price price of the article
      *
      * @return Article
      */
@@ -240,7 +259,7 @@ class Article
     /**
      * Get price.
      *
-     * @return double
+     * @return float
      */
     public function getPrice()
     {
@@ -250,7 +269,7 @@ class Article
     /**
      * Set quantity.
      *
-     * @param double $quantity quantity in stock
+     * @param float $quantity quantity in stock
      *
      * @return Article
      */
@@ -264,7 +283,7 @@ class Article
     /**
      * Get quantity.
      *
-     * @return double
+     * @return float
      */
     public function getQuantity()
     {
@@ -274,7 +293,7 @@ class Article
     /**
      * Set minstock.
      *
-     * @param double $minstock minimum stock
+     * @param float $minstock Minimum stock
      *
      * @return Article
      */
@@ -288,7 +307,7 @@ class Article
     /**
      * Get minstock.
      *
-     * @return double
+     * @return float
      */
     public function getMinstock()
     {
@@ -298,7 +317,7 @@ class Article
     /**
      * Set supplier.
      *
-     * @param null|\App\Entity\Settings\Supplier $supplier Supplier of the article
+     * @param \App\Entity\Settings\Supplier|null $supplier Supplier of the article
      *
      * @return Article
      */
@@ -322,7 +341,7 @@ class Article
     /**
      * Set unitStorage.
      *
-     * @param null|\App\Entity\Settings\Diverse\Unit $unitStorage Storage unit
+     * @param \App\Entity\Settings\Diverse\Unit|null $unitStorage Storage unit
      *
      * @return Article
      */
@@ -346,7 +365,8 @@ class Article
     /**
      * Add zoneStorage.
      *
-     * @param \App\Entity\Settings\Diverse\ZoneStorage $zoneStorages Storage area(s)
+     * @param \App\Entity\Settings\Diverse\ZoneStorage
+     * $zoneStorages Stockage area (s)
      *
      * @return Article
      */
@@ -380,9 +400,10 @@ class Article
     }
 
     /**
-     * Set unitWorking
+     * Set unitWorking.
      *
      * @param \App\Entity\Settings\Diverse\Unit $unitWorking
+     *
      * @return Article
      */
     public function setUnitWorking(Unit $unitWorking = null)
@@ -393,7 +414,7 @@ class Article
     }
 
     /**
-     * Get unitWorking
+     * Get unitWorking.
      *
      * @return \App\Entity\Settings\Diverse\UnitWorking
      */
@@ -405,7 +426,7 @@ class Article
     /**
      * Set familyLog.
      *
-     * @param null|\App\Entity\Settings\Diverse\FamilyLog $familyLog Logistics Family
+     * @param \App\Entity\Settings\Diverse\FamilyLog|null $familyLog Logistic family
      *
      * @return Article
      */
@@ -427,12 +448,13 @@ class Article
     }
 
     /**
-     * Set tva
+     * Set tva.
      *
      * @param \App\Entity\Settings\Diverse\Tva $tva
+     *
      * @return Article
      */
-    public function setTva(\App\Entity\Settings\Diverse\Tva $tva = null)
+    public function setTva(Tva $tva = null)
     {
         $this->tva = $tva;
 
@@ -440,7 +462,7 @@ class Article
     }
 
     /**
-     * Get tva
+     * Get tva.
      *
      * @return \App\Entity\Settings\Diverse\Tva
      */
@@ -452,7 +474,7 @@ class Article
     /**
      * Set active.
      *
-     * @param bool $active On/Off
+     * @param bool $active On / Off
      *
      * @return Article
      */
@@ -464,9 +486,9 @@ class Article
     }
 
     /**
-     * Is active
+     * Is active.
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -474,7 +496,7 @@ class Article
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -484,16 +506,79 @@ class Article
     }
 
     /**
-     * This method allows to do "echo $article".
-     * <p> So, to "show" $uniarticlet,
+     * This method allows to make "echo $article".
+     * <p> So, to "show" $article,
      * PHP will actually show the return of this method. <br />
-     * Here, the abbreviation, so "echo $article"
-     * is equivalent to "echo $article->getName()" </ p>.
+     * Here, the name, so "echo $article"
+     * is equivalent to "echo $article->getName()". </p>.
      *
      * @return string name
      */
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get Create at.
+     *
+     * @return \DateTimeInterface
+     */
+    public function getCreateAt()
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeInterface $createAt): self
+    {
+        $this->createAt = $createAt;
+
+        return $this;
+    }
+
+    /**
+     * Get Update at.
+     *
+     * @return \DateTimeInterface
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get Delete at.
+     *
+     * @return \DateTimeInterface
+     */
+    public function getDeleteAt()
+    {
+        return $this->deleteAt;
+    }
+
+    public function setDeleteAt(\DateTimeInterface $deleteAt = null): self
+    {
+        if (null === $deleteAt) {
+            $this->deleteAt = new \DateTime();
+            date_date_set($this->deleteAt, date('Y') + 4, 12, 31);
+        } else {
+            $this->deleteAt = $deleteAt;
+        }
+
+        return $this;
     }
 }

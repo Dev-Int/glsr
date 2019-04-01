@@ -6,14 +6,15 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
-namespace  App\Entity\Settings\Diverse;
+
+namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -23,55 +24,56 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_unit")
+ * @ORM\Table(name="app_unit")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\UnitRepository")
  */
 class Unit
 {
     /**
-     * @var int $unitId Unit Id
+     * @var int Id of unit
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $unitId;
+    private $id;
 
     /**
-     * @var string $name Name of the unit
+     * @var string Name of unit
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string $abbr Abbreviation of the unit
+     * @var string Abbreviation of the unit
      *
      * @ORM\Column(name="abbr", type="string", length=50)
      */
     private $abbr;
-    
+
     /**
-     * @var string $slug Slug name
+     * @var string Slug name
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(length=128, unique=true)
      */
     private $slug;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
-        return $this->unitId;
+        return $this->id;
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Unit
      */
     public function setName($name)
@@ -82,7 +84,7 @@ class Unit
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -92,9 +94,10 @@ class Unit
     }
 
     /**
-     * Set abbr
+     * Set abbr.
      *
      * @param string $abbr
+     *
      * @return Unit
      */
     public function setAbbr($abbr)
@@ -105,7 +108,7 @@ class Unit
     }
 
     /**
-     * Get abbr
+     * Get abbr.
      *
      * @return string
      */
@@ -115,7 +118,7 @@ class Unit
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -125,12 +128,13 @@ class Unit
     }
 
     /**
-     * This method allows to do "echo $unit".
-     * <p> So, to "show" $unit,
+     * This method lets you do "echo $unit".
+     * <p>So, to "show" $unit,
      * PHP will actually show the return of this method. <br />
-     * Here, the abbreviation, so "echo $unit"
-     * is equivalent to "echo $unit->getAbbr()" </ p>.
-     * @return string abbr
+     * Here, the name, so "echo $unit"
+     * is equivalent to "echo $unit->getName ()"</p>.
+     *
+     * @return string name
      */
     public function __toString()
     {

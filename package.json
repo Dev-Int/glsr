@@ -1,19 +1,24 @@
 {
-    "devDependencies": {
-        "@symfony/webpack-encore": "^0.22.0",
-        "bootstrap": "3",
-        "jquery": "^3.3.1",
-        "node-sass": "^4.11.0",
-        "popper.js": "^1.14.7",
-        "sass-loader": "^7.0.1",
-        "webpack-notifier": "^1.6.0"
-    },
-    "license": "UNLICENSED",
-    "private": true,
-    "scripts": {
-        "dev-server": "encore dev-server",
-        "dev": "encore dev",
-        "watch": "encore dev --watch",
-        "build": "encore production --progress"
-    }
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.22.0",
+    "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.0.1",
+    "webpack-notifier": "^1.6.0"
+  },
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "core-js": "3",
+    "jquery": "^3.3.1",
+    "postcss-loader": "^3.0.0"
+  }
 }

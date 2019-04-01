@@ -18,8 +18,7 @@ Encore
      * and one CSS file (e.g. app.css) if you JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('sidebar', './assets/js/sidebar_menu.js')
-    .addEntry('bootstrap-datepicker.fr', './assets/js/bootstrap-datepicker.fr.min.js')
+    .addEntry('admin', './assets/js/admin.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
@@ -50,7 +49,7 @@ Encore
     //.enableTypeScriptLoader()
 
     // uncomment if you're having problems with a jQuery plugin
-    .autoProvidejQuery()
+    //.autoProvidejQuery()
 
     // uncomment if you use API Platform Admin (composer req api-admin)
     //.enableReactPreset()

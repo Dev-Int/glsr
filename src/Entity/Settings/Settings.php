@@ -6,14 +6,15 @@
  * PHP Version 7
  *
  * @author    Quétier Laurent <info@developpement-interessant.com>
- * @copyright 2014 Dev-Int GLSR
+ * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
- * @version GIT: <git_id>
+ * @version GIT: $Id$
  *
- * @link https://github.com/Dev-Int/glsr
+ * @see https://github.com/Dev-Int/glsr
  */
-namespace  App\Entity\Settings;
+
+namespace App\Entity\Settings;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,36 +23,43 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @category Entity
  *
- * @ORM\Table(name="gs_settings")
- * @ORM\Entity(repositoryClass="App\Repository\Settings\SettingsRepository")
+ * @ORM\Table(name="app_settings")
+ * @ORM\Entity(repositoryClass="App\Repository\SettingsRepository")
  */
 class Settings
 {
     /**
-     * @var int $cfId Id of the configuration
+     * @var int Id of setting
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $cfId;
+    private $id;
 
     /**
-     * @var string $inventoryStyle Sort mode inventory
+     * @var string sort mode inventory
      *
      * @ORM\Column(name="inventory_style", type="string", length=50)
      */
     private $inventoryStyle;
 
     /**
-     * @var string $calculation Inventory calculation method
+     * @var string calculation of inventories and stocks
      *
      * @ORM\Column(name="calculation", type="string", length=50)
      */
     private $calculation;
 
     /**
-     * @var string $currency Currency format of the application
+     * @var \DateTime the first inventory's date
+     *
+     * @ORM\Column(name="first_inventory", type="datetime", nullable=true)
+     */
+    private $firstInventory;
+
+    /**
+     * @var string currency's choice
      *
      * @ORM\Column(name="currency", type="string", length=50)
      */
@@ -64,20 +72,20 @@ class Settings
      */
     public function getId()
     {
-        return $this->cfId;
+        return $this->id;
     }
 
     /**
      * Set inventoryStyle.
      *
-     * @param string $inventoryStyle Sort mode inventory
+     * @param string $inventoryStyle Inventory style
      *
      * @return Settings
      */
     public function setInventoryStyle($inventoryStyle)
     {
         /*
-         * the method of sorting inventories : global, zonestorage
+         * The method of sorting inventories : global, zonestorage
          */
         $this->inventoryStyle = $inventoryStyle;
 
@@ -116,6 +124,30 @@ class Settings
     public function getCalculation()
     {
         return $this->calculation;
+    }
+
+    /**
+     * Set first_inventory.
+     *
+     * @param \DateTime $firstInventory Date of the first inventory
+     *
+     * @return Settings
+     */
+    public function setFirstInventory(\DateTime $firstInventory)
+    {
+        $this->firstInventory = $firstInventory;
+
+        return $this;
+    }
+
+    /**
+     * Get first_inventory.
+     *
+     * @return \DateTime Date of the first inventory
+     */
+    public function getFirstInventory()
+    {
+        return $this->firstInventory;
     }
 
     /**
