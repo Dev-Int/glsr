@@ -1,0 +1,13 @@
+{# {% use "@EasyAdmin/form/bootstrap_4.html.twig" %} #}
+
+{% block _custom_tel_widget -%}
+    {% if widget is constant('Misd\\PhoneNumberBundle\\Form\\Type\\PhoneNumberType::WIDGET_COUNTRY_CHOICE') %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+        <div {{ block('widget_container_attributes') }}>
+            {{- form_widget(form.country) -}}
+            {{- form_widget(form.number) -}}
+        </div>
+    {% else -%}
+        {{- block('form_widget_simple') -}}
+    {%- endif %}
+{%- endblock _custom_tel_widget %}

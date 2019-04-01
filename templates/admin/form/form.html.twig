@@ -1,0 +1,43 @@
+{%- block _company_custom_tel_widget -%}
+    {% if widget is constant('Misd\\PhoneNumberBundle\\Form\\Type\\PhoneNumberType::WIDGET_COUNTRY_CHOICE') %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+            <div class="input-group" {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
+                <span class="input-group-addon addon-phone" id="basic-addon4">{{- form_widget(form.country) -}}</span>
+
+                {{- form_widget(form.number, { 'attr':{'aria-describedby':'basic-addon4'} }) -}}
+            </div>
+        
+    {%- else -%}
+        {{- block('form_widget_simple') -}}
+    {%- endif %}
+{%- endblock -%}
+
+{%- block _supplier_custom_tel_widget -%}
+    {% if widget is constant('Misd\\PhoneNumberBundle\\Form\\Type\\PhoneNumberType::WIDGET_COUNTRY_CHOICE') %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-inline')|trim}) %}
+            <div class="input-group" {% if block('widget_container_attributes') is defined %}{{ block('widget_container_attributes') }}{% endif %}>
+                <span class="input-group-addon addon-phone w-25" id="basic-addon4">{{- form_widget(form.country) -}}</span>
+
+                {{- form_widget(form.number, { 'attr':{'aria-describedby':'basic-addon4'} }) -}}
+            </div>
+        
+    {%- else -%}
+        {{- block('form_widget_simple') -}}
+    {%- endif %}
+{%- endblock -%}
+{# 
+{% block _article_custom_checkbox_widget -%}
+    {%- set parent_label_class = parent_label_class|default(label_attr.class|default('')) -%}
+    {%- if 'checkbox-custom' in parent_label_class -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' custom-control-input')|trim}) -%}
+        <div class="custom-control custom-checkbox{{ 'checkbox-inline' in parent_label_class ? ' custom-control-inline' }}">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- else -%}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' form-check-input')|trim}) -%}
+        <div class="form-check{{ 'checkbox-inline' in parent_label_class ? ' form-check-inline' }} w-50">
+            {{- form_label(form, null, { widget: parent() }) -}}
+        </div>
+    {%- endif -%}
+{%- endblock checkbox_widget %}
+ #}
