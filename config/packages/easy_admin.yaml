@@ -22,7 +22,7 @@ easy_admin:
             - { entity: 'Settings', icon: 'cog' }
             - { entity: 'Supplier', icon: 'barcode' }
             - { entity: 'Article', icon: 'shopping-basket' }
-            - { entity: 'Materials', icon: 'flask' } # eyedropper
+            - { entity: 'Material', icon: 'flask' } # eyedropper
             - { label: 'menu.diverse', icon: 'info-circle' }
             - { entity: 'FamilyLog', icon: 'sitemap' }
             - { entity: 'Unit', icon: 'cubes', sortField: 'name', sortDirection: 'ASC' }

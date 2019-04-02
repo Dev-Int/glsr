@@ -1,0 +1,17 @@
+## EASY_ADMIN Material Entity
+---
+easy_admin:
+    entities:
+        Material:
+            class: App\Entity\Settings\Diverse\Material
+            list:
+                dql_filter: 'entity.active = 1'
+                fields:
+                    - { property: 'id', type: 'number', format: '%06d' }
+                    - { property: 'name', label: 'Name' }
+            form:
+                fields:
+                    - name
+                    - { property: 'articles', type: 'entity', type_options: { class: 'App\Entity\Settings\Article', choice_label: 'name', multiple: true } }
+                    - unitWorking
+                    - active
