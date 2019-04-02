@@ -61,13 +61,6 @@ class Material
     private $active;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="multiple", type="boolean")
-     */
-    private $multiple;
-
-    /**
      * @var \Doctrine\Common\Collections\ArrayCollection Article(s)
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Settings\Article")
@@ -148,30 +141,7 @@ class Material
     }
 
     /**
-     * Set multiple
-     *
-     * @param boolean $multiple
-     * @return Material
-     */
-    public function setMultiple($multiple)
-    {
-        $this->multiple = $multiple;
-
-        return $this;
-    }
-
-    /**
-     * Get multiple
-     *
-     * @return boolean
-     */
-    public function isMultiple()
-    {
-        return $this->multiple;
-    }
-
-    /**
-     * Set unitStorage
+     * Set unitWorking
      *
      * @param \App\Entity\Settings\Diverse\Unit $unitWorking
      * @return Material
