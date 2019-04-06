@@ -14,7 +14,7 @@ global_exclude_dirs:
 #    - web/config.php
 #    - web/app_*.php
 
-# rules:
+rules:
 #     composer.apc_class_loader_should_be_enabled:
 #         enabled: true
 #    composer.dependencies_not_installable:
@@ -130,8 +130,8 @@ global_exclude_dirs:
 #         threshold: 5
 #    symfony.dependency_injection.no_container_as_parameter:
 #        enabled: true
-#     symfony.dependency_injection.no_entity_manager_as_parameter:
-#         enabled: true
+    symfony.dependency_injection.no_entity_manager_as_parameter:
+        enabled: false
 #     symfony.dependency_injection.use_dir_file_constant:
 #         enabled: true
 #     symfony.exceptions_enabled_in_production:
