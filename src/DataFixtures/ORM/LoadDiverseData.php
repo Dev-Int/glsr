@@ -4,7 +4,7 @@
  *
  * PHP Version 7
  *
- * @author    Quétier Laurent <lq@dev-int.net>
+ * @author    Quétier Laurent <info@developpement-interessant.com>
  * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
@@ -56,6 +56,7 @@ class LoadDiverseData extends AbstractFixture implements OrderedFixtureInterface
             ['name' => 'Bières', 'parent' => 6],
             ['name' => 'Vins', 'parent' => 6],
         ];
+        $familyLogs = [];
         foreach ($familyArray as $key => $family) {
             $familyLog = new FamilyLog();
             $familyLog->setName($family['name']);
