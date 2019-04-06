@@ -1,8 +1,5 @@
 easy_admin:
     entities:
-    #        # List the entity class name you want to manage
-    #        - App\Entity\Product
-    #        - App\Entity\Category
         User:
             class: App\Entity\User
             controller: App\Controller\UserController
@@ -11,8 +8,9 @@ easy_admin:
                 fields:
                     - { property: 'username', icon: 'user' }
                     - { property: 'password', type: 'password' }
-                    - { property: 'isAssistant' }
-                    - { property: 'isAdmin' }
+                    - { property: 'confirmPassword', type: 'password', type_options: { required: true } }
+                    - { property: 'assistant' }
+                    - { property: 'admin' }
                     - enabled
             list:
                 title: 'Les derniers utilisateurs'
@@ -20,5 +18,6 @@ easy_admin:
                     - { property: 'id' }
                     - { property: 'username', icon: 'user' }
                     - { property: 'roles' }
-            show: ~
+            show:
+                fields: ['username', 'roles', 'enabled', 'admin', 'assistant']
             search: ~

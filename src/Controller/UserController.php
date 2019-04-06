@@ -38,12 +38,22 @@ class UserController extends BaseAdminController
 
     public function persistEntity($entity): void
     {
+        if ($entity->getAdmin()) {
+            $entity->setRoles(['ROLE_SUPER_ADMIN']);
+        } elseif ($entity->getAssistant()) {
+            $entity->setRoles(['ROLE_ADMIN']);
+        }
         $this->encodePassword($entity);
         parent::persistEntity($entity);
     }
 
     public function updateEntity($entity): void
     {
+        if ($entity->getAdmin()) {
+            $entity->setRoles(['ROLE_SUPER_ADMIN']);
+        } elseif ($entity->getAssistant()) {
+            $entity->setRoles(['ROLE_ADMIN']);
+        }
         $this->encodePassword($entity);
         parent::persistEntity($entity);
     }

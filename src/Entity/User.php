@@ -29,7 +29,6 @@ class User implements UserInterface
      * @ORM\Column(name="id", type="integer")
      */
     private $id;
-    // private $usrId;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -37,7 +36,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=180)
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
     private $password;
@@ -58,31 +57,29 @@ class User implements UserInterface
     private $enabled;
 
     /**
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="json")
      */
     private $roles = [];
 
     /**
-     * @ORM\Column(name="is_admin", type="boolean")
+     * @ORM\Column(name="admin", type="boolean")
      */
-    private $isAdmin;
+    private $admin;
 
     /**
-     * @ORM\Column(name="is_assistant", type="boolean")
+     * @ORM\Column(name="assistant", type="boolean")
      */
-    private $isAssistant;
+    private $assistant;
 
     public function __construct()
     {
-        // $this->salt = md5(uniqid(rand(), true));
-        $this->isAdmin = false;
-        $this->isAssistant = false;
+        $this->admin = false;
+        $this->assistant = false;
         $this->enabled = true;
     }
 
     public function getId(): ?int
     {
-        // return $this->usrId;
         return $this->id;
     }
 
@@ -123,15 +120,15 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
+        if ($this->admin == true) {
+            $roles[] = 'ROLE_SUPER_ADMIN';
+        }
+        if ($this->assistant == true) {
+            $roles[] = 'ROLE_ADMIN';
+        }
         if (empty($this->roles)) {
-            // guarantee every user at least has ROLE_USER
+            /* guarantee every user at least has ROLE_USER */
             $roles[] = 'ROLE_USER';
-        }
-        if ($this->isAdmin) {
-            $roles = ['ROLE_SUPER_ADMIN'];
-        }
-        if ($this->isAssistant) {
-            $roles = ['ROLE_ADMIN'];
         }
 
         return array_unique($roles);
@@ -167,17 +164,11 @@ class User implements UserInterface
      */
     public function setRoles(array $roles = array()): self
     {
-        $this->roles = array();
+        $this->roles = [];
 
         if (empty($roles)) {
-            // guarantee every user at least has ROLE_USER
+            /* guarantee every user at least has ROLE_USER */
             $roles[] = 'ROLE_USER';
-            if ($this->isAdmin) {
-                $roles = ['ROLE_ADMIN', 'ROLE_ASSISTANT', 'ROLE_USER'];
-            }
-            if ($this->isAssistant) {
-                $roles = ['ROLE_ASSISTANT', 'ROLE_USER'];
-            }
         }
 
         foreach ($roles as $role) {
@@ -188,19 +179,19 @@ class User implements UserInterface
     }
 
     /**
-     * Get the value of isAdmin.
+     * Get the value of admin.
      */
-    public function isAdmin()
+    public function getAdmin(): bool
     {
-        return $this->isAdmin;
+        return $this->admin;
     }
 
     /**
-     * Get the value of isAssistant.
+     * Get the value of assistant.
      */
-    public function isAssistant()
+    public function getAssistant(): bool
     {
-        return $this->isAssistant;
+        return $this->assistant;
     }
 
     /**
@@ -212,21 +203,21 @@ class User implements UserInterface
     }
 
     /**
-     * Set the value of isAdmin.
+     * Set the value of admin.
      */
-    public function setIsAdmin($isAdmin): self
+    public function setAdmin($admin): self
     {
-        $this->isAdmin = $isAdmin;
+        $this->admin = $admin;
 
         return $this;
     }
 
     /**
-     * Set the value of isAssistant.
+     * Set the value of assistant.
      */
-    public function setIsAssistant($isAssistant): self
+    public function setAssistant($assistant): self
     {
-        $this->isAssistant = $isAssistant;
+        $this->assistant = $assistant;
 
         return $this;
     }
@@ -243,25 +234,16 @@ class User implements UserInterface
      */
     public function getSalt()
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        /* not needed when using the "bcrypt" algorithm in security.yaml */
+        return null;
     }
-
-    /**
-     * Set the value of salt.
-     */
-    // public function setSalt($salt): self
-    // {
-    //     $this->salt = $salt;
-
-    //     return $this;
-    // }
 
     /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        /* If you store any temporary, sensitive data on the user, clear it here
+         $this->plainPassword = null; */
     }
 }
