@@ -30,8 +30,6 @@ class SupplierController extends BaseAdminController
      * Allows applications to modify the entity associated with the item being
      * deleted before removing it.
      *
-     * TODO: Allows possibility to reassign supplier's articles before deleting.
-     *
      * @param App\Entity\Settings\Supplier $supplier
      */
     protected function removeSupplierEntity(Supplier $supplier)
