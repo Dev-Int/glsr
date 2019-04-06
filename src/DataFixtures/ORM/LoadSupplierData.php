@@ -4,7 +4,7 @@
  *
  * PHP Version 7
  *
- * @author    Quétier Laurent <lq@dev-int.net>
+ * @author    Quétier Laurent <info@developpement-interessant.com>
  * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
@@ -79,7 +79,7 @@ class LoadSupplierData extends AbstractFixture implements OrderedFixtureInterfac
                 ->setTown($data['town'])
                 ->setPhone($data['phone'])
                 ->setFax($data['fax'])
-                ->setMail($data['mail'])
+                ->setEMail($data['mail'])
                 ->setContact($data['contact'])
                 ->setGsm($data['gsm'])
                 ->setFamilyLog($data['family'])
