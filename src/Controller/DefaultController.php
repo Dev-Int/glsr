@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="_home")
+     * @Route("/", name="_home", methods={"GET"})
      */
     public function index()
     {
@@ -22,7 +22,7 @@ class DefaultController extends AbstractController
     /**
      * Get FamilyLog.
      *
-     * @Route("/getfamilylog", name="getfamilylog", methods="POST")
+     * @Route("/getfamilylog", name="getfamilylog", methods={"POST"})
      *
      * @param \Symfony\Component\HttpFoundation\Request $request Post request
      * @return \Symfony\Component\HttpFoundation\Response
