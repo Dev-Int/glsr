@@ -13,7 +13,7 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
     private $decisionManager;
     private $token;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, TokenStorageInterface $token = null)
+    public function __construct(AccessDecisionManagerInterface $decisionManager, TokenStorageInterface $token)
     {
         $this->decisionManager = $decisionManager;
         $this->token = $token;
@@ -44,7 +44,7 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
 
         $authorizedRoles = $entityConfig['permissions']['action'];
 
-        if (!$this->decisionManager->decide($this->token->getToken(), $authorizedRoles)) {
+        if (!$this->decisionManager->decide($this->token->/** @scrutinizer ignore-call */ getToken(), $authorizedRoles)) {
             throw new AccessDeniedException();
         }
     }
