@@ -64,7 +64,7 @@ class Material
      * @var \Doctrine\Common\Collections\ArrayCollection Article(s)
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Settings\Article")
-     * @ORM\JoinTable(name="gs_material_article")
+     * @ORM\JoinTable(name="app_material_article")
      * @Assert\NotBlank()
      */
     private $articles;
