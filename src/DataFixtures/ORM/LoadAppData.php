@@ -4,7 +4,7 @@
  *
  * PHP Version 7
  *
- * @author    Quétier Laurent <lq@dev-int.net>
+ * @author    Quétier Laurent <info@developpement-interessant.com>
  * @copyright 2018 Dev-Int GLSR
  * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
  *
@@ -46,7 +46,7 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface
             ->setTown('Paris')
             ->setPhone($phoneUtil->parse('0140000000', 'FR'))
             ->setFax($phoneUtil->parse('0140000000', 'FR'))
-            ->setMail('info@dev-int.net')
+            ->setEmail('info@dev-int.net')
             ->setContact('Ursule')
             ->setGsm($phoneUtil->parse('0640000000', 'FR'));
 
@@ -70,6 +70,6 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 3;
+        return 2;
     }
 }
