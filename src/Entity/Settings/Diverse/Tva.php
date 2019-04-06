@@ -38,7 +38,7 @@ class Tva
     private $id;
 
     /**
-     * @var decimal VAT rate
+     * @var float VAT rate
      *
      * @ORM\Column(name="rate", type="decimal", precision=4, scale=3)
      */
@@ -57,9 +57,9 @@ class Tva
     /**
      * Set rate.
      *
-     * @param decimal $rate VAT rate
+     * @param float $rate VAT rate
      *
-     * @return Settings\Diverse\Tva
+     * @return Tva
      */
     public function setRate($rate)
     {
@@ -71,7 +71,7 @@ class Tva
     /**
      * Get rate.
      *
-     * @return decimal
+     * @return float
      */
     public function getRate()
     {
