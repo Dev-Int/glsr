@@ -57,7 +57,7 @@ class Contact
     private $town;
 
     /**
-     * @var Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType Téléphone de l'entreprise
+     * @var \Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType Téléphone de l'entreprise
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -66,7 +66,7 @@ class Contact
     private $phone;
 
     /**
-     * @var Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType Fax de l'entreprise
+     * @var \Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType Fax de l'entreprise
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
