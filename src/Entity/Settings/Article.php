@@ -416,7 +416,7 @@ class Article
     /**
      * Get unitWorking.
      *
-     * @return \App\Entity\Settings\Diverse\UnitWorking
+     * @return \App\Entity\Settings\Diverse\Unit
      */
     public function getUnitWorking()
     {
