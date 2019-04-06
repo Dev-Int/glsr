@@ -29,6 +29,7 @@ easy_admin:
             - { entity: 'ZoneStorage', icon: 'map-marker', sortField: 'id', sortDirection: 'ASC' }
             - { entity: 'Tva', icon: 'percent' }
             - label: 'Env: %env(APP_ENV)%'
+            - { label: 'Public Homepage', route: '_home', icon: 'home' }
 
     list:
         actions:
