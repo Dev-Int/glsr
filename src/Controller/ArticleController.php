@@ -49,7 +49,8 @@ class ArticleController extends BaseAdminController
         $article->setUpdateAt(new \DateTime());
         $article->setDeleteAt(new \DateTime());
         $article->setActive(false);
-        $this->em->persist($article);
+        $this->em->/** @scrutinizer ignore-call */
+            persist($article);
         $this->em->flush();
     }
 }

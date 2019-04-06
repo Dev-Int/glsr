@@ -30,12 +30,13 @@ class SupplierController extends BaseAdminController
      * Allows applications to modify the entity associated with the item being
      * deleted before removing it.
      *
-     * @param App\Entity\Settings\Supplier $supplier
+     * @param \App\Entity\Settings\Supplier $supplier
      */
     protected function removeSupplierEntity(Supplier $supplier)
     {
         $supplier->setActive(false);
-        $this->em->persist($supplier);
+        $this->em->/** @scrutinizer ignore-call */
+            persist($supplier);
         $this->em->flush();
     }
 }
