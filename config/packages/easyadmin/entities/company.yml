@@ -4,6 +4,10 @@ easy_admin:
     entities:
         Company:
             class: App\Entity\Settings\Company
+            permissions:
+                new: ['ROLE_SUPER_ADMIN']
+                edit: ['ROLE_SUPER_ADMIN']
+                delete: ['ROLE_SUPER_ADMIN']
             list:
                 fields:
                     - { property: 'name', sortable: false, label: 'Company.name' }

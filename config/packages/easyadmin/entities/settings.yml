@@ -4,6 +4,10 @@ easy_admin:
     entities:
         Settings:
             class: App\Entity\Settings\Settings
+            permissions:
+                new: ['ROLE_SUPER_ADMIN']
+                edit: ['ROLE_SUPER_ADMIN']
+                delete: ['ROLE_SUPER_ADMIN']
             list:
                 fields:
                 - { property: 'inventoryStyle', sortable: false }

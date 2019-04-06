@@ -63,7 +63,7 @@ class UserController extends BaseAdminController
      *
      * @param UserInterface $user
      */
-    public function encodePassword(UserInterface $user): void
+    protected function encodePassword(UserInterface $user): void
     {
         if (!$user instanceof UserInterface) {
             return;

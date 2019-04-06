@@ -1,0 +1,27 @@
+{% set _roles = app.user.roles %}
+{% set _permissions = easyadmin_config('entities.' ~ app.request.query.get('entity') ~ '.permissions') %}
+
+{% for action in actions %}
+    {% set _denied = true %}
+    {% for role in _roles if _denied %}
+        {% if (_permissions[action.name] is not defined) or (role in _permissions[action.name]|default([])) %}
+            {% set _denied = false %}
+
+            {% if 'list' == action.name %}
+                {% set action_href = request_parameters.referer|default('') ? request_parameters.referer|easyadmin_urldecode : path('easyadmin', request_parameters|merge({ action: 'list' })) %}
+            {% elseif 'method' == action.type %}
+                {% set action_href = path('easyadmin', request_parameters|merge({ action: action.name, id: item_id })) %}
+            {% elseif 'route' == action.type %}
+                {% set action_href = path(action.name, request_parameters|merge({ action: action.name, id: item_id })) %}
+            {% endif %}
+
+            <a class="{{ is_dropdown|default(false) ? 'dropdown-item' }} {{ action.css_class|default('') }}" title="{{ action.title|default('') is empty ? '' : action.title|trans(trans_parameters, translation_domain) }}" href="{{ action_href }}" target="{{ action.target }}">
+                {%- if action.icon %}<i class="fa fa-{{ action.icon }}"></i> {% endif -%}
+                {%- if action.label is defined and not action.label is empty -%}
+                    {{ action.label|trans(arguments = trans_parameters|merge({ '%entity_id%': item_id }), domain = translation_domain) }}
+                {%- endif -%}
+            </a>
+        {% endif %}
+        
+    {% endfor %}
+{% endfor %}

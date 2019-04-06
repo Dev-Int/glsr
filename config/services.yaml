@@ -26,3 +26,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.easyadmin.security:
+        class: App\Security\EasyAdminSecurityEventSubscriber
+        arguments: ['@security.access.decision_manager', '@security.token_storage']
+        tags:
+            - { name: kernel.event_subscriber }

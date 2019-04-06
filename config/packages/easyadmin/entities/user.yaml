@@ -3,6 +3,10 @@ easy_admin:
         User:
             class: App\Entity\User
             controller: App\Controller\UserController
+            permissions:
+                new: ['ROLE_SUPER_ADMIN']
+                edit: ['ROLE_SUPER_ADMIN']
+                delete: ['ROLE_SUPER_ADMIN']
             label: Utilisateurs
             form:
                 fields:

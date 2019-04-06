@@ -5,6 +5,10 @@ easy_admin:
         Supplier:
             class: App\Entity\Settings\Supplier
             controller: App\Controller\SupplierController
+            permissions:
+                new: ['ROLE_SUPER_ADMIN']
+                edit: ['ROLE_SUPER_ADMIN']
+                delete: ['ROLE_SUPER_ADMIN']
             list:
                 dql_filter: 'entity.active = 1'
                 fields:
