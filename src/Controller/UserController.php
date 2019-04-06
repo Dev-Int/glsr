@@ -43,7 +43,7 @@ class UserController extends BaseAdminController
         } elseif ($entity->getAssistant()) {
             $entity->setRoles(['ROLE_ADMIN']);
         }
-        $this->encodePassword($entity);
+        $this->passwordEncoder->encodePassword($entity, $entity->getPassword());
         parent::persistEntity($entity);
     }
 
@@ -54,23 +54,7 @@ class UserController extends BaseAdminController
         } elseif ($entity->getAssistant()) {
             $entity->setRoles(['ROLE_ADMIN']);
         }
-        $this->encodePassword($entity);
+        $this->passwordEncoder->encodePassword($entity, $entity->getPassword());
         parent::persistEntity($entity);
-    }
-
-    /**
-     * Encode the password.
-     *
-     * @param UserInterface $user
-     */
-    protected function encodePassword(UserInterface $user): void
-    {
-        if (!$user instanceof UserInterface) {
-            return;
-        }
-
-        $user->setPassword(
-            $this->passwordEncoder->encodePassword($user, $user->getPassword())
-        );
     }
 }
