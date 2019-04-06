@@ -125,6 +125,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
+        $roles = [];
         if ($this->admin === true) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         }
