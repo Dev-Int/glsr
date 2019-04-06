@@ -51,6 +51,7 @@ class ArticleController extends BaseAdminController
         $article->setActive(false);
         $this->em->/** @scrutinizer ignore-call */
             persist($article);
-        $this->em->flush();
+        $this->em->/** @scrutinizer ignore-call */
+            flush();
     }
 }

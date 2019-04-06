@@ -37,6 +37,7 @@ class SupplierController extends BaseAdminController
         $supplier->setActive(false);
         $this->em->/** @scrutinizer ignore-call */
             persist($supplier);
-        $this->em->flush();
+        $this->em->/** @scrutinizer ignore-call */
+            flush();
     }
 }
