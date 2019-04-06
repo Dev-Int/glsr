@@ -37,7 +37,7 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
         $action = $event->getArgument('request')->query->get('action');
 
         if (
-            !array_key_exists('permissions', $entityConfig) or
+            !array_key_exists('permissions', $entityConfig) ||
             !array_key_exists($action, $entityConfig['permissions'])
         ) {
             return;
