@@ -50,8 +50,8 @@ script:
   ## PHP Mess Detector
   - phpmd src/ text codesize,unusedcode,naming,design --suffixes .php
   ## PHP_CodeSniffer
-  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/*, */Migrations/* --standard=PSR1 src/
-  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/*, */Migrations/* --standard=PSR2 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/*,*/Migrations/* --standard=PSR1 src/
+  - phpcs --extensions=php --ignore=*/js/*,*/css/*,*/Tests/*,*/Migrations/* --standard=PSR2 src/
   ## PHP Copy/Paste Detector
   - php phpcpd.phar --verbose src/
   ## PHPLOC
