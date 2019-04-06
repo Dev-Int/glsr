@@ -156,7 +156,7 @@ class Material
     /**
      * Get unitWorking
      *
-     * @return \App\Entity\Settings\Diverse\Units
+     * @return \App\Entity\Settings\Diverse\Unit
      */
     public function getUnitWorking()
     {
