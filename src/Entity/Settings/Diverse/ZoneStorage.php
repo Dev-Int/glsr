@@ -67,7 +67,7 @@ class ZoneStorage
      *
      * @param string $name Name of the storage area
      *
-     * @return Settings\Diverse\ZoneStorage
+     * @return \App\Entity\Settings\Diverse\ZoneStorage
      */
     public function setName($name)
     {
