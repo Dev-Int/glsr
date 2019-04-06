@@ -120,7 +120,7 @@ class LoadDiverseData extends AbstractFixture implements OrderedFixtureInterface
         ];
         foreach ($tvaArray as $key => $tvaRate) {
             $tva = new Tva();
-            $tva->setRate($tvaRate['rate']);
+            $tva->setRate((double)$tvaRate['rate']);
 
             $manager->persist($tva);
 
