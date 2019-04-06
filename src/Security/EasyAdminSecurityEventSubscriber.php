@@ -13,7 +13,7 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
     private $decisionManager;
     private $token;
 
-    public function __construct(AccessDecisionManagerInterface $decisionManager, TokenStorageInterface $token)
+    public function __construct(AccessDecisionManagerInterface $decisionManager, TokenStorageInterface $token = null)
     {
         $this->decisionManager = $decisionManager;
         $this->token = $token;
