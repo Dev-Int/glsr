@@ -255,7 +255,7 @@ class User implements UserInterface
 
     /**
      * Get the value of email
-     */ 
+     */
     public function getEmail()
     {
         return $this->email;
@@ -265,7 +265,7 @@ class User implements UserInterface
      * Set the value of email
      *
      * @return  self
-     */ 
+     */
     public function setEmail($email)
     {
         $this->email = $email;
