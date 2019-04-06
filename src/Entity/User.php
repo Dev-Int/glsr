@@ -120,10 +120,10 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        if ($this->admin == true) {
+        if ($this->admin === true) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         }
-        if ($this->assistant == true) {
+        if ($this->assistant === true) {
             $roles[] = 'ROLE_ADMIN';
         }
         if (empty($this->roles)) {
