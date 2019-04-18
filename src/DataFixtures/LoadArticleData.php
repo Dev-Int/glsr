@@ -37,6 +37,63 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $datas = $this->getDatas();
+        foreach ($datas as $key => $data) {
+            $article = new Article();
+            $article->setName($data['name'])
+                ->setSupplier($data['supplier'])
+                ->setFamilyLog($data['familyLog'])
+                ->addZoneStorage($data['zoneStorage'])
+                ->setUnitStorage($data['unitStorage'])
+                ->setUnitWorking($data['unitWorking'])
+                ->setPrice($data['price'])
+                ->setPackaging($data['packaging'])
+                ->setTva($data['tva'])
+                ->setMinStock($data['minStock']);
+
+            $manager->persist($article);
+            $order = $key + 1;
+            $this->addReference('article'.$order, $article);
+
+            $material = new Material();
+            $material->setName($data['name'])
+                ->setUnitWorking($data['unitWorking'])
+                ->addArticle($this->getReference('article'.$order))
+                ->setActive(1);
+
+            $manager->persist($material);
+            $this->addReference('material'.$order, $material);
+        }
+
+        $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return [
+            LoadDiverseData::class,
+            LoadSupplierData::class,
+        ];
+    }
+
+    /**
+     * Return float random.
+     *
+     * @param integer $min
+     * @param integer $max
+     */
+     protected function rnd_fl(int $min = 0, int $max = null): float
+    {
+        return (float)rand($min, $max) / (float)getrandmax();
+    }
+
+    /**
+     * Get the fixture's datas
+     *
+     * @return void
+     */
+    protected function getDatas()
+    {
         /**
          * Supplier references
          */
@@ -129,41 +186,6 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
             'price' => 5.11, 'packaging' => 6.0, 'tva' => $tvaReduit, 'minStock' => 3.0, ],
         ];
 
-        foreach ($datas as $key => $data) {
-            $article = new Article();
-            $article->setName($data['name'])
-                ->setSupplier($data['supplier'])
-                ->setFamilyLog($data['familyLog'])
-                ->addZoneStorage($data['zoneStorage'])
-                ->setUnitStorage($data['unitStorage'])
-                ->setUnitWorking($data['unitWorking'])
-                ->setPrice($data['price'])
-                ->setPackaging($data['packaging'])
-                ->setTva($data['tva'])
-                ->setMinStock($data['minStock']);
-
-            $manager->persist($article);
-            $order = $key + 1;
-            $this->addReference('article'.$order, $article);
-
-            $material = new Material();
-            $material->setName($data['name'])
-                ->setUnitWorking($data['unitWorking'])
-                ->addArticle($this->getReference('article'.$order))
-                ->setActive(1);
-
-            $manager->persist($material);
-            $this->addReference('material'.$order, $material);
-        }
-
-        $manager->flush();
-    }
-
-    public function getDependencies()
-    {
-        return [
-            LoadDiverseData::class,
-            LoadSupplierData::class,
-        ];
+        return $datas;
     }
 }
