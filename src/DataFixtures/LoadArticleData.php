@@ -48,19 +48,10 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
         /**
          * Categories references
          */
-        $surgele = $this->getReference('family-log3');
         $frais = $this->getReference('family-log4');
         $sec = $this->getReference('family-log5');
-        $boissons = $this->getReference('family-log6');
-        $fruitLegumesSurgele = $this->getReference('family-log7');
-        $patisseriesSurgele = $this->getReference('family-log8');
         $viandeSurgele = $this->getReference('family-log9');
         $fruitLegumesFrais = $this->getReference('family-log10');
-        $patisseriesFrais = $this->getReference('family-log11');
-        $viandeFrais = $this->getReference('family-log12');
-        $fruitLegumesSec = $this->getReference('family-log13');
-        $patisseriesSec = $this->getReference('family-log14');
-        $bieres = $this->getReference('family-log15');
         $vins = $this->getReference('family-log16');
 
         /**
@@ -74,20 +65,14 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
         /**
          * Units references
          */
-        $boite = $this->getReference('unit1');
         $bouteille = $this->getReference('unit2');
-        $carton = $this->getReference('unit3');
-        $colis = $this->getReference('unit4');
         $kilogramme = $this->getReference('unit5');
-        $litre = $this->getReference('unit6');
         $piece = $this->getReference('unit7');
 
         /**
          * VAT references
          */
         $tvaReduit = $this->getReference('tva1');
-        $tvaMoyen = $this->getReference('tva2');
-        $tvaLuxe = $this->getReference('tva3');
 
         /**
          * Articles datas
