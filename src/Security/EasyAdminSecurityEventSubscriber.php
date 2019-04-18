@@ -44,7 +44,10 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
 
         $authorizedRoles = $entityConfig['permissions']['action'];
 
-        if (!$this->decisionManager->decide($this->token->/** @scrutinizer ignore-call */ getToken(), $authorizedRoles)) {
+        if (!$this->decisionManager->decide(
+            $this->token->/** @scrutinizer ignore-call */ getToken(),
+            $authorizedRoles
+        )) {
             throw new AccessDeniedException();
         }
     }
