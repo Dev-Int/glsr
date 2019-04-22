@@ -81,18 +81,18 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
      *
      * @param integer $min
      * @param integer $max
+     * @param integer $decimals
      */
-     protected function rnd_fl(int $min = 0, int $max = null): float
+    protected function getRandFloat(int $min = 0, int $max, int $decimals): float
     {
-        return (float)rand($min, $max) / (float)getrandmax();
+        $divisor = pow(10, $decimals);
+        return mt_rand($min, $max * $divisor) / $divisor;
     }
 
     /**
-     * Get the fixture's datas
-     *
-     * @return void
+     * Get the array fixture's datas
      */
-    protected function getDatas()
+    protected function getDatas(): array
     {
         /**
          * Supplier references
@@ -137,53 +137,53 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
         $datas = [
             ['name' => 'Salade', 'supplier' => $davifrais,
             'familyLog' => $fruitLegumesFrais, 'zoneStorage' => $zoneFrais,
-            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => 2.99,
-            'packaging' => 12.0, 'tva' => $tvaReduit, 'minStock' => 2.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Bavette 150gr', 'supplier' => $davigel,
             'familyLog' => $viandeSurgele, 'zoneStorage' => $zoneSurgele,
-            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => 2.99,
-            'packaging' => 28, 'tva' => $tvaReduit, 'minStock' => 2.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Baguettine', 'supplier' => $davigel,
             'familyLog' => $viandeSurgele, 'zoneStorage' => $zoneSurgele,
-            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => 15.2,
-            'packaging' => 90.0, 'tva' => $tvaReduit, 'minStock' => 20.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Steack haché 20%MG 120g', 'supplier' => $davigel,
             'familyLog' => $viandeSurgele, 'zoneStorage' => $zoneSurgele,
-            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => 1.22,
-            'packaging' => 50.0, 'tva' => $tvaReduit, 'minStock' => 12.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Ananas poche 2.3 KG', 'supplier' => $davisec,
             'familyLog' => $sec, 'zoneStorage' => $zoneSec,
-            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => 4.05,
-            'packaging' => 4, 'tva' => $tvaReduit, 'minStock' => 3.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Appareil Champigons 2 KG', 'supplier' => $davifrais,
             'familyLog' => $frais, 'zoneStorage' => $zoneFrais,
-            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => 6.39,
-            'packaging' => 4.0, 'tva' => $tvaReduit, 'minStock' => 2.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Bacon tranche Barq 88G', 'supplier' => $davifrais,
             'familyLog' => $frais, 'zoneStorage' => $zoneFrais,
-            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => 0.75,
-            'packaging' => 6.0, 'tva' => $tvaReduit, 'minStock' => 2, ],
+            'unitStorage' => $piece, 'unitWorking' => $kilogramme, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Beurre doux 8Gx125', 'supplier' => $davifrais,
             'familyLog' => $frais, 'zoneStorage' => $zoneFrais,
-            'unitStorage' => $kilogramme, 'unitWorking' => $piece, 'price' => 6.83,
-            'packaging' => 1.0, 'tva' => $tvaReduit, 'minStock' => 0.5, ],
+            'unitStorage' => $kilogramme, 'unitWorking' => $piece, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Boule pour oeuf neige', 'supplier' => $davifrais,
             'familyLog' => $frais, 'zoneStorage' => $zoneFrais,
-            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => 1.75,
-            'packaging' => 6.0, 'tva' => $tvaReduit, 'minStock' => 2.0, ],
+            'unitStorage' => $piece, 'unitWorking' => $piece, 'price' => $this->getRandFloat(0, 12, 3),
+            'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Champignons émincé 500G', 'supplier' => $davifrais,
             'familyLog' => $fruitLegumesFrais, 'zoneStorage' => $zoneFrais,
             'unitStorage' => $kilogramme, 'unitWorking' => $kilogramme,
-            'price' => 3.17, 'packaging' => 3.5, 'tva' => $tvaReduit,
-            'minStock' => 1.0, ],
+            'price' => $this->getRandFloat(0, 12, 3), 'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit,
+            'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'Chorizo prétr. 500G', 'supplier' => $davifrais,
             'familyLog' => $fruitLegumesFrais, 'zoneStorage' => $zoneFrais,
             'unitStorage' => $kilogramme, 'unitWorking' => $kilogramme,
-            'price' => 5.11, 'packaging' => 6, 'tva' => $tvaReduit, 'minStock' => 1.0, ],
+            'price' => $this->getRandFloat(0, 12, 3), 'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
             ['name' => 'V.RG Bourgueil 75cl', 'supplier' => $loireBoissons,
             'familyLog' => $vins, 'zoneStorage' => $zoneBoisson,
             'unitStorage' => $bouteille, 'unitWorking' => $bouteille,
-            'price' => 5.11, 'packaging' => 6.0, 'tva' => $tvaReduit, 'minStock' => 3.0, ],
+            'price' => 5.11, 'packaging' => $this->getRandFloat(5, 125, 3), 'tva' => $tvaReduit, 'minStock' => $this->getRandFloat(3, 25, 3), ],
         ];
 
         return $datas;
