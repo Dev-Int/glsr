@@ -80,8 +80,7 @@ class Contact
      * @ORM\Column(name="mail", type="string", length=255)
      * @Assert\NotBlank()
      * @Assert\Email(
-     *     message = "'{{ value }}' n'est pas un email valide.",
-     *     checkMX = true
+     *     message = "'{{ value }}' n'est pas un email valide."
      * )
      */
     private $email;
