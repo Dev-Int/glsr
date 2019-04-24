@@ -1,5 +1,4 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/StofDoctrineExtensionsBundle/index.html
-# See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
 stof_doctrine_extensions:
     default_locale: '%locale%'
     orm:
@@ -7,3 +6,4 @@ stof_doctrine_extensions:
             sluggable: true
             uploadable: true
             tree: true
+            # See the official DoctrineExtensions documentation for more details: https://github.com/Atlantic18/DoctrineExtensions/tree/master/doc/
