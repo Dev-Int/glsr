@@ -10,3 +10,5 @@ filter:
     excluded_paths:
         - tests/*
         - Migrations/*
+    dependency_paths:
+        - config/packages/misd_phone_number.yaml # misd-phone-number for Doctrine
