@@ -1,6 +1,6 @@
 <?php
 /**
- * LoadDiverseData Données de configuration de l'application GLSR.
+ * LoadDiverseData Configuration data of the GLSR application.
  *
  * PHP Version 7
  *

@@ -1,6 +1,6 @@
 <?php
 /**
- * LoadUserData Données User de l'application GLSR.
+ * LoadUserData Users data of the GLSR application.
  *
  * PHP Version 7
  *

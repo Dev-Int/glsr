@@ -1,6 +1,6 @@
 <?php
 /**
- * LoadSupplierData Données de l'application GLSR.
+ * LoadSupplierData Suppliers data of the GLSR application.
  *
  * PHP Version 7
  *

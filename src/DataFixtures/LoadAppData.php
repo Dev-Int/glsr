@@ -1,6 +1,6 @@
 <?php
 /**
- * LoadAppData Données de l'application GLSR.
+ * LoadAppData GLSR application datas.
  *
  * PHP Version 7
  *
