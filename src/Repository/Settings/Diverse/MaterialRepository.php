@@ -13,6 +13,7 @@
  *
  * @see https://github.com/Dev-Int/glsr
  */
+
 namespace App\Repository\Settings\Diverse;
 
 use Doctrine\ORM\EntityRepository;

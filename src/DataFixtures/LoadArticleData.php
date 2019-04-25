@@ -15,13 +15,11 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use App\Entity\Settings\Article;
 use App\Entity\Settings\Diverse\Material;
-use App\DataFixtures\LoadDiverseData;
-use App\DataFixtures\LoadSupplierData;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Load Article Data.
@@ -68,7 +66,7 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies()
+    public function getDependencies(): array
     {
         return [
             LoadDiverseData::class,
@@ -79,14 +77,15 @@ class LoadArticleData extends Fixture implements DependentFixtureInterface
     /**
      * Return float random.
      *
-     * @param integer $min
-     * @param integer $max
-     * @param integer $decimals
+     * @param int $min
+     * @param int $max
+     * @param int $decimals
      */
     protected function getRandFloat(int $min, int $max, int $decimals): float
     {
-        $divisor = pow(10, $decimals);
-        return mt_rand($min, $max * $divisor) / $divisor;
+        $divisor = \pow(10, $decimals);
+
+        return \mt_rand($min, $max * $divisor) / $divisor;
     }
 
     /**

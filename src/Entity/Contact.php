@@ -158,7 +158,7 @@ class Contact
      */
     public function setTown($town)
     {
-        $this->town = strtoupper($town);
+        $this->town = \strtoupper($town);
 
         return $this;
     }

@@ -16,15 +16,15 @@
 
 namespace App\Entity\Settings;
 
+use App\Entity\Settings\Diverse\FamilyLog;
+use App\Entity\Settings\Diverse\Tva;
+use App\Entity\Settings\Diverse\Unit;
+use App\Entity\Settings\Diverse\ZoneStorage;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Settings\Diverse\Unit;
-use App\Entity\Settings\Diverse\Tva;
-use App\Entity\Settings\Diverse\FamilyLog;
-use App\Entity\Settings\Diverse\ZoneStorage;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article.
@@ -574,7 +574,7 @@ class Article
     {
         if (null === $deleteAt) {
             $this->deleteAt = new \DateTime();
-            date_date_set($this->deleteAt, date('Y') + 4, 12, 31);
+            \date_date_set($this->deleteAt, \date('Y') + 4, 12, 31);
         } else {
             $this->deleteAt = $deleteAt;
         }

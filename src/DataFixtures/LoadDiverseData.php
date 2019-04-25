@@ -15,12 +15,12 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Settings\Diverse\FamilyLog;
+use App\Entity\Settings\Diverse\Tva;
+use App\Entity\Settings\Diverse\Unit;
+use App\Entity\Settings\Diverse\ZoneStorage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Settings\Diverse\FamilyLog;
-use App\Entity\Settings\Diverse\ZoneStorage;
-use App\Entity\Settings\Diverse\Unit;
-use App\Entity\Settings\Diverse\Tva;
 
 /**
  * LoadDiverse Data.
@@ -77,7 +77,7 @@ class LoadDiverseData extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        /**
+        /*
          * Load FamilyLog
          */
         $familyLogs = [];
@@ -96,7 +96,7 @@ class LoadDiverseData extends Fixture
             $this->addReference('family-log'.$order, $familyLog);
         }
 
-        /**
+        /*
          * Load ZoneStorage
          */
         foreach ($this->zoneArray as $key => $zone) {
@@ -109,7 +109,7 @@ class LoadDiverseData extends Fixture
             $this->addReference('zoneStorage'.$order, $zoneStorage);
         }
 
-        /**
+        /*
          * Load Unit
          */
         foreach ($this->unitArray as $key => $unit) {
@@ -123,12 +123,12 @@ class LoadDiverseData extends Fixture
             $this->addReference('unit'.$order, $unitStorage);
         }
 
-        /**
+        /*
          * Load Tva
          */
         foreach ($this->tvaArray as $key => $tvaRate) {
             $tva = new Tva();
-            $tva->setRate((double)$tvaRate['rate']);
+            $tva->setRate((float) $tvaRate['rate']);
 
             $manager->persist($tva);
 

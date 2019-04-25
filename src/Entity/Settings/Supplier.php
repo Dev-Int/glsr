@@ -16,15 +16,14 @@
 
 namespace App\Entity\Settings;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Entity\Contact;
 use App\Entity\Settings\Diverse\FamilyLog;
-use App\Entity\Settings\Article;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Supplier Entity.
@@ -224,6 +223,7 @@ class Supplier extends Contact
 
     /**
      * @param Article $articles
+     *
      * @return Supplier
      */
     public function addArticles(Article $articles)

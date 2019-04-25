@@ -15,10 +15,10 @@
 
 namespace App\DataFixtures;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Settings\Company;
 use App\Entity\Settings\Settings;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * LoadApp Data.

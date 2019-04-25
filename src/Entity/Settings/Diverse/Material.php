@@ -13,14 +13,14 @@
  *
  * @see https://github.com/Dev-Int/glsr
  */
+
 namespace App\Entity\Settings\Diverse;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Settings\Diverse\Unit;
 use App\Entity\Settings\Article;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Material entity.
@@ -75,7 +75,6 @@ class Material
      */
     private $slug;
 
-
     /**
      * Constructor.
      */
@@ -87,7 +86,7 @@ class Material
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -98,6 +97,7 @@ class Material
      * Set name
      *
      * @param string $name
+     *
      * @return Material
      */
     public function setName($name)
@@ -120,7 +120,8 @@ class Material
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param bool $active
+     *
      * @return Material
      */
     public function setActive($active)
@@ -133,7 +134,7 @@ class Material
     /**
      * Get active
      *
-     * @return boolean
+     * @return bool
      */
     public function isActive()
     {
@@ -144,6 +145,7 @@ class Material
      * Set unitWorking
      *
      * @param \App\Entity\Settings\Diverse\Unit $unitWorking
+     *
      * @return Material
      */
     public function setUnitWorking(Unit $unitWorking = null)
@@ -167,6 +169,7 @@ class Material
      * Add articles
      *
      * @param \App\Entity\Settings\Article $articles
+     *
      * @return Material
      */
     public function addArticle(Article $articles)

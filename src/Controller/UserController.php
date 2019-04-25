@@ -16,7 +16,6 @@
 namespace App\Controller;
 
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**

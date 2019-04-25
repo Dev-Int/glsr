@@ -15,10 +15,10 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use App\Entity\User;
 
 /**
  * LoadUser Data.
@@ -68,10 +68,10 @@ class LoadUserData extends Fixture
                 ->setAdmin($userData['admin'])
                 ->setAssistant($userData['assistant'])
                 ->setPassword($password);
-    
+
             $manager->persist($userAdmin);
             $order = $key + 1;
-            $this->addReference('user-' . $order, $userAdmin);
+            $this->addReference('user-'.$order, $userAdmin);
         }
         $manager->flush();
     }

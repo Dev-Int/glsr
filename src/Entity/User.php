@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User Entity.
@@ -126,10 +126,10 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = [];
-        if ($this->admin === true) {
+        if (true === $this->admin) {
             $roles[] = 'ROLE_SUPER_ADMIN';
         }
-        if ($this->assistant === true) {
+        if (true === $this->assistant) {
             $roles[] = 'ROLE_ADMIN';
         }
         if (empty($this->roles)) {
@@ -137,7 +137,7 @@ class User implements UserInterface
             $roles[] = 'ROLE_USER';
         }
 
-        return array_unique($roles);
+        return \array_unique($roles);
     }
 
     /**
@@ -149,12 +149,12 @@ class User implements UserInterface
      */
     public function addRoles($role)
     {
-        $role = strtoupper($role);
+        $role = \strtoupper($role);
         if ($role === static::ROLE_DEFAULT) {
             return $this;
         }
 
-        if (!in_array($role, $this->roles, true)) {
+        if (!\in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
 
@@ -168,7 +168,7 @@ class User implements UserInterface
      *
      * @param array $roles
      */
-    public function setRoles(array $roles = array()): self
+    public function setRoles(array $roles = []): self
     {
         $this->roles = [];
 
@@ -263,10 +263,8 @@ class User implements UserInterface
 
     /**
      * Set the value of email
-     *
-     * @return  self
      */
-    public function setEmail($email)
+    public function setEmail($email): self
     {
         $this->email = $email;
 

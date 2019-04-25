@@ -254,9 +254,9 @@ class FamilyLog
     {
         $return = '';
         if (null !== $this->parent) {
-            if (2 == $this->level) {
+            if (2 === $this->level) {
                 $return = '|-- '.$this->name;
-            } elseif (3 == $this->level) {
+            } elseif (3 === $this->level) {
                 $return = '|-- |-- '.$this->name;
             }
         } else {

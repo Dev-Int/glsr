@@ -15,8 +15,8 @@
 
 namespace App\Entity\Settings;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Contact;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Company Entity.

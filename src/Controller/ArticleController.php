@@ -16,8 +16,8 @@
 
 namespace App\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use App\Entity\Settings\Article;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 
 /**
  * Article Controller override EasyAdminBundle::AdminController.

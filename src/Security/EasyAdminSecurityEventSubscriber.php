@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Security;
 
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -36,8 +37,8 @@ class EasyAdminSecurityEventSubscriber implements EventSubscriberInterface
 
         $action = $event->getArgument('request')->query->get('action');
 
-        if (!array_key_exists('permissions', $entityConfig) ||
-            !array_key_exists($action, $entityConfig['permissions'])
+        if (!\array_key_exists('permissions', $entityConfig) ||
+            !\array_key_exists($action, $entityConfig['permissions'])
         ) {
             return;
         }

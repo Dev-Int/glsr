@@ -16,8 +16,8 @@
 
 namespace App\Controller;
 
-use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 use App\Entity\Settings\Supplier;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController as BaseAdminController;
 
 /**
  * Description of SupplierController.
