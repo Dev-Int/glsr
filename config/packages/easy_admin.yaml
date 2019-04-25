@@ -3,6 +3,10 @@ imports:
 
 easy_admin:
     site_name: '<span class="icon-GLSR"></span> | Admin'
+    user:
+        name_property_path: "username"
+        display_name: true
+        display_avatar: true
     design:
         brand_color: '#127BA3'
         assets:
@@ -22,7 +26,7 @@ easy_admin:
             - { entity: 'Settings', icon: 'cog' }
             - { entity: 'Supplier', icon: 'barcode' }
             - { entity: 'Article', icon: 'shopping-basket', sortField: 'name', sortDirection: 'ASC' }
-            - { entity: 'Material', icon: 'flask' }
+            - { entity: 'Material', icon: 'flask', sortField: 'name', sortDirection: 'ASC' }
             - { label: 'menu.diverse', icon: 'info-circle' }
             - { entity: 'FamilyLog', icon: 'sitemap' }
             - { entity: 'Unit', icon: 'cubes', sortField: 'name', sortDirection: 'ASC' }
