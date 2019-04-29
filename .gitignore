@@ -34,6 +34,8 @@ yarn-error.log
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
 
-###> vscode ###
+###> EDI ###
 /.vscode
-###< vscode ###
+/nbproject/
+/.directory
+###< EDI ###
