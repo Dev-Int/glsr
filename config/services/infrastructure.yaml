@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Infrastructure\:
+    lazy: true
+    resource: '%kernel.project_dir%/src/Infrastructure/*'
+    exclude: '%kernel.project_dir%/src/Infrastructure/{Controllers,Migrations,Kernel.php}'
+
+  Infrastructure\Controllers\:
+    resource: '%kernel.project_dir%/src/Infrastructure/Controllers'
+    tags: [ 'controller.service_arguments' ]
+
+  Infrastructure\Persistence\DoctrineOrm\Repositories\:
+    resource: '%kernel.project_dir%/src/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
+    lazy: true
