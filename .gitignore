@@ -5,10 +5,6 @@
 /public/bundles/
 /vendor/
 
-/phpunit.xml
-/.phpunit.result.cache
-/.phpunit
-
 /var/
 
 ###> friendsofphp/php-cs-fixer ###
@@ -22,3 +18,9 @@
 ###< squizlabs/php_codesniffer ###
 
 /ruleset.xml
+/phpmd.xml
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
