@@ -35,10 +35,7 @@ final class Name
         return new self($name);
     }
 
-    /**
-     * @return string
-     */
-    final public function getValue():string
+    public function getValue(): string
     {
         return $this->name;
     }
@@ -47,7 +44,7 @@ final class Name
      * @param string $name
      * @return string
      */
-    final public function slugify(string $name): string
+    public function slugify(string $name): string
     {
         $slugify = new Slugify();
 
