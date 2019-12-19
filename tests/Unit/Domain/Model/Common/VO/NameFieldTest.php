@@ -3,7 +3,6 @@
 
 namespace Tests\Unit\Domain\Model\Common\VO;
 
-
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\StringExceeds255Characters;
 use PHPUnit\Framework\TestCase;
