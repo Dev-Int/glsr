@@ -7,6 +7,7 @@ namespace Domain\Model\Article;
 use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
 use Domain\Model\Common\VO\NameField;
+use Domain\Model\Supplier\Supplier;
 
 /**
  * Article.
@@ -85,7 +86,7 @@ class Article
     /**
      * Article constructor.
      * @param NameField $name
-     * @param string $supplier
+     * @param Supplier $supplier
      * @param string $unitStorage
      * @param float $packaging
      * @param float $price
@@ -98,7 +99,7 @@ class Article
      */
     public function __construct(
         NameField $name,
-        string $supplier,
+        Supplier $supplier,
         string $unitStorage,
         float $packaging,
         float $price,
@@ -110,7 +111,7 @@ class Article
         ?bool $active = true
     ) {
         $this->name = $name->getValue();
-        $this->supplier = $supplier;
+        $this->supplier = $supplier->name();
         $this->unitStorage = $unitStorage;
         $this->packaging = $packaging;
         $this->price = $price;
@@ -125,7 +126,7 @@ class Article
 
     /**
      * @param NameField $name
-     * @param string $supplier
+     * @param Supplier $supplier
      * @param string $unitStorage
      * @param float $packaging
      * @param float $price
@@ -137,7 +138,7 @@ class Article
      */
     public static function create(
         NameField $name,
-        string $supplier,
+        Supplier $supplier,
         string $unitStorage,
         float $packaging,
         float $price,
