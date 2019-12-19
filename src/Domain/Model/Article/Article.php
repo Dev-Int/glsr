@@ -6,7 +6,7 @@ namespace Domain\Model\Article;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
-use Domain\Model\Common\Name;
+use Domain\Model\Common\VO\NameField;
 
 /**
  * Article.
@@ -84,7 +84,7 @@ class Article
 
     /**
      * Article constructor.
-     * @param Name $name
+     * @param NameField $name
      * @param string $supplier
      * @param string $unitStorage
      * @param float $packaging
@@ -97,7 +97,7 @@ class Article
      * @param bool|null $active
      */
     public function __construct(
-        Name $name,
+        NameField $name,
         string $supplier,
         string $unitStorage,
         float $packaging,
@@ -120,11 +120,11 @@ class Article
         $this->zoneStorages = new ArrayCollection($this->makeZoneStorageEntities($zoneStorages));
         $this->familyLog = $familyLog;
         $this->active = $active;
-        $this->slug = $name->slugify($this->name);
+        $this->slug = $name->slugify();
     }
 
     /**
-     * @param Name $name
+     * @param NameField $name
      * @param string $supplier
      * @param string $unitStorage
      * @param float $packaging
@@ -136,7 +136,7 @@ class Article
      * @return Article
      */
     public static function create(
-        Name $name,
+        NameField $name,
         string $supplier,
         string $unitStorage,
         float $packaging,
@@ -159,19 +159,20 @@ class Article
         );
     }
 
-    final public function renameArticle(Name $name): void
+    final public function renameArticle(NameField $name): void
     {
         $this->name = $name->getValue();
-        $this->slug = $name->slugify($this->name);
+        $this->slug = $name->slugify();
     }
 
     /**
+     * @param array $zoneStorages
      * @return ZoneStorage[]
      */
     private function makeZoneStorageEntities(array $zoneStorages): array
     {
         return array_map(static function ($zone) {
-            return new ZoneStorage(Name::fromString($zone));
+            return new ZoneStorage(NameField::fromString($zone));
         }, $zoneStorages);
     }
 }

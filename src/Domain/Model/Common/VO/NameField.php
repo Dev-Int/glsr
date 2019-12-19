@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Model\Common;
+namespace Domain\Model\Common\VO;
 
 use Cocur\Slugify\Slugify;
+use Domain\Model\Common\StringExceeds255Characters;
 
-final class Name
+final class NameField
 {
     /**
      * @var string
@@ -28,7 +29,7 @@ final class Name
 
     /**
      * @param string $name
-     * @return Name
+     * @return NameField
      */
     public static function fromString(string $name): self
     {
@@ -41,13 +42,12 @@ final class Name
     }
 
     /**
-     * @param string $name
      * @return string
      */
-    public function slugify(string $name): string
+    public function slugify(): string
     {
         $slugify = new Slugify();
 
-        return $slugify->slugify($name);
+        return $slugify->slugify($this->name);
     }
 }

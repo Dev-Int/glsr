@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Article\Entities;
 
-use Domain\Model\Common\Name;
+use Domain\Model\Common\VO\NameField;
 
 class ZoneStorage
 {
@@ -20,11 +20,11 @@ class ZoneStorage
 
     /**
      * ZoneStorage constructor.
-     * @param Name $name
+     * @param NameField $name
      */
-    public function __construct(Name $name)
+    public function __construct(NameField $name)
     {
         $this->name = $name->getValue();
-        $this->slug = $name->slugify($this->name);
+        $this->slug = $name->slugify();
     }
 }

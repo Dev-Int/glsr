@@ -3,7 +3,7 @@
 namespace Tests\Unit\Domain\Model\Article;
 
 use Domain\Model\Article\Article;
-use Domain\Model\Common\Name;
+use Domain\Model\Common\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
 class ArticleTest extends TestCase
@@ -12,7 +12,7 @@ class ArticleTest extends TestCase
     {
         // Arrange & Act
         $article = Article::create(
-            Name::fromString('Jambon Trad 6kg'),
+            NameField::fromString('Jambon Trad 6kg'),
             'Davigel',
             'KG',
             6.000,
@@ -26,7 +26,7 @@ class ArticleTest extends TestCase
         // Assert
         $this->assertEquals(
             new Article(
-                Name::fromString('Jambon Trad 6kg'),
+                NameField::fromString('Jambon Trad 6kg'),
                 'Davigel',
                 'KG',
                 6.000,
@@ -44,7 +44,7 @@ class ArticleTest extends TestCase
     {
         // Arrange
         $article = Article::create(
-            Name::fromString('Jambon Trad 6kg'),
+            NameField::fromString('Jambon Trad 6kg'),
             'Davigel',
             'KG',
             6.000,
@@ -56,12 +56,12 @@ class ArticleTest extends TestCase
         );
 
         // Act
-        $article->renameArticle(Name::fromString('Jambon Tradition 6kg'));
+        $article->renameArticle(NameField::fromString('Jambon Tradition 6kg'));
 
         // Assert
         $this->assertEquals(
             new Article(
-                Name::fromString('Jambon Tradition 6kg'),
+                NameField::fromString('Jambon Tradition 6kg'),
                 'Davigel',
                 'KG',
                 6.000,
