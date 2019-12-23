@@ -6,6 +6,7 @@ namespace Domain\Model\Article;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
+use Domain\Model\Article\VO\Packaging;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Supplier\Supplier;
 
@@ -37,7 +38,7 @@ class Article
     private $unitStorage;
 
     /**
-     * @var float Conditionement (quantité)
+     * @var array Packaging (subdivision of parcel)
      */
     private $packaging;
 
@@ -49,7 +50,7 @@ class Article
     /**
      * @var string Taux de TVA
      */
-    private $tva;
+    protected $taxes;
 
     /**
      * @var float Quantité en stock
@@ -85,25 +86,26 @@ class Article
 
     /**
      * Article constructor.
-     * @param NameField $name
-     * @param Supplier $supplier
-     * @param string $unitStorage
-     * @param float $packaging
-     * @param float $price
-     * @param string $tva
-     * @param float $minStock
-     * @param array $zoneStorages
-     * @param string $familyLog
+     *
+     * @param NameField  $name
+     * @param Supplier   $supplier
+     * @param string     $unitStorage
+     * @param Packaging  $packaging
+     * @param float      $price
+     * @param string     $taxes
+     * @param float      $minStock
+     * @param array      $zoneStorages
+     * @param string     $familyLog
      * @param float|null $quantity
-     * @param bool|null $active
+     * @param bool|null  $active
      */
     public function __construct(
         NameField $name,
         Supplier $supplier,
         string $unitStorage,
-        float $packaging,
+        Packaging $packaging,
         float $price,
-        string $tva,
+        string $taxes,
         float $minStock,
         array $zoneStorages,
         string $familyLog,
@@ -115,7 +117,7 @@ class Article
         $this->unitStorage = $unitStorage;
         $this->packaging = $packaging;
         $this->price = $price;
-        $this->tva = $tva;
+        $this->taxes = $taxes;
         $this->quantity = $quantity;
         $this->minStock = $minStock;
         $this->zoneStorages = new ArrayCollection($this->makeZoneStorageEntities($zoneStorages));
@@ -126,23 +128,24 @@ class Article
 
     /**
      * @param NameField $name
-     * @param Supplier $supplier
-     * @param string $unitStorage
-     * @param float $packaging
-     * @param float $price
-     * @param string $tva
-     * @param float $minStock
-     * @param array $zoneStorages
-     * @param string $familyLog
+     * @param Supplier  $supplier
+     * @param string    $unitStorage
+     * @param Packaging $packaging
+     * @param float     $price
+     * @param string    $taxes
+     * @param float     $minStock
+     * @param array     $zoneStorages
+     * @param string    $familyLog
+     *
      * @return Article
      */
     public static function create(
         NameField $name,
         Supplier $supplier,
         string $unitStorage,
-        float $packaging,
+        Packaging $packaging,
         float $price,
-        string $tva,
+        string $taxes,
         float $minStock,
         array $zoneStorages,
         string $familyLog
@@ -153,7 +156,7 @@ class Article
             $unitStorage,
             $packaging,
             $price,
-            $tva,
+            $taxes,
             $minStock,
             $zoneStorages,
             $familyLog
