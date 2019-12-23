@@ -22,3 +22,8 @@ doctrine:
         type: xml
         dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Article'
         prefix: 'Domain\Model\Article'
+      Domain\Model\Supplier:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Supplier'
+        prefix: 'Domain\Model\Supplier'

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Domain\Model\Supplier\Supplier"
+            table="supplier"
+            repository-class="Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+        <field name="name" type="string" length="255" nullable="false" unique="true" />
+        <field name="address" type="string" length="255" nullable="false" />
+        <field name="zipCode" type="string" length="5" nullable="false" />
+        <field name="town" type="string" length="255" nullable="false" />
+        <field name="country" type="string" length="255" nullable="false" />
+        <field name="phone" type="string" length="255" nullable="false" />
+        <field name="fax" type="string" length="255" nullable="false" />
+        <field name="email" type="string" length="255" nullable="false" />
+        <field name="contact" type="string" length="255" nullable="false" />
+        <field name="gsm" type="string" length="255" nullable="false" />
+        <field name="familyLog" type="string" length="255" nullable="false" />
+        <field name="delayDeliv" type="integer" length="1" nullable="false" />
+        <field name="orderDays" type="simple_array" nullable="false" />
+        <field name="active" type="boolean" nullable="false" />
+    </entity>
+</doctrine-mapping>
