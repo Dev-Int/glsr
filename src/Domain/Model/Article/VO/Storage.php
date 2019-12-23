@@ -8,7 +8,17 @@ use Domain\Model\Common\InvalidQuantity;
 
 class Storage
 {
-    public const UNITS = ['colis', 'carton', 'bouteille', 'boite', 'poche', 'pièce', 'portion', 'kilogramme', 'litre'];
+    public const UNITS = [
+        'colis',
+        'carton',
+        'bouteille',
+        'boite',
+        'poche',
+        'pièce',
+        'portion',
+        'kilogramme',
+        'litre',
+    ];
     /**
      * @var string
      */
@@ -39,6 +49,13 @@ class Storage
         return new self($unit, $quantity);
     }
 
+    /**
+     * Test the unit.
+     *
+     * @param string $unit
+     *
+     * @return string
+     */
     private static function unit(string $unit): string
     {
         if (!in_array(strtolower($unit), self::UNITS)) {
@@ -48,6 +65,13 @@ class Storage
         return strtolower($unit);
     }
 
+    /**
+     * Test the quantity.
+     *
+     * @param float $quantity
+     *
+     * @return float
+     */
     private static function quantity(float $quantity): float
     {
         if (!is_float($quantity)) {
