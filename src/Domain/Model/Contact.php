@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Domain\Model;
 
 use Domain\Model\Common\VO\EmailField;
@@ -40,12 +42,12 @@ class Contact
     /**
      * @var string Fax de l'entreprise
      */
-    protected $fax;
+    protected $facsimile;
 
     /**
      * @var string email de l'entreprise
      */
-    protected $mail;
+    protected $email;
 
     /**
      * @var string Contact de l'entreprise
@@ -55,20 +57,21 @@ class Contact
     /**
      * @var string Gsm de l'entreprise
      */
-    protected $gsm;
+    protected $cellphone;
 
     /**
      * Contact constructor.
-     * @param NameField $name
-     * @param string $address
-     * @param string $zipCode
-     * @param string $town
-     * @param string $country
-     * @param string $phone
-     * @param string $fax
-     * @param EmailField $mail
-     * @param string $contact
-     * @param string $gsm
+     *
+     * @param NameField  $name
+     * @param string     $address
+     * @param string     $zipCode
+     * @param string     $town
+     * @param string     $country
+     * @param string     $phone
+     * @param string     $facsimile
+     * @param EmailField $email
+     * @param string     $contact
+     * @param string     $cellphone
      */
     public function __construct(
         NameField $name,
@@ -77,10 +80,10 @@ class Contact
         string $town,
         string $country,
         string $phone,
-        string $fax,
-        EmailField $mail,
+        string $facsimile,
+        EmailField $email,
         string $contact,
-        string $gsm
+        string $cellphone
     ) {
         $this->name = $name->getValue();
         $this->address = $address;
@@ -88,9 +91,9 @@ class Contact
         $this->town = $town;
         $this->country = $country;
         $this->phone = $phone;
-        $this->fax = $fax;
-        $this->mail = $mail->getValue();
+        $this->facsimile = $facsimile;
+        $this->email = $email->getValue();
         $this->contact = $contact;
-        $this->gsm = $gsm;
+        $this->cellphone = $cellphone;
     }
 }

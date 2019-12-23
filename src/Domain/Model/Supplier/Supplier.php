@@ -14,7 +14,7 @@ class Supplier extends Contact
     /**
      * @var int id du fournisseur
      */
-    private $id;
+    private $supplierId;
 
     /**
      * @var string Famille logistique
@@ -43,20 +43,21 @@ class Supplier extends Contact
 
     /**
      * Supplier constructor.
-     * @param NameField $name
-     * @param string $address
-     * @param string $zipCode
-     * @param string $town
-     * @param string $country
+     *
+     * @param NameField  $name
+     * @param string     $address
+     * @param string     $zipCode
+     * @param string     $town
+     * @param string     $country
      * @param PhoneField $phone
-     * @param PhoneField $fax
+     * @param PhoneField $facsimile
      * @param EmailField $email
-     * @param string $contact
-     * @param PhoneField $gsm
-     * @param string $familyLog
-     * @param int $delayDeliv
-     * @param array $orderDays
-     * @param bool $active
+     * @param string     $contact
+     * @param PhoneField $cellphone
+     * @param string     $familyLog
+     * @param int        $delayDeliv
+     * @param array      $orderDays
+     * @param bool       $active
      */
     public function __construct(
         NameField $name,
@@ -65,10 +66,10 @@ class Supplier extends Contact
         string $town,
         string $country,
         PhoneField $phone,
-        PhoneField $fax,
+        PhoneField $facsimile,
         EmailField $email,
         string $contact,
-        PhoneField $gsm,
+        PhoneField $cellphone,
         string $familyLog,
         int $delayDeliv,
         array $orderDays,
@@ -81,10 +82,10 @@ class Supplier extends Contact
             $town,
             $country,
             $phone->getValue(),
-            $fax->getValue(),
+            $facsimile->getValue(),
             $email,
             $contact,
-            $gsm->getValue()
+            $cellphone->getValue()
         );
         $this->familyLog = $familyLog;
         $this->delayDeliv = $delayDeliv;
@@ -100,7 +101,7 @@ class Supplier extends Contact
         string $town,
         string $country,
         PhoneField $phone,
-        PhoneField $fax,
+        PhoneField $facsimile,
         EmailField $email,
         string $contact,
         PhoneField $gsm,
@@ -116,7 +117,7 @@ class Supplier extends Contact
             $town,
             $country,
             $phone,
-            $fax,
+            $facsimile,
             $email,
             $contact,
             $gsm,
