@@ -6,7 +6,7 @@
     <entity name="Domain\Model\Article\Article"
             table="article"
             repository-class="Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineArticleRepository">
-        <id name="id" type="integer" column="id">
+        <id name="articleId" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>
         <field name="name" type="string" length="255" nullable="false" unique="true" />
@@ -19,6 +19,7 @@
         <field name="zoneStorages" type="array" length="50" nullable="false"/>
         <field name="familyLog" type="string" nullable="false" />
         <field name="quantity" type="decimal" scale="6" precision="3" nullable="false" />
-        <field name="active" type="boolean" />
+        <field name="slug" type="string" nullable="false" unique="true" />
+        <field name="active" type="boolean" nullable="false" />
     </entity>
 </doctrine-mapping>
