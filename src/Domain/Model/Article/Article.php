@@ -28,14 +28,9 @@ class Article
     protected $name;
 
     /**
-     * @var string Nam of supplier
+     * @var string Name of supplier
      */
     protected $supplier;
-
-    /**
-     * @var string Unit of storage
-     */
-    protected $unitStorage;
 
     /**
      * @var array Packaging (subdivision of parcel)
@@ -87,7 +82,6 @@ class Article
      *
      * @param NameField  $name
      * @param Supplier   $supplier
-     * @param string     $unitStorage
      * @param Packaging  $packaging
      * @param float      $price
      * @param string     $taxes
@@ -100,7 +94,6 @@ class Article
     public function __construct(
         NameField $name,
         Supplier $supplier,
-        string $unitStorage,
         Packaging $packaging,
         float $price,
         string $taxes,
@@ -112,7 +105,6 @@ class Article
     ) {
         $this->name = $name->getValue();
         $this->supplier = $supplier->name();
-        $this->unitStorage = $unitStorage;
         $this->packaging = $packaging;
         $this->price = $price;
         $this->taxes = $taxes;
@@ -127,7 +119,6 @@ class Article
     /**
      * @param NameField $name
      * @param Supplier  $supplier
-     * @param string    $unitStorage
      * @param Packaging $packaging
      * @param float     $price
      * @param string    $taxes
@@ -140,7 +131,6 @@ class Article
     public static function create(
         NameField $name,
         Supplier $supplier,
-        string $unitStorage,
         Packaging $packaging,
         float $price,
         string $taxes,
@@ -151,7 +141,6 @@ class Article
         return new self(
             $name,
             $supplier,
-            $unitStorage,
             $packaging,
             $price,
             $taxes,

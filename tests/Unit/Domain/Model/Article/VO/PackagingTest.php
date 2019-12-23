@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Model\Article\VO;
 
 use Domain\Model\Article\VO\Packaging;
-use Domain\Model\Article\VO\Storage;
 use PHPUnit\Framework\TestCase;
 
 class PackagingTest extends TestCase

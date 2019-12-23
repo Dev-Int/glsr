@@ -37,7 +37,6 @@ class ArticleTest extends TestCase
         $article = Article::create(
             NameField::fromString('Jambon Trad 6kg'),
             $supplier,
-            'KG',
             Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
             6.82,
             '10%',
@@ -51,7 +50,6 @@ class ArticleTest extends TestCase
             new Article(
                 NameField::fromString('Jambon Trad 6kg'),
                 $supplier,
-                'KG',
                 Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
                 6.82,
                 '10%',
@@ -84,7 +82,6 @@ class ArticleTest extends TestCase
         $article = Article::create(
             NameField::fromString('Jambon Trad 6kg'),
             $supplier,
-            'KG',
             Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
             6.82,
             '10%',
@@ -101,7 +98,6 @@ class ArticleTest extends TestCase
             new Article(
                 NameField::fromString('Jambon Tradition 6kg'),
                 $supplier,
-                'KG',
                 Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
                 6.82,
                 '10%',
