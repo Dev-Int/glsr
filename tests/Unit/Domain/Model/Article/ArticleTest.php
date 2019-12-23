@@ -1,11 +1,8 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\Unit\Domain\Model\Article;
 
 use Domain\Model\Article\Article;
-use Domain\Model\Article\VO\Packaging;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -38,7 +35,7 @@ class ArticleTest extends TestCase
             NameField::fromString('Jambon Trad 6kg'),
             $supplier,
             'KG',
-            Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
+            6.000,
             6.82,
             '10%',
             8.8,
@@ -52,7 +49,7 @@ class ArticleTest extends TestCase
                 NameField::fromString('Jambon Trad 6kg'),
                 $supplier,
                 'KG',
-                Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
+                6.000,
                 6.82,
                 '10%',
                 8.8,
@@ -85,7 +82,7 @@ class ArticleTest extends TestCase
             NameField::fromString('Jambon Trad 6kg'),
             $supplier,
             'KG',
-            Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
+            6.000,
             6.82,
             '10%',
             8.8,
@@ -102,7 +99,7 @@ class ArticleTest extends TestCase
                 NameField::fromString('Jambon Tradition 6kg'),
                 $supplier,
                 'KG',
-                Packaging::fromArray([['Colis', 1], ['pièce', 2], ['kilogramme', 6.000]]),
+                6.000,
                 6.82,
                 '10%',
                 8.8,
