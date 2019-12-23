@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Common;
 
-use Zend\EventManager\Exception\DomainException;
+use DomainException;
 
 final class StringExceeds255Characters extends DomainException
 {

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Model\Common\VO;
 
-use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\StringExceeds255Characters;
+use Domain\Model\Common\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
 class NameFieldTest extends TestCase
@@ -21,7 +22,7 @@ class NameFieldTest extends TestCase
     final public function testSlugify(): void
     {
         // Arrange
-        $name  =NameField::fromString('Test slugify');
+        $name = NameField::fromString('Test slugify');
 
         // Act
         $slug = $name->slugify();
