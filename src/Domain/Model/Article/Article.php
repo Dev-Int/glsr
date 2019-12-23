@@ -20,69 +20,67 @@ class Article
     /**
      * @var int
      */
-    private $id;
+    protected $articleId;
 
     /**
-     * @var string intitulé de l'article
+     * @var string Name of article
      */
-    private $name;
+    protected $name;
 
     /**
-     * @var string Nom du fournisseur
+     * @var string Nam of supplier
      */
-    private $supplier;
+    protected $supplier;
 
     /**
-     * @var string Unité de stockage
+     * @var string Unit of storage
      */
-    private $unitStorage;
+    protected $unitStorage;
 
     /**
      * @var array Packaging (subdivision of parcel)
      */
-    private $packaging;
+    protected $packaging;
 
     /**
-     * @var float prix de l'article
+     * @var float Price of article
      */
-    private $price;
+    protected $price;
 
     /**
-     * @var string Taux de TVA
+     * @var string Rate of VAT
      */
     protected $taxes;
 
     /**
-     * @var float Quantité en stock
+     * @var float Quantity in stock
      */
-    private $quantity;
+    protected $quantity;
 
     /**
-     * @var float Stock minimum
+     * @var float Minimum stock
      */
-    private $minStock;
+    protected $minStock;
 
     /**
-     * @var ArrayCollection Zone(s) de stockage
+     * @var ArrayCollection Storage area(s)
      */
-    private $zoneStorages;
+    protected $zoneStorages;
 
     /**
-     * @var string Famille logistique
+     * @var string Logistics family
      */
-    private $familyLog;
+    protected $familyLog;
 
     /**
-     * @var bool Activé/Désactivé
-     *
-     * @ORM\Column(name="active", type="boolean")
+     * @var bool Active/Inactive
      */
-    private $active;
+    protected $active;
 
     /**
      * @var string
      */
-    private $slug;
+    protected $slug;
 
     /**
      * Article constructor.
