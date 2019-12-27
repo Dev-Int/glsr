@@ -158,6 +158,8 @@ class Article
     }
 
     /**
+     * @param array $zoneStorages
+     *
      * @return ZoneStorage[]
      */
     private function makeZoneStorageEntities(array $zoneStorages): array
