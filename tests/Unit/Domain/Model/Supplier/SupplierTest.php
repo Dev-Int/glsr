@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Domain\Model\Supplier;
 
+use Domain\Model\Common\Entities\FamilyLog;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -24,7 +25,7 @@ class SupplierTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            'Surgelé',
+            FamilyLog::create(NameField::fromString('Surgelé')),
             3,
             [1, 3]
         );
@@ -42,9 +43,9 @@ class SupplierTest extends TestCase
                 EmailField::fromString('contact@davigel.fr'),
                 'David',
                 PhoneField::fromString('+33600000001'),
-                'Surgelé',
+                FamilyLog::create(NameField::fromString('Surgelé')),
                 3,
-                [1, 3],
+                [1, 3]
             ),
             $supplier
         );
@@ -64,7 +65,7 @@ class SupplierTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            'Surgelé',
+            FamilyLog::create(NameField::fromString('Surgelé')),
             3,
             [1, 3]
         );
@@ -85,9 +86,9 @@ class SupplierTest extends TestCase
                 EmailField::fromString('contact@davigel.fr'),
                 'David',
                 PhoneField::fromString('+33600000001'),
-                'Surgelé',
+                FamilyLog::create(NameField::fromString('Surgelé')),
                 3,
-                [1, 3],
+                [1, 3]
             ),
             $supplier
         );

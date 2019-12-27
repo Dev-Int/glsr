@@ -6,6 +6,7 @@ namespace Tests\Unit\Domain\Model\Article;
 
 use Domain\Model\Article\Article;
 use Domain\Model\Article\VO\Packaging;
+use Domain\Model\Common\Entities\FamilyLog;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -28,7 +29,7 @@ class ArticleTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            'Surgelé',
+            FamilyLog::create(NameField::fromString('Frais')),
             3,
             [1, 3]
         );
@@ -42,7 +43,10 @@ class ArticleTest extends TestCase
             '10%',
             8.8,
             ['Chambre positive'],
-            'Frais:Viande'
+            FamilyLog::create(
+                NameField::fromString('Viande'),
+                FamilyLog::create(NameField::fromString('Frais'))
+            )
         );
 
         // Assert
@@ -55,7 +59,10 @@ class ArticleTest extends TestCase
                 '10%',
                 8.8,
                 ['Chambre positive'],
-                'Frais:Viande'
+                FamilyLog::create(
+                    NameField::fromString('Viande'),
+                    FamilyLog::create(NameField::fromString('Frais'))
+                )
             ),
             $article
         );
@@ -75,7 +82,7 @@ class ArticleTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            'Surgelé',
+            FamilyLog::create(NameField::fromString('Frais')),
             3,
             [1, 3]
         );
@@ -87,7 +94,10 @@ class ArticleTest extends TestCase
             '10%',
             8.8,
             ['Chambre positive'],
-            'Frais:Viande'
+            FamilyLog::create(
+                NameField::fromString('Viande'),
+                FamilyLog::create(NameField::fromString('Frais'))
+            )
         );
 
         // Act
@@ -103,7 +113,10 @@ class ArticleTest extends TestCase
                 '10%',
                 8.8,
                 ['Chambre positive'],
-                'Frais:Viande'
+                FamilyLog::create(
+                    NameField::fromString('Viande'),
+                    FamilyLog::create(NameField::fromString('Frais'))
+                )
             ),
             $article
         );

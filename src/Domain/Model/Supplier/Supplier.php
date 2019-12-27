@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Supplier;
 
+use Domain\Model\Common\Entities\FamilyLog;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -70,7 +71,7 @@ class Supplier extends Contact
         EmailField $email,
         string $contact,
         PhoneField $cellphone,
-        string $familyLog,
+        FamilyLog $familyLog,
         int $delayDeliv,
         array $orderDays,
         bool $active = true
@@ -87,7 +88,7 @@ class Supplier extends Contact
             $contact,
             $cellphone->getValue()
         );
-        $this->familyLog = $familyLog;
+        $this->familyLog = $familyLog->path();
         $this->delayDeliv = $delayDeliv;
         $this->orderDays = $orderDays;
         $this->slug = $name->slugify();
@@ -105,7 +106,7 @@ class Supplier extends Contact
         EmailField $email,
         string $contact,
         PhoneField $gsm,
-        string $familyLog,
+        FamilyLog $familyLog,
         int $delayDeliv,
         array $orderDays,
         bool $active = true

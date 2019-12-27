@@ -7,6 +7,7 @@ namespace Domain\Model\Article;
 use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
 use Domain\Model\Article\VO\Packaging;
+use Domain\Model\Common\Entities\FamilyLog;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Supplier\Supplier;
 
@@ -87,7 +88,7 @@ class Article
      * @param string     $taxes
      * @param float      $minStock
      * @param array      $zoneStorages
-     * @param string     $familyLog
+     * @param FamilyLog  $familyLog
      * @param float|null $quantity
      * @param bool|null  $active
      */
@@ -99,7 +100,7 @@ class Article
         string $taxes,
         float $minStock,
         array $zoneStorages,
-        string $familyLog,
+        FamilyLog $familyLog,
         ?float $quantity = 0.000,
         ?bool $active = true
     ) {
@@ -111,7 +112,7 @@ class Article
         $this->quantity = $quantity;
         $this->minStock = $minStock;
         $this->zoneStorages = new ArrayCollection($this->makeZoneStorageEntities($zoneStorages));
-        $this->familyLog = $familyLog;
+        $this->familyLog = $familyLog->path();
         $this->active = $active;
         $this->slug = $name->slugify();
     }
@@ -124,7 +125,7 @@ class Article
      * @param string    $taxes
      * @param float     $minStock
      * @param array     $zoneStorages
-     * @param string    $familyLog
+     * @param FamilyLog $familyLog
      *
      * @return Article
      */
@@ -136,7 +137,7 @@ class Article
         string $taxes,
         float $minStock,
         array $zoneStorages,
-        string $familyLog
+        FamilyLog $familyLog
     ): self {
         return new self(
             $name,
@@ -157,7 +158,6 @@ class Article
     }
 
     /**
-     * @param array $zoneStorages
      * @return ZoneStorage[]
      */
     private function makeZoneStorageEntities(array $zoneStorages): array
