@@ -19,7 +19,7 @@ class FamilyLog
     private $parent = null;
 
     /**
-     * @var array
+     * @var FamilyLog[]|null
      */
     private $children;
     /**
@@ -45,14 +45,28 @@ class FamilyLog
         $this->slug = $name->slugify();
         if (null !== $parent) {
             $this->parent = $parent;
-            $this->parent->addChild($name->getValue());
-            $this->path = $parent->slug().'_'.$name->slugify();
+            $this->parent->addChild($this);
+            $this->path = $parent->slug().':'.$name->slugify();
+            if (null !== $this->parent->parent) {
+                $this->path = $this->parent->parent->slug().':'.$this->parent->slug().':'.$name->slugify();
+            }
         }
     }
 
+    /**
+     * @param NameField      $name
+     * @param FamilyLog|null $parent
+     *
+     * @return FamilyLog
+     */
     public static function create(NameField $name, ?FamilyLog $parent = null): self
     {
         return new self($name, $parent);
+    }
+
+    final public function parent(): FamilyLog
+    {
+        return $this->parent;
     }
 
     final public function path(): string
@@ -67,12 +81,35 @@ class FamilyLog
 
     final public function parseTree(): array
     {
-        return [
-            $this->name => $this->children,
-        ];
+        $arrayChildren = [];
+        foreach ($this->children as $child) {
+            if (null !== $this->hasChildren($child)) {
+                $arrayChildren[$child->name] = $this->hasChildren($child);
+            } else {
+                $arrayChildren[] = $child->name;
+            }
+        }
+
+        return [$this->name => $arrayChildren];
     }
 
-    private function addChild(string $child): void
+    /**
+     * @param FamilyLog $familyLog
+     *
+     * @return array|null
+     */
+    private function hasChildren(FamilyLog $familyLog): ?array
+    {
+        if (null !== $familyLog->children) {
+            return array_map(static function ($child) {
+                return $child->name;
+            }, $familyLog->children);
+        }
+
+        return null;
+    }
+
+    private function addChild(FamilyLog $child): void
     {
         $this->children[] = $child;
     }

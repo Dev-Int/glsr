@@ -13,45 +13,60 @@ class FamilyLogTest extends TestCase
     final public function testInstantiateFamilyLog(): void
     {
         // Arrange & Act
-        $familyLog = FamilyLog::create(
+        $surgele = FamilyLog::create(
             NameField::fromString('Surgelé'),
             FamilyLog::create(NameField::fromString('Alimentaire'))
+        );
+        $familyLog = FamilyLog::create(
+            NameField::fromString('Viande'),
+            $surgele
         );
 
         // Assert
         $this->assertEquals(
             new FamilyLog(
-                NameField::fromString('Surgelé'),
-                FamilyLog::create(NameField::fromString('Alimentaire'))
+                NameField::fromString('Viande'),
+                FamilyLog::create(
+                    NameField::fromString('Surgelé'),
+                    FamilyLog::create(
+                        NameField::fromString('Alimentaire')
+                    )
+                )
             ),
             $familyLog
         );
-        $this->assertEquals('alimentaire_surgele', $familyLog->path());
+        $this->assertEquals('alimentaire:surgele:viande', $familyLog->path());
     }
 
     final public function testGetTreeFamilyLog(): void
     {
         // Arrange
-        $famAlim = FamilyLog::create(
+        $alimentaire = FamilyLog::create(
             NameField::fromString('Alimentaire')
         );
-        FamilyLog::create(
+        $surgele = FamilyLog::create(
             NameField::fromString('Surgelé'),
-            $famAlim
+            $alimentaire
         );
         FamilyLog::create(
             NameField::fromString('Frais'),
-            $famAlim
+            $alimentaire
+        );
+        FamilyLog::create(
+            NameField::fromString('Viande'),
+            $surgele
         );
 
         // Act
-        $tree = $famAlim->parseTree();
+        $tree = $alimentaire->parseTree();
 
         // Assert
         $this->assertEquals(
             [
                 'Alimentaire' => [
-                    'Surgelé',
+                    'Surgelé' => [
+                        'Viande',
+                    ],
                     'Frais',
                 ],
             ],
