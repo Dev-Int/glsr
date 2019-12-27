@@ -1,8 +1,8 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Model\Common\VO;
-
 
 use Domain\Model\Common\InvalidPhone;
 use Domain\Model\Common\VO\PhoneField;
