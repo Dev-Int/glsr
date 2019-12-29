@@ -6,7 +6,7 @@
     <entity name="Domain\Model\Supplier\Supplier"
             table="supplier"
             repository-class="Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository">
-        <id name="id" type="integer" column="id">
+        <id name="supplierId" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
         <field name="name" type="string" length="255" nullable="false" unique="true" />

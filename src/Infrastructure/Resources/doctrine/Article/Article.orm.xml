@@ -12,7 +12,7 @@
         <field name="name" type="string" length="255" nullable="false" unique="true" />
         <field name="supplier" type="string" length="255" nullable="false" />
         <field name="unitStorage" type="string" length="50" nullable="false"/>
-        <field name="packaging" type="decimal" scale="6" precision="3" nullable="false" />
+        <field name="packaging" type="array" nullable="false" />
         <field name="price" type="decimal" scale="6" precision="3" nullable="false" />
         <field name="tva" type="string" nullable="false" />
         <field name="minStock" type="decimal" scale="6" precision="3" nullable="false" />
