@@ -13,27 +13,27 @@ use Domain\Model\Contact;
 class Supplier extends Contact
 {
     /**
-     * @var int id du fournisseur
+     * @var int id of Supplier
      */
     private $supplierId;
 
     /**
-     * @var string Famille logistique
+     * @var string Logistics family
      */
     private $familyLog;
 
     /**
-     * @var int Délai de livraison
+     * @var int Delivery delay
      */
     private $delayDeliv;
 
     /**
-     * @var array Tableau des jours de commande
+     * @var array Order days table
      */
     private $orderDays;
 
     /**
-     * @var bool Activé/Désactivé
+     * @var bool Active/Inactive
      */
     private $active;
 
@@ -55,7 +55,7 @@ class Supplier extends Contact
      * @param EmailField $email
      * @param string     $contact
      * @param PhoneField $cellphone
-     * @param string     $familyLog
+     * @param FamilyLog  $familyLog
      * @param int        $delayDeliv
      * @param array      $orderDays
      * @param bool       $active
