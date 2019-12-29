@@ -6,19 +6,20 @@ namespace Domain\Model\Article\VO;
 
 use Domain\Model\Common\InvalidQuantity;
 
-class Storage
+final class Storage
 {
     public const UNITS = [
-        'colis',
-        'carton',
         'bouteille',
         'boite',
-        'poche',
-        'pièce',
-        'portion',
+        'carton',
+        'colis',
         'kilogramme',
         'litre',
+        'pièce',
+        'poche',
+        'portion',
     ];
+
     /**
      * @var string
      */
@@ -81,7 +82,7 @@ class Storage
         return $quantity;
     }
 
-    final public function toArray(): array
+    public function toArray(): array
     {
         return [$this->unit, $this->quantity];
     }
