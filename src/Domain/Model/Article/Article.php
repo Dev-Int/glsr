@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
 use Domain\Model\Article\VO\Packaging;
 use Domain\Model\Common\Entities\FamilyLog;
+use Domain\Model\Common\Entities\Taxes;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Supplier\Supplier;
 
@@ -85,7 +86,7 @@ class Article
      * @param Supplier   $supplier
      * @param Packaging  $packaging
      * @param float      $price
-     * @param string     $taxes
+     * @param Taxes      $taxes
      * @param float      $minStock
      * @param array      $zoneStorages
      * @param FamilyLog  $familyLog
@@ -97,7 +98,7 @@ class Article
         Supplier $supplier,
         Packaging $packaging,
         float $price,
-        string $taxes,
+        Taxes $taxes,
         float $minStock,
         array $zoneStorages,
         FamilyLog $familyLog,
@@ -108,7 +109,7 @@ class Article
         $this->supplier = $supplier->name();
         $this->packaging = $packaging;
         $this->price = $price;
-        $this->taxes = $taxes;
+        $this->taxes = $taxes->name();
         $this->quantity = $quantity;
         $this->minStock = $minStock;
         $this->zoneStorages = new ArrayCollection($this->makeZoneStorageEntities($zoneStorages));
@@ -118,11 +119,13 @@ class Article
     }
 
     /**
+     * Create an Article.
+     *
      * @param NameField $name
      * @param Supplier  $supplier
      * @param Packaging $packaging
      * @param float     $price
-     * @param string    $taxes
+     * @param Taxes     $taxes
      * @param float     $minStock
      * @param array     $zoneStorages
      * @param FamilyLog $familyLog
@@ -134,7 +137,7 @@ class Article
         Supplier $supplier,
         Packaging $packaging,
         float $price,
-        string $taxes,
+        Taxes $taxes,
         float $minStock,
         array $zoneStorages,
         FamilyLog $familyLog
