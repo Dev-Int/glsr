@@ -4,81 +4,61 @@ declare(strict_types=1);
 
 namespace Domain\Model;
 
+use Domain\Model\Common\VO\ContactAddress;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 
 class Contact
 {
     /**
-     * @var string name nom de l'entreprise
+     * @var string name Company Name
      */
     protected $name;
 
     /**
-     * @var string Adresse de l'entreprise
+     * @var string Company address
      */
     protected $address;
 
     /**
-     * @var string Code postal
-     */
-    protected $zipCode;
-
-    /**
-     * @var string Ville
-     */
-    protected $town;
-
-    /**
-     * @var string Pays de l'entreprise
-     */
-    private $country;
-
-    /**
-     * @var string Téléphone de l'entreprise
+     * @var string Company phone number
      */
     protected $phone;
 
     /**
-     * @var string Fax de l'entreprise
+     * @var string Company fax number
      */
     protected $facsimile;
 
     /**
-     * @var string email de l'entreprise
+     * @var string Company email
      */
     protected $email;
 
     /**
-     * @var string Contact de l'entreprise
+     * @var string Company contact
      */
     protected $contact;
 
     /**
-     * @var string Gsm de l'entreprise
+     * @var string Company cellphone
      */
     protected $cellphone;
 
     /**
      * Contact constructor.
      *
-     * @param NameField  $name
-     * @param string     $address
-     * @param string     $zipCode
-     * @param string     $town
-     * @param string     $country
-     * @param string     $phone
-     * @param string     $facsimile
-     * @param EmailField $email
-     * @param string     $contact
-     * @param string     $cellphone
+     * @param NameField      $name
+     * @param ContactAddress $address
+     * @param string         $phone
+     * @param string         $facsimile
+     * @param EmailField     $email
+     * @param string         $contact
+     * @param string         $cellphone
      */
     public function __construct(
         NameField $name,
-        string $address,
-        string $zipCode,
-        string $town,
-        string $country,
+        ContactAddress $address,
         string $phone,
         string $facsimile,
         EmailField $email,
@@ -86,10 +66,7 @@ class Contact
         string $cellphone
     ) {
         $this->name = $name->getValue();
-        $this->address = $address;
-        $this->zipCode = $zipCode;
-        $this->town = $town;
-        $this->country = $country;
+        $this->address = $address->getValue();
         $this->phone = $phone;
         $this->facsimile = $facsimile;
         $this->email = $email->getValue();

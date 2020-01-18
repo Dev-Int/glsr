@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Domain\Model\Supplier;
 
 use Domain\Model\Common\Entities\FamilyLog;
+use Domain\Model\Common\VO\ContactAddress;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -13,7 +14,7 @@ use Domain\Model\Contact;
 class Supplier extends Contact
 {
     /**
-     * @var int id of Supplier
+     * @var int Id of Supplier
      */
     private $supplierId;
 
@@ -45,27 +46,21 @@ class Supplier extends Contact
     /**
      * Supplier constructor.
      *
-     * @param NameField  $name
-     * @param string     $address
-     * @param string     $zipCode
-     * @param string     $town
-     * @param string     $country
-     * @param PhoneField $phone
-     * @param PhoneField $facsimile
-     * @param EmailField $email
-     * @param string     $contact
-     * @param PhoneField $cellphone
-     * @param FamilyLog  $familyLog
-     * @param int        $delayDeliv
-     * @param array      $orderDays
-     * @param bool       $active
+     * @param NameField      $name
+     * @param ContactAddress $address
+     * @param PhoneField     $phone
+     * @param PhoneField     $facsimile
+     * @param EmailField     $email
+     * @param string         $contact
+     * @param PhoneField     $cellphone
+     * @param FamilyLog      $familyLog
+     * @param int            $delayDeliv
+     * @param array          $orderDays
+     * @param bool           $active
      */
     public function __construct(
         NameField $name,
-        string $address,
-        string $zipCode,
-        string $town,
-        string $country,
+        ContactAddress $address,
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
@@ -79,9 +74,6 @@ class Supplier extends Contact
         parent::__construct(
             $name,
             $address,
-            $zipCode,
-            $town,
-            $country,
             $phone->getValue(),
             $facsimile->getValue(),
             $email,
@@ -113,10 +105,7 @@ class Supplier extends Contact
     ): self {
         return new self(
             $name,
-            $address,
-            $zipCode,
-            $town,
-            $country,
+            ContactAddress::fromString($address, $zipCode, $town, $country),
             $phone,
             $facsimile,
             $email,

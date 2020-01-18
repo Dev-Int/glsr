@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit\Domain\Model\Supplier;
 
 use Domain\Model\Common\Entities\FamilyLog;
+use Domain\Model\Common\VO\ContactAddress;
 use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
@@ -34,10 +37,12 @@ class SupplierTest extends TestCase
         $this->assertEquals(
             new Supplier(
                 NameField::fromString('Davigel'),
-                '15, rue des givrés',
-                '75000',
-                'Paris',
-                'France',
+                ContactAddress::fromString(
+                    '15, rue des givrés',
+                    '75000',
+                    'Paris',
+                    'France'
+                ),
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -77,10 +82,12 @@ class SupplierTest extends TestCase
         $this->assertEquals(
             new Supplier(
                 NameField::fromString('Trans Gourmet'),
-                '15, rue des givrés',
-                '75000',
-                'Paris',
-                'France',
+                ContactAddress::fromString(
+                    '15, rue des givrés',
+                    '75000',
+                    'Paris',
+                    'France'
+                ),
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
