@@ -1,27 +1,10 @@
 <?php
 
-/**
- * Entity Tva.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tva Entity.
- *
- * @category Entity
- *
  * @ORM\Table(name="app_tva")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\TvaRepository")
  */
@@ -37,67 +20,36 @@ class Tva
     private $id;
 
     /**
-     * @var decimal VAT rate
+     * @var float VAT rate
      *
      * @ORM\Column(name="rate", type="decimal", precision=4, scale=3)
      */
     private $rate;
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set rate.
-     *
-     * @param decimal $rate VAT rate
-     *
-     * @return Settings\Diverse\Tva
-     */
-    public function setRate($rate)
+    public function setRate(float $rate): self
     {
         $this->rate = $rate;
 
         return $this;
     }
 
-    /**
-     * Get rate.
-     *
-     * @return decimal
-     */
-    public function getRate()
+    public function getRate(): float
     {
         return $this->rate;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return (number_format($this->getRate() * 100, 1)) . ' %';
     }
 
-    /**
-     * This method allows to make "echo $tva".
-     * <p> So, to "show" $tva,
-     * PHP will actually show the return of this method. <br />
-     * Here, the name, so "echo $tva"
-     * is equivalent to "echo $tva->getName()". </p>
-     *
-     * @return string name
-     */
-    public function __toString()
+    public function __toString(): string
     {
-        return (string)$this->getName();
+        return $this->getName();
     }
 }

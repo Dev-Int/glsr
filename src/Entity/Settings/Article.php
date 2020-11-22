@@ -1,18 +1,5 @@
 <?php
 
-/**
- * Entity Article.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity\Settings;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -20,18 +7,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
-
-use App\Entity\Settings\Supplier;
 use App\Entity\Settings\Diverse\Unit;
 use App\Entity\Settings\Diverse\Tva;
 use App\Entity\Settings\Diverse\FamilyLog;
 use App\Entity\Settings\Diverse\ZoneStorage;
 
 /**
- * Article.
- *
- * @category Entity
- *
  * @ORM\Table(name="app_article")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\ArticleRepository")
  * @UniqueEntity(fields="name", message="This article name is already used.")
@@ -55,28 +36,27 @@ class Article
      * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern="'^\w+[^/]'",
-     *     message="The title can only contain letters,
-     * digits and _ or -"
+     *     message="The title can only contain letters, digits and _ or -"
      * )
      */
     private $name;
 
     /**
-     * @var string|\App\Entity\Settings\Supplier Name of supplier
+     * @var string|Supplier Name of supplier
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Supplier")
      */
     private $supplier;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Unit Storage unit
+     * @var Unit Storage unit
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Unit")
      */
     private $unitStorage;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Unit Working unit
+     * @var Unit Working unit
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Unit")
      */
@@ -101,7 +81,7 @@ class Article
     private $price;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\Tva VAT rate
+     * @var string|Tva VAT rate
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\Tva")
      */
@@ -123,10 +103,10 @@ class Article
      * @Assert\Type(type="numeric",
      * message="The value {{value}} is not a valid type {{type}}.")
      */
-    private $minstock;
+    private $minStock;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection Storage area (s)
+     * @var ArrayCollection Storage area(s)
      *
      * @ORM\ManyToMany(targetEntity="App\Entity\Settings\Diverse\ZoneStorage")
      * @ORM\JoinTable(name="app_article_zonestorage")
@@ -135,7 +115,7 @@ class Article
     private $zoneStorages;
 
     /**
-     * @var string|\App\Entity\Settings\Diverse\FamilyLog Logistic family
+     * @var string|FamilyLog Logistic family
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Settings\Diverse\FamilyLog")
      * @Assert\NotBlank()
@@ -156,20 +136,20 @@ class Article
     private $slug;
 
     /**
-     * @var \DateTimeInterface Created date
-     * @ORM\Column(name="create_at", type="datetime")
+     * @var \DateTimeImmutable Created date
+     * @ORM\Column(name="create_at", type="datetime_immutable")
      */
     private $createAt;
 
     /**
-     * @var \DateTimeInterface Updated date
-     * @ORM\Column(name="update_at", type="datetime")
+     * @var \DateTimeImmutable Updated date
+     * @ORM\Column(name="update_at", type="datetime_immutable")
      */
     private $updateAt;
 
     /**
-     * @var \DateTimeInterface Deleted date
-     * @ORM\Column(name="delete_at", type="datetime", nullable=true)
+     * @var \DateTimeImmutable Deleted date
+     * @ORM\Column(name="delete_at", type="datetime_immutable", nullable=true)
      */
     private $deleteAt;
 
@@ -181,342 +161,171 @@ class Article
         $this->zoneStorages = new ArrayCollection();
         $this->active = true;
         $this->quantity = 0.000;
-        $this->createAt = new \DateTime() ;
-        $this->updateAt = new \DateTime() ;
-        $this->deleteAt = new \DateTime('3000-12-31') ;
+        $this->createAt = new \DateTimeImmutable() ;
+        $this->updateAt = new \DateTimeImmutable() ;
+        $this->deleteAt = new \DateTimeImmutable('3000-12-31') ;
     }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name Article name
-     *
-     * @return Article
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Set packaging.
-     *
-     * @param double $packaging Packaging (quantity)
-     *
-     * @return Article
-     */
-    public function setPackaging($packaging)
+    public function setPackaging(float $packaging): self
     {
         $this->packaging = $packaging;
 
         return $this;
     }
 
-    /**
-     * Get packaging.
-     *
-     * @return double
-     */
-    public function getPackaging()
+    public function getPackaging(): float
     {
         return $this->packaging;
     }
 
-    /**
-     * Set price.
-     *
-     * @param double $price price of the article
-     *
-     * @return Article
-     */
-    public function setPrice($price)
+    public function setPrice(float $price): self
     {
         $this->price = $price;
 
         return $this;
     }
 
-    /**
-     * Get price.
-     *
-     * @return double
-     */
-    public function getPrice()
+    public function getPrice(): float
     {
         return $this->price;
     }
 
-    /**
-     * Set quantity.
-     *
-     * @param double $quantity quantity in stock
-     *
-     * @return Article
-     */
-    public function setQuantity($quantity)
+    public function setQuantity(float $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    /**
-     * Get quantity.
-     *
-     * @return double
-     */
-    public function getQuantity()
+    public function getQuantity(): float
     {
         return $this->quantity;
     }
 
-    /**
-     * Set minstock.
-     *
-     * @param double $minstock Minimum stock
-     *
-     * @return Article
-     */
-    public function setMinstock($minstock)
+    public function setMinStock(float $minStock): self
     {
-        $this->minstock = $minstock;
+        $this->minStock = $minStock;
 
         return $this;
     }
 
-    /**
-     * Get minstock.
-     *
-     * @return double
-     */
-    public function getMinstock()
+    public function getMinStock(): float
     {
-        return $this->minstock;
+        return $this->minStock;
     }
 
-    /**
-     * Set supplier.
-     *
-     * @param null|\App\Entity\Settings\Supplier $supplier Supplier of the article
-     *
-     * @return Article
-     */
-    public function setSupplier(Supplier $supplier = null)
+    public function setSupplier(Supplier $supplier = null): self
     {
         $this->supplier = $supplier;
 
         return $this;
     }
 
-    /**
-     * Get supplier.
-     *
-     * @return string|\App\Entity\Settings\Supplier
-     */
-    public function getSupplier()
+    public function getSupplier(): Supplier
     {
         return $this->supplier;
     }
 
-    /**
-     * Set unitStorage.
-     *
-     * @param null|\App\Entity\Settings\Diverse\Unit $unitStorage Storage unit
-     *
-     * @return Article
-     */
-    public function setUnitStorage(Unit $unitStorage = null)
+    public function setUnitStorage(Unit $unitStorage = null): self
     {
         $this->unitStorage = $unitStorage;
 
         return $this;
     }
 
-    /**
-     * Get unitStorage.
-     *
-     * @return string|\App\Entity\Settings\Diverse\Unit
-     */
-    public function getUnitStorage()
+    public function getUnitStorage(): Unit
     {
         return $this->unitStorage;
     }
 
-    /**
-     * Add zoneStorage.
-     *
-     * @param \App\Entity\Settings\Diverse\ZoneStorage
-     * $zoneStorages Stockage area (s)
-     *
-     * @return Article
-     */
-    public function addZoneStorage(ZoneStorage $zoneStorages)
+    public function addZoneStorage(ZoneStorage $zoneStorages): self
     {
         $this->zoneStorages[] = $zoneStorages;
 
         return $this;
     }
 
-    /**
-     * Remove zoneStorage.
-     *
-     * @param \App\Entity\Settings\Diverse\ZoneStorage $zoneStorages Storage area to delete
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection|null
-     */
-    public function removeZoneStorage(ZoneStorage $zoneStorages)
+    public function removeZoneStorage(ZoneStorage $zoneStorages): void
     {
         $this->zoneStorages->removeElement($zoneStorages);
     }
 
     /**
-     * Get zoneStorage.
-     *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection|ZoneStorage[]
      */
     public function getZoneStorages()
     {
         return $this->zoneStorages;
     }
 
-    /**
-     * Set unitWorking
-     *
-     * @param \App\Entity\Settings\Diverse\Unit $unitWorking
-     * @return Article
-     */
-    public function setUnitWorking(Unit $unitWorking = null)
+    public function setUnitWorking(Unit $unitWorking = null): self
     {
         $this->unitWorking = $unitWorking;
 
         return $this;
     }
 
-    /**
-     * Get unitWorking
-     *
-     * @return \App\Entity\Settings\Diverse\UnitWorking
-     */
-    public function getUnitWorking()
+    public function getUnitWorking(): Unit
     {
         return $this->unitWorking;
     }
 
-    /**
-     * Set familyLog.
-     *
-     * @param null|\App\Entity\Settings\Diverse\FamilyLog $familyLog Logistic family
-     *
-     * @return Article
-     */
-    public function setFamilyLog(FamilyLog $familyLog = null)
+    public function setFamilyLog(FamilyLog $familyLog = null): self
     {
         $this->familyLog = $familyLog;
 
         return $this;
     }
 
-    /**
-     * Get familyLog.
-     *
-     * @return \App\Entity\Settings\Diverse\FamilyLog
-     */
-    public function getFamilyLog()
+    public function getFamilyLog(): FamilyLog
     {
         return $this->familyLog;
     }
 
-    /**
-     * Set tva
-     *
-     * @param \App\Entity\Settings\Diverse\Tva $tva
-     * @return Article
-     */
-    public function setTva(Tva $tva = null)
+    public function setTva(Tva $tva = null): self
     {
         $this->tva = $tva;
 
         return $this;
     }
 
-    /**
-     * Get tva
-     *
-     * @return \App\Entity\Settings\Diverse\Tva
-     */
-    public function getTva()
+    public function getTva(): Tva
     {
         return $this->tva;
     }
 
-    /**
-     * Set active.
-     *
-     * @param bool $active On / Off
-     *
-     * @return Article
-     */
-    public function setActive($active)
+    public function setActive(bool $active): self
     {
         $this->active = $active;
 
         return $this;
     }
 
-    /**
-     * Is active
-     *
-     * @return boolean
-     */
-    public function isActive()
+    public function isActive(): bool
     {
         return $this->active;
     }
 
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
-    }
-
-    /**
-     * This method allows to make "echo $article".
-     * <p> So, to "show" $article,
-     * PHP will actually show the return of this method. <br />
-     * Here, the name, so "echo $article"
-     * is equivalent to "echo $article->getName()". </p>
-     *
-     * @return string name
-     */
-    public function __toString()
-    {
-        return $this->name;
     }
 
     public function setSlug(string $slug): self
@@ -526,59 +335,49 @@ class Article
         return $this;
     }
 
-    /**
-     * Get Create at
-     *
-     * @return \DateTimeInterface
-     */
-    public function getCreateAt()
+    public function getCreateAt(): \DateTimeImmutable
     {
         return $this->createAt;
     }
 
-    public function setCreateAt(\DateTimeInterface $createAt): self
+    public function setCreateAt(\DateTimeImmutable $createAt): self
     {
         $this->createAt = $createAt;
 
         return $this;
     }
 
-    /**
-     * Get Update at
-     *
-     * @return \DateTimeInterface
-     */
-    public function getUpdateAt()
+    public function getUpdateAt(): \DateTimeImmutable
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(\DateTimeInterface $updateAt): self
+    public function setUpdateAt(\DateTimeImmutable $updateAt): self
     {
         $this->updateAt = $updateAt;
 
         return $this;
     }
 
-    /**
-     * Get Delete at
-     *
-     * @return \DateTimeInterface
-     */
-    public function getDeleteAt()
+    public function getDeleteAt(): \DateTimeImmutable
     {
         return $this->updateAt;
     }
 
-    public function setDeleteAt(\DateTimeInterface $deleteAt = null): self
+    public function setDeleteAt(\DateTimeImmutable $deleteAt = null): self
     {
         if ($deleteAt === null) {
-            $this->deleteAt = new \DateTime();
+            $this->deleteAt = new \DateTimeImmutable();
             date_date_set($this->deleteAt, date('Y') + 4, 12, 31);
         } else {
             $this->deleteAt = $deleteAt;
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity\Staff;
 
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Null_;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -11,13 +12,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="App\Repository\Staff\User2Repository")
  * @UniqueEntity(
- *  fields={"email"},
- *  message="L'email que vous avez indiqué existe déjà !!"
+ *     fields={"email"},
+ *     message="L'email que vous avez indiqué existe déjà !!"
  * )
  */
 class User2 implements UserInterface
 {
-    const ROLE_DEFAULT = 'ROLE_USER';
+    public const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
      * @ORM\Id()
@@ -99,7 +100,7 @@ class User2 implements UserInterface
         return $this;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         // you *may* need a real salt depending on your encoder
         // see section on salt below
@@ -117,36 +118,23 @@ class User2 implements UserInterface
         return array_unique($roles);
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
-    /**
-     * Get the value of isActive
-     */
-    public function getIsActive()
+    public function getIsActive(): bool
     {
         return $this->isActive;
     }
 
-    /**
-     * Set the value of isActive
-     */
-    public function setIsActive($isActive) :self
+    public function setIsActive(bool $isActive) :self
     {
         $this->isActive = $isActive;
 
         return $this;
     }
 
-    /**
-     * Sets the roles of the user.
-     *
-     * This overwrites any previous roles.
-     *
-     * @param array $roles
-     */
-    public function setRoles(array $roles = array()) :self
+    public function setRoles(array $roles = []) :self
     {
         $this->roles = array();
         foreach ($roles as $role) {
@@ -155,14 +143,7 @@ class User2 implements UserInterface
         return $this;
     }
 
-    /**
-     * Adds a role to the user.
-     *
-     * @param string $role
-     *
-     * @return static
-     */
-    public function addRoles($role)
+    public function addRoles(string $role): self
     {
         $role = strtoupper($role);
         if ($role === static::ROLE_DEFAULT) {

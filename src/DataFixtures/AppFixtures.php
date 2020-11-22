@@ -2,15 +2,21 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Staff\User2;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+final class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $user = (new User2())
+            ->setUsername('Admin')
+            ->setEmail('admin@example.com')
+            ->setRoles(['ROLE_ADMIN'])
+            ->setIsActive(true)
+        ;
+        $manager->persist($user);
 
         $manager->flush();
     }

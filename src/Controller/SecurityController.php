@@ -4,20 +4,18 @@ namespace App\Controller;
 
 use App\Entity\Staff\User2;
 use App\Form\Type\RegistrationType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class SecurityController extends AbstractController
+final class SecurityController extends AbstractController
 {
     /**
      * @Route("/subscribtion", name="security_registration")
      */
-    public function registration(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder)
+    public function registration(Request $request, UserPasswordEncoderInterface $encoder): Response
     {
         $user = new User2();
         $form = $this->createForm(RegistrationType::class, $user, ['roles' => $this->getExistingRoles(),]);
@@ -30,6 +28,7 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $user->setIsActive(true);
 
+            $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
 
@@ -42,27 +41,21 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Login
-     *
      * @Route("/connexion", name="securityLogin")
      */
-    public function login()
+    public function login(): Response
     {
         return $this->render('security/login.html.twig');
     }
+
     /**
      * @Route("/deconnexion", name="securityLogout")
      */
-    public function logout()
+    public function logout(): void
     {
     }
 
-    /**
-     * Get the existing roles
-     *
-     * @return array Array of roles
-     */
-    private function getExistingRoles()
+    private function getExistingRoles(): array
     {
         $roleHierarchy = $this->getParameter('security.role_hierarchy.roles');
         $roles = array_keys($roleHierarchy);

@@ -1,36 +1,19 @@
 <?php
 
-/**
- * Entity Supplier.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Form\Type;
 
+use App\Entity\Settings\Diverse\FamilyLog;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-/**
- * FamilyLogSelectType Form properties.
- *
- * @category Form
- */
-class FamilyLogSelectType extends AbstractType
+final class FamilyLogSelectType extends AbstractType
 {
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults(
-            ['class' => 'App:Settings\Diverse\FamilyLog',
+            ['class' => FamilyLog::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('f')
                         ->orderBy('f.path', 'ASC');
@@ -38,7 +21,7 @@ class FamilyLogSelectType extends AbstractType
         );
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return EntityType::class;
     }

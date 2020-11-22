@@ -1,68 +1,46 @@
 <?php
 
-/**
- * DefaultController controller de l'application.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link      https://github.com/Dev-Int/glsr
- */
-
 namespace App\Controller;
 
+use App\Entity\Settings\Diverse\FamilyLog;
+use App\Entity\Settings\Supplier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Description of DefaultController
- *
- * @category Controller
- */
-class DefaultController extends AbstractController
+final class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         return $this->render('default/index.html.twig');
     }
 
     /**
-     * Get FamilyLog.
-     *
      * @Route("/getfamilylog", name="getfamilylog", methods="POST")
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request Post request
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getFamilyLogAction(Request $request)
+    public function getFamilyLogAction(Request $request): Response
     {
-        // Get all datas
         $etm = $this->getDoctrine()->getManager();
 
+        /** @var FamilyLog[] $familyLogs */
         $familyLogs = $etm->getRepository('App:Settings\Diverse\FamilyLog')->findAll();
 
 
         $return = new Response('Error');
 
         if ($request->isXmlHttpRequest()) {
-            $familyLog = array();
+            $familyLog = [];
             $id = $request->get('id');
 
-            // First return data needed
+            /** @var Supplier $supplier */
             $supplier = $etm->getRepository('App:Settings\Supplier')->find($id);
             $familyLog['id'] = $supplier->getFamilyLog()->getId();
-            if ($id != '') {
-                // Add directs childrens of $familyLog
+            if ($id !== '') {
+                // Add directs children of $familyLog
                 $familyLog = $this->getSubFamily($familyLogs, $familyLog);
 
                 $response = new Response();
@@ -78,10 +56,9 @@ class DefaultController extends AbstractController
     /**
      * Get the SubFamily of Supplier.
      *
-     * @param object[] $familyLogs
-     * @param array    $familyLog
+     * @param FamilyLog[] $familyLogs
      */
-    protected function getSubFamily($familyLogs, array $familyLog)
+    protected function getSubFamily(array $familyLogs, array $familyLog): array
     {
         $testFamily = '';
         foreach ($familyLogs as $family) {

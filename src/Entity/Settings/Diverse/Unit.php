@@ -1,28 +1,11 @@
 <?php
 
-/**
- * Entity Unit.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity\Settings\Diverse;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Unit Entity.
- *
- * @category Entity
- *
  * @ORM\Table(name="app_unit")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\Diverse\UnitRepository")
  */
@@ -50,7 +33,7 @@ class Unit
      * @ORM\Column(name="abbr", type="string", length=50)
      */
     private $abbr;
-    
+
     /**
      * @var string Slug name
      * @Gedmo\Slug(fields={"name"})
@@ -58,82 +41,41 @@ class Unit
      */
     private $slug;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Unit
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Set abbr
-     *
-     * @param string $abbr
-     * @return Unit
-     */
-    public function setAbbr($abbr)
+    public function setAbbr(string $abbr): self
     {
         $this->abbr = $abbr;
 
         return $this;
     }
 
-    /**
-     * Get abbr
-     *
-     * @return string
-     */
-    public function getAbbr()
+    public function getAbbr(): string
     {
         return $this->abbr;
     }
 
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * This method lets you do "echo $unit".
-     * <p>So, to "show" $unit,
-     * PHP will actually show the return of this method. <br />
-     * Here, the name, so "echo $unit"
-     * is equivalent to "echo $unit->getName ()"</p>.
-     *
-     * @return string name
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->abbr;
     }
