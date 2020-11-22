@@ -16,4 +16,9 @@
     <file>src/</file>
     <file>tests/</file>
 
+
+    <exclude-pattern>bin/.phpunit</exclude-pattern>
+    <exclude-pattern>tests/bootstrap.php</exclude-pattern>
+    <exclude-pattern>public/index.php</exclude-pattern>
+
 </ruleset>

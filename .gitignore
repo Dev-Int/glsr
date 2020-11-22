@@ -2,10 +2,6 @@
 /.directory
 
 /.env.*
-/public/bundles/
-/vendor/
-
-/var/
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
@@ -17,10 +13,18 @@
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
-/ruleset.xml
-/phpmd.xml
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
+###> symfony/phpunit-bridge ###
+.phpunit
 .phpunit.result.cache
-###< phpunit/phpunit ###
+/phpunit.xml
+###< symfony/phpunit-bridge ###

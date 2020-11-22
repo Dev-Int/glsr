@@ -1,0 +1,13 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    excludes_analyse:
+        - tests/bootstrap.php
+        - src/Domain/Model/Common/StringExceeds255Characters.php
+        - src/DoctrineMigrations
+    bootstrapFiles:
+        - bin/.phpunit/phpunit-8.5-0/vendor/autoload.php
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
