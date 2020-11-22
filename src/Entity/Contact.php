@@ -1,18 +1,5 @@
 <?php
 
-/**
- * SuperClass Entity Contact.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -20,10 +7,6 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Contact Entity.
- *
- * @category Entity
- *
  * @ORM\MappedSuperclass
  */
 class Contact
@@ -58,7 +41,7 @@ class Contact
     private $town;
 
     /**
-     * @var phone_number Téléphone de l'entreprise
+     * @var string Téléphone de l'entreprise
      *
      * @ORM\Column(name="phone", type="phone_number")
      * @Assert\NotBlank()
@@ -67,7 +50,7 @@ class Contact
     private $phone;
 
     /**
-     * @var phone_number Fax de l'entreprise
+     * @var string Fax de l'entreprise
      *
      * @ORM\Column(name="fax", type="phone_number")
      * @Assert\NotBlank()
@@ -95,7 +78,7 @@ class Contact
     private $contact;
 
     /**
-     * @var phone_number Gsm de l'entreprise
+     * @var string Gsm de l'entreprise
      *
      * @ORM\Column(name="gsm", type="phone_number")
      * @Assert\NotBlank()
@@ -103,221 +86,115 @@ class Contact
      */
     private $gsm;
 
-    /**
-     * Set address
-     *
-     * @param string $address
-     * @return Contact
-     */
-    public function setAddress($address)
+    public function setAddress(string $address): self
     {
         $this->address = $address;
 
         return $this;
     }
 
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * Set zipcode
-     *
-     * @param string $zipcode
-     * @return Contact
-     */
-    public function setZipcode($zipcode)
+    public function setZipcode(string $zipcode): self
     {
         $this->zipcode = $zipcode;
 
         return $this;
     }
 
-    /**
-     * Get zipcode
-     *
-     * @return string
-     */
-    public function getZipcode()
+    public function getZipcode(): string
     {
         return $this->zipcode;
     }
 
-    /**
-     * Set town
-     *
-     * @param string $town
-     * @return Contact
-     */
-    public function setTown($town)
+    public function setTown(string $town): self
     {
         $this->town = strtoupper($town);
 
         return $this;
     }
 
-    /**
-     * Get town
-     *
-     * @return string
-     */
-    public function getTown()
+    public function getTown(): string
     {
         return $this->town;
     }
 
-    /**
-     * Set phone
-     *
-     * @param phone_number $phone
-     * @return Contact
-     */
-    public function setPhone($phone)
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 
         return $this;
     }
 
-    /**
-     * Get phone
-     *
-     * @return phone_number
-     */
-    public function getPhone()
+    public function getPhone(): string
     {
         return $this->phone;
     }
 
-    /**
-     * Set fax
-     *
-     * @param phone_number $fax
-     * @return Contact
-     */
-    public function setFax($fax)
+    public function setFax(string $fax): self
     {
         $this->fax = $fax;
 
         return $this;
     }
 
-    /**
-     * Get fax
-     *
-     * @return phone_number
-     */
-    public function getFax()
+    public function getFax(): string
     {
         return $this->fax;
     }
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Contact
-     */
-    public function setEmail($email)
+    public function setEmail(string $email):self
     {
         $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * Set contact
-     *
-     * @param string $contact
-     * @return Contact
-     */
-    public function setContact($contact)
+    public function setContact(string $contact): self
     {
         $this->contact = $contact;
 
         return $this;
     }
 
-    /**
-     * Get contact
-     *
-     * @return string
-     */
-    public function getContact()
+    public function getContact(): string
     {
         return $this->contact;
     }
 
-    /**
-     * Set gsm
-     *
-     * @param phone_number $gsm
-     *
-     * @return Contact
-     */
-    public function setGsm($gsm)
+    public function setGsm(string $gsm): self
     {
         $this->gsm = $gsm;
 
         return $this;
     }
 
-    /**
-     * Get gsm
-     *
-     * @return phone_number
-     */
-    public function getGsm()
+    public function getGsm(): string
     {
         return $this->gsm;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Contact
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get complete address
-     *
-     * @return string
-     */
-    public function getCompleteAddress()
+    public function getCompleteAddress(): string
     {
         return $this->address . '<br>' . $this->zipcode . ' ' . $this->town;
     }

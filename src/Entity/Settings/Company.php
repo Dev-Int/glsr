@@ -1,28 +1,11 @@
 <?php
 
-/**
- * Entity Company.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity\Settings;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Contact;
 
 /**
- * Company Entity.
- *
- * @category Entity
- *
  * @ORM\Table(name="app_company")
  * @ORM\Entity(repositoryClass="App\Repository\Settings\CompanyRepository")
  */
@@ -44,36 +27,19 @@ class Company extends Contact
      */
     private $status;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set status.
-     *
-     * @param string $status Legal status
-     *
-     * @return Company
-     */
-    public function setStatus($status)
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    /**
-     * Get status.
-     *
-     * @return string
-     */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }

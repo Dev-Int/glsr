@@ -1,28 +1,12 @@
 <?php
 
-/**
- * Entity FamilyLog.
- *
- * PHP Version 7
- *
- * @author    Quétier Laurent <lq@dev-int.net>
- * @copyright 2018 Dev-Int GLSR
- * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
- *
- * @version GIT: $Id$
- *
- * @link https://github.com/Dev-Int/glsr
- */
 namespace App\Entity\Settings\Diverse;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * FamilyLog Entity.
- *
- * @category Entity
- *
  * @ORM\Table(name="app_familylog")
  * @ORM\Entity(repositoryClass="Gedmo\Tree\Entity\Repository\MaterializedPathRepository")
  * @Gedmo\Tree(type="materializedPath")
@@ -51,7 +35,7 @@ class FamilyLog
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @var string Slug name
      * @Gedmo\Slug(fields={"name"})
@@ -77,186 +61,104 @@ class FamilyLog
      */
     private $children;
 
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
-    /**
-     * Get id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name.
-     *
-     * @param string $name Designation
-     *
-     * @return FamilyLog
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * This method allows to do "echo $familyLog".
-     * <p> So, to "show" $familyLog,
-     * PHP will actually show the return of this method.<br />
-     * Here, the name, so "echo $ familyLog"
-     * is equivalent to "echo $familyLog->getName ()"</p>.
-     *
-     * @return string name
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->name;
     }
 
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
 
-    /**
-     * Set parent
-     *
-     * @param null|\App\Entity\Settings\Diverse\FamilyLog $parent
-     * @return FamilyLog
-     */
-    public function setParent(\App\Entity\Settings\Diverse\FamilyLog $parent = null)
+    public function setParent(FamilyLog $parent = null): self
     {
         $this->parent = $parent;
 
         return $this;
     }
 
-    /**
-     * Get parent
-     *
-     * @return \App\Entity\Settings\Diverse\FamilyLog|null
-     */
-    public function getParent()
+    public function getParent(): ?FamilyLog
     {
         return $this->parent;
     }
 
-    /**
-     * Add children
-     *
-     * @param \App\Entity\Settings\Diverse\FamilyLog $children
-     * @return FamilyLog
-     */
-    public function addChild(\App\Entity\Settings\Diverse\FamilyLog $children)
+    public function addChild(FamilyLog $children): self
     {
         $this->children[] = $children;
 
         return $this;
     }
 
-    /**
-     * Remove children
-     *
-     * @param \App\Entity\Settings\Diverse\FamilyLog $children
-     */
-    public function removeChild(\App\Entity\Settings\Diverse\FamilyLog $children)
+    public function removeChild(FamilyLog $children): void
     {
         $this->children->removeElement($children);
     }
 
     /**
-     * Get children
-     *
-     * @return \App\Entity\Settings\Diverse\FamilyLog[]|\Doctrine\Common\Collections\ArrayCollection
+     * @return FamilyLog[]|ArrayCollection
      */
     public function getChildren()
     {
         return $this->children;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return \App\Entity\Settings\Diverse\FamilyLog
-     */
-    public function setPath($path)
+    public function setPath(string $path): self
     {
         $this->path = $path;
 
         return $this;
     }
 
-    /**
-     * Get path
-     *
-     * @return string
-     */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * Set level
-     *
-     * @param integer $level
-     * @return \App\Entity\Settings\Diverse\FamilyLog
-     */
-    public function setLevel($level)
+    public function setLevel(int $level): self
     {
         $this->level = $level;
 
         return $this;
     }
 
-    /**
-     * Get level
-     *
-     * @return integer
-     */
-    public function getLevel()
+    public function getLevel(): int
     {
         return $this->level;
     }
-    
+
     /**
-     * Allows hierachy display.
-     *
-     * @return string
+     * Allows hierarchy display.
      */
-    public function getIndentedName()
+    public function getIndentedName(): string
     {
         $return = '';
         if ($this->parent !== null) {
-            if ($this->level == 2) {
+            if ($this->level === 2) {
                 $return = '|-- ' . $this->name;
-            } elseif ($this->level == 3) {
+            } elseif ($this->level === 3) {
                 $return = '|-- |-- ' . $this->name;
             }
         } else {

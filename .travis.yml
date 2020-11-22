@@ -11,8 +11,8 @@ dist: 'precise'
 before_install:
  - sudo apt-get update && sudo apt-get install graphviz
 
-before_script: 
-  ## Composer 
+before_script:
+  ## Composer
   - composer install -n
   ## Composer : Mise à jour et Installation des pre-requis
   - composer selfupdate --quiet
@@ -42,7 +42,7 @@ before_script:
   #- pyrus install --force phpunit/DbUnit
   - composer install --dev --prefer-source
 
-script: 
+script:
   ## PHPUnit
   #- phpunit -c app
   #- phpunit --coverage-text
@@ -58,7 +58,7 @@ script:
 
 notifications:
   email:
-    lq@dev-int.net
+    devint.creation@gmail.com
 
 # whitelist
 branches:

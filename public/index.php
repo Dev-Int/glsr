@@ -1,21 +1,23 @@
 <?php
 
 use App\Kernel;
-use Symfony\Component\Debug\Debug;
+use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/../vendor/autoload.php';
 
 // The check is to ensure we don't use .env in production
-if (null !== filter_input(INPUT_SERVER, 'APP_ENV')) {
+if (!isset($_SERVER['APP_ENV'], $_ENV['APP_ENV']) && false === getenv('APP_ENV')) {
     if (!class_exists(Dotenv::class)) {
         throw new \RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
     }
     (new Dotenv())->load(__DIR__.'/../.env');
 }
 
-$env = filter_input(INPUT_SERVER, 'APP_ENV') ?? 'dev';
+$env = $_SERVER['APP_ENV'] ?? $_ENV['APP_ENV'] ?? getenv('APP_ENV');
+
+// $env = filter_input(INPUT_SERVER, 'APP_ENV') ?? 'dev';
 $debug = (bool) (filter_input(INPUT_SERVER, 'APP_DEBUG') ?? ('prod' !== $env));
 
 if ($debug) {
