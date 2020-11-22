@@ -15,7 +15,9 @@
  */
 namespace App\Repository\Settings;
 
+use App\Entity\Settings\Supplier;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * SupplierRepository Entity.
@@ -28,9 +30,9 @@ class SupplierRepository extends EntityRepository
      * Returns the active providers corresponding to the logistic family
      * of the article in parameter.
      *
-     * @param App\Entity\Settings\Supplier $supplier Selected supplier
+     * @param Supplier $supplier Selected supplier
      *
-     * @return \Doctrine\ORM\QueryBuilder DQL query
+     * @return QueryBuilder DQL query
      */
     public function getSupplierForReassign($supplier)
     {
