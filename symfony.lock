@@ -117,6 +117,9 @@
     "ocramius/proxy-manager": {
         "version": "2.10.0"
     },
+    "php": {
+        "version": "7.4"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.1"
     },
