@@ -78,6 +78,9 @@ return PhpCsFixer\Config::create()
         'php_unit_test_case_static_method_calls' => [
             'call_type' => 'static',
         ],
+         'concat_space' => [
+             'spacing' => 'one',
+         ],
         'array_syntax' => [
             'syntax' => 'short',
         ],
