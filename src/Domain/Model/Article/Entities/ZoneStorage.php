@@ -2,29 +2,48 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Article\Entities;
 
 use Domain\Model\Common\VO\NameField;
 
-class ZoneStorage
+final class ZoneStorage
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
+    private string $slug;
 
-    /**
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * ZoneStorage constructor.
-     * @param NameField $name
-     */
     public function __construct(NameField $name)
     {
         $this->name = $name->getValue();
         $this->slug = $name->slugify();
+    }
+
+    public static function create(NameField $name): self
+    {
+        return new self($name);
+    }
+
+    public function renameZone(NameField $name): void
+    {
+        $this->name = $name->getValue();
+        $this->slug = $name->slugify();
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
     }
 }

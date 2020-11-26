@@ -11,10 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Article\VO;
+namespace Domain\Model\Protocol;
 
-final class InvalidUnit extends \DomainException
+use Domain\Model\Protocol\Common\StringifyProtocol;
+
+interface IdProtocol extends StringifyProtocol
 {
-    /** @var string */
-    protected $message = 'L\'unité ne correspond pas à une unité valide.';
+    public static function generate(): self;
 }

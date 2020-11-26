@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace Domain\Protocol\Repository;
 
-use Domain\Model\Article\Article;
+use Domain\Model\Supplier\Supplier;
 
-interface ArticleRepositoryProtocol
+interface SupplierRepositoryProtocol
 {
     /**
-     * Save the Article object in the data storage.
+     * Save the Supplier object in the data storage.
      */
-    public function save(Article $article): void;
+    public function save(Supplier $article): void;
 
     /**
-     * Delete the Article object in the data storage.
+     * Delete the Supplier object in the data storage.
      */
-    public function remove(Article $article): void;
+    public function remove(Supplier $article): void;
 }

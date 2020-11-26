@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\Unit\Domain\Model\Article\VO;
 
 use Domain\Model\Article\VO\Packaging;
@@ -24,17 +33,17 @@ class PackagingTest extends TestCase
         $packages4 = Packaging::fromArray($array4);
 
         // Assert
-        $this->assertEquals($packages1->parcel(), ['colis', 1]);
-        $this->assertEquals($packages1->subPackage(), ['poche', 4]);
-        $this->assertEquals($packages1->consumerUnit(), ['portion', 32]);
-        $this->assertEquals($packages2->parcel(), ['colis', 1]);
-        $this->assertEquals($packages2->subPackage(), ['poche', 4]);
-        $this->assertNull($packages2->consumerUnit());
-        $this->assertEquals($packages3->parcel(), ['colis', 1]);
-        $this->assertNull($packages3->subPackage());
-        $this->assertEquals($packages3->consumerUnit(), ['portion', 32]);
-        $this->assertEquals($packages4->parcel(), ['colis', 1]);
-        $this->assertNull($packages4->subPackage());
-        $this->assertNull($packages4->consumerUnit());
+        static::assertEquals(['colis', 1], $packages1->parcel());
+        static::assertEquals(['poche', 4], $packages1->subPackage());
+        static::assertEquals(['portion', 32], $packages1->consumerUnit());
+        static::assertEquals(['colis', 1], $packages2->parcel());
+        static::assertEquals(['poche', 4], $packages2->subPackage());
+        static::assertNull($packages2->consumerUnit());
+        static::assertEquals(['colis', 1], $packages3->parcel());
+        static::assertNull($packages3->subPackage());
+        static::assertEquals(['portion', 32], $packages3->consumerUnit());
+        static::assertEquals(['colis', 1], $packages4->parcel());
+        static::assertNull($packages4->subPackage());
+        static::assertNull($packages4->consumerUnit());
     }
 }

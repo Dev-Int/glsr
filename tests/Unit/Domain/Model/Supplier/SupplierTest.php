@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\Unit\Domain\Model\Supplier;
 
 use Domain\Model\Common\Entities\FamilyLog;
@@ -10,6 +19,7 @@ use Domain\Model\Common\VO\EmailField;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
 use Domain\Model\Supplier\Supplier;
+use Domain\Model\Supplier\SupplierUuid;
 use PHPUnit\Framework\TestCase;
 
 class SupplierTest extends TestCase
@@ -18,6 +28,7 @@ class SupplierTest extends TestCase
     {
         // Arrange & Act
         $supplier = Supplier::create(
+            SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Davigel'),
             '15, rue des givrés',
             '75000',
@@ -34,8 +45,9 @@ class SupplierTest extends TestCase
         );
 
         // Assert
-        $this->assertEquals(
+        static::assertEquals(
             new Supplier(
+                SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
                 ContactAddress::fromString(
                     '15, rue des givrés',
@@ -60,6 +72,7 @@ class SupplierTest extends TestCase
     {
         // Arrange
         $supplier = Supplier::create(
+            SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Davigel'),
             '15, rue des givrés',
             '75000',
@@ -79,8 +92,9 @@ class SupplierTest extends TestCase
         $supplier->renameSupplier(NameField::fromString('Trans Gourmet'));
 
         // Assert
-        $this->assertEquals(
+        static::assertEquals(
             new Supplier(
+                SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Trans Gourmet'),
                 ContactAddress::fromString(
                     '15, rue des givrés',

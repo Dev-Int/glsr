@@ -2,27 +2,24 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Common\Entities;
 
 use NumberFormatter;
 
-class Taxes
+final class Taxes
 {
-    /**
-     * @var float
-     */
-    private $rate;
+    private float $rate;
+    private ?string $name;
 
-    /**
-     * @var false|string
-     */
-    private $name;
-
-    /**
-     * Taxes constructor.
-     *
-     * @param float $rate
-     */
     public function __construct(float $rate)
     {
         $fmtPercent = new NumberFormatter('fr_FR', NumberFormatter::PERCENT);
@@ -30,8 +27,8 @@ class Taxes
 
         $this->rate = $rate / 100;
 
-        $fraction = explode('.', (string) $rate);
-        if (strlen($fraction[1]) > 2) {
+        $fraction = \explode('.', (string) $rate);
+        if (\strlen($fraction[1]) > 2) {
             $this->rate = $rate;
         }
 
@@ -45,18 +42,18 @@ class Taxes
 
     public static function fromPercent(string $name): self
     {
-        preg_match('/^([0-9]*)(,([0-9]*?)) %$/', trim($name), $str);
-        $float = $str[1].'.'.$str[3];
+        \preg_match('/^(\d*)(,(\d*?)) %$/u', \trim($name), $str);
+        $float = $str[1] . '.' . $str[3];
 
         return new self((float) $float);
     }
 
-    final public function rate(): float
+    public function rate(): float
     {
         return $this->rate;
     }
 
-    final public function name(): string
+    public function name(): string
     {
         return $this->name;
     }

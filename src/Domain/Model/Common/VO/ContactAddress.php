@@ -2,37 +2,24 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Common\VO;
 
 final class ContactAddress
 {
-    /**
-     * @var string Address
-     */
-    protected $address;
-    /**
-     * @var string Zip code
-     */
-    protected $zipCode;
+    private string $address;
+    private string $zipCode;
+    private string $town;
+    private string $country;
 
-    /**
-     * @var string Town
-     */
-    protected $town;
-
-    /**
-     * @var string Country
-     */
-    protected $country;
-
-    /**
-     * ContactAddress constructor.
-     *
-     * @param string $address
-     * @param string $zipCode
-     * @param string $town
-     * @param string $country
-     */
     public function __construct(string $address, string $zipCode, string $town, string $country)
     {
         $this->address = $address;
@@ -48,6 +35,6 @@ final class ContactAddress
 
     public function getValue(): string
     {
-        return $this->address."\n".$this->zipCode.' '.$this->town.', '.$this->country;
+        return $this->address . "\n" . $this->zipCode . ' ' . $this->town . ', ' . $this->country;
     }
 }

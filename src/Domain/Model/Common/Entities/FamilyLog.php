@@ -2,43 +2,31 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Common\Entities;
 
 use Domain\Model\Common\VO\NameField;
 
-class FamilyLog
+final class FamilyLog
 {
+    private string $name;
+    private ?FamilyLog $parent = null;
     /**
-     * @var string
+     * @var null|FamilyLog[]
      */
-    private $name;
+    private ?array $children = null;
+    private string $slug;
+    private string $path;
 
-    /**
-     * @var string|null
-     */
-    private $parent = null;
-
-    /**
-     * @var FamilyLog[]|null
-     */
-    private $children;
-    /**
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * @var string
-     */
-    private $path;
-
-    /**
-     * FamilyLog constructor.
-     *
-     * @param NameField      $name
-     * @param FamilyLog|null $parent
-     */
-    public function __construct(NameField $name, ?FamilyLog $parent = null)
+    public function __construct(NameField $name, ?self $parent = null)
     {
         $this->name = $name->getValue();
         $this->path = $name->slugify();
@@ -46,40 +34,34 @@ class FamilyLog
         if (null !== $parent) {
             $this->parent = $parent;
             $this->parent->addChild($this);
-            $this->path = $parent->slug().':'.$name->slugify();
+            $this->path = $parent->slug() . ':' . $name->slugify();
             if (null !== $this->parent->parent) {
-                $this->path = $this->parent->parent->slug().':'.$this->parent->slug().':'.$name->slugify();
+                $this->path = $this->parent->parent->slug() . ':' . $this->parent->slug() . ':' . $name->slugify();
             }
         }
     }
 
-    /**
-     * @param NameField      $name
-     * @param FamilyLog|null $parent
-     *
-     * @return FamilyLog
-     */
-    public static function create(NameField $name, ?FamilyLog $parent = null): self
+    public static function create(NameField $name, ?self $parent = null): self
     {
         return new self($name, $parent);
     }
 
-    final public function parent(): FamilyLog
+    public function parent(): self
     {
         return $this->parent;
     }
 
-    final public function path(): string
+    public function path(): string
     {
         return $this->path;
     }
 
-    final public function slug(): string
+    public function slug(): string
     {
         return $this->slug;
     }
 
-    final public function parseTree(): array
+    public function parseTree(): array
     {
         $arrayChildren = [];
         foreach ($this->children as $child) {
@@ -93,15 +75,10 @@ class FamilyLog
         return [$this->name => $arrayChildren];
     }
 
-    /**
-     * @param FamilyLog $familyLog
-     *
-     * @return array|null
-     */
-    private function hasChildren(FamilyLog $familyLog): ?array
+    private function hasChildren(self $familyLog): ?array
     {
         if (null !== $familyLog->children) {
-            return array_map(static function ($child) {
+            return \array_map(static function ($child) {
                 return $child->name;
             }, $familyLog->children);
         }
@@ -109,7 +86,7 @@ class FamilyLog
         return null;
     }
 
-    private function addChild(FamilyLog $child): void
+    private function addChild(self $child): void
     {
         $this->children[] = $child;
     }

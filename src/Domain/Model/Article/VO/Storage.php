@@ -2,9 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Article\VO;
 
-use Domain\Model\Common\InvalidQuantity;
+use Domain\Model\Common\Exception\InvalidQuantity;
 
 final class Storage
 {
@@ -20,22 +29,9 @@ final class Storage
         'portion',
     ];
 
-    /**
-     * @var string
-     */
-    private $unit;
+    private string $unit;
+    private float $quantity;
 
-    /**
-     * @var float
-     */
-    private $quantity;
-
-    /**
-     * Storage constructor.
-     *
-     * @param string $unit
-     * @param float  $quantity
-     */
     public function __construct(string $unit, float $quantity)
     {
         $this->unit = $unit;
@@ -44,46 +40,32 @@ final class Storage
 
     public static function fromArray(array $storage): self
     {
-        $unit = static::unit($storage[0]);
-        $quantity = static::quantity($storage[1]);
+        $unit = static::isValidUnit($storage[0]);
+        $quantity = static::isValidQuantity($storage[1]);
 
         return new self($unit, $quantity);
-    }
-
-    /**
-     * Test the unit.
-     *
-     * @param string $unit
-     *
-     * @return string
-     */
-    private static function unit(string $unit): string
-    {
-        if (!in_array(strtolower($unit), self::UNITS)) {
-            throw new InvalidUnit();
-        }
-
-        return strtolower($unit);
-    }
-
-    /**
-     * Test the quantity.
-     *
-     * @param float $quantity
-     *
-     * @return float
-     */
-    private static function quantity(float $quantity): float
-    {
-        if (!is_float($quantity)) {
-            throw new InvalidQuantity();
-        }
-
-        return $quantity;
     }
 
     public function toArray(): array
     {
         return [$this->unit, $this->quantity];
+    }
+
+    private static function isValidUnit(string $unit): string
+    {
+        if (!\in_array(\strtolower($unit), self::UNITS, true)) {
+            throw new InvalidUnit();
+        }
+
+        return \strtolower($unit);
+    }
+
+    private static function isValidQuantity(float $quantity): float
+    {
+        if (!\is_float($quantity)) {
+            throw new InvalidQuantity();
+        }
+
+        return $quantity;
     }
 }

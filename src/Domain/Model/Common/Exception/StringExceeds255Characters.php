@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Article\VO;
+namespace Domain\Model\Common\Exception;
 
-final class InvalidUnit extends \DomainException
+final class StringExceeds255Characters extends \DomainException
 {
     /** @var string */
-    protected $message = 'L\'unité ne correspond pas à une unité valide.';
+    protected $message = 'Le titre est trop long. Vous ne devriez pas exéder 255 caractères';
 }

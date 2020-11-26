@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\Unit\Domain\Model\Common\Entities;
 
 use Domain\Model\Common\Entities\FamilyLog;
@@ -23,7 +32,7 @@ class FamilyLogTest extends TestCase
         );
 
         // Assert
-        $this->assertEquals(
+        static::assertEquals(
             new FamilyLog(
                 NameField::fromString('Viande'),
                 FamilyLog::create(
@@ -35,7 +44,7 @@ class FamilyLogTest extends TestCase
             ),
             $familyLog
         );
-        $this->assertEquals('alimentaire:surgele:viande', $familyLog->path());
+        static::assertEquals('alimentaire:surgele:viande', $familyLog->path());
     }
 
     final public function testGetTreeFamilyLog(): void
@@ -61,7 +70,7 @@ class FamilyLogTest extends TestCase
         $tree = $alimentaire->parseTree();
 
         // Assert
-        $this->assertEquals(
+        static::assertEquals(
             [
                 'Alimentaire' => [
                     'Surgelé' => [

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Supplier;
 
 use Domain\Model\Common\Entities\FamilyLog;
@@ -11,54 +20,16 @@ use Domain\Model\Common\VO\NameField;
 use Domain\Model\Common\VO\PhoneField;
 use Domain\Model\Contact;
 
-class Supplier extends Contact
+final class Supplier extends Contact
 {
-    /**
-     * @var int Id of Supplier
-     */
-    private $supplierId;
+    protected string $uuid;
+    private FamilyLog $familyLog;
+    private int $delayDelivery;
+    private array $orderDays;
+    private bool $active;
 
-    /**
-     * @var string Logistics family
-     */
-    private $familyLog;
-
-    /**
-     * @var int Delivery delay
-     */
-    private $delayDeliv;
-
-    /**
-     * @var array Order days table
-     */
-    private $orderDays;
-
-    /**
-     * @var bool Active/Inactive
-     */
-    private $active;
-
-    /**
-     * @var string
-     */
-    private $slug;
-
-    /**
-     * Supplier constructor.
-     *
-     * @param NameField      $name
-     * @param ContactAddress $address
-     * @param PhoneField     $phone
-     * @param PhoneField     $facsimile
-     * @param EmailField     $email
-     * @param string         $contact
-     * @param PhoneField     $cellphone
-     * @param FamilyLog      $familyLog
-     * @param int            $delayDeliv
-     * @param array          $orderDays
-     * @param bool           $active
-     */
     public function __construct(
+        SupplierUuid $uuid,
         NameField $name,
         ContactAddress $address,
         PhoneField $phone,
@@ -72,22 +43,24 @@ class Supplier extends Contact
         bool $active = true
     ) {
         parent::__construct(
+            $uuid,
             $name,
             $address,
-            $phone->getValue(),
-            $facsimile->getValue(),
+            $phone,
+            $facsimile,
             $email,
             $contact,
-            $cellphone->getValue()
+            $cellphone
         );
-        $this->familyLog = $familyLog->path();
-        $this->delayDeliv = $delayDeliv;
+        $this->familyLog = $familyLog;
+        $this->delayDelivery = $delayDeliv;
         $this->orderDays = $orderDays;
         $this->slug = $name->slugify();
         $this->active = $active;
     }
 
     public static function create(
+        SupplierUuid $uuid,
         NameField $name,
         string $address,
         string $zipCode,
@@ -99,11 +72,12 @@ class Supplier extends Contact
         string $contact,
         PhoneField $gsm,
         FamilyLog $familyLog,
-        int $delayDeliv,
+        int $delayDelivery,
         array $orderDays,
         bool $active = true
     ): self {
         return new self(
+            $uuid,
             $name,
             ContactAddress::fromString($address, $zipCode, $town, $country),
             $phone,
@@ -112,20 +86,75 @@ class Supplier extends Contact
             $contact,
             $gsm,
             $familyLog,
-            $delayDeliv,
+            $delayDelivery,
             $orderDays,
             $active
         );
     }
 
-    final public function renameSupplier(NameField $name): void
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function renameSupplier(NameField $name): void
     {
         $this->name = $name->getValue();
         $this->slug = $name->slugify();
     }
 
-    final public function name(): string
+    public function uuid(): string
     {
-        return $this->name;
+        return $this->uuid;
+    }
+
+    public function familyLog(): FamilyLog
+    {
+        return $this->familyLog;
+    }
+
+    public function setFamilyLog(FamilyLog $familyLog): void
+    {
+        $this->familyLog = $familyLog;
+    }
+
+    public function delayDelivery(): int
+    {
+        return $this->delayDelivery;
+    }
+
+    public function setDelayDelivery(int $delayDelivery): void
+    {
+        $this->delayDelivery = $delayDelivery;
+    }
+
+    public function getOrderDays(): array
+    {
+        return $this->orderDays;
+    }
+
+    public function setOrderDays(array $orderDays): void
+    {
+        $this->orderDays = $orderDays;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
     }
 }

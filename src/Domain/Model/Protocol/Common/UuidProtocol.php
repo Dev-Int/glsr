@@ -11,19 +11,19 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Protocol\Repository;
+namespace Domain\Model\Protocol\Common;
 
-use Domain\Model\Article\Article;
+use Domain\Model\Protocol\IdProtocol;
 
-interface ArticleRepositoryProtocol
+interface UuidProtocol extends IdProtocol
 {
     /**
-     * Save the Article object in the data storage.
+     * @return static
      */
-    public function save(Article $article): void;
+    public static function fromUuid(object $uuid);
 
     /**
-     * Delete the Article object in the data storage.
+     * @return static
      */
-    public function remove(Article $article): void;
+    public static function fromString(string $uuid);
 }

@@ -2,32 +2,23 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Article\VO;
 
 final class Packaging
 {
-    /**
-     * @var array
-     */
-    private $parcel;
+    private array $parcel;
+    private ?array $subPackage;
+    private ?array $consumerUnit;
 
-    /**
-     * @var array|null
-     */
-    private $subPackage;
-
-    /**
-     * @var array|null
-     */
-    private $consumerUnit;
-
-    /**
-     * Packaging constructor.
-     *
-     * @param array      $parcel
-     * @param array|null $subPackage
-     * @param array|null $consumerUnit
-     */
     public function __construct(array $parcel, ?array $subPackage = null, ?array $consumerUnit = null)
     {
         $this->parcel = $parcel;
@@ -35,24 +26,19 @@ final class Packaging
         $this->consumerUnit = $consumerUnit;
     }
 
-    /**
-     * @param array $packages
-     *
-     * @return Packaging
-     */
     public static function fromArray(array $packages): self
     {
         $parcel = Storage::fromArray($packages[0])->toArray();
         $subPackage = null;
         $consumerUnit = null;
 
-        for ($iteration = 1; $iteration < 3; ++$iteration) {
-            if (null !== $packages[$iteration]) {
-                if (1 == $iteration) {
-                    $subPackage = Storage::fromArray($packages[$iteration])->toArray();
+        for ($i = 1; $i < 3; ++$i) {
+            if (null !== $packages[$i]) {
+                if (1 === $i) {
+                    $subPackage = Storage::fromArray($packages[$i])->toArray();
                 }
-                if (2 == $iteration) {
-                    $consumerUnit = Storage::fromArray($packages[$iteration])->toArray();
+                if (2 === $i) {
+                    $consumerUnit = Storage::fromArray($packages[$i])->toArray();
                 }
             }
         }

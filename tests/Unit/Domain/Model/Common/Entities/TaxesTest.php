@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\Unit\Domain\Model\Common\Entities;
 
 use Domain\Model\Common\Entities\Taxes;
@@ -15,18 +24,9 @@ class TaxesTest extends TestCase
         $taxes = Taxes::fromFloat(0.055);
 
         // Assert
-        $this->assertEquals(
-            new Taxes(0.055),
-            $taxes
-        );
-        $this->assertEquals(
-            0.055,
-            $taxes->rate()
-        );
-        $this->assertEquals(
-            '5,50 %',
-            $taxes->name()
-        );
+        static::assertEquals(new Taxes(0.055), $taxes);
+        static::assertEquals(0.055, $taxes->rate());
+        static::assertEquals('5,50 %', $taxes->name());
     }
 
     final public function testInstantiateTaxesFromPercent(): void
@@ -35,17 +35,8 @@ class TaxesTest extends TestCase
         $taxes = Taxes::fromPercent('5,50 %');
 
         // Assert
-        $this->assertEquals(
-            new Taxes(0.055),
-            $taxes
-        );
-        $this->assertEquals(
-            0.055,
-            $taxes->rate()
-        );
-        $this->assertEquals(
-            '5,50 %',
-            $taxes->name()
-        );
+        static::assertEquals(new Taxes(0.055), $taxes);
+        static::assertEquals(0.055, $taxes->rate());
+        static::assertEquals('5,50 %', $taxes->name());
     }
 }

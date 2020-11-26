@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Article;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,88 +21,27 @@ use Domain\Model\Common\Entities\Taxes;
 use Domain\Model\Common\VO\NameField;
 use Domain\Model\Supplier\Supplier;
 
-/**
- * Article.
- *
- * @category Entity
- */
-class Article
+final class Article
 {
-    /**
-     * @var int
-     */
-    protected $articleId;
+    private string $uuid;
+    private string $name;
+    private string $supplier;
+    private Packaging $packaging;
+    private float $price;
+    private string $taxes;
+    private float $quantity;
+    private float $minStock;
 
     /**
-     * @var string Name of article
+     * @var ArrayCollection|ZoneStorage[]
      */
-    protected $name;
+    private $zoneStorages;
+    private string $familyLog;
+    private bool $active;
+    private string $slug;
 
-    /**
-     * @var string Name of supplier
-     */
-    protected $supplier;
-
-    /**
-     * @var array Packaging (subdivision of parcel)
-     */
-    protected $packaging;
-
-    /**
-     * @var float Price of article
-     */
-    protected $price;
-
-    /**
-     * @var string Rate of VAT
-     */
-    protected $taxes;
-
-    /**
-     * @var float Quantity in stock
-     */
-    protected $quantity;
-
-    /**
-     * @var float Minimum stock
-     */
-    protected $minStock;
-
-    /**
-     * @var ArrayCollection Storage area(s)
-     */
-    protected $zoneStorages;
-
-    /**
-     * @var string Logistics family
-     */
-    protected $familyLog;
-
-    /**
-     * @var bool Active/Inactive
-     */
-    protected $active;
-
-    /**
-     * @var string
-     */
-    protected $slug;
-
-    /**
-     * Article constructor.
-     *
-     * @param NameField  $name
-     * @param Supplier   $supplier
-     * @param Packaging  $packaging
-     * @param float      $price
-     * @param Taxes      $taxes
-     * @param float      $minStock
-     * @param array      $zoneStorages
-     * @param FamilyLog  $familyLog
-     * @param float|null $quantity
-     * @param bool|null  $active
-     */
     public function __construct(
+        ArticleUuid $uuid,
         NameField $name,
         Supplier $supplier,
         Packaging $packaging,
@@ -105,34 +53,26 @@ class Article
         ?float $quantity = 0.000,
         ?bool $active = true
     ) {
+        $this->zoneStorages = new ArrayCollection();
+        $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
         $this->supplier = $supplier->name();
         $this->packaging = $packaging;
         $this->price = $price;
         $this->taxes = $taxes->name();
-        $this->quantity = $quantity;
+        $this->quantity = $quantity ?? 0.000;
         $this->minStock = $minStock;
-        $this->zoneStorages = new ArrayCollection($this->makeZoneStorageEntities($zoneStorages));
+        $this->zoneStorages = $zoneStorages;
         $this->familyLog = $familyLog->path();
-        $this->active = $active;
+        $this->active = $active ?? true;
         $this->slug = $name->slugify();
     }
 
     /**
-     * Create an Article.
-     *
-     * @param NameField $name
-     * @param Supplier  $supplier
-     * @param Packaging $packaging
-     * @param float     $price
-     * @param Taxes     $taxes
-     * @param float     $minStock
-     * @param array     $zoneStorages
-     * @param FamilyLog $familyLog
-     *
-     * @return Article
+     * @param ZoneStorage[] $zoneStorages
      */
     public static function create(
+        ArticleUuid $uuid,
         NameField $name,
         Supplier $supplier,
         Packaging $packaging,
@@ -143,6 +83,7 @@ class Article
         FamilyLog $familyLog
     ): self {
         return new self(
+            $uuid,
             $name,
             $supplier,
             $packaging,
@@ -154,21 +95,72 @@ class Article
         );
     }
 
-    final public function renameArticle(NameField $name): void
+    public function uuid(): string
     {
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
+        return $this->uuid;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function supplier(): string
+    {
+        return $this->supplier;
+    }
+
+    public function packaging(): Packaging
+    {
+        return $this->packaging;
+    }
+
+    public function price(): float
+    {
+        return $this->price;
+    }
+
+    public function taxes(): string
+    {
+        return $this->taxes;
+    }
+
+    public function quantity(): float
+    {
+        return $this->quantity;
+    }
+
+    public function minStock(): float
+    {
+        return $this->minStock;
     }
 
     /**
-     * @param array $zoneStorages
-     *
-     * @return ZoneStorage[]
+     * @return ArrayCollection|object[]
      */
-    private function makeZoneStorageEntities(array $zoneStorages): array
+    public function zoneStorages()
     {
-        return array_map(static function ($zone) {
-            return new ZoneStorage(NameField::fromString($zone));
-        }, $zoneStorages);
+        return $this->zoneStorages;
+    }
+
+    public function familyLog(): string
+    {
+        return $this->familyLog;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function slug(): string
+    {
+        return $this->slug;
+    }
+
+    public function renameArticle(NameField $name): void
+    {
+        $this->name = $name->getValue();
+        $this->slug = $name->slugify();
     }
 }

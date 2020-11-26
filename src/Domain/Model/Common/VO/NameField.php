@@ -2,10 +2,19 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the Tests package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Domain\Model\Common\VO;
 
 use Cocur\Slugify\Slugify;
-use Domain\Model\Common\StringExceeds255Characters;
+use Domain\Model\Common\Exception\StringExceeds255Characters;
 
 final class NameField
 {
@@ -16,11 +25,10 @@ final class NameField
 
     /**
      * Name constructor.
-     * @param string $name
      */
     public function __construct(string $name)
     {
-        if (strlen($name) > 255) {
+        if (\strlen($name) > 255) {
             throw new StringExceeds255Characters();
         }
 
@@ -28,7 +36,6 @@ final class NameField
     }
 
     /**
-     * @param string $name
      * @return NameField
      */
     public static function fromString(string $name): self
@@ -41,9 +48,6 @@ final class NameField
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function slugify(): string
     {
         $slugify = new Slugify();
