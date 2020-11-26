@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Domain\Model\Article;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Domain\Model\Article\Entities\ZoneStorage;
 use Domain\Model\Article\VO\Packaging;
 use Domain\Model\Common\Entities\FamilyLog;
@@ -33,9 +32,9 @@ final class Article
     private float $minStock;
 
     /**
-     * @var ArrayCollection|ZoneStorage[]
+     * @var ZoneStorage[]
      */
-    private $zoneStorages;
+    private array $zoneStorages;
     private string $familyLog;
     private bool $active;
     private string $slug;
@@ -53,7 +52,6 @@ final class Article
         ?float $quantity = 0.000,
         ?bool $active = true
     ) {
-        $this->zoneStorages = new ArrayCollection();
         $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
         $this->supplier = $supplier->name();
@@ -136,9 +134,9 @@ final class Article
     }
 
     /**
-     * @return ArrayCollection|object[]
+     * @return ZoneStorage[]
      */
-    public function zoneStorages()
+    public function zoneStorages(): array
     {
         return $this->zoneStorages;
     }

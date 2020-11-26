@@ -29,7 +29,8 @@ $finder = PhpCsFixer\Finder::create()
     ])
     ->notPath([
         'bundles.php',
-        'Kernel.php'
+        'Kernel.php',
+        'preload.php'
         ])
     ->notName('bootstrap.php')
     ->in([
@@ -72,15 +73,18 @@ return PhpCsFixer\Config::create()
         'ordered_imports' => true,
         'simplified_null_return' => true,
         'strict_param' => true,
-        'global_namespace_import' => true,
         'native_constant_invocation' => true,
         'native_function_invocation' => true,
+        'phpdoc_types_order' => [
+            'sort_algorithm' => 'alpha',
+            'null_adjustment' => 'always_last',
+        ],
         'php_unit_test_case_static_method_calls' => [
             'call_type' => 'static',
         ],
-         'concat_space' => [
-             'spacing' => 'one',
-         ],
+        'concat_space' => [
+           'spacing' => 'one',
+        ],
         'array_syntax' => [
             'syntax' => 'short',
         ],
@@ -97,6 +101,7 @@ return PhpCsFixer\Config::create()
         ],
 
         // Disabled rules
+        'global_namespace_import' => false, // Because I prefer like this
         'mb_str_functions' => false, // When we know the input, it's okay to not use mb_, because it's less performant
         'increment_style' => false,         // Because "++$i" is not always necessary…
         'non_printable_character' => false, // Because I love using non breakable spaces in test methods ♥

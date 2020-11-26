@@ -18,7 +18,7 @@ use NumberFormatter;
 final class Taxes
 {
     private float $rate;
-    private ?string $name;
+    private string $name;
 
     public function __construct(float $rate)
     {

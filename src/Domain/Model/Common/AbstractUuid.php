@@ -22,7 +22,7 @@ abstract class AbstractUuid implements UuidProtocol
 {
     private UuidInterface $uuid;
 
-    public function __construct(UuidInterface $uuid)
+    final public function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
@@ -32,7 +32,7 @@ abstract class AbstractUuid implements UuidProtocol
         try {
             return new static(Uuid::uuid4());
         } catch (\Throwable $exception) {
-            throw new \RuntimeException('Cannot generate a new uuid.', null, $exception);
+            throw new \RuntimeException('Cannot generate a new uuid.', 0, $exception);
         }
     }
 
@@ -46,7 +46,7 @@ abstract class AbstractUuid implements UuidProtocol
      */
     public static function fromUuid(object $uuid): UuidProtocol
     {
-        if ($uuid instanceof UuidInterface) {
+        if (!$uuid instanceof UuidInterface) {
             throw new \InvalidArgumentException('UuidInterface type excepted.');
         }
 

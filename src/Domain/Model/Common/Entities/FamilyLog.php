@@ -20,7 +20,7 @@ final class FamilyLog
     private string $name;
     private ?FamilyLog $parent = null;
     /**
-     * @var null|FamilyLog[]
+     * @var FamilyLog[]|null
      */
     private ?array $children = null;
     private string $slug;
@@ -46,7 +46,7 @@ final class FamilyLog
         return new self($name, $parent);
     }
 
-    public function parent(): self
+    public function parent(): ?self
     {
         return $this->parent;
     }
@@ -64,6 +64,10 @@ final class FamilyLog
     public function parseTree(): array
     {
         $arrayChildren = [];
+        if (null === $this->children) {
+            return [$this->name => $arrayChildren];
+        }
+
         foreach ($this->children as $child) {
             if (null !== $this->hasChildren($child)) {
                 $arrayChildren[$child->name] = $this->hasChildren($child);

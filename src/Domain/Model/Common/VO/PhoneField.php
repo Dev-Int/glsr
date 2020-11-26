@@ -21,11 +21,17 @@ final class PhoneField
 
     public function __construct(string $phone)
     {
+        if (false === \filter_var($phone, \FILTER_SANITIZE_NUMBER_INT)) {
+            throw new InvalidPhone();
+        }
+
         $phoneSanitized = \filter_var($phone, \FILTER_SANITIZE_NUMBER_INT);
         $phoneToCheck = \str_replace('-', '', $phoneSanitized);
+
         if (10 > \strlen($phoneToCheck) || \strlen($phoneToCheck) > 14) {
             throw new InvalidPhone();
         }
+
         $this->phone = $phoneSanitized;
     }
 
