@@ -1,0 +1,151 @@
+@startuml Entities
+' #9e9e9e, #5e5e5e, #ddd, #ebebeb, #c4c4c4
+
+title G.L.S.R. entities
+
+package "Admin" #9e9e9e {
+	package "Settings" #c4c4c4 {
+		Price "many" *-- "many" Article
+		Taxe "1" o-- "many" Price
+		FamilyLog "1" *-- "many" Article : Categorize
+		ZoneStorage "many" -- "many" Article
+		package "Article" #ebebeb {
+			Packaging "1" o-- "many" Article
+			Storage "many" o-- "many" Packaging
+		}
+	}
+	FamilyLog "1" *-- "many" Supplier : Categorize
+	Contact <|-- Supplier
+	Contact <|-- Company
+	Supplier "many" -- "many" Article : own
+}
+
+package "Order" #ddd {
+	Class Order {
+		-uuid: string
+		-supplier: Supplier
+		-orderDate: date
+		-deliveryDate
+		-amount: float
+		-taxe: Taxe
+		-items: OderItem
+		-status: string
+	}
+	Class OrderItem {
+		-uuid: string
+		-order: Order
+		-article: Article
+		-quantity: float
+		-unit: Packaging
+		-price: Price
+		-taxe: Taxe
+	}
+
+	OrderItem "many" o-- "1" Order: own
+	OrderItem "1" -- "1" Article : contain
+	OrderItem "1" -- "1" Packaging
+	OrderItem "1" -- "1" Price
+	OrderItem "1" -- "1" Taxe
+
+}
+
+package "Inventory" #c4c4c4 {
+Class Inventory {
+	-uuid: string
+	-date: date
+	-status: string
+	-amount: float
+	-items: array<InventoryItem>
+}
+
+Class InventoryItem {
+	-uuid: string
+	-inventory: Inventory
+	-article: Article
+	-quantity: float
+	-realStock: float
+	-unit: Packaging
+	-price: Price
+	-zoneStorage: ZoneStorage
+}
+
+	InventoryItem "1" -- "1" Article : contain
+	InventoryItem "many" o-- "1" Inventory: own
+	InventoryItem "1" -- "1" ZoneStorage
+	InventoryItem "1" -- "1" Packaging
+	InventoryItem "1" -- "1" Price
+}
+
+Class Article{
+	-uuid: string
+	-label: string
+	-familyLog: FamilyLog
+	-supplier: Supplier
+	-zoneStorage: ZoneStorage
+	-minStock: float
+	-packaging: Packaging
+	-prices: array<Price>
+	-quantity: float
+	-active: bool
+}
+
+Class Contact {
+	-uuid: string
+	-name: string
+	-address: string
+	-phone: string
+	-cellPhone: string
+	-email: string
+	-contact: string
+	-gsm: string
+}
+
+Class Supplier <extends Contact> {
+	-familyLog: FamilyLog
+	-delayDelivery: int
+	-orderDays: array
+	-active: bool
+}
+
+Class Company <extends Contact> {
+	-status: string
+}
+
+Class FamilyLog {
+	-label: string
+	-parent: ?FamilyLog
+	-children: ?array<FamilyLog>
+	-path: string
+	-slug: string
+}
+
+Class Price {
+	-uuid: string
+	-taxe: Taxe
+	-startDate: date
+	-endDate: date
+}
+
+Class Taxe {
+	-uuid: string
+	-rate: float
+	-active: bool
+}
+
+Class ZoneStorage {
+	-name
+	-slug
+}
+
+Class Packaging {
+	-parcel: Storage
+	-subPackage: Storage
+	-consumerUnit: Storage
+}
+
+Class Storage {
+	-unit: string
+	-quantity: float
+}
+
+@enduml

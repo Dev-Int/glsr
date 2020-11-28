@@ -1,0 +1,20 @@
+@startuml System
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title System diagram of G.L.S.R. application
+
+Person(admin_user, "Administrator")
+Person(user, "User")
+
+System(application, "G.L.S.R.", "Allows users and administrators to use application to manage their restaurant.")
+
+System_Ext(mailer, "Mailer")
+System_Ext(api_supplier, "API Supplier")
+
+Rel(admin_user, application, "Uses", "HTTPS")
+Rel(user, application, "Uses", "HTTPS")
+
+Rel_R(application, mailer, "Send mail from api")
+Rel(application, api_supplier, "Send orders from api")
+
+@enduml

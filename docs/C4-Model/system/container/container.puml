@@ -1,0 +1,30 @@
+@startuml Container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title Container diagram for System G.L.S.R.
+
+Person(admin, "Administrator")
+Person(user, "User")
+
+System_Boundary(c1, "G.L.S.R.") {
+	Container(api, "API Application", "Symfony", "Provides necessary informations from database")
+  Container(backend, "Administration", "Symfony, Twig", "Allows administrator to configure all application elements")
+	Container(web_app, "Application", "Symfony, Twig", "Allows Users to use application")
+	ContainerDb(rel_db, "Database", "MySQL/MariaDB", "Store users, Articles, Suppliers, Inventories, Orders, Settings, etc.")
+}
+
+System_Ext(mailer, "Mailer")
+System_Ext(api_supplier, "API Supplier")
+
+Rel(admin, backend, "Uses", "HTTPS")
+Rel(user, web_app, "Uses", "HTTPS")
+
+Rel(backend, api, "Makes API calls to", "JSON/HTTPS")
+Rel(web_app, api, "Makes API calls to", "JSON/HTTPS")
+
+Rel_L(api, rel_db, "Data store in", "JDBC")
+
+Rel_R(api, mailer, "Send mail from api")
+Rel_R(api, api_supplier, "Send orders from api")
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+database Database
+database Mailer
+database Api_Ext
+
+rectangle "Create Order" {
+	User -- (Create an order)
+	(Create an order) .> (Select articles) : include
+	(Select articles) .> (Enter quantity) : include
+	User -- (Valid order)
+	(Valid order) -- Mailer : Send mail
+	(Valid order) -- Api_Ext : send order
+	(Create an order) -- Database
+}
+(order) .> (receipt) : become
+(receipt) .> (invoice) : become
+
+rectangle "Valid Receipt" {
+	User -- (Valid receipt)
+	(Valid receipt) .> (Correct quantity) : include
+	(Valid receipt) -- Database
+}
+
+rectangle "Valid Invoice" {
+	User -- (Valid invoice)
+	(Valid invoice) .> (Correct price) : include
+	(Valid invoice) -- Database
+}
+@enduml

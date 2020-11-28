@@ -1,0 +1,17 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+database Database
+
+rectangle "Inventory" {
+	User -- (Log in)
+	User -- (Prepare \ninventory)
+	User -- (Enters \ninventory)
+	User -- (Compare \nand correct)
+	User -- (Valid \ninventory)
+	(Log in) -- Database
+	(Valid \ninventory) -- Database
+}
+
+@enduml

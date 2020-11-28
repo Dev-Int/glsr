@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Admin
+database Database
+
+rectangle "Settings\nConfiguration" {
+	Admin -- [Configure\nCompany]
+	Admin -- [Configure\nFamilyLog]
+	Admin -- [Configure\nZoneStorage]
+	Admin -- [Configure\nUnit]
+	Admin -- [Configure\nTaxe]
+	Admin -- [Configure\nApplication]
+	[Configure\nCompany] -- Database
+	[Configure\nFamilyLog] -- Database
+	[Configure\nZoneStorage] -- Database
+	[Configure\nUnit] -- Database
+	[Configure\nTaxe] -- Database
+	[Configure\nApplication] -- Database
+}
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml API
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title Component diagram for API Application
+
+System_Boundary(c1, "G.L.S.R.") {
+  Container(backend, "Administration", "Symfony, Twig", "Allows administrator to configure all application elements")
+	Container(web_app, "Application", "Symfony, Twig", "Allows Users to use application")
+	ContainerDb(rel_db, "Database", "MySQL/MariaDB", "Store users, Articles, Suppliers, Inventories, Orders, Settings, etc.")
+
+	Container_Boundary(api, "API Application"){
+		Component(settings, "Settings", "MVC Controller", "Allows administrator to setup the Application")
+		Component(stocks, "Stocks", "MVC Controller", "Allows administrator to manage the stocks")
+		Component(inventory, "Inventory Component", "MVC Controller", "Allows users to register inventories")
+		Component(orders, "Orders Component", "MVC Controller", "Allows users to create, valid and sold orders")
+
+		Rel(settings, rel_db, "Data store in", "JDBC")
+		Rel(stocks, rel_db, "Data store in", "JDBC")
+		Rel(inventory, rel_db, "Data store in", "JDBC")
+		Rel(orders, rel_db, "Data store in", "JDBC")
+	}
+}
+
+System_Ext(mailer, "Mailer")
+System_Ext(api_supplier, "API Supplier")
+
+Rel(backend, settings, "Makes API calls to", "JSON/HTTPS")
+Rel(backend, stocks, "Makes API calls to", "JSON/HTTPS")
+Rel(web_app, inventory, "Makes API calls to", "JSON/HTTPS")
+Rel(web_app, orders, "Makes API calls to", "JSON/HTTPS")
+
+Rel(orders, mailer, "Send mail from api")
+Rel(orders, api_supplier, "Send orders from api")
+
+@enduml

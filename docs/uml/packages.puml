@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+actor Admin
+database Database
+database Mailer
+database Api_Ext
+
+rectangle "Administration" {
+	User -- [Log in]
+	Admin -- [Log in]
+	Admin -- [Create a\nuser]
+	[Log in] -- Database
+	[Create a\nuser] -- Database
+	Admin -- [Configure\nSettings]
+	Admin -- [Configure\nSupplier]
+	Admin -- [Configure\nArticle]
+	[Configure\nSupplier] -- Database
+	[Configure\nArticle] -- Database
+	[Configure\nSettings] -- Database
+}
+
+rectangle "Inventory" {
+	User -- [Create \ninventory]
+}
+
+rectangle "Order" {
+	User -- [Create \norder]
+	[Create \norder] -- Database
+	[Create \norder] -- Mailer : Send mail
+	[Create \norder] -- Api_Ext : send order
+}
+
+Admin -> User
+@enduml
