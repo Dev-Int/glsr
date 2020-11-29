@@ -91,7 +91,7 @@ test-all: phpunit.xml ## Launch all tests
 
 
 ## —— Coding standards ✨ ——————————————————————————————————————————————————————
-cs: codesniffer stan lint ## Launch check style and static analysis
+cs: codesniffer stan #lint ## Launch check style and static analysis
 
 codesniffer: ## Run php_codesniffer only
 	./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=phpcs.xml -n -p src/
@@ -132,8 +132,8 @@ watch: ## Watch files and build assets when needed for the dev env
 build: ## Build assets for production
 	yarn run encore production
 
-lint: ## Lints Js files
-	npx eslint assets/js --fix
+#lint: ## Lints Js files
+#	npx eslint assets/js --fix
 
 
 ## —— Stats ————————————————————————————————————————————————————————————————————

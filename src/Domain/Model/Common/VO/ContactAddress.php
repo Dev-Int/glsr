@@ -35,6 +35,6 @@ final class ContactAddress
 
     public function getValue(): string
     {
-        return $this->address . "\n" . $this->zipCode . ' ' . $this->town . ', ' . $this->country;
+        return $this->address."\n".$this->zipCode.' '.$this->town.', '.$this->country;
     }
 }

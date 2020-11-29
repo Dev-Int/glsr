@@ -1,0 +1,15 @@
+{
+	"name": "G.L.S.R.",
+	"description": "Application to manage your restaurant!",
+	"dir": "ltr",
+	"lang": "fr",
+	"display": "browser",
+	"icon": [
+		{
+			"src": "favicon.ico",
+			"sizes": "15x16"
+		}
+	],
+	"orientation": "portrait-primary",
+	"prefer_related_applications": "false"
+}

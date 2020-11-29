@@ -34,9 +34,9 @@ final class FamilyLog
         if (null !== $parent) {
             $this->parent = $parent;
             $this->parent->addChild($this);
-            $this->path = $parent->slug() . ':' . $name->slugify();
+            $this->path = $parent->slug().':'.$name->slugify();
             if (null !== $this->parent->parent) {
-                $this->path = $this->parent->parent->slug() . ':' . $this->parent->slug() . ':' . $name->slugify();
+                $this->path = $this->parent->parent->slug().':'.$this->parent->slug().':'.$name->slugify();
             }
         }
     }
@@ -82,7 +82,7 @@ final class FamilyLog
     private function hasChildren(self $familyLog): ?array
     {
         if (null !== $familyLog->children) {
-            return \array_map(static function ($child) {
+            return \array_map(static function (FamilyLog $child) {
                 return $child->name;
             }, $familyLog->children);
         }
