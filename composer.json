@@ -1,8 +1,17 @@
 {
+    "name": "dev-int/glsr",
     "type": "project",
-    "name": "dev-int/tests",
-    "description": "tests with Symfony to test",
+    "description": "The GLSR Application, managing a restaurant stocks",
+    "homepage": "https://www.glsr.fr/",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Laurent Quétier",
+            "email": "devint.creation@gmail.com",
+            "homepage": "https://www.developpement-interessant.com/",
+            "role": "developer"
+        }
+    ],
     "require": {
         "php": "^7.4",
         "ext-ctype": "*",
