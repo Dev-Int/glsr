@@ -80,14 +80,17 @@ load-fixtures: ## Build the DB, control the schema validity, load fixtures and c
 
 
 ## —— Tests ————————————————————————————————————————————————————————————————————
-test: phpunit.xml ## Launch main functional and unit tests
-	./vendor/bin/phpunit --testsuite=main --stop-on-failure
+test: phpunit.xml test-cc ## Launch main functional and unit tests
+	./bin/phpunit --testsuite=Domain --stop-on-failure
 
-test-external: phpunit.xml ## Launch tests implying external resources (API, services...)
-	./vendor/bin/phpunit --testsuite=external --stop-on-failure
+test-external: phpunit.xml test-cc ## Launch tests implying external resources (API, services...)
+	./bin/phpunit --testsuite=external --stop-on-failure
 
-test-all: phpunit.xml ## Launch all tests
-	./vendor/bin/phpunit --stop-on-failure
+test-all: phpunit.xml test-cc ## Launch all tests
+	./bin/phpunit --stop-on-failure
+
+test-cc: ## Clear the cache in test environment. DID YOU CLEAR YOUR CACHE????
+	$(SYMFONY) c:c --env=test
 
 
 ## —— Coding standards ✨ ——————————————————————————————————————————————————————
