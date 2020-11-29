@@ -274,9 +274,6 @@
     "symfony/http-client": {
         "version": "v5.0.11"
     },
-    "symfony/inflector": {
-        "version": "v5.0.11"
-    },
     "symfony/intl": {
         "version": "v5.0.11"
     },
