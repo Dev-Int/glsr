@@ -43,7 +43,7 @@ final class Taxes
     public static function fromPercent(string $name): self
     {
         \preg_match('/^(\d*)(,(\d*?)) %$/u', \trim($name), $str);
-        $float = $str[1] . '.' . $str[3];
+        $float = $str[1].'.'.$str[3];
 
         return new self((float) $float);
     }
