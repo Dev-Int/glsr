@@ -2,9 +2,10 @@
 left to right direction
 skinparam packageStyle rectangle
 actor User
-database Database
 database Mailer
 database Api_Ext
+database "Database \nEntity \nStorage" as Database
+database "Elastic \nSearch \nStorage" as DTOStorage
 
 rectangle "Create Order" {
 	User -- (Create an order)
@@ -13,10 +14,10 @@ rectangle "Create Order" {
 	User -- (Valid order)
 	(Valid order) -- Mailer : Send mail
 	(Valid order) -- Api_Ext : send order
-	(Create an order) -- Database
+	(Create an order) -- DTOStorage : get data by supplier
 }
-(order) .> (receipt) : become
-(receipt) .> (invoice) : become
+[order] .> [receipt] : become
+[receipt] .> [invoice] : become
 
 rectangle "Valid Receipt" {
 	User -- (Valid receipt)

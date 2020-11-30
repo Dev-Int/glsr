@@ -9,7 +9,7 @@ Documentation
 
 ## list of use cases
 
-[![Administration](uml/img/packages.png)](uml/packages.puml)
+[![Administration](uml/img/administration.png)](uml/administration.puml)
 
 ### Configure entities (Settings component)
 

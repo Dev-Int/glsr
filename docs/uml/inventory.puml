@@ -1,17 +1,27 @@
 @startuml
 left to right direction
 skinparam packageStyle rectangle
-actor User
-database Database
 
 rectangle "Inventory" {
-	User -- (Log in)
-	User -- (Prepare \ninventory)
-	User -- (Enters \ninventory)
-	User -- (Compare \nand correct)
-	User -- (Valid \ninventory)
-	(Log in) -- Database
-	(Valid \ninventory) -- Database
+	usecase "1. Log in" as uc1
+	usecase "2. Prepare inventory" as uc2
+	usecase "3. Enters inventory" as uc3
+	usecase "4. Compare and correct" as uc4
+	usecase "5. Valid inventory" as uc5
 }
+
+actor User
+database "Database \nEntity \nStorage" as Database
+database "Elastic \nSearch \nStorage" as DTOStorage
+
+	User -- (uc1)
+	(uc1) -- Database
+	User -- (uc2)
+	note right of (uc2) : "Inventory is printed"
+	(uc2) -- DTOStorage
+	User -- (uc3)
+	User -- (uc4)
+	User -- (uc5)
+	(uc5) -- Database
 
 @enduml
