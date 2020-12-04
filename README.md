@@ -17,9 +17,9 @@ Open-source solution to manage a restaurant, GLSR (in french: "_**G**estion **L*
 To restart in the right direction, I start by preparing my [use cases](https://github.com/Dev-Int/tests/labels/use%20case),
  and adding the resulting tests after this list:
 
-- [x] rewrite Domain model to check and correct my previous choices
+- [x] rewrite [Domain model](docs/index.md) to check and correct my previous choices
 
-- [ ] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
+- [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
 
 ## Installation
 
