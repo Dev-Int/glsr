@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Domain\Common\Model;
 
-use Domain\Model\Protocol\Common\UuidProtocol;
-use Domain\Model\Protocol\IdProtocol;
+use Domain\Protocol\Common\UuidProtocol;
+use Domain\Protocol\IdProtocol;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Protocol\Repository;
 
-use Domain\Model\Supplier\Supplier;
+use Domain\Supplier\Model\Supplier;
 
 interface SupplierRepositoryProtocol
 {

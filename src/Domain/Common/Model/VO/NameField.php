@@ -18,14 +18,8 @@ use Domain\Common\Model\Exception\StringExceeds255Characters;
 
 final class NameField
 {
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * Name constructor.
-     */
     public function __construct(string $name)
     {
         if (\strlen($name) > 255) {
@@ -35,9 +29,6 @@ final class NameField
         $this->name = $name;
     }
 
-    /**
-     * @return NameField
-     */
     public static function fromString(string $name): self
     {
         return new self($name);

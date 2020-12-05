@@ -11,11 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Protocol;
+namespace Domain\Supplier\Model;
 
-use Domain\Model\Protocol\Common\StringifyProtocol;
+use Domain\Common\Model\ContactUuid;
 
-interface IdProtocol extends StringifyProtocol
+class SupplierUuid extends ContactUuid
 {
-    public static function generate(): self;
 }

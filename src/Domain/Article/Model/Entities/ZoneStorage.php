@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Article\Entities;
+namespace Domain\Article\Model\Entities;
 
 use Domain\Common\Model\VO\NameField;
 

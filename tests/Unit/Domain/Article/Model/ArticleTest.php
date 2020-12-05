@@ -13,17 +13,17 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Article\Model;
 
-use Domain\Model\Article\Article;
-use Domain\Model\Article\ArticleUuid;
-use Domain\Model\Article\Entities\ZoneStorage;
-use Domain\Model\Article\VO\Packaging;
+use Domain\Article\Model\Article;
+use Domain\Article\Model\ArticleUuid;
+use Domain\Article\Model\Entities\ZoneStorage;
+use Domain\Article\Model\VO\Packaging;
 use Domain\Common\Model\Entities\FamilyLog;
 use Domain\Common\Model\Entities\Taxes;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
-use Domain\Model\Supplier\Supplier;
-use Domain\Model\Supplier\SupplierUuid;
+use Domain\Supplier\Model\Supplier;
+use Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;
 
 class ArticleTest extends TestCase
