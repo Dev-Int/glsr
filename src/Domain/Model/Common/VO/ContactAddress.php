@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Tests package.
+ * This file is part of the  G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -35,6 +35,6 @@ final class ContactAddress
 
     public function getValue(): string
     {
-        return $this->address."\n".$this->zipCode.' '.$this->town.', '.$this->country;
+        return $this->address . "\n" . $this->zipCode . ' ' . $this->town . ', ' . $this->country;
     }
 }

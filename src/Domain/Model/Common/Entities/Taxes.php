@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Tests package.
+ * This file is part of the  G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -43,7 +43,7 @@ final class Taxes
     public static function fromPercent(string $name): self
     {
         \preg_match('/^(\d*)(,(\d*?)) %$/u', \trim($name), $str);
-        $float = $str[1].'.'.$str[3];
+        $float = $str[1] . '.' . $str[3];
 
         return new self((float) $float);
     }
