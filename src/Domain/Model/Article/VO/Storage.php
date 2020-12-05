@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Article\VO;
 
-use Domain\Model\Common\Exception\InvalidQuantity;
+use Domain\Common\Model\Exception\InvalidQuantity;
 
 final class Storage
 {

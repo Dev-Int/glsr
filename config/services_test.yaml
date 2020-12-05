@@ -1,12 +1,12 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
+  _defaults:
+    autowire: true
+    autoconfigure: true
 
-    Tests\Behat\DemoContext:
-        public: true
-        arguments:
-            - "@kernel"
+  Behat\Tests\DemoContext:
+    public: true
+    arguments:
+      - "@kernel"
 
-    Tests\Behat\:
-        resource: '../tests/Behat/*'
+  Behat\Tests\:
+    resource: '../tests/Behat/*'

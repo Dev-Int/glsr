@@ -1,15 +1,15 @@
 default:
-    suites:
-        default:
-            contexts:
-                - Tests\Behat\DemoContext
-                - Tests\Behat\InventoryContext
+  suites:
+    default:
+      contexts:
+        - Behat\Tests\DemoContext
+        - Behat\Tests\InventoryContext
 
-    extensions:
-        FriendsOfBehat\SymfonyExtension:
-            bootstrap: tests/bootstrap.php
-            kernel:
-                class: Infrastructure\Kernel
-                path: ~
-                environment: ~
-                debug: ~
+  extensions:
+    FriendsOfBehat\SymfonyExtension:
+      bootstrap: tests/bootstrap.php
+      kernel:
+        class: Infrastructure\Kernel
+        path: ~
+        environment: ~
+        debug: ~

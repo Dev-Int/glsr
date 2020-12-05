@@ -67,7 +67,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Unit\\Tests\\": "tests/Unit",
+            "Behat\\Tests\\": "tests/Behat"
         }
     },
     "replace": {

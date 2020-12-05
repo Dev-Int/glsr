@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Tests\Behat;
+namespace Behat\Tests;
 
 use Behat\Behat\Context\Context;
 use Symfony\Component\HttpFoundation\Request;

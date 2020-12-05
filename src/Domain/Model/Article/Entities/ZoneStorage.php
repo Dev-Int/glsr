@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Article\Entities;
 
-use Domain\Model\Common\VO\NameField;
+use Domain\Common\Model\VO\NameField;
 
 final class ZoneStorage
 {

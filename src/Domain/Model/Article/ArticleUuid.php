@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Model\Article;
 
-use Domain\Model\Common\AbstractUuid;
+use Domain\Common\Model\AbstractUuid;
 
 final class ArticleUuid extends AbstractUuid
 {
