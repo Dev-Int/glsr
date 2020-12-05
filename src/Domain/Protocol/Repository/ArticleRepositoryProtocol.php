@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Protocol\Repository;
 
-use Domain\Model\Article\Article;
+use Domain\Article\Model\Article;
 
 interface ArticleRepositoryProtocol
 {

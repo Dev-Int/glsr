@@ -11,9 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Protocol\Common;
+namespace Domain\Protocol;
 
-interface StringifyProtocol
+use Domain\Protocol\Common\StringifyProtocol;
+
+interface IdProtocol extends StringifyProtocol
 {
-    public function toString(): string;
+    public static function generate(): self;
 }

@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Protocol\Common;
+namespace Domain\Protocol\Common;
 
-use Domain\Model\Protocol\IdProtocol;
+use Domain\Protocol\IdProtocol;
 
 interface UuidProtocol extends IdProtocol
 {

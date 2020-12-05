@@ -11,14 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Article;
+namespace Domain\Article\Model;
 
-use Domain\Model\Article\Entities\ZoneStorage;
-use Domain\Model\Article\VO\Packaging;
+use Domain\Article\Model\Entities\ZoneStorage;
+use Domain\Article\Model\VO\Packaging;
 use Domain\Common\Model\Entities\FamilyLog;
 use Domain\Common\Model\Entities\Taxes;
 use Domain\Common\Model\VO\NameField;
-use Domain\Model\Supplier\Supplier;
+use Domain\Supplier\Model\Supplier;
 
 final class Article
 {

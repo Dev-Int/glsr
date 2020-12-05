@@ -11,10 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Supplier;
+namespace Domain\Protocol\Common;
 
-use Domain\Common\Model\ContactUuid;
-
-class SupplierUuid extends ContactUuid
+interface StringifyProtocol
 {
+    public function toString(): string;
 }

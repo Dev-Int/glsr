@@ -18,7 +18,7 @@ use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
 
-class Contact
+abstract class Contact
 {
     protected string $uuid;
     protected string $name;
@@ -50,78 +50,78 @@ class Contact
         $this->cellphone = $cellphone->getValue();
     }
 
-    public function name(): string
+    final public function name(): string
     {
         return $this->name;
     }
 
-    public function renameContact(NameField $name): void
+    final public function renameContact(NameField $name): void
     {
         $this->name = $name->getValue();
         $this->slug = $name->slugify();
     }
 
-    public function address(): string
+    final public function address(): string
     {
         return $this->address;
     }
 
-    public function rewriteAddress(ContactAddress $address): void
+    final public function rewriteAddress(ContactAddress $address): void
     {
         $this->address = $address->getValue();
     }
 
-    public function phone(): string
+    final public function phone(): string
     {
         return $this->phone;
     }
 
-    public function changePhoneNumber(string $phone): void
+    final public function changePhoneNumber(string $phone): void
     {
         $this->phone = $phone;
     }
 
-    public function facsimile(): string
+    final public function facsimile(): string
     {
         return $this->facsimile;
     }
 
-    public function changeFacsimileNumber(string $facsimile): void
+    final public function changeFacsimileNumber(string $facsimile): void
     {
         $this->facsimile = $facsimile;
     }
 
-    public function email(): string
+    final public function email(): string
     {
         return $this->email;
     }
 
-    public function rewriteEmail(EmailField $email): void
+    final public function rewriteEmail(EmailField $email): void
     {
         $this->email = $email->getValue();
     }
 
-    public function contact(): string
+    final public function contact(): string
     {
         return $this->contact;
     }
 
-    public function setContact(string $contact): void
+    final public function setContact(string $contact): void
     {
         $this->contact = $contact;
     }
 
-    public function cellphone(): string
+    final public function cellphone(): string
     {
         return $this->cellphone;
     }
 
-    public function changeCellphoneNumber(string $cellphone): void
+    final public function changeCellphoneNumber(string $cellphone): void
     {
         $this->cellphone = $cellphone;
     }
 
-    public function slug(): string
+    final public function slug(): string
     {
         return $this->slug;
     }

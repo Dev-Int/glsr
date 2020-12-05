@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Supplier;
+namespace Domain\Supplier\Model;
 
 use Domain\Common\Model\Entities\FamilyLog;
 use Domain\Common\Model\VO\ContactAddress;
