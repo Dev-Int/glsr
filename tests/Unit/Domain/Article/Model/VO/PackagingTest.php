@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Article\Model\VO;
 
-use Domain\Model\Article\VO\Packaging;
+use Domain\Article\Model\VO\Packaging;
 use PHPUnit\Framework\TestCase;
 
 class PackagingTest extends TestCase

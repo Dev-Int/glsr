@@ -18,8 +18,8 @@ use Domain\Common\Model\VO\ContactAddress;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
-use Domain\Model\Supplier\Supplier;
-use Domain\Model\Supplier\SupplierUuid;
+use Domain\Supplier\Model\Supplier;
+use Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;
 
 class SupplierTest extends TestCase
