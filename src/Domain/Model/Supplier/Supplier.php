@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Domain\Model\Supplier;
 
-use Domain\Model\Common\Entities\FamilyLog;
-use Domain\Model\Common\VO\ContactAddress;
-use Domain\Model\Common\VO\EmailField;
-use Domain\Model\Common\VO\NameField;
-use Domain\Model\Common\VO\PhoneField;
-use Domain\Model\Contact;
+use Domain\Common\Model\Entities\FamilyLog;
+use Domain\Common\Model\VO\ContactAddress;
+use Domain\Common\Model\VO\EmailField;
+use Domain\Common\Model\VO\NameField;
+use Domain\Common\Model\VO\PhoneField;
+use Domain\Common\Model\Contact;
 
 final class Supplier extends Contact
 {
@@ -90,11 +90,6 @@ final class Supplier extends Contact
             $orderDays,
             $active
         );
-    }
-
-    public function name(): string
-    {
-        return $this->name;
     }
 
     public function renameSupplier(NameField $name): void

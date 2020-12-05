@@ -11,10 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Supplier;
+namespace Domain\Common\Model;
 
-use Domain\Common\Model\ContactUuid;
-
-class SupplierUuid extends ContactUuid
+class ContactUuid extends AbstractUuid
 {
 }
