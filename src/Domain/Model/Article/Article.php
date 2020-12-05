@@ -15,9 +15,9 @@ namespace Domain\Model\Article;
 
 use Domain\Model\Article\Entities\ZoneStorage;
 use Domain\Model\Article\VO\Packaging;
-use Domain\Model\Common\Entities\FamilyLog;
-use Domain\Model\Common\Entities\Taxes;
-use Domain\Model\Common\VO\NameField;
+use Domain\Common\Model\Entities\FamilyLog;
+use Domain\Common\Model\Entities\Taxes;
+use Domain\Common\Model\VO\NameField;
 use Domain\Model\Supplier\Supplier;
 
 final class Article

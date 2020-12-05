@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Model\Supplier;
+namespace Domain\Common\Model\Exception;
 
-use Domain\Common\Model\ContactUuid;
-
-class SupplierUuid extends ContactUuid
+final class InvalidQuantity extends \DomainException
 {
+    /** @var string */
+    protected $message = 'La quantité doit être un nombre.';
 }

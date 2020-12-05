@@ -80,14 +80,19 @@ load-fixtures: ## Build the DB, control the schema validity, load fixtures and c
 
 
 ## —— Tests ————————————————————————————————————————————————————————————————————
-test: phpunit.xml test-cc ## Launch main functional and unit tests
+test-domain: phpunit.xml test-cc ## Launch domain unit tests
 	./bin/phpunit --testsuite=Domain --stop-on-failure
 
-test-external: phpunit.xml test-cc ## Launch tests implying external resources (API, services...)
-	./bin/phpunit --testsuite=external --stop-on-failure
+#test-external: phpunit.xml test-cc ## Launch tests implying external resources (API, services...)
+#	./bin/phpunit --testsuite=external --stop-on-failure
 
-test-all: phpunit.xml test-cc ## Launch all tests
+test-unit: phpunit.xml test-cc ## Launch all unit tests
 	./bin/phpunit --stop-on-failure
+
+test-behat: behat.yml
+	./vendor/bin/behat
+
+test-all: test-unit test-behat
 
 test-cc: ## Clear the cache in test environment. DID YOU CLEAR YOUR CACHE????
 	$(SYMFONY) c:c --env=test
