@@ -11,12 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Protocol;
+namespace Domain\Protocol\Common\Query;
 
-use Domain\Protocol\Common\StringifyProtocol;
-
-interface IdProtocol extends StringifyProtocol
+interface QueryProtocol
 {
-    /** @return static */
-    public static function generate();
 }

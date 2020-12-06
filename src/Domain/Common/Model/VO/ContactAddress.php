@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -31,6 +31,15 @@ final class ContactAddress
     public static function fromString(string $address, string $zipCode, string $town, string $country): self
     {
         return new self($address, $zipCode, $town, $country);
+    }
+
+    public static function fromArray(array $addressData): self
+    {
+        if ([$address, $zipcode, $town, $country] = $addressData) {
+            return new self($address, $zipcode, $town, $country);
+        }
+
+        throw new \DomainException('The address data are not valid');
     }
 
     public function getValue(): string

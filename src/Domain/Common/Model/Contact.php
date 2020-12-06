@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -42,12 +42,18 @@ abstract class Contact
     ) {
         $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
+        $this->slug = $name->slugify();
         $this->address = $address->getValue();
         $this->phone = $phone->getValue();
         $this->facsimile = $facsimile->getValue();
         $this->email = $email->getValue();
         $this->contact = $contact;
         $this->cellphone = $cellphone->getValue();
+    }
+
+    final public function uuid(): string
+    {
+        return $this->uuid;
     }
 
     final public function name(): string
@@ -66,8 +72,9 @@ abstract class Contact
         return $this->address;
     }
 
-    final public function rewriteAddress(ContactAddress $address): void
+    final public function rewriteAddress(array $addressData): void
     {
+        $address = ContactAddress::fromArray($addressData);
         $this->address = $address->getValue();
     }
 

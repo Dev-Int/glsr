@@ -11,12 +11,8 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Protocol;
+namespace Domain\Protocol\Common\Command;
 
-use Domain\Protocol\Common\StringifyProtocol;
-
-interface IdProtocol extends StringifyProtocol
+interface CommandProtocol
 {
-    /** @return static */
-    public static function generate();
 }

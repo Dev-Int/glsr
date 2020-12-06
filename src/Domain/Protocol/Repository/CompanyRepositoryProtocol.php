@@ -11,12 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Protocol;
+namespace Domain\Protocol\Repository;
 
-use Domain\Protocol\Common\StringifyProtocol;
+use Domain\Administration\Company\Model\Company;
 
-interface IdProtocol extends StringifyProtocol
+interface CompanyRepositoryProtocol
 {
-    /** @return static */
-    public static function generate();
+    public function existsWithName(string $name): bool;
+
+    public function add(Company $company): void;
+
+    public function remove(Company $company): void;
 }

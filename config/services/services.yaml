@@ -1,0 +1,11 @@
+imports:
+  - { resource: application.yaml }
+  - { resource: domain.yaml }
+  - { resource: infrastructure.yaml }
+  - { resource: command-handlers.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false

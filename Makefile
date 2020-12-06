@@ -78,10 +78,18 @@ load-fixtures: ## Build the DB, control the schema validity, load fixtures and c
 	$(SYMFONY) doctrine:schema:validate
 	$(SYMFONY) doctrine:fixtures:load -n
 
+db-diff:
+	$(SYMFONY) doctrine:migrations:diff
+
+db-migrate:
+	$(SYMFONY) doctrine:migrations:migrate -n
 
 ## —— Tests ————————————————————————————————————————————————————————————————————
 test-domain: phpunit.xml test-cc ## Launch domain unit tests
 	./bin/phpunit --testsuite=Domain --stop-on-failure
+
+test-infra: phpunit.xml test-cc ## Launch infrastructure unit tests
+	./bin/phpunit --testsuite=Infrastructure --stop-on-failure
 
 #test-external: phpunit.xml test-cc ## Launch tests implying external resources (API, services...)
 #	./bin/phpunit --testsuite=external --stop-on-failure
