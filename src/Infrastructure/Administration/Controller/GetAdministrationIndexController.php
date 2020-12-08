@@ -11,17 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Controllers;
+namespace Infrastructure\Administration\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class DefaultController extends AbstractController
+class GetAdministrationIndexController extends AbstractController
 {
     public function __invoke(): Response
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'Controller',
-        ]);
+        return $this->render('Administration/index.html.twig');
     }
 }
