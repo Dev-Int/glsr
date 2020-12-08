@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Domain\Supplier\Model;
 
+use Domain\Common\Model\Contact;
 use Domain\Common\Model\Entities\FamilyLog;
 use Domain\Common\Model\VO\ContactAddress;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
-use Domain\Common\Model\Contact;
 
 final class Supplier extends Contact
 {
@@ -38,7 +38,7 @@ final class Supplier extends Contact
         string $contact,
         PhoneField $cellphone,
         FamilyLog $familyLog,
-        int $delayDeliv,
+        int $delayDelivery,
         array $orderDays,
         bool $active = true
     ) {
@@ -53,9 +53,8 @@ final class Supplier extends Contact
             $cellphone
         );
         $this->familyLog = $familyLog;
-        $this->delayDelivery = $delayDeliv;
+        $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
-        $this->slug = $name->slugify();
         $this->active = $active;
     }
 
@@ -96,11 +95,6 @@ final class Supplier extends Contact
     {
         $this->name = $name->getValue();
         $this->slug = $name->slugify();
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
     }
 
     public function familyLog(): FamilyLog
