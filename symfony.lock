@@ -240,6 +240,9 @@
             "bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v5.1.9"
+    },
     "symfony/debug-bundle": {
         "version": "4.1",
         "recipe": {

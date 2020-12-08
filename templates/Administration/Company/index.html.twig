@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>Administration</h1>
+
+            <div class="col w-25">
+                <div class="card">
+                    <div class="card-header">
+                        Company
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{{ path('admin_company_new') }}">Create</a></li>
+                        <li class="list-group-item">Update</li>
+                        <li class="list-group-item">Delete</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

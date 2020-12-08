@@ -1,0 +1,9 @@
+admin_company:
+  resource: company.yaml
+  prefix: /company
+
+admin_index:
+  path: /
+  controller: Infrastructure\Administration\Controller\GetAdministrationIndexController
+  methods: GET
+

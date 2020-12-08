@@ -21,7 +21,6 @@ use Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
 
 class PostCompanyController extends AbstractController
 {
@@ -32,12 +31,9 @@ class PostCompanyController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @Route("/administration/company/create", methods={"POST"})
-     */
     public function __invoke(Request $request): JsonResponse
     {
-        $company = $request->request->all();
+        $company = $request->request->get('create_company');
 
         if (empty($company['name'])) {
             return new JsonResponse([

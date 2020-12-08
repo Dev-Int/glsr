@@ -29,9 +29,6 @@ class MessengerQueryBus implements QueryBusProtocol
         $this->messageBus = $queryBus;
     }
 
-    /**
-     * @return mixed
-     */
     public function handle(QueryProtocol $query)
     {
         return $this->handleQuery($query);

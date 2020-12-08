@@ -1,0 +1,14 @@
+admin_company_index:
+  path: /
+  controller: Infrastructure\Administration\Company\Controller\GetCompanyIndexController
+  methods: GET
+
+admin_company_new:
+  path: /new
+  controller: Infrastructure\Administration\Company\Controller\GetNewCompanyController
+  methods: GET
+
+admin_company_create:
+  path: /create
+  controller: Infrastructure\Administration\Company\Controller\PostCompanyController
+  methods: POST
