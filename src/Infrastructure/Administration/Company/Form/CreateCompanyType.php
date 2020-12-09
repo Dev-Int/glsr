@@ -22,9 +22,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-final class CreateCompanyType extends AbstractType
+class CreateCompanyType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    final public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
@@ -63,7 +63,7 @@ final class CreateCompanyType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): OptionsResolver
+    final public function configureOptions(OptionsResolver $resolver): OptionsResolver
     {
         return $resolver->setDefaults([
             'data_class' => Company::class,
