@@ -101,7 +101,6 @@ checks:
     no_short_variable_names:
       minimum: '3'
     encourage_postdec_operator: true
-      maximum: '20'
 
 coding_style:
   php:
