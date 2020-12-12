@@ -6,144 +6,215 @@
 # https://blog.theodo.fr/2018/05/why-you-need-a-makefile-on-your-project/
 
 
-# Setup ————————————————————————————————————————————————————————————————————————
-EXEC_PHP      = php
-GIT           = git
-GIT_AUTHOR    = Dev-Int
-SYMFONY       = $(EXEC_PHP) bin/console
-SYMFONY_BIN   = symfony
-COMPOSER      = composer
-.DEFAULT_GOAL = help
+# —— Setup ————————————————————————————————————————————————————————————————————————
+DC             = docker-compose
+PROJECT_DIR    = /glsr
+RUN            = $(DC) run --rm
+RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)
+EXEC           = $(DC) exec
+SERVER_CONSOLE = $(EXEC) php php bin/console
+GIT_AUTHOR     = Dev-Int
+PASS_PHRASE?   = glsr
+VERSION?       =
+
+.DEFAULT_GOAL :=help
+.PHONY: help start stop build up reset cc install security config
+
+check_defined = \
+    $(strip $(foreach 1,$1, \
+        $(call __check_defined,$1,$(strip $(value 2)))))
+__check_defined = \
+    $(if $(value $1),, \
+        $(error Undefined $1$(if $2, ($2))$(if $(value @), \
+                required by target `$@')))
 
 
-## —— The Tests Symfony Makefile ———————————————————————————————————————————————
+## —— The Glsr Makefile ———————————————————————————————————————————————
+
 help: ## Outputs this help screen
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
-wait: ## Sleep 5 seconds
-	sleep 5
-
 
 ## —— Composer —————————————————————————————————————————————————————————————————
-install: composer.lock ## Install vendors according to the current composer.lock file
-	$(COMPOSER) install --no-progress --no-suggest --prefer-dist --optimize-autoloader
 
 update: composer.json ## Update vendors according to the composer.json file
-	$(COMPOSER) update
+	#$(EXEC) php composer update
+	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
 
-## —— Symfony ——————————————————————————————————————————————————————————————————
-sf: ## List all Symfony commands
-	$(SYMFONY)
+## —— Project —————————————————————————————————————————————————————————————————————
 
-cc: ## Clear the cache. DID YOU CLEAR YOUR CACHE????
-	$(SYMFONY) c:c
+start: config build project-vendors up ## Install and start the project
 
-warmup: ## Warmup the cache
-	$(SYMFONY) cache:warmup
+stop: ## Remove docker containers
+	@echo "Stopping containers"
+	@$(DC) kill > /dev/null
+	@$(DC) rm -v --force > /dev/null
+	@echo "Container stopped"
 
-fix-perms: ## Fix permissions of all var files
-	chmod -R 777 var/*
+reset: stop start ## Reset the whole project
 
-assets: purge ## Install the assets with symlinks in the public folder
-	$(SYMFONY) assets:install public/ --symlink --relative
+install: start security ## Install the whole project
 
-purge: ## Purge cache and logs
-	rm -rf var/cache/* var/logs/*
+cc: ## Clear the cache in dev env
+	@rm -rf var/cache/*
+	@$(EXEC) php php -d memory_limit=-1 bin/console cache:warmup
+
+clean-dir: ## Clean directories
+	@rm -rf var/cache/* \
+			var/logs/* \
+			data/**/*
+
+clear: cc clean-dir ## Remove all the cache, the logs, the sessions
+
+security:
+	@mkdir -p config/jwt/
+	@$(EXEC) php openssl genrsa -aes256 -passout pass:$(PASS_PHRASE) -out config/jwt/private.pem 4096
+	@$(EXEC) php openssl rsa -pubout -in config/jwt/private.pem -passin pass:$(PASS_PHRASE) -out config/jwt/public.pem
+
+config: ## Init files required
+config: .env.local docker-compose.override.yml .php_cs .git/hooks/pre-commit
+	@echo 'Configuration files copied'
 
 
-## —— Symfony binary ———————————————————————————————————————————————————————————
-bin-install: ## Download and install the binary in the project (file is ignored)
-	curl -sS https://get.symfony.com/cli/installer | bash
-	mv ~/.symfony/bin/symfony .
+## —— DB ——————————————————————————————————————————————————————————————————————————
 
-cert-install: ## Install the local HTTPS certificates
-	$(SYMFONY_BIN) server:ca:install
+db-diff: ## Generation doctrine diff
+	@$(SERVER_CONSOLE) doctrine:migrations:diff
 
-serve: ## Serve the application with HTTPS support
-	$(SYMFONY_BIN) serve --daemon --port=8000
+db-migrate: ## Launch doctrine migrations
+	@$(SERVER_CONSOLE) doctrine:migrations:migrate $(VERSION) --no-interaction
 
-unserve: ## Stop the webserver
-	$(SYMFONY_BIN) server:stop
+db-reset: ## Reset database with given DUMP variable
+	@:$(call check_defined, DUMP, sql file)
+	@echo 'Reseting database'
+	@$(EXEC) mysql reset $(DUMP) > /dev/null
 
+db-save: ## Save database to a sql file
+	@:$(call check_defined, DUMP, sql file)
+	@echo 'Saving database'
+	@$(EXEC) mysql save $(DUMP) > /dev/null
 
-## —— Project ——————————————————————————————————————————————————————————————————
 reload: load-fixtures ## Reload fixtures
 
-load-fixtures: ## Build the DB, control the schema validity, load fixtures and check the migration status
-	$(SYMFONY) doctrine:cache:clear-metadata
-	$(SYMFONY) doctrine:database:create --if-not-exists
-	$(SYMFONY) doctrine:schema:drop --force
-	$(SYMFONY) doctrine:schema:create
-	$(SYMFONY) doctrine:schema:validate
-	$(SYMFONY) doctrine:fixtures:load -n
+load-fixtures: ## Build the DB, load fixtures
+	@echo ""
+	$(SERVER_CONSOLE) doctrine:cache:clear-metadata
+	$(SERVER_CONSOLE) doctrine:database:create --if-not-exists
+	$(SERVER_CONSOLE) doctrine:fixtures:load -n
 
 
-## —— Tests ————————————————————————————————————————————————————————————————————
+## —— Tests ———————————————————————————————————————————————————————————————————————
+
+test: ## Execute tests
+	@echo 'Running tests'
+	@$(EXEC) php php -d memory_limit=-1 bin/phpunit
+
 test-domain: phpunit.xml test-cc ## Launch domain unit tests
-	./bin/phpunit --testsuite=Domain --stop-on-failure
+	@echo "Running unit Domain tests"
+	@$(EXEC) php bin/phpunit --testsuite=Domain --stop-on-failure
 
-#test-external: phpunit.xml test-cc ## Launch tests implying external resources (API, services...)
-#	./bin/phpunit --testsuite=external --stop-on-failure
+test-behat: behat.yml.dist ## Launch behat tests
+	@echo "Running test BDD"
+	@$(EXEC) php vendor/bin/behat
 
-test-unit: phpunit.xml test-cc ## Launch all unit tests
-	./bin/phpunit --stop-on-failure
-
-test-behat: behat.yml
-	./vendor/bin/behat
-
-test-all: test-unit test-behat
+test-coverage: clean-dir  ## Run test coverage
+	@echo 'Running tests coverage'
+	@$(EXEC) php bin/phpunit --coverage-html=var/test-coverage/
 
 test-cc: ## Clear the cache in test environment. DID YOU CLEAR YOUR CACHE????
-	$(SYMFONY) c:c --env=test
+	$(SERVER_CONSOLE) c:c --env=test
 
 
-## —— Coding standards ✨ ——————————————————————————————————————————————————————
+## —— Coding standards ✨ ———————————————————————————————————————————————————————
+
 cs: codesniffer stan #lint ## Launch check style and static analysis
 
 codesniffer: ## Run php_codesniffer only
-	./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=phpcs.xml -n -p src/
+	@$(EXEC) php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=phpcs.xml -n -p src/
 
-stan: ## Run PHPStan only
-	./vendor/bin/phpstan analyse -c phpstan.neon --memory-limit 1G
+stan: ## Execute phpstan
+	@$(EXEC) php vendor/bin/phpstan analyze -c phpstan.neon
 
-psalm: ## Run psalm only
-	./vendor/bin/psalm --show-info=false
+#psalm: ## Run psalm only
+#	@$(EXEC) php vendor/bin/psalm --show-info=false
+#
+#init-psalm: ## Init a new psalm config file for a given level, it must be decremented to have stricter rules
+#	@rm ./psalm.xml
+#	@$(EXEC) php vendor/bin/psalm --init src/ 3
 
-init-psalm: ## Init a new psalm config file for a given level, it must be decremented to have stricter rules
-	rm ./psalm.xml
-	./vendor/bin/psalm --init src/ 3
+version: ## Add a new tag with current date and publish it
+	@git checkout main > /dev/null
+	@git fetch --tags && git pull
+	@echo "MEP $(shell date '+%Y.%m.%d')\n" > VERSION
+	@git log --graph --pretty='%s' $(shell git tag | sort -r | head -n 1)..main >> VERSION
+	@git tag -a $(shell date '+%Y.%m.%d') -F VERSION > /dev/null
+	@git push --tags > /dev/null
+	@rm VERSION
 
-cs-fix: ## Run php-cs-fixer and fix the code.
-	./vendor/bin/php-cs-fixer fix
 
-
-## —— Deploy & Prod ————————————————————————————————————————————————————————————
+# ## —— Deploy & Prod ————————————————————————————————————————————————————————————
 #deploy: ## Full no-downtime deployment with EasyDeploy
-#	$(SYMFONY) deploy -v
+#	$(SERVER_CONSOLE) deploy -v
 #
 #env-check: ## Check the main ENV variables of the project
 #	printenv | grep -i app_
 #
 #le-renew: ## Renew Let's Encrypt HTTPS certificates
-#	certbot --apache -d strangebuzz.com -d www.strangebuzz.com
+#	certbot --apache -d demo.glsr.fr
 
 
-## —— Yarn / JavaScript ————————————————————————————————————————————————————————
-dev: ## Rebuild assets for the dev env
-	yarn install
-	yarn run encore dev
-
-watch: ## Watch files and build assets when needed for the dev env
-	yarn run encore dev --watch
-
-build: ## Build assets for production
-	yarn run encore production
-
+# ## —— Yarn / JavaScript ————————————————————————————————————————————————————————
+#dev: ## Rebuild assets for the dev env
+#	yarn install
+#	yarn run encore dev
+#
+#watch: ## Watch files and build assets when needed for the dev env
+#	yarn run encore dev --watch
+#
+#build: ## Build assets for production
+#	yarn run encore production
+#
 #lint: ## Lints Js files
 #	npx eslint assets/js --fix
 
 
+## Dependencies ————————————————————————————————————————————————————————————————
+
+# Internal rules
+project-vendors: vendor #node_modules ## Server vendors
+	@echo "Vendors installed"
+
+build:
+	@echo "Building images"
+	@$(DC) build > /dev/null
+
+up:
+	@echo "Starting containers"
+	@$(DC) up -d --remove-orphans
+
+
+# Single file dependencies
+.env.local: .env
+	@echo "Copying docker environment variables"
+	@cp .env .env.local
+	@sed -i "s/^APP_USER_ID=.*/APP_USER_ID=$(shell id -u)/" .env.local
+	@sed -i "s/^APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/" .env.local
+
+.git/hooks/pre-commit: .docker/git/pre-commit
+	@echo "Copying git hooks"
+	@cp .docker/git/pre-commit .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
+docker-compose.override.yml: docker-compose.override.yml.dist
+	@echo "Copying docker configuration"
+	@cp docker-compose.override.yml.dist docker-compose.override.yml
+vendor: composer.lock
+	@echo "Installing project dependencies"
+	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
+.php_cs: .php_cs.dist
+	@cp .php_cs.dist .php_cs
+
+
 ## —— Stats ————————————————————————————————————————————————————————————————————
 stats: ## Commits by the hour for the main author of this project
-	$(GIT) log --author="$(GIT_AUTHOR)" --date=iso | perl -nalE 'if (/^Date:\s+[\d-]{10}\s(\d{2})/) { say $$1+0 }' | sort | uniq -c|perl -MList::Util=max -nalE '$$h{$$F[1]} = $$F[0]; }{ $$m = max values %h; foreach (0..23) { $$h{$$_} = 0 if not exists $$h{$$_} } foreach (sort {$$a <=> $$b } keys %h) { say sprintf "%02d - %4d %s", $$_, $$h{$$_}, "*"x ($$h{$$_} / $$m * 50); }'
+	@git log --author="$(GIT_AUTHOR)" --date=iso | perl -nalE 'if (/^Date:\s+[\d-]{10}\s(\d{2})/) { say $$1+0 }' | sort | uniq -c|perl -MList::Util=max -nalE '$$h{$$F[1]} = $$F[0]; }{ $$m = max values %h; foreach (0..23) { $$h{$$_} = 0 if not exists $$h{$$_} } foreach (sort {$$a <=> $$b } keys %h) { say sprintf "%02d - %4d %s", $$_, $$h{$$_}, "*"x ($$h{$$_} / $$m * 50); }'
