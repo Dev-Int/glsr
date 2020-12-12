@@ -16,6 +16,7 @@ namespace Unit\Tests\Infrastructure\Administration\Company\Controller;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\Infrastructure\DatabaseHelper;
 
 class PostCompanyControllerTest extends WebTestCase
@@ -62,5 +63,32 @@ class PostCompanyControllerTest extends WebTestCase
         // Assert
         static::assertSame(JsonResponse::HTTP_ACCEPTED, $response->getStatusCode());
         static::assertSame('{"status":"Company created started!"}', $response->getContent());
+    }
+
+    final public function testPostCompanyAlreadyExist(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures(['group' => 'company']);
+        $content = [
+            'create_company' => [
+                'name' => 'Dev-Int Création',
+                'address' => '1, rue des ERP',
+                'zipCode' => '75000',
+                'town' => 'PARIS',
+                'country' => 'France',
+                'phone' => '+33100000001',
+                'facsimile' => '+33100000002',
+                'email' => 'contact@developpement-interessant.com',
+                'contact' => 'Laurent',
+                'gsm' => '+33100000002',
+            ],
+        ];
+
+        // Act
+        $this->client->request('POST', '/administration/company/create', $content);
+        $response = $this->client->getResponse();
+
+        // Assert
+        static::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
     }
 }
