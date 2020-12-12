@@ -1,4 +1,5 @@
 /.directory
+/docker-compose.override.yml
 
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs

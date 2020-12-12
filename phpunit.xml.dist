@@ -15,13 +15,12 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
-<!--        <server name="KERNEL_CLASS" value="Infrastructure\Kernel"/>-->
         <env name="BOOTSTRAP_CLEAR_CACHE_ENV" value="test"/>
-        <env name="DATABASE_URL" value="mysql://db_user:db_password@127.0.0.1:3306/db_name" />
+<!--        <env name="DATABASE_URL" value="${MYSQL_USER}:${MYSQL_PASSWORD}@mariadb:3306/${MYSQL_DATABASE_TEST}?serverVersion=mariadb-10.1.47" />-->
 
         <!-- ###+ symfony/messenger ### -->
         <!-- Choose one of the transports below -->
-        <!-- MESSENGER_TRANSPORT_DSN=doctrine://default -->
+        <env name="MESSENGER_TRANSPORT_DSN" value="doctrine://default" />
         <!-- MESSENGER_TRANSPORT_DSN=amqp://guest:guest@localhost:5672/%2f/messages -->
         <!-- MESSENGER_TRANSPORT_DSN=redis://localhost:6379/messages -->
         <!-- ###- symfony/messenger ### -->

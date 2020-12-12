@@ -16,24 +16,24 @@ namespace Behat\Tests;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 final class CompanyContext implements Context
 {
-    private HttpClientInterface $client;
-    private ResponseInterface $response;
+    private KernelInterface $kernel;
+    private ?Response $response;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(KernelInterface $kernel)
     {
-        $this->client = $client;
+        $this->kernel = $kernel;
     }
 
     /**
      * @When enter data:
      *
-     * @throws TransportExceptionInterface
+     * @throws \Exception
      */
     public function enterData(TableNode $table): bool
     {
@@ -44,27 +44,24 @@ final class CompanyContext implements Context
             $content['create_company'][$keys[$i]] = $data[$i];
         }
 
-        $this->response = $this->client->request(
-            'POST',
+        $this->response = $this->kernel->handle(Request::create(
             '/administration/company/create',
-            [
-                'body' => $content,
-                'base_uri' => 'https://127.0.0.1:8000',
-                'verify_peer' => false,
-                'verify_host' => false,
-            ]
-        );
+            Request::METHOD_POST,
+            ['body' => $content]
+        ));
 
         return JsonResponse::HTTP_ACCEPTED === $this->response->getStatusCode();
     }
 
     /**
      * @Then return status code :arg1
-     *
-     * @throws TransportExceptionInterface
      */
     public function returnStatusCode(int $arg1): bool
     {
-        return $arg1 === $this->response->getStatusCode();
+        if (null === $this->response) {
+            throw new \RuntimeException("Expected status code: {$arg1}");
+        }
+
+        return ($arg1 === $this->response->getStatusCode()) ?? false;
     }
 }

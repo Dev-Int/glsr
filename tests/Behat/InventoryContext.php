@@ -14,28 +14,29 @@ declare(strict_types=1);
 namespace Behat\Tests;
 
 use Behat\Behat\Context\Context;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 final class InventoryContext implements Context
 {
-    private HttpClientInterface $client;
-    private ResponseInterface $response;
+    private KernelInterface $kernel;
+    private ?Response $response;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(KernelInterface $kernel)
     {
-        $this->client = $client;
+        $this->kernel = $kernel;
     }
 
     /**
-     * @When I visit page :arg1
+     * @When I visit page :path
      *
-     * @throws TransportExceptionInterface
+     * @throws \Exception
      */
-    public function iVisitPage(string $arg1): bool
+    public function iVisitPage(string $path): bool
     {
-        $this->response = $this->client->request('GET', $arg1, ['verify_peer' => false, 'verify_host' => false]);
+        $this->response = $this->kernel->handle(Request::create($path, Request::METHOD_GET));
 
         $responseCode = $this->response->getStatusCode();
 
@@ -47,12 +48,12 @@ final class InventoryContext implements Context
     }
 
     /**
-     * @Then it should return a file with title :arg1
+     * @Then it should return a :file
      */
-    public function itShouldReturnFileWithPdfExtension(string $arg1): bool
+    public function itShouldReturnFile(string $format): bool
     {
-        if ($arg1 !== $this->response->getContent()) {
-            throw new \RuntimeException('Expected title "Inventaire"');
+        if (false === ($this->response instanceof BinaryFileResponse)) {
+            throw new \RuntimeException('Expected format"' . $format . '"');
         }
 
         return true;
