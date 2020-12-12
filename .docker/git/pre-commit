@@ -1,0 +1,64 @@
+#!/bin/bash
+# COMMANDS
+PHP="docker-compose exec -T php php"
+
+# VARIABLES
+PROJECT_DIR=`${PHP} -r "echo dirname(dirname(dirname(realpath('$0'))));"`
+SERVER_FILES=`git diff --cached --name-only --diff-filter=ACMR HEAD | grep ^server.*\\\\.php`
+PHP_FILES=$(git diff --cached --name-only --diff-filter=ACMR HEAD | grep \.php\$)
+
+# ERROR FLAGS
+ERROR_DUMP=0
+ERROR_PARSE=0
+ERROR_SERVER_CS=0
+
+# COLORS
+GREEN='\e[0;32m'
+BROWN='\e[0;33m'
+RED='\e[0;31m'
+CYAN='\e[96m'
+NC='\e[0m'
+
+FILES=''
+echo -e "${GREEN}Checking PHP ${BROWN}dump ${GREEN}and ${BROWN}lint${GREEN}...${NC}"
+for file in ${PHP_FILES}; do
+    DIFF=`git diff --cached --diff-filter ACMR ${file}|grep -e '+.*dump'`
+    if [[ ! -z "$DIFF" ]]; then
+        FILES="${FILES}\n\t${file}"
+        ERROR_DUMP=1
+    fi
+    ${PHP} -l -d display_errors=0 "$PROJECT_DIR/$file"
+    if [[ $? != 0 ]]; then
+        ERROR_PARSE=1
+    fi
+done
+if [[ ${ERROR_PARSE} != 0 ]]; then
+    echo -e "${RED}Fix ${BROWN}parsing ${RED}errors before commit.${NC}"
+fi
+if [[ ${ERROR_DUMP} != 0 ]]; then
+    echo -e "${RED}Remove ${BROWN}dump ${RED}statement in following files before commit.${NC}$FILES"
+fi
+
+FILES=''
+echo -e "${GREEN}Checking ${BROWN}server ${GREEN}PHP code standards...${NC}"
+for file in ${SERVER_FILES}; do
+    FILES="$PROJECT_DIR/$file $FILES"
+done
+if [[ ! -z "${FILES}" ]]; then
+    ${PHP} server/vendor/bin/php-cs-fixer fix ${FILES} --dry-run --diff --diff-format=udiff --config server/.php_cs
+    if [[ $? != 0 ]]; then
+        ERROR_SERVER_CS=1
+    fi
+fi
+if [[ ${ERROR_SERVER_CS} != 0 ]]; then
+    echo -e "${RED}Fix ${BROWN}server PHPCS ${RED}errors before commit.${NC}"
+fi
+
+# Display message and exit status
+! (( $ERROR_DUMP || $ERROR_PARSE || $ERROR_SERVER_CS || $ERROR_ES_LINT || $ERROR_TS_LINT ))
+ERRORS=$?
+[[ ${ERRORS} == 0 ]] && echo -e "${CYAN}You can commit your job!${NC}"
+[[ ${ERRORS} != 0 ]] && echo -e "${RED}Fix the errors before commit!${NC}"
+
+exit ${ERRORS}
+

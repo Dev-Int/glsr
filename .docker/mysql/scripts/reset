@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mysql -uroot -p${MYSQL_ROOT_PASSWORD} -e"DROP DATABASE ${MYSQL_DATABASE};CREATE DATABASE ${MYSQL_DATABASE}" && \
+    mysql -uroot -p${MYSQL_ROOT_PASSWORD} ${MYSQL_DATABASE} < $1
+
+exit 0
