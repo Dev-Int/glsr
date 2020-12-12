@@ -1,17 +1,16 @@
 build:
   nodes:
     analysis:
-      glsr:
+      tests:
         override:
           - php-scrutinizer-run
           - phpcs-run --config phpcs.xml.dist
-    glsr:
-      environment:
-#        docker: true
-        php:
-          version: 7.4
-          ini:
-            'date.timezone': 'Europe/Paris'
+    environment:
+      docker: true
+      php:
+        version: 7.4
+        ini:
+          'date.timezone': 'Europe/Paris'
 
 filter:
   paths:
