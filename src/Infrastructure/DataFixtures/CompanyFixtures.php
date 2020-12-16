@@ -27,9 +27,9 @@ class CompanyFixtures extends Fixture implements FixtureGroupInterface
     final public function load(ObjectManager $manager): void
     {
         $company = Company::create(
-            ContactUuid::generate(),
+            ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Dev-Int Création'),
-            '1, rue des ERP',
+            '1 rue des ERP',
             '75000',
             'PARIS',
             'France',

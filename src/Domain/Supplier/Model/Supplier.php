@@ -15,7 +15,6 @@ namespace Domain\Supplier\Model;
 
 use Domain\Common\Model\Contact;
 use Domain\Common\Model\Entities\FamilyLog;
-use Domain\Common\Model\VO\ContactAddress;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
@@ -31,7 +30,10 @@ final class Supplier extends Contact
     public function __construct(
         SupplierUuid $uuid,
         NameField $name,
-        ContactAddress $address,
+        string $address,
+        string $zipCode,
+        string $town,
+        string $country,
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
@@ -46,6 +48,9 @@ final class Supplier extends Contact
             $uuid,
             $name,
             $address,
+            $zipCode,
+            $town,
+            $country,
             $phone,
             $facsimile,
             $email,
@@ -78,7 +83,10 @@ final class Supplier extends Contact
         return new self(
             $uuid,
             $name,
-            ContactAddress::fromString($address, $zipCode, $town, $country),
+            $address,
+            $zipCode,
+            $town,
+            $country,
             $phone,
             $facsimile,
             $email,

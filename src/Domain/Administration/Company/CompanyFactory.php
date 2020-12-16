@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Domain\Administration\Company;
 
 use Domain\Administration\Company\Command\CreateCompany;
+use Domain\Administration\Company\Command\EditCompany;
 use Domain\Administration\Company\Model\Company;
 use Domain\Common\Model\ContactUuid;
 
@@ -32,7 +33,43 @@ final class CompanyFactory
             $command->facsimile(),
             $command->email(),
             $command->contact(),
-            $command->gsm()
+            $command->cellPhone()
         );
+    }
+
+    public function update(EditCompany $command, Company $company): Company
+    {
+        if ($company->name() !== $command->name()) {
+            $company->renameCompany($command->name());
+        }
+        if (($company->address() !== $command->address())
+            || ($company->zipCode() !== $command->zipCode())
+            || ($company->town() !== $command->town())
+            || ($company->country() !== $command->country())
+        ) {
+            $company->rewriteAddress([
+                $command->address(),
+                $command->zipCode(),
+                $command->town(),
+                $command->country(),
+            ]);
+        }
+        if ($company->phone() !== $command->phone()) {
+            $company->changePhoneNumber($command->phone());
+        }
+        if ($company->facsimile() !== $command->facsimile()) {
+            $company->changeFacsimileNumber($command->facsimile());
+        }
+        if ($company->email() !== $command->email()) {
+            $company->rewriteEmail($command->email());
+        }
+        if ($company->contact() !== $command->contact()) {
+            $company->renameContact($command->contact());
+        }
+        if ($company->cellPhone() !== $command->cellPhone()) {
+            $company->changeCellphoneNumber($command->cellPhone());
+        }
+
+        return $company;
     }
 }

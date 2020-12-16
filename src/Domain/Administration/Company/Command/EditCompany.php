@@ -11,17 +11,18 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company\Model;
+namespace Domain\Administration\Company\Command;
 
-use Domain\Common\Model\Contact;
 use Domain\Common\Model\ContactUuid;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
 
-class Company extends Contact
+final class EditCompany extends AbstractCompanyCommand
 {
-    public static function create(
+    private string $uuid;
+
+    public function __construct(
         ContactUuid $uuid,
         NameField $name,
         string $address,
@@ -32,10 +33,10 @@ class Company extends Contact
         PhoneField $facsimile,
         EmailField $email,
         string $contact,
-        PhoneField $gsm
-    ): self {
-        return new self(
-            $uuid,
+        PhoneField $cellPhone
+    ) {
+        $this->uuid = $uuid->toString();
+        parent::__construct(
             $name,
             $address,
             $zipCode,
@@ -45,13 +46,12 @@ class Company extends Contact
             $facsimile,
             $email,
             $contact,
-            $gsm
+            $cellPhone
         );
     }
 
-    final public function renameCompany(NameField $name): void
+    public function uuid(): string
     {
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
+        return $this->uuid;
     }
 }

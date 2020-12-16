@@ -11,6 +11,9 @@
         </id>
         <field name="name" type="string" length="150" nullable="false"/>
         <field name="address" type="string" nullable="false"/>
+        <field name="zipCode" type="string" nullable="false"/>
+        <field name="town" type="string" nullable="false"/>
+        <field name="country" type="string" nullable="false"/>
         <field name="phone" type="string" nullable="false"/>
         <field name="facsimile" type="string" nullable="true"/>
         <field name="email" type="string" nullable="false"/>

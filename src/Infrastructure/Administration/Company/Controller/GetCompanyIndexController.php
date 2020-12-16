@@ -13,13 +13,19 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Controller;
 
+use Doctrine\Persistence\ManagerRegistry;
+use Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetCompanyIndexController extends AbstractController
 {
-    public function __invoke(): Response
+    public function __invoke(ManagerRegistry $registry): Response
     {
-        return $this->render('Administration/Company/index.html.twig');
+        $companies = (new DoctrineCompanyRepository($registry))->findAll();
+
+        return $this->render('Administration/Company/index.html.twig', [
+            'companies' => $companies,
+        ]);
     }
 }

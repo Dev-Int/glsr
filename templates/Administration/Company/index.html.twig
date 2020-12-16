@@ -5,20 +5,29 @@
         <div class="col">
             <h1>Administration</h1>
 
-            <div class="col w-25">
-                <div class="card">
-                    <div class="card-header">
-                        Company
+            <div class="row">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Company
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="{{ path('admin_company_new') }}">Create</a></li>
+                            <li class="list-group-item"><a href="{{ path('admin_company_edit', {'uuid': companies[0].uuid}) }}">Update</a></li>
+                            <li class="list-group-item">Delete</li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href="{{ path('admin_company_new') }}">Create</a></li>
-                        <li class="list-group-item">Update</li>
-                        <li class="list-group-item">Delete</li>
-                    </ul>
                 </div>
-            </div>
-            <div class="col">
-
+                {% for company in companies %}
+                    <div class="col">
+                        <p>Company name : {{ company.name }}</p>
+                        <p>Address Company : {{ company.fullAddress|raw }}</p>
+                        <p>Company phone: {{ company.phone }}, fax: {{ company.facsimile }}</p>
+                        <p>Contact email: {{ company.email }}</p>
+                        <p>Contact name: {{ company.contact }}</p>
+                        <p>Contact phone: {{ company.cellphone }}</p>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -28,8 +28,15 @@ final class ContactAddress
         $this->country = $country;
     }
 
-    public static function fromString(string $address, string $zipCode, string $town, string $country): self
+    public static function fromString(string $stringAddress): self
     {
+        \preg_match(
+            '/([0-9-a-zA-Zéêèëùûü ]*)\n(\d{5}) ([0-9-a-zA-Zéêèëùûü ]*), ([0-9-a-zA-Zéêèëùûü ]*)/u',
+            $stringAddress,
+            $completeAddress
+        );
+        [$full, $address, $zipCode, $town, $country] = $completeAddress;
+
         return new self($address, $zipCode, $town, $country);
     }
 
@@ -45,5 +52,25 @@ final class ContactAddress
     public function getValue(): string
     {
         return $this->address . "\n" . $this->zipCode . ' ' . $this->town . ', ' . $this->country;
+    }
+
+    public function address(): string
+    {
+        return $this->address;
+    }
+
+    public function zipCode(): string
+    {
+        return $this->zipCode;
+    }
+
+    public function town(): string
+    {
+        return $this->town;
+    }
+
+    public function country(): string
+    {
+        return $this->country;
     }
 }

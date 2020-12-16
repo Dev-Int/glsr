@@ -146,6 +146,9 @@ codesniffer: ## Run php_codesniffer only
 stan: ## Execute phpstan
 	@$(EXEC) php vendor/bin/phpstan analyze -c phpstan.neon
 
+cs-fixer: ## Execute php-cs-fixer
+	@$(EXEC) php vendor/bin/php-cs-fixer fix
+
 #psalm: ## Run psalm only
 #	@$(EXEC) php vendor/bin/psalm --show-info=false
 #

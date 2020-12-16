@@ -12,3 +12,13 @@ admin_company_create:
   path: /create
   controller: Infrastructure\Administration\Company\Controller\PostCompanyController
   methods: POST
+
+admin_company_edit:
+  path: /edit/{uuid}
+  controller: Infrastructure\Administration\Company\Controller\GetEditCompanyController
+  methods: GET
+
+admin_company_update:
+  path: /update/{uuid}
+  controller: Infrastructure\Administration\Company\Controller\PutCompanyController
+  methods: POST

@@ -23,6 +23,9 @@ abstract class Contact
     protected string $uuid;
     protected string $name;
     protected string $address;
+    protected string $zipCode;
+    protected string $town;
+    protected string $country;
     protected string $phone;
     protected string $facsimile;
     protected string $email;
@@ -33,7 +36,10 @@ abstract class Contact
     public function __construct(
         ContactUuid $uuid,
         NameField $name,
-        ContactAddress $address,
+        string $address,
+        string $zipCode,
+        string $town,
+        string $country,
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
@@ -43,7 +49,10 @@ abstract class Contact
         $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
         $this->slug = $name->slugify();
-        $this->address = $address->getValue();
+        $this->address = $address;
+        $this->zipCode = $zipCode;
+        $this->town = $town;
+        $this->country = $country;
         $this->phone = $phone->getValue();
         $this->facsimile = $facsimile->getValue();
         $this->email = $email->getValue();
@@ -61,21 +70,18 @@ abstract class Contact
         return $this->name;
     }
 
-    final public function renameContact(NameField $name): void
+    final public function fullAddress(): string
     {
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
-    }
-
-    final public function address(): string
-    {
-        return $this->address;
+        return ContactAddress::fromArray([$this->address, $this->zipCode, $this->town, $this->country])->getValue();
     }
 
     final public function rewriteAddress(array $addressData): void
     {
         $address = ContactAddress::fromArray($addressData);
-        $this->address = $address->getValue();
+        $this->address = $address->address();
+        $this->zipCode = $address->zipCode();
+        $this->town = $address->town();
+        $this->country = $address->country();
     }
 
     final public function phone(): string
@@ -83,9 +89,9 @@ abstract class Contact
         return $this->phone;
     }
 
-    final public function changePhoneNumber(string $phone): void
+    final public function changePhoneNumber(PhoneField $phone): void
     {
-        $this->phone = $phone;
+        $this->phone = $phone->getValue();
     }
 
     final public function facsimile(): string
@@ -93,9 +99,9 @@ abstract class Contact
         return $this->facsimile;
     }
 
-    final public function changeFacsimileNumber(string $facsimile): void
+    final public function changeFacsimileNumber(PhoneField $facsimile): void
     {
-        $this->facsimile = $facsimile;
+        $this->facsimile = $facsimile->getValue();
     }
 
     final public function email(): string
@@ -113,7 +119,7 @@ abstract class Contact
         return $this->contact;
     }
 
-    final public function setContact(string $contact): void
+    final public function renameContact(string $contact): void
     {
         $this->contact = $contact;
     }
@@ -123,13 +129,33 @@ abstract class Contact
         return $this->cellphone;
     }
 
-    final public function changeCellphoneNumber(string $cellphone): void
+    final public function changeCellphoneNumber(PhoneField $cellphone): void
     {
-        $this->cellphone = $cellphone;
+        $this->cellphone = $cellphone->getValue();
     }
 
     final public function slug(): string
     {
         return $this->slug;
+    }
+
+    final public function address(): string
+    {
+        return $this->address;
+    }
+
+    final public function zipCode(): string
+    {
+        return $this->zipCode;
+    }
+
+    final public function town(): string
+    {
+        return $this->town;
+    }
+
+    final public function country(): string
+    {
+        return $this->country;
     }
 }

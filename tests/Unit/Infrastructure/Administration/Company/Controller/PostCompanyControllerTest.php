@@ -13,36 +13,17 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Infrastructure\Administration\Company\Controller;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Infrastructure\DataFixtures\CompanyFixtures;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\Infrastructure\DatabaseHelper;
+use Unit\Tests\Infrastructure\AbstractControllerTest;
 
-class PostCompanyControllerTest extends WebTestCase
+class PostCompanyControllerTest extends AbstractControllerTest
 {
-    private KernelBrowser $client;
-
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-
-        DatabaseHelper::dropAndCreateDatabaseAndRunMigrations();
-    }
-
-    final protected function setUp(): void
-    {
-        parent::setUp();
-
-        static::ensureKernelShutdown();
-        $this->client = static::createClient();
-    }
-
     final public function testPostCompanyAction(): void
     {
         // Arrange
         $content = [
-            'create_company' => [
+            'company' => [
                 'name' => 'Dev-Int Création',
                 'address' => '1, rue des ERP',
                 'zipCode' => '75000',
@@ -52,7 +33,7 @@ class PostCompanyControllerTest extends WebTestCase
                 'facsimile' => '+33100000002',
                 'email' => 'contact@developpement-interessant.com',
                 'contact' => 'Laurent',
-                'gsm' => '+33100000002',
+                'cellphone' => '+33100000002',
             ],
         ];
         $this->client->request('POST', '/administration/company/create', $content);
@@ -61,18 +42,18 @@ class PostCompanyControllerTest extends WebTestCase
         $response = $this->client->getResponse();
 
         // Assert
-        static::assertSame(JsonResponse::HTTP_ACCEPTED, $response->getStatusCode());
-        static::assertSame('{"status":"Company created started!"}', $response->getContent());
+        static::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        static::assertTrue($response->isRedirect('/administration/company/'));
     }
 
     final public function testPostCompanyAlreadyExist(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures(['group' => 'company']);
+        $this->loadFixture(new CompanyFixtures());
         $content = [
-            'create_company' => [
+            'company' => [
                 'name' => 'Dev-Int Création',
-                'address' => '1, rue des ERP',
+                'address' => '1 rue des ERP',
                 'zipCode' => '75000',
                 'town' => 'PARIS',
                 'country' => 'France',

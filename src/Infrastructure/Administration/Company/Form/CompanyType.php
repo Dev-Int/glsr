@@ -20,9 +20,10 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotNull;
 
-class CreateCompanyType extends AbstractType
+class CompanyType extends AbstractType
 {
     final public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -49,12 +50,15 @@ class CreateCompanyType extends AbstractType
                 'constraints' => new NotNull(),
             ])
             ->add('email', EmailType::class, [
-                'constraints' => new NotNull(),
+                'constraints' => [
+                    new NotNull(),
+                    new Email(),
+                ],
             ])
             ->add('contact', TextType::class, [
                 'constraints' => new NotNull(),
             ])
-            ->add('gsm', TextType::class, [
+            ->add('cellphone', TextType::class, [
                 'constraints' => new NotNull(),
             ])
             ->add('save', SubmitType::class, [
@@ -68,5 +72,10 @@ class CreateCompanyType extends AbstractType
         return $resolver->setDefaults([
             'data_class' => Company::class,
         ]);
+    }
+
+    final public function getBlockPrefix(): string
+    {
+        return 'company';
     }
 }

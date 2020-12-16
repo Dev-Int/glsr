@@ -36,7 +36,8 @@ abstract class DatabaseHelper
 
         if (!$process->isSuccessful()) {
             \var_dump($process->getErrorOutput());
-            die(\var_dump($process));
+
+            exit(\var_dump($process));
         }
     }
 
@@ -55,7 +56,8 @@ abstract class DatabaseHelper
 
         if (!$process->isSuccessful()) {
             \var_dump($process->getErrorOutput());
-            die(\var_dump($process));
+
+            exit(\var_dump($process));
         }
     }
 
@@ -76,7 +78,8 @@ abstract class DatabaseHelper
 
         if (!$process->isSuccessful()) {
             \var_dump($process->getErrorOutput());
-            die(\var_dump($process));
+
+            exit(\var_dump($process));
         }
     }
 
@@ -102,7 +105,8 @@ abstract class DatabaseHelper
 
         if (!$process->isSuccessful()) {
             \var_dump($process->getErrorOutput());
-            die(\var_dump($process));
+
+            exit(\var_dump($process));
         }
     }
 

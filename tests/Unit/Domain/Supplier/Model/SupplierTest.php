@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Unit\Tests\Domain\Supplier\Model;
 
 use Domain\Common\Model\Entities\FamilyLog;
-use Domain\Common\Model\VO\ContactAddress;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
@@ -49,12 +48,10 @@ class SupplierTest extends TestCase
             new Supplier(
                 SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France'
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -96,12 +93,10 @@ class SupplierTest extends TestCase
             new Supplier(
                 SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Trans Gourmet'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France'
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),

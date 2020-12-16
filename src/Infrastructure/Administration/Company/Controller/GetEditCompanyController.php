@@ -13,19 +13,20 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Controller;
 
+use Domain\Administration\Company\Model\Company;
 use Infrastructure\Administration\Company\Form\CompanyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class GetNewCompanyController extends AbstractController
+class GetEditCompanyController extends AbstractController
 {
-    public function __invoke(): Response
+    public function __invoke(Company $company): Response
     {
-        $form = $this->createForm(CompanyType::class, null, [
-            'action' => $this->generateUrl('admin_company_create'),
+        $form = $this->createForm(CompanyType::class, $company, [
+            'action' => $this->generateUrl('admin_company_update', ['uuid' => $company->uuid()]),
         ]);
 
-        return $this->render('Administration/Company/new.html.twig', [
+        return $this->render('Administration/Company/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }

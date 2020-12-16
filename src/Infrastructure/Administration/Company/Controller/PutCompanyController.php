@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Controller;
 
-use Domain\Administration\Company\Command\CreateCompany;
+use Domain\Administration\Company\Command\EditCompany;
+use Domain\Common\Model\ContactUuid;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostCompanyController extends AbstractController
+class PutCompanyController extends AbstractController
 {
     private MessengerCommandBus $commandBus;
 
@@ -33,12 +34,13 @@ class PostCompanyController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, string $uuid): Response
     {
         $company = $request->request->get('company');
 
         try {
-            $command = new CreateCompany(
+            $command = new EditCompany(
+                ContactUuid::fromString($uuid),
                 NameField::fromString($company['name']),
                 $company['address'],
                 $company['zipCode'],
@@ -53,17 +55,17 @@ class PostCompanyController extends AbstractController
             $this->commandBus->dispatch($command);
         } catch (\DomainException $exception) {
             $form = $this->createForm(CompanyType::class, $company, [
-                'action' => $this->generateUrl('admin_company_create'),
+                'action' => $this->generateUrl('admin_company_edit'),
             ]);
             $this->addFlash('error', $exception->getMessage());
 
-            return $this->render('Administration/Company/new.html.twig', [
+            return $this->render('Administration/Company/edit.html.twig', [
                 'form' => $form->createView(),
                 'errors' => $exception,
             ]);
         }
 
-        $this->addFlash('success', 'Company created started!');
+        $this->addFlash('success', 'Company updated started!');
 
         return new RedirectResponse($this->generateUrl('admin_company_index'));
     }

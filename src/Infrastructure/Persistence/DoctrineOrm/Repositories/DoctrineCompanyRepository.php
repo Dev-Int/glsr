@@ -61,4 +61,30 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
     {
         $this->getEntityManager()->remove($company);
     }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    final public function findOneByUuid(string $uuid): ?Company
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    final public function companyExist(): bool
+    {
+        $statement = $this->createQueryBuilder('c')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        return null !== $statement;
+    }
 }

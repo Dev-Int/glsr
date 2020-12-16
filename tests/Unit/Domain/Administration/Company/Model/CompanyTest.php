@@ -15,7 +15,6 @@ namespace Unit\Tests\Domain\Administration\Company\Model;
 
 use Domain\Administration\Company\Model\Company;
 use Domain\Common\Model\ContactUuid;
-use Domain\Common\Model\VO\ContactAddress;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
@@ -45,12 +44,10 @@ class CompanyTest extends TestCase
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France'
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -86,12 +83,10 @@ class CompanyTest extends TestCase
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Trans Gourmet'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France'
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -132,12 +127,10 @@ class CompanyTest extends TestCase
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
-                ContactAddress::fromString(
-                    '25, rue des givrons',
-                    '56000',
-                    'Lorient',
-                    'France',
-                ),
+                '25, rue des givrons',
+                '56000',
+                'Lorient',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -166,21 +159,19 @@ class CompanyTest extends TestCase
         );
 
         // Act
-        $company->changePhoneNumber('+33100050001');
-        $company->changeFacsimileNumber('+33100050002');
-        $company->changeCellphoneNumber('+33600050001');
+        $company->changePhoneNumber(PhoneField::fromString('+33100050001'));
+        $company->changeFacsimileNumber(PhoneField::fromString('+33100050002'));
+        $company->changeCellphoneNumber(PhoneField::fromString('+33600050001'));
 
         // Assert
         static::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France',
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100050001'),
                 PhoneField::fromString('+33100050002'),
                 EmailField::fromString('contact@davigel.fr'),
@@ -216,12 +207,10 @@ class CompanyTest extends TestCase
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
-                ContactAddress::fromString(
-                    '15, rue des givrés',
-                    '75000',
-                    'Paris',
-                    'France',
-                ),
+                '15, rue des givrés',
+                '75000',
+                'Paris',
+                'France',
                 PhoneField::fromString('+33100000001'),
                 PhoneField::fromString('+33100000002'),
                 EmailField::fromString('david@davigel.fr'),
