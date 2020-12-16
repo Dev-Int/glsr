@@ -12,9 +12,19 @@
                             Company
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="{{ path('admin_company_new') }}">Create</a></li>
-                            <li class="list-group-item"><a href="{{ path('admin_company_edit', {'uuid': companies[0].uuid}) }}">Update</a></li>
-                            <li class="list-group-item">Delete</li>
+                            <li class="list-group-item">
+                                <a href="{{ path('admin_company_new') }}">Create</a>
+                            </li>
+                            <li class="list-group-item">
+                                {% if companies %}
+                                <a href="{{ path('admin_company_edit', {'uuid': companies[0].uuid}) }}">Update</a>
+                                {% else %}Update{% endif %}
+                            </li>
+                            <li class="list-group-item">
+                                {% if companies %}
+                                {{ include('Administration/Company/_delete-form.html.twig') }}
+                                {% else %}Delete{% endif %}
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -29,6 +39,8 @@
                     </div>
                 {% endfor %}
             </div>
+
+            <a href="{{ path('admin_index') }}">< Retour à l'accueil</a>
         </div>
     </div>
 {% endblock %}

@@ -22,3 +22,8 @@ admin_company_update:
   path: /update/{uuid}
   controller: Infrastructure\Administration\Company\Controller\PutCompanyController
   methods: POST
+
+admin_company_delete:
+  path: /delete/{uuid}
+  controller: Infrastructure\Administration\Company\Controller\DeleteCompanyController
+  methods: DELETE
