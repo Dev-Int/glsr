@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: var/cache
-          key: glsr-cache-${{ hashFiles(composer.lock) }}
+          key: glsr-cache-${{ hashFiles(./composer.lock) }}
           restore-keys: glsr-cache-
 
       - name: Validate composer.json and composer.lock
@@ -32,7 +32,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.composer/cache/
-          key: composer-${{ hashFiles(composer.lock) }}
+          key: composer-${{ hashFiles(./composer.lock) }}
           restore-keys: composer-
 
       - name: Install dependencies
