@@ -38,7 +38,7 @@ help: ## Outputs this help screen
 ## —— Composer —————————————————————————————————————————————————————————————————
 
 update: composer.json ## Update vendors according to the composer.json file
-	#$(EXEC) php composer update
+	@echo "Update php dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
 
