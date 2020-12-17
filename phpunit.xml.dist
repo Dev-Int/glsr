@@ -32,6 +32,7 @@
         </testsuite>
         <testsuite name="Infrastructure">
             <directory>tests/Unit/Infrastructure</directory>
+            <exclude>tests/Unit/Infrastructure/AbstractControllerTest.php</exclude>
         </testsuite>
     </testsuites>
 

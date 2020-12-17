@@ -29,13 +29,6 @@ class AbstractControllerTest extends WebTestCase
     protected ORMExecutor $executor;
     private string $projectDir;
 
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-
-        DatabaseHelper::dropAndCreateDatabaseAndRunMigrations();
-    }
-
     final protected function setUp(): void
     {
         parent::setUp();
