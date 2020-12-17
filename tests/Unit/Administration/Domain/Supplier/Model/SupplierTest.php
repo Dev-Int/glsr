@@ -11,14 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Domain\Supplier\Model;
+namespace Unit\Tests\Administration\Domain\Supplier\Model;
 
+use Administration\Domain\Supplier\Model\Supplier;
+use Administration\Domain\Supplier\Model\SupplierUuid;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Administration\Domain\Supplier\Model\Supplier;
-use Administration\Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;
 
 class SupplierTest extends TestCase

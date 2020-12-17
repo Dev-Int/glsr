@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Domain\Article\Model\VO;
+namespace Unit\Tests\Administration\Domain\Article\Model\VO;
 
 use Administration\Domain\Article\Model\VO\Packaging;
 use PHPUnit\Framework\TestCase;

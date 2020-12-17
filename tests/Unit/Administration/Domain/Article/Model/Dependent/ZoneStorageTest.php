@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Domain\Article\Model\Entities;
+namespace Unit\Tests\Administration\Domain\Article\Model\Dependent;
 
 use Administration\Domain\Article\Model\Dependent\ZoneStorage;
 use Core\Domain\Common\Model\VO\NameField;
