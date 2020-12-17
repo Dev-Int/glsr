@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Domain\Administration\Company\Model;
+namespace Unit\Tests\Administration\Domain\Company\Model;
 
 use Administration\Domain\Company\Model\Company;
 use Core\Domain\Common\Model\ContactUuid;
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 class CompanyTest extends TestCase
 {
-    final public function testInstantiateSupplier(): void
+    final public function testInstantiateCompany(): void
     {
         // Arrange & Act
         $company = Company::create(
@@ -97,7 +97,7 @@ class CompanyTest extends TestCase
         );
     }
 
-    final public function testRewriteAddress(): void
+    final public function testRewriteAddressCompany(): void
     {
         // Arrange
         $company = Company::create(
@@ -141,7 +141,7 @@ class CompanyTest extends TestCase
         );
     }
 
-    final public function testChangePhoneNumbers(): void
+    final public function testChangePhoneNumbersCompany(): void
     {
         // Arrange
         $company = Company::create(
@@ -182,7 +182,7 @@ class CompanyTest extends TestCase
         );
     }
 
-    final public function testChangeEmail(): void
+    final public function testChangeEmailCompany(): void
     {
         // Arrange
         $company = Company::create(

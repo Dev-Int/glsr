@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Infrastructure\Administration\Company\Controller;
+namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
 use Administration\Infrastructure\DataFixtures\CompanyFixtures;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\Infrastructure\AbstractControllerTest;
+use Unit\Tests\AbstractControllerTest;
 
 class PutCompanyControllerTest extends AbstractControllerTest
 {

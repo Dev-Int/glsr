@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Domain\Common\Model\Entities;
+namespace Unit\Tests\Core\Domain\Common\Model\Dependent;
 
 use Core\Domain\Common\Model\Dependent\Taxes;
 use PHPUnit\Framework\TestCase;
