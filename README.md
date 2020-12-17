@@ -15,6 +15,7 @@ Open-source solution to manage a restaurant, GLSR (in french: "_**G**estion **L*
 
 - Settings the application
 - Inventory management
+- Create datasheets recipes  
 - Order management
 
 ## Installation
