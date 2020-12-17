@@ -16,7 +16,7 @@ namespace Administration\Domain\Company\Handler;
 use Administration\Domain\Company\Command\CreateCompany;
 use Administration\Domain\Company\CompanyFactory;
 use Domain\Protocol\Common\Command\CommandHandlerProtocol;
-use Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
 final class CreateCompanyHandler implements CommandHandlerProtocol
 {

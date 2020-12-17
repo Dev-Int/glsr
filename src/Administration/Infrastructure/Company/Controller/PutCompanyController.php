@@ -11,14 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Controller;
+namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\EditCompany;
 use Domain\Common\Model\ContactUuid;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;
 use Domain\Common\Model\VO\PhoneField;
-use Infrastructure\Administration\Company\Form\CompanyType;
+use Administration\Infrastructure\Company\Form\CompanyType;
 use Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Form;
+namespace Administration\Infrastructure\Company\Form;
 
 use Administration\Domain\Company\Model\Company;
 use Symfony\Component\Form\AbstractType;

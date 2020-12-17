@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Protocol\Repository;
+namespace Administration\Domain\Protocol\Repository;
 
 use Administration\Domain\Company\Model\Company;
 

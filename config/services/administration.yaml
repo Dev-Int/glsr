@@ -7,3 +7,15 @@ services:
   Administration\Domain\:
     resource: '../../src/Administration/Domain'
     exclude: '../../src/Administration/Domain/**/{Model,Exception}/*'
+
+  Administration\Infrastructure\Controller\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Controller'
+    tags: [ 'controller.service_arguments' ]
+
+  Administration\Infrastructure\Company\Controller\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Company/Controller'
+    tags: [ 'controller.service_arguments' ]
+
+  Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
+    lazy: true

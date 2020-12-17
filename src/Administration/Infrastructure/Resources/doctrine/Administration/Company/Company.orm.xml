@@ -5,7 +5,7 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Administration\Domain\Company\Model\Company"
             table="company"
-            repository-class="Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository">
+            repository-class="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository">
         <id name="uuid" column="uuid" type="guid">
             <generator strategy="NONE"/>
         </id>

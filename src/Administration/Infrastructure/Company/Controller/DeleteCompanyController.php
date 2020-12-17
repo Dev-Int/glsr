@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Controller;
+namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\DeleteCompany;
 use Infrastructure\Common\MessengerCommandBus;

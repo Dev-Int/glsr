@@ -11,22 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Controller;
+namespace Administration\Infrastructure\Controller;
 
-use Infrastructure\Administration\Company\Form\CompanyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class GetNewCompanyController extends AbstractController
+class GetAdministrationIndexController extends AbstractController
 {
     public function __invoke(): Response
     {
-        $form = $this->createForm(CompanyType::class, null, [
-            'action' => $this->generateUrl('admin_company_create'),
-        ]);
-
-        return $this->render('Administration/Company/new.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render('Administration/index.html.twig');
     }
 }

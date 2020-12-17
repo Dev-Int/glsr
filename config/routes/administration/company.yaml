@@ -1,29 +1,29 @@
 admin_company_index:
   path: /
-  controller: Infrastructure\Administration\Company\Controller\GetCompanyIndexController
+  controller: Administration\Infrastructure\Company\Controller\GetCompanyIndexController
   methods: GET
 
 admin_company_new:
   path: /new
-  controller: Infrastructure\Administration\Company\Controller\GetNewCompanyController
+  controller: Administration\Infrastructure\Company\Controller\GetNewCompanyController
   methods: GET
 
 admin_company_create:
   path: /create
-  controller: Infrastructure\Administration\Company\Controller\PostCompanyController
+  controller: Administration\Infrastructure\Company\Controller\PostCompanyController
   methods: POST
 
 admin_company_edit:
   path: /edit/{uuid}
-  controller: Infrastructure\Administration\Company\Controller\GetEditCompanyController
+  controller: Administration\Infrastructure\Company\Controller\GetEditCompanyController
   methods: GET
 
 admin_company_update:
   path: /update/{uuid}
-  controller: Infrastructure\Administration\Company\Controller\PutCompanyController
+  controller: Administration\Infrastructure\Company\Controller\PutCompanyController
   methods: POST
 
 admin_company_delete:
   path: /delete/{uuid}
-  controller: Infrastructure\Administration\Company\Controller\DeleteCompanyController
+  controller: Administration\Infrastructure\Company\Controller\DeleteCompanyController
   methods: DELETE

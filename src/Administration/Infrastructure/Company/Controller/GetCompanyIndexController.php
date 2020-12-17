@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Controller;
+namespace Administration\Infrastructure\Company\Controller;
 
 use Doctrine\Persistence\ManagerRegistry;
-use Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

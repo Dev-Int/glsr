@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Persistence\DoctrineOrm\Repositories;
+namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -19,7 +19,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 use Administration\Domain\Company\Model\Company;
-use Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
 class DoctrineCompanyRepository extends ServiceEntityRepository implements CompanyRepositoryProtocol
 {

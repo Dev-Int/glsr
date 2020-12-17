@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Infrastructure\Administration\Company\Controller;
 
-use Infrastructure\DataFixtures\CompanyFixtures;
+use Administration\Infrastructure\DataFixtures\CompanyFixtures;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\Infrastructure\AbstractControllerTest;
 

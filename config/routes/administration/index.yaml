@@ -4,6 +4,6 @@ admin_company:
 
 admin_index:
   path: /
-  controller: Infrastructure\Administration\Controller\GetAdministrationIndexController
+  controller: Administration\Infrastructure\Controller\GetAdministrationIndexController
   methods: GET
 

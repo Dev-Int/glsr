@@ -15,7 +15,7 @@ namespace Administration\Domain\Company\Handler;
 
 use Administration\Domain\Company\Command\DeleteCompany;
 use Domain\Protocol\Common\Command\CommandHandlerProtocol;
-use Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
 class DeleteCompanyHandler implements CommandHandlerProtocol
 {

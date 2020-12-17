@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Administration\Company\Controller;
+namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Model\Company;
-use Infrastructure\Administration\Company\Form\CompanyType;
+use Administration\Infrastructure\Company\Form\CompanyType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

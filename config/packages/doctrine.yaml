@@ -20,7 +20,7 @@ doctrine:
       Administration\Domain\Company\Model:
         is_bundle: false
         type: xml
-        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Administration/Company'
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Company'
         prefix: 'Administration\Domain\Company\Model'
 #      Domain\Article\Model\Article:
 #        is_bundle: false
