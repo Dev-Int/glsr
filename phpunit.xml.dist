@@ -43,7 +43,6 @@
     </filter>
 
     <listeners>
-        <listener class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension"/>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
 </phpunit>
