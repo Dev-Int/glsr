@@ -22,8 +22,8 @@ use Core\Domain\Common\Model\Dependent\Taxes;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Domain\Supplier\Model\Supplier;
-use Domain\Supplier\Model\SupplierUuid;
+use Administration\Domain\Supplier\Model\Supplier;
+use Administration\Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;
 
 class ArticleTest extends TestCase

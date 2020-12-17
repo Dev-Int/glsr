@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Supplier\Model;
+namespace Administration\Domain\Supplier\Model;
 
 use Core\Domain\Common\Model\Contact;
 use Core\Domain\Common\Model\Dependent\FamilyLog;

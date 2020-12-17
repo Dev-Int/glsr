@@ -25,9 +25,6 @@ services:
       tags:
         - { name: messenger.message_handler, bus: query.bus }
 
-  Domain\Protocol\Repository\:
-    resource: '../src/Domain/Protocol/Repository/*'
-
   Core\Domain\:
     resource: '../src/Core/Domain'
     exclude: '../src/Core/Domain/**/{Model,Exception}/*'
