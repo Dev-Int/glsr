@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Article\Model\Entities;
 
+use Core\Domain\Common\Model\VO\NameField;
 use Domain\Article\Model\Entities\ZoneStorage;
-use Domain\Common\Model\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
 class ZoneStorageTest extends TestCase

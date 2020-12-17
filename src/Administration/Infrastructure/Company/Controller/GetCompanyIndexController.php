@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Company\Controller;
 
-use Doctrine\Persistence\ManagerRegistry;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -4,5 +4,5 @@ admin:
 
 _home:
   path: /
-  controller: Infrastructure\Controllers\DefaultController
+  controller: Core\Infrastructure\Controller\DefaultController
   methods: GET

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Supplier\Model;
 
-use Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\ContactUuid;
 
 class SupplierUuid extends ContactUuid
 {

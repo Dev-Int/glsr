@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\VO;
 
-use Domain\Common\Model\Exception\StringExceeds255Characters;
-use Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\Exception\StringExceeds255Characters;
+use Core\Domain\Common\Model\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
 class NameFieldTest extends TestCase

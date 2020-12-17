@@ -15,8 +15,8 @@ namespace Administration\Domain\Company\Handler;
 
 use Administration\Domain\Company\Command\EditCompany;
 use Administration\Domain\Company\CompanyFactory;
-use Domain\Protocol\Common\Command\CommandHandlerProtocol;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
 
 final class EditCompanyHandler implements CommandHandlerProtocol
 {

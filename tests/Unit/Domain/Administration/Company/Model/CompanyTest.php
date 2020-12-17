@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace Unit\Tests\Domain\Administration\Company\Model;
 
 use Administration\Domain\Company\Model\Company;
-use Domain\Common\Model\ContactUuid;
-use Domain\Common\Model\VO\EmailField;
-use Domain\Common\Model\VO\NameField;
-use Domain\Common\Model\VO\PhoneField;
+use Core\Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 use PHPUnit\Framework\TestCase;
 
 class CompanyTest extends TestCase

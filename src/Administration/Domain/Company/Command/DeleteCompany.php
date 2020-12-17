@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Company\Command;
 
-use Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandProtocol;
 
 final class DeleteCompany implements CommandProtocol
 {

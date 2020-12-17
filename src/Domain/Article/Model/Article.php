@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Domain\Article\Model;
 
+use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\Dependent\Taxes;
+use Core\Domain\Common\Model\VO\NameField;
 use Domain\Article\Model\Entities\ZoneStorage;
 use Domain\Article\Model\VO\Packaging;
-use Domain\Common\Model\Entities\FamilyLog;
-use Domain\Common\Model\Entities\Taxes;
-use Domain\Common\Model\VO\NameField;
 use Domain\Supplier\Model\Supplier;
 
 final class Article

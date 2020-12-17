@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
+use Administration\Domain\Company\Model\Company;
+use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use Administration\Domain\Company\Model\Company;
-use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
 class DoctrineCompanyRepository extends ServiceEntityRepository implements CompanyRepositoryProtocol
 {

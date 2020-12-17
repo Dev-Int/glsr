@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\VO;
 
-use Domain\Common\Model\Exception\InvalidEmail;
-use Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\Exception\InvalidEmail;
+use Core\Domain\Common\Model\VO\EmailField;
 use PHPUnit\Framework\TestCase;
 
 class EmailFieldTest extends TestCase

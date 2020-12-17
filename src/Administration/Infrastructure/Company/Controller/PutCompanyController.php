@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\EditCompany;
-use Domain\Common\Model\ContactUuid;
-use Domain\Common\Model\VO\EmailField;
-use Domain\Common\Model\VO\NameField;
-use Domain\Common\Model\VO\PhoneField;
 use Administration\Infrastructure\Company\Form\CompanyType;
-use Infrastructure\Common\MessengerCommandBus;
+use Core\Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
+use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\VO;
 
-use Domain\Common\Model\Exception\InvalidPhone;
-use Domain\Common\Model\VO\PhoneField;
+use Core\Domain\Common\Model\Exception\InvalidPhone;
+use Core\Domain\Common\Model\VO\PhoneField;
 use PHPUnit\Framework\TestCase;
 
 class PhoneFieldTest extends TestCase

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\VO;
 
-use Domain\Common\Model\VO\ContactAddress;
+use Core\Domain\Common\Model\VO\ContactAddress;
 use PHPUnit\Framework\TestCase;
 
 class ContactAddressTest extends TestCase

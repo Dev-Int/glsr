@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Company\Command;
 
-use Domain\Common\Model\ContactUuid;
-use Domain\Common\Model\VO\EmailField;
-use Domain\Common\Model\VO\NameField;
-use Domain\Common\Model\VO\PhoneField;
+use Core\Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 
 final class EditCompany extends AbstractCompanyCommand
 {

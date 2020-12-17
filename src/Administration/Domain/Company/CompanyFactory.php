@@ -16,7 +16,7 @@ namespace Administration\Domain\Company;
 use Administration\Domain\Company\Command\CreateCompany;
 use Administration\Domain\Company\Command\EditCompany;
 use Administration\Domain\Company\Model\Company;
-use Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\ContactUuid;
 
 final class CompanyFactory
 {

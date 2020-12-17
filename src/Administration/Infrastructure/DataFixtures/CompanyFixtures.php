@@ -13,14 +13,14 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
+use Administration\Domain\Company\Model\Company;
+use Core\Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use Administration\Domain\Company\Model\Company;
-use Domain\Common\Model\ContactUuid;
-use Domain\Common\Model\VO\EmailField;
-use Domain\Common\Model\VO\NameField;
-use Domain\Common\Model\VO\PhoneField;
 
 class CompanyFixtures extends Fixture implements FixtureGroupInterface
 {

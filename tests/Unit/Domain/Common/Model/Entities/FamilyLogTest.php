@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\Entities;
 
-use Domain\Common\Model\Entities\FamilyLog;
-use Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
 class FamilyLogTest extends TestCase

@@ -68,6 +68,7 @@
         "psr-4": {
             "Administration\\": "src/Administration",
             "Application\\": "src/Application/",
+            "Core\\": "src/Core",
             "Domain\\": "src/Domain/",
             "Infrastructure\\": "src/Infrastructure/"
         }

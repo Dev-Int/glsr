@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Supplier\Model;
 
-use Domain\Common\Model\Entities\FamilyLog;
-use Domain\Common\Model\VO\EmailField;
-use Domain\Common\Model\VO\NameField;
-use Domain\Common\Model\VO\PhoneField;
+use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 use Domain\Supplier\Model\Supplier;
 use Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Common\Model\Entities;
 
-use Domain\Common\Model\Entities\Taxes;
+use Core\Domain\Common\Model\Dependent\Taxes;
 use PHPUnit\Framework\TestCase;
 
 class TaxesTest extends TestCase

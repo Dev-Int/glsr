@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\DeleteCompany;
-use Infrastructure\Common\MessengerCommandBus;
+use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
