@@ -15,7 +15,7 @@ namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\EditCompany;
 use Administration\Infrastructure\Company\Form\CompanyType;
-use Core\Domain\Common\Model\ContactUuid;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;

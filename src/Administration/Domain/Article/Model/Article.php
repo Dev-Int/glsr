@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Administration\Domain\Article\Model;
 
 use Administration\Domain\Article\Model\Dependent\ZoneStorage;
+use Administration\Domain\Article\Model\VO\ArticleUuid;
 use Administration\Domain\Article\Model\VO\Packaging;
 use Administration\Domain\Supplier\Model\Supplier;
 use Core\Domain\Common\Model\Dependent\FamilyLog;

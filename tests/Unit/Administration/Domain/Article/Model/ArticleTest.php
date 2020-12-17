@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Unit\Tests\Administration\Domain\Article\Model;
 
 use Administration\Domain\Article\Model\Article;
-use Administration\Domain\Article\Model\ArticleUuid;
 use Administration\Domain\Article\Model\Dependent\ZoneStorage;
+use Administration\Domain\Article\Model\VO\ArticleUuid;
 use Administration\Domain\Article\Model\VO\Packaging;
 use Administration\Domain\Supplier\Model\Supplier;
-use Administration\Domain\Supplier\Model\SupplierUuid;
+use Administration\Domain\Supplier\Model\VO\SupplierUuid;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\Dependent\Taxes;
 use Core\Domain\Common\Model\VO\EmailField;

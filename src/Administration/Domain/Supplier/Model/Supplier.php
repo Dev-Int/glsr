@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Model;
 
+use Administration\Domain\Supplier\Model\VO\SupplierUuid;
 use Core\Domain\Common\Model\Contact;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;

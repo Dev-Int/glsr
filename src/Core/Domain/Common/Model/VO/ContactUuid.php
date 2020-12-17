@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Domain\Article\Model;
+namespace Core\Domain\Common\Model\VO;
 
 use Core\Domain\Common\Model\AbstractUuid;
 
-final class ArticleUuid extends AbstractUuid
+class ContactUuid extends AbstractUuid
 {
 }

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Core\Domain\Common\Model;
 
 use Core\Domain\Common\Model\VO\ContactAddress;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;

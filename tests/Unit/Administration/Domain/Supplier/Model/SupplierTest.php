@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Unit\Tests\Administration\Domain\Supplier\Model;
 
 use Administration\Domain\Supplier\Model\Supplier;
-use Administration\Domain\Supplier\Model\SupplierUuid;
+use Administration\Domain\Supplier\Model\VO\SupplierUuid;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
