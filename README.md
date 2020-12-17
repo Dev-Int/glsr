@@ -7,9 +7,9 @@ G.L.S.R.
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/Dev-Int/tests/blob/master/LICENSE)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Dev-Int/glsr/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Dev-Int/glsr/?branch=develop)
 
-Open-source solution to manage a restaurant, GLSR (in french: "_**G**estion **L**ibre des **S**tocks d'un **R**estaurant_") is a Full Web
- application to manage all your management issues: the inventory of items to Factsheets products sold through orders
- items needed to manufacture of your products.
+Open-source solution to manage a restaurant, GLSR (in french: "_**G**estion **L**ibre des **S**tocks d'un **R**estaurant_")
+ is a Full Web application to manage all your management issues: from the inventory of items, to datasheets products sold,
+ through orders items needed to manufacture of your products.
  
 ### Features
 
