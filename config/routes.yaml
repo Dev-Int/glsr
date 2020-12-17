@@ -2,6 +2,10 @@ admin:
   resource: routes/administration/index.yaml
   prefix: /administration
 
+inventory:
+  resource: routes/inventory/index.yaml
+  prefix: /inventory
+
 _home:
   path: /
   controller: Core\Infrastructure\Controller\DefaultController

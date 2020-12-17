@@ -11,17 +11,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Infrastructure\Controllers\Inventory;
+namespace Inventory\Infrastructure\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\Routing\Annotation\Route;
 
 class PrepareController extends AbstractController
 {
-    /**
-     * @Route("inventory/prepare")
-     */
     public function __invoke(): BinaryFileResponse
     {
         $projectDir = $this->getParameter('kernel.project_dir');

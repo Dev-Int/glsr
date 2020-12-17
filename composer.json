@@ -70,7 +70,8 @@
             "Application\\": "src/Application/",
             "Core\\": "src/Core",
             "Domain\\": "src/Domain/",
-            "Infrastructure\\": "src/Infrastructure/"
+            "Infrastructure\\": "src/Infrastructure/",
+            "Inventory\\": "src/Inventory"
         }
     },
     "autoload-dev": {
