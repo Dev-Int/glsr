@@ -11,14 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company\Handler;
+namespace Administration\Domain\Company\Handler;
 
-use Domain\Administration\Company\Command\EditCompany;
-use Domain\Administration\Company\CompanyFactory;
+use Administration\Domain\Company\Command\CreateCompany;
+use Administration\Domain\Company\CompanyFactory;
 use Domain\Protocol\Common\Command\CommandHandlerProtocol;
 use Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
-final class EditCompanyHandler implements CommandHandlerProtocol
+final class CreateCompanyHandler implements CommandHandlerProtocol
 {
     private CompanyFactory $factory;
     private CompanyRepositoryProtocol $repository;
@@ -29,14 +29,16 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         $this->repository = $repository;
     }
 
-    public function __invoke(EditCompany $command): void
+    public function __invoke(CreateCompany $command): void
     {
-        $companyToUpdate = $this->repository->findOneByUuid($command->uuid());
-
-        if (null === $companyToUpdate) {
-            throw new \DomainException('Company provided does not exist !');
+        if ($this->repository->companyExist()) {
+            throw new \DomainException('A company is already create.');
         }
-        $company = $this->factory->update($command, $companyToUpdate);
+        if ($this->repository->existsWithName($command->name()->getValue())) {
+            throw new \DomainException("Company with name: {$command->name()->getValue()} already exists.");
+        }
+
+        $company = $this->factory->create($command);
 
         $this->repository->add($company);
     }

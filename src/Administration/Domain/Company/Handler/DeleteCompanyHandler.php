@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company\Handler;
+namespace Administration\Domain\Company\Handler;
 
-use Domain\Administration\Company\Command\DeleteCompany;
+use Administration\Domain\Company\Command\DeleteCompany;
 use Domain\Protocol\Common\Command\CommandHandlerProtocol;
 use Domain\Protocol\Repository\CompanyRepositoryProtocol;
 

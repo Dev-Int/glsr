@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Form;
 
-use Domain\Administration\Company\Model\Company;
+use Administration\Domain\Company\Model\Company;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

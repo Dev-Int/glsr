@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Administration\Company\Model;
 
-use Domain\Administration\Company\Model\Company;
+use Administration\Domain\Company\Model\Company;
 use Domain\Common\Model\ContactUuid;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;

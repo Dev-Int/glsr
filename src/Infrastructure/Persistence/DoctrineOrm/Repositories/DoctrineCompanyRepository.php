@@ -18,7 +18,7 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use Domain\Administration\Company\Model\Company;
+use Administration\Domain\Company\Model\Company;
 use Domain\Protocol\Repository\CompanyRepositoryProtocol;
 
 class DoctrineCompanyRepository extends ServiceEntityRepository implements CompanyRepositoryProtocol

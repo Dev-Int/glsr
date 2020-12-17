@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Controller;
 
-use Domain\Administration\Company\Command\DeleteCompany;
+use Administration\Domain\Company\Command\DeleteCompany;
 use Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;

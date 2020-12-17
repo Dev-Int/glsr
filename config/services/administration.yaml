@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Administration\Domain\:
+    resource: '../../src/Administration/Domain'
+    exclude: '../../src/Administration/Domain/**/{Model,Exception}/*'

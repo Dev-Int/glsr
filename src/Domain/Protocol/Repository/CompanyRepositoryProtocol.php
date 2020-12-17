@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Domain\Protocol\Repository;
 
-use Domain\Administration\Company\Model\Company;
+use Administration\Domain\Company\Model\Company;
 
 interface CompanyRepositoryProtocol
 {

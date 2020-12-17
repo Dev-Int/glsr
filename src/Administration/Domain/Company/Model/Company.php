@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company\Model;
+namespace Administration\Domain\Company\Model;
 
 use Domain\Common\Model\Contact;
 use Domain\Common\Model\ContactUuid;

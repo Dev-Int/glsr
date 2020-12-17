@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Infrastructure\Administration\Company\Controller;
 
-use Domain\Administration\Company\Command\EditCompany;
+use Administration\Domain\Company\Command\EditCompany;
 use Domain\Common\Model\ContactUuid;
 use Domain\Common\Model\VO\EmailField;
 use Domain\Common\Model\VO\NameField;

@@ -17,11 +17,11 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
-      Domain\Administration\Company\Model:
+      Administration\Domain\Company\Model:
         is_bundle: false
         type: xml
         dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Administration/Company'
-        prefix: 'Domain\Administration\Company\Model'
+        prefix: 'Administration\Domain\Company\Model'
 #      Domain\Article\Model\Article:
 #        is_bundle: false
 #        type: xml

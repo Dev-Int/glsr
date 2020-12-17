@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company;
+namespace Administration\Domain\Company;
 
-use Domain\Administration\Company\Command\CreateCompany;
-use Domain\Administration\Company\Command\EditCompany;
-use Domain\Administration\Company\Model\Company;
+use Administration\Domain\Company\Command\CreateCompany;
+use Administration\Domain\Company\Command\EditCompany;
+use Administration\Domain\Company\Model\Company;
 use Domain\Common\Model\ContactUuid;
 
 final class CompanyFactory

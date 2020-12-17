@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Administration\Company\Command;
+namespace Administration\Domain\Company\Command;
 
 use Domain\Protocol\Common\Command\CommandProtocol;
 

@@ -66,6 +66,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Administration\\": "src/Administration",
             "Application\\": "src/Application/",
             "Domain\\": "src/Domain/",
             "Infrastructure\\": "src/Infrastructure/"
