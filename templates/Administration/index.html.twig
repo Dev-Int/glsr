@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Administration</h1>
+
+    <div class="card w-25">
+        <div class="card-header">Home</div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="{{ path('admin_company_index') }}">Company</a></li>
+        </ul>
+    </div>
+{% endblock %}

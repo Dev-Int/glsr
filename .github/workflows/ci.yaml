@@ -8,17 +8,43 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Cache Docker
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+        with:
+          key: docker-{hash}
+          restore-keys: docker-
+
+      - name: Cache directories
+        uses: actions/cache@v2
+        with:
+          path: var/cache
+          key: glsr-cache-${{ hashFiles('**/composer.lock') }}
+          restore-keys: glsr-cache-
 
       - name: Validate composer.json and composer.lock
         run: composer validate
 
+      - name: Cache Composer
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache/
+          key: composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-
+
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install --prefer-dist --no-progress
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md
@@ -28,3 +54,17 @@ jobs:
 
       - name: Run coding standards analysis
         run: composer run-script phpcs
+
+#  check-php-cs:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: docker://oskarstark/php-cs-fixer-ga
+#
+#  check-phpstan:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: docker://oskarstark/phpstan-ga
+#        with:
+#          args: analyse src/

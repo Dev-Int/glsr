@@ -38,13 +38,13 @@ help: ## Outputs this help screen
 ## —— Composer —————————————————————————————————————————————————————————————————
 
 update: composer.json ## Update vendors according to the composer.json file
-	#$(EXEC) php composer update
+	@echo "Update php dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
 
 ## —— Project —————————————————————————————————————————————————————————————————————
 
-start: config build project-vendors up ## Install and start the project
+start: config build project-vendors up #db-test ## Install and start the project
 
 stop: ## Remove docker containers
 	@echo "Stopping containers"
@@ -72,12 +72,15 @@ security:
 	@$(EXEC) php openssl genrsa -aes256 -passout pass:$(PASS_PHRASE) -out config/jwt/private.pem 4096
 	@$(EXEC) php openssl rsa -pubout -in config/jwt/private.pem -passin pass:$(PASS_PHRASE) -out config/jwt/public.pem
 
-config: ## Init files required
-config: .env.local docker-compose.override.yml .php_cs .git/hooks/pre-commit
+config: .env.local docker-compose.override.yml .php_cs .git/hooks/pre-commit ## Init files required
 	@echo 'Configuration files copied'
 
 
 ## —— DB ——————————————————————————————————————————————————————————————————————————
+
+db-test: .env.test ## Create tests database
+	@echo "create database for tests"
+	@$(SERVER_CONSOLE) doctrine:database:create --env=test
 
 db-diff: ## Generation doctrine diff
 	@$(SERVER_CONSOLE) doctrine:migrations:diff
@@ -106,13 +109,20 @@ load-fixtures: ## Build the DB, load fixtures
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
-test: ## Execute tests
-	@echo 'Running tests'
-	@$(EXEC) php php -d memory_limit=-1 bin/phpunit
+test-all: phpunit.xml test-cc behat.yml.dist ## Execute tests
+	@echo 'Running all tests'
+	@echo '—— Unit tests ——'
+	@$(EXEC) php php -d memory_limit=-1 bin/phpunit --stop-on-failure
+	@echo '—— Behat tests ——'
+	@$(EXEC) php vendor/bin/behat
 
-test-domain: phpunit.xml test-cc ## Launch domain unit tests
+test-domain: phpunit.xml test-cc ## Launch Domain unit tests
 	@echo "Running unit Domain tests"
 	@$(EXEC) php bin/phpunit --testsuite=Domain --stop-on-failure
+
+test-infra: phpunit.xml test-cc ## Launch Infrastructure unit tests
+	@echo "Running unit Infrastructure tests"
+	@$(EXEC) php bin/phpunit --testsuite=Infrastructure --stop-on-failure
 
 test-behat: behat.yml.dist ## Launch behat tests
 	@echo "Running test BDD"
@@ -135,6 +145,9 @@ codesniffer: ## Run php_codesniffer only
 
 stan: ## Execute phpstan
 	@$(EXEC) php vendor/bin/phpstan analyze -c phpstan.neon
+
+cs-fixer: ## Execute php-cs-fixer
+	@$(EXEC) php vendor/bin/php-cs-fixer fix
 
 #psalm: ## Run psalm only
 #	@$(EXEC) php vendor/bin/psalm --show-info=false

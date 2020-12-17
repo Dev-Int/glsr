@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -17,5 +17,6 @@ use Domain\Protocol\Common\StringifyProtocol;
 
 interface IdProtocol extends StringifyProtocol
 {
-    public static function generate(): self;
+    /** @return static */
+    public static function generate();
 }

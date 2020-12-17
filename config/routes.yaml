@@ -1,3 +1,8 @@
-#index:
-#  path: /
-#  controller: App\Controller\DefaultController::index
+admin:
+  resource: routes/administration/index.yaml
+  prefix: /administration
+
+_home:
+  path: /
+  controller: Infrastructure\Controllers\DefaultController
+  methods: GET

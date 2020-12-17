@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Domain\Common\Model;
 
 use Domain\Protocol\Common\UuidProtocol;
-use Domain\Protocol\IdProtocol;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -27,7 +26,10 @@ abstract class AbstractUuid implements UuidProtocol
         $this->uuid = $uuid;
     }
 
-    public static function generate(): IdProtocol
+    /**
+     * @return static
+     */
+    public static function generate()
     {
         try {
             return new static(Uuid::uuid4());

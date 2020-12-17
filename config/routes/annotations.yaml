@@ -1,3 +1,7 @@
 controllers:
   resource: ../../src/Infrastructure/Controllers/
   type: annotation
+
+Infrastructure\Company\Controller:
+  resource: ../../src/Infrastructure/Administration/Company/Controller/
+  type: annotation

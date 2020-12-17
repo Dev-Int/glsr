@@ -12,7 +12,7 @@ declare(strict_types=1);
  */
 
 $header = <<<'HEADER'
-This file is part of the  G.L.S.R. Apps package.
+This file is part of the G.L.S.R. Apps package.
 
 (c) Dev-Int Création <info@developpement-interessant.com>.
 

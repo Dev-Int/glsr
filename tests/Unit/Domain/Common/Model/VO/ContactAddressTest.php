@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the  G.L.S.R. Apps package.
+ * This file is part of the G.L.S.R. Apps package.
  *
  * (c) Dev-Int Création <info@developpement-interessant.com>.
  *
@@ -18,20 +18,40 @@ use PHPUnit\Framework\TestCase;
 
 class ContactAddressTest extends TestCase
 {
-    final public function testInstantiateContactAddress(): void
+    final public function testInstantiateContactAddressFromArray(): void
+    {
+        // Arrange & Act
+        $address = ContactAddress::fromArray([
+            '2 rue de la truite',
+            '75000',
+            'Paris',
+            'France',
+        ]);
+
+        // Assert
+        static::assertEquals(
+            new ContactAddress(
+                '2 rue de la truite',
+                '75000',
+                'Paris',
+                'France'
+            ),
+            $address
+        );
+    }
+
+    final public function testInstantiateContactAddressFromString(): void
     {
         // Arrange & Act
         $address = ContactAddress::fromString(
-            '2, rue de la truite',
-            '75000',
-            'Paris',
-            'France'
+            '2 rue de la truite
+75000 Paris, France'
         );
 
         // Assert
         static::assertEquals(
             new ContactAddress(
-                '2, rue de la truite',
+                '2 rue de la truite',
                 '75000',
                 'Paris',
                 'France'
@@ -43,16 +63,16 @@ class ContactAddressTest extends TestCase
     final public function testGetValueOfContactAddress(): void
     {
         // Arrange && Act
-        $address = ContactAddress::fromString(
-            '2, rue de la truite',
+        $address = ContactAddress::fromArray([
+            '2 rue de la truite',
             '75000',
             'Paris',
-            'France'
-        );
+            'France',
+        ]);
 
         // Assert
         static::assertEquals(
-            '2, rue de la truite
+            '2 rue de la truite
 75000 Paris, France',
             $address->getValue()
         );

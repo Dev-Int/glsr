@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Controller!{% endblock %}
+{% block title %}Home - {{ parent() }}{% endblock %}
 
 {% block body %}
 <style>
@@ -16,5 +16,7 @@
         <li>Your controller at <code><a href="{{ '/media/laurent/Windows/Acer/www/tests/src/Infrastructure/Controllers/Default/Controller.php'|file_link(0) }}">src/Infrastructure/Controllers/Default/Controller.php</a></code></li>
         <li>Your template at <code><a href="{{ '/media/laurent/Windows/Acer/www/tests/templates/controllers/default//index.html.twig'|file_link(0) }}">templates/controllers/default//index.html.twig</a></code></li>
     </ul>
+
+    -> <a href="{{ path('admin_index') }}">Admin</a>
 </div>
 {% endblock %}
