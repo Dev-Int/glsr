@@ -1,0 +1,13 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Inventory\Domain\:
+    resource: '../../src/Inventory/Domain'
+    exclude: '../../src/Inventory/Domain/**/{Model,Exception}/*'
+
+  Inventory\Infrastructure\Controller\:
+    resource: '%kernel.project_dir%/src/Inventory/Infrastructure/Controller'
+    tags: [ 'controller.service_arguments' ]

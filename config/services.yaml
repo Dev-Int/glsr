@@ -18,21 +18,18 @@ services:
   # please note that last definitions always *replace* previous ones
 
   _instanceof:
-    Domain\Protocol\Common\Command\CommandHandlerProtocol:
+    Core\Domain\Protocol\Common\Command\CommandHandlerProtocol:
       tags:
         - { name: messenger.message_handler, bus: command.bus }
-    Domain\Protocol\Common\Query\QueryHandlerProtocol:
+    Core\Domain\Protocol\Common\Query\QueryHandlerProtocol:
       tags:
         - { name: messenger.message_handler, bus: query.bus }
 
-  Domain\Protocol\Repository\:
-    resource: '../src/Domain/Protocol/Repository/*'
+  Core\Domain\:
+    resource: '../src/Core/Domain'
+    exclude: '../src/Core/Domain/**/{Model,Exception}/*'
 
-  Domain\:
-    resource: '../src/Domain'
-    exclude: '../src/Domain/**/{Model,Exception}/*'
-
-  Infrastructure\:
+  Core\Infrastructure\:
     lazy: true
-    resource: '%kernel.project_dir%/src/Infrastructure/*'
-    exclude: '%kernel.project_dir%/src/Infrastructure/{Controllers,Migrations,Kernel.php}'
+    resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
+    exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,Migrations,Kernel.php}'

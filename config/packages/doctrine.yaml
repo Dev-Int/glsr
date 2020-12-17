@@ -17,18 +17,18 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
-      Domain\Administration\Company\Model:
+      Administration\Domain\Company\Model:
         is_bundle: false
         type: xml
-        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Administration/Company'
-        prefix: 'Domain\Administration\Company\Model'
-#      Domain\Article\Model\Article:
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Company'
+        prefix: 'Administration\Domain\Company\Model'
+#      Administration\Domain\Article\Model\Article:
 #        is_bundle: false
 #        type: xml
-#        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Article'
-#        prefix: 'Domain\Article\Model'
-#      Domain\Supplier\Model\Supplier:
+#        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Article'
+#        prefix: 'Administration\Domain\Article\Model'
+#      Administration\Domain\Supplier\Model\Supplier:
 #        is_bundle: false
 #        type: xml
-#        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Supplier'
-#        prefix: 'Domain\Supplier\Model'
+#        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Supplier'
+#        prefix: 'Administration\Domain\Supplier\Model'

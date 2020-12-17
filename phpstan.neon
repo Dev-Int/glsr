@@ -5,8 +5,8 @@ parameters:
         - tests
     excludes_analyse:
         - tests/bootstrap.php
-        - tests/Unit/Infrastructure/DatabaseHelper.php
-        - tests/Unit/Infrastructure/AbstractControllerTest.php
+        - tests/Unit/DatabaseHelper.php
+        - tests/Unit/AbstractControllerTest.php
         - src/DoctrineMigrations
     bootstrapFiles:
         - bin/.phpunit/phpunit-8.5-0/vendor/autoload.php

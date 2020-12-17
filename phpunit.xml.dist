@@ -28,11 +28,12 @@
 
     <testsuites>
         <testsuite name="Domain">
-            <directory>tests/Unit/Domain</directory>
+            <directory>tests/Unit/Administration/Domain</directory>
+            <directory>tests/Unit/Core/Domain</directory>
         </testsuite>
         <testsuite name="Infrastructure">
-            <directory>tests/Unit/Infrastructure</directory>
-            <exclude>tests/Unit/Infrastructure/AbstractControllerTest.php</exclude>
+            <directory>tests/Unit/Administration/Infrastructure</directory>
+            <exclude>tests/Unit/AbstractControllerTest.php</exclude>
         </testsuite>
     </testsuites>
 

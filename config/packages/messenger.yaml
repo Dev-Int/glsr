@@ -18,5 +18,5 @@ framework:
 
     routing:
       # Route your messages to the transports
-      'Domain\Administration\Company\Command\CreateCompany': sync
-      # 'Domain\Administration\Company\Query\CompanyInformations': async
+      'Administration\Domain\Company\Command\CreateCompany': sync
+      # 'Administration\Domain\Company\Query\CompanyInformations': async
