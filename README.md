@@ -24,9 +24,9 @@ git clone https://github.com/Dev-Int/glsr.git
 ```
 
 The project use [docker](https://docs.docker.com/get-docker/) (install it, if you don't have it), and with the `Makefile`
- enter this command:
-```
-make start
+ enter this command in your terminal:
+```bash
+$ make start
 ```
 
 ## Roadmap
