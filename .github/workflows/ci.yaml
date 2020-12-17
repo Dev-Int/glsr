@@ -18,8 +18,6 @@ jobs:
           key: docker-{hash}
           restore-keys: docker-
 
-      - run: docker-compose up
-
       - name: Cache directories
         uses: actions/cache@v2
         with:
