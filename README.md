@@ -1,3 +1,5 @@
+<img src="./assets/featured_work_GLSR.png" alt="GLSR logo" />
+
 G.L.S.R.
 =======
 
@@ -14,13 +16,6 @@ Open-source solution to manage a restaurant, GLSR (in french: "_**G**estion **L*
 - Inventory management
 - Order management
 
-To restart in the right direction, I start by preparing my [use cases](https://github.com/Dev-Int/tests/labels/use%20case),
- and adding the resulting tests after this list:
-
-- [x] rewrite [Domain model](docs/index.md) to check and correct my previous choices
-
-- [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
-
 ## Installation
 
 clone the repo at first
@@ -28,22 +23,21 @@ clone the repo at first
 git clone https://github.com/Dev-Int/glsr.git
 ```
 
-Update your database configuration in `.env` file with your `db_user`, `db_password` and `db_name` entries. Be careful to
- also change your database version, if necessary.
-```dotenv
-###> doctrine/doctrine-bundle ###
-# Format described at https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html#connecting-using-a-url
-# For an SQLite database, use: "sqlite:///%kernel.project_dir%/var/data.db"
-# For a PostgreSQL database, use: "postgresql://db_user:db_password@127.0.0.1:5432/db_name?serverVersion=11&charset=utf8"
-# IMPORTANT: You MUST configure your server version, either here or in config/packages/doctrine.yaml
-DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
-###< doctrine/doctrine-bundle ###
+The project use [docker](https://docs.docker.com/get-docker/) (install it, if you don't have it), and with the `Makefile`
+ enter this command:
+```
+make start
 ```
 
-Then install dependencies
-```
-composer install
-```
+## Roadmap
+
+To restart in the right direction, I start by preparing my use cases, and adding the resulting tests after this list:
+
+- [x] rewrite [Domain model](docs/index.md) to check and correct my previous choices
+
+- [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
+
+To follow the progress, visit the [use cases](https://github.com/Dev-Int/tests/labels/use%20case) page
 
 ## Licence
 
