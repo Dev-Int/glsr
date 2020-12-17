@@ -1,7 +1,4 @@
 imports:
-  - { resource: application.yaml }
-  - { resource: domain.yaml }
-  - { resource: infrastructure.yaml }
   - { resource: inventory.yaml }
   - { resource: administration.yaml }
   - { resource: command-handlers.yaml }

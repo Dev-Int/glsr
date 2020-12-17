@@ -33,12 +33,3 @@ services:
     lazy: true
     resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
     exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,Migrations,Kernel.php}'
-
-  Domain\:
-    resource: '../src/Domain'
-    exclude: '../src/Domain/**/{Model,Exception}/*'
-
-  Infrastructure\:
-    lazy: true
-    resource: '%kernel.project_dir%/src/Infrastructure/*'
-    exclude: '%kernel.project_dir%/src/Infrastructure/{Controllers,Migrations,Kernel.php}'
