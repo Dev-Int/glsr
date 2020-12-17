@@ -1,4 +1,4 @@
-<img src="./assets/featured_work_GLSR.png" alt="GLSR logo" />
+<img src="./assets/featured_work_GLSR.png" alt="GLSR logo" align="right" />
 
 G.L.S.R.
 =======
