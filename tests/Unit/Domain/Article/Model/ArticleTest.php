@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Article\Model;
 
+use Administration\Domain\Article\Model\Article;
+use Administration\Domain\Article\Model\ArticleUuid;
+use Administration\Domain\Article\Model\Dependent\ZoneStorage;
+use Administration\Domain\Article\Model\VO\Packaging;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\Dependent\Taxes;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Domain\Article\Model\Article;
-use Domain\Article\Model\ArticleUuid;
-use Domain\Article\Model\Entities\ZoneStorage;
-use Domain\Article\Model\VO\Packaging;
 use Domain\Supplier\Model\Supplier;
 use Domain\Supplier\Model\SupplierUuid;
 use PHPUnit\Framework\TestCase;

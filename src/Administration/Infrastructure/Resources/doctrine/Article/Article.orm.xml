@@ -3,9 +3,9 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-    <entity name="Domain\Model\Article\Article"
+    <entity name="Administration\Domain\Article\Model\Article"
             table="article"
-            repository-class="Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineArticleRepository">
+            repository-class="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineArticleRepository">
         <id name="articleId" type="integer" column="id">
             <generator strategy="AUTO"/>
         </id>

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Domain\Article\Model\VO;
 
-use Domain\Article\Model\VO\Storage;
+use Administration\Domain\Article\Model\VO\Storage;
 use PHPUnit\Framework\TestCase;
 
 class StorageTest extends TestCase

@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Domain\Article\Model;
+namespace Administration\Domain\Article\Model\VO;
 
-use Core\Domain\Common\Model\AbstractUuid;
-
-final class ArticleUuid extends AbstractUuid
+final class InvalidUnit extends \DomainException
 {
+    /** @var string */
+    protected $message = 'L\'unité ne correspond pas à une unité valide.';
 }

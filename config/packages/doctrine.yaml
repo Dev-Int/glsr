@@ -22,11 +22,11 @@ doctrine:
         type: xml
         dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Company'
         prefix: 'Administration\Domain\Company\Model'
-#      Domain\Article\Model\Article:
+#      Administration\Domain\Article\Model\Article:
 #        is_bundle: false
 #        type: xml
-#        dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/Article'
-#        prefix: 'Domain\Article\Model'
+#        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Article'
+#        prefix: 'Administration\Domain\Article\Model'
 #      Domain\Supplier\Model\Supplier:
 #        is_bundle: false
 #        type: xml
