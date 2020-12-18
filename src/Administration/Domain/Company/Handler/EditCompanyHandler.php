@@ -14,18 +14,16 @@ declare(strict_types=1);
 namespace Administration\Domain\Company\Handler;
 
 use Administration\Domain\Company\Command\EditCompany;
-use Administration\Domain\Company\CompanyFactory;
+use Administration\Domain\Company\Model\Company;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
 
 final class EditCompanyHandler implements CommandHandlerProtocol
 {
-    private CompanyFactory $factory;
     private CompanyRepositoryProtocol $repository;
 
-    public function __construct(CompanyFactory $factory, CompanyRepositoryProtocol $repository)
+    public function __construct(CompanyRepositoryProtocol $repository)
     {
-        $this->factory = $factory;
         $this->repository = $repository;
     }
 
@@ -36,8 +34,44 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         if (null === $companyToUpdate) {
             throw new \DomainException('Company provided does not exist !');
         }
-        $company = $this->factory->update($command, $companyToUpdate);
+        $company = $this->updateCompany($command, $companyToUpdate);
 
         $this->repository->add($company);
+    }
+
+    public function updateCompany(EditCompany $command, Company $company): Company
+    {
+        if ($company->name() !== $command->name()) {
+            $company->renameCompany($command->name());
+        }
+        if (($company->address() !== $command->address())
+            || ($company->zipCode() !== $command->zipCode())
+            || ($company->town() !== $command->town())
+            || ($company->country() !== $command->country())
+        ) {
+            $company->rewriteAddress([
+                $command->address(),
+                $command->zipCode(),
+                $command->town(),
+                $command->country(),
+            ]);
+        }
+        if ($company->phone() !== $command->phone()) {
+            $company->changePhoneNumber($command->phone());
+        }
+        if ($company->facsimile() !== $command->facsimile()) {
+            $company->changeFacsimileNumber($command->facsimile());
+        }
+        if ($company->email() !== $command->email()) {
+            $company->rewriteEmail($command->email());
+        }
+        if ($company->contact() !== $command->contact()) {
+            $company->renameContact($command->contact());
+        }
+        if ($company->cellPhone() !== $command->cellPhone()) {
+            $company->changeCellphoneNumber($command->cellPhone());
+        }
+
+        return $company;
     }
 }
