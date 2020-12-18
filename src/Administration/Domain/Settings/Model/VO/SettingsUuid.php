@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Core\Domain\Common\Model\Exception;
+namespace Administration\Domain\Settings\Model\VO;
 
-final class InvalidQuantity extends \DomainException
+use Core\Domain\Common\Model\AbstractUuid;
+
+class SettingsUuid extends AbstractUuid
 {
-    /** @var string */
-    protected $message = 'La quantité doit être un nombre positif.';
 }

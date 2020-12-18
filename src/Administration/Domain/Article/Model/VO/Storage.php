@@ -62,7 +62,7 @@ final class Storage
 
     private static function isValidQuantity(float $quantity): float
     {
-        if (!\is_float($quantity)) {
+        if (0 > $quantity) {
             throw new InvalidQuantity();
         }
 

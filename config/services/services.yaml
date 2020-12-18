@@ -2,6 +2,7 @@ imports:
   - { resource: inventory.yaml }
   - { resource: administration.yaml }
   - { resource: command-handlers.yaml }
+  - { resource: query-handler.yaml }
 
 services:
   _defaults:

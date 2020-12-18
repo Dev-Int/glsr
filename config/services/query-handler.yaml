@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+
+  Administration\Infrastructure\Settings\Handler\:
+    resource: '../../src/Administration/Infrastructure/Settings/Handler/*'
+    autoconfigure: false
+    tags:
+      - { name: messenger.message_handler, bus: query.bus }

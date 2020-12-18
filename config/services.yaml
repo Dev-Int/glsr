@@ -33,3 +33,7 @@ services:
     lazy: true
     resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
     exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,Migrations,Kernel.php}'
+
+  Core\Infrastructure\Controller\:
+    resource: '%kernel.project_dir%/src/Core/Infrastructure/Controller'
+    tags: [ 'controller.service_arguments' ]
