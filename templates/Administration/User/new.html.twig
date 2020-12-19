@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>New User</h1>
+            <div class="w-50 mx-auto">
+                {% include('Administration/User/_form.html.twig') %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

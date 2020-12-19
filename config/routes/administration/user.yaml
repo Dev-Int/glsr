@@ -1,0 +1,14 @@
+admin_user_index:
+  path: /
+  controller: Administration\Infrastructure\User\Controller\UserIndexController
+  methods: GET
+
+admin_user_new:
+  path: /new
+  controller: Administration\Infrastructure\User\Controller\GetNewUserController
+  methods: GET
+
+admin_user_create:
+  path: /create
+  controller: Administration\Infrastructure\User\Controller\PostUserController
+  methods: POST

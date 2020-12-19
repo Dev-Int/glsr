@@ -10,3 +10,7 @@ admin_company:
 admin_settings:
   resource: settings.yaml
   prefix: /settings
+
+admin_user:
+  resource: user.yaml
+  prefix: /user

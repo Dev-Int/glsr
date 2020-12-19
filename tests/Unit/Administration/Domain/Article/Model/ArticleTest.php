@@ -47,7 +47,7 @@ class ArticleTest extends TestCase
         );
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Article(
                 ArticleUuid::fromString('e5b6c68b-23d0-4e4e-ad5e-436c649da004'),
                 NameField::fromString('Jambon Trad 6kg'),
@@ -88,7 +88,7 @@ class ArticleTest extends TestCase
         $article->renameArticle(NameField::fromString('Jambon Tradition 6kg'));
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Article(
                 ArticleUuid::fromString('e5b6c68b-23d0-4e4e-ad5e-436c649da004'),
                 NameField::fromString('Jambon Tradition 6kg'),
