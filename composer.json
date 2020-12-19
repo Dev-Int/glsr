@@ -43,8 +43,7 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
-        "symfony/yaml": "5.1.*",
-        "ext-libsodium": "*"
+        "symfony/yaml": "5.1.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
