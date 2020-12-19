@@ -14,18 +14,17 @@ declare(strict_types=1);
 namespace Administration\Domain\Company\Handler;
 
 use Administration\Domain\Company\Command\CreateCompany;
-use Administration\Domain\Company\CompanyFactory;
+use Administration\Domain\Company\Model\Company;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
 
 final class CreateCompanyHandler implements CommandHandlerProtocol
 {
-    private CompanyFactory $factory;
     private CompanyRepositoryProtocol $repository;
 
-    public function __construct(CompanyFactory $factory, CompanyRepositoryProtocol $repository)
+    public function __construct(CompanyRepositoryProtocol $repository)
     {
-        $this->factory = $factory;
         $this->repository = $repository;
     }
 
@@ -38,8 +37,25 @@ final class CreateCompanyHandler implements CommandHandlerProtocol
             throw new \DomainException("Company with name: {$command->name()->getValue()} already exists.");
         }
 
-        $company = $this->factory->create($command);
+        $company = $this->createCompany($command);
 
         $this->repository->add($company);
+    }
+
+    public function createCompany(CreateCompany $command): Company
+    {
+        return Company::create(
+            ContactUuid::generate(),
+            $command->name(),
+            $command->address(),
+            $command->zipCode(),
+            $command->town(),
+            $command->country(),
+            $command->phone(),
+            $command->facsimile(),
+            $command->email(),
+            $command->contact(),
+            $command->cellPhone()
+        );
     }
 }

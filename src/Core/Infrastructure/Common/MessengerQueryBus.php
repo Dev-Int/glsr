@@ -29,7 +29,7 @@ class MessengerQueryBus implements QueryBusProtocol
         $this->messageBus = $queryBus;
     }
 
-    final public function handle(QueryProtocol $query)
+    public function handle(QueryProtocol $query)
     {
         return $this->handleQuery($query);
     }

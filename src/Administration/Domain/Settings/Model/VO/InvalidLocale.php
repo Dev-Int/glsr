@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Core\Domain\Common\Model\Exception;
+namespace Administration\Domain\Settings\Model\VO;
 
-final class InvalidQuantity extends \DomainException
+final class InvalidLocale extends \DomainException
 {
     /** @var string */
-    protected $message = 'La quantité doit être un nombre positif.';
+    protected $message = 'La locale ne correspond pas à une locale valide.';
 }

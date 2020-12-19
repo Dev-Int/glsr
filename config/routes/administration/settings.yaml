@@ -1,0 +1,19 @@
+admin_settings_index:
+  path: /
+  controller: Administration\Infrastructure\Settings\Controller\GetSettingsController
+  methods: GET
+
+admin_settings_new:
+  path: /new
+  controller: Administration\Infrastructure\Settings\Controller\GetNewSettingsController
+  methods: GET
+
+admin_settings_configure:
+  path: /configure
+  controller: Administration\Infrastructure\Settings\Controller\PostSettingsController
+  methods: POST
+
+admin_settings_delete:
+  path: /delete/{uuid}
+  controller: Administration\Infrastructure\Settings\Controller\DeleteSettingsController
+  methods: DELETE
