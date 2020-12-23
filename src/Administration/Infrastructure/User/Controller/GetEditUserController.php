@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Controller;
 
-use Administration\Domain\User\Model\User;
+use Administration\Application\User\ReadModel\User;
 use Administration\Infrastructure\User\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class GetEditUserController extends AbstractController
     public function __invoke(User $user): Response
     {
         $form = $this->createForm(UserType::class, $user, [
-            'action' => $this->generateUrl('admin_user_update', ['uuid' => $user->uuid()]),
+            'action' => $this->generateUrl('admin_user_update', ['uuid' => $user->getUuid()]),
             'method' => 'PUT',
         ]);
 

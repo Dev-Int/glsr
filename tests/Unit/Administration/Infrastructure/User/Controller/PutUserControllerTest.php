@@ -22,6 +22,7 @@ class PutUserControllerTest extends AbstractControllerTest
     final public function testPutUserSuccess(): void
     {
         // Arrange
+        // @TODO Fix EncoderPassword dependency
         $this->loadFixture(new UserFixtures());
         $content = [
             'user' => [

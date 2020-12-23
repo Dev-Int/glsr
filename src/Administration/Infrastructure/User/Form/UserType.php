@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Form;
 
-use Administration\Domain\User\Model\User;
+use Administration\Application\User\ReadModel\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

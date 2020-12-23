@@ -20,20 +20,39 @@ use Core\Domain\Common\Model\VO\NameField;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
+    private UserPasswordEncoderInterface $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     final public function load(ObjectManager $manager): void
     {
-        $user = User::create(
-            UserUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
-            NameField::fromString('Laurent'),
-            EmailField::fromString('laurent@example.com'),
+        $userModel = new \Administration\Application\User\ReadModel\User(
+            'Laurent',
+            'laurent@example.com',
             'password',
-            ['admin']
+            ['ROLE_ADMIN'],
+            'a136c6fe-8f6e-45ed-91bc-586374791033'
         );
-        $manager->persist($user);
+        $userModel->setPassword(
+            $this->passwordEncoder->encodePassword($userModel, $userModel->getPassword())
+        );
 
+        $user = new User(
+            UserUuid::fromString($userModel->getUuid()),
+            NameField::fromString($userModel->getUsername()),
+            EmailField::fromString($userModel->getEmail()),
+            $userModel->getPassword(),
+            $userModel->getRoles()
+        );
+
+        $manager->persist($user);
         $manager->flush();
     }
 

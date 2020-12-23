@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
+use Administration\Application\User\ReadModel\User as UserReadModel;
+use Administration\Application\User\ReadModel\Users;
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Model\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -89,5 +91,25 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
         ;
 
         return !(null === $statement);
+    }
+
+    final public function findAllUser(): Users
+    {
+        $statement = $this->createQueryBuilder('u')
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return new Users(
+            ...\array_map(static function (User $user) {
+                return new UserReadModel(
+                    $user->username(),
+                    $user->email(),
+                    $user->password(),
+                    $user->roles(),
+                    $user->uuid()
+                );
+            }, $statement)
+        );
     }
 }

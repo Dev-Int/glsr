@@ -22,10 +22,10 @@ class UserIndexController extends AbstractController
 {
     public function __invoke(ManagerRegistry $registry): Response
     {
-        $users = (new DoctrineUserRepository($registry))->findAll();
+        $users = (new DoctrineUserRepository($registry))->findAllUser();
 
         return $this->render('Administration/User/index.html.twig', [
-            'users' => $users,
+            'users' => $users->toArray(),
         ]);
     }
 }

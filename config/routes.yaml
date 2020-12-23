@@ -10,3 +10,7 @@ _home:
   path: /
   controller: Core\Infrastructure\Controller\DefaultController
   methods: GET
+
+app_logout:
+  path: /logout
+  methods: GET

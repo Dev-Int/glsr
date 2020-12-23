@@ -22,6 +22,7 @@ class DeleteUserControllerTest extends AbstractControllerTest
     final public function testDeleteUserSuccess(): void
     {
         // Arrange
+        // @TODO Fix EncoderPassword dependency
         $this->loadFixture(new UserFixtures());
         $this->client->request(
             'DELETE',

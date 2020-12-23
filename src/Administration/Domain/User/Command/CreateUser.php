@@ -28,7 +28,7 @@ final class CreateUser implements CommandProtocol
         NameField $username,
         EmailField $email,
         string $password,
-        array $roles = []
+        array $roles = ['ROLE_USER']
     ) {
         $this->username = $username;
         $this->email = $email;

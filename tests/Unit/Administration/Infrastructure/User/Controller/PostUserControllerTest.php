@@ -29,7 +29,7 @@ class PostUserControllerTest extends AbstractControllerTest
                     'first' => 'password',
                     'second' => 'password',
                 ],
-                'roles' => ['admin', 'assistant'],
+                'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
             ],
         ];
         $this->client->request('POST', '/administration/user/create', $content);
