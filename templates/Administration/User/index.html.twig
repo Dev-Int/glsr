@@ -17,7 +17,7 @@
                             </li>
                             <li class="list-group-item">
                                 {% if users %}
-                                    <a href="{#{ path('admin_user_edit', {'uuid': users[0].uuid}) }#}">Update</a>
+                                    <a href="{{ path('admin_user_edit', {'uuid': users[0].uuid}) }}">Update</a>
                                 {% else %}Update{% endif %}
                             </li>
                             <li class="list-group-item">
@@ -28,7 +28,7 @@
                         </ul>
                     </div>
                 </div>
-                {% for user in users %}
+                {% for user in users | slice(0) %}
                     <div class="col">
                         <p>User name : {{ user.username }}</p>
                         <p>Address email : {{ user.email }}</p>

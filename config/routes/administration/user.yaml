@@ -12,3 +12,13 @@ admin_user_create:
   path: /create
   controller: Administration\Infrastructure\User\Controller\PostUserController
   methods: POST
+
+admin_user_edit:
+  path: /edit/{uuid}
+  controller: Administration\Infrastructure\User\Controller\GetEditUserController
+  methods: GET
+
+admin_user_update:
+  path: /update/{uuid}
+  controller: Administration\Infrastructure\User\Controller\PutUserController
+  methods: PUT
