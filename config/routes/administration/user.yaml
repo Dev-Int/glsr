@@ -22,3 +22,8 @@ admin_user_update:
   path: /update/{uuid}
   controller: Administration\Infrastructure\User\Controller\PutUserController
   methods: PUT
+
+admin_user_delete:
+  path: /delete/{uuid}
+  controller: Administration\Infrastructure\User\Controller\DeleteUserController
+  methods: DELETE
