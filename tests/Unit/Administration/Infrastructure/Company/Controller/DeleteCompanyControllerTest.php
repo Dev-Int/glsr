@@ -29,7 +29,7 @@ class DeleteCompanyControllerTest extends AbstractControllerTest
         $response = $this->client->getResponse();
 
         // Assert
-        static::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        static::assertTrue($response->isRedirect('/administration/company/'));
+        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        self::assertTrue($response->isRedirect('/administration/company/'));
     }
 }

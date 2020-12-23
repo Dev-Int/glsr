@@ -37,6 +37,6 @@ class NameFieldTest extends TestCase
         $slug = $name->slugify();
 
         // Assert
-        static::assertEquals('test-slugify', $slug);
+        self::assertEquals('test-slugify', $slug);
     }
 }

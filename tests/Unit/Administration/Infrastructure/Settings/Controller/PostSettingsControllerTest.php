@@ -34,6 +34,6 @@ class PostSettingsControllerTest extends AbstractControllerTest
         $response = $this->client->getResponse();
 
         // Assert
-        static::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
     }
 }

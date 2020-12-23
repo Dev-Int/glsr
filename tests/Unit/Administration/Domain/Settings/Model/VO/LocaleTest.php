@@ -25,7 +25,7 @@ class LocaleTest extends TestCase
         $currency = Locale::fromString('Fr');
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Locale('Fr'),
             $currency
         );
