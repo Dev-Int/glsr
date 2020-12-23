@@ -25,7 +25,7 @@ class CurrencyTest extends TestCase
         $currency = Currency::fromString('Euro');
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Currency('Euro'),
             $currency
         );

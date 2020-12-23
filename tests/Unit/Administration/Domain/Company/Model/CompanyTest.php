@@ -40,7 +40,7 @@ class CompanyTest extends TestCase
         );
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
@@ -79,7 +79,7 @@ class CompanyTest extends TestCase
         $company->renameCompany(NameField::fromString('Trans Gourmet'));
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Trans Gourmet'),
@@ -123,7 +123,7 @@ class CompanyTest extends TestCase
         ]);
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
@@ -164,7 +164,7 @@ class CompanyTest extends TestCase
         $company->changeCellphoneNumber(PhoneField::fromString('+33600050001'));
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
@@ -203,7 +203,7 @@ class CompanyTest extends TestCase
         $company->rewriteEmail(EmailField::fromString('david@davigel.fr'));
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Company(
                 ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),

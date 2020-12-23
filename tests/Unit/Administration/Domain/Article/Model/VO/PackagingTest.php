@@ -33,17 +33,17 @@ class PackagingTest extends TestCase
         $packages4 = Packaging::fromArray($array4);
 
         // Assert
-        static::assertEquals(['colis', 1], $packages1->parcel());
-        static::assertEquals(['poche', 4], $packages1->subPackage());
-        static::assertEquals(['portion', 32], $packages1->consumerUnit());
-        static::assertEquals(['colis', 1], $packages2->parcel());
-        static::assertEquals(['poche', 4], $packages2->subPackage());
-        static::assertNull($packages2->consumerUnit());
-        static::assertEquals(['colis', 1], $packages3->parcel());
-        static::assertNull($packages3->subPackage());
-        static::assertEquals(['portion', 32], $packages3->consumerUnit());
-        static::assertEquals(['colis', 1], $packages4->parcel());
-        static::assertNull($packages4->subPackage());
-        static::assertNull($packages4->consumerUnit());
+        self::assertEquals(['colis', 1], $packages1->parcel());
+        self::assertEquals(['poche', 4], $packages1->subPackage());
+        self::assertEquals(['portion', 32], $packages1->consumerUnit());
+        self::assertEquals(['colis', 1], $packages2->parcel());
+        self::assertEquals(['poche', 4], $packages2->subPackage());
+        self::assertNull($packages2->consumerUnit());
+        self::assertEquals(['colis', 1], $packages3->parcel());
+        self::assertNull($packages3->subPackage());
+        self::assertEquals(['portion', 32], $packages3->consumerUnit());
+        self::assertEquals(['colis', 1], $packages4->parcel());
+        self::assertNull($packages4->subPackage());
+        self::assertNull($packages4->consumerUnit());
     }
 }

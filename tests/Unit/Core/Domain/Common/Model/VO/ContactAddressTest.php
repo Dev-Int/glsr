@@ -29,7 +29,7 @@ class ContactAddressTest extends TestCase
         ]);
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new ContactAddress(
                 '2 rue de la truite',
                 '75000',
@@ -49,7 +49,7 @@ class ContactAddressTest extends TestCase
         );
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new ContactAddress(
                 '2 rue de la truite',
                 '75000',
@@ -71,7 +71,7 @@ class ContactAddressTest extends TestCase
         ]);
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             '2 rue de la truite
 75000 Paris, France',
             $address->getValue()
