@@ -80,7 +80,7 @@ return PhpCsFixer\Config::create()
             'null_adjustment' => 'always_last',
         ],
         'php_unit_test_case_static_method_calls' => [
-            'call_type' => 'static',
+            'call_type' => 'self',
         ],
         'concat_space' => [
            'spacing' => 'one',

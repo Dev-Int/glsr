@@ -4,7 +4,7 @@ default:
       contexts:
         - Behat\Tests\DemoContext
         - Behat\Tests\InventoryContext
-        - Behat\Tests\CompanyContext
+        - Behat\Tests\AppContext
 
   extensions:
     FriendsOfBehat\SymfonyExtension:

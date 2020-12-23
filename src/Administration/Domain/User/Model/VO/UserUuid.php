@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Core\Domain\Common\Model\Exception;
+namespace Administration\Domain\User\Model\VO;
 
-final class InvalidEmail extends \DomainException
+use Core\Domain\Common\Model\AbstractUuid;
+
+class UserUuid extends AbstractUuid
 {
-    /** @var string */
-    protected $message = 'L\'adresse mail saisie n\'est pas valide.';
 }

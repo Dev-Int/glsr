@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('admin_user_delete', {'uuid': users[0].uuid}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ users[0].uuid) }}">
+    <button class="pl-0 btn text-danger btn-sm">Delete</button>
+</form>

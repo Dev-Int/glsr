@@ -27,6 +27,11 @@ doctrine:
         type: xml
         dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Settings'
         prefix: 'Administration\Domain\Settings\Model'
+      Administration\Domain\User\Model:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/User'
+        prefix: 'Administration\Domain\User\Model'
 
 #      Administration\Domain\Article\Model\Article:
 #        is_bundle: false
