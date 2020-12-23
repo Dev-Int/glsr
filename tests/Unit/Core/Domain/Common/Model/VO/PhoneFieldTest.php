@@ -25,7 +25,7 @@ class PhoneFieldTest extends TestCase
         $phone = PhoneField::fromString('+33179923223');
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new PhoneField('+33179923223'),
             $phone
         );

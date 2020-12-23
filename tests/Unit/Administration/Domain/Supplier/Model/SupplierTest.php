@@ -44,7 +44,7 @@ class SupplierTest extends TestCase
         );
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Supplier(
                 SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Davigel'),
@@ -89,7 +89,7 @@ class SupplierTest extends TestCase
         $supplier->renameSupplier(NameField::fromString('Trans Gourmet'));
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Supplier(
                 SupplierUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                 NameField::fromString('Trans Gourmet'),

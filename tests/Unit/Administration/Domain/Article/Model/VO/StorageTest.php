@@ -24,7 +24,7 @@ class StorageTest extends TestCase
         $storage = Storage::fromArray(['Colis', 1]);
 
         // Assert
-        static::assertEquals(
+        self::assertEquals(
             new Storage('colis', 1),
             $storage
         );
