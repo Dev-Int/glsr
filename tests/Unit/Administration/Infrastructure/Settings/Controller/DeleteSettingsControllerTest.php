@@ -22,7 +22,7 @@ class DeleteSettingsControllerTest extends AbstractControllerTest
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture(new SettingsFixtures());
+        $this->loadFixture([new SettingsFixtures()]);
         $this->client->request('DELETE', '/administration/settings/delete/a136c6fe-8f6e-45ed-91bc-586374791033');
 
         // Act
