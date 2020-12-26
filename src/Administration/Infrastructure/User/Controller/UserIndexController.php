@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Controller;
 
-use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
+use Administration\Infrastructure\Finders\DoctrineOrm\DoctrineUserFinder;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +22,7 @@ class UserIndexController extends AbstractController
 {
     public function __invoke(ManagerRegistry $registry): Response
     {
-        $users = (new DoctrineUserRepository($registry))->findAllUser();
+        $users = (new DoctrineUserFinder($registry))->findAllUsers();
 
         return $this->render('Administration/User/index.html.twig', [
             'users' => $users->toArray(),

@@ -3,43 +3,38 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <h1>Administration</h1>
-
-            <div class="row">
-                <div class="col-3">
-                    <div class="card">
-                        <div class="card-header">
-                            User
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <a href="{{ path('admin_user_new') }}">Create</a>
-                            </li>
-                            <li class="list-group-item">
-                                {% if users %}
-                                    <a href="{{ path('admin_user_edit', {'uuid': users[0].uuid}) }}">Update</a>
-                                {% else %}Update{% endif %}
-                            </li>
-                            <li class="list-group-item">
-                                {% if users %}
-                                    {{ include('Administration/User/_delete-form.html.twig') }}
-                                {% else %}Delete{% endif %}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                {% for user in users | slice(0) %}
-                    <div class="col">
-                        <p>User name : {{ user.username }}</p>
-                        <p>Address email : {{ user.email }}</p>
-                        <p>Password: {{ user.password }}</p>
-                        <p>Role: </p>
-                        {% for role in user.roles %}
-                            <p>{{ role }}</p>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+            <div class="d-flex w-100 justify-content-between align-items-start">
+                <h1>Administration</h1>
+                <a href="{{ path('admin_user_new') }}" class="btn btn-sm btn-primary">Create new user</a>
             </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                    <th>Roles</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles|join(', ')|raw }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="{{ path('admin_user_edit', {'uuid': user.uuid}) }}" class="btn btn-sm">
+                                    Edit user
+                                </a>
+                                {{ include('Administration/User/_delete-form.html.twig', {'uuid': user.uuid}) }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
             <a href="{{ path('admin_index') }}">< Retour à l'accueil</a>
         </div>

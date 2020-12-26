@@ -27,3 +27,12 @@ services:
   Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
     lazy: true
+
+  Administration\Infrastructure\Finders\DoctrineOrm\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Finders/DoctrineOrm/*'
+    lazy: true
+
+  Administration\Infrastructure\:
+    lazy: true
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/*'
+    exclude: '%kernel.project_dir%/src/Administration/Infrastructure/{DoctrineMigrations,Kernel.php,**/Controller}'

@@ -1,13 +1,15 @@
 security:
-  encoders:
-    Administration\Application\User\ReadModel\User:
-      algorithm: auto
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
     app_user_provider:
       entity:
-        class: Administration\Application\User\ReadModel\User
+        class: 'Core\Domain\Model\User'
         property: username
+
+  encoders:
+    Core\Domain\Model\User:
+      algorithm: auto
+
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -15,6 +17,10 @@ security:
     main:
       anonymous: true
       lazy: true
+
+      guard:
+        authenticators:
+          - Core\Infrastructure\Security\LoginFormAuthenticator
 
       logout:
         path: app_logout

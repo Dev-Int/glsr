@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
-use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Model\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -33,23 +33,18 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     final public function load(ObjectManager $manager): void
     {
-        $userModel = new \Administration\Application\User\ReadModel\User(
-            'Laurent',
-            'laurent@example.com',
+        $user = new User(
+            UserUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
+            NameField::fromString('Laurent'),
+            EmailField::fromString('laurent@example.com'),
             'password',
             ['ROLE_ADMIN'],
-            'a136c6fe-8f6e-45ed-91bc-586374791033'
         );
-        $userModel->setPassword(
-            $this->passwordEncoder->encodePassword($userModel, $userModel->getPassword())
-        );
-
-        $user = new User(
-            UserUuid::fromString($userModel->getUuid()),
-            NameField::fromString($userModel->getUsername()),
-            EmailField::fromString($userModel->getEmail()),
-            $userModel->getPassword(),
-            $userModel->getRoles()
+        $user->changePassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $user->getPassword()
+            )
         );
 
         $manager->persist($user);

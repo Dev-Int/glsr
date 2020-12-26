@@ -13,17 +13,29 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Controller;
 
-use Administration\Application\User\ReadModel\User;
+use Administration\Infrastructure\Finders\DoctrineOrm\DoctrineUserFinder;
 use Administration\Infrastructure\User\Form\UserType;
+use Doctrine\ORM\NonUniqueResultException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetEditUserController extends AbstractController
 {
-    public function __invoke(User $user): Response
+    private DoctrineUserFinder $finder;
+
+    public function __construct(DoctrineUserFinder $finder)
     {
+        $this->finder = $finder;
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function __invoke(string $uuid): Response
+    {
+        $user = $this->finder->findOneByUuid($uuid);
         $form = $this->createForm(UserType::class, $user, [
-            'action' => $this->generateUrl('admin_user_update', ['uuid' => $user->getUuid()]),
+            'action' => $this->generateUrl('admin_user_update', ['uuid' => $uuid]),
             'method' => 'PUT',
         ]);
 

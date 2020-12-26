@@ -21,8 +21,6 @@ interface UserRepositoryProtocol
 
     public function remove(User $user): void;
 
-    public function findOneByUuid(string $uuid): ?User;
-
     public function existWithUsername(string $username): bool;
 
     public function existWithEmail(string $email): bool;

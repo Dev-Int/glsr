@@ -11,23 +11,34 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Domain\User\Handler;
+namespace Administration\Infrastructure\User\Handler;
 
-use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Command\CreateUser;
-use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
+use Core\Domain\Model\User;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-final class CreateUserHandler implements CommandHandlerProtocol
+class CreateUserHandler implements CommandHandlerProtocol
 {
-    private UserRepositoryProtocol $repository;
+    private DoctrineUserRepository $repository;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
-    public function __construct(UserRepositoryProtocol $repository)
+    public function __construct(DoctrineUserRepository $repository, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->repository = $repository;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
     public function __invoke(CreateUser $command): void
     {
         if ($this->repository->existWithUsername($command->username()->getValue())) {
@@ -43,6 +54,12 @@ final class CreateUserHandler implements CommandHandlerProtocol
             $command->email(),
             $command->password(),
             $command->roles()
+        );
+        $user->changePassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $command->password()
+            )
         );
 
         $this->repository->add($user);

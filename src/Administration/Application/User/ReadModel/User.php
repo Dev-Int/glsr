@@ -13,22 +13,20 @@ declare(strict_types=1);
 
 namespace Administration\Application\User\ReadModel;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-
-final class User implements UserInterface
+final class User
 {
-    public ?string $uuid;
+    public string $uuid;
     public string $username;
     public string $email;
-    public string $password;
+    public ?string $password;
     public array $roles;
 
     public function __construct(
+        string $uuid,
         string $username,
         string $email,
-        string $password,
-        array $roles = ['user'],
-        ?string $uuid = null
+        ?string $password = null,
+        array $roles = []
     ) {
         $this->uuid = $uuid;
         $this->username = $username;
@@ -37,47 +35,28 @@ final class User implements UserInterface
         $this->roles = $roles;
     }
 
-    public function getUuid(): ?string
+    public function uuid(): ?string
     {
         return $this->uuid;
     }
 
-    public function getUsername(): string
+    public function username(): string
     {
         return $this->username;
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
         return $this->email;
     }
 
-    public function getPassword(): string
+    public function password(): ?string
     {
         return $this->password;
     }
 
-    public function getRoles(): array
+    public function roles(): array
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return \array_unique($roles);
-    }
-
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    public function eraseCredentials(): void
-    {
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
+        return $this->roles;
     }
 }

@@ -11,21 +11,27 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Domain\User\Handler;
+namespace Administration\Infrastructure\User\Handler;
 
-use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Command\DeleteUser;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
 
 final class DeleteUserHandler implements CommandHandlerProtocol
 {
-    private UserRepositoryProtocol $repository;
+    private DoctrineUserRepository $repository;
 
-    public function __construct(UserRepositoryProtocol $repository)
+    public function __construct(DoctrineUserRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws ORMException
+     */
     public function __invoke(DeleteUser $command): void
     {
         $userToDelete = $this->repository->findOneByUuid($command->uuid());

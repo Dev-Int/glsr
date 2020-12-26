@@ -16,14 +16,15 @@ namespace Administration\Domain\User\Model;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Protocol\Common\UuidProtocol;
 
-final class User
+class User
 {
-    private string $uuid;
-    private string $username;
-    private string $email;
-    private string $password;
-    private array $roles;
+    protected string $uuid;
+    protected string $username;
+    protected string $email;
+    protected string $password;
+    protected array $roles;
 
     public function __construct(
         UserUuid $uuid,
@@ -49,53 +50,57 @@ final class User
         return new self($uuid, $username, $email, $password, $roles);
     }
 
-    public function uuid(): string
+    final public function uuid(): UuidProtocol
     {
-        return $this->uuid;
+        return UserUuid::fromString($this->uuid);
     }
 
-    public function username(): string
+    final public function username(): string
     {
         return $this->username;
     }
 
-    public function renameUser(NameField $username): self
+    final public function renameUser(NameField $username): self
     {
         $this->username = $username->getValue();
 
         return $this;
     }
 
-    public function email(): string
+    final public function email(): EmailField
     {
-        return $this->email;
+        return new EmailField($this->email);
     }
 
-    public function changeEmail(EmailField $email): self
+    final public function changeEmail(EmailField $email): self
     {
         $this->email = $email->getValue();
 
         return $this;
     }
 
-    public function password(): string
+    final public function password(): string
     {
         return $this->password;
     }
 
-    public function changePassword(string $password): self
+    final public function changePassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
     }
 
-    public function roles(): array
+    final public function roles(): array
     {
+        if ([] === $this->roles) {
+            $this->roles = ['ROLE_USER'];
+        }
+
         return $this->roles;
     }
 
-    public function assignRoles(array $roles): self
+    final public function assignRoles(array $roles): self
     {
         $this->roles = $roles;
 

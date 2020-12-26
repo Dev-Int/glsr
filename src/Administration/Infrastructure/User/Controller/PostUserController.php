@@ -38,7 +38,6 @@ class PostUserController extends AbstractController
         if ($user['password']['first'] !== $user['password']['second']) {
             throw new \DomainException('The first and second password must match!');
         }
-        // dd($user);
 
         try {
             $command = new CreateUser(
