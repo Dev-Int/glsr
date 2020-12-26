@@ -13,12 +13,11 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                <a href="{{ path('admin_settings_new') }}">Configure</a>
-                            </li>
-                            <li class="list-group-item">
                                 {% if settings %}
                                 {{ include('Administration/Settings/_delete-form.html.twig') }}
-                                {% else %}Delete{% endif %}
+                                {% else %}
+                                    <a href="{{ path('admin_settings_configure') }}">Configure</a>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>

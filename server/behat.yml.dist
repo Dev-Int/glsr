@@ -8,7 +8,7 @@ default:
 
   extensions:
     FriendsOfBehat\SymfonyExtension:
-      bootstrap: tests/bootstrap.php
+      bootstrap: server/tests/bootstrap.php
       kernel:
         class: Core\Infrastructure\Kernel
         path: ~

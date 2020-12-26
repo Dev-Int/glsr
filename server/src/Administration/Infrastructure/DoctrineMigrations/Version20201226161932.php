@@ -36,7 +36,7 @@ final class Version20201226161932 extends AbstractMigration
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql(
-            'ALTER TABLE user '.
+            'ALTER TABLE user ' .
             'CHANGE password password VARCHAR(36) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`'
         );
     }
