@@ -15,6 +15,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Model\User;
+use Core\Domain\Model\User as UserSymfony;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -25,7 +26,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, UserSymfony::class);
     }
 
     /**
@@ -49,7 +50,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?User
+    final public function findOneByUuid(string $uuid): ?UserSymfony
     {
         return $this->createQueryBuilder('u')
             ->where('u.uuid = :uuid')

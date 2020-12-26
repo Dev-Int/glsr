@@ -7,7 +7,6 @@ parameters:
         - tests/bootstrap.php
         - tests/Unit/DatabaseHelper.php
         - tests/Unit/AbstractControllerTest.php
-        - src/DoctrineMigrations
     bootstrapFiles:
         - bin/.phpunit/phpunit-8.5-0/vendor/autoload.php
     checkMissingIterableValueType: false

@@ -1,7 +1,15 @@
 security:
   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
   providers:
-    in_memory: { memory: null }
+    app_user_provider:
+      entity:
+        class: 'Core\Domain\Model\User'
+        property: username
+
+  encoders:
+    Core\Domain\Model\User:
+      algorithm: auto
+
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -9,6 +17,13 @@ security:
     main:
       anonymous: true
       lazy: true
+
+      guard:
+        authenticators:
+          - Core\Infrastructure\Security\LoginFormAuthenticator
+
+      logout:
+        path: app_logout
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -18,6 +33,10 @@ security:
 
   # For use new experimental Security, which eventually replace security in Symfony 6.0
   # enable_authenticator_manager: true
+
+  role_hierarchy:
+    ROLE_ADMIN: ROLE_USER
+    ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used

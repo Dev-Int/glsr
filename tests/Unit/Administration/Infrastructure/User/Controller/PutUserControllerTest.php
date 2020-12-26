@@ -15,6 +15,7 @@ namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
 use Administration\Infrastructure\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Unit\Tests\AbstractControllerTest;
 
 class PutUserControllerTest extends AbstractControllerTest
@@ -22,7 +23,14 @@ class PutUserControllerTest extends AbstractControllerTest
     final public function testPutUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture(new UserFixtures());
+        $userPasswordEncoder = $this->getMockBuilder(
+            UserPasswordEncoderInterface::class
+        )->getMock();
+        $userPasswordEncoder->expects(self::any())
+            ->method('encodePassword')
+            ->willReturn('encodedPassword')
+        ;
+        $this->loadFixture([new UserFixtures($userPasswordEncoder)]);
         $content = [
             'user' => [
                 'username' => 'Laurent',

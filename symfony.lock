@@ -153,9 +153,6 @@
     "monolog/monolog": {
         "version": "2.2.0"
     },
-    "nikic/php-parser": {
-        "version": "v4.10.3"
-    },
     "ocramius/proxy-manager": {
         "version": "2.10.0"
     },
@@ -364,15 +361,6 @@
         "files": [
             "config/packages/mailer.yaml"
         ]
-    },
-    "symfony/maker-bundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
-        }
     },
     "symfony/messenger": {
         "version": "4.3",

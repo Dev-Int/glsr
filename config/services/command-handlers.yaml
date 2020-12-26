@@ -12,7 +12,7 @@ services:
     tags:
       - { name: messenger.message_handler, bus: command.bus }
 
-  Administration\Domain\User\Handler\:
-    resource: '../../src/Administration/Domain/User/Handler/*'
+  Administration\Infrastructure\User\Handler\:
+    resource: '../../src/Administration/Infrastructure/User/Handler/*'
     tags:
       - { name: messenger.message_handler, bus: command.bus }

@@ -29,7 +29,7 @@ class UserTest extends TestCase
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN']
         );
 
         // Assert
@@ -39,7 +39,7 @@ class UserTest extends TestCase
                 NameField::fromString('Laurent'),
                 EmailField::fromString('laurent@example.com'),
                 'password',
-                ['admin']
+                ['ROLE_ADMIN']
             ),
             $user
         );
@@ -53,7 +53,7 @@ class UserTest extends TestCase
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN']
         );
 
         // Act
@@ -66,7 +66,7 @@ class UserTest extends TestCase
                 NameField::fromString('Arthur'),
                 EmailField::fromString('laurent@example.com'),
                 'password',
-                ['admin']
+                ['ROLE_ADMIN']
             ),
             $user
         );
@@ -80,7 +80,7 @@ class UserTest extends TestCase
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN']
         );
 
         // Act
@@ -93,7 +93,7 @@ class UserTest extends TestCase
                 NameField::fromString('Laurent'),
                 EmailField::fromString('l@example.com'),
                 'password',
-                ['admin']
+                ['ROLE_ADMIN']
             ),
             $user
         );
@@ -107,7 +107,7 @@ class UserTest extends TestCase
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN']
         );
 
         // Act
@@ -120,7 +120,7 @@ class UserTest extends TestCase
                 NameField::fromString('Laurent'),
                 EmailField::fromString('laurent@example.com'),
                 'otherWord',
-                ['admin']
+                ['ROLE_ADMIN']
             ),
             $user
         );
@@ -134,11 +134,11 @@ class UserTest extends TestCase
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN']
         );
 
         // Act
-        $user->assignRoles(['admin', 'otherRole']);
+        $user->assignRoles(['ROLE_ADMIN', 'ROLE_OTHER']);
 
         // Assert
         self::assertEquals(
@@ -147,7 +147,7 @@ class UserTest extends TestCase
                 NameField::fromString('Laurent'),
                 EmailField::fromString('laurent@example.com'),
                 'password',
-                ['admin', 'otherRole']
+                ['ROLE_ADMIN', 'ROLE_OTHER']
             ),
             $user
         );

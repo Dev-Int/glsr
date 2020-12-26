@@ -19,14 +19,14 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class MessengerCommandBus implements CommandBusProtocol
 {
-    public MessageBusInterface $commandBus;
+    private MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    final public function dispatch(CommandProtocol $command): void
+    public function dispatch(CommandProtocol $command): void
     {
         $this->commandBus->dispatch($command);
     }

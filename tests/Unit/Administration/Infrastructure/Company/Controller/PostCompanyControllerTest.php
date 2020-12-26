@@ -49,7 +49,7 @@ class PostCompanyControllerTest extends AbstractControllerTest
     final public function testPostCompanyAlreadyExist(): void
     {
         // Arrange
-        $this->loadFixture(new CompanyFixtures());
+        $this->loadFixture([new CompanyFixtures()]);
         $content = [
             'company' => [
                 'name' => 'Dev-Int Création',

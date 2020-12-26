@@ -15,6 +15,7 @@ namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
 use Administration\Infrastructure\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Unit\Tests\AbstractControllerTest;
 
 class DeleteUserControllerTest extends AbstractControllerTest
@@ -22,7 +23,15 @@ class DeleteUserControllerTest extends AbstractControllerTest
     final public function testDeleteUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture(new UserFixtures());
+        // @TODO Fix EncoderPassword dependency
+        $userPasswordEncoder = $this->getMockBuilder(
+            UserPasswordEncoderInterface::class
+        )->getMock();
+        $userPasswordEncoder->expects(self::any())
+            ->method('encodePassword')
+            ->willReturn('encodedPassword')
+        ;
+        $this->loadFixture([new UserFixtures($userPasswordEncoder)]);
         $this->client->request(
             'DELETE',
             '/administration/user/delete/a136c6fe-8f6e-45ed-91bc-586374791033'

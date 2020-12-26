@@ -22,7 +22,7 @@ class PutCompanyControllerTest extends AbstractControllerTest
     final public function testPutCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture(new CompanyFixtures());
+        $this->loadFixture([new CompanyFixtures()]);
         $content = [
             'company' => [
                 'name' => 'Dev-Int Création',

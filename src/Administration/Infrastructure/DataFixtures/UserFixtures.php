@@ -13,27 +13,41 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
-use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Model\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixtures extends Fixture implements FixtureGroupInterface
 {
+    private UserPasswordEncoderInterface $passwordEncoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     final public function load(ObjectManager $manager): void
     {
-        $user = User::create(
+        $user = new User(
             UserUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
-            ['admin']
+            ['ROLE_ADMIN'],
         );
-        $manager->persist($user);
+        $user->changePassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $user->getPassword()
+            )
+        );
 
+        $manager->persist($user);
         $manager->flush();
     }
 

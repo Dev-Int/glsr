@@ -22,7 +22,7 @@ class DeleteCompanyControllerTest extends AbstractControllerTest
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture(new CompanyFixtures());
+        $this->loadFixture([new CompanyFixtures()]);
         $this->client->request('DELETE', '/administration/company/delete/a136c6fe-8f6e-45ed-91bc-586374791033');
 
         // Act

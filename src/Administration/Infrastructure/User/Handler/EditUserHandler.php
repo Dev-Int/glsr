@@ -11,25 +11,34 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Domain\User\Handler;
+namespace Administration\Infrastructure\User\Handler;
 
-use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Command\EditUser;
-use Administration\Domain\User\Model\User;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
+use Core\Domain\Model\User;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\ORMException;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-final class EditUserHandler implements CommandHandlerProtocol
+class EditUserHandler implements CommandHandlerProtocol
 {
-    private UserRepositoryProtocol $repository;
+    private UserPasswordEncoderInterface $passwordEncoder;
+    private DoctrineUserRepository $userRepository;
 
-    public function __construct(UserRepositoryProtocol $repository)
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder, DoctrineUserRepository $userRepository)
     {
-        $this->repository = $repository;
+        $this->passwordEncoder = $passwordEncoder;
+        $this->userRepository = $userRepository;
     }
 
+    /**
+     * @throws NonUniqueResultException
+     * @throws ORMException
+     */
     public function __invoke(EditUser $command): void
     {
-        $userToUpdate = $this->repository->findOneByUuid($command->uuid()->toString());
+        $userToUpdate = $this->userRepository->findOneByUuid($command->uuid()->toString());
 
         if (null === $userToUpdate) {
             throw new \DomainException('User provided does not exist!');
@@ -46,9 +55,14 @@ final class EditUserHandler implements CommandHandlerProtocol
         if ($user->email() !== $command->email()) {
             $user->changeEmail($command->email());
         }
-        if ($user->password() !== $command->password()) {
-            $user->changePassword($command->password());
-        }
+
+        $user->changePassword(
+            $this->passwordEncoder->encodePassword(
+                $user,
+                $command->password()
+            )
+        );
+
         if ($user->roles() !== $command->roles()) {
             $user->assignRoles($command->roles());
         }

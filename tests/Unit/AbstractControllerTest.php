@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Unit\Tests;
 
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -52,10 +51,7 @@ class AbstractControllerTest extends WebTestCase
         \unlink($this->projectDir . '/var/cache/test/test.db');
     }
 
-    /**
-     * @param array|Fixture $fixture
-     */
-    final public function loadFixture($fixture): void
+    final public function loadFixture(array $fixture): void
     {
         $loader = new Loader();
         $fixtures = \is_array($fixture) ? $fixture : [$fixture];
