@@ -28,7 +28,7 @@ class PostSettingsControllerTest extends AbstractControllerTest
                 'locale' => 'Fr',
             ],
         ];
-        $this->client->request(Request::METHOD_POST, '/administration/settings/configure', $content);
+        $this->client->request(Request::METHOD_POST, '/api/administration/settings/configure', $content);
 
         // Act
         $response = $this->client->getResponse();

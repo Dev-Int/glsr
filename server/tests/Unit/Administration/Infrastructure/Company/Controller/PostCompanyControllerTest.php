@@ -36,14 +36,14 @@ class PostCompanyControllerTest extends AbstractControllerTest
                 'cellphone' => '+33100000002',
             ],
         ];
-        $this->client->request('POST', '/administration/company/create', $content);
+        $this->client->request('POST', '/api/administration/company/create', $content);
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/administration/company/'));
+        self::assertTrue($response->isRedirect('/api/administration/company/'));
     }
 
     final public function testPostCompanyAlreadyExist(): void
@@ -66,7 +66,7 @@ class PostCompanyControllerTest extends AbstractControllerTest
         ];
 
         // Act
-        $this->client->request('POST', '/administration/company/create', $content);
+        $this->client->request('POST', '/api/administration/company/create', $content);
         $response = $this->client->getResponse();
 
         // Assert

@@ -32,13 +32,13 @@ class PostUserControllerTest extends AbstractControllerTest
                 'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
             ],
         ];
-        $this->client->request('POST', '/administration/user/create', $content);
+        $this->client->request('POST', '/api/administration/user/create', $content);
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/administration/user/'));
+        self::assertTrue($response->isRedirect('/api/administration/user/'));
     }
 }

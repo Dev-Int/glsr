@@ -34,7 +34,7 @@ class DeleteUserControllerTest extends AbstractControllerTest
         $this->loadFixture([new UserFixtures($userPasswordEncoder)]);
         $this->client->request(
             'DELETE',
-            '/administration/user/delete/a136c6fe-8f6e-45ed-91bc-586374791033'
+            '/api/administration/user/delete/a136c6fe-8f6e-45ed-91bc-586374791033'
         );
 
         // Act
@@ -42,6 +42,6 @@ class DeleteUserControllerTest extends AbstractControllerTest
 
         // Assert
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/administration/user/'));
+        self::assertTrue($response->isRedirect('/api/administration/user/'));
     }
 }

@@ -37,13 +37,13 @@ class PutCompanyControllerTest extends AbstractControllerTest
                 'cellphone' => '+33100000002',
             ],
         ];
-        $this->client->request('POST', '/administration/company/update/a136c6fe-8f6e-45ed-91bc-586374791033', $content);
+        $this->client->request('POST', '/api/administration/company/update/a136c6fe-8f6e-45ed-91bc-586374791033', $content);
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/administration/company/'));
+        self::assertTrue($response->isRedirect('/api/administration/company/'));
     }
 }
