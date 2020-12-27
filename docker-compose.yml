@@ -29,11 +29,11 @@ services:
       - mariadb
 
   client:
-    image: library/node:14.15-alpine
+    image: library/node:14.15
     tty: true
     working_dir: ${APP_CONTAINER_PATH}/client
-    user: ${APP_USER_ID}.${APP_GROUP_ID}
-    command: yarn run dev
+    user: ${APP_USER_ID}:${APP_GROUP_ID}
+    command: yarn run start
     volumes:
       - ${APP_PATH}:${APP_CONTAINER_PATH}
 

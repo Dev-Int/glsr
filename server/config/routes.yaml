@@ -1,13 +1,13 @@
 admin:
   resource: routes/administration/index.yaml
-  prefix: /administration
+  prefix: /api/administration
 
 inventory:
   resource: routes/inventory/index.yaml
-  prefix: /inventory
+  prefix: /api/inventory
 
 _home:
-  path: /
+  path: /api/
   controller: Core\Infrastructure\Controller\DefaultController
   methods: GET
 
