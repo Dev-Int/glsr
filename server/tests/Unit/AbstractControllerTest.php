@@ -54,8 +54,7 @@ class AbstractControllerTest extends WebTestCase
     final public function loadFixture(array $fixture): void
     {
         $loader = new Loader();
-        $fixtures = \is_array($fixture) ? $fixture : [$fixture];
-        foreach ($fixtures as $item) {
+        foreach ($fixture as $item) {
             $loader->addFixture($item);
         }
         $this->executor->execute($loader->getFixtures());

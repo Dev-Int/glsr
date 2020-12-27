@@ -113,6 +113,6 @@ return PhpCsFixer\Config::create()
     ->setIndent('    ')
     ->setLineEnding("\n")
     ->setUsingCache(true)
-    ->setCacheFile('server/.php_cs.cache')
+    ->setCacheFile(__DIR__ . '/.php_cs.cache')
     ->setFinder($finder)
 ;
