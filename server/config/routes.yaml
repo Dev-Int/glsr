@@ -11,9 +11,8 @@ _home:
   controller: Core\Infrastructure\Controller\DefaultController
   methods: GET
 
-app_login:
-  path: /login
-  controller: Core\Infrastructure\Controller\SecurityController::login
+api_login_check:
+  path: /api/login_check
   methods: GET|POST
 
 app_logout:
