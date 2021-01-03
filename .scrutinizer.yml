@@ -3,7 +3,7 @@ build:
     analysis:
       tests:
         override:
-          - php-scrutinizer-run
+          - php-scrutinizer-run --enable-security-analysis
       environment:
         docker: true
         php:
@@ -17,6 +17,8 @@ filter:
   excluded_paths:
     - 'server/tests/*'
     - 'server/*/Infrastructure/DoctrineMigrations/*'
+  dependency_paths:
+    - 'server/vendor/*'
 
 checks:
   php:
