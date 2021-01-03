@@ -92,8 +92,8 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "tests": "php bin/phpunit",
-        "phpcs": "php ./vendor/bin/phpcs",
-        "phpstan": "php ./vendor/bin/phpstan analyse",
+        "phpcs": "php vendor/bin/phpcs",
+        "phpstan": "php vendor/bin/phpstan analyse",
         "post-install-cmd": [
             "@auto-scripts"
         ],
