@@ -34,7 +34,7 @@ jobs:
           restore-keys: glsr-cache-
 
       - name: Validate server/composer.json and server/composer.lock
-        run: server/composer validate
+        run: composer validate
 
       - name: Cache Composer
         uses: actions/cache@v2
@@ -44,27 +44,13 @@ jobs:
           restore-keys: composer-
 
       - name: Install dependencies
-        run: server/composer install --prefer-dist --no-progress
+        run: composer install --prefer-dist --no-progress
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md
 
       - name: Run test suite
-        run: server/composer run-script tests
+        run: composer run-script tests
 
       - name: Run coding standards analysis
-        run: server/composer run-script phpcs
-
-#  check-php-cs:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: docker://oskarstark/php-cs-fixer-ga
-#
-#  check-phpstan:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: docker://oskarstark/phpstan-ga
-#        with:
-#          args: analyse src/
+        run: composer run-script phpcs
