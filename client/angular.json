@@ -99,7 +99,7 @@
               "projects/backend/src/assets"
             ],
             "styles": [
-              "projects/backend/src/styles.sass"
+              "projects/backend/src/styles.scss"
             ],
             "scripts": []
           }

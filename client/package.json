@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~11.0.5",
     "@angular/router": "~11.0.5",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
+    "@types/jest": "^26.0.19",
     "bootstrap": "^4.5.3",
     "font-awesome": "^4.7.0",
     "ngx-cookie-service": "^11.0.2",

@@ -116,7 +116,8 @@ class AbstractControllerTest extends WebTestCase
         if ($checkValidJson && Response::HTTP_NO_CONTENT !== $statusCode) {
             self::assertTrue($response->headers->contains('Content-Type', $contentType));
             $decode = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
-            self::assertTrue(null !== $decode && false !== $decode,
+            self::assertTrue(
+                null !== $decode && false !== $decode,
                 'is response valid json: [' . $response->getContent() . ']'
             );
         }
