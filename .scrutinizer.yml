@@ -13,10 +13,10 @@ build:
 
 filter:
   paths:
-    - 'src/*'
+    - 'server/src/*'
   excluded_paths:
-    - 'tests/*'
-    - '*/Migrations/*'
+    - 'server/tests/*'
+    - 'server/*/Infrastructure/DoctrineMigrations/*'
 
 checks:
   php:
