@@ -12,12 +12,15 @@ jobs:
 
     steps:
       - name: Checkout
+        working-directory: ./server
         uses: actions/checkout@v2
 
       - name: Setup PHP
+        working-directory: ./server
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          lock: server/composer.lock
 
       - name: Cache Docker
         uses: satackey/action-docker-layer-caching@v0.0.11
@@ -26,7 +29,8 @@ jobs:
           key: docker-{hash}
           restore-keys: docker-
 
-      - name: Cache directories
+      - name: Cache dependencies
+        working-directory: ./server
         uses: actions/cache@v2
         with:
           path: var/cache
@@ -34,9 +38,11 @@ jobs:
           restore-keys: glsr-cache-
 
       - name: Validate server/composer.json and server/composer.lock
+        working-directory: ./server
         run: composer validate
 
       - name: Cache Composer
+        working-directory: ./server
         uses: actions/cache@v2
         with:
           path: ~/.composer/cache/
@@ -44,13 +50,16 @@ jobs:
           restore-keys: composer-
 
       - name: Install dependencies
+        working-directory: ./server
         run: composer install --prefer-dist --no-progress
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md
 
       - name: Run test suite
+        working-directory: ./server
         run: composer run-script tests
 
       - name: Run coding standards analysis
+        working-directory: ./server
         run: composer run-script phpcs
