@@ -1,0 +1,28 @@
+name: Glsr_client
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+defaults:
+  run:
+    working-directory: ./client
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: yarn ci
+      - run: npm run build --if-present
+      - run: npm test
+
