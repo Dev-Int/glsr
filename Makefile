@@ -10,9 +10,9 @@
 DC             = docker-compose
 PROJECT_DIR    = /glsr
 RUN            = $(DC) run --rm
-RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)
+RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)/server
 EXEC           = $(DC) exec
-SERVER_CONSOLE = $(EXEC) php php bin/console
+SERVER_CONSOLE = $(EXEC) php php server/bin/console
 GIT_AUTHOR     = Dev-Int
 PASS_PHRASE?   = glsr
 VERSION?       =
@@ -37,7 +37,7 @@ help: ## Outputs this help screen
 
 ## —— Composer —————————————————————————————————————————————————————————————————
 
-update: composer.json ## Update vendors according to the composer.json file
+update: server/composer.json ## Update vendors according to the composer.json file
 	@echo "Update php dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
@@ -57,28 +57,27 @@ reset: stop start ## Reset the whole project
 install: start security ## Install the whole project
 
 cc: ## Clear the cache in dev env
-	@rm -rf var/cache/*
-	@$(EXEC) php php -d memory_limit=-1 bin/console cache:warmup
+	@rm -rf server/var/cache/*
+	@$(EXEC) php php -d memory_limit=-1 server/bin/console cache:warmup
 
 clean-dir: ## Clean directories
-	@rm -rf var/cache/* \
-			var/logs/* \
-			data/**/*
+	@rm -rf server/var/cache/* \
+			server/var/logs/*
 
 clear: cc clean-dir ## Remove all the cache, the logs, the sessions
 
 security:
-	@mkdir -p config/jwt/
-	@$(EXEC) php openssl genrsa -aes256 -passout pass:$(PASS_PHRASE) -out config/jwt/private.pem 4096
-	@$(EXEC) php openssl rsa -pubout -in config/jwt/private.pem -passin pass:$(PASS_PHRASE) -out config/jwt/public.pem
+	@mkdir -p server/config/jwt/
+	@$(EXEC) php openssl genrsa -aes256 -passout pass:$(PASS_PHRASE) -out server/config/jwt/private.pem 4096
+	@$(EXEC) php openssl rsa -pubout -in server/config/jwt/private.pem -passin pass:$(PASS_PHRASE) -out server/config/jwt/public.pem
 
-config: .env.local docker-compose.override.yml .php_cs .git/hooks/pre-commit ## Init files required
+config: server/.env.local docker-compose.override.yml server/.php_cs .git/hooks/pre-commit ## Init files required
 	@echo 'Configuration files copied'
 
 
 ## —— DB ——————————————————————————————————————————————————————————————————————————
 
-db-test: .env.test ## Create tests database
+db-test: server/.env.test ## Create tests database
 	@echo "create database for tests"
 	@$(SERVER_CONSOLE) doctrine:database:create --env=test
 
@@ -109,28 +108,28 @@ load-fixtures: ## Build the DB, load fixtures
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
-test-all: phpunit.xml test-cc behat.yml.dist ## Execute tests
+test-all: server/phpunit.xml test-cc server/behat.yml.dist ## Execute tests
 	@echo 'Running all tests'
 	@echo '—— Unit tests ——'
-	@$(EXEC) php php -d memory_limit=-1 bin/phpunit --stop-on-failure
-	@echo '—— Behat tests ——'
-	@$(EXEC) php vendor/bin/behat
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --stop-on-failure
+#	@echo '—— Behat tests ——'
+#	@$(EXEC) php server/vendor/bin/behat
 
-test-domain: phpunit.xml test-cc ## Launch Domain unit tests
+test-domain: server/phpunit.xml test-cc ## Launch Domain unit tests
 	@echo "Running unit Domain tests"
-	@$(EXEC) php bin/phpunit --testsuite=Domain --stop-on-failure
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Domain --stop-on-failure
 
-test-infra: phpunit.xml test-cc ## Launch Infrastructure unit tests
+test-infra: server/phpunit.xml test-cc ## Launch Infrastructure unit tests
 	@echo "Running unit Infrastructure tests"
-	@$(EXEC) php bin/phpunit --testsuite=Infrastructure --stop-on-failure
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Infrastructure --stop-on-failure
 
-test-behat: behat.yml.dist ## Launch behat tests
-	@echo "Running test BDD"
-	@$(EXEC) php vendor/bin/behat
+#test-behat: server/behat.yml.dist ## Launch behat tests
+#	@echo "Running test BDD"
+#	@$(EXEC) php server/vendor/bin/behat
 
 test-coverage: clean-dir  ## Run test coverage
 	@echo 'Running tests coverage'
-	@$(EXEC) php bin/phpunit --coverage-html=var/test-coverage/
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --coverage-html=var/test-coverage/
 
 test-cc: ## Clear the cache in test environment. DID YOU CLEAR YOUR CACHE????
 	$(SERVER_CONSOLE) c:c --env=test
@@ -141,13 +140,13 @@ test-cc: ## Clear the cache in test environment. DID YOU CLEAR YOUR CACHE????
 cs: codesniffer stan #lint ## Launch check style and static analysis
 
 codesniffer: ## Run php_codesniffer only
-	@$(EXEC) php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=phpcs.xml -n -p src/
+	@$(EXEC) php server/vendor/squizlabs/php_codesniffer/bin/phpcs --standard=server/phpcs.xml -n -p server/src/
 
 stan: ## Execute phpstan
-	@$(EXEC) php vendor/bin/phpstan analyze -c phpstan.neon
+	@$(EXEC) php server/vendor/bin/phpstan analyze -c server/phpstan.neon
 
 cs-fixer: ## Execute php-cs-fixer
-	@$(EXEC) php vendor/bin/php-cs-fixer fix
+	@$(EXEC) php server/vendor/bin/php-cs-fixer fix --config server/.php_cs
 
 #psalm: ## Run psalm only
 #	@$(EXEC) php vendor/bin/psalm --show-info=false
@@ -195,7 +194,7 @@ version: ## Add a new tag with current date and publish it
 ## Dependencies ————————————————————————————————————————————————————————————————
 
 # Internal rules
-project-vendors: vendor #node_modules ## Server vendors
+project-vendors: server/vendor client/node_modules ## Server vendors
 	@echo "Vendors installed"
 
 build:
@@ -208,7 +207,7 @@ up:
 
 
 # Single file dependencies
-.env.local: .env
+.env.local: server/.env
 	@echo "Copying docker environment variables"
 	@cp .env .env.local
 	@sed -i "s/^APP_USER_ID=.*/APP_USER_ID=$(shell id -u)/" .env.local
@@ -221,11 +220,14 @@ up:
 docker-compose.override.yml: docker-compose.override.yml.dist
 	@echo "Copying docker configuration"
 	@cp docker-compose.override.yml.dist docker-compose.override.yml
-vendor: composer.lock
+server/vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
-.php_cs: .php_cs.dist
+.php_cs: server/.php_cs.dist
 	@cp .php_cs.dist .php_cs
+client/node_modules: client/yarn.lock
+	@echo "Installing client dependencies"
+	@$(RUN) client yarn install
 
 
 ## —— Stats ————————————————————————————————————————————————————————————————————

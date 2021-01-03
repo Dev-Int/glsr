@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col">
+            <h1>Administration</h1>
+
+            <div class="row">
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Settings
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                {% if settings %}
+                                {{ include('Administration/Settings/_delete-form.html.twig') }}
+                                {% else %}
+                                    <a href="{{ path('admin_settings_configure') }}">Configure</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col">
+                    <ul class="list-unstyled">
+                        <li>Langue de l'application : {{ settings.locale|upper }}</li>
+                        <li>Monnaie de l'application : {{ settings.currency|capitalize }} ({{ settings.symbol }})</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="{{ path('admin_index') }}">< Retour à l'accueil</a>
+        </div>
+    </div>
+{% endblock %}
