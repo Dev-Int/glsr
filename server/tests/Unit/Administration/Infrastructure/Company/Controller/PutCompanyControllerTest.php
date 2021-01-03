@@ -41,7 +41,11 @@ class PutCompanyControllerTest extends AbstractControllerTest
             ],
         ];
         $adminClient = $this->createAdminClient();
-        $adminClient->request('POST', '/api/administration/company/update/a136c6fe-8f6e-45ed-91bc-586374791033', $content);
+        $adminClient->request(
+            'POST',
+            '/api/administration/company/update/a136c6fe-8f6e-45ed-91bc-586374791033',
+            $content
+        );
 
         // Act
         $response = $this->client->getResponse();
