@@ -31,7 +31,7 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    final public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager): void
     {
         $user = new User(
             UserUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),

@@ -1,6 +1,6 @@
+import { Profile } from './profile.model';
+
 export interface User {
-  uuid: string;
-  username: string;
-  email: string;
-  roles: Array<string>;
+    profile: Profile;
+    token?: string;
 }

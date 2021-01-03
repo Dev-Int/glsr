@@ -15,17 +15,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav my-2 my-lg-0">
-              <li class="nav-item" *ngIf="user; else no_user">
+              <li class="nav-item" *ngIf="user">
                   <a class="nav-link" href="#">Administration</a>
               </li>
-              <li class="nav-item" *ngIf="user">
-                  <a class="nav-link" href="#">Déconnexion</a>
+              <li class="ml-4 nav-item" *ngIf="user">
+                  <a class="btn fa fa-power-off text-white" (click)="logout()"><span class="sr-only">Déconnexion</span></a>
               </li>
-              <ng-template #no_user>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
-                </li>
-              </ng-template>
             </ul>
         </div>
     </div>

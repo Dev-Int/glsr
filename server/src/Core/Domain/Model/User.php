@@ -64,4 +64,16 @@ class User extends UserDomain implements UserInterface
     public function eraseCredentials(): void
     {
     }
+
+    /**
+     * @see AuthenticationSuccessResponseListener::onAuthenticationSuccessResponse
+     */
+    public function getProfileInfos(): array
+    {
+        return [
+            'uuid' => $this->getUuid(),
+            'username' => $this->getUsername(),
+            'email' => $this->getEmail(),
+        ];
+    }
 }

@@ -194,7 +194,7 @@ version: ## Add a new tag with current date and publish it
 ## Dependencies ————————————————————————————————————————————————————————————————
 
 # Internal rules
-project-vendors: server/vendor #node_modules ## Server vendors
+project-vendors: server/vendor client/node_modules ## Server vendors
 	@echo "Vendors installed"
 
 build:
@@ -225,6 +225,9 @@ server/vendor: server/composer.lock
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
 .php_cs: server/.php_cs.dist
 	@cp .php_cs.dist .php_cs
+client/node_modules: client/yarn.lock
+	@echo "Installing client dependencies"
+	@$(RUN) client yarn install
 
 
 ## —— Stats ————————————————————————————————————————————————————————————————————

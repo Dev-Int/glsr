@@ -1,0 +1,32 @@
+<div class="container">
+    <div *ngIf="invalidCredentials" class="alert alert-danger" role="alert">
+        Votre identifiant ou mot de passe est erroné.
+    </div>
+    <form [formGroup]="form" #ngForm="ngForm" (ngSubmit)="onSubmit()" class="w-50 mx-auto my-4">
+        <fieldset>
+        <legend>Veuillez vous connecter</legend>
+            <div class="form-group">
+                <label for="inputUsername" class="sr-only">Nom de l'utilisateur</label>
+                <div class="input-group"
+                     [class.is-invalid]="form.controls.username.invalid && (ngForm.submitted || form.controls.username.touched || form.controls.username.dirty)">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user"></i></span></div>
+                    <input type="text" formControlName="username" id="inputUsername" placeholder="Nom de l'utilisateur"
+                           class="form-control" required autofocus>
+                </div>
+                <div class="invalid-feedback">Champs obligatoire.</div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Mot de passe</label>
+                <div class="input-group"
+                     [class.is-invalid]="form.controls.password.invalid && (ngForm.submitted || form.controls.password.touched || form.controls.password.dirty)">
+                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div>
+                    <input type="password" formControlName="password" id="inputPassword" placeholder="Mot de passe"
+                           class="form-control" required>
+                </div>
+            </div>
+        </fieldset>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-lg btn-primary mx-auto" [disabled]="form.invalid || loading">Se connecter</button>
+        </div>
+    </form>
+</div>

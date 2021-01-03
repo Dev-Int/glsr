@@ -19,8 +19,10 @@ security:
       pattern:   ^/api/login
       stateless: true
       anonymous: true
+      user_checker: Core\Infrastructure\Security\UserChecker
       json_login:
         check_path:      /api/login_check
+        require_previous_session: false
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -51,5 +53,6 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/backend, roles: ROLE_ADMIN }
+    - { path: ^/api, roles: ROLE_USER }
