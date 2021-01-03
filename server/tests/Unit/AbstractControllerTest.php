@@ -21,6 +21,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AbstractControllerTest extends WebTestCase
@@ -94,10 +95,30 @@ class AbstractControllerTest extends WebTestCase
                 \JSON_THROW_ON_ERROR
             )
         );
+        self::assertJsonResponse($this->client->getResponse());
         $data = \json_decode($this->client->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         $this->client->setServerParameter('HTTP_Authorization', \sprintf('Bearer %s', $data['token']));
 
         return $this->client;
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    protected static function assertJsonResponse(Response $response, int $statusCode = Response::HTTP_OK, bool $checkValidJson = true, string $contentType = 'application/json')
+    {
+        self::assertEquals(
+            $statusCode, $response->getStatusCode(),
+            $response->getContent()
+        );
+
+        if ($checkValidJson && Response::HTTP_NO_CONTENT !== $statusCode) {
+            self::assertTrue($response->headers->contains('Content-Type', $contentType));
+            $decode = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            self::assertTrue(null !== $decode && false !== $decode,
+                'is response valid json: ['.$response->getContent().']'
+            );
+        }
     }
 }
