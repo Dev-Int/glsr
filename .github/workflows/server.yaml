@@ -22,6 +22,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
+          tools: phpcs, composer:v2
 
       - name: Validate composer.json and composer.lock
         run: composer validate
@@ -39,7 +40,8 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run coding standards analysis
-        run: composer run-script phpcs
+        run: phpcs
+#        run: composer run-script phpcs
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md
