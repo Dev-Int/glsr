@@ -106,18 +106,18 @@ class AbstractControllerTest extends WebTestCase
     /**
      * @throws \JsonException
      */
-    protected static function assertJsonResponse(Response $response, int $statusCode = Response::HTTP_OK, bool $checkValidJson = true, string $contentType = 'application/json')
-    {
-        self::assertEquals(
-            $statusCode, $response->getStatusCode(),
-            $response->getContent()
-        );
-
+    private static function assertJsonResponse(
+        Response $response,
+        int $statusCode = Response::HTTP_OK,
+        bool $checkValidJson = true,
+        string $contentType = 'application/json'
+    ): void {
+        self::assertEquals($statusCode, $response->getStatusCode(), $response->getContent());
         if ($checkValidJson && Response::HTTP_NO_CONTENT !== $statusCode) {
             self::assertTrue($response->headers->contains('Content-Type', $contentType));
-            $decode = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
+            $decode = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
             self::assertTrue(null !== $decode && false !== $decode,
-                'is response valid json: ['.$response->getContent().']'
+                'is response valid json: [' . $response->getContent() . ']'
             );
         }
     }
