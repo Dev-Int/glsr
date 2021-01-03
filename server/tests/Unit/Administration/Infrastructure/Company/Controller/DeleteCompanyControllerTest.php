@@ -19,11 +19,15 @@ use Unit\Tests\AbstractControllerTest;
 
 class DeleteCompanyControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \JsonException
+     */
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange
         $this->loadFixture([new CompanyFixtures()]);
-        $this->client->request('DELETE', '/api/administration/company/delete/a136c6fe-8f6e-45ed-91bc-586374791033');
+        $adminClient = $this->createAdminClient();
+        $adminClient->request('DELETE', '/api/administration/company/delete/a136c6fe-8f6e-45ed-91bc-586374791033');
 
         // Act
         $response = $this->client->getResponse();

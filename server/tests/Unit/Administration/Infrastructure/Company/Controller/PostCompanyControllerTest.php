@@ -19,9 +19,13 @@ use Unit\Tests\AbstractControllerTest;
 
 class PostCompanyControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \JsonException
+     */
     final public function testPostCompanyAction(): void
     {
         // Arrange
+        $this->loadFixture([]);
         $content = [
             'company' => [
                 'name' => 'Dev-Int Création',
@@ -36,7 +40,8 @@ class PostCompanyControllerTest extends AbstractControllerTest
                 'cellphone' => '+33100000002',
             ],
         ];
-        $this->client->request('POST', '/api/administration/company/create', $content);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request('POST', '/api/administration/company/create', $content);
 
         // Act
         $response = $this->client->getResponse();
@@ -46,6 +51,9 @@ class PostCompanyControllerTest extends AbstractControllerTest
         self::assertTrue($response->isRedirect('/api/administration/company/'));
     }
 
+    /**
+     * @throws \JsonException
+     */
     final public function testPostCompanyAlreadyExist(): void
     {
         // Arrange
@@ -66,7 +74,8 @@ class PostCompanyControllerTest extends AbstractControllerTest
         ];
 
         // Act
-        $this->client->request('POST', '/api/administration/company/create', $content);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request('POST', '/api/administration/company/create', $content);
         $response = $this->client->getResponse();
 
         // Assert

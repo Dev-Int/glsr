@@ -16,15 +16,15 @@ security:
       security: false
 
     login:
-      pattern:   ^/api/login
+      pattern:   ^/api/(login|public)
       stateless: true
       anonymous: true
       user_checker: Core\Infrastructure\Security\UserChecker
       json_login:
         check_path:      /api/login_check
-        require_previous_session: false
         success_handler: lexik_jwt_authentication.handler.authentication_success
         failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        require_previous_session: false
 
     api:
       pattern: ^/api
@@ -47,12 +47,13 @@ security:
   # enable_authenticator_manager: true
 
   role_hierarchy:
-    ROLE_ADMIN: ROLE_USER
+    ROLE_ASSISTANT:   [ROLE_USER]
+    ROLE_ADMIN:       [ROLE_ASSISTANT, ROLE_USER]
     ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/(login|public), roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/backend, roles: ROLE_ADMIN }
     - { path: ^/api, roles: ROLE_USER }

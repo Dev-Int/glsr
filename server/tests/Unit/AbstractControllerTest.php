@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests;
 
+use Administration\Infrastructure\DataFixtures\UserFixtures;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -20,12 +21,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AbstractControllerTest extends WebTestCase
 {
     protected KernelBrowser $client;
     protected EntityManagerInterface $manager;
     protected ORMExecutor $executor;
+    protected UserPasswordEncoderInterface $passwordEncoder;
     private string $projectDir;
 
     final protected function setUp(): void
@@ -37,7 +40,8 @@ class AbstractControllerTest extends WebTestCase
 
         // Configure variables
         $this->projectDir = self::$kernel->getProjectDir();
-        $this->manager = self::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $this->manager = self::$container->get('doctrine.orm.entity_manager');
+        $this->passwordEncoder = self::$container->get('security.password_encoder');
         $this->executor = new ORMExecutor($this->manager, new ORMPurger());
 
         // Run the schema update tool using entity metadata
@@ -54,9 +58,46 @@ class AbstractControllerTest extends WebTestCase
     final public function loadFixture(array $fixture): void
     {
         $loader = new Loader();
-        foreach ($fixture as $item) {
-            $loader->addFixture($item);
+        $loader->addFixture(new UserFixtures($this->passwordEncoder));
+        if ([] !== $fixture) {
+            foreach ($fixture as $item) {
+                $loader->addFixture($item);
+            }
         }
         $this->executor->execute($loader->getFixtures());
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    protected function createAdminClient(): KernelBrowser
+    {
+        return $this->createAuthenticatedClient('Laurent', 'password');
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    private function createAuthenticatedClient(string $username, string $password): KernelBrowser
+    {
+        $this->client->request(
+            'POST',
+            '/api/login_check',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode(
+                [
+                    'username' => $username,
+                    'password' => $password,
+                ],
+                \JSON_THROW_ON_ERROR
+            )
+        );
+        $data = \json_decode($this->client->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+        $this->client->setServerParameter('HTTP_Authorization', \sprintf('Bearer %s', $data['token']));
+
+        return $this->client;
     }
 }

@@ -13,24 +13,18 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
-use Administration\Infrastructure\DataFixtures\UserFixtures;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Unit\Tests\AbstractControllerTest;
 
 class PutUserControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \JsonException
+     */
     final public function testPutUserSuccess(): void
     {
         // Arrange
-        $userPasswordEncoder = $this->getMockBuilder(
-            UserPasswordEncoderInterface::class
-        )->getMock();
-        $userPasswordEncoder->expects(self::any())
-            ->method('encodePassword')
-            ->willReturn('encodedPassword')
-        ;
-        $this->loadFixture([new UserFixtures($userPasswordEncoder)]);
+        $this->loadFixture([]);
         $content = [
             'user' => [
                 'username' => 'Laurent',
@@ -39,10 +33,11 @@ class PutUserControllerTest extends AbstractControllerTest
                     'first' => 'passwords',
                     'second' => 'passwords',
                 ],
-                'roles' => ['admin', 'assistant'],
+                'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
             ],
         ];
-        $this->client->request(
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
             'PUT',
             '/api/administration/user/update/a136c6fe-8f6e-45ed-91bc-586374791033',
             $content

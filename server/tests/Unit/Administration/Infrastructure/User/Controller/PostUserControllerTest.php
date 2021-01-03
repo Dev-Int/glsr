@@ -18,21 +18,26 @@ use Unit\Tests\AbstractControllerTest;
 
 class PostUserControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \JsonException
+     */
     final public function testPostUserAction(): void
     {
         // Arrange
+        $this->loadFixture([]);
         $content = [
             'user' => [
-                'username' => 'Laurent',
-                'email' => 'laurent@example.com',
+                'username' => 'Daniel',
+                'email' => 'daniel@example.com',
                 'password' => [
                     'first' => 'password',
                     'second' => 'password',
                 ],
-                'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
+                'roles' => ['ROLE_ASSISTANT'],
             ],
         ];
-        $this->client->request('POST', '/api/administration/user/create', $content);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request('POST', '/api/administration/user/create', $content);
 
         // Act
         $response = $this->client->getResponse();

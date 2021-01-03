@@ -141,6 +141,9 @@
             ".php_cs.dist"
         ]
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.1"
+    },
     "laminas/laminas-code": {
         "version": "3.5.1"
     },
@@ -173,9 +176,6 @@
     },
     "namshi/jose": {
         "version": "7.2.3"
-    },
-    "ocramius/proxy-manager": {
-        "version": "2.10.0"
     },
     "php-cs-fixer/diff": {
         "version": "v1.3.1"
@@ -621,9 +621,6 @@
     },
     "twig/twig": {
         "version": "v3.1.1"
-    },
-    "webimpress/safe-writer": {
-        "version": "2.1.0"
     },
     "webmozart/assert": {
         "version": "1.9.1"

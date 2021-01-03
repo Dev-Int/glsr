@@ -19,16 +19,21 @@ use Unit\Tests\AbstractControllerTest;
 
 class PostSettingsControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \JsonException
+     */
     final public function testPostSettingsAction(): void
     {
         // Arrange
+        $this->loadFixture([]);
         $content = [
             'settings' => [
                 'currency' => 'Euro',
                 'locale' => 'Fr',
             ],
         ];
-        $this->client->request(Request::METHOD_POST, '/api/administration/settings/configure', $content);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(Request::METHOD_POST, '/api/administration/settings/configure', $content);
 
         // Act
         $response = $this->client->getResponse();
