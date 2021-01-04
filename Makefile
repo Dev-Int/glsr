@@ -176,7 +176,7 @@ version: ## Add a new tag with current date and publish it
 #	certbot --apache -d demo.glsr.fr
 
 
-# ## —— Yarn / JavaScript ————————————————————————————————————————————————————————
+# —— Yarn / JavaScript ————————————————————————————————————————————————————————
 #dev: ## Rebuild assets for the dev env
 #	yarn install
 #	yarn run encore dev
@@ -187,8 +187,8 @@ version: ## Add a new tag with current date and publish it
 #build: ## Build assets for production
 #	yarn run encore production
 #
-#lint: ## Lints Js files
-#	npx eslint assets/js --fix
+lint: ## Run TSLint on client
+	@$(EXEC) client yarn run lint
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————

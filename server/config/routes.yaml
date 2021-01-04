@@ -6,11 +6,6 @@ inventory:
   resource: routes/inventory/index.yaml
   prefix: /api/inventory
 
-_home:
-  path: /api/
-  controller: Core\Infrastructure\Controller\DefaultController
-  methods: GET
-
 api_login_check:
   path: /api/login_check
   methods: GET|POST
