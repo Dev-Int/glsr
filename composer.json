@@ -1,0 +1,36 @@
+{
+    "name": "dev-int/glsr-test",
+    "description": "The rewrite of the GLSR project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Laurent Quétier",
+            "email": "devint.creation@gmail.com",
+            "homepage": "https://www.developpement-interessant.com/",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "require-dev": {
+        "behat/behat": "^3.8",
+        "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Behat\\": "tests/Behat",
+            "Tests\\Unit\\": "tests/Unit"
+        }
+    },
+    "minimum-stability": "stable"
+}

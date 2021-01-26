@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+
+  #APP
+  nginx:
+    image: library/nginx:1.18
+    tty: true
+    volumes:
+      - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ${APP_PATH}:${APP_CONTAINER_PATH}
+    links:
+      - php
+    ports:
+      - ${APP_PORT}:80
+
+  php:
+    build:
+      context: ./.docker/php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+    tty: true
+    user: ${APP_USER_ID}:${APP_GROUP_ID}
+    volumes:
+      - ./.docker/php/conf/php-fpm.conf:/etc/php-fpm.d/php-fpm.conf:ro
+      - ./.docker/php/conf/php.ini:/usr/local/etc/php/conf.d/100-php.ini:ro
+      - ${APP_PATH}:${APP_CONTAINER_PATH}
