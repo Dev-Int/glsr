@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 
 import { Company } from '../../../shared/models/company.model';
 import { CompanyService } from '../../services/company.service';
@@ -8,20 +7,15 @@ import { CompanyService } from '../../services/company.service';
   templateUrl: './show.template.html',
   styleUrls: ['./show.styles.scss'],
 })
-export class ShowComponent implements OnInit, OnDestroy {
+export class ShowComponent implements OnInit {
   companies: Array<Company>;
-  subscription: Subscription = new Subscription();
 
   constructor(private service: CompanyService) {}
 
   ngOnInit(): void {
-    this.subscription.add(this.service.companies$.subscribe((companies: Array<Company>) => {
+    this.service.getCompanies().subscribe((companies: Array<Company>) => {
       this.companies = companies;
-    }));
+      console.log(this.companies);
+    });
   }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
 }

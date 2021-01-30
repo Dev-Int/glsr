@@ -9,7 +9,7 @@ const routes: Routes = [
     component: AdministrationComponent,
     children: [
       {
-        path: 'company',
+        path: 'companies',
         loadChildren: () => import('./company/company.module').then(m => m.CompanyModule),
       },
       {

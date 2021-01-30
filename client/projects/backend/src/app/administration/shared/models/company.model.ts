@@ -1,4 +1,5 @@
 export interface Company {
+  uuid?: string;
   name: string;
   address: string;
   zipCode: string;
@@ -9,4 +10,5 @@ export interface Company {
   email: string;
   contact: string;
   cellphone: string;
+  slug?: string;
 }

@@ -1,8 +1,8 @@
 <h1 class="card-header">Établissement</h1>
 
 <div class="card-body">
-  <ul *ngIf="companies.length > 0; else noCompany" class="d-flex list-unstyled">
-    <li *ngFor="let company of companies; let index = index">
+  <ul *ngIf="companies; else noCompany" class="d-flex list-unstyled">
+    <li *ngFor="let company of companies">
       <h3>{{ company.name }}</h3>
       <div class="d-flex">
         <div class="mr-3">
@@ -20,7 +20,7 @@
           <div><i class="fa fa-user"></i> {{ company.contact }}</div>
         </div>
       </div>
-      <button routerLink="{{ index }}/edit" class="btn btn-primary">Modifier l'établissement</button>
+      <button routerLink="{{ company.uuid }}/edit" class="btn btn-primary">Modifier l'établissement</button>
     </li>
   </ul>
 

@@ -1,6 +1,6 @@
 admin_company:
   resource: company.yaml
-  prefix: /company
+  prefix: /companies
 
 admin_settings:
   resource: settings.yaml

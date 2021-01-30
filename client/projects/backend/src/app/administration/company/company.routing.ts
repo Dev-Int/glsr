@@ -14,7 +14,7 @@ const routes: Routes = [
     component: CompanyFormComponent,
   },
   {
-    path: ':index/edit',
+    path: ':uuid/edit',
     component: CompanyFormComponent,
   },
 ];

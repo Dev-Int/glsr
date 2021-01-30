@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { Company } from '../../shared/models/company.model';
 
@@ -7,17 +8,20 @@ import { Company } from '../../shared/models/company.model';
 export class CompanyService {
   companies$: BehaviorSubject<Array<Company>> = new BehaviorSubject([]);
 
-  getCompanies(): Array<Company> {
-    return this.companies$.value;
+  getCompanies(): Observable<Array<Company>> {
+    return this.http.get<Array<Company>>('/api/administration/companies/');
   }
 
-  getCompany(index: number): Company {
-    return this.companies$.value[index];
+  getCompany(uuid: string): Observable<Company> {
+    return this.http.get<Company>( `/api/administration/companies/${uuid}`);
   }
 
   addCompany(data: Company): void {
-    const value = this.companies$.value;
-    this.companies$.next([...value, data]);
+    this.http.post<Company>('/api/administration/companies/', data)
+      .subscribe((company: Company) => {
+        const value = this.companies$.value;
+        this.companies$.next([...value, company]);
+      });
   }
 
   editCompany(data: Company): void {
@@ -31,5 +35,5 @@ export class CompanyService {
     }));
   }
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 }

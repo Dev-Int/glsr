@@ -9,12 +9,12 @@ admin_companies_post:
   methods: POST
 
 admin_company_get:
-  path: /new
+  path: /{uuid}
   controller: Administration\Infrastructure\Company\Controller\GetCompanyController
   methods: GET
 
-admin_company_edit:
-  path: /edit/{uuid}
+admin_company_put:
+  path: /{uuid}
   controller: Administration\Infrastructure\Company\Controller\PutCompanyController
   methods: PUT
 

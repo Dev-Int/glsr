@@ -53,6 +53,7 @@ class CompanyHandler implements SubscribingHandlerInterface
             'email' => $company->email(),
             'contact' => $company->contact(),
             'cellphone' => $company->cellphone(),
+            'slug' => $company->slug(),
         ];
 
         return $visitor->visitArray($data, $type);

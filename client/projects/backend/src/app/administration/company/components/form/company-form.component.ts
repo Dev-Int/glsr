@@ -23,11 +23,13 @@ export class CompanyFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((param: ParamMap) => {
-      const index = param.get('index');
-      if (null !== index) {
-        this.company = this.service.getCompany(Number(index));
+      const uuid = param.get('uuid');
+      if (null !== uuid) {
+        this.service.getCompany(uuid).subscribe((company: Company) => {
+          this.company = company;
+          this.initForm(this.company);
+        });
       }
-      this.initForm(this.company);
     });
 
   }
@@ -68,7 +70,7 @@ export class CompanyFormComponent implements OnInit {
     } else {
       this.service.addCompany(this.form.value);
     }
-    this.router.navigate(['administration', 'company']);
+    this.router.navigate(['administration', 'companies']);
   }
 
   reset(): void {
