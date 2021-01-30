@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 
 import { Company } from '../../../shared/models/company.model';
 import { CompanyService } from '../../services/company.service';
@@ -13,6 +15,7 @@ import { CompanyService } from '../../services/company.service';
 export class CompanyFormComponent implements OnInit {
   form: FormGroup;
   company: Company;
+  subscription: Subscription;
 
   get name(): FormControl {
     return <FormControl> this.form.get('name');
@@ -23,15 +26,19 @@ export class CompanyFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((param: ParamMap) => {
+      if (this.subscription) {
+        this.subscription.unsubscribe();
+      }
       const uuid = param.get('uuid');
       if (null !== uuid) {
-        this.service.getCompany(uuid).subscribe((company: Company) => {
-          this.company = company;
-          this.initForm(this.company);
-        });
+        this.subscription = this.service.getCompany(uuid)
+          .pipe(first())
+          .subscribe((company: Company) => {
+            this.company = company;
+          });
       }
+      this.initForm(this.company);
     });
-
   }
 
   private initForm(company: Company = {
@@ -66,9 +73,9 @@ export class CompanyFormComponent implements OnInit {
 
   submit(): void {
     if (this.company) {
-      this.service.editCompany(this.form.value);
+      this.service.editCompany(this.company.uuid, this.form.value).subscribe();
     } else {
-      this.service.addCompany(this.form.value);
+      this.service.addCompany(this.form.value).subscribe();
     }
     this.router.navigate(['administration', 'companies']);
   }

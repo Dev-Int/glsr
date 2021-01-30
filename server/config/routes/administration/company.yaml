@@ -19,6 +19,6 @@ admin_company_put:
   methods: PUT
 
 admin_company_delete:
-  path: /delete/{uuid}
+  path: /{uuid}
   controller: Administration\Infrastructure\Company\Controller\DeleteCompanyController
   methods: DELETE

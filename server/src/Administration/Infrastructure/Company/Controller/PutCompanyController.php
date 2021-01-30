@@ -14,14 +14,12 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\EditCompany;
-use Administration\Infrastructure\Company\Form\CompanyType;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
 use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,9 +32,12 @@ class PutCompanyController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function __invoke(Request $request, string $uuid): Response
     {
-        $company = $request->request->get('company');
+        $company = \json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         try {
             $command = new EditCompany(
@@ -54,19 +55,9 @@ class PutCompanyController extends AbstractController
             );
             $this->commandBus->dispatch($command);
         } catch (\DomainException $exception) {
-            $form = $this->createForm(CompanyType::class, $company, [
-                'action' => $this->generateUrl('admin_company_edit'),
-            ]);
-            $this->addFlash('error', $exception->getMessage());
-
-            return $this->render('Administration/Company/edit.html.twig', [
-                'form' => $form->createView(),
-                'errors' => $exception,
-            ]);
+            throw new \DomainException($exception->getMessage());
         }
 
-        $this->addFlash('success', 'Company updated started!');
-
-        return new RedirectResponse($this->generateUrl('admin_company_index'));
+        return new Response('Company update started!', Response::HTTP_ACCEPTED);
     }
 }

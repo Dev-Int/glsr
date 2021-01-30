@@ -15,8 +15,8 @@ namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\DeleteCompany;
 use Core\Infrastructure\Common\MessengerCommandBus;
+use http\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class DeleteCompanyController extends AbstractController
@@ -32,11 +32,14 @@ class DeleteCompanyController extends AbstractController
     {
         try {
             $this->commandBus->dispatch(new DeleteCompany($uuid));
-            $this->addFlash('success', 'Company deleted started!');
-        } catch (\RuntimeException $exception) {
-            $this->addFlash('error', $exception->getMessage());
-        }
 
-        return new RedirectResponse($this->generateUrl('admin_company_index'));
+            $response = new Response();
+            $response->setStatusCode(Response::HTTP_OK);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        } catch (\RuntimeException $exception) {
+            throw new RuntimeException($exception->getMessage());
+        }
     }
 }

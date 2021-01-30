@@ -7,9 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { environment } from '../../../common/environment/environment';
 import { ENVIRONMENT } from '../../../common/environment/environment.config';
-import { FooterModule } from '../../../common/modules/footer/footer.module';
-import { HeaderModule } from '../../../common/modules/header/header.module';
-import { PipeModule } from '../../../common/modules/pipe/pipe.module';
+import { SharedModule } from '../../../common/modules/shared.module';
 import { ReqInterceptor } from '../../../common/req.interceptor';
 
 import { AppComponent } from './app.component';
@@ -26,10 +24,8 @@ registerLocaleData(localeFr, 'fr');
     HttpClientModule,
     ReactiveFormsModule,
 
-    PipeModule,
+    SharedModule,
     AppRouting,
-    HeaderModule,
-    FooterModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ReqInterceptor, multi: true},
