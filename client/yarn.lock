@@ -5265,6 +5265,11 @@ less@3.12.2:
     native-request "^1.0.5"
     source-map "~0.6.0"
 
+libphonenumber-js@^1.9.9:
+  version "1.9.9"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.9.9.tgz#e097f00f834f92fe44abd8377b4118c6c6358e40"
+  integrity sha512-RhtAvacOkq4wc+RrswYE9MteJQy/1yd4lgLJTdL+HdYYRLZbERFv4ZRj/Nt+/gIB2xVSgW0MLNqb32hx042W+g==
+
 license-webpack-plugin@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/license-webpack-plugin/-/license-webpack-plugin-2.3.1.tgz#08eddb2f776c7c64c02f308a00e017d6e824d0b6"
