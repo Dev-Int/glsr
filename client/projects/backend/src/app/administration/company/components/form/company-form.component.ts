@@ -68,7 +68,7 @@ export class CompanyFormComponent implements OnInit {
     } else {
       this.service.addCompany(this.form.value);
     }
-    this.router.navigate(['..'], { relativeTo: this.route });
+    this.router.navigate(['administration', 'company']);
   }
 
   reset(): void {
