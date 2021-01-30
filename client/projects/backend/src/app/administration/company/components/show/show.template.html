@@ -1,32 +1,30 @@
-<div class="row">
-  <div class="col">
-    <h1>Établissement</h1>
+<h1 class="card-header">Établissement</h1>
 
-    <ul *ngIf="companies.length > 0; else noCompany" class="d-flex">
-      <li *ngFor="let company of companies; let index = index">
-        <h3>{{ company.name }}</h3>
-        <div class="d-flex">
-          <div class="mr-3">
-            <address>
-              {{ company.address }}<br>
-              {{ company.zipCode }} {{ company.town }}<br>
-              {{ company.country }}
-            </address>
-          </div>
-          <div>
-            <div>
-              <i class="fa fa-phone"></i> {{ company.phone|phone:'FR' }}<br>
-              <i class="fa fa-compass"></i> {{ company.facsimile|phone:'FR' }}
-            </div>
-            <div><i class="fa fa-user"></i> {{ company.contact }}</div>
-          </div>
+<div class="card-body">
+  <ul *ngIf="companies.length > 0; else noCompany" class="d-flex list-unstyled">
+    <li *ngFor="let company of companies; let index = index">
+      <h3>{{ company.name }}</h3>
+      <div class="d-flex">
+        <div class="mr-3">
+          <address>
+            {{ company.address }}<br>
+            {{ company.zipCode }} {{ company.town }}<br>
+            {{ company.country }}
+          </address>
         </div>
-        <button routerLink="{{ index }}/edit" class="btn btn-primary">Modifier l'établissement</button>
-      </li>
-    </ul>
+        <div>
+          <div>
+            <i class="fa fa-phone"></i> {{ company.phone|phone:'FR' }}<br>
+            <i class="fa fa-compass"></i> {{ company.facsimile|phone:'FR' }}
+          </div>
+          <div><i class="fa fa-user"></i> {{ company.contact }}</div>
+        </div>
+      </div>
+      <button routerLink="{{ index }}/edit" class="btn btn-primary">Modifier l'établissement</button>
+    </li>
+  </ul>
 
-    <ng-template #noCompany>
-      <button routerLink="new" class="btn btn-primary">Nouvel établissement</button>
-    </ng-template>
-  </div>
+  <ng-template #noCompany>
+    <button routerLink="new" class="btn btn-primary">Nouvel établissement</button>
+  </ng-template>
 </div>

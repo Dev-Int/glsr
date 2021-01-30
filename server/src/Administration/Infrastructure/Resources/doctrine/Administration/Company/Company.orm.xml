@@ -19,5 +19,6 @@
         <field name="email" type="string" nullable="false"/>
         <field name="contact" type="string" nullable="false"/>
         <field name="cellphone" type="string" nullable="false"/>
+        <field name="slug" type="string" nullable="false"/>
     </entity>
 </doctrine-mapping>

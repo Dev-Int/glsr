@@ -1,73 +1,69 @@
-<div class="row">
-  <div class="col">
-    <h1>Nouvel établissement</h1>
-    <div class="w-75 mx-auto">
-      <form [formGroup]="form" (ngSubmit)="submit()">
+<h1 class="card-header">Nouvel établissement</h1>
+<div class="card-body">
+  <form [formGroup]="form" (ngSubmit)="submit()">
 <!--        {{ form.value|json }}-->
-        <div class="form-group">
-          <label for="name">Nom</label>
-          <input id="name" type="text" class="form-control" formControlName="name">
-          <p class="text-danger" *ngIf="name.errors && name.touched">
-            Vous devez renseigner un nom
-          </p>
-        </div>
-        <div class="form-group">
-          <label for="address">Adresse</label>
-          <input id="address" type="text" class="form-control" formControlName="address">
-          <p class="text-danger" *ngIf="address.errors && address.touched">
-            Vous devez renseigner une adresse
-          </p>
-        </div>
-        <div class="row">
-          <div class="col-3">
-            <div class="form-group">
-              <label for="zipCode">Code postal</label>
-              <input id="zipCode" type="text" class="form-control" formControlName="zipCode">
-            </div>
-          </div>
-          <div class="col-9">
-            <div class="form-group">
-              <label for="town">Ville</label>
-              <input id="town" type="text" class="form-control" formControlName="town">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="country">Pays</label>
-          <input id="country" type="text" class="form-control" formControlName="country">
-        </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="phone">Téléphone</label>
-              <input id="phone" type="text" class="form-control" formControlName="phone">
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="facsimile">Fax</label>
-              <input id="facsimile" type="text" class="form-control" formControlName="facsimile">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="email">Courriel</label>
-          <input id="email" type="email" class="form-control" formControlName="email">
-        </div>
-        <div class="form-group">
-          <label for="contact">Nom du contact</label>
-          <input id="contact" type="text" class="form-control" formControlName="contact">
-        </div>
-        <div class="form-group">
-          <label for="cellphone">Mobile</label>
-          <input id="cellphone" type="text" class="form-control" formControlName="cellphone">
-        </div>
-        <div class="btn-group">
-          <button type="button" routerLink="../" class="btn btn-outline-info"><i class="fa fa-chevron-left"></i>&nbsp;Annuler</button>
-          <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
-          <button type="submit" class="btn btn-primary">Valider</button>
-        </div>
-      </form>
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input id="name" type="text" class="form-control" formControlName="name">
+      <p class="text-danger" *ngIf="name.errors && name.touched">
+        Vous devez renseigner un nom
+      </p>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="address">Adresse</label>
+      <input id="address" type="text" class="form-control" formControlName="address">
+      <p class="text-danger" *ngIf="address.errors && address.touched">
+        Vous devez renseigner une adresse
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="zipCode">Code postal</label>
+          <input id="zipCode" type="text" class="form-control" formControlName="zipCode">
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="form-group">
+          <label for="town">Ville</label>
+          <input id="town" type="text" class="form-control" formControlName="town">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country">Pays</label>
+      <input id="country" type="text" class="form-control" formControlName="country">
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="phone">Téléphone</label>
+          <input id="phone" type="text" class="form-control" formControlName="phone">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="facsimile">Fax</label>
+          <input id="facsimile" type="text" class="form-control" formControlName="facsimile">
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Courriel</label>
+      <input id="email" type="email" class="form-control" formControlName="email">
+    </div>
+    <div class="form-group">
+      <label for="contact">Nom du contact</label>
+      <input id="contact" type="text" class="form-control" formControlName="contact">
+    </div>
+    <div class="form-group">
+      <label for="cellphone">Mobile</label>
+      <input id="cellphone" type="text" class="form-control" formControlName="cellphone">
+    </div>
+    <div class="btn-group">
+      <button type="button" routerLink="../" class="btn btn-outline-info"><i class="fa fa-chevron-left"></i>&nbsp;Annuler</button>
+      <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
+      <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+  </form>
 </div>
