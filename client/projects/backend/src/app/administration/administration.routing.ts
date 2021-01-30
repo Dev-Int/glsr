@@ -4,21 +4,22 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdministrationComponent } from './administration.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        component: AdministrationComponent,
-        children: [
-            {
-                path: 'company',
-            },
-            {
-                path: 'settings',
-            },
-            {
-                path: 'user',
-            },
-        ],
-    },
+  {
+    path: '',
+    component: AdministrationComponent,
+    children: [
+      {
+        path: 'company',
+        loadChildren: () => import('./company/company.module').then(m => m.CompanyModule),
+      },
+      {
+        path: 'settings',
+      },
+      {
+        path: 'user',
+      },
+    ],
+  },
 ];
 
 @NgModule({
