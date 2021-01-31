@@ -8,4 +8,4 @@ admin_settings:
 
 admin_user:
   resource: user.yaml
-  prefix: /user
+  prefix: /users

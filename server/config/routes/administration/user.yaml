@@ -1,6 +1,6 @@
 admin_user_index:
   path: /
-  controller: Administration\Infrastructure\User\Controller\UserIndexController
+  controller: Administration\Infrastructure\User\Controller\GetUsersController
   methods: GET
 
 admin_user_new:
