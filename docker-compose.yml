@@ -26,8 +26,10 @@ services:
     links:
       - mariadb
 
+  #    image: 'library/node:14.15'
   client:
-    image: 'library/node:14.15'
+    build:
+      context: ./.docker/node
     tty: true
     working_dir: '${APP_CONTAINER_PATH}/client'
     user: '${APP_USER_ID}:${APP_GROUP_ID}'
