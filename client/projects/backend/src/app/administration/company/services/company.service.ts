@@ -29,7 +29,6 @@ export class CompanyService {
   }
 
   addCompany(data: Company): Observable<Company> {
-    console.log(data);
     return this.http.post<Company>('/api/administration/companies/', data).pipe(
       tap((companyAdded: Company) => {
           const value = this.companies$.value;

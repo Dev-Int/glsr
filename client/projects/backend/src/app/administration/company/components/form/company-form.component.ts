@@ -8,7 +8,6 @@ import { Company } from '../../../shared/models/company.model';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
-  selector: 'app-create',
   templateUrl: './company-form.template.html',
   styleUrls: ['./company-form.styles.scss'],
 })
