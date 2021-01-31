@@ -55,10 +55,9 @@ export class CompanyService {
 
   deleteCompany(uuid: string): void {
     this.http.delete(`/api/administration/companies/${uuid}`)
-      .subscribe((company: Company) => {
-        console.log(company);
-        // const value = this.companies$.value;
-        // this.companies$.next(value.pop(company));
+      .subscribe(() => {
+        const companies = this.companies$.value;
+        this.companies$.next(companies.filter((company: Company) => company.uuid !== uuid));
       })
     ;
   }
