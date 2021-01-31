@@ -58,6 +58,6 @@ class PutCompanyController extends AbstractController
             throw new \DomainException($exception->getMessage());
         }
 
-        return new Response('Company update started!', Response::HTTP_ACCEPTED);
+        return new Response('Company update started!', Response::HTTP_FOUND);
     }
 }

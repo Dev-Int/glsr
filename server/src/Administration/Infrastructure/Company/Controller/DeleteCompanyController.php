@@ -34,8 +34,7 @@ class DeleteCompanyController extends AbstractController
             $this->commandBus->dispatch(new DeleteCompany($uuid));
 
             $response = new Response();
-            $response->setStatusCode(Response::HTTP_OK);
-            $response->headers->set('Content-Type', 'application/json');
+            $response->setStatusCode(Response::HTTP_NO_CONTENT);
 
             return $response;
         } catch (\RuntimeException $exception) {

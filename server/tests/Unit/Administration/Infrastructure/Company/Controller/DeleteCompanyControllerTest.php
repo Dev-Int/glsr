@@ -27,13 +27,12 @@ class DeleteCompanyControllerTest extends AbstractControllerTest
         // Arrange
         $this->loadFixture([new CompanyFixtures()]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request('DELETE', '/api/administration/company/delete/a136c6fe-8f6e-45ed-91bc-586374791033');
+        $adminClient->request('DELETE', '/api/administration/companies/a136c6fe-8f6e-45ed-91bc-586374791033');
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
-        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/api/administration/company/'));
+        self::assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());
     }
 }

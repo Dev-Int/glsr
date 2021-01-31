@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
 use Administration\Infrastructure\DataFixtures\CompanyFixtures;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 
@@ -22,33 +23,38 @@ class PostCompanyControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testPostCompanyAction(): void
+    final public function testPostCompanySuccess(): void
     {
         // Arrange
         $this->loadFixture([]);
         $content = [
-            'company' => [
-                'name' => 'Dev-Int Création',
-                'address' => '1, rue des ERP',
-                'zipCode' => '75000',
-                'town' => 'PARIS',
-                'country' => 'France',
-                'phone' => '+33100000001',
-                'facsimile' => '+33100000002',
-                'email' => 'contact@developpement-interessant.com',
-                'contact' => 'Laurent',
-                'cellphone' => '+33100000002',
-            ],
+            'name' => 'Dev-Int Création',
+            'address' => '1, rue des ERP',
+            'zipCode' => '75000',
+            'town' => 'PARIS',
+            'country' => 'France',
+            'phone' => '+33100000001',
+            'facsimile' => '+33100000002',
+            'email' => 'contact@developpement-interessant.com',
+            'contact' => 'Laurent',
+            'cellphone' => '+33600000002',
         ];
         $adminClient = $this->createAdminClient();
-        $adminClient->request('POST', '/api/administration/company/create', $content);
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/companies/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
-        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/api/administration/company/'));
+        self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
+        self::assertSame('Company create started!', $response->getContent());
     }
 
     /**
@@ -59,23 +65,28 @@ class PostCompanyControllerTest extends AbstractControllerTest
         // Arrange
         $this->loadFixture([new CompanyFixtures()]);
         $content = [
-            'company' => [
-                'name' => 'Dev-Int Création',
-                'address' => '1 rue des ERP',
-                'zipCode' => '75000',
-                'town' => 'PARIS',
-                'country' => 'France',
-                'phone' => '+33100000001',
-                'facsimile' => '+33100000002',
-                'email' => 'contact@developpement-interessant.com',
-                'contact' => 'Laurent',
-                'gsm' => '+33100000002',
-            ],
+            'name' => 'Dev-Int Création',
+            'address' => '1, rue des ERP',
+            'zipCode' => '75000',
+            'town' => 'PARIS',
+            'country' => 'France',
+            'phone' => '+33100000001',
+            'facsimile' => '+33100000002',
+            'email' => 'contact@developpement-interessant.com',
+            'contact' => 'Laurent',
+            'cellphone' => '+33600000002',
         ];
 
         // Act
         $adminClient = $this->createAdminClient();
-        $adminClient->request('POST', '/api/administration/company/create', $content);
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/companies/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
         $response = $this->client->getResponse();
 
         // Assert
