@@ -11,28 +11,24 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Domain\Settings\Model;
+namespace Administration\Domain\Settings\Command;
 
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Domain\Settings\Model\VO\Locale;
 use Administration\Domain\Settings\Model\VO\SettingsUuid;
+use Core\Domain\Protocol\Common\Command\CommandProtocol;
 
-final class Settings
+final class EditSettings implements CommandProtocol
 {
     private string $uuid;
-    private string $locale;
-    private string $currency;
+    private Locale $locale;
+    private Currency $currency;
 
     public function __construct(SettingsUuid $uuid, Locale $locale, Currency $currency)
     {
         $this->uuid = $uuid->toString();
-        $this->locale = $locale->getValue();
-        $this->currency = $currency->getValue();
-    }
-
-    public static function create(SettingsUuid $uuid, Locale $locale, Currency $currency): self
-    {
-        return new self($uuid, $locale, $currency);
+        $this->locale = $locale;
+        $this->currency = $currency;
     }
 
     public function uuid(): string
@@ -40,27 +36,13 @@ final class Settings
         return $this->uuid;
     }
 
-    public function locale(): string
+    public function locale(): Locale
     {
         return $this->locale;
     }
 
-    public function currency(): string
+    public function currency(): Currency
     {
         return $this->currency;
-    }
-
-    public function changeLocale(string $locale): self
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
-
-    public function changeCurrency(string $currency): self
-    {
-        $this->currency = $currency;
-
-        return $this;
     }
 }

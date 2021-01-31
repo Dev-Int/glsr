@@ -15,8 +15,8 @@ namespace Administration\Infrastructure\Settings\Controller;
 
 use Administration\Infrastructure\Settings\Query\GetSettings;
 use Core\Infrastructure\Common\MessengerQueryBus;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class GetSettingsController extends AbstractController
@@ -28,17 +28,19 @@ class GetSettingsController extends AbstractController
         $this->queryBus = $queryBus;
     }
 
-    public function __invoke(): Response
+    public function __invoke(SerializerInterface $serializer): Response
     {
         $query = new GetSettings();
-        $settings = $this->queryBus->handle($query);
+        $data = $this->queryBus->handle($query);
 
-        if (null === $settings) {
-            return new RedirectResponse($this->generateUrl('admin_settings_new'));
+        if ([] !== $data) {
+            $settings = $serializer->serialize($data, 'json');
+            $response = new Response($settings);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
         }
 
-        return $this->render('Administration/Settings/index.html.twig', [
-            'settings' => $settings,
-        ]);
+        return new Response('No data found!', Response::HTTP_ACCEPTED);
     }
 }

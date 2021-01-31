@@ -13,15 +13,16 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Settings\Controller;
 
-use Administration\Domain\Settings\Command\ConfigureSettings;
+use Administration\Domain\Settings\Command\EditSettings;
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Domain\Settings\Model\VO\Locale;
+use Administration\Domain\Settings\Model\VO\SettingsUuid;
 use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostSettingsController extends AbstractController
+class PutSettingsController extends AbstractController
 {
     private MessengerCommandBus $commandBus;
 
@@ -33,12 +34,13 @@ class PostSettingsController extends AbstractController
     /**
      * @throws \JsonException
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, string $uuid): Response
     {
         $settings = \json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         try {
-            $command = new ConfigureSettings(
+            $command = new EditSettings(
+                SettingsUuid::fromString($uuid),
                 Locale::fromString($settings['locale']),
                 Currency::fromString($settings['currency'])
             );
@@ -47,6 +49,6 @@ class PostSettingsController extends AbstractController
             throw new \DomainException($exception->getMessage());
         }
 
-        return new Response('Settings created started!', Response::HTTP_CREATED);
+        return new Response('Settings updated started!', Response::HTTP_ACCEPTED);
     }
 }

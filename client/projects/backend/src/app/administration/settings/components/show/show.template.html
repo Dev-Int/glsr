@@ -1,0 +1,17 @@
+<h1 class="card-header">Configuration</h1>
+
+<div class="card-body">
+  <ul *ngIf="settings" class="list-unstyled">
+    <li><span class="d-inline-block w-25 font-weight-bold">Langue de l'application : </span>{{ settings.locale|uppercase }}</li>
+    <li><span class="d-inline-block w-25 font-weight-bold">Monnaie de l'application : </span>{{ settings.currency|titlecase }} ({{ settings.symbol }})</li>
+  </ul>
+</div>
+
+<div class="card-footer">
+  <span *ngIf="settings; else nosettings">
+    <button routerLink="{{ settings.uuid }}/edit" class="btn btn-primary">Mettre à jour</button>
+  </span>
+  <ng-template #nosettings>
+    <button routerLink="new" class="btn btn-primary">Configurer</button>
+  </ng-template>
+</div>
