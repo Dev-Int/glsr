@@ -10,27 +10,26 @@ import { SessionService } from './session.service';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-    private currentUserSubject: BehaviorSubject<User>;
+    currentUserSubject: BehaviorSubject<User>;
     currentUser: Observable<User>;
 
-    constructor(
-        private http: HttpClient,
-        private session: SessionService,
-    ) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('token')));
-        this.currentUser = this.currentUserSubject.asObservable();
-    }
+  constructor(
+    private http: HttpClient,
+    private session: SessionService,
+  ) {
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('token')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
     get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
 
     login(user: Credentials): Observable<any> {
-        return this.http.post('/api/login_check', {
-            username: user.username,
-            password: user.password,
-        })
-            .pipe(tap(response => this.session.setCookie({...response})));
+      return this.http.post('/api/login_check', {
+          username: user.username,
+          password: user.password,
+      }).pipe(tap(response => this.session.setCookie({...response})));
     }
 
     redirectToApp(): void {
