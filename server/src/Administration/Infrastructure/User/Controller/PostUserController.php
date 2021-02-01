@@ -14,12 +14,10 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\User\Controller;
 
 use Administration\Domain\User\Command\CreateUser;
-use Administration\Infrastructure\User\Form\UserType;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,34 +30,25 @@ class PostUserController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function __invoke(Request $request): Response
     {
-        $user = $request->get('user');
-        if ($user['password']['first'] !== $user['password']['second']) {
-            throw new \DomainException('The first and second password must match!');
-        }
+        $user = \json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         try {
             $command = new CreateUser(
                 NameField::fromString($user['username']),
                 EmailField::fromString($user['email']),
-                $user['password']['first'],
+                $user['password'],
                 $user['roles']
             );
             $this->commandBus->dispatch($command);
         } catch (\DomainException $exception) {
-            $form = $this->createForm(UserType::class, $user, [
-                'action' => $this->generateUrl('admin_user_create'),
-            ]);
-            $this->addFlash('error', $exception->getMessage());
-
-            return $this->render('Administration/User/new.html.twig', [
-                'form' => $form->createView(),
-            ]);
+            throw new \DomainException($exception->getMessage());
         }
 
-        $this->addFlash('success', 'User created start!');
-
-        return new RedirectResponse($this->generateUrl('admin_user_index'));
+        return new Response('User created start!', Response::HTTP_CREATED);
     }
 }

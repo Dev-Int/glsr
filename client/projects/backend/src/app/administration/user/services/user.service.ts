@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { Profile } from '../../../../../../common/model/profile.model';
 
@@ -17,6 +17,24 @@ export class UserService {
           this.users$.next(users);
         }),
       );
+  }
+
+  getUser(uuid: string): Observable<Profile> {
+    return this.users$.pipe(
+      filter((users: Array<Profile>) => users !== null),
+      map((users: Array<Profile>) => {
+        return users[users.findIndex((user: Profile) => user.uuid === uuid)];
+      }),
+    );
+  }
+
+  addUser(data: Profile): Observable<Profile> {
+    return this.http.post<Profile>('/api/administration/users/', data).pipe(
+      tap((userAdded: Profile) => {
+        const value = this.users$.value;
+        this.users$.next([...value, userAdded]);
+      }),
+    );
   }
 
   constructor(private http: HttpClient) {}
