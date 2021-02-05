@@ -7,7 +7,9 @@ import { Settings } from '../../shared/models/settings.model';
 
 @Injectable({providedIn: 'root'})
 export class SettingsService {
-  settings$: BehaviorSubject<Settings> = new BehaviorSubject(null);
+  public settings$: BehaviorSubject<Settings> = new BehaviorSubject(null);
+
+  constructor(private http: HttpClient) { }
 
   getSettings(): Observable<Settings> {
     return this.http.get<Settings>('/api/administration/settings')
@@ -29,6 +31,4 @@ export class SettingsService {
       }),
     );
   }
-
-  constructor(private http: HttpClient) { }
 }

@@ -7,11 +7,9 @@ import { JwtHelper } from './jwt-helper.service';
 
 @Injectable({providedIn: 'root'})
 export class SessionService {
-  user: User;
+  public user: User;
 
-  constructor(
-    private cookie: CookieService,
-  ) {}
+  constructor(private cookie: CookieService) {}
 
   setCookie(user: User): void {
     this.cookie.set('user', JSON.stringify({profile: user.profile}), null, '/', null, null, 'Strict');

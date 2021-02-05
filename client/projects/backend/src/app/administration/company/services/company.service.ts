@@ -7,7 +7,9 @@ import { Company } from '../../shared/models/company.model';
 
 @Injectable({providedIn: 'root'})
 export class CompanyService {
-  companies$: BehaviorSubject<Array<Company>> = new BehaviorSubject(null);
+  public companies$: BehaviorSubject<Array<Company>> = new BehaviorSubject(null);
+
+  constructor(private http: HttpClient) {}
 
   getCompanies(): Observable<Array<Company>> {
     return this.http.get<Array<Company>>('/api/administration/companies')
@@ -60,6 +62,4 @@ export class CompanyService {
       })
     ;
   }
-
-  constructor(private http: HttpClient) {}
 }

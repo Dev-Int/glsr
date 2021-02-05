@@ -7,7 +7,9 @@ import { Profile } from '../../../../../../common/model/profile.model';
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  users$: BehaviorSubject<Array<Profile>> = new BehaviorSubject(null);
+  public users$: BehaviorSubject<Array<Profile>> = new BehaviorSubject(null);
+
+  constructor(private http: HttpClient) {}
 
   getUsers(): Observable<Array<Profile>> {
     return this.http.get('/api/administration/users')
@@ -36,6 +38,4 @@ export class UserService {
       }),
     );
   }
-
-  constructor(private http: HttpClient) {}
 }

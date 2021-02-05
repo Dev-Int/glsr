@@ -23,4 +23,4 @@ import { PipeModule } from './pipe/pipe.module';
     CommonModule,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

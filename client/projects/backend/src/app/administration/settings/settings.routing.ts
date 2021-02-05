@@ -10,11 +10,11 @@ const routes: Routes = [
     component: ShowComponent,
   },
   {
-    path: ':uuid/edit',
+    path: 'new',
     component: ConfigureComponent,
   },
   {
-    path: 'new',
+    path: ':uuid/edit',
     component: ConfigureComponent,
   },
 ];

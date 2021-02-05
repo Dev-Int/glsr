@@ -12,9 +12,9 @@ import { UserService } from '../../services/user.service';
   templateUrl: './create.template.html',
 })
 export class CreateComponent implements OnInit, OnDestroy {
-  form: FormGroup;
-  user: Profile;
-  subscription: Subscription = new Subscription();
+  public form: FormGroup;
+  public user: Profile;
+  private readonly subscription: Subscription = new Subscription();
 
   get formGroup(): {[p: string]: AbstractControl} {
     return this.form.controls;

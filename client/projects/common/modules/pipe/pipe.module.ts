@@ -14,4 +14,4 @@ import { PhonePipe } from './phone.pipe';
     PhonePipe,
   ],
 })
-export class PipeModule { }
+export class PipeModule {}
