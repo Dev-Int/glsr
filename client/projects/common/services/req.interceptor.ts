@@ -7,7 +7,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SessionService } from './services/session.service';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class ReqInterceptor implements HttpInterceptor {
@@ -16,9 +16,10 @@ export class ReqInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const reqClone = request.clone({
-      headers: request.headers.append(
-        'Authorization', 'Bearer ' + this.token.getToken(),
-      ),
+      headers: request.headers
+        .set('ContentType', 'application/json')
+        .set('Authorization', 'Bearer ' + this.token.getToken()),
+      responseType: 'json',
     });
     return next.handle(reqClone);
   }
