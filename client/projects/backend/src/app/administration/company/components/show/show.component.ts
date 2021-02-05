@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -10,17 +11,18 @@ import { CompanyService } from '../../services/company.service';
   styleUrls: ['./show.styles.scss'],
 })
 export class ShowComponent implements OnInit {
-  companies$: Observable<Array<Company>> = this.service.companies$;
+  public companies$: Observable<Array<Company>> = this.service.companies$;
 
-  constructor(private service: CompanyService) {}
+  constructor(private service: CompanyService, private router: Router) {}
+
+  delete(uuid: string): void {
+    this.service.deleteCompany(uuid);
+    this.router.navigate(['administration', 'companies']);
+  }
 
   ngOnInit(): void {
     this.service.getCompanies()
       .pipe(tap())
       .subscribe();
-  }
-
-  delete(uuid: string): void {
-    this.service.deleteCompany(uuid);
   }
 }
