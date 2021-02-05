@@ -5,7 +5,6 @@ import { DEFAULT_CURRENCY_CODE, ErrorHandler, LOCALE_ID, NgModule } from '@angul
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { SharedDirective } from '../../../common/directives/shared-directive.module';
 import { environment } from '../../../common/environment/environment';
 import { ENVIRONMENT } from '../../../common/environment/environment.config';
 import { SharedModule } from '../../../common/modules/shared.module';

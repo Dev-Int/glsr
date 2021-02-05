@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostUserController extends AbstractController
+class PostUsersController extends AbstractController
 {
     private MessengerCommandBus $commandBus;
 

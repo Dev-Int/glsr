@@ -95,7 +95,8 @@ class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderPr
                     $user->getUuid(),
                     $user->getUsername(),
                     $user->getEmail(),
-                    $user->getPassword()
+                    $user->getPassword(),
+                    $user->getRoles()
                 );
             }, $statement)
         );

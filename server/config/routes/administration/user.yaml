@@ -3,9 +3,9 @@ admin_users_index:
   controller: Administration\Infrastructure\User\Controller\GetUsersController
   methods: GET
 
-admin_user_post:
+admin_users_post:
   path: /
-  controller: Administration\Infrastructure\User\Controller\PostUserController
+  controller: Administration\Infrastructure\User\Controller\PostUsersController
   methods: POST
 
 admin_user_update:
