@@ -8,9 +8,9 @@ admin_users_post:
   controller: Administration\Infrastructure\User\Controller\PostUsersController
   methods: POST
 
-admin_user_update:
-  path: /update/{uuid}
-  controller: Administration\Infrastructure\User\Controller\PutUserController
+admin_user_edit:
+  path: /{uuid}
+  controller: Administration\Infrastructure\User\Controller\PutUsersController
   methods: PUT
 
 admin_user_delete:

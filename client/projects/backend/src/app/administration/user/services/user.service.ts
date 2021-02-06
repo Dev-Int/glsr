@@ -38,4 +38,19 @@ export class UserService {
       }),
     );
   }
+
+  editUser(uuid: string, data: Profile): Observable<Profile> {
+    return this.http.put(`/api/administration/users/${uuid}`, data).pipe(
+      tap((userUpdated: Profile) => {
+        const value = this.users$.value;
+        this.users$.next(value.map((user: Profile) => {
+          if (user.uuid === userUpdated.uuid) {
+            return userUpdated;
+          } else {
+            return user;
+          }
+        }));
+      }),
+    );
+  }
 }

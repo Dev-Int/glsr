@@ -9,16 +9,16 @@
       <tr>
           <th>Pseudo</th>
           <th>Email</th>
-          <th></th>
+          <th>Actions</th>
       </tr>
       </thead>
       <tbody>
           <tr *ngFor="let user of users$|async">
               <td>{{ user.username }}</td>
               <td>{{ user.email }}</td>
-              <td class="col-2">
+              <td>
                   <div class="btn-group">
-                      <button class="btn btn-sm btn-primary">Modifier</button>
+                      <button routerLink="{{ user.uuid }}/edit" class="btn btn-sm btn-primary">Modifier</button>
                       <button class="btn btn-sm btn-danger">Supprimer</button>
                   </div>
               </td>

@@ -9,9 +9,9 @@ import { Profile } from '../../../../../../../common/model/profile.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  templateUrl: './create.template.html',
+  templateUrl: './form.template.html',
 })
-export class CreateComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public user: Profile;
   private readonly subscription: Subscription = new Subscription();
@@ -36,7 +36,8 @@ export class CreateComponent implements OnInit, OnDestroy {
     this.formGroup.roles.setValue([roles]);
 
     if (this.user) {
-      this.subscription.add(this.service.addUser(this.form.value).subscribe());
+      console.log(this.form.value);
+      this.subscription.add(this.service.editUser(this.user.uuid, this.form.value).subscribe());
     } else {
       this.subscription.add(this.service.addUser(this.form.value).subscribe());
     }
