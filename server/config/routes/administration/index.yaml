@@ -1,16 +1,11 @@
-admin_index:
-  path: /
-  controller: Administration\Infrastructure\Controller\GetAdministrationIndexController
-  methods: GET
-
 admin_company:
   resource: company.yaml
-  prefix: /company
+  prefix: /companies
 
 admin_settings:
   resource: settings.yaml
   prefix: /settings
 
-admin_user:
+admin_users:
   resource: user.yaml
-  prefix: /user
+  prefix: /users

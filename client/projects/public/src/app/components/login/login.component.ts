@@ -10,9 +10,20 @@ import { AuthService } from '../../../../../common/services/auth.service';
   templateUrl: './login.template.html',
 })
 export class LoginComponent implements OnInit {
-    loading = false;
-    invalidCredentials = false;
-    form: FormGroup;
+    public loading = false;
+    public invalidCredentials = false;
+    public form: FormGroup;
+
+    constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private service: AuthService,
+    ) {
+        if (this.service.currentUserValue) {
+            this.router.navigateByUrl('/');
+        }
+    }
 
     onSubmit(): void {
         if (this.form.invalid) {
@@ -36,16 +47,5 @@ export class LoginComponent implements OnInit {
             username: ['', Validators.required],
             password: ['', Validators.required],
         });
-    }
-
-    constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute,
-    private service: AuthService,
-    ) {
-        if (this.service.currentUserValue) {
-            this.router.navigateByUrl('/');
-        }
     }
 }

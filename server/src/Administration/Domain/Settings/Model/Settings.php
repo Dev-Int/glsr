@@ -49,4 +49,18 @@ final class Settings
     {
         return $this->currency;
     }
+
+    public function changeLocale(string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function changeCurrency(string $currency): self
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
 }

@@ -1,29 +1,19 @@
-admin_user_index:
+admin_users_index:
   path: /
-  controller: Administration\Infrastructure\User\Controller\UserIndexController
+  controller: Administration\Infrastructure\User\Controller\GetUsersController
   methods: GET
 
-admin_user_new:
-  path: /new
-  controller: Administration\Infrastructure\User\Controller\GetNewUserController
-  methods: GET
-
-admin_user_create:
-  path: /create
-  controller: Administration\Infrastructure\User\Controller\PostUserController
+admin_users_post:
+  path: /
+  controller: Administration\Infrastructure\User\Controller\PostUsersController
   methods: POST
 
 admin_user_edit:
-  path: /edit/{uuid}
-  controller: Administration\Infrastructure\User\Controller\GetEditUserController
-  methods: GET
-
-admin_user_update:
-  path: /update/{uuid}
-  controller: Administration\Infrastructure\User\Controller\PutUserController
+  path: /{uuid}
+  controller: Administration\Infrastructure\User\Controller\PutUsersController
   methods: PUT
 
 admin_user_delete:
-  path: /delete/{uuid}
+  path: /{uuid}
   controller: Administration\Infrastructure\User\Controller\DeleteUserController
   methods: DELETE

@@ -8,7 +8,7 @@ import { SessionService } from '../../services/session.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  user: User;
+  public user: User;
 
   constructor(
       private session: SessionService,
@@ -21,5 +21,4 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
       this.user = {...this.session.user};
   }
-
 }

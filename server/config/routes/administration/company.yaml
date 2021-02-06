@@ -1,29 +1,24 @@
-admin_company_index:
+admin_companies_index:
   path: /
-  controller: Administration\Infrastructure\Company\Controller\GetCompanyIndexController
+  controller: Administration\Infrastructure\Company\Controller\GetCompaniesController
   methods: GET
 
-admin_company_new:
-  path: /new
-  controller: Administration\Infrastructure\Company\Controller\GetNewCompanyController
-  methods: GET
-
-admin_company_create:
-  path: /create
+admin_companies_post:
+  path: /
   controller: Administration\Infrastructure\Company\Controller\PostCompanyController
   methods: POST
 
-admin_company_edit:
-  path: /edit/{uuid}
-  controller: Administration\Infrastructure\Company\Controller\GetEditCompanyController
+admin_company_get:
+  path: /{uuid}
+  controller: Administration\Infrastructure\Company\Controller\GetCompanyController
   methods: GET
 
-admin_company_update:
-  path: /update/{uuid}
+admin_company_put:
+  path: /{uuid}
   controller: Administration\Infrastructure\Company\Controller\PutCompanyController
-  methods: POST
+  methods: PUT
 
 admin_company_delete:
-  path: /delete/{uuid}
+  path: /{uuid}
   controller: Administration\Infrastructure\Company\Controller\DeleteCompanyController
   methods: DELETE

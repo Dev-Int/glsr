@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Settings\Controller;
 
+use Administration\Infrastructure\DataFixtures\SettingsFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
@@ -22,23 +23,57 @@ class PostSettingsControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testPostSettingsAction(): void
+    final public function testPostSettingsSuccess(): void
     {
         // Arrange
         $this->loadFixture([]);
         $content = [
-            'settings' => [
-                'currency' => 'Euro',
-                'locale' => 'Fr',
-            ],
+            'currency' => 'Euro',
+            'locale' => 'Fr',
         ];
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_POST, '/api/administration/settings/configure', $content);
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/settings/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
-        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
+        self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
+        self::assertSame('Settings created started!', $response->getContent());
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    final public function testPostSettingsAlreadyExist(): void
+    {
+        // Arrange
+        $this->loadFixture([new SettingsFixtures()]);
+        $content = [
+            'currency' => 'Euro',
+            'locale' => 'Fr',
+        ];
+
+        // Act
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/settings/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
     }
 }

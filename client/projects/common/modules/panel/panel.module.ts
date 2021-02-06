@@ -8,4 +8,4 @@ import { PanelComponent } from './panel.component';
   imports: [CommonModule],
   exports: [PanelComponent],
 })
-export class PanelModule { }
+export class PanelModule {}

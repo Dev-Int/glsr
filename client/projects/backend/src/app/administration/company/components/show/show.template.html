@@ -1,0 +1,38 @@
+<h1 class="card-header">Établissement</h1>
+
+<div class="card-body" *ngIf="companies$|async; else noCompany">
+  <ul class="d-flex list-unstyled">
+    <li *ngFor="let company of companies$|async">
+      <h3>{{ company.name }}</h3>
+      <div class="d-flex">
+        <div class="col mr-3">
+          <address>
+            {{ company.address }}<br>
+            {{ company.zipCode }} {{ company.town }}<br>
+            {{ company.country }}
+          </address>
+        </div>
+        <div class="col">
+          <div>
+            <i class="fa fa-phone"></i> {{ company.phone|phone:'FR' }}<br>
+            <i class="fa fa-compass"></i> {{ company.facsimile|phone:'FR' }}
+          </div>
+          <div><i class="fa fa-user"></i> {{ company.contact }}</div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button routerLink="{{ company.uuid }}/edit" class="btn btn-primary">Modifier l'établissement</button>
+        <button (click)="delete(company.uuid)" class="btn btn-danger">Supprimer l'établissement</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noCompany>
+  <div class="card-body">
+    <p>Pour un bon fonctionnement de l'application, vous devez créer un établissement.</p>
+  </div>
+  <div class="card-footer">
+    <button routerLink="new" class="btn btn-primary">Nouvel établissement</button>
+  </div>
+</ng-template>

@@ -61,22 +61,22 @@ abstract class Contact
         $this->cellphone = $cellphone->getValue();
     }
 
-    final public function uuid(): string
+    public function uuid(): string
     {
         return $this->uuid;
     }
 
-    final public function name(): string
+    public function name(): string
     {
         return $this->name;
     }
 
-    final public function fullAddress(): string
+    public function fullAddress(): string
     {
         return ContactAddress::fromArray([$this->address, $this->zipCode, $this->town, $this->country])->getValue();
     }
 
-    final public function rewriteAddress(array $addressData): void
+    public function rewriteAddress(array $addressData): void
     {
         $address = ContactAddress::fromArray($addressData);
         $this->address = $address->address();
@@ -85,77 +85,77 @@ abstract class Contact
         $this->country = $address->country();
     }
 
-    final public function phone(): string
+    public function phone(): string
     {
         return $this->phone;
     }
 
-    final public function changePhoneNumber(PhoneField $phone): void
+    public function changePhoneNumber(PhoneField $phone): void
     {
         $this->phone = $phone->getValue();
     }
 
-    final public function facsimile(): string
+    public function facsimile(): string
     {
         return $this->facsimile;
     }
 
-    final public function changeFacsimileNumber(PhoneField $facsimile): void
+    public function changeFacsimileNumber(PhoneField $facsimile): void
     {
         $this->facsimile = $facsimile->getValue();
     }
 
-    final public function email(): string
+    public function email(): string
     {
         return $this->email;
     }
 
-    final public function rewriteEmail(EmailField $email): void
+    public function rewriteEmail(EmailField $email): void
     {
         $this->email = $email->getValue();
     }
 
-    final public function contact(): string
+    public function contact(): string
     {
         return $this->contact;
     }
 
-    final public function renameContact(string $contact): void
+    public function renameContact(string $contact): void
     {
         $this->contact = $contact;
     }
 
-    final public function cellphone(): string
+    public function cellphone(): string
     {
         return $this->cellphone;
     }
 
-    final public function changeCellphoneNumber(PhoneField $cellphone): void
+    public function changeCellphoneNumber(PhoneField $cellphone): void
     {
         $this->cellphone = $cellphone->getValue();
     }
 
-    final public function slug(): string
+    public function slug(): string
     {
         return $this->slug;
     }
 
-    final public function address(): string
+    public function address(): string
     {
         return $this->address;
     }
 
-    final public function zipCode(): string
+    public function zipCode(): string
     {
         return $this->zipCode;
     }
 
-    final public function town(): string
+    public function town(): string
     {
         return $this->town;
     }
 
-    final public function country(): string
+    public function country(): string
     {
         return $this->country;
     }

@@ -1,0 +1,56 @@
+<h1 class="card-header">Nouvel utilisateur</h1>
+
+<div class="card-body">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="username">Nom</label>
+      <input id="username" type="text" class="form-control" formControlName="username">
+      <ul *ngIf="formGroup.username.invalid && (formGroup.username.dirty || formGroup.username.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.username.errors?.required">Un nom est obligatoire</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" class="form-control" formControlName="email">
+      <ul *ngIf="formGroup.email.invalid && (formGroup.email.dirty || formGroup.email.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.email.errors?.required">Un email est obligatoire</li>
+        <li class="text-danger" *ngIf="formGroup.email.errors?.email">L'adresse mail n'est pas valide</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="password">mot de passe</label>
+      <input id="password" type="password" class="form-control" formControlName="password">
+      <ul *ngIf="formGroup.password.invalid && (formGroup.password.dirty || formGroup.password.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.password.errors?.required">Le mot de passe est obligatoire</li>
+        <li class="text-danger" *ngIf="formGroup.password.errors?.minlength">Le mot de passe doit avoir minimum huit (8) caractères</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="password_confirm">Confirmation</label>
+      <input id="password_confirm" type="password" class="form-control" formControlName="password_confirm">
+      <ul *ngIf="formGroup.password_confirm.invalid && (formGroup.password_confirm.dirty || formGroup.password_confirm.touched)"
+          class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.password_confirm.errors?.required">Le mot de passe est obligatoire</li>
+        <li class="text-danger" *ngIf="formGroup.password_confirm.errors?.minlength">Le mot de passe doit avoir minimum huit (8) caractères</li>
+      </ul>
+      <ul *ngIf="form.invalid &&
+        (formGroup.password_confirm.dirty || formGroup.password_confirm.touched) &&
+        (formGroup.password.dirty || formGroup.password.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="form.errors?.notEqual">Les mots de passe ne correspondent pas</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="roles">Roles</label>
+      <select id="roles" class="form-control" formControlName="roles">
+        <option value="ROLE_ADMIN">Directeur</option>
+        <option value="ROLE_ASSISTANT">Assistant</option>
+        <option value="ROLE_USER">Utilisateur</option>
+      </select>
+    </div>
+    <div class="btn-group">
+      <button type="button" routerLink="['/administration','users']" class="btn btn-outline-info"><i class="fa fa-chevron-left"></i>&nbsp;Annuler</button>
+      <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </div>
+  </form>
+</div>

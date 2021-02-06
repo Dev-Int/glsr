@@ -71,7 +71,7 @@ security:
 	@$(EXEC) php openssl genrsa -aes256 -passout pass:$(PASS_PHRASE) -out server/config/jwt/private.pem 4096
 	@$(EXEC) php openssl rsa -pubout -in server/config/jwt/private.pem -passin pass:$(PASS_PHRASE) -out server/config/jwt/public.pem
 
-config: server/.env.local docker-compose.override.yml server/.php_cs .git/hooks/pre-commit ## Init files required
+config: server/.env.local docker-compose.override.yml dist-files .git/hooks/pre-commit ## Init files required
 	@echo 'Configuration files copied'
 
 
@@ -108,7 +108,7 @@ load-fixtures: ## Build the DB, load fixtures
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
-test-all: server/phpunit.xml test-cc server/behat.yml.dist ## Execute tests
+test-all: test-cc server/phpunit.xml server/behat.yml ## Execute tests
 	@echo 'Running all tests'
 	@echo '—— Unit tests ——'
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --stop-on-failure
@@ -123,9 +123,9 @@ test-infra: server/phpunit.xml test-cc ## Launch Infrastructure unit tests
 	@echo "Running unit Infrastructure tests"
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Infrastructure --stop-on-failure
 
-#test-behat: server/behat.yml.dist ## Launch behat tests
-#	@echo "Running test BDD"
-#	@$(EXEC) php server/vendor/bin/behat
+test-behat: server/behat.yml ## Launch behat tests
+	@echo "Running test BDD"
+	@$(EXEC) php server/vendor/bin/behat --config server/behat.yml --stop-on-failure
 
 test-coverage: clean-dir  ## Run test coverage
 	@echo 'Running tests coverage'
@@ -176,7 +176,7 @@ version: ## Add a new tag with current date and publish it
 #	certbot --apache -d demo.glsr.fr
 
 
-# ## —— Yarn / JavaScript ————————————————————————————————————————————————————————
+# —— Yarn / JavaScript ————————————————————————————————————————————————————————
 #dev: ## Rebuild assets for the dev env
 #	yarn install
 #	yarn run encore dev
@@ -185,10 +185,10 @@ version: ## Add a new tag with current date and publish it
 #	yarn run encore dev --watch
 #
 #build: ## Build assets for production
-#	yarn run encore production
-#
-#lint: ## Lints Js files
-#	npx eslint assets/js --fix
+#	yarn run build
+
+lint: ## Run TSLint on client
+	@$(EXEC) client yarn run lint
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————
@@ -212,7 +212,6 @@ up:
 	@cp .env .env.local
 	@sed -i "s/^APP_USER_ID=.*/APP_USER_ID=$(shell id -u)/" .env.local
 	@sed -i "s/^APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/" .env.local
-
 .git/hooks/pre-commit: .docker/git/pre-commit
 	@echo "Copying git hooks"
 	@cp .docker/git/pre-commit .git/hooks/pre-commit
@@ -220,13 +219,13 @@ up:
 docker-compose.override.yml: docker-compose.override.yml.dist
 	@echo "Copying docker configuration"
 	@cp docker-compose.override.yml.dist docker-compose.override.yml
-server/.env.local: server/.env
-	@cp server/.env server/.env.local
 server/vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
-.php_cs: server/.php_cs.dist
+dist-files: server/.php_cs.dist server/behat.yml.dist
+	@echo "Coping .dist files"
 	@cp server/.php_cs.dist server/.php_cs
+	@cp server/behat.yml.dist server/behat.yml
 client/node_modules: client/yarn.lock
 	@echo "Installing client dependencies"
 	@$(RUN) client yarn install

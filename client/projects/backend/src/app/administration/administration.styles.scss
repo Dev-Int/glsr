@@ -1,0 +1,9 @@
+@import '../../../../common/assets/variables/variables';
+
+.admin-dashBoard {
+  width: calc(75% - 1.5rem);
+}
+
+.list-group-item.active > a {
+  color: $white !important;
+}

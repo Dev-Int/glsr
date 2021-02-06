@@ -13,14 +13,11 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Settings\Controller;
 
-use Administration\Application\Settings\ReadModel\Settings;
 use Administration\Domain\Settings\Command\ConfigureSettings;
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Domain\Settings\Model\VO\Locale;
-use Administration\Infrastructure\Settings\Form\Type\SettingsType;
 use Core\Infrastructure\Common\MessengerCommandBus;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,34 +30,23 @@ class PostSettingsController extends AbstractController
         $this->commandBus = $commandBus;
     }
 
+    /**
+     * @throws \JsonException
+     */
     public function __invoke(Request $request): Response
     {
-        $settings = $request->request->get('settings');
-        $command = new ConfigureSettings(
-            Locale::fromString($settings['locale']),
-            Currency::fromString($settings['currency'])
-        );
+        $settings = \json_decode($request->getContent(), true, 512, \JSON_THROW_ON_ERROR);
 
         try {
+            $command = new ConfigureSettings(
+                Locale::fromString($settings['locale']),
+                Currency::fromString($settings['currency'])
+            );
             $this->commandBus->dispatch($command);
         } catch (\RuntimeException $exception) {
-            $newSettings = new Settings(
-                $command->currency()->getValue(),
-                $command->locale()->getValue()
-            );
-            $form = $this->createForm(SettingsType::class, $newSettings, [
-                'action' => $this->generateUrl('admin_settings_configure'),
-            ]);
-            $this->addFlash('errors', $exception->getMessage());
-
-            return $this->render('Administration/Settings/new.html.twig', [
-                'form' => $form->createView(),
-                'errors' => $exception,
-            ]);
+            throw new \DomainException($exception->getMessage());
         }
 
-        $this->addFlash('success', 'Settings created started!');
-
-        return new RedirectResponse($this->generateUrl('admin_index'));
+        return new Response('Settings created started!', Response::HTTP_CREATED);
     }
 }

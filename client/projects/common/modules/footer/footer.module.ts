@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { FooterComponent } from './footer.component';
 
-
-
 @NgModule({
     declarations: [FooterComponent],
     exports: [
@@ -14,4 +12,4 @@ import { FooterComponent } from './footer.component';
         CommonModule,
     ],
 })
-export class FooterModule { }
+export class FooterModule {}
