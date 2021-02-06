@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
 })
 export class AdministrationComponent implements OnInit {
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.router.navigate(['administration', 'companies']);
   }
-
-  constructor(private router: Router) {}
 }
