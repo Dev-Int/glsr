@@ -36,12 +36,12 @@ export class FormComponent implements OnInit, OnDestroy {
     this.formGroup.roles.setValue([roles]);
 
     if (this.user) {
-      console.log(this.form.value);
       this.subscription.add(this.service.editUser(this.user.uuid, this.form.value).subscribe());
     } else {
       this.subscription.add(this.service.addUser(this.form.value).subscribe());
     }
-    this.router.navigate(['administration', 'users']);
+    // @Todo: when redirect ListComponent.users$ does not update
+    this.router.navigate(['administration', 'users']).then();
   }
 
   reset(): void {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CompanyFormComponent } from './components/form/company-form.component';
+import { FormComponent } from './components/form/form.component';
 import { ShowComponent } from './components/show/show.component';
 
 const routes: Routes = [
@@ -13,12 +13,12 @@ const routes: Routes = [
   {
     path: 'new',
     data: {title: 'Nouvel établissement'},
-    component: CompanyFormComponent,
+    component: FormComponent,
   },
   {
     path: ':uuid/edit',
     data: {title: 'Éditer l\'établissement'},
-    component: CompanyFormComponent,
+    component: FormComponent,
   },
 ];
 
