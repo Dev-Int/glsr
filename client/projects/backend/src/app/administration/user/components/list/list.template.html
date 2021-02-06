@@ -19,7 +19,7 @@
               <td>
                   <div class="btn-group">
                       <button routerLink="{{ user.uuid }}/edit" class="btn btn-sm btn-primary">Modifier</button>
-                      <button class="btn btn-sm btn-danger">Supprimer</button>
+                      <button (click)="delete(user.uuid)" class="btn btn-sm btn-danger">Supprimer</button>
                   </div>
               </td>
           </tr>

@@ -53,4 +53,12 @@ export class UserService {
       }),
     );
   }
+
+  deleteUser(uuid: string): void {
+    this.http.delete(`/api/administration/users/${uuid}`)
+      .subscribe(() => {
+        const users = this.users$.value;
+        this.users$.next(users.filter((user: Profile) => user.uuid !== uuid));
+      });
+  }
 }
