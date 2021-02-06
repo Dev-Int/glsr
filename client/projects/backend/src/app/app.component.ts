@@ -8,7 +8,7 @@ import { filter, map } from 'rxjs/operators';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  public static DEFAULT_TITLE = 'GLSR';
+  private static readonly DEFAULT_TITLE = 'GLSR';
 
   constructor(
     private title: Title,
@@ -22,16 +22,22 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd),
       map(() => {
         let child = this.route.firstChild;
-        while (child.firstChild) {
-          child = child.firstChild;
-        }
-        if (child.snapshot.data.title) {
-          return child.snapshot.data.title;
+        if (null !== child) {
+          while (child.firstChild) {
+            child = child.firstChild;
+          }
+          if (child.snapshot.data.title) {
+            return child.snapshot.data.title;
+          }
         }
         return appTitle;
       }),
     ).subscribe((ttl: string) => {
-      this.title.setTitle(ttl + ' - ' + AppComponent.DEFAULT_TITLE);
+      let title: string = AppComponent.DEFAULT_TITLE;
+      if ('' !== ttl) {
+        title = ttl + ' - ' + AppComponent.DEFAULT_TITLE;
+      }
+      this.title.setTitle(title);
     });
   }
 }

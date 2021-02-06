@@ -30,7 +30,7 @@ git clone https://github.com/Dev-Int/glsr.git
 The project use [docker](https://docs.docker.com/get-docker/) (install it, if you don't have it), and with the `Makefile`
  enter this command in your terminal:
 ```bash
-$ make start
+$ make install
 ```
 
 ## Roadmap
@@ -42,9 +42,9 @@ To restart in the right direction, I start by preparing my use cases, and adding
 - [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
 
 To follow the progress, visit the [use cases](https://github.com/Dev-Int/tests/labels/use%20case) page
-- Settings the application (back ✅) (front `in progress...`)
-- Register a user (back ✅) (front `in progress...`)
-- Authentication (back ✅) (front `in progress...`)
+- Settings the application (back, front ✅)
+- Register a user (back, front ✅)
+- Authentication (back, front ✅)
 
 ## Licence
 

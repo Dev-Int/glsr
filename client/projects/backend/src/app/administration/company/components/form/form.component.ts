@@ -8,10 +8,10 @@ import { Company } from '../../../shared/models/company.model';
 import { CompanyService } from '../../services/company.service';
 
 @Component({
-  templateUrl: './company-form.template.html',
-  styleUrls: ['./company-form.styles.scss'],
+  templateUrl: './form.template.html',
+  styleUrls: ['./form.styles.scss'],
 })
-export class CompanyFormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public company: Company;
   private readonly subscription: Subscription = new Subscription();
@@ -33,6 +33,7 @@ export class CompanyFormComponent implements OnInit, OnDestroy {
     } else {
       this.subscription.add(this.service.addCompany(this.form.value).subscribe());
     }
+    // @Todo: when redirect ShowComponent.users$ does not update
     this.router.navigate(['administration', 'companies']);
   }
 

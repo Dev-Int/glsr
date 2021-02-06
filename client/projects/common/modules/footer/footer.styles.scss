@@ -1,0 +1,17 @@
+@import "../../assets/variables/variables";
+
+.footer {
+  background-color: $primary;
+  border-color: darken($primary, 5%);
+  border-width: 4px 1px 0 1px;
+  border-style: solid;
+
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+
+    span.text-muted {
+      color: $text-muted-light !important;
+    }
+  }
+}
