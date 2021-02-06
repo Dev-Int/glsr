@@ -7,14 +7,17 @@ import { ListComponent } from './components/list/list.component';
 const routes: Routes = [
   {
     path: '',
+    data: {title: 'Utilisateurs'},
     component: ListComponent,
   },
   {
     path: 'new',
+    data: {title: 'Nouvel utilisateur'},
     component: FormComponent,
   },
   {
     path: ':uuid/edit',
+    data: {title: 'Modifier utilisateur'},
     component: FormComponent,
   },
 ];

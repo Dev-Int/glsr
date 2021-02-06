@@ -7,6 +7,7 @@ const routes: Routes = [
   {
     path: 'administration',
     canActivate: [AuthGuard],
+    data: {title: 'Administration'},
     loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule),
   },
 ];
