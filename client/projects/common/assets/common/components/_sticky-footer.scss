@@ -13,16 +13,5 @@ body {
   width: 100%;
   height: 60px;
   line-height: 60px;
-  background-color: $primary;
-  //background-color: #80bdff;
-
-  .container {
-    padding-right: 15px;
-    padding-left: 15px;
-
-    span.text-muted {
-      color: $text-muted-light !important;
-    }
-  }
 }
 
