@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 
@@ -21,29 +22,31 @@ class PostUserControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testPostUserAction(): void
+    final public function testPostUserSuccess(): void
     {
         // Arrange
         $this->loadFixture([]);
         $content = [
-            'user' => [
-                'username' => 'Daniel',
-                'email' => 'daniel@example.com',
-                'password' => [
-                    'first' => 'password',
-                    'second' => 'password',
-                ],
-                'roles' => ['ROLE_ASSISTANT'],
-            ],
+            'username' => 'Daniel',
+            'email' => 'daniel@example.com',
+            'password' => 'password',
+            'roles' => ['ROLE_ASSISTANT'],
         ];
         $adminClient = $this->createAdminClient();
-        $adminClient->request('POST', '/api/administration/user/create', $content);
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/users/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
 
         // Act
         $response = $this->client->getResponse();
 
         // Assert
-        self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/api/administration/user/'));
+        self::assertSame(Response::HTTP_CREATED, $response->getStatusCode());
+        self::assertSame('User create started!', $response->getContent());
     }
 }

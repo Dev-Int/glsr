@@ -51,6 +51,6 @@ class PutUsersController extends AbstractController
             throw new \DomainException($exception->getMessage());
         }
 
-        return new Response('User updated started!', Response::HTTP_ACCEPTED);
+        return new Response('User update started!', Response::HTTP_FOUND);
     }
 }
