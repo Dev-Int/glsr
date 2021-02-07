@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 
@@ -26,21 +27,19 @@ class PutUserControllerTest extends AbstractControllerTest
         // Arrange
         $this->loadFixture([]);
         $content = [
-            'user' => [
-                'username' => 'Laurent',
-                'email' => 'laurent@example.com',
-                'password' => [
-                    'first' => 'passwords',
-                    'second' => 'passwords',
-                ],
-                'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
-            ],
+            'username' => 'Laurent',
+            'email' => 'laurent@example.com',
+            'password' => 'passwords',
+            'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
         ];
         $adminClient = $this->createAdminClient();
         $adminClient->request(
-            'PUT',
-            '/api/administration/user/update/a136c6fe-8f6e-45ed-91bc-586374791033',
-            $content
+            Request::METHOD_PUT,
+            '/api/administration/users/a136c6fe-8f6e-45ed-91bc-586374791033',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
         );
 
         // Act
@@ -48,6 +47,6 @@ class PutUserControllerTest extends AbstractControllerTest
 
         // Assert
         self::assertSame(Response::HTTP_FOUND, $response->getStatusCode());
-        self::assertTrue($response->isRedirect('/api/administration/user/'));
+        self::assertSame('User update started!', $response->getContent());
     }
 }

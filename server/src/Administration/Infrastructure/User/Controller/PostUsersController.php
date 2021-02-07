@@ -49,6 +49,6 @@ class PostUsersController extends AbstractController
             throw new \DomainException($exception->getMessage());
         }
 
-        return new Response('User created start!', Response::HTTP_CREATED);
+        return new Response('User create started!', Response::HTTP_CREATED);
     }
 }
