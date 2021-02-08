@@ -108,12 +108,10 @@ load-fixtures: ## Build the DB, load fixtures
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
-test-all: test-cc server/phpunit.xml server/behat.yml ## Execute tests
+test-all: test-cc server/phpunit.xml ## Execute tests
 	@echo 'Running all tests'
 	@echo '—— Unit tests ——'
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --stop-on-failure
-#	@echo '—— Behat tests ——'
-#	@$(EXEC) php server/vendor/bin/behat
 
 test-domain: server/phpunit.xml test-cc ## Launch Domain unit tests
 	@echo "Running unit Domain tests"
@@ -122,10 +120,6 @@ test-domain: server/phpunit.xml test-cc ## Launch Domain unit tests
 test-infra: server/phpunit.xml test-cc ## Launch Infrastructure unit tests
 	@echo "Running unit Infrastructure tests"
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Infrastructure --stop-on-failure
-
-test-behat: server/behat.yml ## Launch behat tests
-	@echo "Running test BDD"
-	@$(EXEC) php server/vendor/bin/behat --config server/behat.yml --stop-on-failure
 
 test-coverage: clean-dir  ## Run test coverage
 	@echo 'Running tests coverage'
@@ -225,7 +219,6 @@ server/vendor: server/composer.lock
 dist-files: server/.php_cs.dist server/behat.yml.dist
 	@echo "Coping .dist files"
 	@cp server/.php_cs.dist server/.php_cs
-	@cp server/behat.yml.dist server/behat.yml
 client/node_modules: client/yarn.lock
 	@echo "Installing client dependencies"
 	@$(RUN) client yarn install

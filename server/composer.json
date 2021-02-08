@@ -53,7 +53,6 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
-        "friends-of-behat/symfony-extension": "^2.0",
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpstan/phpstan": "^0.12.57",
         "squizlabs/php_codesniffer": "^3.5",
@@ -78,8 +77,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Unit\\Tests\\": "tests/Unit",
-            "Behat\\Tests\\": "tests/Behat"
+            "Unit\\Tests\\": "tests/Unit"
         }
     },
     "replace": {
