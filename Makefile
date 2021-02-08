@@ -10,7 +10,7 @@
 DC             = docker-compose
 PROJECT_DIR    = /glsr
 RUN            = $(DC) run --rm
-RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)/server
+RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)
 EXEC           = $(DC) exec
 SERVER_CONSOLE = $(EXEC) php php server/bin/console
 GIT_AUTHOR     = Dev-Int
@@ -37,7 +37,7 @@ help: ## Outputs this help screen
 
 ## —— Composer —————————————————————————————————————————————————————————————————
 
-update: server/composer.json ## Update vendors according to the composer.json file
+update: composer.json ## Update vendors according to the composer.json file
 	@echo "Update php dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
