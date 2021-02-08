@@ -62,10 +62,13 @@ config: .env.local ## Init files required
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
-test-all: phpunit.xml.dist behat.yaml.dist ## Execute tests
+test-all: test-unit test-behat  ## Execute tests
 	@echo 'Running all tests'
+
+test-unit: phpunit.xml.dist ## Execute unit tests
 	@echo '—— Unit tests ——'
 	@$(EXEC) -w /glsr php php -d memory_limit=-1 vendor/bin/phpunit --stop-on-failure
+test-behat: behat.yaml.dist ## Execute behat tests
 	@echo '—— Behat tests ——'
 	@$(EXEC) -w /glsr php php vendor/bin/behat
 
