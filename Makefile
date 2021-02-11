@@ -65,18 +65,18 @@ config: .env.local copy-files ## Init files required
 test-all: test-unit test-behat  ## Execute tests
 	@echo 'Running all tests'
 
-test-unit: server/phpunit.xml.dist ## Execute unit tests
-	@echo '—— Unit tests ——'
+test-unit: server/phpunit.xml ## Execute unit tests
+	@echo '—— Unit tests ————'
 	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/phpunit --stop-on-failure
-test-behat: server/behat.yaml.dist ## Execute behat tests
-	@echo '—— Behat tests ——'
+test-behat: server/behat.yaml ## Execute behat tests
+	@echo '—— Behat tests ————'
 	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/behat --config server/behat.yaml
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————
 
 # Internal rules
-project-vendors: vendor #client/node_modules ## Server vendors
+project-vendors: server/vendor #client/node_modules ## Server vendors
 	@echo "Vendors installed"
 
 build:
@@ -97,6 +97,6 @@ up:
 copy-files: server/phpunit.xml.dist server/behat.yaml.dist
 	@cp server/behat.yaml.dist server/behat.yaml
 	@cp server/phpunit.xml.dist server/phpunit.xml
-vendor: server/composer.lock
+server/vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
