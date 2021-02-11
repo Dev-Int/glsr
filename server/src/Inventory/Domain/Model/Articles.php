@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Inventory\Domain;
+namespace Inventory\Domain\Model;
 
-use App\Domain\Protocol\Collection;
+use Core\Domain\Protocol\Collection;
 use ArrayIterator;
 
 final class Articles implements Collection

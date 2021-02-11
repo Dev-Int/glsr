@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Inventory\Domain\Exception;
+namespace Inventory\Domain\Exception;
 
 final class InvalidInventoryDate extends \DomainException
 {

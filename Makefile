@@ -10,7 +10,7 @@
 DC             = docker-compose
 PROJECT_DIR    = /glsr
 RUN            = $(DC) run --rm
-RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)
+RUN_SERVER     = $(RUN) -w $(PROJECT_DIR)/server
 EXEC           = $(DC) exec
 SERVER_CONSOLE = $(EXEC) php php server/bin/console
 GIT_AUTHOR     = Dev-Int
@@ -37,7 +37,7 @@ help: ## Outputs this help screen
 
 ## —— Composer —————————————————————————————————————————————————————————————————
 
-update: composer.json ## Update vendors according to the composer.json file
+update: server/composer.json ## Update vendors according to the composer.json file
 	@echo "Update php dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer update --no-interaction
 
@@ -56,7 +56,7 @@ reset: stop start ## Reset the whole project
 
 install: start ## Install the whole project
 
-config: .env.local ## Init files required
+config: .env.local copy-files ## Init files required
 	@echo 'Configuration files copied'
 
 
@@ -65,12 +65,12 @@ config: .env.local ## Init files required
 test-all: test-unit test-behat  ## Execute tests
 	@echo 'Running all tests'
 
-test-unit: phpunit.xml.dist ## Execute unit tests
+test-unit: server/phpunit.xml.dist ## Execute unit tests
 	@echo '—— Unit tests ——'
-	@$(EXEC) -w /glsr php php -d memory_limit=-1 vendor/bin/phpunit --stop-on-failure
-test-behat: behat.yaml.dist ## Execute behat tests
+	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/phpunit --stop-on-failure
+test-behat: server/behat.yaml.dist ## Execute behat tests
 	@echo '—— Behat tests ——'
-	@$(EXEC) -w /glsr php php vendor/bin/behat
+	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/behat --config server/behat.yaml
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————
@@ -94,6 +94,9 @@ up:
 	@cp .env .env.local
 	@sed -i "s/^APP_USER_ID=.*/APP_USER_ID=$(shell id -u)/" .env.local
 	@sed -i "s/^APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/" .env.local
-vendor: composer.lock
+copy-files: server/phpunit.xml.dist server/behat.yaml.dist
+	@cp server/behat.yaml.dist server/behat.yaml
+	@cp server/phpunit.xml.dist server/phpunit.xml
+vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction

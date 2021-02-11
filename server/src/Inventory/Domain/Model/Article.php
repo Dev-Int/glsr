@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Inventory\Domain;
+namespace Inventory\Domain\Model;
 
 final class Article
 {

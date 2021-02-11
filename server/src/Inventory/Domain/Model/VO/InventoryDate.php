@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Inventory\Domain\VO;
+namespace Inventory\Domain\Model\VO;
 
-use App\Inventory\Domain\Exception\InvalidInventoryDate;
+use Inventory\Domain\Exception\InvalidInventoryDate;
 
 final class InventoryDate
 {
@@ -12,7 +12,7 @@ final class InventoryDate
 
     public function __construct(\DateTimeImmutable $date)
     {
-        if (false === date("Y-m-t", strtotime($date)) || ('Sunday' !== date_format(date_create($date), 'l'))) {
+        if (false === date("Y-m-t", $date->getTimestamp()) || ('Sunday' !== date_format($date, 'l'))) {
             throw new InvalidInventoryDate();
         }
         $this->date = $date;

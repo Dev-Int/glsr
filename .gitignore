@@ -1,10 +1,1 @@
-###> Tests ###
-behat.yaml
-phpunit.xml
-/.phpunit.result.cache
-###< Tests ###
-
-###> Project ###
-/vendor
 .env.local
-###< Project ###

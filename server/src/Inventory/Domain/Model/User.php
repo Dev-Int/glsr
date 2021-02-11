@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Inventory\Domain;
+namespace Inventory\Domain\Model;
 
 final class User
 {

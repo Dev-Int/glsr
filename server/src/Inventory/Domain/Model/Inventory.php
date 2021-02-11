@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Inventory\Domain;
+namespace Inventory\Domain\Model;
 
-use App\Inventory\Domain\VO\InventoryDate;
+use Inventory\Domain\Model\VO\InventoryDate;
 
 final class Inventory
 {

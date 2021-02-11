@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Behat;
+namespace Behat\Tests;
 
-use App\Inventory\Domain\Article;
-use App\Inventory\Domain\Articles;
-use App\Inventory\Domain\Inventory;
-use App\Inventory\Domain\User;
-use App\Inventory\Domain\VO\InventoryDate;
-use App\Inventory\Infrastructure\InventoryController;
+use Inventory\Domain\Model\Article;
+use Inventory\Domain\Model\Articles;
+use Inventory\Domain\Model\Inventory;
+use Inventory\Domain\Model\User;
+use Inventory\Domain\Model\VO\InventoryDate;
+use Inventory\Domain\UseCase\Prepare;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert;
@@ -96,7 +96,7 @@ final class FeatureContext implements Context
      */
     public function iWantTo(): void
     {
-        $this->inventory = (new InventoryController())->prepare($this->date);
+        $this->inventory = (new Prepare())->execute($this->date);
     }
 
     /**
@@ -112,10 +112,14 @@ final class FeatureContext implements Context
     /**
      * @Then I should see the list of articles
      */
-    public function iShouldSeeArticlesList(TableNode $articleList): void
+    public function iShouldSeeArticlesList(TableNode $table): void
     {
+        $articleList = [];
+        foreach ($table as $item) {
+            $articleList[] = Article::create($item['label'], (float) $item['theoreticalStock'], (float) $item['price']);
+        }
         Assert::assertIsArray($this->inventory->articles()->toArray());
-        Assert::assertEquals($this->articles->toArray(), $this->inventory->articles()->toArray());
+        Assert::assertEquals($articleList, $this->inventory->articles()->toArray());
     }
 
     /**
