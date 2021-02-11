@@ -18,7 +18,7 @@ use PHPUnit\Framework\Assert;
 /**
  * Defines application features from the specific context.
  */
-final class FeatureContext implements Context
+final class InventoryContext implements Context
 {
     private Inventory $inventory;
     private User $user;
