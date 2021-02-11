@@ -7,7 +7,7 @@ use Inventory\Domain\Model\Articles;
 use Inventory\Domain\Model\Inventory;
 use Inventory\Domain\Model\VO\InventoryDate;
 
-final class Prepare
+final class PrepareInventory
 {
     public function execute(\DateTimeImmutable $date): Inventory
     {
