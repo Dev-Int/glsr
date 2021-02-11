@@ -144,9 +144,43 @@ final class InventoryContext implements Context
     }
 
     /**
-     * @Then I should see the list of gaps
+     * @Then I should see the list of gaps ordered by :gaps
      */
-    public function iShouldSeeTheListOfGaps(TableNode $table):void
+    public function iShouldSeeTheListOfGapsOrderedByGaps(TableNode $table, string $order):void
+    {
+        $expectedGaps = [];
+        foreach ($table as $item) {
+            $expectedGaps[] = ['label' => $item['label'], 'gap' => (float) $item['gap'], 'amount' => (float) $item['amount']];
+        }
+        $gaps = $this->inventory->getGaps($order);
+
+        Assert::assertSame($expectedGaps, $gaps);
+    }
+
+    /**
+     * @When I see bad gaps
+     */
+    public function iSeeBadGaps(): void
+    {
+    }
+
+    /**
+     * @Given I correct the needed quantities
+     */
+    public function iCorrectTheNeededQuantities(TableNode $table): void
+    {
+        $data = [];
+        foreach ($table as $row) {
+            $data[] = $row;
+        }
+
+        (new EnterInventory())->execute($this->inventory, $data);
+    }
+
+    /**
+     * @Then the gaps are valid
+     */
+    public function theGapsAreValid(TableNode $table): void
     {
         $expectedGaps = [];
         foreach ($table as $item) {

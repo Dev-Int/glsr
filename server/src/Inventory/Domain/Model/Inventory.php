@@ -25,7 +25,7 @@ final class Inventory
         return $this->articles;
     }
 
-    public function getGaps(): array
+    public function getGaps(?string $order = 'gap'): array
     {
         $gaps = [];
         foreach ($this->articles->toArray() as $article) {
@@ -33,6 +33,14 @@ final class Inventory
                 $gaps[] = $article->gap() ;
             }
         }
+
+        usort($gaps, static function ($gapA, $gapB) use ($order) {
+            if ($gapA[$order] === $gapB[$order]) {
+                return 0;
+            }
+
+            return ($gapA[$order] > $gapB[$order] ? 1 : -1);
+        });
 
         return $gaps;
     }
