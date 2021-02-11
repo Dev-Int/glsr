@@ -9,7 +9,8 @@ use Inventory\Domain\Model\Articles;
 use Inventory\Domain\Model\Inventory;
 use Inventory\Domain\Model\User;
 use Inventory\Domain\Model\VO\InventoryDate;
-use Inventory\Domain\UseCase\Prepare;
+use Inventory\Domain\UseCase\EnterInventory;
+use Inventory\Domain\UseCase\PrepareInventory;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert;
@@ -58,15 +59,14 @@ final class FeatureContext implements Context
      */
     public function thereIsAnArticlesList(TableNode $table): void
     {
-        $articles = [];
+        $this->articles = new Articles();
         foreach ($table as $item) {
-            $articles[] = Article::create(
+            $this->articles->add(Article::create(
                 $item['label'],
                 (float) $item['theoreticalStock'],
                 (float) $item['price']
-            );
+            ));
         }
-        $this->articles = new Articles($articles);
     }
 
     /**
@@ -77,14 +77,7 @@ final class FeatureContext implements Context
     public function itSTheLastDayOf(TableNode $table):void
     {
         foreach ($table as $row) {
-            if ('month' === $row['test']) {
-                Assert::assertSame($row['date'], date("Y-m-t", strtotime($row['date'])));
-                $this->date = new \DateTimeImmutable($row['date']);
-            }
-            if ('week' === $row['test']) {
-                Assert::assertSame('Sunday', date_format(date_create($row['date']), 'l'));
-                $this->date = new \DateTimeImmutable($row['date']);
-            }
+            $this->date = InventoryDate::fromDate(new \DateTimeImmutable($row['date']))->getValue();
         }
         if (null === $this->date) {
             return;
@@ -96,7 +89,7 @@ final class FeatureContext implements Context
      */
     public function iWantTo(): void
     {
-        $this->inventory = (new Prepare())->execute($this->date);
+        $this->inventory = (new PrepareInventory())->execute($this->date);
     }
 
     /**
@@ -142,16 +135,12 @@ final class FeatureContext implements Context
      */
     public function iWantToEnterQuantities(TableNode $table): void
     {
+        $data = [];
         foreach ($table as $row) {
-            foreach ($this->articles->toArray() as $article) {
-                if ($article->label() === $row['label']) {
-                    $this->inventory->enterInventoriedQuantity(
-                        $article,
-                        $row['stock']
-                    );
-                }
-            }
+            $data[] = $row;
         }
+
+        (new EnterInventory())->execute($this->inventory, $data);
     }
 
     /**
@@ -161,7 +150,7 @@ final class FeatureContext implements Context
     {
         $expectedGaps = [];
         foreach ($table as $item) {
-            $expectedGaps[] = ['label' => $item['label'], 'gap' => $item['gap'], 'amount' => $item['amount']];
+            $expectedGaps[] = ['label' => $item['label'], 'gap' => (float) $item['gap'], 'amount' => (float) $item['amount']];
         }
         $gaps = $this->inventory->getGaps();
 

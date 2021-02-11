@@ -13,6 +13,7 @@ final class Article
     {
         $this->label = $label;
         $this->theoreticalStock = $theoreticalStock;
+        $this->stock = 0.00;
         $this->price = $price;
     }
 
@@ -26,11 +27,6 @@ final class Article
         return $this->label;
     }
 
-    public function theoreticalStock(): float
-    {
-        return $this->theoreticalStock;
-    }
-
     public function price(): float
     {
         return $this->price;
@@ -41,12 +37,18 @@ final class Article
         $this->stock = $quantity;
     }
 
-    public function gaps(): array
+    public function gap(): ?array
     {
-        return [
-            'label' => $this->label,
-            'gap' => $this->theoreticalStock - $this->stock,
-            'amount' => ($this->theoreticalStock - $this->stock) * $this->price,
-        ];
+        $gap = $this->theoreticalStock - $this->stock;
+
+        if ($gap !== 0.00) {
+            return [
+                'label' => $this->label,
+                'gap' => $gap,
+                'amount' => $gap * $this->price,
+            ];
+        }
+
+        return null;
     }
 }

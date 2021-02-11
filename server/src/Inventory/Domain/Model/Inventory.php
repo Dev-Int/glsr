@@ -20,30 +20,18 @@ final class Inventory
         return new self($date, $articles);
     }
 
-    public function inventoryDate(): \DateTimeImmutable
-    {
-        return $this->inventoryDate;
-    }
-
     public function articles(): Articles
     {
         return $this->articles;
-    }
-
-    public function enterInventoriedQuantity(Article $articleToUpdate, float $quantity): void
-    {
-        foreach ($this->articles->toArray() as $article) {
-            if ($article->label() === $articleToUpdate->label()) {
-                $article->updateStock($quantity);
-            }
-        }
     }
 
     public function getGaps(): array
     {
         $gaps = [];
         foreach ($this->articles->toArray() as $article) {
-            $gaps[] = $article->gaps();
+            if ($article->gap() !== null) {
+                $gaps[] = $article->gap() ;
+            }
         }
 
         return $gaps;

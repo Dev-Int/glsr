@@ -19,6 +19,11 @@ final class Articles implements Collection
         $this->values = $articles;
     }
 
+    public function add(Article $article): void
+    {
+        $this->values[] = $article;
+    }
+
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->values);

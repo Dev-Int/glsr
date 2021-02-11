@@ -37,10 +37,11 @@ Feature: Inventory Management
       And an inventory exist
     When I want to enter quantities
       | label   | stock |
-      | carotte | 5.00  |
-      | mais    | 3.00  |
+      | tomato  | 3.00  |
+      | carotte | 3.00  |
       | potato  | 8.00  |
     Then I should see the list of gaps
-      | label   | gap  | amount |
-      | carotte | 3.00 | 1.59   |
-      | potato  | 8.00 | 2.16   |
+      | label   | gap   | amount |
+      |tomato   | 2.00  | 1.70   |
+      | carotte | -3.00 | -1.59  |
+      | potato  | -8.00 | -2.16  |
