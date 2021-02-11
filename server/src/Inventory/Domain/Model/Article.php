@@ -51,4 +51,10 @@ final class Article
 
         return null;
     }
+
+    public function validStock(): void
+    {
+        $this->theoreticalStock = $this->stock;
+        $this->stock = 0.0;
+    }
 }

@@ -13,6 +13,7 @@ use Inventory\Domain\UseCase\EnterInventory;
 use Inventory\Domain\UseCase\PrepareInventory;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
+use Inventory\Domain\UseCase\ValidInventory;
 use PHPUnit\Framework\Assert;
 
 /**
@@ -189,5 +190,30 @@ final class InventoryContext implements Context
         $gaps = $this->inventory->getGaps();
 
         Assert::assertSame($expectedGaps, $gaps);
+    }
+
+    /**
+     * @When I valid the inventory
+     */
+    public function iValidTheInventory():void
+    {
+        (new ValidInventory())->execute($this->inventory);
+    }
+
+    /**
+     * @Then the quantity of articles is updated
+     */
+    public function theQuantityOfArticlesIsUpdated(TableNode $table):void
+    {
+        $articles = new Articles();
+        foreach ($table as $item) {
+            $articles->add(Article::create(
+                $item['label'],
+                (float) $item['theoreticalStock'],
+                (float) $item['price']
+            ));
+        }
+
+        Assert::assertEquals($articles->toArray(), $this->inventory->articles()->toArray());
     }
 }
