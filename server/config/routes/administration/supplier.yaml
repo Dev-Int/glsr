@@ -1,0 +1,4 @@
+admin_suppliers_index:
+  path: /
+  controller: Administration\Infrastructure\Supplier\Controller\GetSuppliersController
+  methods: GET

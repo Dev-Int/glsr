@@ -20,6 +20,10 @@ services:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/User/Controller'
     tags: [ 'controller.service_arguments' ]
 
+  Administration\Infrastructure\Supplier\Controller\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Supplier/Controller'
+    tags: [ 'controller.service_arguments' ]
+
   Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
     lazy: true

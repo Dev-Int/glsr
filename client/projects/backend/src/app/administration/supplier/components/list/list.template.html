@@ -1,0 +1,18 @@
+<h1 class="card-header">Fournisseurs</h1>
+
+<div class="card-body" *ngIf="suppliers$|async; else noSuppliers">
+  <ul class="d-flex list-unstyled">
+    <li *ngFor="let supplier of suppliers$|async">
+      <h3>{{ supplier.name }}</h3>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noSuppliers>
+  <div class="card-body">
+    <p>Pour un bon fonctionnement de l'application, vous devez créer au moins un fournisseur.</p>
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-primary">Nouveau fournisseur</button>
+  </div>
+</ng-template>

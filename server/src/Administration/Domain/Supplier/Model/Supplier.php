@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Model;
 
-use Administration\Domain\Supplier\Model\VO\SupplierUuid;
 use Core\Domain\Common\Model\Contact;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
@@ -29,7 +29,7 @@ final class Supplier extends Contact
     private bool $active;
 
     public function __construct(
-        SupplierUuid $uuid,
+        ContactUuid $uuid,
         NameField $name,
         string $address,
         string $zipCode,
@@ -65,7 +65,7 @@ final class Supplier extends Contact
     }
 
     public static function create(
-        SupplierUuid $uuid,
+        ContactUuid $uuid,
         NameField $name,
         string $address,
         string $zipCode,
