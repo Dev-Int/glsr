@@ -74,6 +74,12 @@ security:
 config: server/.env.local docker-compose.override.yml dist-files .git/hooks/pre-commit ## Init files required
 	@echo 'Configuration files copied'
 
+bash-php: ## Open bash in php container
+	@$(EXEC) php bash
+
+bash-client: ## Open bash in client container
+	@$(EXEC) client bash
+
 
 ## —— DB ——————————————————————————————————————————————————————————————————————————
 
@@ -216,7 +222,7 @@ docker-compose.override.yml: docker-compose.override.yml.dist
 server/vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction
-dist-files: server/.php_cs.dist server/behat.yml.dist
+dist-files: server/.php_cs.dist
 	@echo "Coping .dist files"
 	@cp server/.php_cs.dist server/.php_cs
 client/node_modules: client/yarn.lock
