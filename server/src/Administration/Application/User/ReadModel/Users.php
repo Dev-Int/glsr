@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Application\User\ReadModel;
 
-final class Users
+use Administration\Application\Protocol\Collection\CollectionProtocol;
+
+final class Users implements CollectionProtocol
 {
     /**
      * @var User[]
