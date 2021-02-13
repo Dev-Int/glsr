@@ -29,7 +29,7 @@ class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderPr
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserDomainModel ::class);
+        parent::__construct($registry, UserDomainModel::class);
     }
 
     /**

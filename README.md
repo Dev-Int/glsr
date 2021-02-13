@@ -42,9 +42,14 @@ To restart in the right direction, I start by preparing my use cases, and adding
 - [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
 
 To follow the progress, visit the [use cases](https://github.com/Dev-Int/tests/labels/use%20case) page
-- Settings the application (back, front ✅)
 - Register a user (back, front ✅)
 - Authentication (back, front ✅)
+- Administration of the application (back, front ✅)
+  - company ✅
+  - settings ✅
+  - users ✅  
+  - suppliers ✅
+  - articles `in progress...`
 
 ## Licence
 
