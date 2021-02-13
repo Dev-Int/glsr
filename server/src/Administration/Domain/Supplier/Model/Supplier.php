@@ -141,9 +141,9 @@ final class Supplier extends Contact
         return $this->active;
     }
 
-    public function setActive(bool $active): void
+    public function delete(): void
     {
-        $this->active = $active;
+        $this->active = false;
     }
 
     public function getSlug(): string

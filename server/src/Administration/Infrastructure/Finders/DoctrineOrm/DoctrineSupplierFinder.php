@@ -66,6 +66,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
     public function findAllActive(): Suppliers
     {
         $statement = $this->createQueryBuilder('s')
+            ->where('s.active = 1')
             ->getQuery()
             ->getResult()
         ;

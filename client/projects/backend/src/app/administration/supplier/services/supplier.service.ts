@@ -54,4 +54,11 @@ export class SupplierService {
     );
   }
 
+  deleteSupplier(uuid: string): void {
+      this.http.delete(`/api/administration/suppliers/${uuid}`)
+        .subscribe(() => {
+          const suppliers = this.suppliers$.value;
+          this.suppliers$.next(suppliers.filter((supplier: Supplier) => supplier.uuid !== uuid));
+        });
+  }
 }
