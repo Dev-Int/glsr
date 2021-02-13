@@ -38,4 +38,20 @@ export class SupplierService {
       }),
     );
   }
+
+  editSupplier(uuid: string, data: Supplier): Observable<Supplier> {
+    return this.http.put<Supplier>(`/api/administration/suppliers/${uuid}`, data).pipe(
+      tap((supplierUpdated: Supplier) => {
+        const value = this.suppliers$.value;
+        this.suppliers$.next(value.map((supplier: Supplier) => {
+          if (supplier.uuid === supplierUpdated.uuid) {
+            return supplierUpdated;
+          } else {
+            return supplier;
+          }
+        }));
+      }),
+    );
+  }
+
 }

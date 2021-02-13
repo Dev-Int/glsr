@@ -15,6 +15,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Model\Supplier;
+use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
@@ -55,5 +56,24 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
     {
         $this->getEntityManager()->persist($supplier);
         $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOneByUuid(string $uuid): Supplier
+    {
+        $result = $this->createQueryBuilder('s')
+            ->where('s.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (null === $result) {
+            throw new SupplierNotFound();
+        }
+
+        return $result;
     }
 }

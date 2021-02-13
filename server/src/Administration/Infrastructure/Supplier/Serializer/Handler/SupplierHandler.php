@@ -44,7 +44,10 @@ class SupplierHandler implements SubscribingHandlerInterface
         $data = [
             'uuid' => $supplier->uuid(),
             'name' => $supplier->name(),
-            'fullAddress' => $supplier->fullAddress(),
+            'address' => $supplier->address(),
+            'zipCode' => $supplier->zipCode(),
+            'town' => $supplier->town(),
+            'country' => $supplier->country(),
             'phone' => $supplier->phone(),
             'facsimile' => $supplier->facsimile(),
             'email' => $supplier->email(),

@@ -2,7 +2,6 @@
 
 <div class="card-body">
   <form [formGroup]="form" (ngSubmit)="submit()">
-    {{ form.value|json }}
     <div class="form-group">
       <label for="name">Nom</label>
       <input id="name" type="text" class="form-control" formControlName="name">
@@ -123,11 +122,11 @@
         </div>
       </div>
       <div class="col-8">
-        <div class="form-group">
+        <div class="form-group" formArrayName="orderDays">
           <label class="d-block">Date(s) de commande</label>
-          <div class="form-check form-check-inline" *ngFor="let choice of daysControl; let index=index">
-            <input class="form-check-input" type="checkbox" [value]="choice.value" (change)="onOrderDaysChange($event)">
-            <label class="form-check-label">{{ choice.label }}</label>
+          <div class="form-check form-check-inline" *ngFor="let orderDay of orderDaysFormArray.controls; let index=index">
+            <input class="form-check-input" type="checkbox" [formControlName]="index">
+            <label class="form-check-label">{{ daysControl[index].label }}</label>
           </div>
           <ul *ngIf="formGroup.orderDays.invalid && (formGroup.orderDays.dirty || formGroup.orderDays.touched)" class="is-invalid list-unstyled">
             <li class="text-danger" *ngIf="formGroup.orderDays.errors?.required">Au moins une date de commande est obligatoire</li>

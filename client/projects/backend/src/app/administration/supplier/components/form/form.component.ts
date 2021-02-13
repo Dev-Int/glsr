@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
@@ -15,17 +15,20 @@ export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public supplier: Supplier;
   public daysControl: Array<any> = [
-    { label: 'Lundi', value: 1 },
-    { label: 'Mardi', value: 2 },
-    { label: 'Mercredi', value: 3 },
-    { label: 'Jeudi', value: 4 },
-    { label: 'Vendredi', value: 5 },
-    { label: 'Samedi', value: 6 },
+    { label: 'Lundi', value: '1' },
+    { label: 'Mardi', value: '2' },
+    { label: 'Mercredi', value: '3' },
+    { label: 'Jeudi', value: '4' },
+    { label: 'Vendredi', value: '5' },
+    { label: 'Samedi', value: '6' },
   ];
   private readonly subscription: Subscription = new Subscription();
 
   get formGroup(): {[p: string]: AbstractControl} {
     return this.form.controls;
+  }
+  get orderDaysFormArray(): FormArray {
+    return this.form.controls.orderDays as FormArray;
   }
 
   constructor(
@@ -35,37 +38,29 @@ export class FormComponent implements OnInit, OnDestroy {
     private service: SupplierService,
   ) {}
 
-  onOrderDaysChange(event): void {
-    const checkArray: FormArray = this.formGroup.orderDays as FormArray;
-    let iter = 0;
-    checkArray.controls.forEach((item: FormControl) => {
-      if (null === item.value) {
-        checkArray.removeAt(iter);
-        return;
-      }
-      iter++;
-    });
-
-    if (event.target.checked) {
-      checkArray.push(new FormControl(event.target.value));
-    } else {
-      let iter = 0;
-      checkArray.controls.forEach((item: FormControl) => {
-        if (item.value === event.target.value || null === item.value) {
-          checkArray.removeAt(iter);
-          return;
+  orderDaysFormGroup(data: Array<any>): void {
+    this.daysControl.forEach(control => {
+      let newControl = false;
+      data.forEach(datum => {
+        if (datum === control.value) {
+          newControl = true;
         }
-        iter++;
       });
-    }
+      this.orderDaysFormArray.push(this.fb.control(newControl));
+    });
   }
 
   submit(): void {
     if (this.form.invalid) {
       return;
     }
+
+    this.form.value.orderDays = this.form.value.orderDays
+      .map((checked, iter) => checked ? this.daysControl[iter].value : null)
+      .filter(value => value !== null);
+
     if (this.supplier) {
-      return;
+      this.subscription.add(this.service.editSupplier(this.supplier.uuid, this.form.value).subscribe());
     } else {
       this.subscription.add(this.service.addSupplier(this.form.value).subscribe());
     }
@@ -110,7 +105,7 @@ export class FormComponent implements OnInit, OnDestroy {
     cellphone: '',
     familyLog: '',
     delayDelivery: 0,
-    orderDays: null,
+    orderDays: [],
   }): void {
     this.form = this.fb.group({
       name: [supplier.name, Validators.required],
@@ -141,7 +136,9 @@ export class FormComponent implements OnInit, OnDestroy {
       ]],
       familyLog: [supplier.familyLog, Validators.required],
       delayDelivery: [supplier.delayDelivery, Validators.required],
-      orderDays: this.fb.array([supplier.orderDays], Validators.required),
+      orderDays: this.fb.array([], Validators.required),
     });
+
+    this.orderDaysFormGroup(supplier.orderDays);
   }
 }

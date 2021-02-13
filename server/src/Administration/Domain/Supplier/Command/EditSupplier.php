@@ -11,50 +11,50 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Application\Supplier\ReadModel;
+namespace Administration\Domain\Supplier\Command;
 
-use Core\Domain\Common\Model\VO\ContactAddress;
+use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\VO\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
+use Core\Domain\Protocol\Common\Command\CommandProtocol;
 
-final class Supplier
+class EditSupplier implements CommandProtocol
 {
-    private string $uuid;
-    private string $name;
+    private ContactUuid $uuid;
+    private NameField $name;
     private string $address;
     private string $zipCode;
     private string $town;
     private string $country;
-    private string $phone;
-    private string $facsimile;
-    private string $email;
+    private PhoneField $phone;
+    private PhoneField $facsimile;
+    private EmailField $email;
     private string $contact;
-    private string $cellphone;
-    private string $familyLog;
+    private PhoneField $cellPhone;
+    private FamilyLog $familyLog;
     private int $delayDelivery;
     private array $orderDays;
-    private string $slug;
-    private bool $active;
 
     public function __construct(
-        string $uuid,
-        string $name,
+        ContactUuid $uuid,
+        NameField $name,
         string $address,
         string $zipCode,
         string $town,
         string $country,
-        string $phone,
-        string $facsimile,
-        string $email,
+        PhoneField $phone,
+        PhoneField $facsimile,
+        EmailField $email,
         string $contact,
-        string $cellphone,
-        string $familyLog,
+        PhoneField $cellPhone,
+        FamilyLog $familyLog,
         int $delayDelivery,
-        array $orderDays,
-        string $slug,
-        bool $active = true
+        array $orderDays
     ) {
         $this->uuid = $uuid;
         $this->name = $name;
-        $this->slug = $slug;
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -63,19 +63,18 @@ final class Supplier
         $this->facsimile = $facsimile;
         $this->email = $email;
         $this->contact = $contact;
-        $this->cellphone = $cellphone;
+        $this->cellPhone = $cellPhone;
         $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
-        $this->active = $active;
     }
 
-    public function uuid(): string
+    public function uuid(): ContactUuid
     {
         return $this->uuid;
     }
 
-    public function name(): string
+    public function name(): NameField
     {
         return $this->name;
     }
@@ -100,22 +99,17 @@ final class Supplier
         return $this->country;
     }
 
-    public function fullAddress(): string
-    {
-        return ContactAddress::fromArray([$this->address, $this->zipCode, $this->town, $this->country])->getValue();
-    }
-
-    public function phone(): string
+    public function phone(): PhoneField
     {
         return $this->phone;
     }
 
-    public function facsimile(): string
+    public function facsimile(): PhoneField
     {
         return $this->facsimile;
     }
 
-    public function email(): string
+    public function email(): EmailField
     {
         return $this->email;
     }
@@ -125,12 +119,12 @@ final class Supplier
         return $this->contact;
     }
 
-    public function cellphone(): string
+    public function cellPhone(): PhoneField
     {
-        return $this->cellphone;
+        return $this->cellPhone;
     }
 
-    public function familyLog(): string
+    public function familyLog(): FamilyLog
     {
         return $this->familyLog;
     }
@@ -143,15 +137,5 @@ final class Supplier
     public function orderDays(): array
     {
         return $this->orderDays;
-    }
-
-    public function slug(): string
-    {
-        return $this->slug;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
     }
 }

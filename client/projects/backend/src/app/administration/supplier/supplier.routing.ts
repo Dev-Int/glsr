@@ -15,6 +15,11 @@ const routes: Routes = [
     data: {title: 'Nouveau fournisseur'},
     component: FormComponent,
   },
+  {
+    path: ':uuid/edit',
+    data: {title: 'Modifier un fournisseur'},
+    component: FormComponent,
+  },
 ];
 
 @NgModule({
