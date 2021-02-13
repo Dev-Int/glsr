@@ -17,13 +17,11 @@ use Administration\Domain\Supplier\Model\Supplier;
 
 interface SupplierRepositoryProtocol
 {
-    /**
-     * Save the Supplier object in the data storage.
-     */
-    public function save(Supplier $article): void;
+    public function existsWithName(string $name): bool;
 
-    /**
-     * Delete the Supplier object in the data storage.
-     */
-    public function remove(Supplier $article): void;
+    public function add(Supplier $supplier): void;
+
+    public function remove(Supplier $supplier): void;
+
+    public function findOneByUuid(string $uuid): Supplier;
 }

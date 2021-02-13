@@ -31,6 +31,7 @@ export class FormComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       return;
     }
+
     this.formGroup.password_confirm.disable();
     const roles = this.formGroup.roles.value;
     this.formGroup.roles.setValue([roles]);

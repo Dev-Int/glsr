@@ -9,3 +9,7 @@ admin_settings:
 admin_users:
   resource: user.yaml
   prefix: /users
+
+admin_suppliers:
+  resource: supplier.yaml
+  prefix: /suppliers

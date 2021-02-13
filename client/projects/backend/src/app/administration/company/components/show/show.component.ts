@@ -20,7 +20,7 @@ export class ShowComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.service.deleteCompany(uuid),
     );
-    this.router.navigate(['administration', 'companies']);
+    this.router.navigate(['administration', 'companies']).then();
   }
 
   ngOnInit(): void {

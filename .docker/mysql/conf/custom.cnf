@@ -1,2 +1,7 @@
 [mysqld]
 default-authentication-plugin=mysql_native_password
+
+innodb_large_prefix=true
+innodb_file_format=barracuda
+innodb_default_row_format=dynamic
+innodb_file_per_table=true

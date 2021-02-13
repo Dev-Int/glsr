@@ -11,20 +11,20 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Application\User\ReadModel;
+namespace Administration\Application\Supplier\ReadModel;
 
 use Administration\Application\Protocol\Collection\CollectionProtocol;
 
-final class Users implements CollectionProtocol
+final class Suppliers implements CollectionProtocol
 {
     /**
-     * @var User[]
+     * @var Supplier[]
      */
     private array $values;
 
-    public function __construct(User ...$users)
+    public function __construct(Supplier ...$suppliers)
     {
-        $this->values = $users;
+        $this->values = $suppliers;
     }
 
     public function getIterator(): \ArrayIterator

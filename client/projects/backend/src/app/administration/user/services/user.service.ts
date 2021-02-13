@@ -12,7 +12,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<Array<Profile>> {
-    return this.http.get('/api/administration/users')
+    return this.http.get<Array<Profile>>('/api/administration/users')
       .pipe(
         filter((users: Array<Profile>) => users !== null),
         tap((users: Array<Profile>) => {
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   editUser(uuid: string, data: Profile): Observable<Profile> {
-    return this.http.put(`/api/administration/users/${uuid}`, data).pipe(
+    return this.http.put<Profile>(`/api/administration/users/${uuid}`, data).pipe(
       tap((userUpdated: Profile) => {
         const value = this.users$.value;
         this.users$.next(value.map((user: Profile) => {

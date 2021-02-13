@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Model;
 
-use Administration\Domain\Supplier\Model\VO\SupplierUuid;
 use Core\Domain\Common\Model\Contact;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
@@ -23,13 +23,13 @@ use Core\Domain\Common\Model\VO\PhoneField;
 final class Supplier extends Contact
 {
     protected string $uuid;
-    private FamilyLog $familyLog;
+    private string $familyLog;
     private int $delayDelivery;
     private array $orderDays;
     private bool $active;
 
     public function __construct(
-        SupplierUuid $uuid,
+        ContactUuid $uuid,
         NameField $name,
         string $address,
         string $zipCode,
@@ -58,14 +58,14 @@ final class Supplier extends Contact
             $contact,
             $cellphone
         );
-        $this->familyLog = $familyLog;
+        $this->familyLog = $familyLog->path();
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
         $this->active = $active;
     }
 
     public static function create(
-        SupplierUuid $uuid,
+        ContactUuid $uuid,
         NameField $name,
         string $address,
         string $zipCode,
@@ -106,14 +106,14 @@ final class Supplier extends Contact
         $this->slug = $name->slugify();
     }
 
-    public function familyLog(): FamilyLog
+    public function familyLog(): string
     {
         return $this->familyLog;
     }
 
-    public function setFamilyLog(FamilyLog $familyLog): void
+    public function reassignFamilyLog(FamilyLog $familyLog): void
     {
-        $this->familyLog = $familyLog;
+        $this->familyLog = $familyLog->path();
     }
 
     public function delayDelivery(): int
@@ -121,17 +121,17 @@ final class Supplier extends Contact
         return $this->delayDelivery;
     }
 
-    public function setDelayDelivery(int $delayDelivery): void
+    public function changeDelayDelivery(int $delayDelivery): void
     {
         $this->delayDelivery = $delayDelivery;
     }
 
-    public function getOrderDays(): array
+    public function orderDays(): array
     {
         return $this->orderDays;
     }
 
-    public function setOrderDays(array $orderDays): void
+    public function reassignOrderDays(array $orderDays): void
     {
         $this->orderDays = $orderDays;
     }
@@ -141,9 +141,9 @@ final class Supplier extends Contact
         return $this->active;
     }
 
-    public function setActive(bool $active): void
+    public function delete(): void
     {
-        $this->active = $active;
+        $this->active = false;
     }
 
     public function getSlug(): string
