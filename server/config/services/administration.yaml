@@ -41,3 +41,8 @@ services:
     class: Administration\Infrastructure\Company\Serializer\Handler\CompanyHandler
     tags:
       - { name: jms_serializer.subscribing_handler }
+
+  serializer_handler.supplier:
+    class: Administration\Infrastructure\Supplier\Serializer\Handler\SupplierHandler
+    tags:
+      - { name: jms_serializer.subscribing_handler }

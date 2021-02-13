@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Application\Protocol\Finders;
 
+use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
-use Administration\Domain\Supplier\Model\Supplier as SupplierModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 
 interface SupplierFinderProtocol extends ServiceEntityRepositoryInterface

@@ -1,0 +1,145 @@
+<h1 class="card-header">Nouveau fournisseur</h1>
+
+<div class="card-body">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    {{ form.value|json }}
+    <div class="form-group">
+      <label for="name">Nom</label>
+      <input id="name" type="text" class="form-control" formControlName="name">
+      <ul *ngIf="formGroup.name.invalid && (formGroup.name.dirty || formGroup.name.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.name.errors?.required">Un nom est obligatoire</li>
+      </ul>
+    </div>
+    <div class="form-group">
+      <label for="address">Adresse</label>
+      <input id="address" type="text" class="form-control" formControlName="address">
+      <ul *ngIf="formGroup.address.invalid && (formGroup.address.dirty || formGroup.address.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.address.errors?.required">Une adresse est obligatoire</li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <label for="zipCode">Code postal</label>
+          <input id="zipCode" type="text" class="form-control" formControlName="zipCode">
+          <ul *ngIf="formGroup.zipCode.invalid && (formGroup.zipCode.dirty || formGroup.zipCode.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.zipCode.errors?.required">Un code postal est obligatoire</li>
+            <li class="text-danger" *ngIf="formGroup.zipCode.errors?.minlength">Un code postal doit avoir 5 caractères minimum</li>
+            <li class="text-danger" *ngIf="formGroup.zipCode.errors?.maxlength">Un code postal doit avoir 5 caractères maximum</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-5">
+        <div class="form-group">
+          <label for="town">Ville</label>
+          <input id="town" type="text" class="form-control" formControlName="town">
+          <ul *ngIf="formGroup.town.invalid && (formGroup.town.dirty || formGroup.town.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.town.errors?.required">Une ville est obligatoire</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group">
+          <label for="country">Pays</label>
+          <input id="country" type="text" class="form-control" formControlName="country">
+          <ul *ngIf="formGroup.country.invalid && (formGroup.country.dirty || formGroup.country.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.country.errors?.required">Un pays est obligatoire</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="phone">Téléphone</label>
+          <input id="phone" type="text" class="form-control" formControlName="phone">
+          <ul *ngIf="formGroup.phone.invalid && (formGroup.phone.dirty || formGroup.phone.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.phone.errors?.required">Un numéro de téléphone est obligatoire</li>
+            <li class="text-danger" *ngIf="formGroup.phone.errors?.minlength">Un numéro doit avoir 10 chiffres minimum</li>
+            <li class="text-danger" *ngIf="formGroup.phone.errors?.maxlength">Un numéro doit avoir 10 chiffres maximum</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="facsimile">Fax</label>
+          <input id="facsimile" type="text" class="form-control" formControlName="facsimile">
+          <ul *ngIf="formGroup.facsimile.invalid && (formGroup.facsimile.dirty || formGroup.facsimile.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.facsimile.errors?.required">Un numéro de fax est obligatoire</li>
+            <li class="text-danger" *ngIf="formGroup.facsimile.errors?.minlength">Un numéro doit avoir 10 chiffres minimum</li>
+            <li class="text-danger" *ngIf="formGroup.facsimile.errors?.maxlength">Un numéro doit avoir 10 chiffres maximum</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Courriel</label>
+      <input id="email" type="email" class="form-control" formControlName="email">
+        <ul *ngIf="formGroup.email.invalid && (formGroup.email.dirty || formGroup.email.touched)" class="is-invalid list-unstyled">
+          <li class="text-danger" *ngIf="formGroup.email.errors?.required">Une adresse mail est obligatoire</li>
+        </ul>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="contact">Nom du contact</label>
+          <input id="contact" type="text" class="form-control" formControlName="contact">
+          <ul *ngIf="formGroup.contact.invalid && (formGroup.contact.dirty || formGroup.contact.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.contact.errors?.required">Un nom de contact est obligatoire</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="cellphone">Mobile</label>
+          <input id="cellphone" type="text" class="form-control" formControlName="cellphone">
+            <ul *ngIf="formGroup.cellphone.invalid && (formGroup.cellphone.dirty || formGroup.cellphone.touched)" class="is-invalid list-unstyled">
+              <li class="text-danger" *ngIf="formGroup.cellphone.errors?.required">Un numéro de mobile est obligatoire</li>
+              <li class="text-danger" *ngIf="formGroup.cellphone.errors?.minlength">Un numéro doit avoir 10 chiffres minimum</li>
+              <li class="text-danger" *ngIf="formGroup.cellphone.errors?.maxlength">Un numéro doit avoir 10 chiffres maximum</li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="familyLog">Famille logistique</label>
+      <select id="familyLog" class="form-control" formControlName="familyLog">
+        <option value="surgele">Surgelé</option>
+        <option value="frais">Frais</option>
+        <option value="sec">Sec</option>
+      </select>
+      <ul *ngIf="formGroup.familyLog.invalid && (formGroup.familyLog.dirty || formGroup.familyLog.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.familyLog.errors?.required">Une famille logistique est obligatoire</li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="form-group">
+          <label for="delayDelivery">Délai de livraison (jour)</label>
+          <input id="delayDelivery" type="number" class="form-control" formControlName="delayDelivery">
+          <ul *ngIf="formGroup.delayDelivery.invalid && (formGroup.delayDelivery.dirty || formGroup.delayDelivery.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.delayDelivery.errors?.required">Un délai de livraison est obligatoire</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="form-group">
+          <label class="d-block">Date(s) de commande</label>
+          <div class="form-check form-check-inline" *ngFor="let choice of daysControl; let index=index">
+            <input class="form-check-input" type="checkbox" [value]="choice.value" (change)="onOrderDaysChange($event)">
+            <label class="form-check-label">{{ choice.label }}</label>
+          </div>
+          <ul *ngIf="formGroup.orderDays.invalid && (formGroup.orderDays.dirty || formGroup.orderDays.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.orderDays.errors?.required">Au moins une date de commande est obligatoire</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" [routerLink]="['/administration','suppliers']" class="btn btn-outline-info"><i class="fa fa-chevron-left"></i>&nbsp;Annuler</button>
+      <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
+      <button type="submit" class="btn btn-primary">{{ supplier ? "Modifier" : "Ajouter" }}</button>
+    </div>
+  </form>
+</div>

@@ -2,3 +2,8 @@ admin_suppliers_index:
   path: /
   controller: Administration\Infrastructure\Supplier\Controller\GetSuppliersController
   methods: GET
+
+admin_suppliers_post:
+  path: /
+  controller: Administration\Infrastructure\Supplier\Controller\PostSuppliersController
+  methods: POST

@@ -1,10 +1,11 @@
 export interface Supplier {
-  uuid: string;
+  uuid?: string;
   name: string;
-  address: string;
-  zipCode: string;
-  town: string;
-  country: string;
+  address?: string;
+  zipCode?: string;
+  town?: string;
+  country?: string;
+  fullAddress?: string;
   phone: string;
   facsimile: string;
   email: string;
@@ -13,5 +14,6 @@ export interface Supplier {
   familyLog: string;
   delayDelivery: number;
   orderDays: Array<number>;
-  active: boolean;
+  slug?: string;
+  active?: boolean;
 }

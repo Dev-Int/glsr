@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { Supplier } from '../../../../../../common/model/supplier.model';
 
@@ -19,5 +19,23 @@ export class SupplierService {
           this.suppliers$.next(suppliers);
         }),
       );
+  }
+
+  getSupplier(uuid: string): Observable<Supplier> {
+    return this.suppliers$.pipe(
+      filter((suppliers: Array<Supplier>) => suppliers !== null),
+      map((suppliers: Array<Supplier>) => {
+        return suppliers[suppliers.findIndex((supplier: Supplier) => supplier.uuid === uuid)];
+      }),
+    );
+  }
+
+  addSupplier(data: Supplier): Observable<Supplier> {
+    return this.http.post<Supplier>('/api/administration/suppliers/', data).pipe(
+      tap((supplierAdded: Supplier) => {
+        const value = this.suppliers$.value;
+        this.suppliers$.next([...value, supplierAdded]);
+      }),
+    );
   }
 }

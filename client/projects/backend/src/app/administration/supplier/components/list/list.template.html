@@ -1,18 +1,33 @@
-<h1 class="card-header">Fournisseurs</h1>
+<h1 class="card-header d-flex justify-content-between align-self-start">
+  Fournisseurs
+  <button routerLink="new" class="btn btn-sm btn-primary">Nouveau fournisseur</button>
+</h1>
 
 <div class="card-body" *ngIf="suppliers$|async; else noSuppliers">
-  <ul class="d-flex list-unstyled">
-    <li *ngFor="let supplier of suppliers$|async">
-      <h3>{{ supplier.name }}</h3>
-    </li>
-  </ul>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Famille logistique</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let supplier of suppliers$|async">
+        <td>{{ supplier.name }}</td>
+        <td>{{ supplier.familyLog }}</td>
+        <td>
+          <div class="btn-group">
+            <button routerLink="{{ supplier.uuid }}/edit" class="btn btn-sm btn-primary">Modifier</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <ng-template #noSuppliers>
   <div class="card-body">
     <p>Pour un bon fonctionnement de l'application, vous devez créer au moins un fournisseur.</p>
-  </div>
-  <div class="card-footer">
-    <button class="btn btn-primary">Nouveau fournisseur</button>
   </div>
 </ng-template>

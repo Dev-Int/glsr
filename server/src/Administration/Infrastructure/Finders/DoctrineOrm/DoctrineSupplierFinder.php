@@ -14,9 +14,10 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Finders\DoctrineOrm;
 
 use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
+use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
-use Administration\Domain\Supplier\Model\Supplier as SupplierModel;
-use Administration\Domain\Supplier\Model\VO\SupplierUuid;
+use Administration\Domain\Supplier\Model\Supplier;
+use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
@@ -28,7 +29,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SupplierModel::class);
+        parent::__construct($registry, Supplier::class);
     }
 
     /**
@@ -44,7 +45,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
         ;
 
         return new SupplierModel(
-            SupplierUuid::fromString($result->getUuid()),
+            ContactUuid::fromString($result->getUuid()),
             NameField::fromString($result->getName()),
             $result->getAddress(),
             $result->getZipCode(),
@@ -57,7 +58,8 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
             PhoneField::fromString($result->getCellphone()),
             $result->getFamilyLog(),
             $result->getDelayDelivery(),
-            $result->getOrderDay()
+            $result->getOrderDay(),
+            $result->getSlug()
         );
     }
 
@@ -69,7 +71,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
         ;
 
         return new Suppliers(
-            ...\array_map(static function (SupplierModel $supplier) {
+            ...\array_map(static function (Supplier $supplier) {
                 return new SupplierModel(
                     $supplier->uuid(),
                     $supplier->name(),
@@ -84,7 +86,8 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
                     $supplier->cellphone(),
                     $supplier->familyLog(),
                     $supplier->delayDelivery(),
-                    $supplier->orderDays()
+                    $supplier->orderDays(),
+                    $supplier->getSlug()
                 );
             }, $statement)
         );
