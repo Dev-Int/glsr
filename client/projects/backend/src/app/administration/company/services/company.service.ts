@@ -16,9 +16,9 @@ export class CompanyService {
       .pipe(
         filter((companies: Array<Company>) => companies !== null),
         tap((companies: Array<Company>) => {
-        this.companies$.next(companies);
-      }),
-    );
+          this.companies$.next(companies);
+        }),
+      );
   }
 
   getCompany(uuid: string): Observable<Company> {
@@ -33,14 +33,14 @@ export class CompanyService {
   addCompany(data: Company): Observable<Company> {
     return this.http.post<Company>('/api/administration/companies/', data).pipe(
       tap((companyAdded: Company) => {
-          const value = this.companies$.value;
-          this.companies$.next([...value, companyAdded]);
+        const value = this.companies$.value;
+        this.companies$.next([...value, companyAdded]);
       }),
     );
   }
 
   editCompany(uuid: string, data: Company): Observable<Company> {
-    return this.http.put(`/api/administration/companies/${uuid}`, data).pipe(
+    return this.http.put<Company>(`/api/administration/companies/${uuid}`, data).pipe(
       tap((companyUpdated: Company) => {
         const value = this.companies$.value;
         this.companies$.next(value.map((company: Company) => {

@@ -28,13 +28,17 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   submit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
     if (this.company) {
       this.subscription.add(this.service.editCompany(this.company.uuid, this.form.value).subscribe());
     } else {
       this.subscription.add(this.service.addCompany(this.form.value).subscribe());
     }
-    // @Todo: when redirect ShowComponent.users$ does not update
-    this.router.navigate(['administration', 'companies']);
+
+    this.router.navigate(['administration', 'companies']).then();
   }
 
   reset(): void {
