@@ -79,7 +79,7 @@ class EditSupplierHandler implements CommandHandlerProtocol
             $supplier->changeDelayDelivery($command->delayDelivery());
         }
         if ($supplier->orderDays() !== $command->orderDays()) {
-            $supplier->reaffectOrderDays($command->orderDays());
+            $supplier->reassignOrderDays($command->orderDays());
         }
 
         return $supplier;

@@ -131,7 +131,7 @@ final class Supplier extends Contact
         return $this->orderDays;
     }
 
-    public function reaffectOrderDays(array $orderDays): void
+    public function reassignOrderDays(array $orderDays): void
     {
         $this->orderDays = $orderDays;
     }
