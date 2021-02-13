@@ -30,7 +30,8 @@ class DeleteSupplierControllerTest extends AbstractControllerTest
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             Request::METHOD_DELETE,
-            '/api/administration/suppliers/a136c6fe-8f6e-45ed-91bc-586374791033');
+            '/api/administration/suppliers/a136c6fe-8f6e-45ed-91bc-586374791033'
+        );
 
         // Act
         $response = $adminClient->getResponse();
