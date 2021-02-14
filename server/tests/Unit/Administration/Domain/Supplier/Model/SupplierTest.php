@@ -13,9 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Domain\Supplier\Model;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Administration\Domain\Supplier\Model\Supplier;
 use Administration\Domain\Supplier\Model\VO\SupplierUuid;
-use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
@@ -38,7 +39,10 @@ class SupplierTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            FamilyLog::create(NameField::fromString('Surgelé')),
+            FamilyLog::create(
+                FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
+                NameField::fromString('Surgelé')
+            ),
             3,
             [1, 3]
         );
@@ -57,7 +61,10 @@ class SupplierTest extends TestCase
                 EmailField::fromString('contact@davigel.fr'),
                 'David',
                 PhoneField::fromString('+33600000001'),
-                FamilyLog::create(NameField::fromString('Surgelé')),
+                FamilyLog::create(
+                    FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
+                    NameField::fromString('Surgelé')
+                ),
                 3,
                 [1, 3]
             ),
@@ -80,7 +87,10 @@ class SupplierTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            FamilyLog::create(NameField::fromString('Surgelé')),
+            FamilyLog::create(
+                FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
+                NameField::fromString('Surgelé')
+            ),
             3,
             [1, 3]
         );
@@ -102,7 +112,10 @@ class SupplierTest extends TestCase
                 EmailField::fromString('contact@davigel.fr'),
                 'David',
                 PhoneField::fromString('+33600000001'),
-                FamilyLog::create(NameField::fromString('Surgelé')),
+                FamilyLog::create(
+                    FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
+                    NameField::fromString('Surgelé')
+                ),
                 3,
                 [1, 3]
             ),

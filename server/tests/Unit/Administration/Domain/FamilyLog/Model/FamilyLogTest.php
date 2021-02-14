@@ -11,9 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Core\Domain\Common\Model\Dependent;
+namespace Unit\Tests\Administration\Domain\FamilyLog\Model;
 
-use Core\Domain\Common\Model\Dependent\FamilyLog;
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Core\Domain\Common\Model\VO\NameField;
 use PHPUnit\Framework\TestCase;
 
@@ -23,10 +24,15 @@ class FamilyLogTest extends TestCase
     {
         // Arrange & Act
         $surgele = FamilyLog::create(
+            FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Surgelé'),
-            FamilyLog::create(NameField::fromString('Alimentaire'))
+            FamilyLog::create(
+                FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                NameField::fromString('Alimentaire')
+            )
         );
         $familyLog = FamilyLog::create(
+            FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
             NameField::fromString('Viande'),
             $surgele
         );
@@ -34,10 +40,13 @@ class FamilyLogTest extends TestCase
         // Assert
         self::assertEquals(
             new FamilyLog(
+                FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
                 FamilyLog::create(
+                    FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                     NameField::fromString('Surgelé'),
                     FamilyLog::create(
+                        FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
                         NameField::fromString('Alimentaire')
                     )
                 )
@@ -51,17 +60,21 @@ class FamilyLogTest extends TestCase
     {
         // Arrange
         $alimentaire = FamilyLog::create(
+            FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
             NameField::fromString('Alimentaire')
         );
         $surgele = FamilyLog::create(
+            FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Surgelé'),
             $alimentaire
         );
         FamilyLog::create(
+            FamilyLogUuid::fromString('d425a8fb-5d42-4cc7-a540-2005360e36c2'),
             NameField::fromString('Frais'),
             $alimentaire
         );
         FamilyLog::create(
+            FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
             NameField::fromString('Viande'),
             $surgele
         );

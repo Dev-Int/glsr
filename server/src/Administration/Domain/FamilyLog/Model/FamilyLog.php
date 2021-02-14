@@ -11,12 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Core\Domain\Common\Model\Dependent;
+namespace Administration\Domain\FamilyLog\Model;
 
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Core\Domain\Common\Model\VO\NameField;
 
 final class FamilyLog
 {
+    private string $uuid;
     private string $name;
     private ?FamilyLog $parent = null;
     /**
@@ -26,8 +28,9 @@ final class FamilyLog
     private string $slug;
     private string $path;
 
-    public function __construct(NameField $name, ?self $parent = null)
+    public function __construct(FamilyLogUuid $uuid, NameField $name, ?self $parent = null)
     {
+        $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
         $this->path = $name->slugify();
         $this->slug = $name->slugify();
@@ -41,14 +44,29 @@ final class FamilyLog
         }
     }
 
-    public static function create(NameField $name, ?self $parent = null): self
+    public static function create(FamilyLogUuid $uuid, NameField $name, ?self $parent = null): self
     {
-        return new self($name, $parent);
+        return new self($uuid, $name, $parent);
+    }
+
+    public function uuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function name(): string
+    {
+        return $this->name;
     }
 
     public function parent(): ?self
     {
         return $this->parent;
+    }
+
+    public function children(): ?array
+    {
+        return $this->children;
     }
 
     public function path(): string

@@ -17,9 +17,10 @@ use Administration\Domain\Article\Model\Article;
 use Administration\Domain\Article\Model\Dependent\ZoneStorage;
 use Administration\Domain\Article\Model\VO\ArticleUuid;
 use Administration\Domain\Article\Model\VO\Packaging;
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Administration\Domain\Supplier\Model\Supplier;
 use Administration\Domain\Supplier\Model\VO\SupplierUuid;
-use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\Dependent\Taxes;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
@@ -41,8 +42,12 @@ class ArticleTest extends TestCase
             8.8,
             [$this->getZoneStorage()],
             FamilyLog::create(
+                FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
-                FamilyLog::create(NameField::fromString('Frais'))
+                FamilyLog::create(
+                    FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                    NameField::fromString('Frais')
+                )
             )
         );
 
@@ -58,8 +63,12 @@ class ArticleTest extends TestCase
                 8.8,
                 [$this->getZoneStorage()],
                 FamilyLog::create(
+                    FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                     NameField::fromString('Viande'),
-                    FamilyLog::create(NameField::fromString('Frais'))
+                    FamilyLog::create(
+                        FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                        NameField::fromString('Frais')
+                    )
                 )
             ),
             $article
@@ -79,8 +88,12 @@ class ArticleTest extends TestCase
             8.8,
             [$this->getZoneStorage()],
             FamilyLog::create(
+                FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
-                FamilyLog::create(NameField::fromString('Frais'))
+                FamilyLog::create(
+                    FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                    NameField::fromString('Frais')
+                )
             )
         );
 
@@ -99,8 +112,12 @@ class ArticleTest extends TestCase
                 8.8,
                 [$this->getZoneStorage()],
                 FamilyLog::create(
+                    FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                     NameField::fromString('Viande'),
-                    FamilyLog::create(NameField::fromString('Frais'))
+                    FamilyLog::create(
+                        FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                        NameField::fromString('Frais')
+                    )
                 )
             ),
             $article
@@ -126,7 +143,10 @@ class ArticleTest extends TestCase
             EmailField::fromString('contact@davigel.fr'),
             'David',
             PhoneField::fromString('+33600000001'),
-            FamilyLog::create(NameField::fromString('Frais')),
+            FamilyLog::create(
+                FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
+                NameField::fromString('Frais')
+            ),
             3,
             [1, 3]
         );

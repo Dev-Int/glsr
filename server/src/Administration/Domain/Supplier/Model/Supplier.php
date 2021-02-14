@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Model;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog;
 use Core\Domain\Common\Model\Contact;
-use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
