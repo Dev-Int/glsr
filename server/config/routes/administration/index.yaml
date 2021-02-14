@@ -13,3 +13,7 @@ admin_users:
 admin_suppliers:
   resource: supplier.yaml
   prefix: /suppliers
+
+admin_familylogs:
+  resource: familylog.yaml
+  prefix: /familylogs

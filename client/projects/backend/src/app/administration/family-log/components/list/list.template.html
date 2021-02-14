@@ -1,0 +1,33 @@
+<h1 class="card-header d-flex justify-content-between align-self-start">
+  Familles logistiques
+  <button routerLink="new" class="btn btn-sm btn-primary">Nouvelle famille</button>
+</h1>
+
+<div class="card-body" *ngIf="familyLogs$|async; else noFamilyLog">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Intitulé</th>
+        <th>Chemin</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let familyLog of familyLogs$|async">
+      <td>{{ familyLog.name }}</td>
+      <td>{{ familyLog.path }}</td>
+      <td>
+        <div class="btn-group">
+          <button routerLink="{{ familyLog.uuid }}/edit" class="btn btn-sm btn-primary">Modifier</button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noFamilyLog>
+  <div class="card-body">
+    <p>Pour un bon fonctionnement de l'application, vous devez créer au moins une famille logistique.</p>
+  </div>
+</ng-template>

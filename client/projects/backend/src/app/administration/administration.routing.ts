@@ -34,6 +34,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./supplier/supplier.module').then(m => m.SupplierModule),
       },
+      {
+        path: 'familylogs',
+        data: {title: 'Familles logistiques'},
+        loadChildren: () => import('./family-log/family-log.module').then(m => m.FamilyLogModule),
+      },
     ],
   },
 ];

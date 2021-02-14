@@ -24,6 +24,10 @@ services:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Supplier/Controller'
     tags: [ 'controller.service_arguments' ]
 
+  Administration\Infrastructure\FamilyLog\Controller\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/FamilyLog/Controller'
+    tags: [ 'controller.service_arguments' ]
+
   Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
     lazy: true

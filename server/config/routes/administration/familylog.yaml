@@ -1,0 +1,4 @@
+admin_familylogs_index:
+  path: /
+  controller: Administration\Infrastructure\FamilyLog\Controller\GetFamilyLogsController
+  methods: GET

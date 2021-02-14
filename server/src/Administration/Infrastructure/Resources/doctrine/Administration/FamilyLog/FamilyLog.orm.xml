@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="Administration\Domain\FamilyLog\Model\FamilyLog"
+            table="family_log"
+            repository-class="Administration\Infrastructure\Finders\DoctrineOrm\DoctrineFamilyLogFinder">
+        <id name="uuid" column="uuid" type="guid">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="name" type="string" length="150" nullable="false"/>
+        <field name="parent" type="string" nullable="true"/>
+        <field name="path" type="string" nullable="false"/>
+        <field name="slug" type="string" nullable="false"/>
+    </entity>
+</doctrine-mapping>
