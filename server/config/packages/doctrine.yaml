@@ -23,16 +23,6 @@ doctrine:
         dir: '%kernel.project_dir%/src/Core/Infrastructure/Resources/doctrine/User'
         prefix: 'Core\Domain\Model'
 
-#      Administration\Domain\Settings\Model:
-#        is_bundle: false
-#        type: xml
-#        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Settings'
-#        prefix: 'Administration\Domain\Settings\Model'
-#      Administration\Domain\Supplier\Model\Supplier:
-#        is_bundle: false
-#        type: xml
-#        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Supplier'
-#        prefix: 'Administration\Domain\Supplier\Model'
 
 #      Administration\Domain\Article\Model\Article:
 #        is_bundle: false
