@@ -34,6 +34,7 @@ class DoctrineFamilyLogRepository extends ServiceEntityRepository implements Fam
     public function add(FamilyLog $familyLog): void
     {
         $this->getEntityManager()->persist($familyLog);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -72,7 +73,9 @@ class DoctrineFamilyLogRepository extends ServiceEntityRepository implements Fam
 
         if (null !== $parentUuid) {
             $parent = $this->findByUuid($parentUuid);
-            $resultParent = \in_array($label, $parent->children(), true);
+            if (null !== $parent->children()) {
+                $resultParent = \in_array($label, $parent->children(), true);
+            }
         }
 
         return null === $result && false === $resultParent;

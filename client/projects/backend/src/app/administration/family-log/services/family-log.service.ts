@@ -12,7 +12,7 @@ export class FamilyLogService {
   constructor(private http: HttpClient) {}
 
   getFamilyLogs(): Observable<Array<FamilyLog>> {
-    return this.http.get<Array<FamilyLog>>('/api/administration/familylogs')
+    return this.http.get<Array<FamilyLog>>('/api/administration/family-logs')
       .pipe(
         filter((familyLogs: Array<FamilyLog>) => familyLogs !== null),
         tap((familyLogs: Array<FamilyLog>) => {
@@ -31,7 +31,7 @@ export class FamilyLogService {
   }
 
   addFamilyLog(data: FamilyLog): Observable<FamilyLog> {
-    return this.http.post<FamilyLog>('/api/administration/familylogs/', data).pipe(
+    return this.http.post<FamilyLog>('/api/administration/family-logs/', data).pipe(
       tap((familyLogAdded: FamilyLog) => {
         const value = this.familyLogs$.value;
         this.familyLogs$.next([...value, familyLogAdded]);

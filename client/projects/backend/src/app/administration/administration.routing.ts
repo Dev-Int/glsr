@@ -35,7 +35,7 @@ const routes: Routes = [
         loadChildren: () => import('./supplier/supplier.module').then(m => m.SupplierModule),
       },
       {
-        path: 'familylogs',
+        path: 'family-logs',
         data: {title: 'Familles logistiques'},
         loadChildren: () => import('./family-log/family-log.module').then(m => m.FamilyLogModule),
       },

@@ -16,4 +16,4 @@ admin_suppliers:
 
 admin_familylogs:
   resource: familylog.yaml
-  prefix: /familylogs
+  prefix: /family-logs
