@@ -2,3 +2,8 @@ admin_familylogs_index:
   path: /
   controller: Administration\Infrastructure\FamilyLog\Controller\GetFamilyLogsController
   methods: GET
+
+admin_familylogs_post:
+  path: /
+  controller: Administration\Infrastructure\FamilyLog\Controller\PostFamilyLogController
+  methods: POST

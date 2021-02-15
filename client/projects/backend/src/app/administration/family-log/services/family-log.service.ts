@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 import { FamilyLog } from '../../../../../../common/model/family-log.model';
 
@@ -19,5 +19,23 @@ export class FamilyLogService {
           this.familyLogs$.next(familyLogs);
         }),
       );
+  }
+
+  getFamilyLog(uuid: string): Observable<FamilyLog> {
+    return this.familyLogs$.pipe(
+      filter((familyLogs: Array<FamilyLog>) => familyLogs !== null),
+      map((familyLogs: Array<FamilyLog>) => {
+        return familyLogs[familyLogs.findIndex((familyLog: FamilyLog) => familyLog.uuid === uuid)];
+      }),
+    );
+  }
+
+  addFamilyLog(data: FamilyLog): Observable<FamilyLog> {
+    return this.http.post<FamilyLog>('/api/administration/familylogs/', data).pipe(
+      tap((familyLogAdded: FamilyLog) => {
+        const value = this.familyLogs$.value;
+        this.familyLogs$.next([...value, familyLogAdded]);
+      }),
+    );
   }
 }

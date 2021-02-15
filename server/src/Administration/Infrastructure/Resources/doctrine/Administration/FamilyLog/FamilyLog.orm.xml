@@ -9,7 +9,7 @@
         <id name="uuid" column="uuid" type="guid">
             <generator strategy="NONE"/>
         </id>
-        <field name="name" type="string" length="150" nullable="false"/>
+        <field name="label" type="string" length="150" nullable="false"/>
         <field name="parent" type="string" nullable="true"/>
         <field name="path" type="string" nullable="false"/>
         <field name="slug" type="string" nullable="false"/>

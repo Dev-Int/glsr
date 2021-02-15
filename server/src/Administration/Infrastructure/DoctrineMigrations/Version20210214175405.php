@@ -32,7 +32,7 @@ final class Version20210214175405 extends AbstractMigration
         $this->addSql(
             'CREATE TABLE family_log (' .
             'uuid CHAR(36) NOT NULL COMMENT \'(DC2Type:guid)\', ' .
-            'name VARCHAR(150) NOT NULL, ' .
+            'label VARCHAR(150) NOT NULL, ' .
             'parent VARCHAR(255) DEFAULT NULL, ' .
             'path VARCHAR(255) NOT NULL, ' .
             'slug VARCHAR(255) NOT NULL, PRIMARY KEY(uuid)' .

@@ -4,6 +4,7 @@ import localeFr from '@angular/common/locales/fr';
 import { DEFAULT_CURRENCY_CODE, ErrorHandler, LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { environment } from '../../../common/environment/environment';
 import { ENVIRONMENT } from '../../../common/environment/environment.config';
@@ -26,6 +27,7 @@ registerLocaleData(localeFr, 'fr');
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
 
     SharedModule,
     AppRouting,

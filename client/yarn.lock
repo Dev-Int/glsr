@@ -1141,6 +1141,13 @@
   dependencies:
     tslib "^2.0.0"
 
+"@ng-select/ng-select@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-6.1.0.tgz#c0575d963a1871dcf72d38186598c7c71d26dd49"
+  integrity sha512-uro/zIjL+TRWzbrzNN9IjIusOeLfhCn9cIr5Bq3AsJyxyU7Gdj9kOD5wVrrQ0NVkaQ1BJMcWmUvmYGBXLI6cnA==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ngtools/webpack@11.0.5":
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-11.0.5.tgz#9d1abb9f9a5e72c014b5ed3e0c2cefe2a4175b30"

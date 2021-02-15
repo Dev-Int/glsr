@@ -19,7 +19,7 @@ use Core\Domain\Common\Model\VO\NameField;
 final class FamilyLog
 {
     private string $uuid;
-    private string $name;
+    private string $label;
     private ?FamilyLog $parent = null;
     /**
      * @var FamilyLog[]|null
@@ -28,18 +28,18 @@ final class FamilyLog
     private string $slug;
     private string $path;
 
-    public function __construct(FamilyLogUuid $uuid, NameField $name, ?self $parent = null)
+    public function __construct(FamilyLogUuid $uuid, NameField $label, ?self $parent = null)
     {
         $this->uuid = $uuid->toString();
-        $this->name = $name->getValue();
-        $this->path = $name->slugify();
-        $this->slug = $name->slugify();
+        $this->label = $label->getValue();
+        $this->path = $label->slugify();
+        $this->slug = $label->slugify();
         if (null !== $parent) {
             $this->parent = $parent;
             $this->parent->addChild($this);
-            $this->path = $parent->slug() . ':' . $name->slugify();
+            $this->path = $parent->slug() . ':' . $label->slugify();
             if (null !== $this->parent->parent) {
-                $this->path = $this->parent->parent->slug() . ':' . $this->parent->slug() . ':' . $name->slugify();
+                $this->path = $this->parent->parent->slug() . ':' . $this->parent->slug() . ':' . $label->slugify();
             }
         }
     }
@@ -54,9 +54,9 @@ final class FamilyLog
         return $this->uuid;
     }
 
-    public function name(): string
+    public function label(): string
     {
-        return $this->name;
+        return $this->label;
     }
 
     public function parent(): ?self
@@ -83,25 +83,25 @@ final class FamilyLog
     {
         $arrayChildren = [];
         if (null === $this->children) {
-            return [$this->name => $arrayChildren];
+            return [$this->label => $arrayChildren];
         }
 
         foreach ($this->children as $child) {
             if (null !== $this->hasChildren($child)) {
-                $arrayChildren[$child->name] = $this->hasChildren($child);
+                $arrayChildren[$child->label] = $this->hasChildren($child);
             } else {
-                $arrayChildren[] = $child->name;
+                $arrayChildren[] = $child->label;
             }
         }
 
-        return [$this->name => $arrayChildren];
+        return [$this->label => $arrayChildren];
     }
 
     private function hasChildren(self $familyLog): ?array
     {
         if (null !== $familyLog->children) {
             return \array_map(static function (self $child) {
-                return $child->name;
+                return $child->label;
             }, $familyLog->children);
         }
 

@@ -1,7 +1,7 @@
 export interface FamilyLog {
   uuid?: string;
-  name: string;
+  label: string;
   parent?: string;
-  path: string;
+  path?: string;
   children?: Array<string>;
 }
