@@ -34,6 +34,6 @@ class DeleteCompanyHandler implements CommandHandlerProtocol
             throw new \DomainException('Company provided does not exist !');
         }
 
-        $this->repository->remove($companyToDelete);
+        $this->repository->delete($command->uuid());
     }
 }

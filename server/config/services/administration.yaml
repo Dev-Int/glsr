@@ -28,19 +28,14 @@ services:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Repositories/*'
     lazy: true
 
-  Administration\Infrastructure\Finders\DoctrineOrm\:
-    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Finders/DoctrineOrm/*'
+  Administration\Infrastructure\Finders\Doctrine\:
+    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Finders/Doctrine/*'
     lazy: true
 
   Administration\Infrastructure\:
     lazy: true
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/*'
     exclude: '%kernel.project_dir%/src/Administration/Infrastructure/{DoctrineMigrations,Kernel.php,**/Controller}'
-
-  serializer_handler.company:
-    class: Administration\Infrastructure\Company\Serializer\Handler\CompanyHandler
-    tags:
-      - { name: jms_serializer.subscribing_handler }
 
   serializer_handler.supplier:
     class: Administration\Infrastructure\Supplier\Serializer\Handler\SupplierHandler

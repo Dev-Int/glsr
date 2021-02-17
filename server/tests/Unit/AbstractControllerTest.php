@@ -13,22 +13,20 @@ declare(strict_types=1);
 
 namespace Unit\Tests;
 
-use Administration\Infrastructure\DataFixtures\UserFixtures;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Unit\Tests\Fixtures\FixturesProtocol;
+use Unit\Tests\Fixtures\UserFixtures;
 
 class AbstractControllerTest extends WebTestCase
 {
     protected KernelBrowser $client;
-    protected EntityManagerInterface $manager;
-    protected ORMExecutor $executor;
+    protected Connection $connection;
     protected UserPasswordEncoderInterface $passwordEncoder;
     private string $projectDir;
 
@@ -41,37 +39,33 @@ class AbstractControllerTest extends WebTestCase
 
         // Configure variables
         $this->projectDir = self::$kernel->getProjectDir();
-        $this->manager = self::$container->get('doctrine.orm.entity_manager');
+        $this->connection = self::$container->get('doctrine.dbal.default_connection');
         $this->passwordEncoder = self::$container->get('security.password_encoder');
-        $this->executor = new ORMExecutor($this->manager, new ORMPurger());
 
-        // Run the schema update tool using entity metadata
-        $schemaTool = new SchemaTool($this->manager);
-        $schemaTool->updateSchema($this->manager->getMetadataFactory()->getAllMetadata());
+        // Run the schema update tool
+        $this->deleteDatabase();
+        $this->createDatabase();
+        $this->updateSchema();
     }
 
-    final protected function tearDown(): void
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    final public function loadFixtures(array $fixtures): void
     {
-        (new SchemaTool($this->manager))->dropDatabase();
-        \unlink($this->projectDir . '/var/cache/test/test.db');
-    }
-
-    final public function loadFixture(array $fixture): void
-    {
-        $loader = new Loader();
-        $loader->addFixture(new UserFixtures($this->passwordEncoder));
-        if ([] !== $fixture) {
-            foreach ($fixture as $item) {
-                $loader->addFixture($item);
+        (new UserFixtures($this->passwordEncoder))->load($this->connection);
+        foreach ($fixtures as $fixture) {
+            if ($fixture instanceof FixturesProtocol) {
+                $fixture->load($this->connection);
             }
         }
-        $this->executor->execute($loader->getFixtures());
     }
 
     /**
      * @throws \JsonException
      */
-    protected function createAdminClient(): KernelBrowser
+    public function createAdminClient(): KernelBrowser
     {
         return $this->createAuthenticatedClient('Laurent', 'password');
     }
@@ -120,6 +114,70 @@ class AbstractControllerTest extends WebTestCase
                 null !== $decode && false !== $decode,
                 'is response valid json: [' . $response->getContent() . ']'
             );
+        }
+    }
+
+    private function createDatabase(): void
+    {
+        $process = new Process(
+            [
+                'php',
+                'bin/console',
+                'doctrine:database:create',
+                '--env=test',
+            ],
+            \dirname(__DIR__, 2)
+        );
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            \var_dump($process->getErrorOutput());
+
+            exit(\var_dump($process));
+        }
+    }
+
+    private function updateSchema(): void
+    {
+        $process = new Process(
+            [
+                'php',
+                'bin/console',
+                'dbal:schema:update',
+                '--force',
+                '--env=test',
+            ],
+            \dirname(__DIR__, 2)
+        );
+
+        $process->run();
+        if (!$process->isSuccessful()) {
+            \var_dump($process->getErrorOutput());
+
+            exit(\var_dump($process));
+        }
+    }
+
+    private function deleteDatabase(): void
+    {
+        $process = new Process(
+            [
+                'php',
+                'bin/console',
+                'doctrine:database:drop',
+                '--force',
+                '--env=test',
+            ],
+            \dirname(__DIR__, 2)
+        );
+
+        $process->run();
+
+        if (!$process->isSuccessful()) {
+            \var_dump($process->getErrorOutput());
+
+            exit(\var_dump($process));
         }
     }
 }

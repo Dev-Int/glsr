@@ -33,3 +33,11 @@ services:
     lazy: true
     resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
     exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,Migrations,Kernel.php}'
+
+  DbalSchema\SchemaDefinition:
+    alias: Administration\Infrastructure\Resources\doctrine\GlsrDefinition
+  DbalSchema\DbalSchemaProvider:
+  # Register the commands:
+  DbalSchema\DbalSchemaCommand:
+  DbalSchema\Command\UpdateCommand:
+  DbalSchema\Command\PurgeCommand:

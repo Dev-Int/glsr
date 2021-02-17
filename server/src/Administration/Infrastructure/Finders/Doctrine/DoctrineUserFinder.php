@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Infrastructure\Finders\DoctrineOrm;
+namespace Administration\Infrastructure\Finders\Doctrine;
 
 use Administration\Application\Protocol\Finders\UserFinderProtocol;
 use Administration\Application\User\ReadModel\User as UserReadModel;
@@ -21,39 +21,41 @@ use Administration\Infrastructure\Finders\Exceptions\UserNotFound;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Model\User as UserDomainModel;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderProtocol
+class DoctrineUserFinder implements UserFinderProtocol
 {
-    public function __construct(ManagerRegistry $registry)
+    private Connection $connection;
+
+    public function __construct(Connection $connection)
     {
-        parent::__construct($registry, UserDomainModel::class);
+        $this->connection = $connection;
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Driver\Exception
      */
     public function findOneByUsername(string $username): UserDomainModel
     {
-        $result = $this->createQueryBuilder('u')
-            ->where('u.username = :username')
-            ->setParameter('username', $username)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = <<<'SQL'
+SELECT * FROM user
+WHERE username = :username
+SQL;
+        $result = $this->connection->executeQuery($query, ['username' => $username])->fetchOne();
 
         if (null === $result) {
             throw new UserNotFound();
         }
 
         return new UserDomainModel(
-            UserUuid::fromString($result->getUuid()),
-            NameField::fromString($result->getUsername()),
-            EmailField::fromString($result->getEmail()),
-            $result->getPassword(),
-            $result->getRoles()
+            UserUuid::fromString($result['uuid']),
+            NameField::fromString($result['username']),
+            EmailField::fromString($result['email']),
+            $result['password'],
+            $result['roles']
         );
     }
 
@@ -62,6 +64,7 @@ class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderPr
      */
     final public function findOneByUuid(string $uuid): UserDomainModel
     {
+        $query =
         $result = $this->createQueryBuilder('u')
             ->where('u.uuid = :uuid')
             ->setParameter('uuid', $uuid)

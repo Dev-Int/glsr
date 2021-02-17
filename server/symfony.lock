@@ -120,26 +120,6 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.1"
     },
-    "jms/metadata": {
-        "version": "2.4.0"
-    },
-    "jms/serializer": {
-        "version": "3.11.0"
-    },
-    "jms/serializer-bundle": {
-        "version": "3.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
-        },
-        "files": [
-            "config/packages/dev/jms_serializer.yaml",
-            "config/packages/jms_serializer.yaml",
-            "config/packages/prod/jms_serializer.yaml"
-        ]
-    },
     "laminas/laminas-code": {
         "version": "3.5.1"
     },
@@ -167,6 +147,9 @@
             "config/packages/lexik_jwt_authentication.yaml"
         ]
     },
+    "mnapoli/dbal-schema": {
+        "version": "1.1.0"
+    },
     "monolog/monolog": {
         "version": "2.2.0"
     },
@@ -184,9 +167,6 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "1.4.0"
-    },
-    "phpstan/phpdoc-parser": {
-        "version": "0.4.10"
     },
     "phpstan/phpstan": {
         "version": "0.12.63"

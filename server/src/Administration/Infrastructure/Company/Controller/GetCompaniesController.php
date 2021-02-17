@@ -13,17 +13,22 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use JMS\Serializer\SerializerInterface;
+use Administration\Infrastructure\Finders\Doctrine\DoctrineCompanyFinder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GetCompaniesController extends AbstractController
 {
-    public function __invoke(ManagerRegistry $registry, SerializerInterface $serializer): Response
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function __invoke(Connection $connection, SerializerInterface $serializer): Response
     {
-        $data = (new DoctrineCompanyRepository($registry))->findAll();
+        $data = (new DoctrineCompanyFinder($connection))->findAll()->toArray();
 
         if ([] !== $data) {
             $companies = $serializer->serialize($data, 'json');

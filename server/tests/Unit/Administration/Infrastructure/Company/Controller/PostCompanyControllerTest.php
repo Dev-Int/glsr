@@ -13,31 +13,34 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\DataFixtures\CompanyFixtures;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\CompanyFixtures;
 
 class PostCompanyControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      */
     final public function testPostCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $content = [
             'name' => 'Dev-Int Création',
             'address' => '1, rue des ERP',
             'zipCode' => '75000',
             'town' => 'PARIS',
             'country' => 'France',
-            'phone' => '+33100000001',
-            'facsimile' => '+33100000002',
+            'phone' => '0100000001',
+            'facsimile' => '0100000002',
             'email' => 'contact@developpement-interessant.com',
-            'contact' => 'Laurent',
-            'cellphone' => '+33600000002',
+            'contact' => 'Laurence',
+            'cellphone' => '0600000002',
         ];
         $adminClient = $this->createAdminClient();
         $adminClient->request(
@@ -58,12 +61,14 @@ class PostCompanyControllerTest extends AbstractControllerTest
     }
 
     /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      */
     final public function testPostCompanyAlreadyExist(): void
     {
         // Arrange
-        $this->loadFixture([new CompanyFixtures()]);
+        $this->loadFixtures([new CompanyFixtures()]);
         $content = [
             'name' => 'Dev-Int Création',
             'address' => '1, rue des ERP',

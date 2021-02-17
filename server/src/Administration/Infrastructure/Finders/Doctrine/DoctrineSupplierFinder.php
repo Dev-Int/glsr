@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Administration\Infrastructure\Finders\DoctrineOrm;
+namespace Administration\Infrastructure\Finders\Doctrine;
 
 use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
 use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;

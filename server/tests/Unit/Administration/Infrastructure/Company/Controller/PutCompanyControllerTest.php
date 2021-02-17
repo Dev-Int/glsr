@@ -13,20 +13,23 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\DataFixtures\CompanyFixtures;
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\CompanyFixtures;
 
 class PutCompanyControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws Exception
      * @throws \JsonException
      */
     final public function testPutCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture([new CompanyFixtures()]);
+        $this->loadFixtures([new CompanyFixtures()]);
         $content = [
             'name' => 'Dev-Int Création',
             'address' => '2 rue des ERP',

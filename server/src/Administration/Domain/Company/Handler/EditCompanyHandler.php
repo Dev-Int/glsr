@@ -17,6 +17,7 @@ use Administration\Domain\Company\Command\EditCompany;
 use Administration\Domain\Company\Model\Company;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Doctrine\DBAL\Driver\Exception;
 
 final class EditCompanyHandler implements CommandHandlerProtocol
 {
@@ -27,6 +28,10 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         $this->repository = $repository;
     }
 
+    /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function __invoke(EditCompany $command): void
     {
         $companyToUpdate = $this->repository->findOneByUuid($command->uuid());
@@ -36,7 +41,7 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         }
         $company = $this->updateCompany($command, $companyToUpdate);
 
-        $this->repository->add($company);
+        $this->repository->update($company);
     }
 
     public function updateCompany(EditCompany $command, Company $company): Company

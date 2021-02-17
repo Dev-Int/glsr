@@ -12,6 +12,6 @@
         <field name="username" type="string" length="150" nullable="false"/>
         <field name="email" type="string" length="255" nullable="false"/>
         <field name="password" type="string" length="120" nullable="false"/>
-        <field name="roles" type="array" nullable="false"/>
+        <field name="roles" type="simple_array" nullable="false"/>
     </entity>
 </doctrine-mapping>

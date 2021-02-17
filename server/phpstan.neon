@@ -8,6 +8,6 @@ parameters:
         - tests/Unit/DatabaseHelper.php
         - tests/Unit/AbstractControllerTest.php
     bootstrapFiles:
-        - bin/.phpunit/phpunit-8.5-0/vendor/autoload.php
+        - bin/.phpunit/phpunit-9.5-0/vendor/autoload.php
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false

@@ -21,7 +21,7 @@ interface CompanyRepositoryProtocol
 
     public function add(Company $company): void;
 
-    public function remove(Company $company): void;
+    public function delete(string $uuid): void;
 
     public function findOneByUuid(string $uuid): ?Company;
 
