@@ -13,18 +13,20 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 
 class DeleteUserControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      * @throws \JsonException
      */
     final public function testDeleteUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             'DELETE',

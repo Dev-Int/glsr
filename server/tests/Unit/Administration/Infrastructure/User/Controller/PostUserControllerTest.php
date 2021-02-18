@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
@@ -20,12 +21,13 @@ use Unit\Tests\AbstractControllerTest;
 class PostUserControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Exception|Exception
      * @throws \JsonException
      */
     final public function testPostUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $content = [
             'username' => 'Daniel',
             'email' => 'daniel@example.com',

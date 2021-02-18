@@ -13,17 +13,21 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Controller;
 
-use Administration\Infrastructure\Finders\DoctrineOrm\DoctrineUserFinder;
-use Doctrine\Persistence\ManagerRegistry;
-use JMS\Serializer\SerializerInterface;
+use Administration\Infrastructure\Finders\Doctrine\DoctrineUserFinder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GetUsersController extends AbstractController
 {
-    public function __invoke(ManagerRegistry $registry, SerializerInterface $serializer): Response
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     */
+    public function __invoke(Connection $connection, SerializerInterface $serializer): Response
     {
-        $data = (new DoctrineUserFinder($registry))->findAllUsers()->toArray();
+        $data = (new DoctrineUserFinder($connection))->findAllUsers()->toArray();
 
         if ([] !== $data) {
             $users = $serializer->serialize($data, 'json');

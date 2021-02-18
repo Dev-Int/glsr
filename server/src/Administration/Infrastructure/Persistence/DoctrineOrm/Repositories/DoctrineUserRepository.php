@@ -15,80 +15,121 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Model\User;
-use Core\Domain\Model\User as UserSymfony;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
+use Administration\Domain\User\Model\VO\UserUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 
-class DoctrineUserRepository extends ServiceEntityRepository implements UserRepositoryProtocol
+class DoctrineUserRepository implements UserRepositoryProtocol
 {
-    public function __construct(ManagerRegistry $registry)
+    protected Connection $connection;
+
+    public function __construct(Connection $connection)
     {
-        parent::__construct($registry, UserSymfony::class);
+        $this->connection = $connection;
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function add(User $user): void
     {
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
+        $data = $this->getData($user);
+
+        $statement = $this->connection->prepare(
+            'INSERT INTO user
+(uuid, username, email, password, roles) VALUES (:uuid, :username, :email, :password, :roles)'
+        );
+        $statement->execute($data);
     }
 
     /**
-     * @throws ORMException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
-    final public function remove(User $user): void
+    final public function update(User $user): void
     {
-        $this->getEntityManager()->remove($user);
+        $data = $this->getData($user);
+
+        $statement = $this->connection->prepare(
+            'UPDATE user SET
+uuid = :uuid, username = :username, email = :email, password = :password, roles = :roles
+WHERE uuid = :uuid'
+        );
+        $statement->execute($data);
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
-    final public function findOneByUuid(string $uuid): ?UserSymfony
+    final public function delete(string $uuid): void
     {
-        return $this->createQueryBuilder('u')
-            ->where('u.uuid = :uuid')
-            ->setParameter('uuid', $uuid)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $statement = $this->connection->prepare('DELETE FROM user WHERE uuid = :uuid');
+        $statement->bindParam('uuid', $uuid);
+        $statement->execute();
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     */
+    final public function findOneByUuid(string $uuid): ?User
+    {
+        $query = <<<'SQL'
+SELECT
+    user.uuid as uuid,
+    user.username as username,
+    user.email as email,
+    user.roles as roles
+FROM user
+WHERE uuid = :uuid
+SQL;
+        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+
+        return User::create(
+            UserUuid::fromString($uuid),
+            NameField::fromString($result['username']),
+            EmailField::fromString($result['email']),
+            '',
+            \explode(',', $result['roles'])
+        );
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function existWithUsername(string $username): bool
     {
-        $statement = $this->createQueryBuilder('u')
-            ->select(['1'])
-            ->where('u.username = :username')
-            ->setParameter('username', $username)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = <<<'SQL'
+SELECT username FROM user
+WHERE username = :username
+SQL;
+        $statement = $this->connection->executeQuery($query, ['username' => $username])->fetchAssociative();
 
-        return !(null === $statement);
+        return false !== $statement;
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function existWithEmail(string $email): bool
     {
-        $statement = $this->createQueryBuilder('u')
-            ->select(['1'])
-            ->where('u.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = <<<'SQL'
+SELECT email FROM user
+WHERE email = :email
+SQL;
+        $statement = $this->connection->executeQuery($query, ['email' => $email])->fetchAssociative();
 
-        return !(null === $statement);
+        return false !== $statement;
+    }
+
+    private function getData(User $user): array
+    {
+        return [
+            'uuid' => $user->uuid()->toString(),
+            'username' => $user->username(),
+            'email' => $user->email()->getValue(),
+            'password' => $user->password(),
+            'roles' => \implode(',', $user->roles()),
+        ];
     }
 }

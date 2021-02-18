@@ -8,11 +8,11 @@ const routes: Routes = [
     path: '',
     component: AdministrationComponent,
     children: [
-      // {
-      //   path: 'users',
-      //   data: {title: 'Utilisateurs'},
-      //   loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-      // },
+      {
+        path: 'users',
+        data: {title: 'Utilisateurs'},
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+      },
       {
         path: 'companies',
         data: {title: 'Établissement'},

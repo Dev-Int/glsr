@@ -25,8 +25,8 @@ final class User
         string $uuid,
         string $username,
         string $email,
-        ?string $password = null,
-        array $roles = []
+        array $roles,
+        ?string $password = null
     ) {
         $this->uuid = $uuid;
         $this->username = $username;

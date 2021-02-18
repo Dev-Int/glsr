@@ -26,7 +26,7 @@ class PutSupplierControllerTest extends AbstractControllerTest
     final public function testPutSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([new SupplierFixtures()]);
+        $this->loadFixtures([new SupplierFixtures()]);
         $content = [
             'name' => 'Davigel',
             'address' => '1, rue des freezes',

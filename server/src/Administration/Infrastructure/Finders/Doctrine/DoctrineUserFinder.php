@@ -16,14 +16,9 @@ namespace Administration\Infrastructure\Finders\Doctrine;
 use Administration\Application\Protocol\Finders\UserFinderProtocol;
 use Administration\Application\User\ReadModel\User as UserReadModel;
 use Administration\Application\User\ReadModel\Users;
-use Administration\Domain\User\Model\VO\UserUuid;
 use Administration\Infrastructure\Finders\Exceptions\UserNotFound;
-use Core\Domain\Common\Model\VO\EmailField;
-use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Model\User as UserDomainModel;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Doctrine\ORM\NonUniqueResultException;
 
 class DoctrineUserFinder implements UserFinderProtocol
 {
@@ -38,70 +33,86 @@ class DoctrineUserFinder implements UserFinderProtocol
      * @throws Exception
      * @throws \Doctrine\DBAL\Driver\Exception
      */
-    public function findOneByUsername(string $username): UserDomainModel
+    public function findOneByUsername(string $username): UserReadModel
     {
         $query = <<<'SQL'
-SELECT * FROM user
+SELECT
+    user.uuid as uuid,
+    user.username as username,
+    user.email as email,
+    user.roles as roles
+FROM user
 WHERE username = :username
 SQL;
-        $result = $this->connection->executeQuery($query, ['username' => $username])->fetchOne();
+        $result = $this->connection->executeQuery($query, ['username' => $username])->fetchAssociative();
 
-        if (null === $result) {
+        if (false === $result) {
             throw new UserNotFound();
         }
 
-        return new UserDomainModel(
-            UserUuid::fromString($result['uuid']),
-            NameField::fromString($result['username']),
-            EmailField::fromString($result['email']),
-            $result['password'],
-            $result['roles']
+        return new UserReadModel(
+            $result['uuid'],
+            $result['username'],
+            $result['email'],
+            \explode(',', $result['roles']),
+            null,
         );
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
-    final public function findOneByUuid(string $uuid): UserDomainModel
+    final public function findOneByUuid(string $uuid): UserReadModel
     {
-        $query =
-        $result = $this->createQueryBuilder('u')
-            ->where('u.uuid = :uuid')
-            ->setParameter('uuid', $uuid)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = <<<'SQL'
+SELECT
+    user.uuid as uuid,
+    user.username as username,
+    user.email as email,
+    user.roles as roles
+FROM user
+WHERE uuid = :uuid
+SQL;
+        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
 
-        if (null === $result) {
+        if (false === $result) {
             throw new UserNotFound();
         }
 
-        return new UserDomainModel(
-            UserUuid::fromString($result->getUuid()),
-            NameField::fromString($result->getUsername()),
-            EmailField::fromString($result->getEmail()),
-            $result->getPassword(),
-            $result->getRoles()
+        return new UserReadModel(
+            $result['uuid'],
+            $result['username'],
+            $result['email'],
+            \explode(',', $result['roles']),
+            null,
         );
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     */
     final public function findAllUsers(): Users
     {
-        $statement = $this->createQueryBuilder('u')
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = <<<'SQL'
+SELECT
+    user.uuid as uuid,
+    user.username as username,
+    user.email as email,
+    user.roles as roles
+FROM user
+SQL;
+        $result = $this->connection->executeQuery($query)->fetchAllAssociative();
 
         return new Users(
-            ...\array_map(static function (UserDomainModel $user) {
+            ...\array_map(static function (array $user) {
                 return new UserReadModel(
-                    $user->getUuid(),
-                    $user->getUsername(),
-                    $user->getEmail(),
-                    $user->getPassword(),
-                    $user->getRoles()
+                    $user['uuid'],
+                    $user['username'],
+                    $user['email'],
+                    \explode(',', $user['roles']),
+                    null,
                 );
-            }, $statement)
+            }, $result)
         );
     }
 }

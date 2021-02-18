@@ -19,7 +19,9 @@ interface UserRepositoryProtocol
 {
     public function add(User $user): void;
 
-    public function remove(User $user): void;
+    public function update(User $user): void;
+
+    public function delete(string $uuid): void;
 
     public function existWithUsername(string $username): bool;
 

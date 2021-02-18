@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Administration\Application\Protocol\Finders;
 
+use Administration\Application\User\ReadModel\User as UserReadModel;
 use Administration\Application\User\ReadModel\Users;
-use Core\Domain\Model\User as UserCoreModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 
 interface UserFinderProtocol extends ServiceEntityRepositoryInterface
 {
-    public function findOneByUsername(string $username): UserCoreModel;
+    public function findOneByUsername(string $username): UserReadModel;
 
-    public function findOneByUuid(string $uuid): UserCoreModel;
+    public function findOneByUuid(string $uuid): UserReadModel;
 
     public function findAllUsers(): Users;
 }
