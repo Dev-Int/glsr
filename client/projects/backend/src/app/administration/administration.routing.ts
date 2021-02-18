@@ -18,11 +18,11 @@ const routes: Routes = [
         data: {title: 'Établissement'},
         loadChildren: () => import('./company/company.module').then(m => m.CompanyModule),
       },
-      // {
-      //   path: 'settings',
-      //   data: {title: 'Configuration'},
-      //   loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
-      // },
+      {
+        path: 'settings',
+        data: {title: 'Configuration'},
+        loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
+      },
       // {
       //   path: 'suppliers',
       //   data: {title: 'Fournisseurs'},

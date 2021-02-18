@@ -13,20 +13,22 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Settings\Controller;
 
-use Administration\Infrastructure\DataFixtures\SettingsFixtures;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\SettingsFixtures;
 
 class PostSettingsControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Exception|Exception
      * @throws \JsonException
      */
     final public function testPostSettingsSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $content = [
             'currency' => 'Euro',
             'locale' => 'Fr',
@@ -55,7 +57,7 @@ class PostSettingsControllerTest extends AbstractControllerTest
     final public function testPostSettingsAlreadyExist(): void
     {
         // Arrange
-        $this->loadFixture([new SettingsFixtures()]);
+        $this->loadFixtures([new SettingsFixtures()]);
         $content = [
             'currency' => 'Euro',
             'locale' => 'Fr',

@@ -13,134 +13,94 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
-use Administration\Application\Settings\ReadModel\Settings as SettingsReadModel;
 use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
 use Administration\Domain\Settings\Model\Settings;
 use Administration\Domain\Settings\Model\VO\Currency;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
-use Doctrine\Persistence\ManagerRegistry;
+use Administration\Domain\Settings\Model\VO\Locale;
+use Administration\Domain\Settings\Model\VO\SettingsUuid;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 
-class DoctrineSettingsRepository extends ServiceEntityRepository implements SettingsRepositoryProtocol
+class DoctrineSettingsRepository implements SettingsRepositoryProtocol
 {
-    public function __construct(ManagerRegistry $registry)
+    protected Connection $connection;
+
+    public function __construct(Connection $connection)
     {
-        parent::__construct($registry, Settings::class);
+        $this->connection = $connection;
     }
 
     /**
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function add(Settings $settings): void
     {
-        $this->getEntityManager()->persist($settings);
-        $this->getEntityManager()->flush();
+        $data = $this->getData($settings);
+
+        $statement = $this->connection->prepare(
+            'INSERT INTO settings
+(uuid, currency, locale) VALUES (:uuid, :currency, :locale)'
+        );
+        $statement->execute($data);
     }
 
     /**
-     * @throws ORMException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
-    final public function remove(Settings $settings): void
+    final public function update(Settings $settings): void
     {
-        $this->getEntityManager()->remove($settings);
+        $data = $this->getData($settings);
+
+        $statement = $this->connection->prepare(
+            'UPDATE settings SET
+uuid = :uuid, currency = :currency, locale = :locale
+WHERE uuid = :uuid'
+        );
+        $statement->execute($data);
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function findOneByUuid(string $uuid): ?Settings
     {
-        return $this->createQueryBuilder('ds')
-            ->where('ds.uuid = :uuid')
-            ->setParameter('uuid', $uuid)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
+        $query = <<<'SQL'
+SELECT
+    settings.uuid as uuid,
+    settings.currency as currency,
+    settings.locale as locale
+FROM settings
+WHERE uuid = :uuid
+SQL;
+        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+
+        return Settings::create(
+            SettingsUuid::fromString($result['uuid']),
+            Locale::fromString($result['locale']),
+            Currency::fromString($result['currency'])
+        );
     }
 
     /**
-     * @throws NonUniqueResultException
-     */
-    final public function findByLocale(string $locale): ?SettingsReadModel
-    {
-        $statement = $this->createQueryBuilder('ds')
-            ->where('ds.locale = :locale')
-            ->setParameter('locale', $locale)
-            ->getQuery()
-            ->getOneOrNullResult()
-            ;
-        if (null !== $statement) {
-            \assert($statement instanceof Settings);
-
-            return $this->createSettings($statement);
-        }
-
-        return null;
-    }
-
-    /**
-     * @throws NonUniqueResultException
-     */
-    final public function findByCurrency(string $currency): ?SettingsReadModel
-    {
-        $statement = $this->createQueryBuilder('ds')
-            ->where('ds.currency = :currency')
-            ->setParameter('currency', $currency)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-        if (null !== $statement) {
-            \assert($statement instanceof Settings);
-
-            return $this->createSettings($statement);
-        }
-
-        return null;
-    }
-
-    /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     final public function settingsExist(): bool
     {
-        $statement = $this->createQueryBuilder('ds')
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = <<<'SQL'
+SELECT uuid FROM settings
+SQL;
 
-        return null !== $statement;
+        $statement = $this->connection->executeQuery($query)->fetchAssociative();
+
+        return false !== $statement;
     }
 
-    /**
-     * @throws NonUniqueResultException
-     */
-    final public function findOne(): ?SettingsReadModel
+    private function getData(Settings $settings): array
     {
-        $statement = $this->createQueryBuilder('ds')
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-        if (null !== $statement) {
-            \assert($statement instanceof Settings);
-
-            return $this->createSettings($statement);
-        }
-
-        return null;
-    }
-
-    private function createSettings(Settings $statement): SettingsReadModel
-    {
-        $symbol = Currency::fromString($statement->currency());
-
-        return new SettingsReadModel(
-            $statement->currency(),
-            $statement->locale(),
-            $symbol->symbol(),
-            $statement->uuid()
-        );
+        return [
+            'uuid' => $settings->uuid(),
+            'locale' => $settings->locale(),
+            'currency' => $settings->currency(),
+        ];
     }
 }

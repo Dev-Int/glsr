@@ -15,9 +15,9 @@ namespace Administration\Infrastructure\Settings\Controller;
 
 use Administration\Infrastructure\Settings\Query\GetSettings;
 use Core\Infrastructure\Common\MessengerQueryBus;
-use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GetSettingsController extends AbstractController
 {
