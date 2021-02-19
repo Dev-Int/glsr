@@ -44,8 +44,9 @@ class SupplierFixtures implements FixturesProtocol
 
         $statement = $connection->prepare(
             'INSERT INTO supplier
-(uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, family_log, delay_delivery, order_days, slug, active)
-VALUES (:uuid, :name, :address, :zip_code, :town, :country, :phone, :facsimile, :email, :contact_name, :cellphone, :family_log, :delay_delivery, :order_days, :slug, :active)'
+(uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, family_log,
+ delay_delivery, order_days, slug, active) VALUES (:uuid, :name, :address, :zip_code, :town, :country, :phone,
+:facsimile, :email, :contact_name, :cellphone, :family_log, :delay_delivery, :order_days, :slug, :active)'
         );
         $statement->execute($supplier);
     }

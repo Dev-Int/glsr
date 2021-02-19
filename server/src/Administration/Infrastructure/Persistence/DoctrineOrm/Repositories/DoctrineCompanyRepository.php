@@ -57,7 +57,8 @@ SQL;
         $statement = $this->connection->prepare(
             'INSERT INTO company
 (uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, slug)
-VALUES (:uuid, :name, :address, :zip_code, :town, :country, :phone, :facsimile, :email, :contact_name, :cellphone, :slug)'
+VALUES
+(:uuid, :name, :address, :zip_code, :town, :country, :phone, :facsimile, :email, :contact_name, :cellphone, :slug)'
         );
         $statement->execute($data);
     }
