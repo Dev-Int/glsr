@@ -81,7 +81,7 @@ class GlsrDefinition implements SchemaDefinition
         $supplierTable->addColumn('cellphone', 'string', ['length' => 12]);
         $supplierTable->addColumn('family_log', 'string');
         $supplierTable->addColumn('delay_delivery', 'integer');
-        $supplierTable->addColumn('order_days', 'string');
+        $supplierTable->addColumn('order_days', 'simple_array');
         $supplierTable->addColumn('slug', 'string');
         $supplierTable->addColumn('active', 'smallint', ['length' => 1]);
         $supplierTable->setPrimaryKey(['uuid']);

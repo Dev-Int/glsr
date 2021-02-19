@@ -13,26 +13,24 @@ declare(strict_types=1);
 
 namespace Administration\Application\Supplier\ReadModel;
 
-use Core\Domain\Common\Model\VO\ContactAddress;
-
 final class Supplier
 {
-    private string $uuid;
-    private string $name;
-    private string $address;
-    private string $zipCode;
-    private string $town;
-    private string $country;
-    private string $phone;
-    private string $facsimile;
-    private string $email;
-    private string $contact;
-    private string $cellphone;
-    private string $familyLog;
-    private int $delayDelivery;
-    private array $orderDays;
-    private string $slug;
-    private bool $active;
+    public string $uuid;
+    public string $name;
+    public string $address;
+    public string $zipCode;
+    public string $town;
+    public string $country;
+    public string $phone;
+    public string $facsimile;
+    public string $email;
+    public string $contact;
+    public string $cellphone;
+    public string $familyLog;
+    public int $delayDelivery;
+    public array $orderDays;
+    public string $slug;
+    public bool $active;
 
     public function __construct(
         string $uuid,
@@ -68,90 +66,5 @@ final class Supplier
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
         $this->active = $active;
-    }
-
-    public function uuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function name(): string
-    {
-        return $this->name;
-    }
-
-    public function address(): string
-    {
-        return $this->address;
-    }
-
-    public function zipCode(): string
-    {
-        return $this->zipCode;
-    }
-
-    public function town(): string
-    {
-        return $this->town;
-    }
-
-    public function country(): string
-    {
-        return $this->country;
-    }
-
-    public function fullAddress(): string
-    {
-        return ContactAddress::fromArray([$this->address, $this->zipCode, $this->town, $this->country])->getValue();
-    }
-
-    public function phone(): string
-    {
-        return $this->phone;
-    }
-
-    public function facsimile(): string
-    {
-        return $this->facsimile;
-    }
-
-    public function email(): string
-    {
-        return $this->email;
-    }
-
-    public function contact(): string
-    {
-        return $this->contact;
-    }
-
-    public function cellphone(): string
-    {
-        return $this->cellphone;
-    }
-
-    public function familyLog(): string
-    {
-        return $this->familyLog;
-    }
-
-    public function delayDelivery(): int
-    {
-        return $this->delayDelivery;
-    }
-
-    public function orderDays(): array
-    {
-        return $this->orderDays;
-    }
-
-    public function slug(): string
-    {
-        return $this->slug;
-    }
-
-    public function isActive(): bool
-    {
-        return $this->active;
     }
 }

@@ -37,7 +37,7 @@ class EditSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->updateSupplier($command, $supplierToUpdate);
 
-        $this->repository->add($supplier);
+        $this->repository->update($supplier);
     }
 
     private function updateSupplier(EditSupplier $command, Supplier $supplier): Supplier

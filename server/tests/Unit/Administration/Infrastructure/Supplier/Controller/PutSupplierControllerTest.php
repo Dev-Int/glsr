@@ -13,14 +13,16 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 
-use Administration\Infrastructure\DataFixtures\SupplierFixtures;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\SupplierFixtures;
 
 class PutSupplierControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Exception|Exception
      * @throws \JsonException
      */
     final public function testPutSupplierSuccess(): void
@@ -38,7 +40,7 @@ class PutSupplierControllerTest extends AbstractControllerTest
             'email' => 'contact@davigel.fr',
             'contact' => 'David',
             'cellphone' => '0600000002',
-            'familyLog' => 'Surgelé',
+            'familyLog' => 'Frais',
             'delayDelivery' => 3,
             'orderDays' => [2, 4],
         ];

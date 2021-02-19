@@ -21,7 +21,7 @@ interface SupplierRepositoryProtocol
 
     public function add(Supplier $supplier): void;
 
-    public function remove(Supplier $supplier): void;
+    public function update(Supplier $supplier): void;
 
     public function findOneByUuid(string $uuid): Supplier;
 }

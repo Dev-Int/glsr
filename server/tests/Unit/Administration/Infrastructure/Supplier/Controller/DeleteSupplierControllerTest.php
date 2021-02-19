@@ -13,20 +13,22 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 
-use Administration\Infrastructure\DataFixtures\SupplierFixtures;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\SupplierFixtures;
 
 class DeleteSupplierControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Exception|Exception
      * @throws \JsonException
      */
     final public function testDeleteSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([new SupplierFixtures()]);
+        $this->loadFixtures([new SupplierFixtures()]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             Request::METHOD_DELETE,
