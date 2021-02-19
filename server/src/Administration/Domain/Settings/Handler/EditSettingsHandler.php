@@ -39,6 +39,6 @@ class EditSettingsHandler implements CommandHandlerProtocol
             ->changeLocale($command->locale()->getValue())
         ;
 
-        $this->repository->add($settings);
+        $this->repository->update($settings);
     }
 }

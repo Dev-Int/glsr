@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 
+use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
@@ -20,12 +21,13 @@ use Unit\Tests\AbstractControllerTest;
 class PostSupplierControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws \Doctrine\DBAL\Driver\Exception|Exception
      * @throws \JsonException
      */
     final public function testPostSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $content = [
             'name' => 'Davigel',
             'address' => '1, rue des freeze',

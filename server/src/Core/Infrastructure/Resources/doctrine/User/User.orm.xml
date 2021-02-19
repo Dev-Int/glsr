@@ -5,13 +5,13 @@
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <entity name="Core\Domain\Model\User"
             table="user"
-            repository-class="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository">
+            repository-class="Core\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository">
         <id name="uuid" column="uuid" type="guid">
             <generator strategy="NONE"/>
         </id>
         <field name="username" type="string" length="150" nullable="false"/>
         <field name="email" type="string" length="255" nullable="false"/>
         <field name="password" type="string" length="120" nullable="false"/>
-        <field name="roles" type="array" nullable="false"/>
+        <field name="roles" type="simple_array" nullable="false"/>
     </entity>
 </doctrine-mapping>

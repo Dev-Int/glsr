@@ -14,59 +14,67 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\User\Handler;
 
 use Administration\Domain\User\Command\EditUser;
+use Administration\Domain\User\Model\User;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
-use Core\Domain\Model\User;
+use Core\Domain\Model\User as UserInterface;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Core\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository as DoctrineUserInterfaceRepository;
+use Doctrine\DBAL\Driver\Exception;
 use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class EditUserHandler implements CommandHandlerProtocol
 {
     private UserPasswordEncoderInterface $passwordEncoder;
     private DoctrineUserRepository $userRepository;
+    private DoctrineUserInterfaceRepository $userInterfaceRepository;
 
-    public function __construct(UserPasswordEncoderInterface $passwordEncoder, DoctrineUserRepository $userRepository)
-    {
+    public function __construct(
+        UserPasswordEncoderInterface $passwordEncoder,
+        DoctrineUserRepository $userRepository,
+        DoctrineUserInterfaceRepository $userInterfaceRepository
+    ) {
         $this->passwordEncoder = $passwordEncoder;
         $this->userRepository = $userRepository;
+        $this->userInterfaceRepository = $userInterfaceRepository;
     }
 
     /**
+     * @throws \Doctrine\DBAL\Exception|Exception
      * @throws NonUniqueResultException
-     * @throws ORMException
      */
     public function __invoke(EditUser $command): void
     {
-        $userToUpdate = $this->userRepository->findOneByUuid($command->uuid()->toString());
+        $userToUpdate = $this->userInterfaceRepository->findOneByUuid($command->uuid()->toString());
 
         if (null === $userToUpdate) {
             throw new \DomainException('User provided does not exist!');
         }
 
-        $this->updateUser($command, $userToUpdate);
+        $user = $this->updateUser($command, $userToUpdate);
+        $this->userRepository->update($user);
     }
 
-    private function updateUser(EditUser $command, User $user): User
+    private function updateUser(EditUser $command, UserInterface $userInterface): User
     {
-        if ($user->username() !== $command->username()) {
-            $user->renameUser($command->username());
+        if ($userInterface->username() !== $command->username()) {
+            $userInterface->renameUser($command->username());
         }
-        if ($user->email() !== $command->email()) {
-            $user->changeEmail($command->email());
+        if ($userInterface->email() !== $command->email()) {
+            $userInterface->changeEmail($command->email());
         }
 
-        $user->changePassword(
+        $userInterface->changePassword(
             $this->passwordEncoder->encodePassword(
-                $user,
+                $userInterface,
                 $command->password()
             )
         );
 
-        if ($user->roles() !== $command->roles()) {
-            $user->assignRoles($command->roles());
+        if ($userInterface->roles() !== $command->roles()) {
+            $userInterface->assignRoles($command->roles());
         }
 
-        return $user;
+        return $userInterface;
     }
 }

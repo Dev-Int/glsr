@@ -16,8 +16,7 @@ namespace Administration\Infrastructure\User\Handler;
 use Administration\Domain\User\Command\DeleteUser;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\ORMException;
+use Doctrine\DBAL\Driver\Exception;
 
 final class DeleteUserHandler implements CommandHandlerProtocol
 {
@@ -29,8 +28,7 @@ final class DeleteUserHandler implements CommandHandlerProtocol
     }
 
     /**
-     * @throws NonUniqueResultException
-     * @throws ORMException
+     * @throws \Doctrine\DBAL\Exception|Exception
      */
     public function __invoke(DeleteUser $command): void
     {
@@ -40,6 +38,6 @@ final class DeleteUserHandler implements CommandHandlerProtocol
             throw new \DomainException('User provided does not exist!');
         }
 
-        $this->repository->remove($userToDelete);
+        $this->repository->delete($command->uuid());
     }
 }

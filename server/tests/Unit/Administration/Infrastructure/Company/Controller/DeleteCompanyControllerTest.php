@@ -13,19 +13,22 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\DataFixtures\CompanyFixtures;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\CompanyFixtures;
 
 class DeleteCompanyControllerTest extends AbstractControllerTest
 {
     /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      */
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture([new CompanyFixtures()]);
+        $this->loadFixtures([new CompanyFixtures()]);
         $adminClient = $this->createAdminClient();
         $adminClient->request('DELETE', '/api/administration/companies/a136c6fe-8f6e-45ed-91bc-586374791033');
 

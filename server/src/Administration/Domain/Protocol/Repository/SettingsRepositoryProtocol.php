@@ -19,7 +19,7 @@ interface SettingsRepositoryProtocol
 {
     public function add(Settings $settings): void;
 
-    public function remove(Settings $settings): void;
+    public function update(Settings $settings): void;
 
     public function findOneByUuid(string $uuid): ?Settings;
 

@@ -18,9 +18,7 @@ use Administration\Domain\User\Model\VO\UserUuid;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
 use Core\Domain\Model\User;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class CreateUserHandler implements CommandHandlerProtocol
@@ -35,9 +33,7 @@ class CreateUserHandler implements CommandHandlerProtocol
     }
 
     /**
-     * @throws NonUniqueResultException
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws \Doctrine\DBAL\Exception|Exception
      */
     public function __invoke(CreateUser $command): void
     {

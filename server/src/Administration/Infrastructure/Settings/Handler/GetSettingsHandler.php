@@ -13,39 +13,39 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Settings\Handler;
 
-use Administration\Application\Settings\ReadModel\Settings;
-use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSettingsRepository;
+use Administration\Application\Settings\ReadModel\Settings as SettingsReadModel;
+use Administration\Infrastructure\Finders\Doctrine\DoctrineSettingsFinder;
 use Administration\Infrastructure\Settings\Query\GetSettings;
 use Core\Domain\Protocol\Common\Query\QueryHandlerProtocol;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Exception;
 
 class GetSettingsHandler implements QueryHandlerProtocol
 {
-    private ManagerRegistry $registry;
+    private Connection $connection;
 
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(Connection $connection)
     {
-        $this->registry = $registry;
+        $this->connection = $connection;
     }
 
     /**
-     * @throws NonUniqueResultException
+     * @throws \Doctrine\DBAL\Exception|Exception
      */
-    public function __invoke(GetSettings $query): ?Settings
+    public function __invoke(GetSettings $query): ?SettingsReadModel
     {
         if (null === $query->currency() && null === $query->locale()) {
-            return (new DoctrineSettingsRepository($this->registry))
+            return (new DoctrineSettingsFinder($this->connection))
                 ->findOne()
             ;
         }
         if (null !== $query->locale()) {
-            return (new DoctrineSettingsRepository($this->registry))
+            return (new DoctrineSettingsFinder($this->connection))
                 ->findByLocale($query->locale())
             ;
         }
         if (null !== $query->currency()) {
-            return (new DoctrineSettingsRepository($this->registry))
+            return (new DoctrineSettingsFinder($this->connection))
                 ->findByCurrency($query->currency())
             ;
         }

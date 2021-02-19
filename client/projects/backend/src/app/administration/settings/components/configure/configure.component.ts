@@ -46,13 +46,12 @@ export class ConfigureComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    console.log(this.settings);
     if (this.settings) {
       this.subscription.add(this.service.editSettings(this.settings.uuid, this.form.value).subscribe());
     } else {
       this.subscription.add(this.service.addSettings(this.form.value).subscribe());
     }
-    this.router.navigate(['administration', 'settings']);
+    this.router.navigate(['administration', 'settings']).then();
   }
 
   private initForm(settings: Settings = {locale: 'fr', currency: 'euro'}): void {

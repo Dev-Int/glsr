@@ -35,5 +35,7 @@ class DeleteSupplierHandler implements CommandHandlerProtocol
         }
 
         $supplierToDelete->delete();
+
+        $this->repository->update($supplierToDelete);
     }
 }
