@@ -18,7 +18,7 @@ use Administration\Infrastructure\Finders\Doctrine\DoctrineSettingsFinder;
 use Administration\Infrastructure\Settings\Query\GetSettings;
 use Core\Domain\Protocol\Common\Query\QueryHandlerProtocol;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception;
 
 class GetSettingsHandler implements QueryHandlerProtocol
 {
@@ -30,7 +30,7 @@ class GetSettingsHandler implements QueryHandlerProtocol
     }
 
     /**
-     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws Exception
      */
     public function __invoke(GetSettings $query): ?SettingsReadModel
     {

@@ -23,5 +23,5 @@ interface SettingsRepositoryProtocol
 
     public function findOneByUuid(string $uuid): ?Settings;
 
-    public function settingsExist(): bool;
+    public function exists(): bool;
 }

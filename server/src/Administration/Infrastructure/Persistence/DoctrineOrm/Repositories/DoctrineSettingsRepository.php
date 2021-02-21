@@ -15,9 +15,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
 use Administration\Domain\Settings\Model\Settings;
-use Administration\Domain\Settings\Model\VO\Currency;
-use Administration\Domain\Settings\Model\VO\Locale;
-use Administration\Domain\Settings\Model\VO\SettingsUuid;
+use Administration\Infrastructure\Settings\Mapper\SettingsModelMapper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -31,76 +29,65 @@ class DoctrineSettingsRepository implements SettingsRepositoryProtocol
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function add(Settings $settings): void
     {
-        $data = $this->getData($settings);
+        $data = (new SettingsModelMapper())->getDataFromSettings($settings);
 
-        $statement = $this->connection->prepare(
-            'INSERT INTO settings
-(uuid, currency, locale) VALUES (:uuid, :currency, :locale)'
-        );
-        $statement->execute($data);
+        $query = $this->connection->createQueryBuilder()
+            ->insert('settings')
+            ->values(['uuid' => '?', 'currency' => '?', 'locale' => '?'])
+            ->setParameters([$data['uuid'], $data['currency'], $data['locale']])
+        ;
+        $query->execute();
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function update(Settings $settings): void
     {
-        $data = $this->getData($settings);
+        $data = (new SettingsModelMapper())->getDataFromSettings($settings);
 
-        $statement = $this->connection->prepare(
-            'UPDATE settings SET
-uuid = :uuid, currency = :currency, locale = :locale
-WHERE uuid = :uuid'
-        );
-        $statement->execute($data);
+        $query = $this->connection->createQueryBuilder()
+            ->update('settings')
+            ->set('currency', '?')
+            ->set('locale', '?')
+            ->where('uuid = ?')
+            ->setParameters([0 => $data['currency'], 1 => $data['locale'], 2 => $settings->uuid()])
+        ;
+        $query->execute();
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function findOneByUuid(string $uuid): ?Settings
     {
-        $query = <<<'SQL'
-SELECT
-    settings.uuid as uuid,
-    settings.currency as currency,
-    settings.locale as locale
-FROM settings
-WHERE uuid = :uuid
-SQL;
-        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'currency', 'locale')
+            ->from('settings')
+            ->where('uuid = ?')
+            ->setParameter(0, $uuid)
+        ;
+        $result = $query->execute()->fetchAssociative();
 
-        return Settings::create(
-            SettingsUuid::fromString($result['uuid']),
-            Locale::fromString($result['locale']),
-            Currency::fromString($result['currency'])
-        );
+        return (new SettingsModelMapper())->getDomainModelFromArray($result);
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
-    final public function settingsExist(): bool
+    final public function exists(): bool
     {
-        $query = <<<'SQL'
-SELECT uuid FROM settings
-SQL;
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid')
+            ->from('settings')
+        ;
 
-        $statement = $this->connection->executeQuery($query)->fetchAssociative();
+        $statement = $query->execute()->fetchAssociative();
 
         return false !== $statement;
-    }
-
-    private function getData(Settings $settings): array
-    {
-        return [
-            'uuid' => $settings->uuid(),
-            'locale' => $settings->locale(),
-            'currency' => $settings->currency(),
-        ];
     }
 }

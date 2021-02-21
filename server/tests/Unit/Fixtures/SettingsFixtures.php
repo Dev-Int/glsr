@@ -14,12 +14,12 @@ declare(strict_types=1);
 namespace Unit\Tests\Fixtures;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception;
 
 class SettingsFixtures implements FixturesProtocol
 {
     /**
-     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws Exception
      */
     public function load(Connection $connection): void
     {
@@ -28,10 +28,11 @@ class SettingsFixtures implements FixturesProtocol
             'locale' => 'fr',
             'currency' => 'Euro',
         ];
-        $statement = $connection->prepare(
-            'INSERT INTO settings
-(uuid, currency, locale) VALUES (:uuid, :currency, :locale)'
-        );
-        $statement->execute($settings);
+        $query = $connection->createQueryBuilder()
+            ->insert('settings')
+            ->values(['uuid' => '?', 'currency' => '?', 'locale' => '?'])
+            ->setParameters([$settings['uuid'], $settings['currency'], $settings['locale']])
+        ;
+        $query->execute();
     }
 }

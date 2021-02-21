@@ -15,7 +15,7 @@ namespace Administration\Infrastructure\Finders\Doctrine;
 
 use Administration\Application\Protocol\Finders\SettingsFinderProtocol;
 use Administration\Application\Settings\ReadModel\Settings as SettingsReadModel;
-use Administration\Domain\Settings\Model\VO\Currency;
+use Administration\Infrastructure\Settings\Mapper\SettingsModelMapper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -29,79 +29,60 @@ class DoctrineSettingsFinder implements SettingsFinderProtocol
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     public function findOne(): ?SettingsReadModel
     {
-        $query = <<<'SQL'
-SELECT
-    settings.uuid as uuid,
-    settings.currency as currency,
-    settings.locale as locale
-FROM settings
-SQL;
-        $result = $this->connection->executeQuery($query)->fetchAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'currency', 'locale')
+            ->from('settings')
+        ;
+        $result = $query->execute()->fetchAssociative();
 
         if (false !== $result) {
-            return $this->createSettings($result);
+            return (new SettingsModelMapper())->getReadModelFromArray($result);
         }
 
         return null;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     public function findByLocale(string $locale): ?SettingsReadModel
     {
-        $query = <<<'SQL'
-SELECT
-    settings.uuid as uuid,
-    settings.currency as currency,
-    settings.locale as locale
-FROM settings
-WHERE locale = :locale
-SQL;
-        $result = $this->connection->executeQuery($query, ['locale' => $locale])->fetchAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'currency', 'locale')
+            ->from('settings')
+            ->where('locale = :locale')
+            ->setParameter('locale', $locale)
+        ;
+        $result = $query->execute()->fetchAssociative();
 
         if (false !== $result) {
-            return $this->createSettings($result);
+            return (new SettingsModelMapper())->getReadModelFromArray($result);
         }
 
         return null;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     public function findByCurrency(string $currency): ?SettingsReadModel
     {
-        $query = <<<'SQL'
-SELECT
-    settings.uuid as uuid,
-    settings.currency as currency,
-    settings.locale as locale
-FROM settings
-WHERE currency = :currency
-SQL;
-        $result = $this->connection->executeQuery($query, ['currency' => $currency])->fetchAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'currency', 'locale')
+            ->from('settings')
+            ->where('currency = :currency')
+            ->setParameter('currency', $currency)
+        ;
+        $result = $query->execute()->fetchAssociative();
 
         if (false !== $result) {
-            return $this->createSettings($result);
+            return (new SettingsModelMapper())->getReadModelFromArray($result);
         }
 
         return null;
-    }
-
-    private function createSettings(array $result): SettingsReadModel
-    {
-        $symbol = Currency::fromString($result['currency']);
-
-        return new SettingsReadModel(
-            $result['currency'],
-            $result['locale'],
-            $symbol->symbol(),
-            $result['uuid']
-        );
     }
 }

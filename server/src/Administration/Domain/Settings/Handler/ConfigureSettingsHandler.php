@@ -30,7 +30,7 @@ class ConfigureSettingsHandler implements CommandHandlerProtocol
 
     public function __invoke(ConfigureSettings $command): void
     {
-        if ($this->repository->settingsExist()) {
+        if ($this->repository->exists()) {
             throw new \DomainException('The application is already configured');
         }
 

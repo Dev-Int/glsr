@@ -52,6 +52,8 @@ class PostSettingsControllerTest extends AbstractControllerTest
     }
 
     /**
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      * @throws \JsonException
      */
     final public function testPostSettingsAlreadyExist(): void

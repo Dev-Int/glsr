@@ -33,7 +33,7 @@ class GetSettingsController extends AbstractController
         $query = new GetSettings();
         $data = $this->queryBus->handle($query);
 
-        if ([] !== $data) {
+        if (false === empty($data)) {
             $settings = $serializer->serialize($data, 'json');
             $response = new Response($settings);
             $response->headers->set('Content-Type', 'application/json');
