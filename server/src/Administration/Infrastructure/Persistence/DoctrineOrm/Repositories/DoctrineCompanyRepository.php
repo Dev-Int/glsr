@@ -15,10 +15,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Company\Model\Company;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
-use Core\Domain\Common\Model\VO\ContactUuid;
-use Core\Domain\Common\Model\VO\EmailField;
-use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Common\Model\VO\PhoneField;
+use Administration\Infrastructure\Company\Mapper\CompanyModelMapper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -33,34 +30,37 @@ class DoctrineCompanyRepository implements CompanyRepositoryProtocol
 
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
     final public function existsWithName(string $name): bool
     {
-        $query = <<<'SQL'
-SELECT uuid FROM company
-WHERE name = :name
-SQL;
-        $statement = $this->connection->executeQuery($query, ['name' => $name])->fetchOne();
+        $query = $this->connection->createQueryBuilder()
+            ->select('name')
+            ->from('company')
+            ->where('name = :name')
+            ->setParameter('name', $name)
+        ;
+        $statement = $query->execute()->fetchOne();
 
         return !(false === $statement);
     }
 
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
     final public function add(Company $company): void
     {
-        $data = $this->getData($company);
+        $data = (new CompanyModelMapper())->getDataFromCompany($company);
 
-        $statement = $this->connection->prepare(
-            'INSERT INTO company
-(uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, slug)
-VALUES
-(:uuid, :name, :address, :zip_code, :town, :country, :phone, :facsimile, :email, :contact_name, :cellphone, :slug)'
-        );
-        $statement->execute($data);
+        $query = $this->connection->createQueryBuilder()
+            ->insert('company')
+            ->values(['uuid' => '?', 'name' => '?', 'address' => '?', 'zip_code' => '?', 'town' => '?', 'country' => '?',
+                'phone' => '?', 'facsimile' => '?', 'email' => '?', 'contact_name' => '?', 'cellphone' => '?',
+                'slug' => '?', ])
+            ->setParameters([$data['uuid'], $data['name'], $data['address'], $data['zip_code'], $data['town'],
+                $data['country'], $data['phone'], $data['facsimile'], $data['email'], $data['contact_name'],
+                $data['cellphone'], $data['slug'], ])
+        ;
+        $query->execute();
     }
 
     /**
@@ -69,7 +69,7 @@ VALUES
      */
     final public function update(Company $company): void
     {
-        $data = $this->getData($company);
+        $data = (new CompanyModelMapper())->getDataFromCompany($company);
 
         $statement = $this->connection->prepare(
             'UPDATE company SET
@@ -83,83 +83,46 @@ WHERE uuid = :uuid
 
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
     final public function delete(string $uuid): void
     {
-        $statement = $this->connection->prepare('DELETE FROM company WHERE uuid = :uuid');
-        $statement->bindParam('uuid', $uuid);
+        $statement = $this->connection->createQueryBuilder()
+            ->delete('company')
+            ->where('uuid = ?')
+            ->setParameter(0, $uuid)
+        ;
         $statement->execute();
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function findOneByUuid(string $uuid): ?Company
     {
-        $query = <<<'SQL'
-SELECT
-    company.uuid as uuid,
-    company.name as name,
-    company.address as address,
-    company.zip_code as zipCode,
-    company.town as town,
-    company.country as country,
-    company.phone as phone,
-    company.facsimile as facsimile,
-    company.email as email,
-    company.contact_name as contactName,
-    company.cellphone as cellphone,
-    company.slug as slug
-FROM company
-WHERE uuid = :uuid
-SQL;
-        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
+                     'contact_name', 'cellphone', 'slug')
+            ->from('company')
+            ->where('uuid = ?')
+            ->setParameter(0, $uuid)
+        ;
 
-        return Company::create(
-            ContactUuid::fromString($result['uuid']),
-            NameField::fromString($result['name']),
-            $result['address'],
-            $result['zipCode'],
-            $result['town'],
-            $result['country'],
-            PhoneField::fromString($result['phone']),
-            PhoneField::fromString($result['facsimile']),
-            EmailField::fromString($result['email']),
-            $result['contactName'],
-            PhoneField::fromString($result['cellphone'])
-        );
+        $result = $query->execute()->fetchAssociative();
+
+        return (new CompanyModelMapper())->getDomainModelFromArray($result);
     }
 
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Driver\Exception
      */
-    final public function companyExist(): bool
+    final public function exists(): bool
     {
-        $query = <<<'SQL'
-SELECT uuid FROM company
-SQL;
-        $statement = $this->connection->executeQuery($query)->fetchOne();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid')
+            ->from('company')
+        ;
+        $statement = $query->execute()->fetchOne();
 
-        return !(false === $statement);
-    }
-
-    private function getData(Company $company): array
-    {
-        return [
-            'uuid' => $company->uuid(),
-            'name' => $company->name(),
-            'address' => $company->address(),
-            'zip_code' => $company->zipCode(),
-            'town' => $company->town(),
-            'country' => $company->country(),
-            'phone' => $company->phone(),
-            'facsimile' => $company->facsimile(),
-            'email' => $company->email(),
-            'contact_name' => $company->contact(),
-            'cellphone' => $company->cellphone(),
-            'slug' => $company->slug(),
-        ];
+        return false !== $statement;
     }
 }

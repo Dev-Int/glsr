@@ -30,7 +30,7 @@ final class CreateCompanyHandler implements CommandHandlerProtocol
 
     public function __invoke(CreateCompany $command): void
     {
-        if (false !== $this->repository->companyExist()) {
+        if (false !== $this->repository->exists()) {
             throw new \DomainException('A company is already create.');
         }
         if ($this->repository->existsWithName($command->name()->getValue())) {

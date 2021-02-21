@@ -15,7 +15,7 @@ namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Infrastructure\Finders\Doctrine\DoctrineCompanyFinder;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -24,13 +24,12 @@ class GetCompaniesController extends AbstractController
 {
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
      */
     public function __invoke(Connection $connection, SerializerInterface $serializer): Response
     {
         $data = (new DoctrineCompanyFinder($connection))->findAll()->toArray();
 
-        if ([] !== $data) {
+        if (false === empty($data)) {
             $companies = $serializer->serialize($data, 'json');
 
             $response = new Response($companies);

@@ -14,10 +14,11 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Finders\Doctrine;
 
 use Administration\Application\Company\ReadModel\Companies;
-use Administration\Application\Company\ReadModel\Company as CompanyModel;
+use Administration\Application\Company\ReadModel\Company as CompanyReadModel;
 use Administration\Application\Protocol\Finders\CompanyFinderProtocol;
+use Administration\Infrastructure\Company\Mapper\CompanyModelMapper;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception;
 
 class DoctrineCompanyFinder implements CompanyFinderProtocol
 {
@@ -30,85 +31,38 @@ class DoctrineCompanyFinder implements CompanyFinderProtocol
 
     /**
      * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
      */
-    public function findByUuid(string $uuid): CompanyModel
+    public function findByUuid(string $uuid): CompanyReadModel
     {
-        $query = <<<'SQL'
-SELECT
-    company.uuid as uuid,
-    company.name as name,
-    company.address as address,
-    company.zip_code as zipCode,
-    company.town as town,
-    company.country as country,
-    company.phone as phone,
-    company.facsimile as facsimile,
-    company.email as email,
-    company.contact_name as contactName,
-    company.cellphone as cellphone,
-    company.slug as slug
-FROM company
-WHERE uuid = :uuid
-SQL;
-        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchOne();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
+                     'contact_name', 'cellphone', 'slug')
+            ->from('company')
+            ->where('uuid = ?')
+            ->setParameter(0, $uuid)
+        ;
 
-        return new CompanyModel(
-            $result['uuid'],
-            $result['name'],
-            $result['address'],
-            $result['zipCode'],
-            $result['town'],
-            $result['country'],
-            $result['phone'],
-            $result['facsimile'],
-            $result['email'],
-            $result['contactName'],
-            $result['cellphone'],
-            $result['slug']
-        );
+        $result = $query->execute()->fetchAssociative();
+
+        return (new CompanyModelMapper())->getReadModelFromArray($result);
     }
 
     /**
-     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws Exception
      */
     public function findAll(): Companies
     {
-        $query = <<<'SQL'
-SELECT
-    company.uuid as uuid,
-    company.name as name,
-    company.address as address,
-    company.zip_code as zipCode,
-    company.town as town,
-    company.country as country,
-    company.phone as phone,
-    company.facsimile as facsimile,
-    company.email as email,
-    company.contact_name as contact,
-    company.cellphone as cellphone,
-    company.slug as slug
-FROM company
-ORDER BY name
-SQL;
-        $result = $this->connection->executeQuery($query)->fetchAllAssociative();
+        $query = $this->connection->createQueryBuilder()
+            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
+                     'contact_name', 'cellphone', 'slug')
+            ->from('company')
+        ;
+
+        $result = $query->execute()->fetchAllAssociative();
 
         return new Companies(
             ...\array_map(static function (array $company) {
-                return new CompanyModel(
-                    $company['uuid'],
-                    $company['name'],
-                    $company['address'],
-                    $company['zipCode'],
-                    $company['town'],
-                    $company['country'],
-                    $company['phone'],
-                    $company['facsimile'],
-                    $company['email'],
-                    $company['contact'],
-                    $company['cellphone'],
-                    $company['slug']
-                );
+                return (new CompanyModelMapper())->getReadModelFromArray($company);
             }, $result)
         );
     }

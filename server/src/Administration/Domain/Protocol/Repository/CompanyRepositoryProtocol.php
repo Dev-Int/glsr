@@ -25,5 +25,5 @@ interface CompanyRepositoryProtocol
 
     public function findOneByUuid(string $uuid): ?Company;
 
-    public function companyExist(): bool;
+    public function exists(): bool;
 }
