@@ -16,6 +16,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
 use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
+use Administration\Infrastructure\User\Mapper\UserModelMapper;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Doctrine\DBAL\Connection;
@@ -31,59 +32,66 @@ class DoctrineUserRepository implements UserRepositoryProtocol
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function add(User $user): void
     {
-        $data = $this->getData($user);
+        $data = (new UserModelMapper())->getDataFromUser($user);
 
-        $statement = $this->connection->prepare(
-            'INSERT INTO user
-(uuid, username, email, password, roles) VALUES (:uuid, :username, :email, :password, :roles)'
-        );
-        $statement->execute($data);
+        $this->connection->createQueryBuilder()
+            ->insert('user')
+            ->values(['uuid' => '?', 'username' => '?', 'email' => '?', 'password' => '?', 'roles' => '?'])
+            ->setParameters([$data['uuid'], $data['username'], $data['email'], $data['password'], $data['roles']])
+            ->execute()
+        ;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function update(User $user): void
     {
-        $data = $this->getData($user);
+        $data = (new UserModelMapper())->getDataFromUser($user);
 
-        $statement = $this->connection->prepare(
-            'UPDATE user SET
-uuid = :uuid, username = :username, email = :email, password = :password, roles = :roles
-WHERE uuid = :uuid'
-        );
-        $statement->execute($data);
+        $this->connection->createQueryBuilder()
+            ->update('user')
+            ->set('username', '?')
+            ->set('email', '?')
+            ->set('password', '?')
+            ->set('roles', '?')
+            ->where('uuid = ?')
+            ->setParameters([0 => $data['username'], 1 => $data['email'], 2 => $data['password'],
+                3 => $data['roles'], 4 => $data['uuid'], ])
+            ->execute()
+        ;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function delete(string $uuid): void
     {
-        $statement = $this->connection->prepare('DELETE FROM user WHERE uuid = :uuid');
-        $statement->bindParam('uuid', $uuid);
-        $statement->execute();
+        $this->connection->createQueryBuilder()
+            ->delete('user')
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->execute()
+        ;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function findOneByUuid(string $uuid): ?User
     {
-        $query = <<<'SQL'
-SELECT
-    user.uuid as uuid,
-    user.username as username,
-    user.email as email,
-    user.roles as roles
-FROM user
-WHERE uuid = :uuid
-SQL;
-        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+        $result = $this->connection->createQueryBuilder()
+            ->select('uuid', 'username', 'email', 'password', 'roles')
+            ->from('user')
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->execute()
+            ->fetchAssociative()
+        ;
 
         return User::create(
             UserUuid::fromString($uuid),
@@ -95,41 +103,36 @@ SQL;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function existWithUsername(string $username): bool
     {
-        $query = <<<'SQL'
-SELECT username FROM user
-WHERE username = :username
-SQL;
-        $statement = $this->connection->executeQuery($query, ['username' => $username])->fetchAssociative();
+        $statement = $this->connection->createQueryBuilder()
+            ->select('username')
+            ->from('user')
+            ->where('username = :username')
+            ->setParameter('username', $username)
+            ->execute()
+            ->fetchOne()
+        ;
 
         return false !== $statement;
     }
 
     /**
-     * @throws \Doctrine\DBAL\Driver\Exception|Exception
+     * @throws Exception
      */
     final public function existWithEmail(string $email): bool
     {
-        $query = <<<'SQL'
-SELECT email FROM user
-WHERE email = :email
-SQL;
-        $statement = $this->connection->executeQuery($query, ['email' => $email])->fetchAssociative();
+        $statement = $this->connection->createQueryBuilder()
+            ->select('email')
+            ->from('user')
+            ->where('email = :email')
+            ->setParameter('email', $email)
+            ->execute()
+            ->fetchOne()
+        ;
 
         return false !== $statement;
-    }
-
-    private function getData(User $user): array
-    {
-        return [
-            'uuid' => $user->uuid()->toString(),
-            'username' => $user->username(),
-            'email' => $user->email()->getValue(),
-            'password' => $user->password(),
-            'roles' => \implode(',', $user->roles()),
-        ];
     }
 }
