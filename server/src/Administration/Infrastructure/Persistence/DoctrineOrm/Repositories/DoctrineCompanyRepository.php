@@ -53,12 +53,16 @@ class DoctrineCompanyRepository implements CompanyRepositoryProtocol
 
         $query = $this->connection->createQueryBuilder()
             ->insert('company')
-            ->values(['uuid' => '?', 'name' => '?', 'address' => '?', 'zip_code' => '?', 'town' => '?', 'country' => '?',
+            ->values([
+                'uuid' => '?', 'name' => '?', 'address' => '?', 'zip_code' => '?', 'town' => '?', 'country' => '?',
                 'phone' => '?', 'facsimile' => '?', 'email' => '?', 'contact_name' => '?', 'cellphone' => '?',
-                'slug' => '?', ])
-            ->setParameters([$data['uuid'], $data['name'], $data['address'], $data['zip_code'], $data['town'],
+                'slug' => '?',
+            ])
+            ->setParameters([
+                $data['uuid'], $data['name'], $data['address'], $data['zip_code'], $data['town'],
                 $data['country'], $data['phone'], $data['facsimile'], $data['email'], $data['contact_name'],
-                $data['cellphone'], $data['slug'], ])
+                $data['cellphone'], $data['slug'],
+            ])
         ;
         $query->execute();
     }
@@ -100,8 +104,20 @@ WHERE uuid = :uuid
     final public function findOneByUuid(string $uuid): ?Company
     {
         $query = $this->connection->createQueryBuilder()
-            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
-                     'contact_name', 'cellphone', 'slug')
+            ->select(
+                'uuid',
+                'name',
+                'address',
+                'zip_code',
+                'town',
+                'country',
+                'phone',
+                'facsimile',
+                'email',
+                'contact_name',
+                'cellphone',
+                'slug'
+            )
             ->from('company')
             ->where('uuid = ?')
             ->setParameter(0, $uuid)

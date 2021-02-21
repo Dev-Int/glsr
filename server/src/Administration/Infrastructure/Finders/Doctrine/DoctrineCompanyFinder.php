@@ -35,8 +35,20 @@ class DoctrineCompanyFinder implements CompanyFinderProtocol
     public function findByUuid(string $uuid): CompanyReadModel
     {
         $query = $this->connection->createQueryBuilder()
-            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
-                     'contact_name', 'cellphone', 'slug')
+            ->select(
+                'uuid',
+                'name',
+                'address',
+                'zip_code',
+                'town',
+                'country',
+                'phone',
+                'facsimile',
+                'email',
+                'contact_name',
+                'cellphone',
+                'slug'
+            )
             ->from('company')
             ->where('uuid = ?')
             ->setParameter(0, $uuid)
@@ -53,8 +65,20 @@ class DoctrineCompanyFinder implements CompanyFinderProtocol
     public function findAll(): Companies
     {
         $query = $this->connection->createQueryBuilder()
-            ->select('uuid', 'name', 'address', 'zip_code', 'town', 'country', 'phone', 'facsimile', 'email',
-                     'contact_name', 'cellphone', 'slug')
+            ->select(
+                'uuid',
+                'name',
+                'address',
+                'zip_code',
+                'town',
+                'country',
+                'phone',
+                'facsimile',
+                'email',
+                'contact_name',
+                'cellphone',
+                'slug'
+            )
             ->from('company')
         ;
 

@@ -46,6 +46,11 @@ final class FamilyLog
         return new self($name, $parent);
     }
 
+    public function name(): string
+    {
+        return $this->name;
+    }
+
     public function parent(): ?self
     {
         return $this->parent;

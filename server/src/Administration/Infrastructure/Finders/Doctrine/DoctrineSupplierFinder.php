@@ -17,8 +17,9 @@ use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
 use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
 use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
+use Administration\Infrastructure\Supplier\SupplierModelMapper;
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception;
 
 class DoctrineSupplierFinder implements SupplierFinderProtocol
 {
@@ -30,105 +31,75 @@ class DoctrineSupplierFinder implements SupplierFinderProtocol
     }
 
     /**
-     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws Exception
      */
     public function findOneByUuid(string $uuid): SupplierModel
     {
-        $query = <<<'SQL'
-SELECT
-    supplier.uuid as uuid,
-    supplier.name as name,
-    supplier.address as address,
-    supplier.zip_code as zipCode,
-    supplier.town as town,
-    supplier.country as country,
-    supplier.phone as phone,
-    supplier.facsimile as facsimile,
-    supplier.email as email,
-    supplier.contact_name as contact,
-    supplier.cellphone as cellphone,
-    supplier.family_log as familyLog,
-    supplier.delay_delivery as delayDelivery,
-    supplier.order_days as orderDays,
-    supplier.active as active,
-    supplier.slug as slug
-FROM supplier
-WHERE uuid = :uuid
-SQL;
-        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
+        $result = $this->connection->createQueryBuilder()
+            ->select(
+                'uuid',
+                'name',
+                'address',
+                'zip_code',
+                'town',
+                'country',
+                'phone',
+                'facsimile',
+                'email',
+                'contact_name',
+                'cellphone',
+                'family_log',
+                'delay_delivery',
+                'order_days',
+                'slug',
+                'active'
+            )
+            ->from('supplier')
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->execute()
+            ->fetchAssociative()
+        ;
 
         if (null === $result) {
             throw new SupplierNotFound();
         }
 
-        return new SupplierModel(
-            $result['uuid'],
-            $result['name'],
-            $result['address'],
-            $result['zipCode'],
-            $result['town'],
-            $result['country'],
-            $result['phone'],
-            $result['facsimile'],
-            $result['email'],
-            $result['contact'],
-            $result['cellphone'],
-            $result['familyLog'],
-            (int) $result['delayDelivery'],
-            \explode(',', $result['orderDays']),
-            $result['slug'],
-            $result['active']
-        );
+        return (new SupplierModelMapper())->getReadModelFromArray($result);
     }
 
     /**
-     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws Exception
      */
     public function findAllActive(): Suppliers
     {
-        $query = <<<'SQL'
-SELECT
-    supplier.uuid as uuid,
-    supplier.name as name,
-    supplier.address as address,
-    supplier.zip_code as zipCode,
-    supplier.town as town,
-    supplier.country as country,
-    supplier.phone as phone,
-    supplier.facsimile as facsimile,
-    supplier.email as email,
-    supplier.contact_name as contact,
-    supplier.cellphone as cellphone,
-    supplier.family_log as familyLog,
-    supplier.delay_delivery as delayDelivery,
-    supplier.order_days as orderDays,
-    supplier.active as active,
-    supplier.slug as slug
-FROM supplier
-WHERE active = 1
-SQL;
-        $result = $this->connection->executeQuery($query)->fetchAllAssociative();
+        $result = $this->connection->createQueryBuilder()
+            ->select(
+                'uuid',
+                'name',
+                'address',
+                'zip_code',
+                'town',
+                'country',
+                'phone',
+                'facsimile',
+                'email',
+                'contact_name',
+                'cellphone',
+                'family_log',
+                'delay_delivery',
+                'order_days',
+                'slug',
+                'active'
+            )
+            ->from('supplier')
+            ->execute()
+            ->fetchAllAssociative()
+        ;
 
         return new Suppliers(
             ...\array_map(static function (array $supplier) {
-                return new SupplierModel(
-                    $supplier['uuid'],
-                    $supplier['name'],
-                    $supplier['address'],
-                    $supplier['zipCode'],
-                    $supplier['town'],
-                    $supplier['country'],
-                    $supplier['phone'],
-                    $supplier['facsimile'],
-                    $supplier['email'],
-                    $supplier['contact'],
-                    $supplier['cellphone'],
-                    $supplier['familyLog'],
-                    (int) $supplier['delayDelivery'],
-                    \explode(',', $supplier['orderDays']),
-                    $supplier['slug'],
-                    (bool) $supplier['active']
-                );
+                return (new SupplierModelMapper())->getReadModelFromArray($supplier);
             }, $result)
         );
     }
