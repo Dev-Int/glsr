@@ -12,7 +12,7 @@ final class InventoryDate
 
     public function __construct(\DateTimeImmutable $date)
     {
-        if (false === date("Y-m-t", $date->getTimestamp()) || ('Sunday' !== date_format($date, 'l'))) {
+        if (('Sunday' !== date_format($date, 'l')) || false === date("Y-m-t", $date->getTimestamp())) {
             throw new InvalidInventoryDate();
         }
         $this->date = $date;
