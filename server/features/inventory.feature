@@ -10,7 +10,7 @@ Feature: Inventory Management
       | date       | test  |
       | 2021-01-17 | week  |
       | 2021-01-31 | month |
-    And there is an articles list
+    And there is an articles list for inventory
       | label   | theoreticalStock | price |
       | tomato  | 5.00             | 0.85  |
       | carotte | 0.00             | 0.53  |

@@ -2,4 +2,6 @@ default:
   suites:
     default:
       contexts:
+        - Behat\Tests\FeatureContext
         - Behat\Tests\InventoryContext
+        - Behat\Tests\OrderContext

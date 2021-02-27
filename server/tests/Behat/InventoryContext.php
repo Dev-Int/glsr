@@ -7,7 +7,6 @@ namespace Behat\Tests;
 use Inventory\Domain\Model\Article;
 use Inventory\Domain\Model\Articles;
 use Inventory\Domain\Model\Inventory;
-use Inventory\Domain\Model\User;
 use Inventory\Domain\Model\VO\InventoryDate;
 use Inventory\Domain\UseCase\EnterInventory;
 use Inventory\Domain\UseCase\PrepareInventory;
@@ -22,7 +21,6 @@ use PHPUnit\Framework\Assert;
 final class InventoryContext implements Context
 {
     private Inventory $inventory;
-    private User $user;
     private \DateTimeImmutable $date;
     private Articles $articles;
 
@@ -38,25 +36,7 @@ final class InventoryContext implements Context
     }
 
     /**
-     * @Given I am a user
-     */
-    public function thereIsAUser(TableNode $table): void
-    {
-        foreach ($table as $row) {
-            $this->user = User::create($row['username'], $row['email'], $row['role']);
-        }
-    }
-
-    /**
-     * @Given I am an :role
-     */
-    public function asRole(string $role): void
-    {
-        Assert::assertSame($this->user->role(), $role);
-    }
-
-    /**
-     * @Given there is an articles list
+     * @Given there is an articles list for inventory
      */
     public function thereIsAnArticlesList(TableNode $table): void
     {

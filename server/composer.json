@@ -24,7 +24,8 @@
     "autoload": {
         "psr-4": {
             "Core\\": "src/Core",
-            "Inventory\\": "src/Inventory"
+            "Inventory\\": "src/Inventory",
+            "Order\\": "src/Order"
         }
     },
     "autoload-dev": {
