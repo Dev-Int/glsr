@@ -7,9 +7,9 @@ Feature: Order Management
       | Laurent  | lq@example.com | Assistant |
     And I am an "Assistant"
     And there is a suppliers list
-      | name      | address          | email              |
-      | Davigel   | 3 rue des Freeze | order@davigel.fr   |
-      | Davifrais | 8 rue des Fresh  | order@davifrais.fr |
+      | name      | address          | email              | orderDays |
+      | Davigel   | 3 rue des Freeze | order@davigel.fr   | 1,4       |
+      | Davifrais | 8 rue des Fresh  | order@davifrais.fr | 2,5       |
     And there is an articles list for order
       | label   | supplier  | quantity | quantityToOrder | minimumStock | price |
       | tomato  | Davigel   | 5.00     | 0.00            | 8.50         | 0.85  |
@@ -20,6 +20,9 @@ Feature: Order Management
     When I have to choose the supplier
       | name    |
       | Davigel |
+    And I have to choose the order date
+      | date       |
+      | 2021-03-01 |
     And I want to create an order
     Then I should see the list of supplier articles
       | label   | supplier  | quantity | quantityToOrder | minimumStock | price |
@@ -30,6 +33,9 @@ Feature: Order Management
     Given I have to choose the supplier
       | name    |
       | Davigel |
+    And I have to choose the order date
+      | date       |
+      | 2021-03-01 |
     And an order exist
     When I enter order quantities
       | label   | quantityToOrder |

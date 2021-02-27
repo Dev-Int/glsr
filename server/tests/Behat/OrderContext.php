@@ -10,6 +10,7 @@ use Order\Domain\Model\Articles;
 use Order\Domain\Model\Order;
 use Order\Domain\Model\Supplier;
 use Order\Domain\Model\Suppliers;
+use Order\Domain\Model\VO\OrderDate;
 use Order\Domain\UseCase\CreateOrder;
 use Order\Domain\UseCase\EnterOrder;
 use PHPUnit\Framework\Assert;
@@ -20,6 +21,7 @@ final class OrderContext implements Context
     private Supplier $supplier;
     private Order $order;
     private Articles $articles;
+    private \DateTimeImmutable $date;
 
     /**
      * @Given there is a suppliers list
@@ -31,7 +33,8 @@ final class OrderContext implements Context
             $this->suppliers->add(Supplier::create(
                 $row['name'],
                 $row['address'],
-                $row['email']
+                $row['email'],
+                \array_map('intval', \explode(',', $row['orderDays']))
             ));
         }
     }
@@ -69,11 +72,29 @@ final class OrderContext implements Context
     }
 
     /**
+     * @When I have to choose the order date
+     *
+     * @throws \Exception
+     */
+    public function iHaveToChooseTheOrderDate(TableNode $table): void
+    {
+        foreach ($table as $row) {
+            $this->date = OrderDate::fromDate(
+                new \DateTimeImmutable($row['date']),
+                $this->supplier->orderDays()
+            )->getValue();
+        }
+        if (null === $this->date) {
+            return;
+        }
+    }
+
+    /**
      * @When I want to create an order
      */
     public function iWantToCreateAnOrder(): void
     {
-        $this->order = (new CreateOrder())->execute($this->supplier);
+        $this->order = (new CreateOrder())->execute($this->supplier, $this->date);
     }
 
     /**
@@ -97,7 +118,7 @@ final class OrderContext implements Context
      */
     public function anOrderExist(): void
     {
-        $this->order = (new CreateOrder())->execute($this->supplier);
+        $this->order = (new CreateOrder())->execute($this->supplier, $this->date);
     }
 
     /**

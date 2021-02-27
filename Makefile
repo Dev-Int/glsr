@@ -67,10 +67,10 @@ test-all: test-unit test-behat  ## Execute tests
 
 test-unit: server/phpunit.xml ## Execute unit tests
 	@echo '—— Unit tests ————'
-	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/phpunit --stop-on-failure
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 vendor/bin/phpunit -c phpunit.xml --testsuite Unit --stop-on-failure
 test-behat: server/behat.yaml ## Execute behat tests
 	@echo '—— Behat tests ————'
-	@$(EXEC) -w /glsr php php -d memory_limit=-1 server/vendor/bin/behat --config server/behat.yaml
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 vendor/bin/behat --config behat.yaml
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————

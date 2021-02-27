@@ -9,8 +9,8 @@ use Order\Domain\Model\Supplier;
 
 final class CreateOrder
 {
-    public function execute(Supplier $supplier): Order
+    public function execute(Supplier $supplier, \DateTimeImmutable $orderDate): Order
     {
-        return Order::create($supplier);
+        return Order::create($supplier, $orderDate);
     }
 }
