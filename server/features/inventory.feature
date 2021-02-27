@@ -30,7 +30,7 @@ Feature: Inventory Management
 
   Scenario: Enter the quantities
     Given an inventory exist
-    When I want to enter quantities
+    When I want to enter inventory quantities
       | label   | stock |
       | tomato  | 3.00  |
       | carotte | 3.00  |
@@ -48,7 +48,7 @@ Feature: Inventory Management
 
   Scenario: Compare and correct
     Given an inventory exist
-    And I want to enter quantities
+    And I want to enter inventory quantities
       | label   | stock |
       | tomato  | 3.00  |
       | carotte | 3.00  |
@@ -70,7 +70,7 @@ Feature: Inventory Management
 
   Scenario: Valid the Inventory
     Given an inventory exist
-    And I want to enter quantities
+    And I want to enter inventory quantities
       | label   | stock |
       | tomato  | 5.00  |
       | carotte | 3.00  |

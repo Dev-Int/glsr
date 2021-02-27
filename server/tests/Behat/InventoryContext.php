@@ -112,7 +112,7 @@ final class InventoryContext implements Context
     }
 
     /**
-     * @When I want to enter quantities
+     * @When I want to enter inventory quantities
      */
     public function iWantToEnterQuantities(TableNode $table): void
     {

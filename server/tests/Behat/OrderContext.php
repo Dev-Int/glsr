@@ -11,6 +11,7 @@ use Order\Domain\Model\Order;
 use Order\Domain\Model\Supplier;
 use Order\Domain\Model\Suppliers;
 use Order\Domain\UseCase\CreateOrder;
+use Order\Domain\UseCase\EnterOrder;
 use PHPUnit\Framework\Assert;
 
 final class OrderContext implements Context
@@ -47,6 +48,9 @@ final class OrderContext implements Context
             $this->articles->add(Article::create(
                 $item['label'],
                 $this->suppliers->getFromName($item['supplier']),
+                (float) $item['quantity'],
+                (float) $item['quantityToOrder'],
+                (float) $item['minimumStock'],
                 (float) $item['price']
             ));
         }
@@ -86,5 +90,26 @@ final class OrderContext implements Context
         });
         Assert::assertIsArray($this->order->articles()->toArray());
         Assert::assertEquals($articleList, $this->order->articles()->toArray());
+    }
+
+    /**
+     * @Given  an order exist
+     */
+    public function anOrderExist(): void
+    {
+        $this->order = (new CreateOrder())->execute($this->supplier);
+    }
+
+    /**
+     * @When I enter order quantities
+     */
+    public function iEnterOrderQuantities(TableNode $table): void
+    {
+        $data = [];
+        foreach ($table as $row) {
+            $data[] = $row;
+        }
+
+        (new EnterOrder())->execute($this->order, $data);
     }
 }
