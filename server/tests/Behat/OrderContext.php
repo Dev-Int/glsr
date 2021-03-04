@@ -139,7 +139,7 @@ final class OrderContext implements Context
     {
         $data = [];
         foreach ($table as $row) {
-            $data[] = $row;
+            $data[] = ['label' => $row['label'], 'quantityToOrder' => (float) $row['quantityToOrder']];
         }
 
         (new EnterOrder())->execute($this->order, $data);

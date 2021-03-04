@@ -127,7 +127,7 @@ final class InventoryContext implements Context
     {
         $data = [];
         foreach ($table as $row) {
-            $data[] = $row;
+            $data[] = ['label' => $row['label'], 'stock' => (float) $row['stock']];
         }
 
         (new EnterInventory())->execute($this->inventory, $data);
@@ -140,7 +140,11 @@ final class InventoryContext implements Context
     {
         $expectedGaps = [];
         foreach ($table as $item) {
-            $expectedGaps[] = ['label' => $item['label'], 'gap' => (float) $item['gap'], 'amount' => (float) $item['amount']];
+            $expectedGaps[] = [
+                'label' => $item['label'],
+                'gap' => (float) $item['gap'],
+                'amount' => (float) $item['amount'],
+            ];
         }
         $gaps = $this->inventory->getGaps($order);
 
@@ -161,7 +165,7 @@ final class InventoryContext implements Context
     {
         $data = [];
         foreach ($table as $row) {
-            $data[] = $row;
+            $data[] = ['label' => $row['label'], 'stock' => (float) $row['stock']];
         }
 
         (new EnterInventory())->execute($this->inventory, $data);
@@ -174,7 +178,11 @@ final class InventoryContext implements Context
     {
         $expectedGaps = [];
         foreach ($table as $item) {
-            $expectedGaps[] = ['label' => $item['label'], 'gap' => (float) $item['gap'], 'amount' => (float) $item['amount']];
+            $expectedGaps[] = [
+                'label' => $item['label'],
+                'gap' => (float) $item['gap'],
+                'amount' => (float) $item['amount'],
+            ];
         }
         $gaps = $this->inventory->getGaps();
 
