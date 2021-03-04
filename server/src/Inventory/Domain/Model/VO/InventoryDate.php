@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the G.L.S.R. Apps package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Inventory\Domain\Model\VO;
 
 use Inventory\Domain\Exception\InvalidInventoryDate;
@@ -12,7 +21,7 @@ final class InventoryDate
 
     public function __construct(\DateTimeImmutable $date)
     {
-        if (('Sunday' !== date_format($date, 'l')) || false === date("Y-m-t", $date->getTimestamp())) {
+        if (('Sunday' !== \date_format($date, 'l')) || false === \date('Y-m-t', $date->getTimestamp())) {
             throw new InvalidInventoryDate();
         }
         $this->date = $date;

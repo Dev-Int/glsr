@@ -56,8 +56,11 @@ reset: stop start ## Reset the whole project
 
 install: start ## Install the whole project
 
-config: .env.local copy-files ## Init files required
+config: .env.local copy-files dist-files .git/hooks/pre-commit ## Init files required
 	@echo 'Configuration files copied'
+
+bash-php: ## Open bash in php container
+	@$(EXEC) php bash
 
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
@@ -71,6 +74,17 @@ test-unit: server/phpunit.xml ## Execute unit tests
 test-behat: server/behat.yaml ## Execute behat tests
 	@echo '—— Behat tests ————'
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 vendor/bin/behat --config behat.yaml
+
+
+## —— Coding standards ✨ ———————————————————————————————————————————————————————
+
+cs: codesniffer ## Launch check style and static analysis
+
+codesniffer: server/phpcs.xml ## Run php_codesniffer only
+	@$(EXEC) php server/vendor/squizlabs/php_codesniffer/bin/phpcs --standard=server/phpcs.xml -n -p server/src/
+
+cs-fixer: server/.php_cs ## Execute php-cs-fixer
+	@$(EXEC) php server/vendor/bin/php-cs-fixer fix --config server/.php_cs
 
 
 ## Dependencies ————————————————————————————————————————————————————————————————
@@ -94,9 +108,17 @@ up:
 	@cp .env .env.local
 	@sed -i "s/^APP_USER_ID=.*/APP_USER_ID=$(shell id -u)/" .env.local
 	@sed -i "s/^APP_GROUP_ID=.*/APP_GROUP_ID=$(shell id -g)/" .env.local
+.git/hooks/pre-commit: .docker/git/pre-commit
+	@echo "Copying git hooks"
+	@cp .docker/git/pre-commit .git/hooks/pre-commit
+	@chmod +x .git/hooks/pre-commit
 copy-files: server/phpunit.xml.dist server/behat.yaml.dist
 	@cp server/behat.yaml.dist server/behat.yaml
 	@cp server/phpunit.xml.dist server/phpunit.xml
+dist-files: server/.php_cs.dist server/phpunit.xml.dist
+	@echo "Coping .dist files"
+	@cp server/.php_cs.dist server/.php_cs
+	@cp server/phpcs.xml.dist server/phpcs.xml
 server/vendor: server/composer.lock
 	@echo "Installing project dependencies"
 	@$(RUN_SERVER) php php -d memory_limit=-1 /usr/local/bin/composer install --no-interaction

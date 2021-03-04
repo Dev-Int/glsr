@@ -2,16 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of the G.L.S.R. Apps package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Behat\Tests;
 
+use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Inventory\Domain\Model\Article;
 use Inventory\Domain\Model\Articles;
 use Inventory\Domain\Model\Inventory;
 use Inventory\Domain\Model\VO\InventoryDate;
 use Inventory\Domain\UseCase\EnterInventory;
 use Inventory\Domain\UseCase\PrepareInventory;
-use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\TableNode;
 use Inventory\Domain\UseCase\ValidInventory;
 use PHPUnit\Framework\Assert;
 
@@ -55,7 +64,7 @@ final class InventoryContext implements Context
      *
      * @throws \Exception
      */
-    public function itSTheLastDayOf(TableNode $table):void
+    public function itSTheLastDayOf(TableNode $table): void
     {
         foreach ($table as $row) {
             $this->date = InventoryDate::fromDate(new \DateTimeImmutable($row['date']))->getValue();
@@ -127,7 +136,7 @@ final class InventoryContext implements Context
     /**
      * @Then I should see the list of gaps ordered by :gaps
      */
-    public function iShouldSeeTheListOfGapsOrderedByGaps(TableNode $table, string $order):void
+    public function iShouldSeeTheListOfGapsOrderedByGaps(TableNode $table, string $order): void
     {
         $expectedGaps = [];
         foreach ($table as $item) {
@@ -175,7 +184,7 @@ final class InventoryContext implements Context
     /**
      * @When I valid the inventory
      */
-    public function iValidTheInventory():void
+    public function iValidTheInventory(): void
     {
         (new ValidInventory())->execute($this->inventory);
     }
@@ -183,7 +192,7 @@ final class InventoryContext implements Context
     /**
      * @Then the quantity of articles is updated
      */
-    public function theQuantityOfArticlesIsUpdated(TableNode $table):void
+    public function theQuantityOfArticlesIsUpdated(TableNode $table): void
     {
         $articles = new Articles();
         foreach ($table as $item) {

@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the G.L.S.R. Apps package.
+ *
+ * (c) Dev-Int Création <info@developpement-interessant.com>.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Inventory\Domain\Model;
 
 use Inventory\Domain\Model\VO\InventoryDate;
@@ -29,17 +40,17 @@ final class Inventory
     {
         $gaps = [];
         foreach ($this->articles->toArray() as $article) {
-            if ($article->gap() !== null) {
-                $gaps[] = $article->gap() ;
+            if (null !== $article->gap()) {
+                $gaps[] = $article->gap();
             }
         }
 
-        usort($gaps, static function ($gapA, $gapB) use ($order) {
+        \usort($gaps, static function ($gapA, $gapB) use ($order) {
             if ($gapA[$order] === $gapB[$order]) {
                 return 0;
             }
 
-            return ($gapA[$order] > $gapB[$order] ? 1 : -1);
+            return $gapA[$order] > $gapB[$order] ? 1 : -1;
         });
 
         return $gaps;
