@@ -13,17 +13,21 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\FamilyLog\Controller;
 
-use Administration\Infrastructure\Finders\DoctrineOrm\DoctrineFamilyLogFinder;
-use Doctrine\Persistence\ManagerRegistry;
-use JMS\Serializer\SerializerInterface;
+use Administration\Infrastructure\Finders\Doctrine\DoctrineFamilyLogFinder;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GetFamilyLogsController extends AbstractController
 {
-    public function __invoke(ManagerRegistry $registry, SerializerInterface $serializer): Response
+    /**
+     * @throws \Doctrine\DBAL\Exception|Exception
+     */
+    public function __invoke(Connection $connection, SerializerInterface $serializer): Response
     {
-        $data = (new DoctrineFamilyLogFinder($registry))->findAll()->toArray();
+        $data = (new DoctrineFamilyLogFinder($connection))->findAll()->toArray();
 
         if ([] !== $data) {
             $familyLogs = $serializer->serialize($data, 'json');

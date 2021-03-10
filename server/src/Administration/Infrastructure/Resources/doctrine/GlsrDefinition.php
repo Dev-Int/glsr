@@ -87,5 +87,16 @@ class GlsrDefinition implements SchemaDefinition
         $supplierTable->setPrimaryKey(['uuid']);
         $supplierTable->addUniqueIndex(['name']);
         $supplierTable->addUniqueIndex(['slug']);
+
+        // FamilyLog definition
+        $familyLogTable = $schema->createTable('family_log');
+        $familyLogTable->addColumn('uuid', 'guid', ['length' => 36]);
+        $familyLogTable->addColumn('label', 'string', ['length' => 150]);
+        $familyLogTable->addColumn('parent_id', 'guid', ['notnull' => false, 'length' => 36]);
+        $familyLogTable->addColumn('level', 'integer');
+        $familyLogTable->addColumn('slug', 'string');
+        $familyLogTable->addIndex(['parent_id']);
+        $familyLogTable->setPrimaryKey(['uuid']);
+        $familyLogTable->addForeignKeyConstraint($familyLogTable, ['parent_id'], ['uuid'], ['onDelete' => 'CASCADE']);
     }
 }

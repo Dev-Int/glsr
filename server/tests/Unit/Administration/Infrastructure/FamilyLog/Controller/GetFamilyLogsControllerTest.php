@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\FamilyLog\Controller;
 
+use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
@@ -21,13 +22,15 @@ class GetFamilyLogsControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
      */
     final public function testGetFamilyLogsNoData(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        $this->loadFixtures([]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/familylogs/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/family-logs/');
 
         // Act
         $response = $adminClient->getResponse();

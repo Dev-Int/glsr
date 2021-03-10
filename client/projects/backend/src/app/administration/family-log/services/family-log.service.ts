@@ -15,6 +15,10 @@ export class FamilyLogService {
     return this.http.get<Array<FamilyLog>>('/api/administration/family-logs')
       .pipe(
         filter((familyLogs: Array<FamilyLog>) => familyLogs !== null),
+        map((familyLogs: Array<FamilyLog>) => familyLogs.sort((a, b) => {
+          if (a.path > b.path) { return 1; }
+          if (a.path < b.path) { return -1; }
+        })),
         tap((familyLogs: Array<FamilyLog>) => {
           this.familyLogs$.next(familyLogs);
         }),

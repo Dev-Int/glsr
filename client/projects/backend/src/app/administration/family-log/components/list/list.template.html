@@ -8,14 +8,12 @@
     <thead>
       <tr>
         <th>Intitulé</th>
-        <th>Chemin</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
     <tr *ngFor="let familyLog of familyLogs$|async">
-      <td>{{ familyLog.name }}</td>
-      <td>{{ familyLog.path }}</td>
+      <td class="list-{{ familyLog.level }}">{{ familyLog.label }}</td>
       <td>
         <div class="btn-group">
           <button routerLink="{{ familyLog.uuid }}/edit" class="btn btn-sm btn-primary">Modifier</button>

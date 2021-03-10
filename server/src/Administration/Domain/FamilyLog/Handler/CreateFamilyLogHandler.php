@@ -31,16 +31,19 @@ class CreateFamilyLogHandler implements CommandHandlerProtocol
     public function __invoke(CreateFamilyLog $command): void
     {
         $parent = null;
+        $level = 1;
         if ($this->repository->existWithLabel($command->label()->getValue(), $command->parent())) {
             throw new \DomainException("FamilyLog with name: {$command->label()->getValue()} already exist!");
         }
         if (null !== $command->parent()) {
-            $parent = $this->repository->findByUuid($command->parent());
+            $parent = $this->repository->findParent($command->parent());
+            $level = $parent->level() + 1;
         }
 
         $familyLog = FamilyLog::create(
             FamilyLogUuid::generate(),
             $command->label(),
+            $level,
             $parent
         );
 

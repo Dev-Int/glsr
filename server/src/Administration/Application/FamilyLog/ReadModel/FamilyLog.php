@@ -13,17 +13,30 @@ declare(strict_types=1);
 
 namespace Administration\Application\FamilyLog\ReadModel;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog as FamilyLogDomainModel;
+
 final class FamilyLog
 {
-    public string $name;
-    public ?string $parent = null;
+    public string $uuid;
+    public string $label;
+    public int $level;
+    public ?FamilyLogDomainModel $parent = null;
     public ?array $children = null;
     public string $path;
     public string $slug;
 
-    public function __construct(string $name, ?string $parent, ?array $children, string $path, string $slug)
-    {
-        $this->name = $name;
+    public function __construct(
+        string $uuid,
+        string $label,
+        int $level,
+        ?FamilyLogDomainModel $parent,
+        ?array $children,
+        string $path,
+        string $slug
+    ) {
+        $this->uuid = $uuid;
+        $this->label = $label;
+        $this->level = $level;
         $this->parent = $parent;
         $this->children = $children;
         $this->path = $path;

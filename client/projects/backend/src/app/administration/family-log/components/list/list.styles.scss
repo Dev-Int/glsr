@@ -1,0 +1,7 @@
+$indents: 1, 2, 3, 4, 5, 6;
+
+@each $indent in $indents {
+  .list-#{$indent} {
+    padding-left: 2.5rem * $indent;
+  }
+}

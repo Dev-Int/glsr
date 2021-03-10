@@ -26,14 +26,17 @@ class FamilyLogTest extends TestCase
         $surgele = FamilyLog::create(
             FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Surgelé'),
+            2,
             FamilyLog::create(
                 FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                NameField::fromString('Alimentaire')
+                NameField::fromString('Alimentaire'),
+                1
             )
         );
         $familyLog = FamilyLog::create(
             FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
             NameField::fromString('Viande'),
+            3,
             $surgele
         );
 
@@ -42,18 +45,21 @@ class FamilyLogTest extends TestCase
             new FamilyLog(
                 FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
+                3,
                 FamilyLog::create(
                     FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
                     NameField::fromString('Surgelé'),
+                    2,
                     FamilyLog::create(
                         FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                        NameField::fromString('Alimentaire')
+                        NameField::fromString('Alimentaire'),
+                        1
                     )
                 )
             ),
             $familyLog
         );
-        self::assertEquals('alimentaire:surgele:viande', $familyLog->path());
+        self::assertEquals('alimentaire/surgele/viande', $familyLog->path());
     }
 
     final public function testGetTreeFamilyLog(): void
@@ -61,21 +67,25 @@ class FamilyLogTest extends TestCase
         // Arrange
         $alimentaire = FamilyLog::create(
             FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-            NameField::fromString('Alimentaire')
+            NameField::fromString('Alimentaire'),
+            1
         );
         $surgele = FamilyLog::create(
             FamilyLogUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Surgelé'),
+            2,
             $alimentaire
         );
         FamilyLog::create(
             FamilyLogUuid::fromString('d425a8fb-5d42-4cc7-a540-2005360e36c2'),
             NameField::fromString('Frais'),
+            2,
             $alimentaire
         );
         FamilyLog::create(
             FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
             NameField::fromString('Viande'),
+            3,
             $surgele
         );
 

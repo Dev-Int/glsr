@@ -20,6 +20,7 @@ final class FamilyLog
 {
     private string $uuid;
     private string $label;
+    private int $level;
     private ?FamilyLog $parent = null;
     /**
      * @var FamilyLog[]|null
@@ -28,25 +29,21 @@ final class FamilyLog
     private string $slug;
     private string $path;
 
-    public function __construct(FamilyLogUuid $uuid, NameField $label, ?self $parent = null)
+    public function __construct(FamilyLogUuid $uuid, NameField $label, int $level, ?self $parent = null)
     {
         $this->uuid = $uuid->toString();
         $this->label = $label->getValue();
         $this->path = $label->slugify();
         $this->slug = $label->slugify();
+        $this->level = $level;
         if (null !== $parent) {
-            $this->parent = $parent;
-            $this->parent->addChild($this);
-            $this->path = $parent->slug() . ':' . $label->slugify();
-            if (null !== $this->parent->parent) {
-                $this->path = $this->parent->parent->slug() . ':' . $this->parent->slug() . ':' . $label->slugify();
-            }
+            $this->attributeParent($parent);
         }
     }
 
-    public static function create(FamilyLogUuid $uuid, NameField $name, ?self $parent = null): self
+    public static function create(FamilyLogUuid $uuid, NameField $name, int $level, ?self $parent = null): self
     {
-        return new self($uuid, $name, $parent);
+        return new self($uuid, $name, $level, $parent);
     }
 
     public function uuid(): string
@@ -57,6 +54,11 @@ final class FamilyLog
     public function label(): string
     {
         return $this->label;
+    }
+
+    public function level(): int
+    {
+        return $this->level;
     }
 
     public function parent(): ?self
@@ -95,6 +97,15 @@ final class FamilyLog
         }
 
         return [$this->label => $arrayChildren];
+    }
+
+    public function attributeParent(?self $parent): void
+    {
+        $this->parent = $parent;
+        if (null !== $parent) {
+            $this->parent->addChild($this);
+            $this->path = $parent->path() . '/' . $this->slug();
+        }
     }
 
     private function hasChildren(self $familyLog): ?array

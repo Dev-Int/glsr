@@ -44,9 +44,11 @@ class ArticleTest extends TestCase
             FamilyLog::create(
                 FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
+                2,
                 FamilyLog::create(
                     FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                    NameField::fromString('Frais')
+                    NameField::fromString('Frais'),
+                    1
                 )
             )
         );
@@ -65,9 +67,11 @@ class ArticleTest extends TestCase
                 FamilyLog::create(
                     FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                     NameField::fromString('Viande'),
+                    2,
                     FamilyLog::create(
                         FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                        NameField::fromString('Frais')
+                        NameField::fromString('Frais'),
+                        1
                     )
                 )
             ),
@@ -90,9 +94,11 @@ class ArticleTest extends TestCase
             FamilyLog::create(
                 FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                 NameField::fromString('Viande'),
+                2,
                 FamilyLog::create(
                     FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                    NameField::fromString('Frais')
+                    NameField::fromString('Frais'),
+                    1
                 )
             )
         );
@@ -114,9 +120,11 @@ class ArticleTest extends TestCase
                 FamilyLog::create(
                     FamilyLogUuid::fromString('626adfca-fc5d-415c-9b7a-7541030bd147'),
                     NameField::fromString('Viande'),
+                    2,
                     FamilyLog::create(
                         FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                        NameField::fromString('Frais')
+                        NameField::fromString('Frais'),
+                        1
                     )
                 )
             ),
@@ -145,7 +153,8 @@ class ArticleTest extends TestCase
             PhoneField::fromString('+33600000001'),
             FamilyLog::create(
                 FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                NameField::fromString('Frais')
+                NameField::fromString('Frais'),
+                1
             ),
             3,
             [1, 3]

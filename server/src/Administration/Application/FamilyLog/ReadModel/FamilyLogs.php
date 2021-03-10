@@ -36,4 +36,9 @@ final class FamilyLogs implements CollectionProtocol
     {
         return $this->values;
     }
+
+    public function add(FamilyLog $familyLog): void
+    {
+        $this->values[] = $familyLog;
+    }
 }

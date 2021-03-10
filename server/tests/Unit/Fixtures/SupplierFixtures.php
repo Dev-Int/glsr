@@ -23,6 +23,7 @@ class SupplierFixtures implements FixturesProtocol
      */
     public function load(Connection $connection): void
     {
+        // @Todo: depends on FamilyLogFixtures()
         $supplier = [
             'uuid' => 'a136c6fe-8f6e-45ed-91bc-586374791033',
             'name' => 'Davigel',
@@ -35,7 +36,7 @@ class SupplierFixtures implements FixturesProtocol
             'email' => 'contact@developpement-interessant.com',
             'contact_name' => 'Laurent',
             'cellphone' => '0600000001',
-            'family_log' => 'surgele',
+            'family_log' => 'a136c6fe-8f6e-45ed-91bc-586374791033',
             'delay_delivery' => 1,
             'order_days' => \implode(',', [1, 5]),
             'slug' => 'davigel',
