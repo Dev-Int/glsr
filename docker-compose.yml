@@ -38,7 +38,7 @@ services:
       - '${APP_PATH}:${APP_CONTAINER_PATH}'
 
   mariadb:
-    image: 'library/mariadb:10.1.47'
+    image: 'library/mariadb:10.2'
     tty: true
     command: 'mysqld --sql-mode="STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION"'
     environment:
