@@ -166,6 +166,7 @@ class AbstractControllerTest extends WebTestCase
                 'php',
                 'bin/console',
                 'doctrine:database:drop',
+                '--if-exists',
                 '--force',
                 '--env=test',
             ],

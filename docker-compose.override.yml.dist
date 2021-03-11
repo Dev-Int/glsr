@@ -5,12 +5,8 @@ services:
   adminer:
     image: adminer
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      PMA_HOST: mysql
-      PMA_ARBITRARY: 1
+      ADMINER_PLUGINS: 'tables-filter tinymce'
     links:
       - mariadb:db
     ports:
-      - ${ADMINER_PORT}:80
+      - ${ADMINER_PORT}:8080

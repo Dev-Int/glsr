@@ -1,6 +1,8 @@
 doctrine:
   dbal:
-    driver: pdo_sqlite
-    path: '%kernel.cache_dir%/test.db'
-    url: null
-    memory: true
+    driver: 'pdo_mysql'
+    charset: utf8mb4
+    url: '%env(resolve:DATABASE_URL)%'
+    default_table_options:
+      charset: utf8mb4
+      collate: utf8mb4_unicode_ci
