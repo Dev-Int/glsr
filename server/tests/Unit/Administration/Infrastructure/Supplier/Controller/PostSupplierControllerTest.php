@@ -17,6 +17,7 @@ use Doctrine\DBAL\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\FamilyLogFixtures;
 
 class PostSupplierControllerTest extends AbstractControllerTest
 {
@@ -27,7 +28,7 @@ class PostSupplierControllerTest extends AbstractControllerTest
     final public function testPostSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixtures([]);
+        $this->loadFixtures([new FamilyLogFixtures()]);
         $content = [
             'name' => 'Davigel',
             'address' => '1, rue des freeze',
@@ -37,9 +38,9 @@ class PostSupplierControllerTest extends AbstractControllerTest
             'phone' => '0100000001',
             'facsimile' => '0100000002',
             'email' => 'contact@davigel.fr',
-            'contact' => 'David',
+            'contact_name' => 'David',
             'cellphone' => '0600000002',
-            'familyLog' => 'Surgelé',
+            'family_log_id' => '626adfca-fc5d-415c-9b7a-7541030bd147',
             'delayDelivery' => 3,
             'orderDays' => [2, 4],
         ];

@@ -17,6 +17,7 @@ use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\FamilyLogFixtures;
 use Unit\Tests\Fixtures\SupplierFixtures;
 
 class DeleteSupplierControllerTest extends AbstractControllerTest
@@ -28,7 +29,7 @@ class DeleteSupplierControllerTest extends AbstractControllerTest
     final public function testDeleteSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixtures([new SupplierFixtures()]);
+        $this->loadFixtures([new FamilyLogFixtures(), new SupplierFixtures()]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             Request::METHOD_DELETE,

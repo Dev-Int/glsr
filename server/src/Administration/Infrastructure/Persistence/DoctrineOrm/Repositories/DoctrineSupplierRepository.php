@@ -13,10 +13,11 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Model\Supplier;
 use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
-use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
@@ -56,9 +57,9 @@ SQL;
 
         $statement = $this->connection->prepare(
             'INSERT INTO supplier
-(uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, family_log,
+(uuid, name, address, zip_code, town, country, phone, facsimile, email, contact_name, cellphone, family_log_id,
  delay_delivery, order_days, slug, active) VALUES (:uuid, :name, :address, :zip_code, :town, :country, :phone,
-:facsimile, :email, :contact_name, :cellphone, :family_log, :delay_delivery, :order_days, :slug, :active)'
+:facsimile, :email, :contact_name, :cellphone, :family_log_id, :delay_delivery, :order_days, :slug, :active)'
         );
         $statement->execute($data);
     }
@@ -73,8 +74,9 @@ SQL;
         $statement = $this->connection->prepare(
             'UPDATE supplier SET
 uuid = :uuid, name = :name, address = :address, zip_code = :zip_code, town = :town, country = :country, phone = :phone,
-facsimile = :facsimile, email = :email, contact_name = :contact_name, cellphone = :cellphone, family_log = :family_log,
-delay_delivery = :delay_delivery, order_days = :order_days, slug = :slug, active = :active
+facsimile = :facsimile, email = :email, contact_name = :contact_name, cellphone = :cellphone,
+family_log_id = :family_log_id, delay_delivery = :delay_delivery, order_days = :order_days, slug = :slug,
+active = :active
 WHERE uuid = :uuid'
         );
         $statement->execute($data);
@@ -98,19 +100,25 @@ SELECT
     supplier.email as email,
     supplier.contact_name as contact,
     supplier.cellphone as cellphone,
-    supplier.family_log as familyLog,
+    supplier.family_log_id as family_log_id,
     supplier.delay_delivery as delayDelivery,
     supplier.order_days as orderDays,
-    supplier.active as active,
-    supplier.slug as slug
+    family_log.label as label,
+    family_log.level as level
 FROM supplier
-WHERE uuid = :uuid
+JOIN family_log on family_log.uuid = supplier.family_log_id
+WHERE supplier.uuid = :uuid
 SQL;
         $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAssociative();
-
         if (null === $result) {
             throw new SupplierNotFound();
         }
+
+        $familyLog = FamilyLog::create(
+            FamilyLogUuid::fromString($result['family_log_id']),
+            NameField::fromString($result['label']),
+            (int) $result['level']
+        );
 
         return Supplier::create(
             ContactUuid::fromString($result['uuid']),
@@ -124,7 +132,7 @@ SQL;
             EmailField::fromString($result['email']),
             $result['contact'],
             PhoneField::fromString($result['cellphone']),
-            FamilyLog::create(NameField::fromString($result['familyLog'])),
+            $familyLog,
             (int) $result['delayDelivery'],
             \explode(',', $result['orderDays']),
         );
@@ -144,7 +152,7 @@ SQL;
             'email' => $supplier->email(),
             'contact_name' => $supplier->contact(),
             'cellphone' => $supplier->cellphone(),
-            'family_log' => $supplier->familyLog(),
+            'family_log_id' => $supplier->familyLog()->uuid(),
             'delay_delivery' => $supplier->delayDelivery(),
             'order_days' => \implode(',', $supplier->orderDays()),
             'slug' => $supplier->slug(),

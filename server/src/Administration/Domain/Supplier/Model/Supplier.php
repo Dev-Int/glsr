@@ -23,7 +23,7 @@ use Core\Domain\Common\Model\VO\PhoneField;
 final class Supplier extends Contact
 {
     protected string $uuid;
-    private string $familyLog;
+    private FamilyLog $familyLog;
     private int $delayDelivery;
     private array $orderDays;
     private bool $active;
@@ -58,7 +58,7 @@ final class Supplier extends Contact
             $contact,
             $cellphone
         );
-        $this->familyLog = $familyLog->path();
+        $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
         $this->active = $active;
@@ -106,14 +106,14 @@ final class Supplier extends Contact
         $this->slug = $name->slugify();
     }
 
-    public function familyLog(): string
+    public function familyLog(): FamilyLog
     {
         return $this->familyLog;
     }
 
     public function reassignFamilyLog(FamilyLog $familyLog): void
     {
-        $this->familyLog = $familyLog->path();
+        $this->familyLog = $familyLog;
     }
 
     public function delayDelivery(): int

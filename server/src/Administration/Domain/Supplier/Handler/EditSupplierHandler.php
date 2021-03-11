@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Handler;
 
+use Administration\Domain\Protocol\Repository\FamilyLogRepositoryProtocol;
 use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Command\EditSupplier;
 use Administration\Domain\Supplier\Model\Supplier;
@@ -20,16 +21,20 @@ use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
 
 class EditSupplierHandler implements CommandHandlerProtocol
 {
-    private SupplierRepositoryProtocol $repository;
+    private SupplierRepositoryProtocol $supplierRepository;
+    private FamilyLogRepositoryProtocol $familyLogRepository;
 
-    public function __construct(SupplierRepositoryProtocol $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        SupplierRepositoryProtocol $supplierRepository,
+        FamilyLogRepositoryProtocol $familyLogRepository
+    ) {
+        $this->supplierRepository = $supplierRepository;
+        $this->familyLogRepository = $familyLogRepository;
     }
 
     public function __invoke(EditSupplier $command): void
     {
-        $supplierToUpdate = $this->repository->findOneByUuid($command->uuid()->toString());
+        $supplierToUpdate = $this->supplierRepository->findOneByUuid($command->uuid()->toString());
 
         if (null === $supplierToUpdate) {
             throw new \DomainException('Supplier provided does not exist!');
@@ -37,11 +42,13 @@ class EditSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->updateSupplier($command, $supplierToUpdate);
 
-        $this->repository->update($supplier);
+        $this->supplierRepository->update($supplier);
     }
 
     private function updateSupplier(EditSupplier $command, Supplier $supplier): Supplier
     {
+        $familyLog = $this->familyLogRepository->findParent($command->familyLogUuid());
+
         if ($supplier->name() !== $command->name()) {
             $supplier->renameSupplier($command->name());
         }
@@ -72,8 +79,8 @@ class EditSupplierHandler implements CommandHandlerProtocol
         if ($supplier->cellPhone() !== $command->cellPhone()) {
             $supplier->changeCellphoneNumber($command->cellPhone());
         }
-        if ($supplier->familyLog() !== $command->familyLog()) {
-            $supplier->reassignFamilyLog($command->familyLog());
+        if ($supplier->familyLog() !== $familyLog) {
+            $supplier->reassignFamilyLog($familyLog);
         }
         if ($supplier->delayDelivery() !== $command->delayDelivery()) {
             $supplier->changeDelayDelivery($command->delayDelivery());

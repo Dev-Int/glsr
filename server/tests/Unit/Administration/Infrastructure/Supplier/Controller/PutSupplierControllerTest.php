@@ -17,6 +17,7 @@ use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\FamilyLogFixtures;
 use Unit\Tests\Fixtures\SupplierFixtures;
 
 class PutSupplierControllerTest extends AbstractControllerTest
@@ -28,7 +29,7 @@ class PutSupplierControllerTest extends AbstractControllerTest
     final public function testPutSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixtures([new SupplierFixtures()]);
+        $this->loadFixtures([new FamilyLogFixtures(), new SupplierFixtures()]);
         $content = [
             'name' => 'Davigel',
             'address' => '1, rue des freezes',
@@ -38,9 +39,9 @@ class PutSupplierControllerTest extends AbstractControllerTest
             'phone' => '0100000001',
             'facsimile' => '0100000002',
             'email' => 'contact@davigel.fr',
-            'contact' => 'David',
+            'contact_name' => 'David',
             'cellphone' => '0600000002',
-            'familyLog' => 'Frais',
+            'family_log_id' => '626adfca-fc5d-415c-9b7a-7541030bd147',
             'delayDelivery' => 3,
             'orderDays' => [2, 4],
         ];

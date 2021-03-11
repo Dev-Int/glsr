@@ -53,18 +53,18 @@ class DoctrineFamilyLogFinder implements FamilyLogFinderProtocol
     {
         $query = <<<'SQL'
 WITH RECURSIVE cte (uuid, parent_id, label, slug, level, dir) AS (
-    SELECT uuid, parent_id, label, slug, level, CAST(null as CHAR(10)) as dir
+    SELECT uuid, parent_id, label, level, slug, CAST(null as CHAR(10)) as dir
     FROM family_log
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.slug, f1.level, IFNULL(f2.dir, 'down')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.slug, IFNULL(f2.dir, 'down')
     FROM family_log f1
         INNER JOIN cte f2 ON f1.parent_id = f2.uuid AND IFNULL(f2.dir, 'down')='down'
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.slug, f1.level, IFNULL(f2.dir, 'up')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.slug, IFNULL(f2.dir, 'up')
     FROM family_log f1
             INNER JOIN cte f2 ON f1.parent_id = f2.uuid AND IFNULL(f2.dir, 'up')='up'
 )
-SELECT DISTINCT uuid, parent_id, label, slug, level FROM cte
+SELECT DISTINCT uuid, parent_id, label, level, slug FROM cte
 ORDER BY level DESC
 SQL;
 

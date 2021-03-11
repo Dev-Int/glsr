@@ -36,7 +36,7 @@ class GlsrDefinition implements SchemaDefinition
 
         // Company definition
         $companyTable = $schema->createTable('company');
-        $companyTable->addColumn('uuid', 'string', ['length' => 36]);
+        $companyTable->addColumn('uuid', 'guid', ['length' => 36]);
         $companyTable->addColumn('name', 'string', ['length' => 150]);
         $companyTable->addColumn('address', 'string');
         $companyTable->addColumn('zip_code', 'string', ['length' => 5]);
@@ -52,41 +52,19 @@ class GlsrDefinition implements SchemaDefinition
 
         // Settings definition
         $settingsTable = $schema->createTable('settings');
-        $settingsTable->addColumn('uuid', 'string', ['length' => 36]);
+        $settingsTable->addColumn('uuid', 'guid', ['length' => 36]);
         $settingsTable->addColumn('currency', 'string', ['length' => 20]);
         $settingsTable->addColumn('locale', 'string', ['length' => 10]);
         $settingsTable->setPrimaryKey(['uuid']);
 
         // User definition
         $userTable = $schema->createTable('user');
-        $userTable->addColumn('uuid', 'string', ['length' => 36]);
+        $userTable->addColumn('uuid', 'guid', ['length' => 36]);
         $userTable->addColumn('username', 'string', ['length' => 150]);
         $userTable->addColumn('email', 'string');
         $userTable->addColumn('password', 'string', ['length' => 120]);
         $userTable->addColumn('roles', 'simple_array');
         $userTable->setPrimaryKey(['uuid']);
-
-        // Supplier definition
-        $supplierTable = $schema->createTable('supplier');
-        $supplierTable->addColumn('uuid', 'string', ['length' => 36]);
-        $supplierTable->addColumn('name', 'string', ['length' => 150]);
-        $supplierTable->addColumn('address', 'string');
-        $supplierTable->addColumn('zip_code', 'string', ['length' => 5]);
-        $supplierTable->addColumn('town', 'string');
-        $supplierTable->addColumn('country', 'string');
-        $supplierTable->addColumn('phone', 'string', ['length' => 12]);
-        $supplierTable->addColumn('facsimile', 'string', ['notnull' => false, 'length' => 12]);
-        $supplierTable->addColumn('email', 'string');
-        $supplierTable->addColumn('contact_name', 'string');
-        $supplierTable->addColumn('cellphone', 'string', ['length' => 12]);
-        $supplierTable->addColumn('family_log', 'string');
-        $supplierTable->addColumn('delay_delivery', 'integer');
-        $supplierTable->addColumn('order_days', 'simple_array');
-        $supplierTable->addColumn('slug', 'string');
-        $supplierTable->addColumn('active', 'smallint', ['length' => 1]);
-        $supplierTable->setPrimaryKey(['uuid']);
-        $supplierTable->addUniqueIndex(['name']);
-        $supplierTable->addUniqueIndex(['slug']);
 
         // FamilyLog definition
         $familyLogTable = $schema->createTable('family_log');
@@ -98,5 +76,28 @@ class GlsrDefinition implements SchemaDefinition
         $familyLogTable->addIndex(['parent_id']);
         $familyLogTable->setPrimaryKey(['uuid']);
         $familyLogTable->addForeignKeyConstraint($familyLogTable, ['parent_id'], ['uuid'], ['onDelete' => 'CASCADE']);
+
+        // Supplier definition
+        $supplierTable = $schema->createTable('supplier');
+        $supplierTable->addColumn('uuid', 'guid', ['length' => 36]);
+        $supplierTable->addColumn('name', 'string', ['length' => 150]);
+        $supplierTable->addColumn('address', 'string');
+        $supplierTable->addColumn('zip_code', 'string', ['length' => 5]);
+        $supplierTable->addColumn('town', 'string');
+        $supplierTable->addColumn('country', 'string');
+        $supplierTable->addColumn('phone', 'string', ['length' => 12]);
+        $supplierTable->addColumn('facsimile', 'string', ['notnull' => false, 'length' => 12]);
+        $supplierTable->addColumn('email', 'string');
+        $supplierTable->addColumn('contact_name', 'string');
+        $supplierTable->addColumn('cellphone', 'string', ['length' => 12]);
+        $supplierTable->addColumn('family_log_id', 'string', ['length' => 36]);
+        $supplierTable->addColumn('delay_delivery', 'integer');
+        $supplierTable->addColumn('order_days', 'simple_array');
+        $supplierTable->addColumn('slug', 'string');
+        $supplierTable->addColumn('active', 'smallint', ['length' => 1]);
+        $supplierTable->setPrimaryKey(['uuid']);
+        $supplierTable->addUniqueIndex(['name']);
+        $supplierTable->addUniqueIndex(['slug']);
+        $supplierTable->addForeignKeyConstraint($familyLogTable, ['family_log_id'], ['uuid']);
     }
 }

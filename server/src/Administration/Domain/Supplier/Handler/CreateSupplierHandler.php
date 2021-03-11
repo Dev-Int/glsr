@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Handler;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\Protocol\Repository\FamilyLogRepositoryProtocol;
 use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Command\CreateSupplier;
 use Administration\Domain\Supplier\Model\Supplier;
@@ -21,25 +23,30 @@ use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
 
 class CreateSupplierHandler implements CommandHandlerProtocol
 {
-    private SupplierRepositoryProtocol $repository;
+    private SupplierRepositoryProtocol $supplierRepository;
+    private FamilyLogRepositoryProtocol $familyLogRepository;
 
-    public function __construct(SupplierRepositoryProtocol $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        SupplierRepositoryProtocol $supplierRepository,
+        FamilyLogRepositoryProtocol $familyLogRepository
+    ) {
+        $this->supplierRepository = $supplierRepository;
+        $this->familyLogRepository = $familyLogRepository;
     }
 
     public function __invoke(CreateSupplier $command): void
     {
-        if ($this->repository->existsWithName($command->name()->getValue())) {
+        if ($this->supplierRepository->existsWithName($command->name()->getValue())) {
             throw new \DomainException("Supplier with name: {$command->name()->getValue()} already exists.");
         }
+        $familyLog = $this->familyLogRepository->findParent($command->familyLogUuid());
 
-        $supplier = $this->createSupplier($command);
+        $supplier = $this->createSupplier($command, $familyLog);
 
-        $this->repository->add($supplier);
+        $this->supplierRepository->add($supplier);
     }
 
-    private function createSupplier(CreateSupplier $command): Supplier
+    private function createSupplier(CreateSupplier $command, FamilyLog $familyLog): Supplier
     {
         return Supplier::create(
             ContactUuid::generate(),
@@ -53,7 +60,7 @@ class CreateSupplierHandler implements CommandHandlerProtocol
             $command->email(),
             $command->contact(),
             $command->cellPhone(),
-            $command->familyLog(),
+            $familyLog,
             $command->delayDelivery(),
             $command->orderDays()
         );

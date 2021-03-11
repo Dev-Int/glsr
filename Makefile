@@ -87,11 +87,17 @@ db-test: server/.env.test ## Create tests database
 	@echo "create database for tests"
 	@$(SERVER_CONSOLE) doctrine:database:create --env=test
 
-db-diff: ## Generation doctrine diff
-	@$(SERVER_CONSOLE) doctrine:migrations:diff
+#db-diff: ## Generation doctrine diff
+#	@$(SERVER_CONSOLE) doctrine:migrations:diff
+#
+#db-migrate: ## Launch doctrine migrations
+#	@$(SERVER_CONSOLE) doctrine:migrations:migrate $(VERSION) --no-interaction
 
-db-migrate: ## Launch doctrine migrations
-	@$(SERVER_CONSOLE) doctrine:migrations:migrate $(VERSION) --no-interaction
+db-diff: ## Show db-diff database
+	@$(SERVER_CONSOLE) dbal:schema:update
+
+db-update: ## Update database
+	@$(SERVER_CONSOLE) dbal:schema:update --force
 
 db-reset: ## Reset database with given DUMP variable
 	@:$(call check_defined, DUMP, sql file)

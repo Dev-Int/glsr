@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Command;
 
-use Administration\Domain\FamilyLog\Model\FamilyLog;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
@@ -33,7 +32,7 @@ class EditSupplier implements CommandProtocol
     private EmailField $email;
     private string $contact;
     private PhoneField $cellPhone;
-    private FamilyLog $familyLog;
+    private string $familyLogUuid;
     private int $delayDelivery;
     private array $orderDays;
 
@@ -49,7 +48,7 @@ class EditSupplier implements CommandProtocol
         EmailField $email,
         string $contact,
         PhoneField $cellPhone,
-        FamilyLog $familyLog,
+        string $familyLogUuid,
         int $delayDelivery,
         array $orderDays
     ) {
@@ -64,7 +63,7 @@ class EditSupplier implements CommandProtocol
         $this->email = $email;
         $this->contact = $contact;
         $this->cellPhone = $cellPhone;
-        $this->familyLog = $familyLog;
+        $this->familyLogUuid = $familyLogUuid;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
     }
@@ -124,9 +123,9 @@ class EditSupplier implements CommandProtocol
         return $this->cellPhone;
     }
 
-    public function familyLog(): FamilyLog
+    public function familyLogUuid(): string
     {
-        return $this->familyLog;
+        return $this->familyLogUuid;
     }
 
     public function delayDelivery(): int

@@ -24,7 +24,7 @@ class FamilyLogFixtures implements FixturesProtocol
     public function load(Connection $connection): void
     {
         $familyLog = [
-            'uuid' => 'a136c6fe-8f6e-45ed-91bc-586374791033',
+            'uuid' => '626adfca-fc5d-415c-9b7a-7541030bd147',
             'label' => 'Surgelé',
             'parent_id' => null,
             'slug' => 'surgele',
@@ -32,7 +32,7 @@ class FamilyLogFixtures implements FixturesProtocol
         ];
 
         $statement = $connection->prepare('INSERT INTO family_log
-(uuid, parent_id, label, slug, level) VALUES (:uuid, :parent, :label, :slug, :level)');
+(uuid, parent_id, label, slug, level) VALUES (:uuid, :parent_id, :label, :slug, :level)');
         $statement->execute($familyLog);
     }
 }

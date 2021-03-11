@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Supplier\Controller;
 
-use Administration\Domain\FamilyLog\Model\FamilyLog;
-use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Administration\Domain\Supplier\Command\EditSupplier;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
@@ -52,12 +50,9 @@ class PutSupplierController extends AbstractController
                 PhoneField::fromString($supplier['phone']),
                 PhoneField::fromString($supplier['facsimile']),
                 EmailField::fromString($supplier['email']),
-                $supplier['contact'],
+                $supplier['contact_name'],
                 PhoneField::fromString($supplier['cellphone']),
-                FamilyLog::create(
-                    FamilyLogUuid::fromString('004c2842-4aab-4337-b359-e57cb9a72bb2'),
-                    NameField::fromString($supplier['familyLog'])
-                ),
+                $supplier['family_log_id'],
                 $supplier['delayDelivery'],
                 $supplier['orderDays']
             );
