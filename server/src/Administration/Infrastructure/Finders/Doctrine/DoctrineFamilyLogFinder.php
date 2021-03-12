@@ -52,7 +52,7 @@ class DoctrineFamilyLogFinder implements FamilyLogFinderProtocol
     public function findAll(): FamilyLogs
     {
         $query = <<<'SQL'
-WITH RECURSIVE cte (uuid, parent_id, label, slug, level, dir) AS (
+WITH RECURSIVE cte (uuid, parent_id, label, level, slug, dir) AS (
     SELECT uuid, parent_id, label, level, slug, CAST(null as CHAR(10)) as dir
     FROM family_log
     UNION

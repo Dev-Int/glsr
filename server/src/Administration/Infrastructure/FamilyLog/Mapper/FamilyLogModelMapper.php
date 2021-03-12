@@ -55,7 +55,7 @@ class FamilyLogModelMapper
             $familyLogs[$datum['uuid']] = FamilyLog::create(
                 FamilyLogUuid::fromString($datum['uuid']),
                 NameField::fromString($datum['label']),
-                $datum['level']
+                (int) $datum['level']
             );
         }
 

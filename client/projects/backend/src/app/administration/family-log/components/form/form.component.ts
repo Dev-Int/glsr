@@ -29,14 +29,16 @@ export class FormComponent implements OnInit, OnDestroy {
   ) {}
 
   submit(): void {
+    if (this.formGroup.parent.value.length === 0) {
+      this.formGroup.parent.setValue(null);
+    }
     if (this.form.invalid) {
-      console.log('invalid');
       return;
     }
 
     this.subscription.add(this.service.addFamilyLog(this.form.value).subscribe());
 
-    this.router.navigate(['administration', 'familylogs']).then();
+    this.router.navigate(['administration', 'family-logs']).then();
   }
 
   ngOnInit(): void {
