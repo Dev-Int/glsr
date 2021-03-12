@@ -175,18 +175,6 @@
         "multiline": "always",
         "singleline": "never"
       }
-    ],
-    "directive-selector": [
-      true,
-      "attribute",
-      "app",
-      "camelCase"
-    ],
-    "component-selector": [
-      true,
-      "element",
-      "app",
-      "kebab-case"
     ]
   }
 }
