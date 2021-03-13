@@ -19,6 +19,7 @@
         "ext-json": "*",
         "cocur/slugify": "^4.0",
         "doctrine/annotations": "^1.0",
+        "jms/serializer-bundle": "^3.8",
         "lexik/jwt-authentication-bundle": "^2.10",
         "mnapoli/dbal-schema": "^1.1",
         "phpdocumentor/reflection-docblock": "^5.2",
