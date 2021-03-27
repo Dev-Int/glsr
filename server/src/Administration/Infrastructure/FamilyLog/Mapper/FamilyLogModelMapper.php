@@ -55,7 +55,9 @@ class FamilyLogModelMapper
             $familyLogs[$datum['uuid']] = FamilyLog::create(
                 FamilyLogUuid::fromString($datum['uuid']),
                 NameField::fromString($datum['label']),
-                (int) $datum['level']
+                (int) $datum['level'],
+                null,
+                $datum['path']
             );
         }
 
@@ -80,11 +82,12 @@ class FamilyLogModelMapper
 
     public function getReadModelFromDataArray(array $data): FamilyLogReadModel
     {
-        // @Todo: get parental line.
         $familyLog = FamilyLog::create(
-            $data['name'],
-            $data['parent_id'],
+            $data['uuid'],
             $data['label'],
+            $data['level'],
+            $data['parent_id'],
+            $data['path']
         );
 
         return $this->createReadModelFromDomain($familyLog);

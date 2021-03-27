@@ -54,16 +54,16 @@ class DoctrineFamilyLogRepository implements FamilyLogRepositoryProtocol
     {
         $parent = null;
         $query = <<<'SQL'
-WITH RECURSIVE cte (uuid, parent_id, label, slug, level, dir) AS (
-    SELECT uuid, parent_id, label, slug, level, CAST(null as CHAR(10)) as dir
+WITH RECURSIVE cte (uuid, parent_id, label, slug, level, path, dir) AS (
+    SELECT uuid, parent_id, label, slug, level, path, CAST(null as CHAR(10)) as dir
     FROM family_log
     WHERE uuid = :uuid
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.slug, f1.level, IFNULL(f2.dir, 'up')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.slug, f1.level, f1.path, IFNULL(f2.dir, 'up')
     FROM family_log f1
         INNER JOIN cte f2 ON f2.parent_id = f1.uuid AND IFNULL(f2.dir, 'up')='up'
 )
-SELECT DISTINCT uuid, parent_id, label, slug, level FROM cte
+SELECT DISTINCT uuid, parent_id, label, slug, level, path FROM cte
 ORDER BY level
 SQL;
 
@@ -86,7 +86,7 @@ SQL;
 
         $statement = $this->connection->prepare(
             'INSERT INTO family_log
-(uuid, parent_id, label, slug, level) VALUES (:uuid, :parent_id, :label, :slug, :level)'
+(uuid, parent_id, label, slug, level, path) VALUES (:uuid, :parent_id, :label, :slug, :level, :path)'
         );
         $statement->execute($data);
     }
@@ -104,6 +104,7 @@ SQL;
             'label' => $familyLog->label(),
             'slug' => $familyLog->slug(),
             'level' => (int) $familyLog->level(),
+            'path' => $familyLog->path(),
         ];
     }
 }

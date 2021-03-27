@@ -72,6 +72,7 @@ class GlsrDefinition implements SchemaDefinition
         $familyLogTable->addColumn('label', 'string', ['length' => 150]);
         $familyLogTable->addColumn('parent_id', 'guid', ['notnull' => false, 'length' => 36]);
         $familyLogTable->addColumn('level', 'integer');
+        $familyLogTable->addColumn('path', 'string');
         $familyLogTable->addColumn('slug', 'string');
         $familyLogTable->addIndex(['parent_id']);
         $familyLogTable->setPrimaryKey(['uuid']);

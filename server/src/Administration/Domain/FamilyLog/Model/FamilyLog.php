@@ -29,11 +29,19 @@ final class FamilyLog
     private string $slug;
     private string $path;
 
-    public function __construct(FamilyLogUuid $uuid, NameField $label, int $level, ?self $parent = null)
-    {
+    public function __construct(
+        FamilyLogUuid $uuid,
+        NameField $label,
+        int $level,
+        ?self $parent = null,
+        ?string $path = null
+    ) {
         $this->uuid = $uuid->toString();
         $this->label = $label->getValue();
         $this->path = $label->slugify();
+        if (null !== $path) {
+            $this->path = $path;
+        }
         $this->slug = $label->slugify();
         $this->level = $level;
         if (null !== $parent) {
@@ -41,9 +49,14 @@ final class FamilyLog
         }
     }
 
-    public static function create(FamilyLogUuid $uuid, NameField $name, int $level, ?self $parent = null): self
-    {
-        return new self($uuid, $name, $level, $parent);
+    public static function create(
+        FamilyLogUuid $uuid,
+        NameField $label,
+        int $level,
+        ?self $parent = null,
+        ?string $path = null
+    ): self {
+        return new self($uuid, $label, $level, $parent, $path);
     }
 
     public function uuid(): string

@@ -35,7 +35,7 @@ class DoctrineFamilyLogFinder implements FamilyLogFinderProtocol
     public function findBySlug(string $slug): FamilyLogReadModel
     {
         $result = $this->connection->createQueryBuilder()
-            ->select('uuid', 'parent_id', 'label', 'slug', 'level')
+            ->select('uuid', 'parent_id', 'label', 'slug', 'level', 'path')
             ->from('family_log')
             ->where('slug = :slug')
             ->setParameter('slug', $slug)
@@ -52,19 +52,19 @@ class DoctrineFamilyLogFinder implements FamilyLogFinderProtocol
     public function findAll(): FamilyLogs
     {
         $query = <<<'SQL'
-WITH RECURSIVE cte (uuid, parent_id, label, level, slug, dir) AS (
-    SELECT uuid, parent_id, label, level, slug, CAST(null as CHAR(10)) as dir
+WITH RECURSIVE cte (uuid, parent_id, label, level, path, slug, dir) AS (
+    SELECT uuid, parent_id, label, level, path, slug, CAST(null as CHAR(10)) as dir
     FROM family_log
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.slug, IFNULL(f2.dir, 'down')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.path, f1.slug, IFNULL(f2.dir, 'down')
     FROM family_log f1
         INNER JOIN cte f2 ON f1.parent_id = f2.uuid AND IFNULL(f2.dir, 'down')='down'
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.slug, IFNULL(f2.dir, 'up')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.path, f1.slug, IFNULL(f2.dir, 'up')
     FROM family_log f1
             INNER JOIN cte f2 ON f1.parent_id = f2.uuid AND IFNULL(f2.dir, 'up')='up'
 )
-SELECT DISTINCT uuid, parent_id, label, level, slug FROM cte
+SELECT DISTINCT uuid, parent_id, label, level, path, slug FROM cte
 ORDER BY level DESC
 SQL;
 
