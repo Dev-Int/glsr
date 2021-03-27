@@ -55,6 +55,6 @@ security:
   # Note: Only the *first* access control that matches will be used
   access_control:
     - { path: ^/api/(login|public), roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#    - { path: ^/api/backend, roles: ROLE_ADMIN }
-#    - { path: ^/api, roles: ROLE_USER }
-#    - { path: ^/, roles: ROLE_USER }
+    - { path: ^/api/backend, roles: ROLE_ADMIN }
+    - { path: ^/api, roles: ROLE_USER }
+    - { path: ^/, roles: ROLE_USER }

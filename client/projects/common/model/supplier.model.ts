@@ -1,3 +1,5 @@
+import { FamilyLog } from './family-log.model';
+
 export interface Supplier {
   uuid?: string;
   name: string;
@@ -9,9 +11,10 @@ export interface Supplier {
   phone: string;
   facsimile: string;
   email: string;
-  contact: string;
-  cellphone: string;
-  familyLog: string;
+  contactName: string;
+  cellPhone: string;
+  familyLog?: FamilyLog;
+  familyLogId?: string;
   delayDelivery: number;
   orderDays: Array<number>;
   slug?: string;

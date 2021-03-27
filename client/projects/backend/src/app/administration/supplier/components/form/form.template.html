@@ -1,7 +1,10 @@
-<h1 class="card-header">Nouveau fournisseur</h1>
+<h1 class="card-header">
+  {{ pageTitle }}
+</h1>
 
 <div class="card-body">
   <form [formGroup]="form" (ngSubmit)="submit()">
+    {{ form.value | json }}
     <div class="form-group">
       <label for="name">Nom</label>
       <input id="name" type="text" class="form-control" formControlName="name">
@@ -81,10 +84,10 @@
     <div class="row">
       <div class="col-6">
         <div class="form-group">
-          <label for="contact">Nom du contact</label>
-          <input id="contact" type="text" class="form-control" formControlName="contact">
-          <ul *ngIf="formGroup.contact.invalid && (formGroup.contact.dirty || formGroup.contact.touched)" class="is-invalid list-unstyled">
-            <li class="text-danger" *ngIf="formGroup.contact.errors?.required">Un nom de contact est obligatoire</li>
+          <label for="contact_name">Nom du contact</label>
+          <input id="contact_name" type="text" class="form-control" formControlName="contact_name">
+          <ul *ngIf="formGroup.contact_name.invalid && (formGroup.contact_name.dirty || formGroup.contact_name.touched)" class="is-invalid list-unstyled">
+            <li class="text-danger" *ngIf="formGroup.contact_name.errors?.required">Un nom de contact est obligatoire</li>
           </ul>
         </div>
       </div>
@@ -101,14 +104,12 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="familyLog">Famille logistique</label>
-      <select id="familyLog" class="form-control" formControlName="familyLog">
-        <option value="surgele">Surgelé</option>
-        <option value="frais">Frais</option>
-        <option value="sec">Sec</option>
+      <label for="familyLogId">Famille logistique</label>
+      <select formControlName="familyLogId" id="familyLogId" class="form-control">
+        <option *ngFor="let familyLog of familyLogs" [value]="familyLog.uuid">{{ familyLog.path }}</option>
       </select>
-      <ul *ngIf="formGroup.familyLog.invalid && (formGroup.familyLog.dirty || formGroup.familyLog.touched)" class="is-invalid list-unstyled">
-        <li class="text-danger" *ngIf="formGroup.familyLog.errors?.required">Une famille logistique est obligatoire</li>
+      <ul *ngIf="formGroup.familyLogId.invalid && (formGroup.familyLogId.dirty || formGroup.familyLogId.touched)" class="is-invalid list-unstyled">
+        <li class="text-danger" *ngIf="formGroup.familyLogId.errors?.required">Une famille logistique est obligatoire</li>
       </ul>
     </div>
     <div class="row">

@@ -16,9 +16,9 @@ namespace Administration\Infrastructure\Supplier\Controller;
 use Administration\Infrastructure\Finders\Doctrine\DoctrineSupplierFinder;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Exception;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class GetSuppliersController extends AbstractController
 {

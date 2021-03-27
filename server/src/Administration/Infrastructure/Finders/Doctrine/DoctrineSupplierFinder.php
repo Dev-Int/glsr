@@ -16,7 +16,10 @@ namespace Administration\Infrastructure\Finders\Doctrine;
 use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
 use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
 use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
+use Core\Domain\Common\Model\VO\NameField;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Exception;
 
@@ -88,29 +91,42 @@ SQL;
     {
         $query = <<<'SQL'
 SELECT
-    supplier.uuid as uuid,
-    supplier.name as name,
-    supplier.address as address,
-    supplier.zip_code as zipCode,
-    supplier.town as town,
-    supplier.country as country,
-    supplier.phone as phone,
-    supplier.facsimile as facsimile,
-    supplier.email as email,
-    supplier.contact_name as contact,
-    supplier.cellphone as cellphone,
-    supplier.family_log_id as familyLog,
-    supplier.delay_delivery as delayDelivery,
-    supplier.order_days as orderDays,
-    supplier.active as active,
-    supplier.slug as slug
+    supplier.uuid AS uuid,
+    supplier.name AS name,
+    supplier.address AS address,
+    supplier.zip_code AS zipCode,
+    supplier.town AS town,
+    supplier.country AS country,
+    supplier.phone AS phone,
+    supplier.facsimile AS facsimile,
+    supplier.email AS email,
+    supplier.contact_name AS contact,
+    supplier.cellphone AS cellphone,
+    supplier.family_log_id AS familyLogId,
+    supplier.delay_delivery AS delayDelivery,
+    supplier.order_days AS orderDays,
+    supplier.active AS active,
+    supplier.slug AS slug,
+    family_log.label AS label,
+    family_log.parent_id AS parent_id,
+    family_log.level AS level,
+    family_log.path AS path
 FROM supplier
+INNER JOIN family_log ON supplier.family_log_id = family_log.uuid
 WHERE active = 1
 SQL;
-        $result = $this->connection->executeQuery($query)->fetchAllAssociative();
+        $results = $this->connection->executeQuery($query)->fetchAllAssociative();
 
         return new Suppliers(
             ...\array_map(static function (array $supplier) {
+                $familyLog = FamilyLog::create(
+                    FamilyLogUuid::fromString($supplier['familyLogId']),
+                    NameField::fromString($supplier['label']),
+                    (int) $supplier['level'],
+                    null,
+                    $supplier['path']
+                );
+
                 return new SupplierModel(
                     $supplier['uuid'],
                     $supplier['name'],
@@ -123,13 +139,13 @@ SQL;
                     $supplier['email'],
                     $supplier['contact'],
                     $supplier['cellphone'],
-                    $supplier['familyLog'],
+                    $familyLog,
                     (int) $supplier['delayDelivery'],
                     \explode(',', $supplier['orderDays']),
                     $supplier['slug'],
                     (bool) $supplier['active']
                 );
-            }, $result)
+            }, $results)
         );
     }
 }

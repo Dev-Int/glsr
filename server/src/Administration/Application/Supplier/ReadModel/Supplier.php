@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Application\Supplier\ReadModel;
 
+use Administration\Domain\FamilyLog\Model\FamilyLog;
+use Core\Domain\Common\Model\VO\ContactAddress;
+
 final class Supplier
 {
     public string $uuid;
@@ -26,7 +29,8 @@ final class Supplier
     public string $email;
     public string $contact;
     public string $cellphone;
-    public string $familyLog;
+    public FamilyLog $familyLog;
+    public string $familyLogId;
     public int $delayDelivery;
     public array $orderDays;
     public string $slug;
@@ -44,7 +48,7 @@ final class Supplier
         string $email,
         string $contact,
         string $cellphone,
-        string $familyLog,
+        FamilyLog $familyLog,
         int $delayDelivery,
         array $orderDays,
         string $slug,
@@ -63,8 +67,14 @@ final class Supplier
         $this->contact = $contact;
         $this->cellphone = $cellphone;
         $this->familyLog = $familyLog;
+        $this->familyLogId = $familyLog->uuid();
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
         $this->active = $active;
+    }
+
+    public function fullAddress(): string
+    {
+        return ContactAddress::fromArray([$this->address, $this->zipCode, $this->town, $this->country])->getValue();
     }
 }

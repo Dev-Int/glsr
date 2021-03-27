@@ -111,6 +111,11 @@ final class Supplier extends Contact
         return $this->familyLog;
     }
 
+    public function familyLogId(): string
+    {
+        return $this->familyLog->uuid();
+    }
+
     public function reassignFamilyLog(FamilyLog $familyLog): void
     {
         $this->familyLog = $familyLog;
@@ -144,15 +149,5 @@ final class Supplier extends Contact
     public function delete(): void
     {
         $this->active = false;
-    }
-
-    public function getSlug(): string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): void
-    {
-        $this->slug = $slug;
     }
 }
