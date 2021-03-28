@@ -15,7 +15,13 @@
                  bindLabel="label"
                  bindValue="uuid"
                  formControlName="parent"
-      ></ng-select>
+      >
+        <ng-template ng-option-tmp let-item="item" let-index="index">
+          <ng-container>
+            <div [className]="'list-' + item.level">{{ item.label }}</div>
+          </ng-container>
+        </ng-template>
+      </ng-select>
     </div>
 
     <div class="btn-group">

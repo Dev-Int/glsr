@@ -4,7 +4,6 @@
 
 <div class="card-body">
   <form [formGroup]="form" (ngSubmit)="submit()">
-    {{ form.value | json }}
     <div class="form-group">
       <label for="name">Nom</label>
       <input id="name" type="text" class="form-control" formControlName="name">
@@ -105,9 +104,18 @@
     </div>
     <div class="form-group">
       <label for="familyLogId">Famille logistique</label>
-      <select formControlName="familyLogId" id="familyLogId" class="form-control">
-        <option *ngFor="let familyLog of familyLogs" [value]="familyLog.uuid">{{ familyLog.path }}</option>
-      </select>
+      <ng-select [items]="familyLogs"
+                 id="familyLogId"
+                 bindLabel="label"
+                 bindValue="uuid"
+                 formControlName="familyLogId"
+      >
+        <ng-template ng-option-tmp let-item="item" let-index="index">
+          <ng-container>
+            <div [className]="'list-' + item.level">{{ item.label }}</div>
+          </ng-container>
+        </ng-template>
+      </ng-select>
       <ul *ngIf="formGroup.familyLogId.invalid && (formGroup.familyLogId.dirty || formGroup.familyLogId.touched)" class="is-invalid list-unstyled">
         <li class="text-danger" *ngIf="formGroup.familyLogId.errors?.required">Une famille logistique est obligatoire</li>
       </ul>

@@ -125,7 +125,6 @@ export class FormComponent implements OnInit, OnDestroy {
     email: '',
     contactName: '',
     cellPhone: '',
-    familyLog: {uuid: '', label: '', level: 0, path: ''},
     familyLogId: '',
     delayDelivery: 0,
     orderDays: [],
@@ -157,8 +156,7 @@ export class FormComponent implements OnInit, OnDestroy {
         Validators.minLength(10),
         Validators.maxLength(10),
       ]],
-      familyLog: [supplier.familyLog, Validators.required],
-      familyLogId: [supplier.familyLogId],
+      familyLogId: [supplier.familyLogId, Validators.required],
       delayDelivery: [supplier.delayDelivery, Validators.required],
       orderDays: this.fb.array([], Validators.required),
     });
