@@ -19,6 +19,8 @@ interface FamilyLogRepositoryProtocol
 {
     public function add(FamilyLog $familyLog): void;
 
+    public function update(FamilyLog $familyLog): void;
+
     public function findParent(string $uuid): FamilyLog;
 
     public function existWithLabel(string $label, ?string $parentUuid): bool;

@@ -23,16 +23,38 @@ class FamilyLogFixtures implements FixturesProtocol
      */
     public function load(Connection $connection): void
     {
-        $familyLog = [
-            'uuid' => '626adfca-fc5d-415c-9b7a-7541030bd147',
-            'label' => 'Surgelé',
-            'parent_id' => null,
-            'slug' => 'surgele',
-            'level' => 1,
+        $familyLogs = [
+            [
+                'uuid' => '626adfca-fc5d-415c-9b7a-7541030bd147',
+                'label' => 'Surgelé',
+                'parent_id' => null,
+                'slug' => 'surgele',
+                'level' => 1,
+                'path' => 'surgele',
+            ],
+            [
+                'uuid' => '8413b485-e1c9-4e79-94e3-ce280986a952',
+                'label' => 'Frais',
+                'parent_id' => null,
+                'slug' => 'frais',
+                'level' => 1,
+                'path' => 'frais',
+            ],
+            [
+                'uuid' => 'ec9689bb-99d3-4493-b39d-a5b623bba5a0',
+                'label' => 'Viande',
+                'parent_id' => '626adfca-fc5d-415c-9b7a-7541030bd147',
+                'slug' => 'viande',
+                'level' => 2,
+                'path' => 'surgele/viande',
+            ],
         ];
 
         $statement = $connection->prepare('INSERT INTO family_log
-(uuid, parent_id, label, slug, level) VALUES (:uuid, :parent_id, :label, :slug, :level)');
-        $statement->execute($familyLog);
+(uuid, parent_id, label, slug, level, path) VALUES (:uuid, :parent_id, :label, :slug, :level, :path)');
+
+        foreach ($familyLogs as $familyLog) {
+            $statement->execute($familyLog);
+        }
     }
 }

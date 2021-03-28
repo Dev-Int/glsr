@@ -91,6 +91,21 @@ SQL;
         $statement->execute($data);
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception|Exception
+     */
+    public function update(FamilyLog $familyLog): void
+    {
+        $data = $this->getData($familyLog);
+
+        $statement = $this->connection->prepare(
+            'UPDATE family_log SET
+uuid = :uuid, parent_id = :parent_id, label = :label, slug = :slug, level = :level, path = :path
+WHERE uuid = :uuid'
+        );
+        $statement->execute($data);
+    }
+
     private function getData(FamilyLog $familyLog): array
     {
         $parent = null;

@@ -84,6 +84,17 @@ final class FamilyLog
         return $this->children;
     }
 
+    public function childrenArrayLabels(self $familyLog): ?array
+    {
+        if (null !== $familyLog->children) {
+            return \array_map(static function (self $child) {
+                return $child->label;
+            }, $familyLog->children);
+        }
+
+        return null;
+    }
+
     public function path(): string
     {
         return $this->path;
@@ -102,8 +113,8 @@ final class FamilyLog
         }
 
         foreach ($this->children as $child) {
-            if (null !== $this->hasChildren($child)) {
-                $arrayChildren[$child->label] = $this->hasChildren($child);
+            if (null !== $this->childrenArrayLabels($child)) {
+                $arrayChildren[$child->label] = $this->childrenArrayLabels($child);
             } else {
                 $arrayChildren[] = $child->label;
             }
@@ -112,28 +123,47 @@ final class FamilyLog
         return [$this->label => $arrayChildren];
     }
 
+    public function rename(NameField $label): void
+    {
+        $this->label = $label->getValue();
+        $this->slug = $label->slugify();
+        $this->path = $this->slug();
+    }
+
     public function attributeParent(?self $parent): void
     {
         $this->parent = $parent;
+        $this->level = 1;
         if (null !== $parent) {
             $this->parent->addChild($this);
             $this->path = $parent->path() . '/' . $this->slug();
+            $this->level = $parent->level + 1;
+        }
+        if ($this->hasChildren()) {
+            $this->changeLevel($this->children(), 1);
         }
     }
 
-    private function hasChildren(self $familyLog): ?array
+    private function hasChildren(): bool
     {
-        if (null !== $familyLog->children) {
-            return \array_map(static function (self $child) {
-                return $child->label;
-            }, $familyLog->children);
-        }
-
-        return null;
+        return null !== $this->children;
     }
 
     private function addChild(self $child): void
     {
         $this->children[] = $child;
+    }
+
+    /**
+     * @param FamilyLog[] $children
+     */
+    private function changeLevel(array $children, int $scale): void
+    {
+        foreach ($children as $child) {
+            $child->level += $scale;
+            if ($child->hasChildren()) {
+                $this->changeLevel($child->children(), 1);
+            }
+        }
     }
 }

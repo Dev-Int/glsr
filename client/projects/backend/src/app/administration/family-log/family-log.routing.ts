@@ -15,6 +15,11 @@ const routes: Routes = [
     data: {title: 'Nouvelle famille'},
     component: FormComponent,
   },
+  {
+    path: ':uuid/edit',
+    data: {title: 'Modifier une famille'},
+    component: FormComponent,
+  },
 ];
 
 @NgModule({

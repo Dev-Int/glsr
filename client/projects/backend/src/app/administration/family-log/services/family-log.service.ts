@@ -42,4 +42,19 @@ export class FamilyLogService {
       }),
     );
   }
+
+  editFamilyLog(uuid: string, data: FamilyLog): Observable<FamilyLog> {
+    return this.http.put<FamilyLog>(`/api/administration/family-logs/${uuid}`, data).pipe(
+      tap((familyLogUpdated: FamilyLog) => {
+        const value = this.familyLogs$.value;
+        this.familyLogs$.next(value.map((familyLog: FamilyLog) => {
+          if (familyLog.uuid === familyLogUpdated.uuid) {
+            return familyLogUpdated;
+          } else {
+            return familyLog;
+          }
+        }));
+      }),
+    );
+  }
 }

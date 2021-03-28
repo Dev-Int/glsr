@@ -36,7 +36,11 @@ export class FormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.subscription.add(this.service.addFamilyLog(this.form.value).subscribe());
+    if (this.familyLog) {
+      this.subscription.add(this.service.editFamilyLog(this.familyLog.uuid, this.form.value).subscribe());
+    } else {
+      this.subscription.add(this.service.addFamilyLog(this.form.value).subscribe());
+    }
 
     this.router.navigate(['administration', 'family-logs']).then();
   }

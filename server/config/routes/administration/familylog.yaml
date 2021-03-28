@@ -7,3 +7,8 @@ admin_familylogs_post:
   path: /
   controller: Administration\Infrastructure\FamilyLog\Controller\PostFamilyLogController
   methods: POST
+
+admin_familylogs_put:
+  path: /{uuid}
+  controller: Administration\Infrastructure\FamilyLog\Controller\PutFamilyLogController
+  methods: PUT
