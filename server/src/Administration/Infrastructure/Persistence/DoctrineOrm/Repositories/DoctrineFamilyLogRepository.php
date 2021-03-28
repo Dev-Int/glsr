@@ -54,16 +54,16 @@ class DoctrineFamilyLogRepository implements FamilyLogRepositoryProtocol
     {
         $parent = null;
         $query = <<<'SQL'
-WITH RECURSIVE cte (uuid, parent_id, label, slug, level, path, dir) AS (
-    SELECT uuid, parent_id, label, slug, level, path, CAST(null as CHAR(10)) as dir
+WITH RECURSIVE cte (uuid, parent_id, label, level, path, slug, dir) AS (
+    SELECT uuid, parent_id, label, level, path, slug, CAST(null as CHAR(10)) as dir
     FROM family_log
     WHERE uuid = :uuid
     UNION
-    SELECT f1.uuid, f1.parent_id, f1.label, f1.slug, f1.level, f1.path, IFNULL(f2.dir, 'up')
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.path, f1.slug, IFNULL(f2.dir, 'up')
     FROM family_log f1
         INNER JOIN cte f2 ON f2.parent_id = f1.uuid AND IFNULL(f2.dir, 'up')='up'
 )
-SELECT DISTINCT uuid, parent_id, label, slug, level, path FROM cte
+SELECT DISTINCT uuid, parent_id, label, level, path, slug FROM cte
 ORDER BY level
 SQL;
 
@@ -75,6 +75,35 @@ SQL;
         }
 
         return (new FamilyLogModelMapper())->createParentTreeFromArray($result);
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception|Exception
+     */
+    public function findChildren(string $uuid): FamilyLog
+    {
+        $children = null;
+        $query = <<<'SQL'
+WITH RECURSIVE cte (uuid, parent_id, label, level, path, slug, dir) AS (
+    SELECT uuid, parent_id, label, level, path, slug, CAST(null as CHAR(10)) as dir
+    FROM family_log
+    WHERE uuid = :uuid
+    UNION
+    SELECT f1.uuid, f1.parent_id, f1.label, f1.level, f1.path, f1.slug, IFNULL(f2.dir, 'down')
+    FROM family_log f1
+        INNER JOIN cte f2 ON f1.parent_id = f2.uuid AND IFNULL(f2.dir, 'down')='down'
+)
+SELECT DISTINCT uuid, parent_id, label, level, path, slug FROM cte
+ORDER BY level
+SQL;
+        // Get children
+        $result = $this->connection->executeQuery($query, ['uuid' => $uuid])->fetchAllAssociative();
+
+        if ([] === $result) {
+            throw new FamilyLogNotFound();
+        }
+
+        return (new FamilyLogModelMapper())->createChildrenTreeFromArray($result, $uuid);
     }
 
     /**
@@ -104,6 +133,15 @@ uuid = :uuid, parent_id = :parent_id, label = :label, slug = :slug, level = :lev
 WHERE uuid = :uuid'
         );
         $statement->execute($data);
+    }
+
+    /**
+     * @throws \Doctrine\DBAL\Exception|Exception
+     */
+    public function delete(string $familyLogUuid): void
+    {
+        $statement = $this->connection->prepare('DELETE FROM family_log WHERE uuid = :uuid');
+        $statement->execute(['uuid' => $familyLogUuid]);
     }
 
     private function getData(FamilyLog $familyLog): array

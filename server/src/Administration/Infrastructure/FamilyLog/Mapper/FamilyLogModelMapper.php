@@ -17,6 +17,7 @@ use Administration\Application\FamilyLog\ReadModel\FamilyLog as FamilyLogReadMod
 use Administration\Application\FamilyLog\ReadModel\FamilyLogs;
 use Administration\Domain\FamilyLog\Model\FamilyLog;
 use Administration\Domain\FamilyLog\Model\VO\FamilyLogUuid;
+use Administration\Infrastructure\Finders\Exceptions\FamilyLogNotFound;
 use Core\Domain\Common\Model\VO\NameField;
 
 class FamilyLogModelMapper
@@ -24,7 +25,7 @@ class FamilyLogModelMapper
     public function createParentTreeFromArray(array $familyLogs): FamilyLog
     {
         foreach ($familyLogs as $key => $familyLog) {
-            if ('1' === $familyLog['level']) {
+            if (0 === $key) {
                 ${'parent' . $key} = FamilyLog::create(
                     FamilyLogUuid::fromString($familyLog['uuid']),
                     NameField::fromString($familyLog['label']),
@@ -44,6 +45,20 @@ class FamilyLogModelMapper
         }
 
         return $parent;
+    }
+
+    public function createChildrenTreeFromArray(array $result, string $uuid): FamilyLog
+    {
+        $familyLog = $this->createParentTreeFromArray($result);
+
+        if ($uuid === $familyLog->uuid()) {
+            return $familyLog;
+        }
+        if (null === $familyLog->parent()) {
+            throw new FamilyLogNotFound();
+        }
+
+        return $this->getParent($familyLog, $uuid);
     }
 
     public function getFamilyLogsFromArray(array $data): FamilyLogs
@@ -104,5 +119,14 @@ class FamilyLogModelMapper
             $familyLog->path(),
             $familyLog->slug()
         );
+    }
+
+    private function getParent(FamilyLog $familyLog, string $uuid): FamilyLog
+    {
+        if ((null !== $familyLog->parent()) && ($uuid === $familyLog->parent()->uuid())) {
+            return $familyLog->parent();
+        }
+
+        return $this->getParent($familyLog->parent(), $uuid);
     }
 }

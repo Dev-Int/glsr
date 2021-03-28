@@ -57,4 +57,12 @@ export class FamilyLogService {
       }),
     );
   }
+
+  deleteFamilyLog(uuid: string): void {
+    this.http.delete(`/api/administration/family-logs/${uuid}`)
+      .subscribe(() => {
+        const familyLogs = this.familyLogs$.value;
+        this.familyLogs$.next(familyLogs.filter((familyLog: FamilyLog) => familyLog.uuid !== uuid));
+      });
+  }
 }

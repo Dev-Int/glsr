@@ -23,5 +23,9 @@ interface FamilyLogRepositoryProtocol
 
     public function findParent(string $uuid): FamilyLog;
 
+    public function findChildren(string $uuid): FamilyLog;
+
     public function existWithLabel(string $label, ?string $parentUuid): bool;
+
+    public function delete(string $familyLogUuid): void;
 }

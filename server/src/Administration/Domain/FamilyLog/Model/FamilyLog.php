@@ -130,7 +130,7 @@ final class FamilyLog
         $this->path = $this->slug();
     }
 
-    public function attributeParent(?self $parent): void
+    public function attributeParent(self $parent): void
     {
         $this->parent = $parent;
         $this->level = 1;
@@ -144,7 +144,7 @@ final class FamilyLog
         }
     }
 
-    private function hasChildren(): bool
+    public function hasChildren(): bool
     {
         return null !== $this->children;
     }

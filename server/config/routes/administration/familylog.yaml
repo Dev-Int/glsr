@@ -12,3 +12,8 @@ admin_familylogs_put:
   path: /{uuid}
   controller: Administration\Infrastructure\FamilyLog\Controller\PutFamilyLogController
   methods: PUT
+
+admin_familylogs_delete:
+  path: /{uuid}
+  controller: Administration\Infrastructure\FamilyLog\Controller\DeleteFamilyLogController
+  methods: DELETE

@@ -9,7 +9,6 @@ import { FamilyLogService } from '../../services/family-log.service';
 
 @Component({
   templateUrl: './form.template.html',
-  styleUrls: ['./form.styles.scss'],
 })
 export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
