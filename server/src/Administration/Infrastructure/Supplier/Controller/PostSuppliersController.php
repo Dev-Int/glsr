@@ -50,7 +50,7 @@ class PostSuppliersController extends AbstractController
                 EmailField::fromString($supplier['email']),
                 $supplier['contact_name'],
                 PhoneField::fromString($supplier['cellphone']),
-                $supplier['family_log_id'],
+                $supplier['familyLogId'],
                 $supplier['delayDelivery'],
                 $supplier['orderDays']
             );

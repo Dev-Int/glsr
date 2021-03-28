@@ -41,7 +41,7 @@ class PutSupplierControllerTest extends AbstractControllerTest
             'email' => 'contact@davigel.fr',
             'contact_name' => 'David',
             'cellphone' => '0600000002',
-            'family_log_id' => '626adfca-fc5d-415c-9b7a-7541030bd147',
+            'familyLogId' => '626adfca-fc5d-415c-9b7a-7541030bd147',
             'delayDelivery' => 3,
             'orderDays' => [2, 4],
         ];
