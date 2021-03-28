@@ -50,8 +50,8 @@ class DoctrineCompanyFinder implements CompanyFinderProtocol
                 'slug'
             )
             ->from('company')
-            ->where('uuid = ?')
-            ->setParameter(0, $uuid)
+            ->where('uuid = :uuid')
+            ->setParameter('uuid', $uuid)
         ;
 
         $result = $query->execute()->fetchAssociative();
