@@ -17,9 +17,40 @@ use Doctrine\DBAL\Driver\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\Fixtures\FamilyLogFixtures;
 
 class PostFamilyLogControllerTest extends AbstractControllerTest
 {
+    /**
+     * @throws \Doctrine\DBAL\Exception|Exception
+     * @throws \JsonException
+     */
+    final public function testPostFamilyLogWithNameAlreadyExists(): void
+    {
+        // Arrange
+        $this->loadFixtures([new FamilyLogFixtures()]);
+        $content = [
+            'label' => 'Surgelé',
+            'parent' => null,
+        ];
+        $adminClient = $this->createAdminClient();
+
+        // Act
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/family-logs/',
+            [],
+            [],
+            ['CONTENT_TYPE', 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+        $response = $adminClient->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+        self::assertTrue($response->isServerError());
+    }
+
     /**
      * @throws \JsonException
      * @throws Exception

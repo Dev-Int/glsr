@@ -32,13 +32,13 @@ class DoctrineFamilyLogRepository implements FamilyLogRepositoryProtocol
     /**
      * @throws \Doctrine\DBAL\Exception
      */
-    public function existWithLabel(string $label, ?string $parentUuid): bool
+    public function existWithLabel(string $label, ?string $parentUuid = null): bool
     {
         $statement = $this->connection->createQueryBuilder()
             ->select('label')
             ->from('family_log')
             ->where('label = :label')
-            ->andWhere('parent_id = :parent_id')
+            ->andWhere('parent_id = :parent_id OR parent_id IS NULL')
             ->setParameters(['label' => $label, 'parent_id' => $parentUuid])
             ->execute()
             ->fetchOne()
