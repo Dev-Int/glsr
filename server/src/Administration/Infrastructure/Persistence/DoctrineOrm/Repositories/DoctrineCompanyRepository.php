@@ -13,8 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
-use Administration\Domain\Company\Model\Company;
+use Administration\Domain\Company\Model\Company as CompanyModel;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -48,7 +49,7 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(Company $company): void
+    final public function add(CompanyModel $company): void
     {
         $this->getEntityManager()->persist($company);
         $this->getEntityManager()->flush();
@@ -57,7 +58,7 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
     /**
      * @throws ORMException
      */
-    final public function remove(Company $company): void
+    final public function remove(CompanyModel $company): void
     {
         $this->getEntityManager()->remove($company);
     }
@@ -65,7 +66,7 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?Company
+    final public function findOneByUuid(string $uuid): ?CompanyModel
     {
         return $this->createQueryBuilder('c')
             ->where('c.uuid = :uuid')

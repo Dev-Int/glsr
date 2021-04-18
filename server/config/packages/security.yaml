@@ -3,11 +3,11 @@ security:
   providers:
     app_user_provider:
       entity:
-        class: 'Core\Domain\Model\User'
+        class: 'Core\Infrastructure\Persistence\DoctrineOrm\Entities\User'
         property: username
 
   encoders:
-    Core\Domain\Model\User:
+    ore\Infrastructure\Persistence\DoctrineOrm\Entities\User:
       algorithm: auto
 
   firewalls:

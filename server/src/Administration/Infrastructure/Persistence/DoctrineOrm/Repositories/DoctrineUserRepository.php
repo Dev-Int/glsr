@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
-use Administration\Domain\User\Model\User;
-use Core\Domain\Model\User as UserSymfony;
+use Administration\Domain\User\Model\User as UserModel;
+use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -26,14 +26,14 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserSymfony::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(User $user): void
+    final public function add(UserModel $user): void
     {
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
@@ -42,7 +42,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
     /**
      * @throws ORMException
      */
-    final public function remove(User $user): void
+    final public function remove(UserModel $user): void
     {
         $this->getEntityManager()->remove($user);
     }
@@ -50,7 +50,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?UserSymfony
+    final public function findOneByUuid(string $uuid): ?User
     {
         return $this->createQueryBuilder('u')
             ->where('u.uuid = :uuid')
