@@ -17,10 +17,6 @@ use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
 use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
 use Administration\Domain\Supplier\Model\Supplier;
-use Core\Domain\Common\Model\VO\ContactUuid;
-use Core\Domain\Common\Model\VO\EmailField;
-use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Common\Model\VO\PhoneField;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,17 +41,17 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
         ;
 
         return new SupplierModel(
-            ContactUuid::fromString($result->getUuid()),
-            NameField::fromString($result->getName()),
+            $result->getUuid(),
+            $result->getName(),
             $result->getAddress(),
             $result->getZipCode(),
             $result->getTown(),
             $result->getCountry(),
-            PhoneField::fromString($result->getPhone()),
-            PhoneField::fromString($result->getFacsimile()),
-            EmailField::fromString($result->getEmail()),
+            $result->getPhone(),
+            $result->getFacsimile(),
+            $result->getEmail(),
             $result->getContact(),
-            PhoneField::fromString($result->getCellphone()),
+            $result->getCellphone(),
             $result->getFamilyLog(),
             $result->getDelayDelivery(),
             $result->getOrderDay(),
@@ -75,7 +71,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
             ...\array_map(static function (Supplier $supplier) {
                 return new SupplierModel(
                     $supplier->uuid(),
-                    $supplier->name(),
+                    $supplier->companyName(),
                     $supplier->address(),
                     $supplier->zipCode(),
                     $supplier->town(),

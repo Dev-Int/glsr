@@ -24,18 +24,18 @@ class Settings
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="guid", name="uuid")
      * @ORM\GeneratedValue(strategy="NONE")
      */
     private string $uuid;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="locale", nullable=false)
      */
     private string $locale;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="currency", nullable=false)
      */
     private string $currency;
 

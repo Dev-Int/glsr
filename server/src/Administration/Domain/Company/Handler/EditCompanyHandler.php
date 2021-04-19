@@ -41,7 +41,7 @@ final class EditCompanyHandler implements CommandHandlerProtocol
 
     public function updateCompany(EditCompany $command, Company $company): Company
     {
-        if ($company->name() !== $command->name()) {
+        if ($company->companyName() !== $command->name()->getValue()) {
             $company->renameCompany($command->name());
         }
         if (($company->address() !== $command->address())

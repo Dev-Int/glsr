@@ -22,7 +22,7 @@ use Core\Domain\Common\Model\VO\PhoneField;
 abstract class Contact
 {
     protected string $uuid;
-    protected string $name;
+    protected string $companyName;
     protected string $address;
     protected string $zipCode;
     protected string $town;
@@ -36,7 +36,7 @@ abstract class Contact
 
     public function __construct(
         ContactUuid $uuid,
-        NameField $name,
+        NameField $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -48,8 +48,8 @@ abstract class Contact
         PhoneField $cellphone
     ) {
         $this->uuid = $uuid->toString();
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
+        $this->companyName = $companyName->getValue();
+        $this->slug = $companyName->slugify();
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -66,9 +66,9 @@ abstract class Contact
         return $this->uuid;
     }
 
-    public function name(): string
+    public function companyName(): string
     {
-        return $this->name;
+        return $this->companyName;
     }
 
     public function fullAddress(): string

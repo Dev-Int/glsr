@@ -20,34 +20,44 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="supplier")
  * @ORM\Entity(repositoryClass="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository")
  */
-class Supplier
+class Supplier extends Contact
 {
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="family_log", nullable=false)
      */
     private string $familyLog;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", name="delay_delivery", nullable=false)
      */
     private int $delayDelivery;
 
     /**
-     * @ORM\Column(type="array", nullable=false)
+     * @ORM\Column(type="array", name="order_days", nullable=false)
      */
     private array $orderDays;
 
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="boolean", name="active", nullable=false)
      */
     private bool $active;
 
-    /** @ORM\Embedded(class="Contact") */
-    private Contact $contact;
-
     public function __construct(Contact $contact, string $familyLog, int $delayDelivery, array $orderDays, bool $active)
     {
-        $this->contact = $contact;
+        parent::__construct(
+            $contact->uuid,
+            $contact->companyName,
+            $contact->address,
+            $contact->zipCode,
+            $contact->town,
+            $contact->country,
+            $contact->phone,
+            $contact->facsimile,
+            $contact->email,
+            $contact->contactName,
+            $contact->cellphone,
+            $contact->slug
+        );
         $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
@@ -58,7 +68,7 @@ class Supplier
     {
         $contact = new Contact(
             $supplier->uuid(),
-            $supplier->name(),
+            $supplier->companyName(),
             $supplier->address(),
             $supplier->zipCode(),
             $supplier->town(),

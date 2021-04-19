@@ -23,7 +23,7 @@ class Company extends Contact
 {
     public static function create(
         ContactUuid $uuid,
-        NameField $name,
+        NameField $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -32,11 +32,11 @@ class Company extends Contact
         PhoneField $facsimile,
         EmailField $email,
         string $contact,
-        PhoneField $gsm
+        PhoneField $cellphone
     ): self {
         return new self(
             $uuid,
-            $name,
+            $companyName,
             $address,
             $zipCode,
             $town,
@@ -45,13 +45,13 @@ class Company extends Contact
             $facsimile,
             $email,
             $contact,
-            $gsm
+            $cellphone
         );
     }
 
-    final public function renameCompany(NameField $name): void
+    final public function renameCompany(NameField $companyName): void
     {
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
+        $this->companyName = $companyName->getValue();
+        $this->slug = $companyName->slugify();
     }
 }

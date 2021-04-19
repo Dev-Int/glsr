@@ -42,7 +42,7 @@ class EditSupplierHandler implements CommandHandlerProtocol
 
     private function updateSupplier(EditSupplier $command, Supplier $supplier): Supplier
     {
-        if ($supplier->name() !== $command->name()) {
+        if ($supplier->companyName() !== $command->name()->getValue()) {
             $supplier->renameSupplier($command->name());
         }
         if ($supplier->address() !== $command->address()

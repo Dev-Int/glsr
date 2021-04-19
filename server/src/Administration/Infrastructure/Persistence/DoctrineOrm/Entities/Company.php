@@ -20,21 +20,31 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineCompanyRepository")
  */
-class Company
+class Company extends Contact
 {
-    /** @ORM\Embedded(class="Contact") */
-    private Contact $contact;
-
     public function __construct(Contact $contact)
     {
-        $this->contact = $contact;
+        parent::__construct(
+            $contact->uuid,
+            $contact->companyName,
+            $contact->address,
+            $contact->zipCode,
+            $contact->town,
+            $contact->country,
+            $contact->phone,
+            $contact->facsimile,
+            $contact->email,
+            $contact->contactName,
+            $contact->cellphone,
+            $contact->slug
+        );
     }
 
     public static function fromModel(CompanyModel $companyModel): self
     {
-        $contact = new Contact(
+        $contact = Contact::create(
             $companyModel->uuid(),
-            $companyModel->name(),
+            $companyModel->companyName(),
             $companyModel->address(),
             $companyModel->zipCode(),
             $companyModel->town(),

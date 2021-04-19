@@ -16,75 +16,75 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Embeddable
+ * @ORM\MappedSuperclass
  */
 class Contact
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="guid")
+     * @ORM\Column(type="guid", name="uuid")
      * @ORM\GeneratedValue(strategy="NONE")
      */
     protected string $uuid;
 
     /**
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", name="company_name", unique=true, nullable=false)
      */
-    protected string $name;
+    protected string $companyName;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="address", nullable=false)
      */
     protected string $address;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=5, name="zip_code", nullable=false)
      */
     protected string $zipCode;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="town", nullable=false)
      */
     protected string $town;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="country", nullable=false)
      */
     protected string $country;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=14, name="phone", nullable=false)
      */
     protected string $phone;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", length=14, name="facsimile", nullable=true)
      */
     protected string $facsimile;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="email", nullable=false)
      */
     protected string $email;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", name="contact_name", nullable=false)
      */
     protected string $contactName;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @ORM\Column(type="string", length=14, name="cellphone", nullable=false)
      */
     protected string $cellphone;
 
     /**
-     * @ORM\Column(type="string", unique=true, nullable=false)
+     * @ORM\Column(type="string", name="slug", unique=true, nullable=false)
      */
     protected string $slug;
 
     public function __construct(
         string $uuid,
-        string $name,
+        string $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -97,7 +97,7 @@ class Contact
         string $slug
     ) {
         $this->uuid = $uuid;
-        $this->name = $name;
+        $this->companyName = $companyName;
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -108,6 +108,36 @@ class Contact
         $this->contactName = $contactName;
         $this->cellphone = $cellphone;
         $this->slug = $slug;
+    }
+
+    public static function create(
+        string $uuid,
+        string $companyName,
+        string $address,
+        string $zipCode,
+        string $town,
+        string $country,
+        string $phone,
+        string $facsimile,
+        string $email,
+        string $contactName,
+        string $cellphone,
+        string $slug
+    ): self {
+        return new self(
+            $uuid,
+            $companyName,
+            $address,
+            $zipCode,
+            $town,
+            $country,
+            $phone,
+            $facsimile,
+            $email,
+            $contactName,
+            $cellphone,
+            $slug
+        );
     }
 
     public function getUuid(): string
@@ -122,14 +152,14 @@ class Contact
         return $this;
     }
 
-    public function getName(): string
+    public function getCompanyName(): string
     {
-        return $this->name;
+        return $this->companyName;
     }
 
-    public function setName(string $name): self
+    public function setCompanyName(string $companyName): self
     {
-        $this->name = $name;
+        $this->companyName = $companyName;
 
         return $this;
     }
