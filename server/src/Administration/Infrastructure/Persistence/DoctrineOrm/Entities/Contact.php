@@ -16,7 +16,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\MappedSuperclass
+ * @ORM\Embeddable
  */
 class Contact
 {
