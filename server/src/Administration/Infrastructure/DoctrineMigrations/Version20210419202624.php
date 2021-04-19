@@ -63,7 +63,8 @@ final class Version20210419202624 extends AbstractMigration
             'CHANGE contact_name contact VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE zip_code zip_code VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE phone phone VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
-            'CHANGE facsimile facsimile VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, ' .
+            'CHANGE facsimile facsimile VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL ' .
+            'COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE cellphone cellphone VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`'
         );
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4FBF094F1D4E64E8 ON company (name)');
@@ -74,7 +75,8 @@ final class Version20210419202624 extends AbstractMigration
             'CHANGE contact_name contact VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE zip_code zip_code VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE phone phone VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .
-            'CHANGE facsimile facsimile VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, ' .
+            'CHANGE facsimile facsimile VARCHAR(255) CHARACTER SET utf8mb4 DEFAULT NULL ' .
+            'COLLATE `utf8mb4_unicode_ci`, ' .
             'CHANGE cellphone cellphone VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`'
         );
         $this->addSql('CREATE UNIQUE INDEX UNIQ_9B2A6C7E1D4E64E8 ON supplier (name)');
