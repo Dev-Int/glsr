@@ -39,7 +39,7 @@ final class CreateCompanyHandler implements CommandHandlerProtocol
 
         $company = $this->createCompany($command);
 
-        $this->repository->add($company);
+        $this->repository->save($company);
     }
 
     public function createCompany(CreateCompany $command): Company

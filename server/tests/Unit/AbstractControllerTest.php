@@ -46,12 +46,14 @@ class AbstractControllerTest extends WebTestCase
         $this->executor = new ORMExecutor($this->manager, new ORMPurger());
 
         // Run the schema update tool using entity metadata
+        // @todo: Change with orm from doctrine.
         $schemaTool = new SchemaTool($this->manager);
         $schemaTool->updateSchema($this->manager->getMetadataFactory()->getAllMetadata());
     }
 
     final protected function tearDown(): void
     {
+        // @todo: Change with orm from doctrine.
         (new SchemaTool($this->manager))->dropDatabase();
         \unlink($this->projectDir . '/var/cache/test/test.db');
     }

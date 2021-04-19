@@ -29,11 +29,6 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
         parent::__construct($registry, Supplier::class);
     }
 
-    public function remove(SupplierModel $supplier): void
-    {
-        // TODO: Implement remove() method.
-    }
-
     /**
      * @throws NonUniqueResultException
      */
@@ -53,9 +48,10 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
     /**
      * @throws ORMException
      */
-    public function add(SupplierModel $supplier): void
+    public function save(SupplierModel $supplier): void
     {
-        $this->getEntityManager()->persist($supplier);
+        $supplierEntity = Supplier::fromModel($supplier);
+        $this->getEntityManager()->persist($supplierEntity);
         $this->getEntityManager()->flush();
     }
 

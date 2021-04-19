@@ -7,7 +7,7 @@ security:
         property: username
 
   encoders:
-    ore\Infrastructure\Persistence\DoctrineOrm\Entities\User:
+    Core\Infrastructure\Persistence\DoctrineOrm\Entities\User:
       algorithm: auto
 
   firewalls:

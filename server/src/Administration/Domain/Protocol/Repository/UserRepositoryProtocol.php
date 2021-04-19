@@ -17,7 +17,7 @@ use Administration\Domain\User\Model\User;
 
 interface UserRepositoryProtocol
 {
-    public function add(User $user): void;
+    public function save(User $user): void;
 
     public function remove(User $user): void;
 

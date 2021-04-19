@@ -55,6 +55,7 @@ class CreateUserHandler implements CommandHandlerProtocol
             $command->password(),
             $command->roles()
         );
+        // @todo: update with userInterface
         $user->changePassword(
             $this->passwordEncoder->encodePassword(
                 $user,
@@ -62,6 +63,6 @@ class CreateUserHandler implements CommandHandlerProtocol
             )
         );
 
-        $this->repository->add($user);
+        $this->repository->save($user);
     }
 }

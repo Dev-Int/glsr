@@ -19,9 +19,7 @@ interface SupplierRepositoryProtocol
 {
     public function existsWithName(string $name): bool;
 
-    public function add(Supplier $supplier): void;
-
-    public function remove(Supplier $supplier): void;
+    public function save(Supplier $supplier): void;
 
     public function findOneByUuid(string $uuid): Supplier;
 }

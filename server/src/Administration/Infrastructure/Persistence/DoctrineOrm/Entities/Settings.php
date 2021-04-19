@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 
+use Administration\Domain\Settings\Model\Settings as SettingsModel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,6 +44,15 @@ class Settings
         $this->uuid = $uuid;
         $this->locale = $locale;
         $this->currency = $currency;
+    }
+
+    public static function fromModel(SettingsModel $settingsModel): self
+    {
+        return new self(
+            $settingsModel->uuid(),
+            $settingsModel->locale(),
+            $settingsModel->currency()
+        );
     }
 
     public function getUuid(): string

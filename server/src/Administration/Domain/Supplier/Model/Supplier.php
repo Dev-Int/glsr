@@ -38,7 +38,7 @@ final class Supplier extends Contact
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contact,
+        string $contactName,
         PhoneField $cellphone,
         FamilyLog $familyLog,
         int $delayDelivery,
@@ -55,7 +55,7 @@ final class Supplier extends Contact
             $phone,
             $facsimile,
             $email,
-            $contact,
+            $contactName,
             $cellphone
         );
         $this->familyLog = $familyLog->path();

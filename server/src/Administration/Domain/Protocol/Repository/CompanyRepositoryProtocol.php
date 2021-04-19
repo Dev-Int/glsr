@@ -19,7 +19,7 @@ interface CompanyRepositoryProtocol
 {
     public function existsWithName(string $name): bool;
 
-    public function add(Company $company): void;
+    public function save(Company $company): void;
 
     public function remove(Company $company): void;
 

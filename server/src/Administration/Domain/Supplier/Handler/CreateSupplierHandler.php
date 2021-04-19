@@ -36,7 +36,7 @@ class CreateSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->createSupplier($command);
 
-        $this->repository->add($supplier);
+        $this->repository->save($supplier);
     }
 
     private function createSupplier(CreateSupplier $command): Supplier

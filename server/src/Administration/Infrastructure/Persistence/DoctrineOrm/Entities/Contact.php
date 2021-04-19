@@ -16,7 +16,7 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\MappedSuperclass
+ * @ORM\Embeddable
  */
 class Contact
 {
@@ -70,7 +70,7 @@ class Contact
     /**
      * @ORM\Column(type="string", nullable=false)
      */
-    protected string $contact;
+    protected string $contactName;
 
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -92,7 +92,7 @@ class Contact
         string $phone,
         string $facsimile,
         string $email,
-        string $contact,
+        string $contactName,
         string $cellphone,
         string $slug
     ) {
@@ -105,7 +105,7 @@ class Contact
         $this->phone = $phone;
         $this->facsimile = $facsimile;
         $this->email = $email;
-        $this->contact = $contact;
+        $this->contactName = $contactName;
         $this->cellphone = $cellphone;
         $this->slug = $slug;
     }
@@ -218,14 +218,14 @@ class Contact
         return $this;
     }
 
-    public function getContact(): string
+    public function getContactName(): string
     {
-        return $this->contact;
+        return $this->contactName;
     }
 
-    public function setContact(string $contact): self
+    public function setContactName(string $contactName): self
     {
-        $this->contact = $contact;
+        $this->contactName = $contactName;
 
         return $this;
     }

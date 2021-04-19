@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Persistence\DoctrineOrm\Entities;
 
+use Administration\Domain\User\Model\User as UserModel;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -56,6 +57,17 @@ class User implements UserInterface
         $this->email = $email;
         $this->password = $password;
         $this->roles = $roles;
+    }
+
+    public static function fromModel(UserModel $user): self
+    {
+        return new self(
+            $user->uuid()->toString(),
+            $user->username(),
+            $user->email()->getValue(),
+            $user->password(),
+            $user->roles()
+        );
     }
 
     public function getUuid(): string

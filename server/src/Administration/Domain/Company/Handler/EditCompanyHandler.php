@@ -36,7 +36,7 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         }
         $company = $this->updateCompany($command, $companyToUpdate);
 
-        $this->repository->add($company);
+        $this->repository->save($company);
     }
 
     public function updateCompany(EditCompany $command, Company $company): Company
@@ -65,7 +65,7 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         if ($company->email() !== $command->email()) {
             $company->rewriteEmail($command->email());
         }
-        if ($company->contact() !== $command->contact()) {
+        if ($company->contactName() !== $command->contact()) {
             $company->renameContact($command->contact());
         }
         if ($company->cellPhone() !== $command->cellPhone()) {

@@ -13,13 +13,14 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 
+use Administration\Domain\Supplier\Model\Supplier as SupplierModel;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="supplier")
  * @ORM\Entity(repositoryClass="Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository")
  */
-class Supplier extends Contact
+class Supplier
 {
     /**
      * @ORM\Column(type="string", nullable=false)
@@ -41,42 +42,42 @@ class Supplier extends Contact
      */
     private bool $active;
 
-    public function __construct(
-        string $uuid,
-        string $name,
-        string $address,
-        string $zipCode,
-        string $town,
-        string $country,
-        string $phone,
-        string $facsimile,
-        string $email,
-        string $contact,
-        string $cellphone,
-        string $slug,
-        string $familyLog,
-        int $delayDelivery,
-        array $orderDays,
-        bool $active
-    ) {
-        parent::__construct(
-            $uuid,
-            $name,
-            $address,
-            $zipCode,
-            $town,
-            $country,
-            $phone,
-            $facsimile,
-            $email,
-            $contact,
-            $cellphone,
-            $slug
-        );
+    /** @ORM\Embedded(class="Contact") */
+    private Contact $contact;
+
+    public function __construct(Contact $contact, string $familyLog, int $delayDelivery, array $orderDays, bool $active)
+    {
+        $this->contact = $contact;
         $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
         $this->active = $active;
+    }
+
+    public static function fromModel(SupplierModel $supplier): self
+    {
+        $contact = new Contact(
+            $supplier->uuid(),
+            $supplier->name(),
+            $supplier->address(),
+            $supplier->zipCode(),
+            $supplier->town(),
+            $supplier->country(),
+            $supplier->phone(),
+            $supplier->facsimile(),
+            $supplier->email(),
+            $supplier->contactName(),
+            $supplier->cellphone(),
+            $supplier->slug()
+        );
+
+        return new self(
+            $contact,
+            $supplier->familyLog(),
+            $supplier->delayDelivery(),
+            $supplier->orderDays(),
+            $supplier->isActive()
+        );
     }
 
     public function getFamilyLog(): string

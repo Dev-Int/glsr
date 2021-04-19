@@ -30,7 +30,7 @@ abstract class Contact
     protected string $phone;
     protected string $facsimile;
     protected string $email;
-    protected string $contact;
+    protected string $contactName;
     protected string $cellphone;
     protected string $slug;
 
@@ -44,7 +44,7 @@ abstract class Contact
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contact,
+        string $contactName,
         PhoneField $cellphone
     ) {
         $this->uuid = $uuid->toString();
@@ -57,7 +57,7 @@ abstract class Contact
         $this->phone = $phone->getValue();
         $this->facsimile = $facsimile->getValue();
         $this->email = $email->getValue();
-        $this->contact = $contact;
+        $this->contactName = $contactName;
         $this->cellphone = $cellphone->getValue();
     }
 
@@ -115,14 +115,14 @@ abstract class Contact
         $this->email = $email->getValue();
     }
 
-    public function contact(): string
+    public function contactName(): string
     {
-        return $this->contact;
+        return $this->contactName;
     }
 
     public function renameContact(string $contact): void
     {
-        $this->contact = $contact;
+        $this->contactName = $contact;
     }
 
     public function cellphone(): string

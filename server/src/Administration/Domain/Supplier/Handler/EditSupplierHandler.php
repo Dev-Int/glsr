@@ -37,7 +37,7 @@ class EditSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->updateSupplier($command, $supplierToUpdate);
 
-        $this->repository->add($supplier);
+        $this->repository->save($supplier);
     }
 
     private function updateSupplier(EditSupplier $command, Supplier $supplier): Supplier
@@ -66,7 +66,7 @@ class EditSupplierHandler implements CommandHandlerProtocol
         if ($supplier->email() !== $command->email()) {
             $supplier->rewriteEmail($command->email());
         }
-        if ($supplier->contact() !== $command->contact()) {
+        if ($supplier->contactName() !== $command->contact()) {
             $supplier->renameContact($command->contact());
         }
         if ($supplier->cellPhone() !== $command->cellPhone()) {

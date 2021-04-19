@@ -49,9 +49,10 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(CompanyModel $company): void
+    final public function save(CompanyModel $company): void
     {
-        $this->getEntityManager()->persist($company);
+        $companyEntity = Company::fromModel($company);
+        $this->getEntityManager()->persist($companyEntity);
         $this->getEntityManager()->flush();
     }
 
@@ -60,7 +61,8 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
      */
     final public function remove(CompanyModel $company): void
     {
-        $this->getEntityManager()->remove($company);
+        $companyEntity = Company::fromModel($company);
+        $this->getEntityManager()->remove($companyEntity);
     }
 
     /**

@@ -35,9 +35,10 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(SettingsModel $settings): void
+    final public function save(SettingsModel $settings): void
     {
-        $this->getEntityManager()->persist($settings);
+        $settingsEntity = Settings::fromModel($settings);
+        $this->getEntityManager()->persist($settingsEntity);
         $this->getEntityManager()->flush();
     }
 

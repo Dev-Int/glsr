@@ -33,9 +33,10 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(UserModel $user): void
+    final public function save(UserModel $user): void
     {
-        $this->getEntityManager()->persist($user);
+        $userEntity = User::fromModel($user);
+        $this->getEntityManager()->persist($userEntity);
         $this->getEntityManager()->flush();
     }
 
@@ -44,7 +45,8 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
      */
     final public function remove(UserModel $user): void
     {
-        $this->getEntityManager()->remove($user);
+        $userEntity = User::fromModel($user);
+        $this->getEntityManager()->remove($userEntity);
     }
 
     /**
