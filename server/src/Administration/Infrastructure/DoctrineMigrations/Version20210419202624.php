@@ -29,7 +29,6 @@ final class Version20210419202624 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP INDEX UNIQ_4FBF094F1D4E64E8 ON company');
         $this->addSql(
             'ALTER TABLE company ' .
             'CHANGE name company_name VARCHAR(255) NOT NULL, ' .
@@ -40,7 +39,7 @@ final class Version20210419202624 extends AbstractMigration
             'CHANGE zip_code zip_code VARCHAR(5) NOT NULL'
         );
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4FBF094F1D4E64E8 ON company (company_name)');
-        $this->addSql('DROP INDEX UNIQ_9B2A6C7E1D4E64E8 ON supplier');
+        $this->addSql('DROP INDEX UNIQ_9B2A6C7E5E237E06 ON supplier');
         $this->addSql(
             'ALTER TABLE supplier ' .
             'CHANGE name company_name VARCHAR(255) NOT NULL, ' .
@@ -50,13 +49,12 @@ final class Version20210419202624 extends AbstractMigration
             'CHANGE facsimile facsimile VARCHAR(14) DEFAULT NULL, ' .
             'CHANGE cellphone cellphone VARCHAR(14) NOT NULL'
         );
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_9B2A6C7E1D4E64E8 ON supplier (company_name)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_9B2A6C7E5E237E06 ON supplier (company_name)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP INDEX UNIQ_4FBF094F1D4E64E8 ON company');
         $this->addSql(
             'ALTER TABLE company ' .
             'CHANGE company_name name VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, ' .

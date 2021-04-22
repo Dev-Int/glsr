@@ -13,24 +13,25 @@ declare(strict_types=1);
 
 namespace Unit\Tests;
 
-use Administration\Infrastructure\DataFixtures\UserFixtures;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\DBAL\Connection;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AbstractControllerTest extends WebTestCase
 {
     protected KernelBrowser $client;
-    protected EntityManagerInterface $manager;
-    protected ORMExecutor $executor;
     protected UserPasswordEncoderInterface $passwordEncoder;
-    private string $projectDir;
+    private Connection $connection;
+
+    public static function setUpBeforeClass(): void
+    {
+        parent::setUpBeforeClass();
+
+        DatabaseHelper::dropAndCreateDatabaseAndRunMigrations();
+    }
 
     final protected function setUp(): void
     {
@@ -40,34 +41,22 @@ class AbstractControllerTest extends WebTestCase
         $this->client = static::createClient();
 
         // Configure variables
-        $this->projectDir = self::$kernel->getProjectDir();
-        $this->manager = self::$container->get('doctrine.orm.entity_manager');
-        $this->passwordEncoder = self::$container->get('security.password_encoder');
-        $this->executor = new ORMExecutor($this->manager, new ORMPurger());
-
-        // Run the schema update tool using entity metadata
-        // @todo: Change with orm from doctrine.
-        $schemaTool = new SchemaTool($this->manager);
-        $schemaTool->updateSchema($this->manager->getMetadataFactory()->getAllMetadata());
+        $doctrine = self::$container->get('doctrine');
+        $this->connection = $doctrine->getConnection();
     }
 
     final protected function tearDown(): void
     {
-        // @todo: Change with orm from doctrine.
-        (new SchemaTool($this->manager))->dropDatabase();
-        \unlink($this->projectDir . '/var/cache/test/test.db');
+        $this->connection->close();
+        unset($this->connection);
     }
 
-    final public function loadFixture(array $fixture): void
-    {
-        $loader = new Loader();
-        $loader->addFixture(new UserFixtures($this->passwordEncoder));
-        if ([] !== $fixture) {
-            foreach ($fixture as $item) {
-                $loader->addFixture($item);
-            }
-        }
-        $this->executor->execute($loader->getFixtures());
+    protected function getUrl(
+        string $route,
+        array $params = [],
+        int $absolute = UrlGeneratorInterface::ABSOLUTE_PATH
+    ): string {
+        return self::$container->get('router')->generate($route, $params, $absolute);
     }
 
     /**
@@ -85,20 +74,20 @@ class AbstractControllerTest extends WebTestCase
     {
         $this->client->request(
             'POST',
-            '/api/login_check',
+            $this->getUrl('api_login_check'),
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
-            \json_encode(
-                [
-                    'username' => $username,
-                    'password' => $password,
-                ],
-                \JSON_THROW_ON_ERROR
-            )
+            \json_encode(['username' => $username, 'password' => $password], \JSON_THROW_ON_ERROR)
         );
         self::assertJsonResponse($this->client->getResponse());
-        $data = \json_decode($this->client->getResponse()->getContent(), true, 512, \JSON_THROW_ON_ERROR);
+
+        $data = \json_decode(
+            $this->client->getResponse()->getContent(),
+            true,
+            512,
+            \JSON_THROW_ON_ERROR
+        );
 
         $this->client->setServerParameter('HTTP_Authorization', \sprintf('Bearer %s', $data['token']));
 

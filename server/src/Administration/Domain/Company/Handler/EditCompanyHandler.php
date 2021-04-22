@@ -41,8 +41,8 @@ final class EditCompanyHandler implements CommandHandlerProtocol
 
     public function updateCompany(EditCompany $command, Company $company): Company
     {
-        if ($company->companyName() !== $command->name()->getValue()) {
-            $company->renameCompany($command->name());
+        if ($company->companyName() !== $command->companyName()->getValue()) {
+            $company->renameCompany($command->companyName());
         }
         if (($company->address() !== $command->address())
             || ($company->zipCode() !== $command->zipCode())
@@ -56,19 +56,19 @@ final class EditCompanyHandler implements CommandHandlerProtocol
                 $command->country(),
             ]);
         }
-        if ($company->phone() !== $command->phone()) {
+        if ($company->phone() !== $command->phone()->getValue()) {
             $company->changePhoneNumber($command->phone());
         }
-        if ($company->facsimile() !== $command->facsimile()) {
+        if ($company->facsimile() !== $command->facsimile()->getValue()) {
             $company->changeFacsimileNumber($command->facsimile());
         }
-        if ($company->email() !== $command->email()) {
+        if ($company->email() !== $command->email()->getValue()) {
             $company->rewriteEmail($command->email());
         }
         if ($company->contactName() !== $command->contact()) {
             $company->renameContact($command->contact());
         }
-        if ($company->cellPhone() !== $command->cellPhone()) {
+        if ($company->cellPhone() !== $command->cellPhone()->getValue()) {
             $company->changeCellphoneNumber($command->cellPhone());
         }
 

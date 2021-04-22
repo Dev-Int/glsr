@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\DataFixtures\CompanyFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PostCompanyControllerTest extends AbstractControllerTest
 {
@@ -26,7 +26,6 @@ class PostCompanyControllerTest extends AbstractControllerTest
     final public function testPostCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
         $content = [
             'name' => 'Dev-Int Création',
             'address' => '1, rue des ERP',
@@ -39,6 +38,7 @@ class PostCompanyControllerTest extends AbstractControllerTest
             'contact' => 'Laurent',
             'cellphone' => '+33600000002',
         ];
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             Request::METHOD_POST,
@@ -63,7 +63,7 @@ class PostCompanyControllerTest extends AbstractControllerTest
     final public function testPostCompanyAlreadyExist(): void
     {
         // Arrange
-        $this->loadFixture([new CompanyFixtures()]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
         $content = [
             'name' => 'Dev-Int Création',
             'address' => '1, rue des ERP',

@@ -16,6 +16,7 @@ namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PutUserControllerTest extends AbstractControllerTest
 {
@@ -25,7 +26,7 @@ class PutUserControllerTest extends AbstractControllerTest
     final public function testPutUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $content = [
             'username' => 'Laurent',
             'email' => 'laurent@example.com',

@@ -41,7 +41,7 @@ class PostSuppliersController extends AbstractController
 
         try {
             $command = new CreateSupplier(
-                NameField::fromString($supplier['name']),
+                NameField::fromString($supplier['companyName']),
                 $supplier['address'],
                 $supplier['zipCode'],
                 $supplier['town'],

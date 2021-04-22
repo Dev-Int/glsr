@@ -55,7 +55,7 @@ final class Article
     ) {
         $this->uuid = $uuid->toString();
         $this->name = $name->getValue();
-        $this->supplier = $supplier->name();
+        $this->supplier = $supplier->companyName();
         $this->packaging = $packaging;
         $this->price = $price;
         $this->taxes = $taxes->name();

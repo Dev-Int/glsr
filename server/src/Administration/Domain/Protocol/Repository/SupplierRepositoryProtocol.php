@@ -17,7 +17,7 @@ use Administration\Domain\Supplier\Model\Supplier;
 
 interface SupplierRepositoryProtocol
 {
-    public function existsWithName(string $name): bool;
+    public function existsWithName(string $companyName): bool;
 
     public function save(Supplier $supplier): void;
 

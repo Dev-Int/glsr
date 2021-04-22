@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 
-use Administration\Infrastructure\DataFixtures\SupplierFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class DeleteSupplierControllerTest extends AbstractControllerTest
 {
@@ -26,7 +26,7 @@ class DeleteSupplierControllerTest extends AbstractControllerTest
     final public function testDeleteSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([new SupplierFixtures()]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             Request::METHOD_DELETE,

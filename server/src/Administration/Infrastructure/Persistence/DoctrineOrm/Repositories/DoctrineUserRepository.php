@@ -75,7 +75,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
             ->getOneOrNullResult()
         ;
 
-        return !(null === $statement);
+        return null !== $statement;
     }
 
     /**
@@ -91,6 +91,6 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
             ->getOneOrNullResult()
         ;
 
-        return !(null === $statement);
+        return null !== $statement;
     }
 }

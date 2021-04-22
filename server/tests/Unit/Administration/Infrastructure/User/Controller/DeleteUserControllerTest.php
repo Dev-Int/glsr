@@ -15,6 +15,7 @@ namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class DeleteUserControllerTest extends AbstractControllerTest
 {
@@ -24,7 +25,7 @@ class DeleteUserControllerTest extends AbstractControllerTest
     final public function testDeleteUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
             'DELETE',

@@ -57,22 +57,22 @@ class EditSupplierHandler implements CommandHandlerProtocol
                 $command->country(),
             ]);
         }
-        if ($supplier->phone() !== $command->phone()) {
+        if ($supplier->phone() !== $command->phone()->getValue()) {
             $supplier->changePhoneNumber($command->phone());
         }
-        if ($supplier->facsimile() !== $command->facsimile()) {
+        if ($supplier->facsimile() !== $command->facsimile()->getValue()) {
             $supplier->changeFacsimileNumber($command->facsimile());
         }
-        if ($supplier->email() !== $command->email()) {
+        if ($supplier->email() !== $command->email()->getValue()) {
             $supplier->rewriteEmail($command->email());
         }
         if ($supplier->contactName() !== $command->contact()) {
             $supplier->renameContact($command->contact());
         }
-        if ($supplier->cellPhone() !== $command->cellPhone()) {
+        if ($supplier->cellPhone() !== $command->cellPhone()->getValue()) {
             $supplier->changeCellphoneNumber($command->cellPhone());
         }
-        if ($supplier->familyLog() !== $command->familyLog()) {
+        if ($supplier->familyLog() !== $command->familyLog()->path()) {
             $supplier->reassignFamilyLog($command->familyLog());
         }
         if ($supplier->delayDelivery() !== $command->delayDelivery()) {

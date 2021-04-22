@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 
-use Administration\Infrastructure\DataFixtures\SupplierFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PutSupplierControllerTest extends AbstractControllerTest
 {
@@ -26,9 +26,9 @@ class PutSupplierControllerTest extends AbstractControllerTest
     final public function testPutSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([new SupplierFixtures()]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
         $content = [
-            'name' => 'Davigel',
+            'companyName' => 'Davigel',
             'address' => '1, rue des freezes',
             'zipCode' => '75008',
             'town' => 'PARIS',

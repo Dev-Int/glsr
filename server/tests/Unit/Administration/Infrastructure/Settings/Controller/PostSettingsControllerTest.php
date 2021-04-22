@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Settings\Controller;
 
-use Administration\Infrastructure\DataFixtures\SettingsFixtures;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PostSettingsControllerTest extends AbstractControllerTest
 {
@@ -26,7 +26,7 @@ class PostSettingsControllerTest extends AbstractControllerTest
     final public function testPostSettingsSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $content = [
             'currency' => 'Euro',
             'locale' => 'Fr',
@@ -55,7 +55,7 @@ class PostSettingsControllerTest extends AbstractControllerTest
     final public function testPostSettingsAlreadyExist(): void
     {
         // Arrange
-        $this->loadFixture([new SettingsFixtures()]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'settings']]);
         $content = [
             'currency' => 'Euro',
             'locale' => 'Fr',

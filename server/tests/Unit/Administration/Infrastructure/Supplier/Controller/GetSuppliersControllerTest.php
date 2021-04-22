@@ -16,6 +16,7 @@ namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class GetSuppliersControllerTest extends AbstractControllerTest
 {
@@ -25,7 +26,7 @@ class GetSuppliersControllerTest extends AbstractControllerTest
     final public function testGetSupplierNoData(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
 

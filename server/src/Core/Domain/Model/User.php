@@ -49,23 +49,28 @@ class User
         return $this->uuid->toString();
     }
 
-    public function getUsername(): string
+    public function username(): string
     {
         return $this->username->getValue();
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
         return $this->email->getValue();
     }
 
-    public function getPassword(): string
+    public function password(): string
     {
         return $this->password;
     }
 
-    public function getRoles(): array
+    public function roles(): array
     {
         return \array_unique($this->roles);
+    }
+
+    public function changePassword(string $password): void
+    {
+        $this->password = $password;
     }
 }

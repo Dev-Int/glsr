@@ -20,7 +20,7 @@ use Core\Domain\Protocol\Common\Command\CommandProtocol;
 
 class AbstractCompanyCommand implements CommandProtocol
 {
-    private NameField $name;
+    private NameField $companyName;
     private string $address;
     private string $zipCode;
     private string $town;
@@ -32,7 +32,7 @@ class AbstractCompanyCommand implements CommandProtocol
     private PhoneField $cellPhone;
 
     public function __construct(
-        NameField $name,
+        NameField $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -43,7 +43,7 @@ class AbstractCompanyCommand implements CommandProtocol
         string $contact,
         PhoneField $cellPhone
     ) {
-        $this->name = $name;
+        $this->companyName = $companyName;
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -55,9 +55,9 @@ class AbstractCompanyCommand implements CommandProtocol
         $this->cellPhone = $cellPhone;
     }
 
-    final public function name(): NameField
+    final public function companyName(): NameField
     {
-        return $this->name;
+        return $this->companyName;
     }
 
     final public function address(): string

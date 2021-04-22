@@ -16,6 +16,7 @@ namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PostUserControllerTest extends AbstractControllerTest
 {
@@ -25,7 +26,7 @@ class PostUserControllerTest extends AbstractControllerTest
     final public function testPostUserSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $content = [
             'username' => 'Daniel',
             'email' => 'daniel@example.com',

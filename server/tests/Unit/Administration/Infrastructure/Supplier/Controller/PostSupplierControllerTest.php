@@ -16,6 +16,7 @@ namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class PostSupplierControllerTest extends AbstractControllerTest
 {
@@ -25,9 +26,9 @@ class PostSupplierControllerTest extends AbstractControllerTest
     final public function testPostSupplierSuccess(): void
     {
         // Arrange
-        $this->loadFixture([]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $content = [
-            'name' => 'Davigel',
+            'companyName' => 'Davigel',
             'address' => '1, rue des freeze',
             'zipCode' => '75000',
             'town' => 'PARIS',

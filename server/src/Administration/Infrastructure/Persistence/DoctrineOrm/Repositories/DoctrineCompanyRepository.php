@@ -32,17 +32,17 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
     /**
      * @throws NonUniqueResultException
      */
-    final public function existsWithName(string $name): bool
+    final public function existsWithName(string $companyName): bool
     {
         $statement = $this->createQueryBuilder('c')
             ->select(['1'])
-            ->where('c.name = :name')
-            ->setParameter('name', $name)
+            ->where('c.companyName = :companyName')
+            ->setParameter('companyName', $companyName)
             ->getQuery()
             ->getOneOrNullResult()
         ;
 
-        return !(null === $statement);
+        return null !== $statement;
     }
 
     /**
@@ -70,12 +70,14 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
      */
     final public function findOneByUuid(string $uuid): ?CompanyModel
     {
-        return $this->createQueryBuilder('c')
+        $company = $this->createQueryBuilder('c')
             ->where('c.uuid = :uuid')
             ->setParameter('uuid', $uuid)
             ->getQuery()
             ->getOneOrNullResult()
         ;
+
+        return Company::toModel($company);
     }
 
     /**

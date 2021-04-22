@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
-use Administration\Infrastructure\DataFixtures\CompanyFixtures;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class DeleteCompanyControllerTest extends AbstractControllerTest
 {
@@ -25,7 +25,7 @@ class DeleteCompanyControllerTest extends AbstractControllerTest
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange
-        $this->loadFixture([new CompanyFixtures()]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request('DELETE', '/api/administration/companies/a136c6fe-8f6e-45ed-91bc-586374791033');
 

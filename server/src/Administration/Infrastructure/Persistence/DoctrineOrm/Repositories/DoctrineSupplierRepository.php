@@ -32,17 +32,17 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
     /**
      * @throws NonUniqueResultException
      */
-    public function existsWithName(string $name): bool
+    public function existsWithName(string $companyName): bool
     {
         $statement = $this->createQueryBuilder('ds')
             ->select(['1'])
-            ->where('ds.name = :name')
-            ->setParameter('name', $name)
+            ->where('ds.companyName = :companyName')
+            ->setParameter('companyName', $companyName)
             ->getQuery()
             ->getOneOrNullResult()
         ;
 
-        return !(null === $statement);
+        return null !== $statement;
     }
 
     /**

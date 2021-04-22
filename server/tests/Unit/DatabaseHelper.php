@@ -24,10 +24,11 @@ abstract class DatabaseHelper
         $process = new Process(
             [
                 'php',
-                'bin/console',
+                'server/bin/console',
                 'doctrine:database:drop',
                 '--force',
                 '--if-exists',
+                '--env=test',
             ],
             \dirname(__DIR__, 3)
         );
@@ -46,8 +47,9 @@ abstract class DatabaseHelper
         $process = new Process(
             [
                 'php',
-                'bin/console',
+                'server/bin/console',
                 'doctrine:database:create',
+                '--env=test',
             ],
             \dirname(__DIR__, 3)
         );
@@ -67,9 +69,10 @@ abstract class DatabaseHelper
         $process = new Process(
             [
                 'php',
-                'bin/console',
+                'server/bin/console',
                 'doctrine:migrations:migrate',
                 '-n',
+                '--env=test',
             ],
             \dirname(__DIR__, 3)
         );
@@ -87,13 +90,20 @@ abstract class DatabaseHelper
     {
         $command = [
             'php',
-            'bin/console',
+            'server/bin/console',
             'doctrine:fixtures:load',
             '-n',
+            '--env=test',
         ];
         if (!empty($options)) {
             foreach ($options as $key => $value) {
-                $command[] = '--' . $key . '=' . $value;
+                if (\is_array($value)) {
+                    foreach ($value as $group => $item) {
+                        $command[] = '--' . $group . '=' . $item;
+                    }
+                } else {
+                    $command[] = '--' . $key . '=' . $value;
+                }
             }
         }
         $process = new Process(

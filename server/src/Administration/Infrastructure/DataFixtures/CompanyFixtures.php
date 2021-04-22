@@ -13,7 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
-use Administration\Domain\Company\Model\Company;
+use Administration\Domain\Company\Model\Company as CompanyDomain;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Company;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
@@ -26,7 +27,7 @@ class CompanyFixtures extends Fixture implements FixtureGroupInterface
 {
     final public function load(ObjectManager $manager): void
     {
-        $company = Company::create(
+        $companyDomain = CompanyDomain::create(
             ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Dev-Int Création'),
             '1 rue des ERP',
@@ -39,8 +40,9 @@ class CompanyFixtures extends Fixture implements FixtureGroupInterface
             'Laurent',
             PhoneField::fromString('+33100000002')
         );
-        $manager->persist($company);
 
+        $company = Company::fromModel($companyDomain);
+        $manager->persist($company);
         $manager->flush();
     }
 

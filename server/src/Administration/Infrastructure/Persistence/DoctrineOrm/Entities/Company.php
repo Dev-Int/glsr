@@ -14,6 +14,10 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 
 use Administration\Domain\Company\Model\Company as CompanyModel;
+use Core\Domain\Common\Model\VO\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,5 +62,22 @@ class Company extends Contact
         );
 
         return new self($contact);
+    }
+
+    public static function toModel(self $company): CompanyModel
+    {
+        return CompanyModel::create(
+            ContactUuid::fromString($company->getUuid()),
+            NameField::fromString($company->getCompanyName()),
+            $company->getAddress(),
+            $company->getZipCode(),
+            $company->getTown(),
+            $company->getCountry(),
+            PhoneField::fromString($company->getPhone()),
+            PhoneField::fromString($company->getFacsimile()),
+            EmailField::fromString($company->getEmail()),
+            $company->getContactName(),
+            PhoneField::fromString($company->getCellphone())
+        );
     }
 }
