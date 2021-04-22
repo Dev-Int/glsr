@@ -1,3 +1,4 @@
 /.directory
 /docker-compose.override.yml
 *.sql*
+/.idea
