@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace End2End\Tests\Administration\Infrastructure\User\Controller;
+namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
-use End2End\Tests\AbstractControllerTest;
-use End2End\Tests\DatabaseHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Unit\Tests\AbstractControllerTest;
+use Unit\Tests\DatabaseHelper;
 
 class GetUsersControllerTest extends AbstractControllerTest
 {
@@ -29,26 +29,6 @@ class GetUsersControllerTest extends AbstractControllerTest
         DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(Request::METHOD_GET, '/api/administration/users/');
-
-        // Act
-        $response = $adminClient->getResponse();
-
-        // Assert
-        self::assertSame(Response::HTTP_OK, $response->getStatusCode());
-        $content = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
-        self::assertIsArray($content);
-        self::assertEquals('a136c6fe-8f6e-45ed-91bc-586374791033', $content[0]['uuid']);
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    final public function testGetSuppliersSuccess(): void
-    {
-        // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
-        $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
 
         // Act
         $response = $adminClient->getResponse();
