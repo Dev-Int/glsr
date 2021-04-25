@@ -15,13 +15,13 @@ namespace Administration\Infrastructure\User\Handler;
 
 use Administration\Domain\User\Command\EditUser;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
-use Core\Domain\Model\User;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User as UserSymfony;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class EditUserHandler implements CommandHandlerProtocol
+class EditUserHandler implements CommandHandlerInterface
 {
     private UserPasswordEncoderInterface $passwordEncoder;
     private DoctrineUserRepository $userRepository;
@@ -47,24 +47,24 @@ class EditUserHandler implements CommandHandlerProtocol
         $this->updateUser($command, $userToUpdate);
     }
 
-    private function updateUser(EditUser $command, User $user): User
+    private function updateUser(EditUser $command, UserSymfony $user): UserSymfony
     {
-        if ($user->username() !== $command->username()) {
-            $user->renameUser($command->username());
+        if ($user->getUsername() !== $command->username()) {
+            $user->setUsername($command->username()->getValue());
         }
-        if ($user->email() !== $command->email()) {
-            $user->changeEmail($command->email());
+        if ($user->getEmail() !== $command->email()->getValue()) {
+            $user->setEmail($command->email()->getValue());
         }
 
-        $user->changePassword(
+        $user->setPassword(
             $this->passwordEncoder->encodePassword(
                 $user,
                 $command->password()
             )
         );
 
-        if ($user->roles() !== $command->roles()) {
-            $user->assignRoles($command->roles());
+        if ($user->getRoles() !== $command->roles()) {
+            $user->setRoles($command->roles());
         }
 
         return $user;

@@ -17,9 +17,9 @@ use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-class CreateSupplier implements CommandProtocol
+class CreateSupplier implements CommandInterface
 {
     private NameField $companyName;
     private string $address;

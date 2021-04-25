@@ -13,17 +13,18 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Settings\Handler;
 
-use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
 use Administration\Domain\Settings\Command\ConfigureSettings;
 use Administration\Domain\Settings\Model\Settings;
 use Administration\Domain\Settings\Model\VO\SettingsUuid;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Settings as SettingsEntity;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSettingsRepository;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 
-class ConfigureSettingsHandler implements CommandHandlerProtocol
+class ConfigureSettingsHandler implements CommandHandlerInterface
 {
-    private SettingsRepositoryProtocol $repository;
+    private DoctrineSettingsRepository $repository;
 
-    public function __construct(SettingsRepositoryProtocol $repository)
+    public function __construct(DoctrineSettingsRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -40,6 +41,6 @@ class ConfigureSettingsHandler implements CommandHandlerProtocol
             $command->currency()
         );
 
-        $this->repository->save($settings);
+        $this->repository->save(SettingsEntity::fromModel($settings));
     }
 }

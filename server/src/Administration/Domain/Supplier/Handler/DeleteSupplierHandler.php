@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Handler;
 
-use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Command\DeleteSupplier;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 
-class DeleteSupplierHandler implements CommandHandlerProtocol
+class DeleteSupplierHandler implements CommandHandlerInterface
 {
-    private SupplierRepositoryProtocol $repository;
+    private DoctrineSupplierRepository $repository;
 
-    public function __construct(SupplierRepositoryProtocol $repository)
+    public function __construct(DoctrineSupplierRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -34,6 +34,6 @@ class DeleteSupplierHandler implements CommandHandlerProtocol
             throw new \DomainException('Supplier provided does not exist!');
         }
 
-        $supplierToDelete->delete();
+        $this->repository->remove($supplierToDelete);
     }
 }

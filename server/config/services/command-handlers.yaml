@@ -2,11 +2,6 @@ services:
   _defaults:
     autowire: true
 
-  Administration\Domain\Company\Handler\:
-    resource: '../../src/Administration/Domain/Company/Handler/*'
-    tags:
-      - { name: messenger.message_handler, bus: command.bus }
-
   Administration\Domain\Settings\Handler\:
     resource: '../../src/Administration/Domain/Settings/Handler/*'
     tags:

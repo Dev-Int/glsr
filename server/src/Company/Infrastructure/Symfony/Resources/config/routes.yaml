@@ -1,0 +1,3 @@
+company:
+  resource: routes/company.yaml
+  prefix: /api/companies

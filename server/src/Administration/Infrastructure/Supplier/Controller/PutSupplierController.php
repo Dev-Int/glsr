@@ -51,7 +51,7 @@ class PutSupplierController extends AbstractController
                 PhoneField::fromString($supplier['phone']),
                 PhoneField::fromString($supplier['facsimile']),
                 EmailField::fromString($supplier['email']),
-                $supplier['contact'],
+                $supplier['contactName'],
                 PhoneField::fromString($supplier['cellphone']),
                 FamilyLog::create(NameField::fromString($supplier['familyLog'])),
                 $supplier['delayDelivery'],

@@ -15,5 +15,4 @@ namespace Core\Domain\Protocol\Common;
 
 interface StringifyProtocol
 {
-    public function toString(): string;
 }

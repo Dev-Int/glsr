@@ -16,9 +16,9 @@ namespace Administration\Domain\Settings\Command;
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Domain\Settings\Model\VO\Locale;
 use Administration\Domain\Settings\Model\VO\SettingsUuid;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-final class EditSettings implements CommandProtocol
+final class EditSettings implements CommandInterface
 {
     private string $uuid;
     private Locale $locale;

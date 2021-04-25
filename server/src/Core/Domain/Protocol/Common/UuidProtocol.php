@@ -17,13 +17,4 @@ use Core\Domain\Protocol\IdProtocol;
 
 interface UuidProtocol extends IdProtocol
 {
-    /**
-     * @return static
-     */
-    public static function fromUuid(object $uuid);
-
-    /**
-     * @return static
-     */
-    public static function fromString(string $uuid);
 }

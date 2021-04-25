@@ -26,7 +26,7 @@ final class Supplier
     private string $phone;
     private string $facsimile;
     private string $email;
-    private string $contact;
+    private string $contactName;
     private string $cellphone;
     private string $familyLog;
     private int $delayDelivery;
@@ -44,7 +44,7 @@ final class Supplier
         string $phone,
         string $facsimile,
         string $email,
-        string $contact,
+        string $contactName,
         string $cellphone,
         string $familyLog,
         int $delayDelivery,
@@ -62,7 +62,7 @@ final class Supplier
         $this->phone = $phone;
         $this->facsimile = $facsimile;
         $this->email = $email;
-        $this->contact = $contact;
+        $this->contactName = $contactName;
         $this->cellphone = $cellphone;
         $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
@@ -120,9 +120,9 @@ final class Supplier
         return $this->email;
     }
 
-    public function contact(): string
+    public function contactName(): string
     {
-        return $this->contact;
+        return $this->contactName;
     }
 
     public function cellphone(): string

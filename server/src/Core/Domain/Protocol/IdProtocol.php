@@ -17,6 +17,4 @@ use Core\Domain\Protocol\Common\StringifyProtocol;
 
 interface IdProtocol extends StringifyProtocol
 {
-    /** @return static */
-    public static function generate();
 }

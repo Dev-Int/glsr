@@ -15,9 +15,9 @@ namespace Administration\Domain\Settings\Command;
 
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Domain\Settings\Model\VO\Locale;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-final class ConfigureSettings implements CommandProtocol
+final class ConfigureSettings implements CommandInterface
 {
     private Locale $locale;
     private Currency $currency;

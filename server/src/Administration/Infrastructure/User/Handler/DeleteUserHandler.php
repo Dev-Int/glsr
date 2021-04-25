@@ -15,11 +15,11 @@ namespace Administration\Infrastructure\User\Handler;
 
 use Administration\Domain\User\Command\DeleteUser;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
 
-final class DeleteUserHandler implements CommandHandlerProtocol
+final class DeleteUserHandler implements CommandHandlerInterface
 {
     private DoctrineUserRepository $repository;
 

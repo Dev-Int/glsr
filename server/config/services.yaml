@@ -18,7 +18,7 @@ services:
   # please note that last definitions always *replace* previous ones
 
   _instanceof:
-    Core\Domain\Protocol\Common\Command\CommandHandlerProtocol:
+    Core\Domain\Protocol\Common\Command\CommandHandlerInterface:
       tags:
         - { name: messenger.message_handler, bus: command.bus }
     Core\Domain\Protocol\Common\Query\QueryHandlerProtocol:

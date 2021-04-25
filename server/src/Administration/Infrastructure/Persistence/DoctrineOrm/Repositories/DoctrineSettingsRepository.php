@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Application\Settings\ReadModel\Settings as SettingsReadModel;
-use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
 use Administration\Domain\Settings\Model\Settings as SettingsModel;
 use Administration\Domain\Settings\Model\VO\Currency;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Settings;
@@ -24,7 +23,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineSettingsRepository extends ServiceEntityRepository implements SettingsRepositoryProtocol
+class DoctrineSettingsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -35,10 +34,9 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function save(SettingsModel $settings): void
+    final public function save(Settings $settings): void
     {
-        $settingsEntity = Settings::fromModel($settings);
-        $this->getEntityManager()->persist($settingsEntity);
+        $this->getEntityManager()->persist($settings);
         $this->getEntityManager()->flush();
     }
 
@@ -53,7 +51,7 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?SettingsModel
+    final public function findOneByUuid(string $uuid): ?Settings
     {
         return $this->createQueryBuilder('ds')
             ->where('ds.uuid = :uuid')

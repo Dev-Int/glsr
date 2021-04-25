@@ -1,0 +1,24 @@
+companies_index:
+  methods: GET
+  controller: Company\UI\Controller\GetCompanies
+  path: /
+
+companies_post:
+  methods: POST
+  controller: Company\UI\Controller\CreateCompany
+  path: /
+
+company_get:
+  methods: GET
+  controller: Company\UI\Controller\GetCompany
+  path: /{uuid}
+
+company_put:
+  methods: PUT
+  controller: Company\UI\Controller\EditCompany
+  path: /{uuid}
+
+company_delete:
+  methods: DELETE
+  controller: Company\UI\Controller\DeleteCompany
+  path: /{uuid}

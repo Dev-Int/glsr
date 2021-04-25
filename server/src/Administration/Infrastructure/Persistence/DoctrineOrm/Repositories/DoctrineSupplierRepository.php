@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
-use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
-use Administration\Domain\Supplier\Model\Supplier as SupplierModel;
 use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,7 +20,13 @@ use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineSupplierRepository extends ServiceEntityRepository implements SupplierRepositoryProtocol
+/**
+ * @method Supplier|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Supplier|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Supplier[]    findAll()
+ * @method Supplier[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class DoctrineSupplierRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -48,17 +52,16 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
     /**
      * @throws ORMException
      */
-    public function save(SupplierModel $supplier): void
+    public function save(Supplier $supplier): void
     {
-        $supplierEntity = Supplier::fromModel($supplier);
-        $this->getEntityManager()->persist($supplierEntity);
+        $this->getEntityManager()->persist($supplier);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneByUuid(string $uuid): SupplierModel
+    public function findOneByUuid(string $uuid): Supplier
     {
         $result = $this->createQueryBuilder('s')
             ->where('s.uuid = :uuid')
@@ -72,5 +75,13 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
         }
 
         return $result;
+    }
+
+    /**
+     * @throws ORMException
+     */
+    final public function remove(Supplier $supplier): void
+    {
+        $this->getEntityManager()->remove($supplier);
     }
 }
