@@ -112,6 +112,11 @@ load-fixtures: ## Build the DB, load fixtures
 	$(SERVER_CONSOLE) doctrine:database:create --if-not-exists
 	$(SERVER_CONSOLE) doctrine:fixtures:load -n
 
+db-clean-test: ## Clean DB Test
+	- @$(SERVER_CONSOLE) d:d:d --force --env=test
+	@$(SERVER_CONSOLE) d:d:c --env=test
+	@$(SERVER_CONSOLE) d:m:m -n --env=test
+	@$(SERVER_CONSOLE) d:f:l -n --env=test
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
