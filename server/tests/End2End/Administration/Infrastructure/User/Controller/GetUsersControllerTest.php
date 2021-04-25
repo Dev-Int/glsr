@@ -39,24 +39,4 @@ class GetUsersControllerTest extends AbstractControllerTest
         self::assertIsArray($content);
         self::assertEquals('a136c6fe-8f6e-45ed-91bc-586374791033', $content[0]['uuid']);
     }
-
-    /**
-     * @throws \JsonException
-     */
-    final public function testGetSuppliersSuccess(): void
-    {
-        // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
-        $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
-
-        // Act
-        $response = $adminClient->getResponse();
-
-        // Assert
-        self::assertSame(Response::HTTP_OK, $response->getStatusCode());
-        $content = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
-        self::assertIsArray($content);
-        self::assertEquals('a136c6fe-8f6e-45ed-91bc-586374791033', $content[0]['uuid']);
-    }
 }
