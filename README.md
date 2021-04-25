@@ -33,11 +33,15 @@ The project use [docker](https://docs.docker.com/get-docker/) (install it, if yo
 $ make install
 ```
 
+## Documentation
+
+To understand how the application works, read the [all project documentation](docs/index.md).
+
 ## Roadmap
 
 To restart in the right direction, I start by preparing my use cases, and adding the resulting tests after this list:
 
-- [x] rewrite [Domain model](docs/index.md) to check and correct my previous choices
+- [x] rewrite [Domain model and use cases](docs/dev/usecases.md) to check and correct my previous choices
 
 - [x] install [Behat](https://docs.behat.org/en/latest/quick_start.html)
 
@@ -49,7 +53,7 @@ To follow the progress, visit the [use cases](https://github.com/Dev-Int/tests/l
   - settings ✅
   - users ✅  
   - suppliers ✅
-  - articles `in progress...`
+  - logistics families `in progress...`
 
 ## Licence
 
