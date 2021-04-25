@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Domain\User\Command;
 
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-final class DeleteUser implements CommandProtocol
+final class DeleteUser implements CommandInterface
 {
     private string $uuid;
 

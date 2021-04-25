@@ -14,17 +14,17 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\User\Handler;
 
 use Administration\Domain\User\Command\CreateUser;
-use Administration\Domain\User\Model\User;
+use Administration\Domain\User\Model\User as UserModel;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User as UserSymfony;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class CreateUserHandler implements CommandHandlerProtocol
+class CreateUserHandler implements CommandHandlerInterface
 {
     private DoctrineUserRepository $repository;
     private UserPasswordEncoderInterface $passwordEncoder;
@@ -49,21 +49,21 @@ class CreateUserHandler implements CommandHandlerProtocol
             throw new \DomainException("User with email: {$command->email()->getValue()} already exist");
         }
 
-        $user = User::create(
+        $user = UserModel::create(
             UserUuid::generate(),
             $command->username(),
             $command->email(),
             $command->password(),
             $command->roles()
         );
-        $userSymfony = UserSymfony::fromModel($user);
-        $user->changePassword(
+        $userSymfony = User::fromModel($user);
+        $userSymfony->setPassword(
             $this->passwordEncoder->encodePassword(
                 $userSymfony,
                 $command->password()
             )
         );
 
-        $this->repository->save($user);
+        $this->repository->save($userSymfony);
     }
 }

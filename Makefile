@@ -87,6 +87,18 @@ db-test: server/.env.test ## Create tests database
 	@echo "create database for tests"
 	@$(SERVER_CONSOLE) doctrine:database:create --env=test
 
+db-clean: cc	## Clean DB local
+	- @$(SERVER_CONSOLE) d:d:d --force
+	@$(SERVER_CONSOLE) d:d:c
+	@$(SERVER_CONSOLE) d:m:m -n
+	@$(SERVER_CONSOLE) d:f:l -n
+
+db-clean-test: test-cc	## Clean DB test
+	- @$(SERVER_CONSOLE) d:d:d --force --env=test
+	@$(SERVER_CONSOLE) d:d:c --env=test
+	@$(SERVER_CONSOLE) d:m:m -n --env=test
+	@$(SERVER_CONSOLE) d:f:l -n --env=test
+
 db-diff: ## Generation doctrine diff
 	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Core\Infrastructure\DoctrineMigrations'
 	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Administration\Infrastructure\DoctrineMigrations'
@@ -111,12 +123,6 @@ load-fixtures: ## Build the DB, load fixtures
 	$(SERVER_CONSOLE) doctrine:cache:clear-metadata
 	$(SERVER_CONSOLE) doctrine:database:create --if-not-exists
 	$(SERVER_CONSOLE) doctrine:fixtures:load -n
-
-db-clean-test: ## Clean DB Test
-	- @$(SERVER_CONSOLE) d:d:d --force --env=test
-	@$(SERVER_CONSOLE) d:d:c --env=test
-	@$(SERVER_CONSOLE) d:m:m -n --env=test
-	@$(SERVER_CONSOLE) d:f:l -n --env=test
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 

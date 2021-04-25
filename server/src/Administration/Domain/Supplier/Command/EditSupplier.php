@@ -18,9 +18,9 @@ use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-class EditSupplier implements CommandProtocol
+class EditSupplier implements CommandInterface
 {
     private ContactUuid $uuid;
     private NameField $name;
@@ -31,8 +31,8 @@ class EditSupplier implements CommandProtocol
     private PhoneField $phone;
     private PhoneField $facsimile;
     private EmailField $email;
-    private string $contact;
-    private PhoneField $cellPhone;
+    private string $contactName;
+    private PhoneField $cellphone;
     private FamilyLog $familyLog;
     private int $delayDelivery;
     private array $orderDays;
@@ -47,8 +47,8 @@ class EditSupplier implements CommandProtocol
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contact,
-        PhoneField $cellPhone,
+        string $contactName,
+        PhoneField $cellphone,
         FamilyLog $familyLog,
         int $delayDelivery,
         array $orderDays
@@ -62,8 +62,8 @@ class EditSupplier implements CommandProtocol
         $this->phone = $phone;
         $this->facsimile = $facsimile;
         $this->email = $email;
-        $this->contact = $contact;
-        $this->cellPhone = $cellPhone;
+        $this->contactName = $contactName;
+        $this->cellphone = $cellphone;
         $this->familyLog = $familyLog;
         $this->delayDelivery = $delayDelivery;
         $this->orderDays = $orderDays;
@@ -114,14 +114,14 @@ class EditSupplier implements CommandProtocol
         return $this->email;
     }
 
-    public function contact(): string
+    public function contactName(): string
     {
-        return $this->contact;
+        return $this->contactName;
     }
 
-    public function cellPhone(): PhoneField
+    public function cellphone(): PhoneField
     {
-        return $this->cellPhone;
+        return $this->cellphone;
     }
 
     public function familyLog(): FamilyLog

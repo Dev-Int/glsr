@@ -103,6 +103,13 @@ class User implements UserInterface
         return \array_unique($this->roles);
     }
 
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getPassword(): string
     {
         return $this->password;
@@ -123,6 +130,13 @@ class User implements UserInterface
     public function getUsername(): string
     {
         return $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function eraseCredentials(): void

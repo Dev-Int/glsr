@@ -75,7 +75,7 @@ class PutSupplierControllerTest extends AbstractControllerTest
             'phone' => '0100000001',
             'facsimile' => '0100000002',
             'email' => 'contact@davigel.fr',
-            'contact' => 'David',
+            'contactName' => 'David',
             'cellphone' => '0600000002',
             'familyLog' => 'Surgelé',
             'delayDelivery' => 3,

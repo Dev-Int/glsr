@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Common;
 
-use Core\Domain\Protocol\Common\Command\CommandBusProtocol;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandBusInterface;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class MessengerCommandBus implements CommandBusProtocol
+class MessengerCommandBus implements CommandBusInterface
 {
     private MessageBusInterface $commandBus;
 
@@ -26,7 +26,7 @@ class MessengerCommandBus implements CommandBusProtocol
         $this->commandBus = $commandBus;
     }
 
-    public function dispatch(CommandProtocol $command): void
+    public function dispatch(CommandInterface $command): void
     {
         $this->commandBus->dispatch($command);
     }

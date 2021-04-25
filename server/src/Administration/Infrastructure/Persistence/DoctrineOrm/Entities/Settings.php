@@ -14,6 +14,9 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 
 use Administration\Domain\Settings\Model\Settings as SettingsModel;
+use Administration\Domain\Settings\Model\VO\Currency;
+use Administration\Domain\Settings\Model\VO\Locale;
+use Administration\Domain\Settings\Model\VO\SettingsUuid;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +55,15 @@ class Settings
             $settingsModel->uuid(),
             $settingsModel->locale(),
             $settingsModel->currency()
+        );
+    }
+
+    public static function toModel(self $settings): SettingsModel
+    {
+        return new SettingsModel(
+            SettingsUuid::fromString($settings->getUuid()),
+            Locale::fromString($settings->getLocale()),
+            Currency::fromString($settings->getCurrency())
         );
     }
 

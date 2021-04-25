@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\User\Controller;
 
-use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
+use Administration\Infrastructure\Finders\DoctrineOrm\DoctrineUserFinder;
 use Doctrine\Persistence\ManagerRegistry;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +23,7 @@ class GetUsersController extends AbstractController
 {
     public function __invoke(ManagerRegistry $registry, SerializerInterface $serializer): Response
     {
-        $data = (new DoctrineUserRepository($registry))->findAll();
+        $data = (new DoctrineUserFinder($registry))->findAllUsers()->toArray();
 
         if ([] !== $data) {
             $users = $serializer->serialize($data, 'json');

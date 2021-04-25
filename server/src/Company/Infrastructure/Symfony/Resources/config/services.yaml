@@ -1,0 +1,37 @@
+doctrine:
+  orm:
+    default_entity_manager: default
+    entity_managers:
+      default:
+        mappings:
+          Company:
+            type: annotation
+            dir: '%kernel.project_dir%/src/Company/Infrastructure/Doctrine/Entity'
+            prefix: Company\Infrastructure\Doctrine\Entity
+            alias: Company
+            is_bundle: false
+            mapping: true
+
+#doctrine_migrations:
+#  migrations_paths:
+#    Company\Infrastructure\Doctrine\Migrations: '%kernel.project_dir%/src/Company/Infrastructure/Doctrine/Migrations'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Company\:
+    lazy: true
+    resource: '%kernel.project_dir%/src/Company/*'
+    exclude: '%kernel.project_dir%/src/Company/{Infrastructure/Symfony,Infrastructure/Doctrine/{Entity,Migrations},Controller}'
+
+  Company\Application\Handler\:
+    resource: '../../../../Application/Handler/*'
+    tags:
+      - { name: messenger.message_handler, bus: command.bus }
+
+  Company\UI\Controller\:
+    resource: '%kernel.project_dir%/src/Company/UI/Controller'
+    tags: [ 'controller.service_arguments' ]

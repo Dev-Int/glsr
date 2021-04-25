@@ -21,6 +21,7 @@ use Administration\Domain\User\Model\VO\UserUuid;
 use Administration\Infrastructure\Finders\Exceptions\UserNotFound;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
+use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -29,7 +30,7 @@ class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderPr
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserDomainModel::class);
+        parent::__construct($registry, User::class);
     }
 
     /**
@@ -90,7 +91,7 @@ class DoctrineUserFinder extends ServiceEntityRepository implements UserFinderPr
         ;
 
         return new Users(
-            ...\array_map(static function (UserDomainModel $user) {
+            ...\array_map(static function (User $user) {
                 return new UserReadModel(
                     $user->getUuid(),
                     $user->getUsername(),

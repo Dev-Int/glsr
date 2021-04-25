@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
-use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
-use Administration\Domain\User\Model\User as UserModel;
 use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
@@ -22,7 +20,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineUserRepository extends ServiceEntityRepository implements UserRepositoryProtocol
+class DoctrineUserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -33,20 +31,18 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function save(UserModel $user): void
+    final public function save(User $user): void
     {
-        $userEntity = User::fromModel($user);
-        $this->getEntityManager()->persist($userEntity);
+        $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws ORMException
      */
-    final public function remove(UserModel $user): void
+    final public function remove(User $user): void
     {
-        $userEntity = User::fromModel($user);
-        $this->getEntityManager()->remove($userEntity);
+        $this->getEntityManager()->remove($user);
     }
 
     /**

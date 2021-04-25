@@ -15,9 +15,9 @@ namespace Administration\Domain\User\Command;
 
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-final class CreateUser implements CommandProtocol
+final class CreateUser implements CommandInterface
 {
     private NameField $username;
     private EmailField $email;

@@ -13,17 +13,18 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Handler;
 
-use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
 use Administration\Domain\Supplier\Command\CreateSupplier;
 use Administration\Domain\Supplier\Model\Supplier;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier as SupplierEntity;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository;
 use Core\Domain\Common\Model\VO\ContactUuid;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 
-class CreateSupplierHandler implements CommandHandlerProtocol
+class CreateSupplierHandler implements CommandHandlerInterface
 {
-    private SupplierRepositoryProtocol $repository;
+    private DoctrineSupplierRepository $repository;
 
-    public function __construct(SupplierRepositoryProtocol $repository)
+    public function __construct(DoctrineSupplierRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -36,7 +37,7 @@ class CreateSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->createSupplier($command);
 
-        $this->repository->save($supplier);
+        $this->repository->save(SupplierEntity::fromModel($supplier));
     }
 
     private function createSupplier(CreateSupplier $command): Supplier

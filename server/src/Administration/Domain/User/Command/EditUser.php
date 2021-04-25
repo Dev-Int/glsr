@@ -16,9 +16,9 @@ namespace Administration\Domain\User\Command;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-final class EditUser implements CommandProtocol
+final class EditUser implements CommandInterface
 {
     private UserUuid $uuid;
     private NameField $username;

@@ -8,10 +8,6 @@ services:
     resource: '../../src/Administration/Domain'
     exclude: '../../src/Administration/Domain/**/{Model,Exception}/*'
 
-  Administration\Infrastructure\Company\Controller\:
-    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Company/Controller'
-    tags: [ 'controller.service_arguments' ]
-
   Administration\Infrastructure\Settings\Controller\:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Settings/Controller'
     tags: [ 'controller.service_arguments' ]
@@ -36,11 +32,6 @@ services:
     lazy: true
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/*'
     exclude: '%kernel.project_dir%/src/Administration/Infrastructure/{DoctrineMigrations,Kernel.php,**/Controller}'
-
-  serializer_handler.company:
-    class: Administration\Infrastructure\Company\Serializer\Handler\CompanyHandler
-    tags:
-      - { name: jms_serializer.subscribing_handler }
 
   serializer_handler.supplier:
     class: Administration\Infrastructure\Supplier\Serializer\Handler\SupplierHandler

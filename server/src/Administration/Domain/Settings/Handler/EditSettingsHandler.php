@@ -13,15 +13,15 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Settings\Handler;
 
-use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
 use Administration\Domain\Settings\Command\EditSettings;
-use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSettingsRepository;
+use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 
-class EditSettingsHandler implements CommandHandlerProtocol
+class EditSettingsHandler implements CommandHandlerInterface
 {
-    private SettingsRepositoryProtocol $repository;
+    private DoctrineSettingsRepository $repository;
 
-    public function __construct(SettingsRepositoryProtocol $repository)
+    public function __construct(DoctrineSettingsRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -35,8 +35,8 @@ class EditSettingsHandler implements CommandHandlerProtocol
         }
 
         $settings = $settingsToUpdate
-            ->changeCurrency($command->currency()->getValue())
-            ->changeLocale($command->locale()->getValue())
+            ->setCurrency($command->currency()->getValue())
+            ->setLocale($command->locale()->getValue())
         ;
 
         $this->repository->save($settings);

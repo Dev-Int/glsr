@@ -76,7 +76,8 @@
         "psr-4": {
             "Administration\\": "src/Administration",
             "Core\\": "src/Core",
-            "Inventory\\": "src/Inventory"
+            "Inventory\\": "src/Inventory",
+            "Company\\": "src/Company"
         }
     },
     "autoload-dev": {

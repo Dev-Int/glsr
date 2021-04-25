@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Command;
 
-use Core\Domain\Protocol\Common\Command\CommandProtocol;
+use Core\Domain\Protocol\Common\Command\CommandInterface;
 
-class DeleteSupplier implements CommandProtocol
+class DeleteSupplier implements CommandInterface
 {
     private string $uuid;
 
