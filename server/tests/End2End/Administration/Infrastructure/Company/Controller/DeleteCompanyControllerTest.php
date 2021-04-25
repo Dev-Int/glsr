@@ -11,29 +11,26 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\User\Controller;
+namespace End2End\Tests\Administration\Infrastructure\Company\Controller;
 
+use End2End\Tests\AbstractControllerTest;
+use End2End\Tests\DatabaseHelper;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\AbstractControllerTest;
-use Unit\Tests\DatabaseHelper;
 
-class DeleteUserControllerTest extends AbstractControllerTest
+class DeleteCompanyControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testDeleteUserFailWithBadUuid(): void
+    final public function testDeleteCompanyFailWithBadUuid(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(
-            'DELETE',
-            '/api/administration/users/626adfca-fc5d-415c-9b7a-7541030bd147'
-        );
 
         // Act
-        $response = $this->client->getResponse();
+        $adminClient->request('DELETE', '/api/administration/companies/626adfca-fc5d-415c-9b7a-7541030bd147');
+        $response = $adminClient->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
@@ -42,15 +39,12 @@ class DeleteUserControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testDeleteUserSuccess(): void
+    final public function testDeleteCompanySuccess(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(
-            'DELETE',
-            '/api/administration/users/a136c6fe-8f6e-45ed-91bc-586374791033'
-        );
+        $adminClient->request('DELETE', '/api/administration/companies/a136c6fe-8f6e-45ed-91bc-586374791033');
 
         // Act
         $response = $this->client->getResponse();

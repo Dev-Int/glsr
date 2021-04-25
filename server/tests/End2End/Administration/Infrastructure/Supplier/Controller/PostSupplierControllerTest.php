@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
+namespace End2End\Tests\Administration\Infrastructure\Supplier\Controller;
 
+use End2End\Tests\AbstractControllerTest;
+use End2End\Tests\DatabaseHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\AbstractControllerTest;
-use Unit\Tests\DatabaseHelper;
 
 class PostSupplierControllerTest extends AbstractControllerTest
 {

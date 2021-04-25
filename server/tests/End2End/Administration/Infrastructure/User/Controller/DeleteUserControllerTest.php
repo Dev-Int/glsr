@@ -11,27 +11,29 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
+namespace End2End\Tests\Administration\Infrastructure\User\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use End2End\Tests\AbstractControllerTest;
+use End2End\Tests\DatabaseHelper;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\AbstractControllerTest;
-use Unit\Tests\DatabaseHelper;
 
-class DeleteSupplierControllerTest extends AbstractControllerTest
+class DeleteUserControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testDeleteSupplierFailWithBadUuid(): void
+    final public function testDeleteUserFailWithBadUuid(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            'DELETE',
+            '/api/administration/users/626adfca-fc5d-415c-9b7a-7541030bd147'
+        );
 
         // Act
-        $adminClient->request('DELETE', '/api/administration/suppliers/626adfca-fc5d-415c-9b7a-7541030bd147');
-        $response = $adminClient->getResponse();
+        $response = $this->client->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
@@ -40,18 +42,18 @@ class DeleteSupplierControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testDeleteSupplierSuccess(): void
+    final public function testDeleteUserSuccess(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
         $adminClient->request(
-            Request::METHOD_DELETE,
-            '/api/administration/suppliers/a136c6fe-8f6e-45ed-91bc-586374791033'
+            'DELETE',
+            '/api/administration/users/a136c6fe-8f6e-45ed-91bc-586374791033'
         );
 
         // Act
-        $response = $adminClient->getResponse();
+        $response = $this->client->getResponse();
 
         // Assert
         self::assertSame(Response::HTTP_NO_CONTENT, $response->getStatusCode());

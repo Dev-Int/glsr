@@ -124,9 +124,9 @@ test-domain: server/phpunit.xml test-cc ## Launch Domain unit tests
 	@echo "Running unit Domain tests"
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Domain --stop-on-failure
 
-test-infra: server/phpunit.xml test-cc ## Launch Infrastructure unit tests
-	@echo "Running unit Infrastructure tests"
-	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Infrastructure --stop-on-failure
+test-e2e: server/phpunit.xml test-cc ## Launch End2End tests
+	@echo "Running end to end tests"
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=End2End --stop-on-failure
 
 test-coverage: clean-dir  ## Run test coverage
 	@echo 'Running tests coverage'

@@ -81,7 +81,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Unit\\Tests\\": "tests/Unit"
+            "Unit\\Tests\\": "tests/Unit",
+            "End2End\\Tests\\": "tests/End2End"
         }
     },
     "replace": {

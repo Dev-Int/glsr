@@ -11,24 +11,42 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\User\Controller;
+namespace End2End\Tests\Administration\Infrastructure\Company\Controller;
 
+use End2End\Tests\AbstractControllerTest;
+use End2End\Tests\DatabaseHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Unit\Tests\AbstractControllerTest;
-use Unit\Tests\DatabaseHelper;
 
-class GetUsersControllerTest extends AbstractControllerTest
+class GetCompaniesControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testGetUsersSuccess(): void
+    final public function testGetCompaniesNoData(): void
     {
         // Arrange
         DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/users/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/companies/');
+
+        // Act
+        $response = $adminClient->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_ACCEPTED, $response->getStatusCode());
+        self::assertSame('No data found', $response->getContent());
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    final public function testGetCompaniesSuccess(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(Request::METHOD_GET, '/api/administration/companies/');
 
         // Act
         $response = $adminClient->getResponse();
