@@ -23,6 +23,36 @@ class PutUserControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
+    final public function testPutUserFailWithBadUuid(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        $content = [
+            'username' => 'Laurent',
+            'email' => 'laurent@example.com',
+            'password' => 'passwords',
+            'roles' => ['ROLE_ADMIN', 'ROLE_ASSISTANT'],
+        ];
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            Request::METHOD_PUT,
+            '/api/administration/users/626adfca-fc5d-415c-9b7a-7541030bd147',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+
+        // Act
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
     final public function testPutUserSuccess(): void
     {
         // Arrange

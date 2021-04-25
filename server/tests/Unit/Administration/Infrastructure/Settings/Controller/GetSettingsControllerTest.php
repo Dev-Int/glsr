@@ -11,24 +11,24 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
+namespace Unit\Tests\Administration\Infrastructure\Settings\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 use Unit\Tests\DatabaseHelper;
 
-class GetSuppliersControllerTest extends AbstractControllerTest
+class GetSettingsControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testGetSupplierNoData(): void
+    final public function testGetSettingsNoData(): void
     {
         // Arrange
         DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/settings/');
 
         // Act
         $response = $adminClient->getResponse();
@@ -38,15 +38,12 @@ class GetSuppliersControllerTest extends AbstractControllerTest
         self::assertSame('No data found', $response->getContent());
     }
 
-    /**
-     * @throws \JsonException
-     */
-    final public function testGetSuppliersSuccess(): void
+    final public function testGetSettingsSuccess(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'settings']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/settings/');
 
         // Act
         $response = $adminClient->getResponse();
@@ -55,6 +52,6 @@ class GetSuppliersControllerTest extends AbstractControllerTest
         self::assertSame(Response::HTTP_OK, $response->getStatusCode());
         $content = \json_decode($response->getContent(), true, 512, \JSON_THROW_ON_ERROR);
         self::assertIsArray($content);
-        self::assertEquals('a136c6fe-8f6e-45ed-91bc-586374791033', $content[0]['uuid']);
+        self::assertEquals('a136c6fe-8f6e-45ed-91bc-586374791033', $content['uuid']);
     }
 }

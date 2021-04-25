@@ -23,7 +23,35 @@ class PutSettingsControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testPutSettingsAction(): void
+    final public function testPutSettingsFailWithBadUuid(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'settings']]);
+        $content = [
+            'currency' => 'Euro',
+            'locale' => 'Fr',
+        ];
+
+        // Act
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            Request::METHOD_PUT,
+            '/api/administration/settings/626adfca-fc5d-415c-9b7a-7541030bd147',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    final public function testPutSettingsSuccess(): void
     {
         // Arrange
         DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'settings']]);

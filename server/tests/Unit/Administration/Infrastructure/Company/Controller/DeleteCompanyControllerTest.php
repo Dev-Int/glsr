@@ -22,6 +22,23 @@ class DeleteCompanyControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
+    final public function testDeleteCompanyFailWithBadUuid(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
+        $adminClient = $this->createAdminClient();
+
+        // Act
+        $adminClient->request('DELETE', '/api/administration/companies/626adfca-fc5d-415c-9b7a-7541030bd147');
+        $response = $adminClient->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
     final public function testDeleteCompanySuccess(): void
     {
         // Arrange

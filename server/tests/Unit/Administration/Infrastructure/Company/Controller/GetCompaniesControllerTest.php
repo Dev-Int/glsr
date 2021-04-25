@@ -11,24 +11,24 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
+namespace Unit\Tests\Administration\Infrastructure\Company\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 use Unit\Tests\DatabaseHelper;
 
-class GetSuppliersControllerTest extends AbstractControllerTest
+class GetCompaniesControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testGetSupplierNoData(): void
+    final public function testGetCompaniesNoData(): void
     {
         // Arrange
         DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/companies/');
 
         // Act
         $response = $adminClient->getResponse();
@@ -41,12 +41,12 @@ class GetSuppliersControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
-    final public function testGetSuppliersSuccess(): void
+    final public function testGetCompaniesSuccess(): void
     {
         // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/companies/');
 
         // Act
         $response = $adminClient->getResponse();

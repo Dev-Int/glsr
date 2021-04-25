@@ -23,6 +23,42 @@ class PutCompanyControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
+    final public function testPutCompanyFailWithBadUuid(): void
+    {
+        // Arrange
+        $content = [
+            'companyName' => 'Dev-Int Création',
+            'address' => '2 rue des ERP',
+            'zipCode' => '56000',
+            'town' => 'VANNES',
+            'country' => 'France',
+            'phone' => '+33100000001',
+            'facsimile' => '+33100000002',
+            'email' => 'contact@developpement-interessant.com',
+            'contact' => 'Laurent Quétier',
+            'cellphone' => '+33100000002',
+        ];
+        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'company']]);
+        $adminClient = $this->createAdminClient();
+
+        // Act
+        $adminClient->request(
+            Request::METHOD_PUT,
+            '/api/administration/companies/626adfca-fc5d-415c-9b7a-7541030bd147',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+        $response = $adminClient->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
     final public function testPutCompanySuccess(): void
     {
         // Arrange

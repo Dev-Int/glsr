@@ -23,6 +23,66 @@ class PostUserControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
+    final public function testPostUserFailWithUsernameAlreadyExist(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        $content = [
+            'username' => 'Laurent',
+            'email' => 'daniel@example.com',
+            'password' => 'password',
+            'roles' => ['ROLE_ASSISTANT'],
+        ];
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/users/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+
+        // Act
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
+    final public function testPostUserFailWithEmailAlreadyExist(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        $content = [
+            'username' => 'Daniel',
+            'email' => 'laurent@example.com',
+            'password' => 'password',
+            'roles' => ['ROLE_ASSISTANT'],
+        ];
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            Request::METHOD_POST,
+            '/api/administration/users/',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            \json_encode($content, \JSON_THROW_ON_ERROR)
+        );
+
+        // Act
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
     final public function testPostUserSuccess(): void
     {
         // Arrange

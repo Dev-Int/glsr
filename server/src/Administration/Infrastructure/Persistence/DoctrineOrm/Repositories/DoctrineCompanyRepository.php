@@ -77,6 +77,10 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
             ->getOneOrNullResult()
         ;
 
+        if (null === $company) {
+            return null;
+        }
+
         return Company::toModel($company);
     }
 

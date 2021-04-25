@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Administration\Application\Protocol\Finders;
 
 use Administration\Application\User\ReadModel\Users;
-use Core\Domain\Model\User as UserCoreModel;
+use Administration\Domain\User\Model\User as UserCoreModel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 
 interface UserFinderProtocol extends ServiceEntityRepositoryInterface

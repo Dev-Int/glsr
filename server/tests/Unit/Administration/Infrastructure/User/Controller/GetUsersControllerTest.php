@@ -11,42 +11,24 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Infrastructure\Supplier\Controller;
+namespace Unit\Tests\Administration\Infrastructure\User\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Unit\Tests\AbstractControllerTest;
 use Unit\Tests\DatabaseHelper;
 
-class GetSuppliersControllerTest extends AbstractControllerTest
+class GetUsersControllerTest extends AbstractControllerTest
 {
     /**
      * @throws \JsonException
      */
-    final public function testGetSupplierNoData(): void
+    final public function testGetUsersSuccess(): void
     {
         // Arrange
         DatabaseHelper::loadFixtures([['group' => 'user']]);
         $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
-
-        // Act
-        $response = $adminClient->getResponse();
-
-        // Assert
-        self::assertSame(Response::HTTP_ACCEPTED, $response->getStatusCode());
-        self::assertSame('No data found', $response->getContent());
-    }
-
-    /**
-     * @throws \JsonException
-     */
-    final public function testGetSuppliersSuccess(): void
-    {
-        // Arrange
-        DatabaseHelper::loadFixtures([['group' => 'user'], ['group' => 'supplier']]);
-        $adminClient = $this->createAdminClient();
-        $adminClient->request(Request::METHOD_GET, '/api/administration/suppliers/');
+        $adminClient->request(Request::METHOD_GET, '/api/administration/users/');
 
         // Act
         $response = $adminClient->getResponse();

@@ -22,6 +22,26 @@ class DeleteUserControllerTest extends AbstractControllerTest
     /**
      * @throws \JsonException
      */
+    final public function testDeleteUserFailWithBadUuid(): void
+    {
+        // Arrange
+        DatabaseHelper::loadFixtures([['group' => 'user']]);
+        $adminClient = $this->createAdminClient();
+        $adminClient->request(
+            'DELETE',
+            '/api/administration/users/626adfca-fc5d-415c-9b7a-7541030bd147'
+        );
+
+        // Act
+        $response = $this->client->getResponse();
+
+        // Assert
+        self::assertSame(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
+    }
+
+    /**
+     * @throws \JsonException
+     */
     final public function testDeleteUserSuccess(): void
     {
         // Arrange
