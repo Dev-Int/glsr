@@ -1,23 +1,25 @@
 Configuration
 =============
 
-For the first time you enter into you application, you have to configure it.
+For the first time you enter into the application, you have to configure it.
 
 ## Create a company
 
 The company is the owner of the application. The restaurant that wants to manage its stocks.
 
 Information needed are:
+ - Company name
+ - address (address, zipcode, town, country)
+ - phone number
+ - facsimile number
+ - email address
+ - contact name
+ - cellphone of this contact
 
-- Company name
-- address (address, zipcode, town, country)
-- phone number
-- facsimile number
-- email address
-- contact name
-- cellphone of this contact
-
-**_@todo: verify the need for an additional entity for the local and the currency_**
+```php
+    // @todo: verify the need for an additional entity for
+    //        the locale and the currency.
+```
 
 Only one company can be created for the application.
 
@@ -25,15 +27,18 @@ Only one company can be created for the application.
 
 For a good work on the application, it's necessary to add 
 
-- the locale 
-- the currency
+ - the locale 
+ - the currency
   
-- the way to enter the inventory (continuously or by storage area)
+ - the way to enter the inventory (continuously or by storage area)
   (_perhaps just need in Inventory Bounded Context_)
-- the calculation of the inventory (FIFO or LIFO)
+ - the calculation of the inventory (FIFO or LIFO)
   (_perhaps just need in Inventory Bounded Context_)
 
-**_@todo: verify the need for an additional entity for the local and the currency_**
+```php
+    // @todo: verify the need for an additional entity for
+    //        the locale and the currency.
+```
 
 ## Create the Logistics Families
 
@@ -53,12 +58,16 @@ Alimentary              |- Poultry
     |         |        |- Pig
     |         |
     |- Fresh -|- Fruits and vegetables
-...
+    |
+Non-Alimentary
+    |
+    |- Detergents
+    ...
 ```
 For each Family:
-- label
-- parent or not
-- children or not
+ - label
+ - parent or not
+ - children or not
 
 ## Create the Storage Areas
 
@@ -67,40 +76,41 @@ You have to create the different storage locations in the restaurant. This funct
 The entry of the inventory can be done by storage area or continuously.
 
 - name of area
-- (_? is it necessary_) slug
+- slug (_is it necessary ?_)
 
 ## Create units
 
 The units are necessary for the use of the articles.
-- Their packaging for the Inventory and the Order.
-- Their unpacking for the recipe sheets.
+ - Their packaging for the Inventory and the Order.
+ - Their unpacking for the recipe sheets.
 
 For each unit: 
-- name
-- abbreviation
-- (_? is it necessary_) slug
+ - name
+ - abbreviation
+- slug (_is it necessary ?_)
 
 ## Create VAT rates
 
 This part is necessary for the Order and Sale sections.
+ - rate
+ - name (_render with the rate_)
 
 ## Create Suppliers
 
 Information needed are:
-
-- Company name
-- address (address, zipcode, town, country)
-- phone number
-- facsimile number
-- email address
-- contact name
-- cellphone of this contact
-
-...and for the supplier:
-- delivery delay (the number of day after the order)
-- order days (an array of days when orders can be placed with the supplier)
-- active (for soft delete)
-- articles (an array of the Articles of this supplier)
+ - Company name
+ - address (address, zipcode, town, country)
+ - phone number
+ - facsimile number
+ - email address
+ - contact name
+ - cellphone of this contact
+ 
+ ...and specially for the suppliers:
+ - delivery delay (_the number of day after the order_)
+ - order days (_an array of days when orders can be placed with the supplier_)
+ - active (_for soft delete_)
+ - articles (_an array of the Articles of this supplier_)
 
 
 ## Create Articles
@@ -108,13 +118,13 @@ Information needed are:
 The Articles are the center of the application. All work with or around Articles.
 
 For each Article:
-- label
-- supplier
-- logistic family (depends on supplier's logistic family or its children)
-- quantity
-- unit
-- packaging (details of different quantity and unit of each package)
-- minimum stock
-- zone storage
-- active (for soft delete)
-- price
+ - label
+ - supplier
+ - logistic family (_depends on supplier's logistic family or its children_)
+ - quantity
+ - unit
+ - packaging (_details of different quantity and unit of each package_)
+ - minimum stock
+ - zone storage
+ - active (_for soft delete_)
+ - price
