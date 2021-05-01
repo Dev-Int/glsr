@@ -15,6 +15,7 @@ namespace Administration\Infrastructure\Company\Controller;
 
 use Administration\Domain\Company\Command\DeleteCompany;
 use Core\Infrastructure\Common\MessengerCommandBus;
+use http\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,7 +38,7 @@ class DeleteCompanyController extends AbstractController
 
             return $response;
         } catch (\RuntimeException $exception) {
-            throw new \RuntimeException($exception->getMessage());
+            throw new RuntimeException($exception->getMessage());
         }
     }
 }

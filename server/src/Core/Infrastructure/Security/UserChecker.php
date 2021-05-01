@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Security;
 
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
+use Core\Domain\Model\User;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

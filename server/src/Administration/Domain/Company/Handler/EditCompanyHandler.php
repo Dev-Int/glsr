@@ -36,13 +36,13 @@ final class EditCompanyHandler implements CommandHandlerProtocol
         }
         $company = $this->updateCompany($command, $companyToUpdate);
 
-        $this->repository->save($company);
+        $this->repository->add($company);
     }
 
     public function updateCompany(EditCompany $command, Company $company): Company
     {
-        if ($company->companyName() !== $command->companyName()->getValue()) {
-            $company->renameCompany($command->companyName());
+        if ($company->name() !== $command->name()) {
+            $company->renameCompany($command->name());
         }
         if (($company->address() !== $command->address())
             || ($company->zipCode() !== $command->zipCode())
@@ -56,19 +56,19 @@ final class EditCompanyHandler implements CommandHandlerProtocol
                 $command->country(),
             ]);
         }
-        if ($company->phone() !== $command->phone()->getValue()) {
+        if ($company->phone() !== $command->phone()) {
             $company->changePhoneNumber($command->phone());
         }
-        if ($company->facsimile() !== $command->facsimile()->getValue()) {
+        if ($company->facsimile() !== $command->facsimile()) {
             $company->changeFacsimileNumber($command->facsimile());
         }
-        if ($company->email() !== $command->email()->getValue()) {
+        if ($company->email() !== $command->email()) {
             $company->rewriteEmail($command->email());
         }
-        if ($company->contactName() !== $command->contact()) {
+        if ($company->contact() !== $command->contact()) {
             $company->renameContact($command->contact());
         }
-        if ($company->cellPhone() !== $command->cellPhone()->getValue()) {
+        if ($company->cellPhone() !== $command->cellPhone()) {
             $company->changeCellphoneNumber($command->cellPhone());
         }
 

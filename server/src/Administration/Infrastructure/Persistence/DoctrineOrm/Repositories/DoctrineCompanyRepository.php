@@ -13,9 +13,8 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
-use Administration\Domain\Company\Model\Company as CompanyModel;
+use Administration\Domain\Company\Model\Company;
 use Administration\Domain\Protocol\Repository\CompanyRepositoryProtocol;
-use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Company;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -32,56 +31,48 @@ class DoctrineCompanyRepository extends ServiceEntityRepository implements Compa
     /**
      * @throws NonUniqueResultException
      */
-    final public function existsWithName(string $companyName): bool
+    final public function existsWithName(string $name): bool
     {
         $statement = $this->createQueryBuilder('c')
             ->select(['1'])
-            ->where('c.companyName = :companyName')
-            ->setParameter('companyName', $companyName)
+            ->where('c.name = :name')
+            ->setParameter('name', $name)
             ->getQuery()
             ->getOneOrNullResult()
         ;
 
-        return null !== $statement;
+        return !(null === $statement);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function save(CompanyModel $company): void
+    final public function add(Company $company): void
     {
-        $companyEntity = Company::fromModel($company);
-        $this->getEntityManager()->persist($companyEntity);
+        $this->getEntityManager()->persist($company);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws ORMException
      */
-    final public function remove(CompanyModel $company): void
+    final public function remove(Company $company): void
     {
-        $companyEntity = Company::fromModel($company);
-        $this->getEntityManager()->remove($companyEntity);
+        $this->getEntityManager()->remove($company);
     }
 
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?CompanyModel
+    final public function findOneByUuid(string $uuid): ?Company
     {
-        $company = $this->createQueryBuilder('c')
+        return $this->createQueryBuilder('c')
             ->where('c.uuid = :uuid')
             ->setParameter('uuid', $uuid)
             ->getQuery()
             ->getOneOrNullResult()
         ;
-
-        if (null === $company) {
-            return null;
-        }
-
-        return Company::toModel($company);
     }
 
     /**

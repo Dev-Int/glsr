@@ -13,11 +13,10 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
-use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User as UserInterface;
+use Core\Domain\Model\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -34,16 +33,14 @@ class UserFixtures extends Fixture implements FixtureGroupInterface
 
     public function load(ObjectManager $manager): void
     {
-        $userModel = User::create(
+        $user = new User(
             UserUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Laurent'),
             EmailField::fromString('laurent@example.com'),
             'password',
             ['ROLE_ADMIN'],
         );
-
-        $user = UserInterface::fromModel($userModel);
-        $user->setPassword(
+        $user->changePassword(
             $this->passwordEncoder->encodePassword(
                 $user,
                 $user->getPassword()

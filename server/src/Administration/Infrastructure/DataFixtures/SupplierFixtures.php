@@ -13,8 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\DataFixtures;
 
-use Administration\Domain\Supplier\Model\Supplier as SupplierDomain;
-use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier;
+use Administration\Domain\Supplier\Model\Supplier;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\ContactUuid;
 use Core\Domain\Common\Model\VO\EmailField;
@@ -28,7 +27,7 @@ class SupplierFixtures extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $supplierDomain = SupplierDomain::create(
+        $supplier = Supplier::create(
             ContactUuid::fromString('a136c6fe-8f6e-45ed-91bc-586374791033'),
             NameField::fromString('Davigel'),
             '1 rue des freeze',
@@ -44,8 +43,8 @@ class SupplierFixtures extends Fixture implements FixtureGroupInterface
             1,
             [1, 5]
         );
-        $supplier = Supplier::fromModel($supplierDomain);
         $manager->persist($supplier);
+
         $manager->flush();
     }
 

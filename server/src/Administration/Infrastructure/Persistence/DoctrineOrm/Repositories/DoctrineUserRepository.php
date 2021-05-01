@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\UserRepositoryProtocol;
-use Administration\Domain\User\Model\User as UserModel;
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
+use Administration\Domain\User\Model\User;
+use Core\Domain\Model\User as UserSymfony;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -26,33 +26,31 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, User::class);
+        parent::__construct($registry, UserSymfony::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function save(UserModel $user): void
+    final public function add(User $user): void
     {
-        $userEntity = User::fromModel($user);
-        $this->getEntityManager()->persist($userEntity);
+        $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws ORMException
      */
-    final public function remove(UserModel $user): void
+    final public function remove(User $user): void
     {
-        $userEntity = User::fromModel($user);
-        $this->getEntityManager()->remove($userEntity);
+        $this->getEntityManager()->remove($user);
     }
 
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?User
+    final public function findOneByUuid(string $uuid): ?UserSymfony
     {
         return $this->createQueryBuilder('u')
             ->where('u.uuid = :uuid')
@@ -75,7 +73,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
             ->getOneOrNullResult()
         ;
 
-        return null !== $statement;
+        return !(null === $statement);
     }
 
     /**
@@ -91,6 +89,6 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
             ->getOneOrNullResult()
         ;
 
-        return null !== $statement;
+        return !(null === $statement);
     }
 }

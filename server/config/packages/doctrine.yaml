@@ -17,17 +17,27 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
-      Core\Infrastructure\Persistence\DoctrineOrm\Entities:
+      Core\Domain\Model:
         is_bundle: false
-        type: annotation
-        dir: '%kernel.project_dir%/src/Core/Infrastructure/Persistence/DoctrineOrm/Entities'
-        prefix: 'Core\Infrastructure\Persistence\DoctrineOrm\Entities'
+        type: xml
+        dir: '%kernel.project_dir%/src/Core/Infrastructure/Resources/doctrine/User'
+        prefix: 'Core\Domain\Model'
 
-      Administration\Infrastructure\Persistence\DoctrineOrm\Entities:
+      Administration\Domain\Company\Model:
         is_bundle: false
-        type: annotation
-        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Persistence/DoctrineOrm/Entities'
-        prefix: 'Administration\Infrastructure\Persistence\DoctrineOrm\Entities'
+        type: xml
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Company'
+        prefix: 'Administration\Domain\Company\Model'
+      Administration\Domain\Settings\Model:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Settings'
+        prefix: 'Administration\Domain\Settings\Model'
+      Administration\Domain\Supplier\Model\Supplier:
+        is_bundle: false
+        type: xml
+        dir: '%kernel.project_dir%/src/Administration/Infrastructure/Resources/doctrine/Administration/Supplier'
+        prefix: 'Administration\Domain\Supplier\Model'
 
 #      Administration\Domain\Article\Model\Article:
 #        is_bundle: false

@@ -88,11 +88,10 @@ db-test: server/.env.test ## Create tests database
 	@$(SERVER_CONSOLE) doctrine:database:create --env=test
 
 db-diff: ## Generation doctrine diff
-	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Core\Infrastructure\DoctrineMigrations'
-	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Administration\Infrastructure\DoctrineMigrations'
+	@$(SERVER_CONSOLE) doctrine:migrations:diff
 
 db-migrate: ## Launch doctrine migrations
-	@$(SERVER_CONSOLE) doctrine:migrations:migrate --no-interaction
+	@$(SERVER_CONSOLE) doctrine:migrations:migrate $(VERSION) --no-interaction
 
 db-reset: ## Reset database with given DUMP variable
 	@:$(call check_defined, DUMP, sql file)
@@ -112,11 +111,6 @@ load-fixtures: ## Build the DB, load fixtures
 	$(SERVER_CONSOLE) doctrine:database:create --if-not-exists
 	$(SERVER_CONSOLE) doctrine:fixtures:load -n
 
-db-clean-test: ## Clean DB Test
-	- @$(SERVER_CONSOLE) d:d:d --force --env=test
-	@$(SERVER_CONSOLE) d:d:c --env=test
-	@$(SERVER_CONSOLE) d:m:m -n --env=test
-	@$(SERVER_CONSOLE) d:f:l -n --env=test
 
 ## —— Tests ———————————————————————————————————————————————————————————————————————
 
@@ -129,9 +123,9 @@ test-domain: server/phpunit.xml test-cc ## Launch Domain unit tests
 	@echo "Running unit Domain tests"
 	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Domain --stop-on-failure
 
-test-e2e: server/phpunit.xml test-cc ## Launch End2End tests
-	@echo "Running end to end tests"
-	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=End2End --stop-on-failure
+test-infra: server/phpunit.xml test-cc ## Launch Infrastructure unit tests
+	@echo "Running unit Infrastructure tests"
+	@$(EXEC) -w /glsr/server php php -d memory_limit=-1 bin/phpunit --testsuite=Infrastructure --stop-on-failure
 
 test-coverage: clean-dir  ## Run test coverage
 	@echo 'Running tests coverage'

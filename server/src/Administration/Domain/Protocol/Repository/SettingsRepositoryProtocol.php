@@ -17,7 +17,7 @@ use Administration\Domain\Settings\Model\Settings;
 
 interface SettingsRepositoryProtocol
 {
-    public function save(Settings $settings): void;
+    public function add(Settings $settings): void;
 
     public function remove(Settings $settings): void;
 

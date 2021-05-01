@@ -14,9 +14,8 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Domain\Protocol\Repository\SupplierRepositoryProtocol;
-use Administration\Domain\Supplier\Model\Supplier as SupplierModel;
+use Administration\Domain\Supplier\Model\Supplier;
 use Administration\Infrastructure\Finders\Exceptions\SupplierNotFound;
-use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
@@ -29,36 +28,40 @@ class DoctrineSupplierRepository extends ServiceEntityRepository implements Supp
         parent::__construct($registry, Supplier::class);
     }
 
+    public function remove(Supplier $supplier): void
+    {
+        // TODO: Implement remove() method.
+    }
+
     /**
      * @throws NonUniqueResultException
      */
-    public function existsWithName(string $companyName): bool
+    public function existsWithName(string $name): bool
     {
         $statement = $this->createQueryBuilder('ds')
             ->select(['1'])
-            ->where('ds.companyName = :companyName')
-            ->setParameter('companyName', $companyName)
+            ->where('ds.name = :name')
+            ->setParameter('name', $name)
             ->getQuery()
             ->getOneOrNullResult()
         ;
 
-        return null !== $statement;
+        return !(null === $statement);
     }
 
     /**
      * @throws ORMException
      */
-    public function save(SupplierModel $supplier): void
+    public function add(Supplier $supplier): void
     {
-        $supplierEntity = Supplier::fromModel($supplier);
-        $this->getEntityManager()->persist($supplierEntity);
+        $this->getEntityManager()->persist($supplier);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneByUuid(string $uuid): SupplierModel
+    public function findOneByUuid(string $uuid): Supplier
     {
         $result = $this->createQueryBuilder('s')
             ->where('s.uuid = :uuid')

@@ -40,6 +40,6 @@ class ConfigureSettingsHandler implements CommandHandlerProtocol
             $command->currency()
         );
 
-        $this->repository->save($settings);
+        $this->repository->add($settings);
     }
 }

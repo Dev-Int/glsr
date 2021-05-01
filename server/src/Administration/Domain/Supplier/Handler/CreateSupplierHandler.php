@@ -30,20 +30,20 @@ class CreateSupplierHandler implements CommandHandlerProtocol
 
     public function __invoke(CreateSupplier $command): void
     {
-        if ($this->repository->existsWithName($command->companyName()->getValue())) {
-            throw new \DomainException("Supplier with name: {$command->companyName()->getValue()} already exists.");
+        if ($this->repository->existsWithName($command->name()->getValue())) {
+            throw new \DomainException("Supplier with name: {$command->name()->getValue()} already exists.");
         }
 
         $supplier = $this->createSupplier($command);
 
-        $this->repository->save($supplier);
+        $this->repository->add($supplier);
     }
 
     private function createSupplier(CreateSupplier $command): Supplier
     {
         return Supplier::create(
             ContactUuid::generate(),
-            $command->companyName(),
+            $command->name(),
             $command->address(),
             $command->zipCode(),
             $command->town(),

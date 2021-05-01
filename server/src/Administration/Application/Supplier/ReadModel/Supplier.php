@@ -18,7 +18,7 @@ use Core\Domain\Common\Model\VO\ContactAddress;
 final class Supplier
 {
     private string $uuid;
-    private string $companyName;
+    private string $name;
     private string $address;
     private string $zipCode;
     private string $town;
@@ -36,7 +36,7 @@ final class Supplier
 
     public function __construct(
         string $uuid,
-        string $companyName,
+        string $name,
         string $address,
         string $zipCode,
         string $town,
@@ -53,7 +53,7 @@ final class Supplier
         bool $active = true
     ) {
         $this->uuid = $uuid;
-        $this->companyName = $companyName;
+        $this->name = $name;
         $this->slug = $slug;
         $this->address = $address;
         $this->zipCode = $zipCode;
@@ -75,9 +75,9 @@ final class Supplier
         return $this->uuid;
     }
 
-    public function companyName(): string
+    public function name(): string
     {
-        return $this->companyName;
+        return $this->name;
     }
 
     public function address(): string

@@ -22,7 +22,7 @@ use Core\Domain\Common\Model\VO\PhoneField;
 abstract class Contact
 {
     protected string $uuid;
-    protected string $companyName;
+    protected string $name;
     protected string $address;
     protected string $zipCode;
     protected string $town;
@@ -30,13 +30,13 @@ abstract class Contact
     protected string $phone;
     protected string $facsimile;
     protected string $email;
-    protected string $contactName;
+    protected string $contact;
     protected string $cellphone;
     protected string $slug;
 
     public function __construct(
         ContactUuid $uuid,
-        NameField $companyName,
+        NameField $name,
         string $address,
         string $zipCode,
         string $town,
@@ -44,12 +44,12 @@ abstract class Contact
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contactName,
+        string $contact,
         PhoneField $cellphone
     ) {
         $this->uuid = $uuid->toString();
-        $this->companyName = $companyName->getValue();
-        $this->slug = $companyName->slugify();
+        $this->name = $name->getValue();
+        $this->slug = $name->slugify();
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -57,7 +57,7 @@ abstract class Contact
         $this->phone = $phone->getValue();
         $this->facsimile = $facsimile->getValue();
         $this->email = $email->getValue();
-        $this->contactName = $contactName;
+        $this->contact = $contact;
         $this->cellphone = $cellphone->getValue();
     }
 
@@ -66,9 +66,9 @@ abstract class Contact
         return $this->uuid;
     }
 
-    public function companyName(): string
+    public function name(): string
     {
-        return $this->companyName;
+        return $this->name;
     }
 
     public function fullAddress(): string
@@ -115,14 +115,14 @@ abstract class Contact
         $this->email = $email->getValue();
     }
 
-    public function contactName(): string
+    public function contact(): string
     {
-        return $this->contactName;
+        return $this->contact;
     }
 
     public function renameContact(string $contact): void
     {
-        $this->contactName = $contact;
+        $this->contact = $contact;
     }
 
     public function cellphone(): string

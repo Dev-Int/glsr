@@ -43,7 +43,7 @@ class SupplierHandler implements SubscribingHandlerInterface
     {
         $data = [
             'uuid' => $supplier->uuid(),
-            'companyName' => $supplier->companyName(),
+            'name' => $supplier->name(),
             'address' => $supplier->address(),
             'zipCode' => $supplier->zipCode(),
             'town' => $supplier->town(),
@@ -66,7 +66,7 @@ class SupplierHandler implements SubscribingHandlerInterface
     {
         return new Supplier(
             $data['uuid'],
-            $data['companyName'],
+            $data['name'],
             $data['address'],
             $data['zipCode'],
             $data['town'],

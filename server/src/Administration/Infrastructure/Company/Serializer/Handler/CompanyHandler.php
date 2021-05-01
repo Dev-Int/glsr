@@ -43,7 +43,7 @@ class CompanyHandler implements SubscribingHandlerInterface
     {
         $data = [
             'uuid' => $company->uuid(),
-            'name' => $company->companyName(),
+            'name' => $company->name(),
             'address' => $company->address(),
             'zipCode' => $company->zipCode(),
             'town' => $company->town(),
@@ -51,7 +51,7 @@ class CompanyHandler implements SubscribingHandlerInterface
             'phone' => $company->phone(),
             'facsimile' => $company->facsimile(),
             'email' => $company->email(),
-            'contact' => $company->contactName(),
+            'contact' => $company->contact(),
             'cellphone' => $company->cellphone(),
             'slug' => $company->slug(),
         ];

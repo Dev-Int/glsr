@@ -30,23 +30,23 @@ final class CreateCompanyHandler implements CommandHandlerProtocol
 
     public function __invoke(CreateCompany $command): void
     {
-        if (false !== $this->repository->companyExist()) {
+        if ($this->repository->companyExist()) {
             throw new \DomainException('A company is already create.');
         }
-        if ($this->repository->existsWithName($command->companyName()->getValue())) {
-            throw new \DomainException("Company with name: {$command->companyName()->getValue()} already exists.");
+        if ($this->repository->existsWithName($command->name()->getValue())) {
+            throw new \DomainException("Company with name: {$command->name()->getValue()} already exists.");
         }
 
         $company = $this->createCompany($command);
 
-        $this->repository->save($company);
+        $this->repository->add($company);
     }
 
     public function createCompany(CreateCompany $command): Company
     {
         return Company::create(
             ContactUuid::generate(),
-            $command->companyName(),
+            $command->name(),
             $command->address(),
             $command->zipCode(),
             $command->town(),

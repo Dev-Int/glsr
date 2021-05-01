@@ -33,7 +33,7 @@ class GetSettingsController extends AbstractController
         $query = new GetSettings();
         $data = $this->queryBus->handle($query);
 
-        if (null !== $data) {
+        if ([] !== $data) {
             $settings = $serializer->serialize($data, 'json');
             $response = new Response($settings);
             $response->headers->set('Content-Type', 'application/json');
@@ -41,6 +41,6 @@ class GetSettingsController extends AbstractController
             return $response;
         }
 
-        return new Response('No data found', Response::HTTP_ACCEPTED);
+        return new Response('No data found!', Response::HTTP_ACCEPTED);
     }
 }

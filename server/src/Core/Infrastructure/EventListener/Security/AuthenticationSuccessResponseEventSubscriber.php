@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\EventListener\Security;
 
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
+use Core\Domain\Model\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

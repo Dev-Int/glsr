@@ -37,12 +37,12 @@ class EditSupplierHandler implements CommandHandlerProtocol
 
         $supplier = $this->updateSupplier($command, $supplierToUpdate);
 
-        $this->repository->save($supplier);
+        $this->repository->add($supplier);
     }
 
     private function updateSupplier(EditSupplier $command, Supplier $supplier): Supplier
     {
-        if ($supplier->companyName() !== $command->name()->getValue()) {
+        if ($supplier->name() !== $command->name()) {
             $supplier->renameSupplier($command->name());
         }
         if ($supplier->address() !== $command->address()
@@ -57,22 +57,22 @@ class EditSupplierHandler implements CommandHandlerProtocol
                 $command->country(),
             ]);
         }
-        if ($supplier->phone() !== $command->phone()->getValue()) {
+        if ($supplier->phone() !== $command->phone()) {
             $supplier->changePhoneNumber($command->phone());
         }
-        if ($supplier->facsimile() !== $command->facsimile()->getValue()) {
+        if ($supplier->facsimile() !== $command->facsimile()) {
             $supplier->changeFacsimileNumber($command->facsimile());
         }
-        if ($supplier->email() !== $command->email()->getValue()) {
+        if ($supplier->email() !== $command->email()) {
             $supplier->rewriteEmail($command->email());
         }
-        if ($supplier->contactName() !== $command->contact()) {
+        if ($supplier->contact() !== $command->contact()) {
             $supplier->renameContact($command->contact());
         }
-        if ($supplier->cellPhone() !== $command->cellPhone()->getValue()) {
+        if ($supplier->cellPhone() !== $command->cellPhone()) {
             $supplier->changeCellphoneNumber($command->cellPhone());
         }
-        if ($supplier->familyLog() !== $command->familyLog()->path()) {
+        if ($supplier->familyLog() !== $command->familyLog()) {
             $supplier->reassignFamilyLog($command->familyLog());
         }
         if ($supplier->delayDelivery() !== $command->delayDelivery()) {

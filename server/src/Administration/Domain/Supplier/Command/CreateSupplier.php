@@ -21,7 +21,7 @@ use Core\Domain\Protocol\Common\Command\CommandProtocol;
 
 class CreateSupplier implements CommandProtocol
 {
-    private NameField $companyName;
+    private NameField $name;
     private string $address;
     private string $zipCode;
     private string $town;
@@ -36,7 +36,7 @@ class CreateSupplier implements CommandProtocol
     private array $orderDays;
 
     public function __construct(
-        NameField $companyName,
+        NameField $name,
         string $address,
         string $zipCode,
         string $town,
@@ -50,7 +50,7 @@ class CreateSupplier implements CommandProtocol
         int $delayDelivery,
         array $orderDays
     ) {
-        $this->companyName = $companyName;
+        $this->name = $name;
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -65,9 +65,9 @@ class CreateSupplier implements CommandProtocol
         $this->orderDays = $orderDays;
     }
 
-    public function companyName(): NameField
+    public function name(): NameField
     {
-        return $this->companyName;
+        return $this->name;
     }
 
     public function address(): string
