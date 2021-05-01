@@ -1,24 +1,12 @@
-Documentation
-=============
+G.L.S.R. Documentation
+======================
 
-## Summary
+# Getting Started
 
- - [Models and Entities](models.md)
+Start here to learn the essentials of how the GLSR application works.
 
-# Use cases
+Chapter 1: [Installation](install.md)
 
-## list of use cases
+Chapter 2: [Setup](setup.md)
 
-[![Administration](uml/img/administration.png)](uml/administration.puml)
 
-### Configure entities (Settings component)
-
-[![Entities](uml/img/settings.png)](uml/settings.puml)
-
-### Inventory management (Inventory Component)
-
-[![Inventory](uml/img/inventory.png)](uml/inventory.puml)
-
-### Order management (Order Component)
-
-[![Order](uml/img/order.png)](uml/order.puml)
