@@ -14,10 +14,11 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\User\Handler;
 
 use Administration\Domain\User\Command\CreateUser;
+use Administration\Domain\User\Model\User;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineUserRepository;
-use Core\Domain\Model\User;
 use Core\Domain\Protocol\Common\Command\CommandHandlerProtocol;
+use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User as UserSymfony;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -55,13 +56,14 @@ class CreateUserHandler implements CommandHandlerProtocol
             $command->password(),
             $command->roles()
         );
+        $userSymfony = UserSymfony::fromModel($user);
         $user->changePassword(
             $this->passwordEncoder->encodePassword(
-                $user,
+                $userSymfony,
                 $command->password()
             )
         );
 
-        $this->repository->add($user);
+        $this->repository->save($user);
     }
 }

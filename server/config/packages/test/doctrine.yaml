@@ -1,6 +1,4 @@
 doctrine:
   dbal:
-    driver: pdo_sqlite
-    path: '%kernel.cache_dir%/test.db'
-    url: null
-    memory: true
+    driver: pdo_mysql
+    url: '%env(resolve:DATABASE_URL)%'

@@ -43,7 +43,7 @@ class PutSupplierController extends AbstractController
         try {
             $command = new EditSupplier(
                 ContactUuid::fromString($uuid),
-                NameField::fromString($supplier['name']),
+                NameField::fromString($supplier['companyName']),
                 $supplier['address'],
                 $supplier['zipCode'],
                 $supplier['town'],

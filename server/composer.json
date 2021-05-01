@@ -18,7 +18,11 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "cocur/slugify": "^4.0",
+        "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.2",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
+        "doctrine/orm": "^2.8",
         "jms/serializer-bundle": "^3.8",
         "lexik/jwt-authentication-bundle": "^2.10",
         "phpdocumentor/reflection-docblock": "^5.2",
@@ -38,10 +42,10 @@
         "symfony/messenger": "5.1.*",
         "symfony/monolog-bundle": "^3.1",
         "symfony/notifier": "5.1.*",
-        "symfony/orm-pack": "*",
         "symfony/process": "5.1.*",
         "symfony/property-access": "5.1.*",
         "symfony/property-info": "5.1.*",
+        "symfony/proxy-manager-bridge": "5.1.*",
         "symfony/security-bundle": "5.1.*",
         "symfony/serializer": "5.1.*",
         "symfony/string": "5.1.*",
@@ -77,7 +81,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Unit\\Tests\\": "tests/Unit"
+            "Unit\\Tests\\": "tests/Unit",
+            "End2End\\Tests\\": "tests/End2End"
         }
     },
     "replace": {

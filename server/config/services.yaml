@@ -32,4 +32,4 @@ services:
   Core\Infrastructure\:
     lazy: true
     resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
-    exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,Migrations,Kernel.php}'
+    exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,DoctrineMigrations,Kernel.php}'

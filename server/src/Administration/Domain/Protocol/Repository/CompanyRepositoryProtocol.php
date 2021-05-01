@@ -17,9 +17,9 @@ use Administration\Domain\Company\Model\Company;
 
 interface CompanyRepositoryProtocol
 {
-    public function existsWithName(string $name): bool;
+    public function existsWithName(string $companyName): bool;
 
-    public function add(Company $company): void;
+    public function save(Company $company): void;
 
     public function remove(Company $company): void;
 

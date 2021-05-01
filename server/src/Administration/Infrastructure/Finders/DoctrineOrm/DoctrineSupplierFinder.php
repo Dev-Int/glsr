@@ -14,13 +14,9 @@ declare(strict_types=1);
 namespace Administration\Infrastructure\Finders\DoctrineOrm;
 
 use Administration\Application\Protocol\Finders\SupplierFinderProtocol;
-use Administration\Application\Supplier\ReadModel\Supplier as SupplierModel;
+use Administration\Application\Supplier\ReadModel\Supplier as SupplierReadModel;
 use Administration\Application\Supplier\ReadModel\Suppliers;
-use Administration\Domain\Supplier\Model\Supplier;
-use Core\Domain\Common\Model\VO\ContactUuid;
-use Core\Domain\Common\Model\VO\EmailField;
-use Core\Domain\Common\Model\VO\NameField;
-use Core\Domain\Common\Model\VO\PhoneField;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,7 +31,7 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneByUuid(string $uuid): SupplierModel
+    public function findOneByUuid(string $uuid): SupplierReadModel
     {
         $result = $this->createQueryBuilder('s')
             ->where('s.uuid = :uuid')
@@ -44,18 +40,18 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
             ->getOneOrNullResult()
         ;
 
-        return new SupplierModel(
-            ContactUuid::fromString($result->getUuid()),
-            NameField::fromString($result->getName()),
+        return new SupplierReadModel(
+            $result->getUuid(),
+            $result->getName(),
             $result->getAddress(),
             $result->getZipCode(),
             $result->getTown(),
             $result->getCountry(),
-            PhoneField::fromString($result->getPhone()),
-            PhoneField::fromString($result->getFacsimile()),
-            EmailField::fromString($result->getEmail()),
+            $result->getPhone(),
+            $result->getFacsimile(),
+            $result->getEmail(),
             $result->getContact(),
-            PhoneField::fromString($result->getCellphone()),
+            $result->getCellphone(),
             $result->getFamilyLog(),
             $result->getDelayDelivery(),
             $result->getOrderDay(),
@@ -73,21 +69,21 @@ class DoctrineSupplierFinder extends ServiceEntityRepository implements Supplier
 
         return new Suppliers(
             ...\array_map(static function (Supplier $supplier) {
-                return new SupplierModel(
-                    $supplier->uuid(),
-                    $supplier->name(),
-                    $supplier->address(),
-                    $supplier->zipCode(),
-                    $supplier->town(),
-                    $supplier->country(),
-                    $supplier->phone(),
-                    $supplier->facsimile(),
-                    $supplier->email(),
-                    $supplier->contact(),
-                    $supplier->cellphone(),
-                    $supplier->familyLog(),
-                    $supplier->delayDelivery(),
-                    $supplier->orderDays(),
+                return new SupplierReadModel(
+                    $supplier->getUuid(),
+                    $supplier->getCompanyName(),
+                    $supplier->getAddress(),
+                    $supplier->getZipCode(),
+                    $supplier->getTown(),
+                    $supplier->getCountry(),
+                    $supplier->getPhone(),
+                    $supplier->getFacsimile(),
+                    $supplier->getEmail(),
+                    $supplier->getContactName(),
+                    $supplier->getCellphone(),
+                    $supplier->getFamilyLog(),
+                    $supplier->getDelayDelivery(),
+                    $supplier->getOrderDays(),
                     $supplier->getSlug()
                 );
             }, $statement)

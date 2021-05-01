@@ -1,4 +1,4 @@
 doctrine_migrations:
   migrations_paths:
-    'Administration\Infrastructure\DoctrineMigrations': '%kernel.project_dir%/src/Administration/Infrastructure/DoctrineMigrations'
     'Core\Infrastructure\DoctrineMigrations': '%kernel.project_dir%/src/Core/Infrastructure/DoctrineMigrations'
+    'Administration\Infrastructure\DoctrineMigrations': '%kernel.project_dir%/src/Administration/Infrastructure/DoctrineMigrations'

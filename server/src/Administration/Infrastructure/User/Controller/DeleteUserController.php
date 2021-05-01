@@ -15,7 +15,6 @@ namespace Administration\Infrastructure\User\Controller;
 
 use Administration\Domain\User\Command\DeleteUser;
 use Core\Infrastructure\Common\MessengerCommandBus;
-use http\Exception\RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +37,7 @@ final class DeleteUserController extends AbstractController
 
             return $response;
         } catch (\RuntimeException $exception) {
-            throw new RuntimeException($exception->getMessage());
+            throw new \RuntimeException($exception->getMessage());
         }
     }
 }

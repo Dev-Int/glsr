@@ -22,7 +22,7 @@ use Core\Domain\Common\Model\VO\PhoneField;
 abstract class Contact
 {
     protected string $uuid;
-    protected string $name;
+    protected string $companyName;
     protected string $address;
     protected string $zipCode;
     protected string $town;
@@ -30,13 +30,13 @@ abstract class Contact
     protected string $phone;
     protected string $facsimile;
     protected string $email;
-    protected string $contact;
+    protected string $contactName;
     protected string $cellphone;
     protected string $slug;
 
     public function __construct(
         ContactUuid $uuid,
-        NameField $name,
+        NameField $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -44,12 +44,12 @@ abstract class Contact
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contact,
+        string $contactName,
         PhoneField $cellphone
     ) {
         $this->uuid = $uuid->toString();
-        $this->name = $name->getValue();
-        $this->slug = $name->slugify();
+        $this->companyName = $companyName->getValue();
+        $this->slug = $companyName->slugify();
         $this->address = $address;
         $this->zipCode = $zipCode;
         $this->town = $town;
@@ -57,7 +57,7 @@ abstract class Contact
         $this->phone = $phone->getValue();
         $this->facsimile = $facsimile->getValue();
         $this->email = $email->getValue();
-        $this->contact = $contact;
+        $this->contactName = $contactName;
         $this->cellphone = $cellphone->getValue();
     }
 
@@ -66,9 +66,9 @@ abstract class Contact
         return $this->uuid;
     }
 
-    public function name(): string
+    public function companyName(): string
     {
-        return $this->name;
+        return $this->companyName;
     }
 
     public function fullAddress(): string
@@ -115,14 +115,14 @@ abstract class Contact
         $this->email = $email->getValue();
     }
 
-    public function contact(): string
+    public function contactName(): string
     {
-        return $this->contact;
+        return $this->contactName;
     }
 
     public function renameContact(string $contact): void
     {
-        $this->contact = $contact;
+        $this->contactName = $contact;
     }
 
     public function cellphone(): string

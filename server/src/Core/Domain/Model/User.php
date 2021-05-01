@@ -13,14 +13,27 @@ declare(strict_types=1);
 
 namespace Core\Domain\Model;
 
-use Administration\Domain\User\Model\User as UserDomain;
 use Administration\Domain\User\Model\VO\UserUuid;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
-use Symfony\Component\Security\Core\User\UserInterface;
 
-class User extends UserDomain implements UserInterface
+class User
 {
+    private UserUuid $uuid;
+    private NameField $username;
+    private EmailField $email;
+    private string $password;
+    private array $roles;
+
+    public function __construct(UserUuid $uuid, NameField $username, EmailField $email, string $password, array $roles)
+    {
+        $this->uuid = $uuid;
+        $this->username = $username;
+        $this->email = $email;
+        $this->password = $password;
+        $this->roles = $roles;
+    }
+
     public static function create(
         UserUuid $uuid,
         NameField $username,
@@ -31,49 +44,33 @@ class User extends UserDomain implements UserInterface
         return new self($uuid, $username, $email, $password, $roles);
     }
 
-    public function getUuid(): string
+    public function uuid(): string
     {
-        return $this->uuid()->toString();
+        return $this->uuid->toString();
     }
 
-    public function getUsername(): string
+    public function username(): string
     {
-        return $this->username();
+        return $this->username->getValue();
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
-        return $this->email()->getValue();
+        return $this->email->getValue();
     }
 
-    public function getPassword(): string
+    public function password(): string
     {
-        return $this->password();
+        return $this->password;
     }
 
-    public function getRoles(): array
+    public function roles(): array
     {
-        return \array_unique($this->roles());
+        return \array_unique($this->roles);
     }
 
-    public function getSalt(): ?string
+    public function changePassword(string $password): void
     {
-        return null;
-    }
-
-    public function eraseCredentials(): void
-    {
-    }
-
-    /**
-     * @see AuthenticationSuccessResponseListener::onAuthenticationSuccessResponse
-     */
-    public function getProfileInfos(): array
-    {
-        return [
-            'uuid' => $this->getUuid(),
-            'username' => $this->getUsername(),
-            'email' => $this->getEmail(),
-        ];
+        $this->password = $password;
     }
 }

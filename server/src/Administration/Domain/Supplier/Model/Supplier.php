@@ -30,7 +30,7 @@ final class Supplier extends Contact
 
     public function __construct(
         ContactUuid $uuid,
-        NameField $name,
+        NameField $companyName,
         string $address,
         string $zipCode,
         string $town,
@@ -38,7 +38,7 @@ final class Supplier extends Contact
         PhoneField $phone,
         PhoneField $facsimile,
         EmailField $email,
-        string $contact,
+        string $contactName,
         PhoneField $cellphone,
         FamilyLog $familyLog,
         int $delayDelivery,
@@ -47,7 +47,7 @@ final class Supplier extends Contact
     ) {
         parent::__construct(
             $uuid,
-            $name,
+            $companyName,
             $address,
             $zipCode,
             $town,
@@ -55,7 +55,7 @@ final class Supplier extends Contact
             $phone,
             $facsimile,
             $email,
-            $contact,
+            $contactName,
             $cellphone
         );
         $this->familyLog = $familyLog->path();
@@ -102,7 +102,7 @@ final class Supplier extends Contact
 
     public function renameSupplier(NameField $name): void
     {
-        $this->name = $name->getValue();
+        $this->companyName = $name->getValue();
         $this->slug = $name->slugify();
     }
 

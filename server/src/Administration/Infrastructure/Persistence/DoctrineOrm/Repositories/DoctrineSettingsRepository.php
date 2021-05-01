@@ -15,8 +15,9 @@ namespace Administration\Infrastructure\Persistence\DoctrineOrm\Repositories;
 
 use Administration\Application\Settings\ReadModel\Settings as SettingsReadModel;
 use Administration\Domain\Protocol\Repository\SettingsRepositoryProtocol;
-use Administration\Domain\Settings\Model\Settings;
+use Administration\Domain\Settings\Model\Settings as SettingsModel;
 use Administration\Domain\Settings\Model\VO\Currency;
+use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Settings;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\OptimisticLockException;
@@ -34,16 +35,17 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    final public function add(Settings $settings): void
+    final public function save(SettingsModel $settings): void
     {
-        $this->getEntityManager()->persist($settings);
+        $settingsEntity = Settings::fromModel($settings);
+        $this->getEntityManager()->persist($settingsEntity);
         $this->getEntityManager()->flush();
     }
 
     /**
      * @throws ORMException
      */
-    final public function remove(Settings $settings): void
+    final public function remove(SettingsModel $settings): void
     {
         $this->getEntityManager()->remove($settings);
     }
@@ -51,7 +53,7 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
     /**
      * @throws NonUniqueResultException
      */
-    final public function findOneByUuid(string $uuid): ?Settings
+    final public function findOneByUuid(string $uuid): ?SettingsModel
     {
         return $this->createQueryBuilder('ds')
             ->where('ds.uuid = :uuid')
@@ -134,13 +136,13 @@ class DoctrineSettingsRepository extends ServiceEntityRepository implements Sett
 
     private function createSettings(Settings $statement): SettingsReadModel
     {
-        $symbol = Currency::fromString($statement->currency());
+        $symbol = Currency::fromString($statement->getCurrency());
 
         return new SettingsReadModel(
-            $statement->currency(),
-            $statement->locale(),
+            $statement->getCurrency(),
+            $statement->getLocale(),
             $symbol->symbol(),
-            $statement->uuid()
+            $statement->getUuid()
         );
     }
 }
