@@ -38,7 +38,7 @@ class ReadUser implements ReadUserDomain
         return $this->userRepository->existWithEmail($email);
     }
 
-    public function findOneByUuid(string $uuid): ?User
+    public function findOneByUuid(string $uuid): User
     {
         $user = $this->userRepository->findOneByUuid(ResourceUuid::fromString($uuid)->__toString());
 

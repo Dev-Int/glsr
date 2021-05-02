@@ -23,7 +23,7 @@ use User\Infrastructure\Doctrine\Entity\User;
 use User\Infrastructure\Storage\ReadUser;
 use User\Infrastructure\Storage\SaveUser;
 
-final class CreateUserHandler implements CommandHandlerInterface
+final class CreateUser implements CommandHandlerInterface
 {
     private UserPasswordEncoderInterface $passwordEncoder;
     private ReadUser $readUser;

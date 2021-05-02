@@ -14,10 +14,10 @@ declare(strict_types=1);
 namespace User\Application\Handler;
 
 use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
-use User\Application\Command\DeleteUser;
+use User\Application\Command\DeleteUser as DeleteUserCommand;
 use User\Infrastructure\Storage\RemoveUser;
 
-final class DeleteUserHandler implements CommandHandlerInterface
+final class DeleteUser implements CommandHandlerInterface
 {
     private RemoveUser $removeUser;
 
@@ -26,7 +26,7 @@ final class DeleteUserHandler implements CommandHandlerInterface
         $this->removeUser = $removeUser;
     }
 
-    public function __invoke(DeleteUser $command): void
+    public function __invoke(DeleteUserCommand $command): void
     {
         $this->removeUser->remove($command->uuid());
     }

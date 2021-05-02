@@ -18,7 +18,7 @@ use User\Application\Command\EditUser as EditUserCommand;
 use User\Application\Factory\CreateUser as CreateUserFactory;
 use User\Domain\Storage\SaveUser;
 
-final class EditUserHandler implements CommandHandlerInterface
+final class EditUser implements CommandHandlerInterface
 {
     private SaveUser $saveUser;
     private CreateUserFactory $createUser;

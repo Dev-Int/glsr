@@ -38,10 +38,6 @@ class UpdateUser
     {
         $userEntity = $this->readUser->findOneByUuid($userModel->uuid()->__toString());
 
-        if (null === $userEntity) {
-            throw new \DomainException('User provided does not exist !');
-        }
-
         if ($this->passwordEncoder->isPasswordValid($userEntity, $userModel->password()->value())) {
             $encodedPassword = $this->passwordEncoder->encodePassword($userEntity, $userModel->password()->value());
             $userModel->changePassword(Password::fromString($encodedPassword));
