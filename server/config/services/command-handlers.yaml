@@ -7,11 +7,6 @@ services:
     tags:
       - { name: messenger.message_handler, bus: command.bus }
 
-  Administration\Infrastructure\User\Handler\:
-    resource: '../../src/Administration/Infrastructure/User/Handler/*'
-    tags:
-      - { name: messenger.message_handler, bus: command.bus }
-
   Administration\Domain\Supplier\Handler\:
     resource: '../../src/Administration/Domain/Supplier/Handler/*'
     tags:

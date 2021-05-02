@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Security;
 
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use User\Infrastructure\Doctrine\Entity\User;
 
 class UserChecker implements UserCheckerInterface
 {

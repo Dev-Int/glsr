@@ -3,11 +3,11 @@ security:
   providers:
     app_user_provider:
       entity:
-        class: 'Core\Infrastructure\Persistence\DoctrineOrm\Entities\User'
+        class: 'User\Infrastructure\Doctrine\Entity\User'
         property: username
 
   encoders:
-    Core\Infrastructure\Persistence\DoctrineOrm\Entities\User:
+    User\Infrastructure\Doctrine\Entity\User:
       algorithm: auto
 
   firewalls:
@@ -19,7 +19,7 @@ security:
       pattern:   ^/api/(login|public)
       stateless: true
       anonymous: true
-      user_checker: Core\Infrastructure\Security\UserChecker
+#      user_checker: Core\Infrastructure\Security\UserChecker
       json_login:
         check_path:      /api/login_check
         success_handler: lexik_jwt_authentication.handler.authentication_success

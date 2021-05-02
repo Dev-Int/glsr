@@ -1,0 +1,33 @@
+doctrine:
+  orm:
+    default_entity_manager: default
+    entity_managers:
+      default:
+        mappings:
+          User:
+            type: annotation
+            dir: '%kernel.project_dir%/src/User/Infrastructure/Doctrine/Entity'
+            prefix: User\Infrastructure\Doctrine\Entity
+            alias: User
+            is_bundle: false
+            mapping: true
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  User\:
+    lazy: true
+    resource: '%kernel.project_dir%/src/User/*'
+    exclude: '%kernel.project_dir%/src/User/{Infrastructure/Symfony,Infrastructure/Doctrine/{Entity,Migrations},Controller}'
+
+  User\Application\Handler\:
+    resource: '../../../../Application/Handler/*'
+    tags:
+      - { name: messenger.message_handler, bus: command.bus }
+
+  User\UI\Controller\:
+    resource: '%kernel.project_dir%/src/User/UI/Controller'
+    tags: [ 'controller.service_arguments' ]

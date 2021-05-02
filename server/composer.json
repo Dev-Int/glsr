@@ -77,7 +77,8 @@
             "Administration\\": "src/Administration",
             "Core\\": "src/Core",
             "Inventory\\": "src/Inventory",
-            "Company\\": "src/Company"
+            "Company\\": "src/Company",
+            "User\\": "src/User"
         }
     },
     "autoload-dev": {

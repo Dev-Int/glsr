@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Protocol\Repository;
 
-use Administration\Domain\User\Model\User;
+use User\Domain\Model\User;
 
 interface UserRepositoryProtocol
 {

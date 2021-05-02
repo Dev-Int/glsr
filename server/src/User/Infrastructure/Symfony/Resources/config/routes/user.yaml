@@ -1,0 +1,24 @@
+admin_users_index:
+  path: /
+  controller: User\UI\Controller\GetUsers
+  methods: GET
+
+admin_users_get:
+  path: /{uuid}
+  controller: User\UI\Controller\GetUser
+  methods: GET
+
+admin_users_post:
+  path: /
+  controller: User\UI\Controller\CreateUser
+  methods: POST
+
+admin_user_edit:
+  path: /{uuid}
+  controller: User\UI\Controller\EditUser
+  methods: PUT
+
+admin_user_delete:
+  path: /{uuid}
+  controller: User\UI\Controller\DeleteUser
+  methods: DELETE

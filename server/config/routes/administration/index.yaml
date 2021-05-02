@@ -2,10 +2,6 @@ admin_settings:
   resource: settings.yaml
   prefix: /settings
 
-admin_users:
-  resource: user.yaml
-  prefix: /users
-
 admin_suppliers:
   resource: supplier.yaml
   prefix: /suppliers

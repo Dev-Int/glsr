@@ -26,11 +26,14 @@
     <testsuites>
         <testsuite name="Domain">
             <directory>tests/Unit/Administration/Domain</directory>
+            <directory>tests/Unit/Company/Domain</directory>
             <directory>tests/Unit/Core/Domain</directory>
+            <directory>tests/Unit/User/Domain</directory>
         </testsuite>
-
         <testsuite name="End2End">
             <directory>tests/End2End/Administration/Infrastructure</directory>
+            <directory>tests/End2End/Company/UI</directory>
+            <directory>tests/End2End/User/UI</directory>
             <exclude>tests/End2End/AbstractControllerTest.php</exclude>
         </testsuite>
     </testsuites>

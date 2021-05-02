@@ -12,10 +12,6 @@ doctrine:
             is_bundle: false
             mapping: true
 
-#doctrine_migrations:
-#  migrations_paths:
-#    Company\Infrastructure\Doctrine\Migrations: '%kernel.project_dir%/src/Company/Infrastructure/Doctrine/Migrations'
-
 services:
   _defaults:
     autowire: true
