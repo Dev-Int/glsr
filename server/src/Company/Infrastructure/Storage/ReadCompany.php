@@ -28,12 +28,7 @@ class ReadCompany implements ReadCompanyDomain
         $this->companyRepository = $companyRepository;
     }
 
-    public function existsWithName(string $companyName): bool
-    {
-        return $this->companyRepository->existsWithName($companyName);
-    }
-
-    public function findOneByUuid(string $uuid): ?Company
+    public function findOneByUuid(string $uuid): Company
     {
         $company = $this->companyRepository->findOneByUuid(ResourceUuid::fromString($uuid));
 
