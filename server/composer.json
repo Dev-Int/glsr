@@ -101,7 +101,7 @@
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
-        "tests": "php server/bin/phpunit",
+        "tests": "php bin/phpunit",
         "phpcs": "php vendor/bin/phpcs",
         "phpstan": "php vendor/bin/phpstan analyse",
         "post-install-cmd": [
