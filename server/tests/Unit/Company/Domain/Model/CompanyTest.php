@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Unit\Tests\Administration\Domain\Company\Model;
+namespace Unit\Tests\Company\Domain\Model;
 
 use Company\Domain\Model\Company;
 use Core\Domain\Common\Model\VO\ContactUuid;
