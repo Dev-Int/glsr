@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace User\Application\Handler;
 
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use User\Application\Command\CreateUser as CreateUserCommand;
 use User\Application\Factory\CreateUser as CreateUserFactory;

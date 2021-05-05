@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Core\Domain\Common\Model;
 
-use Core\Domain\Protocol\Common\UuidProtocol;
+use Core\Domain\Common\UuidProtocol;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 

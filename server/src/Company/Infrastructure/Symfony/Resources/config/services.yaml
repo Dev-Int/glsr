@@ -12,6 +12,11 @@ doctrine:
             is_bundle: false
             mapping: true
 
+framework:
+  serializer:
+    mapping:
+      paths: [ '%kernel.project_dir%/src/Company/Infrastructure/Symfony/Resources/config/serialization' ]
+
 services:
   _defaults:
     autowire: true
@@ -23,11 +28,18 @@ services:
     resource: '%kernel.project_dir%/src/Company/*'
     exclude: '%kernel.project_dir%/src/Company/{Infrastructure/Symfony,Infrastructure/Doctrine/{Entity,Migrations},Controller}'
 
-  Company\Application\Handler\:
-    resource: '../../../../Application/Handler/*'
+  Company\Application\Company\Handler\:
+    resource: '../../../../Application/Company/Handler/*'
     tags:
       - { name: messenger.message_handler, bus: command.bus }
 
   Company\UI\Controller\:
     resource: '%kernel.project_dir%/src/Company/UI/Controller'
     tags: [ 'controller.service_arguments' ]
+
+  Company\Application\Settings\Handler\:
+    resource: '%kernel.project_dir%/src/Company/Application/Settings/Handler/*'
+    autoconfigure: false
+    tags:
+      - { name: messenger.message_handler, bus: query.bus }
+      - { name: messenger.message_handler, bus: command.bus }

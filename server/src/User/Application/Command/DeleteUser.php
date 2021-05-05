@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace User\Application\Command;
 
-use Core\Domain\Protocol\Common\Command\CommandInterface;
+use Core\Domain\Common\Command\CommandInterface;
 
 final class DeleteUser implements CommandInterface
 {

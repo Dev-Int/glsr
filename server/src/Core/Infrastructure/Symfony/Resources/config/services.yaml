@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  #Core\Domain\Common\Model\VO\ResourceUuidInterface: '@Core\Domain\Common\Model\VO\RessourceUuid'
+
+  #Core\:
+  #  lazy: true
+  #  resource: '%kernel.project_dir%/src/Core/*'
+  #  exclude: '%kernel.project_dir%/src/Core/{Infrastructure/Symfony,Infrastructure/Doctrine/{Entity,Migrations},Controller}'
+
+  _instanceof:
+    Core\Domain\Common\Command\CommandHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: command.bus }
+    Core\Domain\Common\Query\QueryHandlerInterface:
+      tags:
+        - { name: messenger.message_handler, bus: query.bus }
+
+  Core\Domain\:
+    resource: '%kernel.project_dir%/src/Core/Domain'
+    exclude: '%kernel.project_dir%/src/Core/Domain/**/{Model,Exception}/*'
+
+  Core\Infrastructure\:
+    lazy: true
+    resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
+    exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,DoctrineMigrations,Kernel.php}'

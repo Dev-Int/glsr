@@ -30,7 +30,7 @@ class RemoveUser implements RemoveUserDomain
 
     public function remove(string $uuid): void
     {
-        $user = $this->userRepository->findOneByUuid(ResourceUuid::fromString($uuid)->__toString());
+        $user = $this->userRepository->findOneByUuid(ResourceUuid::fromString($uuid)->toString());
 
         if (!$user instanceof User) {
             throw new UserNotFoundException();

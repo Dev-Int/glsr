@@ -36,7 +36,7 @@ class UpdateUser
 
     public function update(UserModel $userModel): void
     {
-        $userEntity = $this->readUser->findOneByUuid($userModel->uuid()->__toString());
+        $userEntity = $this->readUser->findOneByUuid($userModel->uuid()->toString());
 
         if ($this->passwordEncoder->isPasswordValid($userEntity, $userModel->password()->value())) {
             $encodedPassword = $this->passwordEncoder->encodePassword($userEntity, $userModel->password()->value());

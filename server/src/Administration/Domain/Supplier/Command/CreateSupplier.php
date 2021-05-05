@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Command;
 
+use Core\Domain\Common\Command\CommandInterface;
 use Core\Domain\Common\Model\Dependent\FamilyLog;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\PhoneField;
-use Core\Domain\Protocol\Common\Command\CommandInterface;
 
 class CreateSupplier implements CommandInterface
 {

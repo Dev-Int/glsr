@@ -1,0 +1,3 @@
+inventory:
+  resource: routes/inventory.yaml
+  prefix: /api/inventory

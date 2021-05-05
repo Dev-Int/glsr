@@ -40,7 +40,7 @@ class ReadUser implements ReadUserDomain
 
     public function findOneByUuid(string $uuid): User
     {
-        $user = $this->userRepository->findOneByUuid(ResourceUuid::fromString($uuid)->__toString());
+        $user = $this->userRepository->findOneByUuid(ResourceUuid::fromString($uuid)->toString());
 
         if (!$user instanceof User) {
             throw new UserNotFoundException();

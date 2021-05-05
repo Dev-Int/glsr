@@ -1,3 +1,7 @@
 company:
   resource: routes/company.yaml
   prefix: /api/companies
+
+settings:
+  resource: routes/settings.yaml
+  prefix: /api/settings

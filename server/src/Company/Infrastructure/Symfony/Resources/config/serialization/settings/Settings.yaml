@@ -1,0 +1,11 @@
+#Company\Domain\Model\Settings:
+Company\Application\Settings\DTO\OutputSettings:
+  attributes:
+    uuid:
+      groups: [ 'read' ]
+    locale:
+      groups: [ 'read' ]
+    currency:
+      groups: [ 'read' ]
+    symbol:
+      groups: [ 'read' ]

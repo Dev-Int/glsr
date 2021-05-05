@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace User\Application\Handler;
 
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 use User\Application\Command\DeleteUser as DeleteUserCommand;
 use User\Infrastructure\Storage\RemoveUser;
 

@@ -16,7 +16,7 @@ namespace Administration\Domain\Supplier\Handler;
 use Administration\Domain\Supplier\Command\EditSupplier;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier as SupplierEntity;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository;
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\ORMException;
 

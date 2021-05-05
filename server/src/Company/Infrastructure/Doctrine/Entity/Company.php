@@ -15,13 +15,18 @@ namespace Company\Infrastructure\Doctrine\Entity;
 
 use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Contact;
 use Company\Domain\Model\Company as CompanyModel;
+use Company\Domain\Storage\Company\CompanyEntity;
+use Core\Domain\Common\Model\VO\ContactUuid;
+use Core\Domain\Common\Model\VO\EmailField;
+use Core\Domain\Common\Model\VO\NameField;
+use Core\Domain\Common\Model\VO\PhoneField;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="Company\Infrastructure\Doctrine\Repository\CompanyRepository")
  */
-class Company extends Contact
+class Company extends Contact implements CompanyEntity
 {
     public function __construct(Contact $contact)
     {
@@ -59,6 +64,23 @@ class Company extends Contact
         );
 
         return new self($contact);
+    }
+
+    public function toModel(): CompanyModel
+    {
+        return CompanyModel::create(
+            ContactUuid::fromString($this->uuid),
+            NameField::fromString($this->companyName),
+            $this->address,
+            $this->zipCode,
+            $this->town,
+            $this->country,
+            PhoneField::fromString($this->phone),
+            PhoneField::fromString($this->facsimile),
+            EmailField::fromString($this->email),
+            $this->contactName,
+            PhoneField::fromString($this->cellphone),
+        );
     }
 
     public function update(CompanyModel $companyModel): self
