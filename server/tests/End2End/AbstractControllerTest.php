@@ -64,7 +64,7 @@ class AbstractControllerTest extends WebTestCase
      */
     protected function createAdminClient(): KernelBrowser
     {
-        return $this->createAuthenticatedClient('Laurent', 'password');
+        return $this->createAuthenticatedClient('Laurent', 'Password-1');
     }
 
     /**

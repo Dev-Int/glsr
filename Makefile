@@ -100,8 +100,7 @@ db-clean-test: test-cc	## Clean DB test
 	@$(SERVER_CONSOLE) d:f:l -n --env=test
 
 db-diff: ## Generation doctrine diff
-	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Core\Infrastructure\DoctrineMigrations'
-	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Administration\Infrastructure\DoctrineMigrations'
+	@$(SERVER_CONSOLE) doctrine:migrations:diff --namespace 'Core\Infrastructure\Doctrine\Migrations'
 
 db-migrate: ## Launch doctrine migrations
 	@$(SERVER_CONSOLE) doctrine:migrations:migrate --no-interaction

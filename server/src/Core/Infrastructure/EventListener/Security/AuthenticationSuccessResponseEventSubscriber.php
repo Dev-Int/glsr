@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\EventListener\Security;
 
-use Core\Infrastructure\Persistence\DoctrineOrm\Entities\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use User\Infrastructure\Doctrine\Entity\User;
 
 class AuthenticationSuccessResponseEventSubscriber implements EventSubscriberInterface
 {

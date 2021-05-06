@@ -17,9 +17,7 @@ use Company\Infrastructure\Doctrine\Entity\Company;
 
 interface ReadCompany
 {
-    public function existsWithName(string $companyName): bool;
-
-    public function findOneByUuid(string $uuid): ?Company;
+    public function findOneByUuid(string $uuid): Company;
 
     public function companyExist(): bool;
 }

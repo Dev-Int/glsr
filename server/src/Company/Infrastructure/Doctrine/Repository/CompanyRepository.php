@@ -35,22 +35,6 @@ class CompanyRepository extends ServiceEntityRepository
     }
 
     /**
-     * @throws NonUniqueResultException
-     */
-    final public function existsWithName(string $companyName): bool
-    {
-        $statement = $this->createQueryBuilder('c')
-            ->select(['1'])
-            ->where('c.companyName = :companyName')
-            ->setParameter('companyName', $companyName)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-
-        return null !== $statement;
-    }
-
-    /**
      * @throws ORMException
      * @throws OptimisticLockException
      */

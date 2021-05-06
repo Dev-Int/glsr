@@ -31,10 +31,6 @@ class UpdateCompany
     {
         $companyEntity = $this->readCompany->findOneByUuid($companyModel->uuid());
 
-        if (null === $companyEntity) {
-            throw new \DomainException('Company provided does not exist !');
-        }
-
         $companyEntity->update($companyModel);
 
         $this->companyRepository->flush();

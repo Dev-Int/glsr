@@ -1,0 +1,3 @@
+company:
+  resource: routes/user.yaml
+  prefix: /api/users
