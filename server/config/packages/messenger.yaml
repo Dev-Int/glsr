@@ -18,6 +18,6 @@ framework:
 
     routing:
       # Route your messages to the transports
-      Company\Application\Command\CreateCompany: sync
-      Administration\Infrastructure\Settings\Query\GetSettings: sync
+      Company\Application\Company\Command\CreateCompany: sync
+      Company\Application\Settings\Query\GetSettings: sync
       # 'Administration\Domain\Company\Query\CompanyInformations': async

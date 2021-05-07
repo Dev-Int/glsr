@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace User\Application\Factory;
 
+use Core\Domain\Common\Command\CommandInterface;
 use Core\Domain\Common\Model\VO\EmailField;
 use Core\Domain\Common\Model\VO\NameField;
 use Core\Domain\Common\Model\VO\ResourceUuid;
-use Core\Domain\Protocol\Common\Command\CommandInterface;
 use User\Domain\Model\User;
 use User\Domain\Model\VO\Password;
 

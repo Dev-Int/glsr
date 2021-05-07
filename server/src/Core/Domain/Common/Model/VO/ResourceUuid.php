@@ -25,20 +25,6 @@ class ResourceUuid implements ResourceUuidInterface
         $this->uuid = $uuid;
     }
 
-    public function __toString(): string
-    {
-        return self::fromUuid($this->uuid);
-    }
-
-    public static function fromUuid(object $uuid): string
-    {
-        if (!$uuid instanceof UuidInterface) {
-            throw new \InvalidArgumentException('UuidInterface type excepted.');
-        }
-
-        return $uuid->toString();
-    }
-
     public static function generate(): self
     {
         try {
@@ -48,8 +34,22 @@ class ResourceUuid implements ResourceUuidInterface
         }
     }
 
+    public static function fromUuid(ResourceUuidInterface $uuid): string
+    {
+        if (!$uuid instanceof ResourceUuidInterface) {
+            throw new \InvalidArgumentException('ResourceUuidInterface type excepted.');
+        }
+
+        return $uuid->toString();
+    }
+
     public static function fromString(string $uuid): self
     {
         return new self(Uuid::fromString($uuid));
+    }
+
+    public function toString(): string
+    {
+        return $this->uuid->toString();
     }
 }

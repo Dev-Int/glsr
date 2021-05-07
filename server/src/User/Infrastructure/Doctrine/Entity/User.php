@@ -62,7 +62,7 @@ class User implements UserInterface
     public static function fromModel(UserModel $user): self
     {
         return new self(
-            $user->uuid()->__toString(),
+            $user->uuid()->toString(),
             $user->username()->getValue(),
             $user->email()->getValue(),
             $user->password()->value(),

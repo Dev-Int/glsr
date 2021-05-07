@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Domain\Settings\Model\VO;
 
-use Administration\Domain\Settings\Model\VO\InvalidLocale;
-use Administration\Domain\Settings\Model\VO\Locale;
+use Company\Domain\Model\VO\InvalidLocale;
+use Company\Domain\Model\VO\Locale;
 use PHPUnit\Framework\TestCase;
 
 class LocaleTest extends TestCase

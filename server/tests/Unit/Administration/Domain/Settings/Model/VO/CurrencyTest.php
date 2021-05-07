@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Unit\Tests\Administration\Domain\Settings\Model\VO;
 
-use Administration\Domain\Settings\Model\VO\Currency;
-use Administration\Domain\Settings\Model\VO\InvalidCurrency;
+use Company\Domain\Model\VO\Currency;
+use Company\Domain\Model\VO\InvalidCurrency;
 use PHPUnit\Framework\TestCase;
 
 class CurrencyTest extends TestCase

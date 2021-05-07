@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace User\Application\Handler;
 
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 use User\Application\Command\EditUser as EditUserCommand;
 use User\Application\Factory\CreateUser as CreateUserFactory;
 use User\Domain\Storage\SaveUser;

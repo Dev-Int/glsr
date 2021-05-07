@@ -15,9 +15,11 @@ namespace Core\Domain\Common\Model\VO;
 
 interface ResourceUuidInterface
 {
-    public static function fromUuid(object $uuid): string;
+    public static function fromUuid(self $uuid): string;
 
     public static function generate(): ResourceUuid;
 
     public static function fromString(string $uuid): ResourceUuid;
+
+    public function toString(): string;
 }

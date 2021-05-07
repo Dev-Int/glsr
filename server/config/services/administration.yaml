@@ -8,10 +8,6 @@ services:
     resource: '../../src/Administration/Domain'
     exclude: '../../src/Administration/Domain/**/{Model,Exception}/*'
 
-  Administration\Infrastructure\Settings\Controller\:
-    resource: '%kernel.project_dir%/src/Administration/Infrastructure/Settings/Controller'
-    tags: [ 'controller.service_arguments' ]
-
   Administration\Infrastructure\Supplier\Controller\:
     resource: '%kernel.project_dir%/src/Administration/Infrastructure/Supplier/Controller'
     tags: [ 'controller.service_arguments' ]

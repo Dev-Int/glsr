@@ -1,3 +1,11 @@
-company:
+user:
   resource: routes/user.yaml
   prefix: /api/users
+
+api_login_check:
+  path: /api/login_check
+  methods: GET|POST
+
+app_logout:
+  path: /logout
+  methods: GET

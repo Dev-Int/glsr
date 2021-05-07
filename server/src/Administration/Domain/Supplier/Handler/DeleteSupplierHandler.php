@@ -15,7 +15,7 @@ namespace Administration\Domain\Supplier\Handler;
 
 use Administration\Domain\Supplier\Command\DeleteSupplier;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository;
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 
 class DeleteSupplierHandler implements CommandHandlerInterface
 {

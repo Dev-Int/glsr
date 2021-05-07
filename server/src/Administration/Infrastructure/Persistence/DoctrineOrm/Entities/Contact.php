@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Infrastructure\Persistence\DoctrineOrm\Entities;
 
+use Core\Infrastructure\Doctrine\Entity\ResourceUuid as ResourceUuidTrait;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -20,12 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Contact
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="guid", name="uuid")
-     * @ORM\GeneratedValue(strategy="NONE")
-     */
-    protected string $uuid;
+    use ResourceUuidTrait;
 
     /**
      * @ORM\Column(type="string", name="company_name", unique=true, nullable=false)
@@ -138,18 +134,6 @@ class Contact
             $cellphone,
             $slug
         );
-    }
-
-    public function getUuid(): string
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid(string $uuid): self
-    {
-        $this->uuid = $uuid;
-
-        return $this;
     }
 
     public function getCompanyName(): string

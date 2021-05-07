@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Common;
 
-use Core\Domain\Protocol\Common\Command\CommandBusInterface;
-use Core\Domain\Protocol\Common\Command\CommandInterface;
+use Core\Domain\Common\Command\CommandBusInterface;
+use Core\Domain\Common\Command\CommandInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class MessengerCommandBus implements CommandBusInterface

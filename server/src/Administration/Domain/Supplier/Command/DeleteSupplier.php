@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Administration\Domain\Supplier\Command;
 
-use Core\Domain\Protocol\Common\Command\CommandInterface;
+use Core\Domain\Common\Command\CommandInterface;
 
 class DeleteSupplier implements CommandInterface
 {

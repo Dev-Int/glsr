@@ -17,19 +17,4 @@ services:
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
 
-  _instanceof:
-    Core\Domain\Protocol\Common\Command\CommandHandlerInterface:
-      tags:
-        - { name: messenger.message_handler, bus: command.bus }
-    Core\Domain\Protocol\Common\Query\QueryHandlerProtocol:
-      tags:
-        - { name: messenger.message_handler, bus: query.bus }
 
-  Core\Domain\:
-    resource: '../src/Core/Domain'
-    exclude: '../src/Core/Domain/**/{Model,Exception}/*'
-
-  Core\Infrastructure\:
-    lazy: true
-    resource: '%kernel.project_dir%/src/Core/Infrastructure/*'
-    exclude: '%kernel.project_dir%/src/Core/Infrastructure/{Controller,DoctrineMigrations,Kernel.php}'

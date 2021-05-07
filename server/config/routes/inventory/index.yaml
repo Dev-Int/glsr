@@ -1,4 +1,0 @@
-inventory_prepare:
-  path: /prepare
-  controller: Inventory\Infrastructure\Controller\PrepareController
-  methods: GET

@@ -17,8 +17,8 @@ use Administration\Domain\Supplier\Command\CreateSupplier;
 use Administration\Domain\Supplier\Model\Supplier;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Entities\Supplier as SupplierEntity;
 use Administration\Infrastructure\Persistence\DoctrineOrm\Repositories\DoctrineSupplierRepository;
+use Core\Domain\Common\Command\CommandHandlerInterface;
 use Core\Domain\Common\Model\VO\ContactUuid;
-use Core\Domain\Protocol\Common\Command\CommandHandlerInterface;
 
 class CreateSupplierHandler implements CommandHandlerInterface
 {

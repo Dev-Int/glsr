@@ -1,0 +1,14 @@
+settings_index:
+  path: /
+  controller: Company\UI\Controller\Settings\GetSettings
+  methods: GET
+
+settings_configure:
+  path: /
+  controller: Company\UI\Controller\Settings\ConfigureSettings
+  methods: POST
+
+settings_edit:
+  path: /{uuid}
+  controller: Company\UI\Controller\Settings\EditSettings
+  methods: PUT

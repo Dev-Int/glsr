@@ -13,12 +13,12 @@ declare(strict_types=1);
 
 namespace Core\Infrastructure\Common;
 
-use Core\Domain\Protocol\Common\Query\QueryBusProtocol;
-use Core\Domain\Protocol\Common\Query\QueryProtocol;
+use Core\Domain\Common\Query\QueryBusInterface;
+use Core\Domain\Common\Query\QueryInterface;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-class MessengerQueryBus implements QueryBusProtocol
+class MessengerQueryBus implements QueryBusInterface
 {
     use HandleTrait {
         handle as handleQuery;
@@ -29,7 +29,7 @@ class MessengerQueryBus implements QueryBusProtocol
         $this->messageBus = $queryBus;
     }
 
-    public function handle(QueryProtocol $query)
+    public function handle(QueryInterface $query)
     {
         return $this->handleQuery($query);
     }
